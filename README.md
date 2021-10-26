@@ -1,4 +1,4 @@
-# Jerboa Sample
+# Jerboa-Rebuilt
 
 ## Project overview
 

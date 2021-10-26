@@ -1,5 +1,11 @@
 # Jerboa Sample
 
+## Project overview
+
+This project is a plugin to allow the automatic rebuild of a parametric specification.
+
+## Jerboa dependencies
+
 Jar dependencies from the Jerboa project (no available from Maven Repositories)
 
 * Jerboa

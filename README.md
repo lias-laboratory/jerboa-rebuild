@@ -8,7 +8,7 @@ This project is a plugin to allow the automatic rebuild of a parametric specific
 
 The gen folder must be set as source directory.
 In Eclipse right-click on gen:
-`"Build Path" -> "Use as Source Folder" 
+`"Build Path" -> "Use as Source Folder"`
 
 ## Jerboa dependencies
 

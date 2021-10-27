@@ -4,6 +4,12 @@
 
 This project is a plugin to allow the automatic rebuild of a parametric specification.
 
+## Notice
+
+The gen folder must be set as source directory.
+In Eclipse right-click on gen:
+`"Build Path" -> "Use as Source Folder" 
+
 ## Jerboa dependencies
 
 Jar dependencies from the Jerboa project (no available from Maven Repositories)

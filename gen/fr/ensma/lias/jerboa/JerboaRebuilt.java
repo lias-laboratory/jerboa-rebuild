@@ -14,42 +14,26 @@ import fr.ensma.lias.jerboa.CreateSquareFace;
 import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
 
-/** Trace
+/**
+ * Trace
  *
- *   entrée: liste de référence
- *   entrée: un compteur
- *   traitement:
- *       initialiser une liste courante d'orbites
- *       pour chaque orbite d'une gmap
- *           comparer cet orbite avec la liste de référence
- *           si l'orbite et ses brins n'existaient pas
- *           alors
- *               afficher "création"
- *               orbite.id := count
- *               ajouter orbite à la liste courante
- *               count+=1
- *               retour
- *           sinon si l'orbite existe
- *               si ses brins ont changés
- *                   s'il y en a moins avec suppression
- *                   alors
- *                       afficher "diminution"
- *                   s'il y en a moins sans suppression
- *                   alors
- *                       afficher "cission"
- *                   s'il y en a plus sans suppression d'orbite
- *                   alors
- *                       afficher "augmentation"
- *                   sinon
- *                       afficher "fusion"
- *                   orbite.id := count
+ * entrée: liste de référence entrée: un compteur traitement: initialiser une
+ * liste courante d'orbites pour chaque orbite d'une gmap comparer cet orbite
+ * avec la liste de référence si l'orbite et ses brins n'existaient pas alors
+ * afficher "création" orbite.id := count ajouter orbite à la liste courante
+ * count+=1 retour sinon si l'orbite existe si ses brins ont changés s'il y en a
+ * moins avec suppression alors afficher "diminution" s'il y en a moins sans
+ * suppression alors afficher "cission" s'il y en a plus sans suppression
+ * d'orbite alors afficher "augmentation" sinon afficher "fusion" orbite.id :=
+ * count
  *
  */
 
-
 public class JerboaRebuilt extends JerboaModelerGeneric {
 
+    // pour tester l'incrémentation d'id d'orbite
     private static int counter = 0;
+
     // BEGIN LIST OF EMBEDDINGS
     // END LIST OF EMBEDDINGS
 

@@ -14,10 +14,12 @@ import fr.ensma.lias.jerboa.CreateSquareFace;
 import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
 
-
-
 /**
- * 
+ * Trace
+ *
+ * entrée: liste de référence
+ *
+ * traitement: pour chaque orbite d'une gmap //
  */
 
 public class JerboaRebuilt extends JerboaModelerGeneric {
@@ -36,7 +38,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
 
     // BEGIN USER HEAD CONSTRUCTOR TRANSLATION
 
-    // END USER HEAD CONSTRUCTOR TRANSLATION
+    // END USER HEAD CONSTRUCTOR TRANSLATION 
         pos = new JerboaEmbeddingInfo("pos", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.Vec3.class);
         vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
@@ -48,6 +50,10 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new CreateSquareFace(this));
         this.registerRule(new CreateEdge(this));
         this.registerRule(new InsertVertex(this));
+
+        this.applyRule(this.rules.get(3), new JerboaInputHooksAtomic());
+
+        traceOrbits(this.gmap);
     }
 
     public final JerboaEmbeddingInfo getPos() {

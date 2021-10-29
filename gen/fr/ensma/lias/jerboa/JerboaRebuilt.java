@@ -14,14 +14,17 @@ import fr.ensma.lias.jerboa.CreateSquareFace;
 import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
 
-
-
 /**
- * 
+ * Trace
+ *
+ * entrée: liste de référence
+ *
+ * traitement: pour chaque orbite d'une gmap //
  */
 
 public class JerboaRebuilt extends JerboaModelerGeneric {
 
+    private static int counter = 0;
     // BEGIN LIST OF EMBEDDINGS
     // END LIST OF EMBEDDINGS
 
@@ -32,9 +35,11 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
 
         super(3);
 
-    // BEGIN USER HEAD CONSTRUCTOR TRANSLATION
+        this.addEmbedding(new JerboaEmbeddingInfo("Point orbit trace", JerboaOrbit.orbit(1, 2, 3), int.class));
 
-    // END USER HEAD CONSTRUCTOR TRANSLATION
+        // BEGIN USER HEAD CONSTRUCTOR TRANSLATION
+
+        // END USER HEAD CONSTRUCTOR TRANSLATION
 
         this.registerEbdsAndResetGMAP();
 
@@ -44,6 +49,28 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new CreateSquareFace(this));
         this.registerRule(new CreateEdge(this));
         this.registerRule(new InsertVertex(this));
+
+        this.applyRule(this.rules.get(3), new JerboaInputHooksAtomic());
+
+        traceOrbits(this.gmap);
+    }
+
+    private void showOrbitDarts(List<JerboaDart> orbit) {
+        System.out.println(orbit.toString());
+    }
+
+    private void iterateOrbits(JerboaGMap gmap, JerboaOrbit pointOrbit) throws JerboaException {
+
+        int nbNodes = gmap.getLength();
+        for (int i = 0; i < nbNodes; i++) {
+            var curOrbit = gmap.orbit(gmap.node(i), pointOrbit);
+            showOrbitDarts(curOrbit);
+        }
+    }
+
+    private void traceOrbits(JerboaGMap gmap) throws JerboaException {
+        JerboaOrbit pointOrbit = JerboaOrbit.orbit(1, 2, 3);
+        iterateOrbits(gmap, pointOrbit);
     }
 
 }

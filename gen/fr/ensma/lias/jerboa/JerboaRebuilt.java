@@ -13,6 +13,10 @@ import fr.ensma.lias.jerboa.ExtrudeVolumeFace;
 import fr.ensma.lias.jerboa.CreateSquareFace;
 import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
+import fr.ensma.lias.jerboa.creat.CreatCube;
+import fr.ensma.lias.jerboa.creat.CreatSquare;
+
+
 
 
 
@@ -23,6 +27,8 @@ import fr.ensma.lias.jerboa.InsertVertex;
 public class JerboaRebuilt extends JerboaModelerGeneric {
 
     // BEGIN LIST OF EMBEDDINGS
+    protected JerboaEmbeddingInfo point;
+    protected JerboaEmbeddingInfo vertexTracker;
     // END LIST OF EMBEDDINGS
 
     // BEGIN USER DECLARATION
@@ -35,8 +41,10 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
     // BEGIN USER HEAD CONSTRUCTOR TRANSLATION
 
     // END USER HEAD CONSTRUCTOR TRANSLATION
+        point = new JerboaEmbeddingInfo("point", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.Points.class);
+        vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
-        this.registerEbdsAndResetGMAP();
+        this.registerEbdsAndResetGMAP(point,vertexTracker);
 
         this.registerRule(new CreateDart(this));
         this.registerRule(new ExtrudeIndependantFace(this));
@@ -44,6 +52,16 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new CreateSquareFace(this));
         this.registerRule(new CreateEdge(this));
         this.registerRule(new InsertVertex(this));
+        this.registerRule(new CreatCube(this));
+        this.registerRule(new CreatSquare(this));
+    }
+
+    public final JerboaEmbeddingInfo getPoint() {
+        return point;
+    }
+
+    public final JerboaEmbeddingInfo getVertexTracker() {
+        return vertexTracker;
     }
 
 }

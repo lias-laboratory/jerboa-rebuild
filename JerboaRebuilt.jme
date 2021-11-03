@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>CreatSquare</openRules>
 	<openRules>InsertVertex</openRules>
+	<openRules>CreatCube</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
 <generationType>java</generationType>
-    <embeddings count="0">
+    <embeddings count="2">
+        <embedding name="point" type="fr.ensma.lias.jerboa.embeddings.Points" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
+        <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="6">
+    <rules count="8">
         <rule name="CreateDart" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -321,6 +325,145 @@
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <script name="CreatCube" module="creat" category="creat"  shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header>@header(java) {
+
+import up.xlim.ig.jerboa.demo.extrusion.ExtrudeFace;
+}
+</header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <content>JerboaRuleResult res = @rule&lt;CreatSquare&gt;();
+@rule&lt;ExtrudeFace&gt;(res#0);
+return res;</content>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </script>
+        <rule name="CreatSquare" module="creat" category="creat" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="8">
+                    <node name="n0" x="180" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="point">return new Points(0,0,0);</expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@lang(Java){
+    System.out.println(&quot;Create orbit label &quot; + label.getLabel());
+}
+return label;</expr>
+                    </node>
+                    <node name="n1" x="360" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="point">return new Points(10,0,0);</expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@lang(Java){
+    System.out.println(&quot;Create orbit label &quot; + label.getLabel());
+}
+return label;</expr>
+                    </node>
+                    <node name="n2" x="510" y="150" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="510" y="360" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="point">return new Points(10,0,10);</expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@lang(Java){
+    System.out.println(&quot;Create orbit label &quot; + label.getLabel());
+}
+return label;</expr>
+                    </node>
+                    <node name="n4" x="360" y="450" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="180" y="450" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="point">return new Points(0,0,10);</expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@lang(Java){
+    System.out.println(&quot;Create orbit label &quot; + label.getLabel());
+}
+return label;</expr>
+                    </node>
+                    <node name="n6" x="60" y="330" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n7" x="60" y="150" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="24">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="0" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="1" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="0" a="n6" b="n7" size="0">
+                    </arc>
+                    <arc dim="1" a="n7" b="n0" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="1.7908655698896396" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="3.0363739420956097" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="4.315198278788792" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="2.465563425767918" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="5.360266148670615" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="2.7970526124348734" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="5.5696916499142155" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="4.604174409403791" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="1.2225599333037094" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="5.978659469684919" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="5.157896920806511" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="4.134797754140415" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="5.01419424402394" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="6.14128847863065" >
+                    </arcloop>
+                    <arcloop dim="2" node="n7" angle="1.0697304722663588" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="2.916147910505682" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
             </paramstopo>
         </rule>
     </rules>

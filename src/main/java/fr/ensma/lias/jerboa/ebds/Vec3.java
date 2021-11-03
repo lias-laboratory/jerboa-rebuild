@@ -23,7 +23,8 @@ public class Vec3 {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Vec3[");
-		sb.append(x).append("; ").append(y).append("; ").append(z);
+		sb.append(x).append("; ").append(y).append("; ").append(z)
+			.append("]");
 		return sb.toString();
 	}
 	

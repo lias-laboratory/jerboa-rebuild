@@ -95,7 +95,7 @@ public class InsertVertex extends JerboaRuleGenerated {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.ebds.Vec3>ebd(0),curleftPattern.getNode(1).<fr.ensma.lias.jerboa.ebds.Vec3>ebd(0));
+return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 

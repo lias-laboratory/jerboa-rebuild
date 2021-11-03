@@ -3,7 +3,7 @@ package fr.ensma.lias.jerboa.embeddings;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import fr.ensma.lias.jerboa.Vectors;
+import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 public class Points {
 	private float x;
@@ -38,7 +38,7 @@ public class Points {
 		this.z = ebd.z;
 	}
 	
-	public Points(Points pt, Vectors vect) {
+	public Points(Points pt, Vec3 vect) {
 		this.x = pt.x + vect.getX();
 		this.y = pt.y + vect.getY();
 		this.z = pt.z + vect.getZ();
@@ -122,7 +122,7 @@ public class Points {
 		return z;
 	}
 
-	public void add(Vectors ebd) {
+	public void add(Vec3 ebd) {
 		this.x += ebd.getX();
 		this.y += ebd.getY();
 		this.z += ebd.getZ();
@@ -134,7 +134,7 @@ public class Points {
 		this.z += z;
 	}
 	
-	public void movePoint(Points pt, Vectors vect) {
+	public void movePoint(Points pt, Vec3 vect) {
 		pt.x = pt.x + vect.getX();
 		pt.y = pt.y + vect.getY();
 		pt.z = pt.z + vect.getZ();

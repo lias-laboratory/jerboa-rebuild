@@ -113,7 +113,7 @@ public class ExtrudeVolumeFace extends JerboaRuleGenerated {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.ebds.Vec3>ebd(0).addn(0,0,1);
+return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0).addn(0,0,1);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 

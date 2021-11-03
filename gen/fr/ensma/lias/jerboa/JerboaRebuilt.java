@@ -13,8 +13,8 @@ import fr.ensma.lias.jerboa.ExtrudeVolumeFace;
 import fr.ensma.lias.jerboa.CreateSquareFace;
 import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
-import fr.ensma.lias.jerboa.creat.CreatCube;
-import fr.ensma.lias.jerboa.creat.CreatSquare;
+//import fr.ensma.lias.jerboa.creat.CreatCube;
+//import fr.ensma.lias.jerboa.creat.CreatSquare;
 
 
 
@@ -52,12 +52,8 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new CreateSquareFace(this));
         this.registerRule(new CreateEdge(this));
         this.registerRule(new InsertVertex(this));
-        this.registerRule(new CreatCube(this));
-        this.registerRule(new CreatSquare(this));
-    }
-
-    public final JerboaEmbeddingInfo getPoint() {
-        return point;
+        //this.registerRule(new CreatCube(this));
+        //this.registerRule(new CreatSquare(this));
     }
 
     public final JerboaEmbeddingInfo getVertexTracker() {

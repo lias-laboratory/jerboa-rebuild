@@ -16,6 +16,10 @@ public class Vec3 {
 	public float y() { return y; }
 	public float z() { return z; }
 	
+	public float getX() { return x;}
+	public float getY() { return y;}
+	public float getZ() { return z;}
+	
 	public Vec3 addn(float dx, float dy, float dz) {
 		return new Vec3(x+dx, y+dy, z+dz);
 	}

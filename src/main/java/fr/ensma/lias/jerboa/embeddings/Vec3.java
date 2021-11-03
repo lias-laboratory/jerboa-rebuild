@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.ebds;
+package fr.ensma.lias.jerboa.embeddings;
 
 
 // TODO: Maxime tu dois continuer/remodeler cette classe selon tes besoins

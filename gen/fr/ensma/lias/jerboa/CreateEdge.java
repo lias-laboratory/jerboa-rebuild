@@ -9,7 +9,7 @@ import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
 
 import fr.ensma.lias.jerboa.JerboaRebuilt;
-import fr.ensma.lias.jerboa.ebds.Vec3;
+import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 

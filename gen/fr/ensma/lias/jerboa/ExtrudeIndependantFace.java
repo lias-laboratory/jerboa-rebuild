@@ -9,6 +9,7 @@ import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
 
 import fr.ensma.lias.jerboa.JerboaRebuilt;
+import fr.ensma.lias.jerboa.ebds.Vec3;
 
 
 
@@ -44,7 +45,7 @@ public class ExtrudeIndependantFace extends JerboaRuleGenerated {
         JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3);
         JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,-1), 3);
         JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(-1,2), 3);
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(-1,2), 3);
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(-1,2), 3, new ExtrudeIndependantFaceExprRn3pos());
         JerboaRuleNode rn4 = new JerboaRuleNode("n4", 4, JerboaOrbit.orbit(0,-1), 3);
         JerboaRuleNode rn5 = new JerboaRuleNode("n5", 5, JerboaOrbit.orbit(0,1), 3);
         right.add(rn0);
@@ -99,6 +100,28 @@ public class ExtrudeIndependantFace extends JerboaRuleGenerated {
         ____jme_hooks.addCol(n0);
         return applyRule(gmap, ____jme_hooks);
 	}
+
+    private class ExtrudeIndependantFaceExprRn3pos implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.ebds.Vec3>ebd(0).addn(0,0,1);
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "pos";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getPos().getID();
+        }
+    }
 
     // Facility for accessing to the dart
     private JerboaDart n0() {

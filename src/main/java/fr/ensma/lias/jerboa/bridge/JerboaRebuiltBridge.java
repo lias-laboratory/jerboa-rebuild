@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.ensma.lias.jerboa.JerboaRebuilt;
+import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
 import fr.up.xlim.sic.ig.jerboa.viewer.IJerboaModelerViewer;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerBridge;
@@ -14,6 +15,7 @@ import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerTuple;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
+import up.jerboa.core.JerboaGMapArray;
 import up.jerboa.core.JerboaModeler;
 import up.jerboa.core.util.JerboaGMapDuplicateFactory;
 import up.jerboa.core.util.Pair;
@@ -53,13 +55,19 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	}
 
 	@Override
-	public GMapViewerPoint coords(JerboaDart arg0) {
-		return new GMapViewerPoint(0, 0, 0);
+	public GMapViewerPoint coords(JerboaDart dart) {
+		Vec3 v = dart.ebd("pos");
+		if(v != null)
+			return new GMapViewerPoint(v.x(), v.y(), v.z());
+		else
+			return new GMapViewerPoint(0,0,0);
 	}
 
 	@Override
-	public JerboaGMap duplicate(JerboaGMap arg0) throws JerboaGMapDuplicateException {
-		return null;
+     	public JerboaGMap duplicate(JerboaGMap gmap) throws JerboaGMapDuplicateException {
+        	JerboaGMap res = new JerboaGMapArray(modeler,gmap.getCapacity());
+         	gmap.duplicateInGMap(res, this);
+         	return res;
 	}
 
 	@Override

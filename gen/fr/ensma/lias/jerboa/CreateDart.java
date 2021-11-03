@@ -9,6 +9,7 @@ import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
 
 import fr.ensma.lias.jerboa.JerboaRebuilt;
+import fr.ensma.lias.jerboa.ebds.Vec3;
 
 
 
@@ -37,7 +38,7 @@ public class CreateDart extends JerboaRuleGenerated {
         // -------- LEFT GRAPH
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3);
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3, new CreateDartExprRn0pos());
         right.add(rn0);
         rn0.setAlpha(0, rn0);
         rn0.setAlpha(1, rn0);
@@ -68,5 +69,27 @@ public class CreateDart extends JerboaRuleGenerated {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         return applyRule(gmap, ____jme_hooks);
 	}
+
+    private class CreateDartExprRn0pos implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+return new Vec3(0,0,0);
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "pos";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getPos().getID();
+        }
+    }
 
 } // end rule Class

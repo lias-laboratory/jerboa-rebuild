@@ -13,10 +13,6 @@ import fr.ensma.lias.jerboa.ExtrudeVolumeFace;
 import fr.ensma.lias.jerboa.CreateSquareFace;
 import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
-//import fr.ensma.lias.jerboa.creat.CreatCube;
-//import fr.ensma.lias.jerboa.creat.CreatSquare;
-
-
 
 
 
@@ -27,8 +23,8 @@ import fr.ensma.lias.jerboa.InsertVertex;
 public class JerboaRebuilt extends JerboaModelerGeneric {
 
     // BEGIN LIST OF EMBEDDINGS
-    protected JerboaEmbeddingInfo vertexTracker;
     protected JerboaEmbeddingInfo pos;
+    protected JerboaEmbeddingInfo vertexTracker;
     // END LIST OF EMBEDDINGS
 
     // BEGIN USER DECLARATION
@@ -41,10 +37,10 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
     // BEGIN USER HEAD CONSTRUCTOR TRANSLATION
 
     // END USER HEAD CONSTRUCTOR TRANSLATION
-        vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
         pos = new JerboaEmbeddingInfo("pos", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.Vec3.class);
+        vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
-        this.registerEbdsAndResetGMAP(pos);
+        this.registerEbdsAndResetGMAP(pos,vertexTracker);
 
         this.registerRule(new CreateDart(this));
         this.registerRule(new ExtrudeIndependantFace(this));
@@ -52,16 +48,14 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new CreateSquareFace(this));
         this.registerRule(new CreateEdge(this));
         this.registerRule(new InsertVertex(this));
-        //this.registerRule(new CreatCube(this));
-        //this.registerRule(new CreatSquare(this));
-    }
-
-    public final JerboaEmbeddingInfo getVertexTracker() {
-        return vertexTracker;
     }
 
     public final JerboaEmbeddingInfo getPos() {
         return pos;
+    }
+
+    public final JerboaEmbeddingInfo getVertexTracker() {
+        return vertexTracker;
     }
 
 }

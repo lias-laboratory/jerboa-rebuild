@@ -10,6 +10,7 @@ import up.jerboa.exception.JerboaException;
 
 import fr.ensma.lias.jerboa.JerboaRebuilt;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
+import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
@@ -38,7 +39,7 @@ public class CreateDart extends JerboaRuleGenerated {
         // -------- LEFT GRAPH
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3, new CreateDartExprRn0pos());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3, new CreateDartExprRn0pos(), new CreateDartExprRn0vertexTracker());
         right.add(rn0);
         rn0.setAlpha(0, rn0);
         rn0.setAlpha(1, rn0);
@@ -89,6 +90,31 @@ return new Vec3(0,0,0);
         @Override
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getPos().getID();
+        }
+    }
+
+    private class CreateDartExprRn0vertexTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel label = new OrbitLabel();
+System.out.print("Create vertex n0 ");
+System.out.println(label.toString());
+return label;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "vertexTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getVertexTracker().getID();
         }
     }
 

@@ -2,8 +2,13 @@ package fr.ensma.lias.jerboa.embeddings;
 
 public class OrbitLabel {
 	
-	private int label;
+	private Integer label;
 	private static int counter = 0;
+	
+	@Override
+	public String toString() {
+		return label.toString();
+	}
 	
 	public OrbitLabel() {
 		this.label = counter;

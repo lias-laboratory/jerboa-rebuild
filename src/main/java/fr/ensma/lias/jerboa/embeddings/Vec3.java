@@ -1,5 +1,7 @@
 package fr.ensma.lias.jerboa.embeddings;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 // TODO: Maxime tu dois continuer/remodeler cette classe selon tes besoins
 public class Vec3 {
@@ -14,11 +16,7 @@ public class Vec3 {
 	
 	public float x() { return x; }
 	public float y() { return y; }
-	public float z() { return z; }
-	
-	public float getX() { return x;}
-	public float getY() { return y;}
-	public float getZ() { return z;}
+	public float z() { return z; }	
 	
 	public Vec3 addn(float dx, float dy, float dz) {
 		return new Vec3(x+dx, y+dy, z+dz);
@@ -32,9 +30,9 @@ public class Vec3 {
 		return sb.toString();
 	}
 	
-	
-	
 	public static Vec3 mid(Vec3 a, Vec3 b) {
 		return new Vec3((a.x + b.x)/2.f,(a.y + b.y)/2.f,(a.z + b.z)/2.f );
 	}
+	
+// TODO: implémenter un getter pour le vecteur normal d'une face
 }

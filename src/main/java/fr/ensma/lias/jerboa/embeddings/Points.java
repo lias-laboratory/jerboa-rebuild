@@ -39,9 +39,9 @@ public class Points {
 	}
 	
 	public Points(Points pt, Vec3 vect) {
-		this.x = pt.x + vect.getX();
-		this.y = pt.y + vect.getY();
-		this.z = pt.z + vect.getZ();
+		this.x = pt.x + vect.x();
+		this.y = pt.y + vect.y();
+		this.z = pt.z + vect.z();
 	}
 	
 	public Points(java.util.List<Points> list) {
@@ -123,9 +123,9 @@ public class Points {
 	}
 
 	public void add(Vec3 ebd) {
-		this.x += ebd.getX();
-		this.y += ebd.getY();
-		this.z += ebd.getZ();
+		this.x += ebd.x();
+		this.y += ebd.y();
+		this.z += ebd.z();
 	}
 	
 	public void add(float x, float y, float z) {
@@ -135,9 +135,9 @@ public class Points {
 	}
 	
 	public void movePoint(Points pt, Vec3 vect) {
-		pt.x = pt.x + vect.getX();
-		pt.y = pt.y + vect.getY();
-		pt.z = pt.z + vect.getZ();
+		pt.x = pt.x + vect.x();
+		pt.y = pt.y + vect.y();
+		pt.z = pt.z + vect.z();
 	}
 	
 	public float halfWay(float a, float b) {

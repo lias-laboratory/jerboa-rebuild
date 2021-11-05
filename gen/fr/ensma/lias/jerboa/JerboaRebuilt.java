@@ -43,6 +43,8 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
 
         super(3);
 
+        this.addEmbedding(new JerboaEmbeddingInfo("Point orbit trace", JerboaOrbit.orbit(1, 2, 3), int.class));
+
     // BEGIN USER HEAD CONSTRUCTOR TRANSLATION
 
     // END USER HEAD CONSTRUCTOR TRANSLATION 

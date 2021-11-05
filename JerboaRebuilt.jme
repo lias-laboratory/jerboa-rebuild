@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>CreateEdge</openRules>
 	<openRules>InsertVertex</openRules>
+	<openRules>ExtrudeIndependantFace</openRules>
 	<openRules>CreateDart</openRules>
 	<openRules>ExtrudeVolumeFace</openRules>
-	<openRules>CreateEdge</openRules>
+	<openRules>CreateSquareFace</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
 <generationType>java</generationType>
     <embeddings count="2">
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode>return new Vec3(0,0,0)</defaultCode></embedding>
-        <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
+        <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="0,1,2" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
     <rules count="6">
         <rule name="CreateDart" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
@@ -67,7 +69,9 @@ return label;</expr>
             <right>
                 <nodes count="6">
                     <node name="n0" x="316" y="115" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="vertexTracker"></expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Augmented vertex n0 &quot;, label.getLabel());
+return label;</expr>
                     </node>
                     <node name="n1" x="492" y="114" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n2" x="639" y="115" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
@@ -133,7 +137,7 @@ return label;</expr>
 @print(&quot;Vertex augmentation n0 &quot;, label.toString());
 return label;</expr>
                     </node>
-                    <node name="n1" x="304" y="105" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="296" y="104" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n2" x="456" y="103" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="606" y="102" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n4" x="612" y="261" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">

@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>ExtrudeEdge</openRules>
-	<openRules>ChanfreinCorner</openRules>
-	<openRules>VertexCollapse</openRules>
+	<openRules>ExtrudeFaceEdge</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
 <generationType>java</generationType>
     <embeddings count="2">
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode>return new Vec3(0,0,0)</defaultCode></embedding>
-        <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="0,1,2" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
+        <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="11">
+    <rules count="12">
         <rule name="CreateDart" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -566,15 +564,50 @@ return new OrbitLabel();</expr>
             <precondition></precondition>
             <comment></comment>
             <left>
-                <nodes count="0">
+                <nodes count="1">
+                    <node name="n0" x="265" y="163" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="0">
+                <arcs count="1">
+                    <arcloop dim="2" node="n0" angle="4.611225274217041" >
+                    </arcloop>
                 </arcs>
             </left>
             <right>
-                <nodes count="0">
+                <nodes count="4">
+                    <node name="n0" x="227" y="97" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Augment vertex n0 &quot;, label.toString());
+return label;</expr>
+                    </node>
+                    <node name="n1" x="421" y="97" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="423" y="249" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="225" y="251" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n0.pos.addn(0,1,0);</expr>
+                    </node>
                 </nodes>
-                <arcs count="0">
+                <arcs count="11">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="3.6395984616027617" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="3.14031099137145" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="2.4237657721654937" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="3.0221880300185227" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="0.6100637277802337" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="6.5110230668856985" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="0.009983405569156556" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="5.824001795179564" >
+                    </arcloop>
                 </arcs>
             </right>
             <preprocess></preprocess>
@@ -583,6 +616,71 @@ return new OrbitLabel();</expr>
             <paramsebd>
             </paramsebd>
             <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="ExtrudeFaceEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="265" y="163" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="2" node="n0" angle="4.611225274217041" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="5">
+                    <node name="n0" x="245" y="101" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Augmented vertex n0 &quot;, label.toString());
+return label;</expr>
+                    </node>
+                    <node name="n1" x="403" y="100" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="524" y="98" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="527" y="289" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="395" y="286" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n0.pos.addn(0,1,0);</expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Create vertex n4 &quot;, label.toString());
+return label;</expr>
+                    </node>
+                </nodes>
+                <arcs count="11">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n4" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n2" angle="2.2442924049611346" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="6.024240050722778" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="4.995876395743557" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="4.3829845921311446" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.0549442114407803" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="3.4559646986786348" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="0.5023683265637483" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
     </rules>

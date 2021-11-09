@@ -17,6 +17,8 @@ import fr.ensma.lias.jerboa.ChanfreinCorner;
 import fr.ensma.lias.jerboa.MergeEdge;
 import fr.ensma.lias.jerboa.MergeEdge2;
 import fr.ensma.lias.jerboa.VertexCollapse;
+import fr.ensma.lias.jerboa.ExtrudeEdge;
+import fr.ensma.lias.jerboa.ExtrudeFaceEdge;
 
 
 
@@ -42,7 +44,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
 
     // END USER HEAD CONSTRUCTOR TRANSLATION
         pos = new JerboaEmbeddingInfo("pos", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.Vec3.class);
-        vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(0,1,2), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
+        vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
         this.registerEbdsAndResetGMAP(pos,vertexTracker);
 
@@ -56,6 +58,8 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new MergeEdge(this));
         this.registerRule(new MergeEdge2(this));
         this.registerRule(new VertexCollapse(this));
+        this.registerRule(new ExtrudeEdge(this));
+        this.registerRule(new ExtrudeFaceEdge(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

@@ -19,6 +19,7 @@ import fr.ensma.lias.jerboa.MergeEdge2;
 import fr.ensma.lias.jerboa.VertexCollapse;
 import fr.ensma.lias.jerboa.ExtrudeEdge;
 import fr.ensma.lias.jerboa.ExtrudeFaceEdge;
+import fr.ensma.lias.jerboa.UnSewA2;
 
 
 
@@ -60,6 +61,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new VertexCollapse(this));
         this.registerRule(new ExtrudeEdge(this));
         this.registerRule(new ExtrudeFaceEdge(this));
+        this.registerRule(new UnSewA2(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>UnSewA2</openRules>
 	<openRules>ExtrudeFaceEdge</openRules>
+	<openRules>VertexCollapse</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -9,7 +11,7 @@
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode>return new Vec3(0,0,0)</defaultCode></embedding>
         <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="12">
+    <rules count="13">
         <rule name="CreateDart" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -671,6 +673,49 @@ return label;</expr>
                     <arcloop dim="3" node="n3" angle="3.4559646986786348" >
                     </arcloop>
                     <arcloop dim="3" node="n4" angle="0.5023683265637483" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="UnSewA2" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="210" y="150" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="450" y="150" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="99" y="81" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Diminish vertex n0 &quot;, label.toString());
+return label;</expr>
+                    </node>
+                    <node name="n1" x="352" y="87" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Diminish vertex n1 &quot;, label.toString());
+return label;</expr>
+                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="0.04828364027681864" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="3.2006245638817803" >
                     </arcloop>
                 </arcs>
             </right>

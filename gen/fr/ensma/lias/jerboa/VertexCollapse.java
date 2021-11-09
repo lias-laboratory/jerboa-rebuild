@@ -92,9 +92,7 @@ public class VertexCollapse extends JerboaRuleGenerated {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-Vec3 vertx = new Vec3(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
-vertx.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
-return vertx;
+return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -128,12 +126,7 @@ System.out.print("Tester en postprocess si ");
 System.out.print(curleftPattern.getNode(2));
 System.out.print(" et ");
 System.out.print(curleftPattern.getNode(2).alpha(1).alpha(2).alpha(1));
-System.out.println(" ont les mêmes vertexTracker pour vérification de scission");
-System.out.print("Tester en postprocess si ");
-System.out.print(curleftPattern.getNode(2));
-System.out.print(" et ");
-System.out.print(curleftPattern.getNode(2).alpha(1).alpha(3).alpha(1));
-System.out.println(" ont les mêmes vertexTracker pour vérification de scission");
+System.out.println(" sont le même sommet ou non");
 return new OrbitLabel();
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }

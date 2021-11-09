@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
 	<openRules>ExtrudeFaceEdge</openRules>
-	<openRules>VertexCollapse</openRules>
 	<openRules>UnSewA2</openRules>
-	<openRules>MergeEdge</openRules>
 	<openRules>MergeEdge2</openRules>
+	<openRules>VertexCollapse</openRules>
+	<openRules>MergeEdge</openRules>
+	<openRules>InsertVertex</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -535,16 +536,14 @@ return n0.vertexTracker;</expr>
             <right>
                 <nodes count="2">
                     <node name="n2" x="61" y="126" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">Vec3 vertx = new Vec3(n0.pos);
-vertx.mid(n0.pos, n1.pos);
-return vertx;</expr>
+                        <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
                         <expr ebd="vertexTracker">if( n0.vertexTracker == n1.vertexTracker){
     @print(&quot;Reduce vertex n2 &quot;, n2.vertexTracker);    
 }
 else{
    @print(&quot;Merge vertice n2 and n3 &quot;, n2.vertexTracker); 
 }
-@print(&quot;Tester en postprocess si &quot;, n2.vertexTracker, &quot; et &quot;, n2@1@2@1.vertexTracker, &quot; sont identiques pour vérification de scission&quot;);
+@print(&quot;Tester en postprocess si &quot;, n2, &quot; et &quot;, n2@1@2@1, &quot; sont le même sommet ou non&quot;);
 return new OrbitLabel();</expr>
                     </node>
                     <node name="n3" x="513" y="124" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>

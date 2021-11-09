@@ -37,10 +37,10 @@ public class VertexCollapse extends JerboaRuleGenerated {
         super(modeler, "VertexCollapse", "");
 
         // -------- LEFT GRAPH
-        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode ln2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode ln3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(), 3);
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(2,3), 3);
+        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(2,3), 3);
+        JerboaRuleNode ln2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(-1,-1), 3);
+        JerboaRuleNode ln3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(-1,-1), 3);
         left.add(ln0);
         left.add(ln1);
         left.add(ln2);
@@ -51,8 +51,8 @@ public class VertexCollapse extends JerboaRuleGenerated {
         ln1.setAlpha(1, ln3);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 0, JerboaOrbit.orbit(), 3, new VertexCollapseExprRn2pos(), new VertexCollapseExprRn2vertexTracker());
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 1, JerboaOrbit.orbit(), 3);
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 0, JerboaOrbit.orbit(-1,-1), 3, new VertexCollapseExprRn2pos(), new VertexCollapseExprRn2vertexTracker());
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 1, JerboaOrbit.orbit(-1,-1), 3);
         right.add(rn2);
         right.add(rn3);
         rn2.setAlpha(1, rn3);
@@ -92,7 +92,9 @@ public class VertexCollapse extends JerboaRuleGenerated {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
+Vec3 vertx = new Vec3(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
+vertx.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
+return vertx;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -114,8 +116,24 @@ return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Merge vertice n0 and n1 into n2 ");
-System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+if((curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1) == curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1))) {
+   System.out.print("Reduce vertex n2 ");
+   System.out.println(curleftPattern.getNode(2).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+}
+else {
+   System.out.print("Merge vertice n2 and n3 ");
+   System.out.println(curleftPattern.getNode(2).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+}
+System.out.print("Tester en postprocess si ");
+System.out.print(curleftPattern.getNode(2));
+System.out.print(" et ");
+System.out.print(curleftPattern.getNode(2).alpha(1).alpha(2).alpha(1));
+System.out.println(" ont les mêmes vertexTracker pour vérification de scission");
+System.out.print("Tester en postprocess si ");
+System.out.print(curleftPattern.getNode(2));
+System.out.print(" et ");
+System.out.print(curleftPattern.getNode(2).alpha(1).alpha(3).alpha(1));
+System.out.println(" ont les mêmes vertexTracker pour vérification de scission");
 return new OrbitLabel();
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>UnSewA2</openRules>
 	<openRules>ExtrudeFaceEdge</openRules>
 	<openRules>VertexCollapse</openRules>
+	<openRules>UnSewA2</openRules>
+	<openRules>MergeEdge</openRules>
+	<openRules>MergeEdge2</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -440,8 +442,8 @@ return label;</expr>
             <comment></comment>
             <left>
                 <nodes count="2">
-                    <node name="n0" x="240" y="150" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="480" y="150" orbit="-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="62" y="127" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="302" y="127" orbit="-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="4">
                     <arc dim="0" a="n0" b="n1" size="0">
@@ -456,7 +458,7 @@ return label;</expr>
             </left>
             <right>
                 <nodes count="1">
-                    <node name="n1" x="240" y="150" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="232" y="107" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="3">
                     <arcloop dim="3" node="n1" angle="6.940112703187" >
@@ -482,31 +484,23 @@ return label;</expr>
             <comment></comment>
             <left>
                 <nodes count="2">
-                    <node name="n0" x="200" y="151" orbit="1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="532" y="149" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="76" y="128" orbit="1,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="300" y="127" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="5">
+                <arcs count="1">
                     <arc dim="0" a="n0" b="n1" size="0">
                     </arc>
-                    <arcloop dim="2" node="n1" angle="4.451163996373297" >
-                    </arcloop>
-                    <arcloop dim="3" node="n1" angle="2.496722816790582" >
-                    </arcloop>
-                    <arcloop dim="2" node="n0" angle="4.938687742014334" >
-                    </arcloop>
-                    <arcloop dim="3" node="n0" angle="3.858476393565045" >
-                    </arcloop>
                 </arcs>
             </left>
             <right>
                 <nodes count="1">
-                    <node name="n1" x="255" y="141" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="202" y="113" orbit="0,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">@print(&quot;Delete vertex n0 &quot;,  n0.vertexTracker);
+@print(&quot;Unchanged vertex n1 &quot;, n1.vertexTracker);
+return n0.vertexTracker;</expr>
+                    </node>
                 </nodes>
-                <arcs count="2">
-                    <arcloop dim="2" node="n1" angle="5.0341330919588465" >
-                    </arcloop>
-                    <arcloop dim="3" node="n1" angle="3.356388336098181" >
-                    </arcloop>
+                <arcs count="0">
                 </arcs>
             </right>
             <preprocess></preprocess>
@@ -524,10 +518,10 @@ return label;</expr>
             <comment></comment>
             <left>
                 <nodes count="4">
-                    <node name="n0" x="269" y="148" orbit="" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="486" y="144" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n2" x="132" y="121" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="583" y="129" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="269" y="148" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="486" y="144" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="132" y="121" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="667" y="126" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="3">
                     <arc dim="0" a="n0" b="n1" size="0">
@@ -540,12 +534,20 @@ return label;</expr>
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n2" x="61" y="126" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
-                        <expr ebd="vertexTracker">@print(&quot;Merge vertice n0 and n1 into n2 &quot;, n0.vertexTracker);
+                    <node name="n2" x="61" y="126" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">Vec3 vertx = new Vec3(n0.pos);
+vertx.mid(n0.pos, n1.pos);
+return vertx;</expr>
+                        <expr ebd="vertexTracker">if( n0.vertexTracker == n1.vertexTracker){
+    @print(&quot;Reduce vertex n2 &quot;, n2.vertexTracker);    
+}
+else{
+   @print(&quot;Merge vertice n2 and n3 &quot;, n2.vertexTracker); 
+}
+@print(&quot;Tester en postprocess si &quot;, n2.vertexTracker, &quot; et &quot;, n2@1@2@1.vertexTracker, &quot; sont identiques pour vérification de scission&quot;);
 return new OrbitLabel();</expr>
                     </node>
-                    <node name="n3" x="403" y="103" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="513" y="124" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">
                     <arc dim="1" a="n2" b="n3" size="0">

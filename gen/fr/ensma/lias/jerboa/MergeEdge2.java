@@ -20,7 +20,7 @@ import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
-public class mergeEdge extends JerboaRuleGenerated {
+public class MergeEdge2 extends JerboaRuleGenerated {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -32,27 +32,27 @@ public class mergeEdge extends JerboaRuleGenerated {
 
 
 
-    public mergeEdge(JerboaRebuilt modeler) throws JerboaException {
+    public MergeEdge2(JerboaRebuilt modeler) throws JerboaException {
 
-        super(modeler, "mergeEdge", "");
+        super(modeler, "MergeEdge2", "");
 
         // -------- LEFT GRAPH
-        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,3), 3);
-        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,3), 3);
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1), 3);
+        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1), 3);
         left.add(ln0);
         left.add(ln1);
         hooks.add(ln0);
         ln0.setAlpha(0, ln1);
-        ln1.setAlpha(1, ln1);
         ln1.setAlpha(2, ln1);
+        ln1.setAlpha(3, ln1);
         ln0.setAlpha(2, ln0);
+        ln0.setAlpha(3, ln0);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 0, JerboaOrbit.orbit(0,-1), 3);
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 0, JerboaOrbit.orbit(0), 3);
         right.add(rn1);
-        rn1.setAlpha(3, rn1);
-        rn1.setAlpha(1, rn1);
         rn1.setAlpha(2, rn1);
+        rn1.setAlpha(3, rn1);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();

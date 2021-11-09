@@ -20,7 +20,7 @@ import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
-public class vertexCollapse extends JerboaRuleGenerated {
+public class VertexCollapse extends JerboaRuleGenerated {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -32,9 +32,9 @@ public class vertexCollapse extends JerboaRuleGenerated {
 
 
 
-    public vertexCollapse(JerboaRebuilt modeler) throws JerboaException {
+    public VertexCollapse(JerboaRebuilt modeler) throws JerboaException {
 
-        super(modeler, "vertexCollapse", "");
+        super(modeler, "VertexCollapse", "");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3);
@@ -51,7 +51,7 @@ public class vertexCollapse extends JerboaRuleGenerated {
         ln1.setAlpha(1, ln3);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 0, JerboaOrbit.orbit(), 3, new vertexCollapseExprRn2pos(), new vertexCollapseExprRn2vertexTracker());
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 0, JerboaOrbit.orbit(), 3, new VertexCollapseExprRn2pos(), new VertexCollapseExprRn2vertexTracker());
         JerboaRuleNode rn3 = new JerboaRuleNode("n3", 1, JerboaOrbit.orbit(), 3);
         right.add(rn2);
         right.add(rn3);
@@ -85,7 +85,7 @@ public class vertexCollapse extends JerboaRuleGenerated {
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class vertexCollapseExprRn2pos implements JerboaRuleExpression {
+    private class VertexCollapseExprRn2pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
@@ -107,7 +107,7 @@ return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>
         }
     }
 
-    private class vertexCollapseExprRn2vertexTracker implements JerboaRuleExpression {
+    private class VertexCollapseExprRn2vertexTracker implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {

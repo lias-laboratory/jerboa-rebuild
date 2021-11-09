@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>mergeEdge</openRules>
+	<openRules>ExtrudeEdge</openRules>
 	<openRules>ChanfreinCorner</openRules>
-	<openRules>mergeEdge2</openRules>
-	<openRules>vertexCollapse</openRules>
+	<openRules>VertexCollapse</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -435,7 +434,7 @@ return label;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="mergeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="true" gridsize="MEDIUM" >
+        <rule name="MergeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -477,7 +476,7 @@ return label;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="mergeEdge2" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="MergeEdge2" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -519,7 +518,7 @@ return label;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="vertexCollapse" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="VertexCollapse" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -562,38 +561,20 @@ return new OrbitLabel();</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="vertexCollapse2" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="ExtrudeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
             <left>
-                <nodes count="4">
-                    <node name="n0" x="269" y="148" orbit="" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="486" y="144" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n2" x="132" y="121" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="583" y="129" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                <nodes count="0">
                 </nodes>
-                <arcs count="3">
-                    <arc dim="0" a="n0" b="n1" size="0">
-                    </arc>
-                    <arc dim="1" a="n2" b="n0" size="0">
-                    </arc>
-                    <arc dim="1" a="n1" b="n3" size="0">
-                    </arc>
+                <arcs count="0">
                 </arcs>
             </left>
             <right>
-                <nodes count="2">
-                    <node name="n2" x="61" y="126" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
-                        <expr ebd="vertexTracker">@print(&quot;Merge vertice n0 and n1 into n2 &quot;, n0.vertexTracker);
-return new OrbitLabel();</expr>
-                    </node>
-                    <node name="n3" x="403" y="103" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                <nodes count="0">
                 </nodes>
-                <arcs count="1">
-                    <arc dim="1" a="n2" b="n3" size="0">
-                    </arc>
+                <arcs count="0">
                 </arcs>
             </right>
             <preprocess></preprocess>
@@ -602,7 +583,6 @@ return new OrbitLabel();</expr>
             <paramsebd>
             </paramsebd>
             <paramstopo>
-                <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
     </rules>

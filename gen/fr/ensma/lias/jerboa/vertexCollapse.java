@@ -20,7 +20,7 @@ import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
-public class CreateDart extends JerboaRuleGenerated {
+public class vertexCollapse extends JerboaRuleGenerated {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -32,19 +32,30 @@ public class CreateDart extends JerboaRuleGenerated {
 
 
 
-    public CreateDart(JerboaRebuilt modeler) throws JerboaException {
+    public vertexCollapse(JerboaRebuilt modeler) throws JerboaException {
 
-        super(modeler, "CreateDart", "");
+        super(modeler, "vertexCollapse", "");
 
         // -------- LEFT GRAPH
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3);
+        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(), 3);
+        JerboaRuleNode ln2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(), 3);
+        JerboaRuleNode ln3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(), 3);
+        left.add(ln0);
+        left.add(ln1);
+        left.add(ln2);
+        left.add(ln3);
+        hooks.add(ln0);
+        ln0.setAlpha(0, ln1);
+        ln2.setAlpha(1, ln0);
+        ln1.setAlpha(1, ln3);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3, new CreateDartExprRn0pos(), new CreateDartExprRn0vertexTracker());
-        right.add(rn0);
-        rn0.setAlpha(0, rn0);
-        rn0.setAlpha(1, rn0);
-        rn0.setAlpha(2, rn0);
-        rn0.setAlpha(3, rn0);
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 0, JerboaOrbit.orbit(), 3, new vertexCollapseExprRn2pos(), new vertexCollapseExprRn2vertexTracker());
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 1, JerboaOrbit.orbit(), 3);
+        right.add(rn2);
+        right.add(rn3);
+        rn2.setAlpha(1, rn3);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
@@ -54,7 +65,8 @@ public class CreateDart extends JerboaRuleGenerated {
 
     public int reverseAssoc(int i) {
         switch(i) {
-        case 0: return -1;
+        case 0: return 2;
+        case 1: return 3;
         }
         return -1;
     }
@@ -62,23 +74,25 @@ public class CreateDart extends JerboaRuleGenerated {
     public int attachedNode(int i) {
         switch(i) {
         case 0: return -1;
+        case 1: return -1;
         }
         return -1;
     }
 
-    public JerboaRuleResult applyRule(JerboaGMap gmap) throws JerboaException {
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
+        ____jme_hooks.addCol(n0);
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class CreateDartExprRn0pos implements JerboaRuleExpression {
+    private class vertexCollapseExprRn2pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return new Vec3(0,0,0);
+return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -93,17 +107,16 @@ return new Vec3(0,0,0);
         }
     }
 
-    private class CreateDartExprRn0vertexTracker implements JerboaRuleExpression {
+    private class vertexCollapseExprRn2vertexTracker implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-OrbitLabel label = new OrbitLabel();
-System.out.print("Create vertex n0 ");
-System.out.println(label.toString());
-return label;
+System.out.print("Merge vertice n0 and n1 into n2 ");
+System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+return new OrbitLabel();
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -116,6 +129,23 @@ return label;
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getVertexTracker().getID();
         }
+    }
+
+    // Facility for accessing to the dart
+    private JerboaDart n0() {
+        return curleftPattern.getNode(0);
+    }
+
+    private JerboaDart n1() {
+        return curleftPattern.getNode(1);
+    }
+
+    private JerboaDart n2() {
+        return curleftPattern.getNode(2);
+    }
+
+    private JerboaDart n3() {
+        return curleftPattern.getNode(3);
     }
 
 } // end rule Class

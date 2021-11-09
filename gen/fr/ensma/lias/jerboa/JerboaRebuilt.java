@@ -8,11 +8,15 @@ import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
 
 import fr.ensma.lias.jerboa.CreateDart;
-import fr.ensma.lias.jerboa.CreateEdge;
-import fr.ensma.lias.jerboa.CreateSquareFace;
 import fr.ensma.lias.jerboa.ExtrudeIndependantFace;
 import fr.ensma.lias.jerboa.ExtrudeVolumeFace;
+import fr.ensma.lias.jerboa.CreateSquareFace;
+import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
+import fr.ensma.lias.jerboa.ChanfreinCorner;
+import fr.ensma.lias.jerboa.mergeEdge;
+import fr.ensma.lias.jerboa.mergeEdge2;
+import fr.ensma.lias.jerboa.vertexCollapse;
 
 
 
@@ -24,7 +28,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
 
     // BEGIN LIST OF EMBEDDINGS
     protected JerboaEmbeddingInfo pos;
-    protected JerboaEmbeddingInfo faceTracking;
+    protected JerboaEmbeddingInfo vertexTracker;
     // END LIST OF EMBEDDINGS
 
     // BEGIN USER DECLARATION
@@ -38,24 +42,28 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
 
     // END USER HEAD CONSTRUCTOR TRANSLATION
         pos = new JerboaEmbeddingInfo("pos", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.Vec3.class);
-        faceTracking = new JerboaEmbeddingInfo("faceTracking", JerboaOrbit.orbit(0,1), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
+        vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(0,1,2), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
-        this.registerEbdsAndResetGMAP(pos,faceTracking);
+        this.registerEbdsAndResetGMAP(pos,vertexTracker);
 
         this.registerRule(new CreateDart(this));
-        this.registerRule(new CreateEdge(this));
-        this.registerRule(new CreateSquareFace(this));
         this.registerRule(new ExtrudeIndependantFace(this));
         this.registerRule(new ExtrudeVolumeFace(this));
+        this.registerRule(new CreateSquareFace(this));
+        this.registerRule(new CreateEdge(this));
         this.registerRule(new InsertVertex(this));
+        this.registerRule(new ChanfreinCorner(this));
+        this.registerRule(new mergeEdge(this));
+        this.registerRule(new mergeEdge2(this));
+        this.registerRule(new vertexCollapse(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {
         return pos;
     }
 
-    public final JerboaEmbeddingInfo getFaceTracking() {
-        return faceTracking;
+    public final JerboaEmbeddingInfo getVertexTracker() {
+        return vertexTracker;
     }
 
 }

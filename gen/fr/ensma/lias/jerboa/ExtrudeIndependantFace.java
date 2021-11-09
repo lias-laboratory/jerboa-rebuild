@@ -43,12 +43,12 @@ public class ExtrudeIndependantFace extends JerboaRuleGenerated {
         ln0.setAlpha(2, ln0);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn0faceTracking());
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,-1), 3, new ExtrudeIndependantFaceExprRn1faceTracking());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn0vertexTracker());
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,-1), 3);
         JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(-1,2), 3);
         JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(-1,2), 3, new ExtrudeIndependantFaceExprRn3pos());
         JerboaRuleNode rn4 = new JerboaRuleNode("n4", 4, JerboaOrbit.orbit(0,-1), 3);
-        JerboaRuleNode rn5 = new JerboaRuleNode("n5", 5, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn5faceTracking());
+        JerboaRuleNode rn5 = new JerboaRuleNode("n5", 5, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn5vertexTracker());
         right.add(rn0);
         right.add(rn1);
         right.add(rn2);
@@ -102,31 +102,7 @@ public class ExtrudeIndependantFace extends JerboaRuleGenerated {
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class ExtrudeIndependantFaceExprRn0faceTracking implements JerboaRuleExpression {
-
-        @Override
-        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
-            curleftPattern = leftPattern;
-// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
-            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Unchanged face n0 ");
-System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
-return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1);
-// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
-        }
-
-        @Override
-        public String getName() {
-            return "faceTracking";
-        }
-
-        @Override
-        public int getEmbedding() {
-            return ((JerboaRebuilt)modeler).getFaceTracking().getID();
-        }
-    }
-
-    private class ExtrudeIndependantFaceExprRn1faceTracking implements JerboaRuleExpression {
+    private class ExtrudeIndependantFaceExprRn0vertexTracker implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
@@ -134,20 +110,20 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel label = new OrbitLabel();
-System.out.print("Create face n1 ");
-System.out.println(label.toString());
+System.out.print("Augmented vertex n0 ");
+System.out.println(label.getLabel());
 return label;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
         @Override
         public String getName() {
-            return "faceTracking";
+            return "vertexTracker";
         }
 
         @Override
         public int getEmbedding() {
-            return ((JerboaRebuilt)modeler).getFaceTracking().getID();
+            return ((JerboaRebuilt)modeler).getVertexTracker().getID();
         }
     }
 
@@ -173,7 +149,7 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0).ad
         }
     }
 
-    private class ExtrudeIndependantFaceExprRn5faceTracking implements JerboaRuleExpression {
+    private class ExtrudeIndependantFaceExprRn5vertexTracker implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
@@ -181,7 +157,7 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0).ad
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel label = new OrbitLabel();
-System.out.print("Create face n5 ");
+System.out.print("Create vertex n5 ");
 System.out.println(label.toString());
 return label;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -189,12 +165,12 @@ return label;
 
         @Override
         public String getName() {
-            return "faceTracking";
+            return "vertexTracker";
         }
 
         @Override
         public int getEmbedding() {
-            return ((JerboaRebuilt)modeler).getFaceTracking().getID();
+            return ((JerboaRebuilt)modeler).getVertexTracker().getID();
         }
     }
 

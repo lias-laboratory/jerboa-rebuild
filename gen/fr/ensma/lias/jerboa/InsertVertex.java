@@ -96,7 +96,7 @@ public class InsertVertex extends JerboaRuleGenerated {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Vertex n0 is unchanged ");
+System.out.print("Vertex No_Eff n0. Label: ");
 System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -120,7 +120,7 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Vertex n1 is unchanged ");
+System.out.print("Vertex No_Eff n1. Label: ");
 System.out.println(curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 return curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -167,7 +167,7 @@ return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel label = new OrbitLabel();
-System.out.print("Insert vertex n2 ");
+System.out.print("Vertex Create n2. Label: ");
 System.out.println(label.getLabel());
 return label;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION

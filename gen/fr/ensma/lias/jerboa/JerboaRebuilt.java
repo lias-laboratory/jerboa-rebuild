@@ -15,11 +15,11 @@ import fr.ensma.lias.jerboa.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
 import fr.ensma.lias.jerboa.ChanfreinCorner;
 import fr.ensma.lias.jerboa.MergeEdge;
-import fr.ensma.lias.jerboa.MergeEdge2;
 import fr.ensma.lias.jerboa.VertexCollapse;
 import fr.ensma.lias.jerboa.ExtrudeEdge;
 import fr.ensma.lias.jerboa.ExtrudeFaceEdge;
 import fr.ensma.lias.jerboa.UnSewA2;
+import fr.ensma.lias.jerboa.SewA2;
 
 
 
@@ -57,11 +57,11 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new InsertVertex(this));
         this.registerRule(new ChanfreinCorner(this));
         this.registerRule(new MergeEdge(this));
-        this.registerRule(new MergeEdge2(this));
         this.registerRule(new VertexCollapse(this));
         this.registerRule(new ExtrudeEdge(this));
         this.registerRule(new ExtrudeFaceEdge(this));
         this.registerRule(new UnSewA2(this));
+        this.registerRule(new SewA2(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

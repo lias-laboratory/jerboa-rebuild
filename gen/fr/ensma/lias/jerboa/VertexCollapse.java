@@ -115,11 +115,11 @@ return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 if((curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1) == curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1))) {
-   System.out.print("Reduce vertex n2 ");
+   System.out.print("Vertex Modify n2. Label: ");
    System.out.println(curleftPattern.getNode(2).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 }
 else {
-   System.out.print("Merge vertice n2 and n3 ");
+   System.out.print("Vertex Merge n2, n3. Label: ");
    System.out.println(curleftPattern.getNode(2).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 }
 System.out.print("Tester en postprocess si ");

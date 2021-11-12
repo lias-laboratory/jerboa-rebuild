@@ -1,9 +1,5 @@
 package fr.ensma.lias.jerboa.bridge;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.ensma.lias.jerboa.JerboaRebuilt;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
@@ -12,6 +8,10 @@ import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerBridge;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerColor;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerPoint;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerTuple;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
@@ -57,22 +57,24 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	@Override
 	public GMapViewerPoint coords(JerboaDart dart) {
 		Vec3 v = dart.ebd("pos");
-		if(v != null)
+		if (v != null)
 			return new GMapViewerPoint(v.x(), v.y(), v.z());
 		else
-			return new GMapViewerPoint(0,0,0);
+			return new GMapViewerPoint(0, 0, 0);
 	}
 
 	@Override
-     	public JerboaGMap duplicate(JerboaGMap gmap) throws JerboaGMapDuplicateException {
-        	JerboaGMap res = new JerboaGMapArray(modeler,gmap.getCapacity());
-         	gmap.duplicateInGMap(res, this);
-         	return res;
+	public JerboaGMap duplicate(JerboaGMap gmap) throws JerboaGMapDuplicateException {
+		JerboaGMap res = new JerboaGMapArray(modeler, gmap.getCapacity());
+		gmap.duplicateInGMap(res, this);
+		return res;
 	}
 
 	@Override
 	public List<Pair<String, String>> getCommandLineHelper() {
-		return new ArrayList<>();
+		ArrayList<Pair<String, String>> mescommandes = new ArrayList<>();
+		mescommandes.add(new Pair<>("echo", " Renvoie le texte donné en argument dans la console"));
+		return mescommandes;
 	}
 
 	@Override
@@ -115,8 +117,17 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	}
 
 	@Override
-	public boolean parseCommandLine(PrintStream arg0, String arg1) {
-		return false;
+	public boolean parseCommandLine(PrintStream console, String line) {
+		StringTokenizer tokenizer = new StringTokenizer(line);
+		String action = tokenizer.nextToken();
+		switch (action) {
+		case "echo": {
+			String arg = line.substring(5);
+			console.append("MA SORTIE: " + arg);
+			return true; // la commande est gérée
+		}
+		}
+		return false; // la commande n'est pas gérée
 	}
 
 	@Override

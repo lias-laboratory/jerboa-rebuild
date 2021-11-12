@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>SewA2</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -9,7 +10,7 @@
         <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
     <rules count="13">
-        <rule name="CreateDart" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="CreateDart" module="Creation" category="Creation" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -178,7 +179,7 @@ return label;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="CreateSquareFace" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+        <rule name="CreateSquareFace" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -281,7 +282,7 @@ return label;</expr>
             <paramstopo>
             </paramstopo>
         </rule>
-        <rule name="CreateEdge" module="" category="" shape="ROUNDRECTANGLE" magnetic="false" showgrid="true" gridsize="MEDIUM" >
+        <rule name="CreateEdge" module="Creation" category="Creation" shape="ROUNDRECTANGLE" magnetic="false" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -393,32 +394,45 @@ return label;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="ChanfreinCorner" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="ChanfreinCoin2D" module="untested" category="untested" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
             <left>
-                <nodes count="1">
-                    <node name="n0" x="218" y="135" orbit="1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                <nodes count="2">
+                    <node name="n0" x="188" y="172" orbit="1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="531" y="170" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="2">
-                    <arcloop dim="3" node="n0" angle="4.513611236248623" >
+                <arcs count="3">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n0" angle="1.34027419089449" >
                     </arcloop>
-                    <arcloop dim="0" node="n0" angle="2.098711815102442" >
+                    <arcloop dim="3" node="n1" angle="2.134781336999468" >
                     </arcloop>
                 </arcs>
             </left>
             <right>
-                <nodes count="2">
-                    <node name="n0" x="254" y="164" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="410" y="164" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                <nodes count="4">
+                    <node name="n0" x="572" y="156" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="782" y="156" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="394" y="155" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="198" y="155" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="3">
-                    <arcloop dim="3" node="n0" angle="1.5448702232526095" >
+                <arcs count="7">
+                    <arcloop dim="3" node="n1" angle="1.1423102600439101" >
                     </arcloop>
-                    <arc dim="2" a="n0" b="n1" size="0">
+                    <arc dim="0" a="n0" b="n1" size="0">
                     </arc>
-                    <arcloop dim="3" node="n1" angle="4.156081538411803" >
+                    <arcloop dim="3" node="n0" angle="1.247018346846487" >
+                    </arcloop>
+                    <arc dim="1" a="n2" b="n0" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n2" angle="1.4270310013341572" >
+                    </arcloop>
+                    <arc dim="2" a="n3" b="n2" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n3" angle="3.001368225738638" >
                     </arcloop>
                 </arcs>
             </right>
@@ -711,7 +725,11 @@ return label;</expr>
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n0" x="232" y="128" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="232" y="128" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Vertex Modify n0, n1. Label: &quot;, label.toString());
+return label;</expr>
+                    </node>
                     <node name="n1" x="464" y="126" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">

@@ -7,13 +7,13 @@ import up.jerboa.core.util.*;
 import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
 
-import fr.ensma.lias.jerboa.CreateDart;
+import fr.ensma.lias.jerboa.Creation.CreateDart;
 import fr.ensma.lias.jerboa.ExtrudeIndependantFace;
 import fr.ensma.lias.jerboa.ExtrudeVolumeFace;
-import fr.ensma.lias.jerboa.CreateSquareFace;
-import fr.ensma.lias.jerboa.CreateEdge;
+import fr.ensma.lias.jerboa.Creation.CreateSquareFace;
+import fr.ensma.lias.jerboa.Creation.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
-import fr.ensma.lias.jerboa.ChanfreinCorner;
+import fr.ensma.lias.jerboa.untested.ChanfreinCoin2D;
 import fr.ensma.lias.jerboa.MergeEdge;
 import fr.ensma.lias.jerboa.VertexCollapse;
 import fr.ensma.lias.jerboa.ExtrudeEdge;
@@ -55,7 +55,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new CreateSquareFace(this));
         this.registerRule(new CreateEdge(this));
         this.registerRule(new InsertVertex(this));
-        this.registerRule(new ChanfreinCorner(this));
+        this.registerRule(new ChanfreinCoin2D(this));
         this.registerRule(new MergeEdge(this));
         this.registerRule(new VertexCollapse(this));
         this.registerRule(new ExtrudeEdge(this));

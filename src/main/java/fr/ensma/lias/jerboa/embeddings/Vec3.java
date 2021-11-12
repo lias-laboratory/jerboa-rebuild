@@ -40,6 +40,4 @@ public class Vec3 {
   public static Vec3 mid(Vec3 a, Vec3 b) {
     return new Vec3((a.x + b.x) / 2.f, (a.y + b.y) / 2.f, (a.z + b.z) / 2.f);
   }
-
-  // TODO: implémenter un getter pour le vecteur normal d'une face
 }

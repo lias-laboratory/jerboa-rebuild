@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
 	<openRules>ExtrudeFaceEdge</openRules>
+	<openRules>InsertVertex</openRules>
+	<openRules>MergeEdge</openRules>
 	<openRules>UnSewA2</openRules>
 	<openRules>MergeEdge2</openRules>
 	<openRules>VertexCollapse</openRules>
-	<openRules>MergeEdge</openRules>
-	<openRules>InsertVertex</openRules>
+	<openRules>CreateEdge</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -484,24 +485,36 @@ return label;</expr>
             <precondition></precondition>
             <comment></comment>
             <left>
-                <nodes count="2">
-                    <node name="n0" x="76" y="128" orbit="1,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="300" y="127" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                <nodes count="4">
+                    <node name="n0" x="529" y="136" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="753" y="135" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="296" y="144" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="77" y="140" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="1">
+                <arcs count="3">
                     <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n0" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n2" size="0">
                     </arc>
                 </arcs>
             </left>
             <right>
-                <nodes count="1">
-                    <node name="n1" x="202" y="113" orbit="0,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                <nodes count="2">
+                    <node name="n1" x="494" y="119" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">@print(&quot;Delete vertex n0 &quot;,  n0.vertexTracker);
 @print(&quot;Unchanged vertex n1 &quot;, n1.vertexTracker);
 return n0.vertexTracker;</expr>
                     </node>
+                    <node name="n3" x="109" y="116" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">@print(&quot;Unchanged vertex n3 &quot;, n3.vertexTracker);
+return n0.vertexTracker;</expr>
+                    </node>
                 </nodes>
-                <arcs count="0">
+                <arcs count="1">
+                    <arc dim="0" a="n3" b="n1" size="0">
+                    </arc>
                 </arcs>
             </right>
             <preprocess></preprocess>

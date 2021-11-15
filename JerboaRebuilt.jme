@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>SewA2</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
 <generationType>java</generationType>
-    <embeddings count="2">
+    <embeddings count="3">
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode>return new Vec3(0,0,0)</defaultCode></embedding>
         <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
+        <embedding name="halfFaceTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
     <rules count="13">
         <rule name="CreateDart" module="Creation" category="Creation" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
@@ -67,17 +67,25 @@ return label;</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Modify n0. Label: &quot;, label.getLabel());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">@print(&quot;Half-face unchanged n0. Label: &quot;, n0.halfFaceTracker);
+return n0.halfFaceTracker;</expr>
                     </node>
                     <node name="n1" x="492" y="114" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n2" x="639" y="115" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="643" y="269" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return n0.pos.addn(0,0,1);</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create n3. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                     <node name="n4" x="494" y="271" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n5" x="317" y="272" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n5. Label: &quot;, label.toString());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create n5. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                 </nodes>
                 <arcs count="10">
@@ -131,10 +139,20 @@ return label;</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Modify n0. Label: &quot;, label.toString());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">@print(&quot;Half-face unchanged n0. Label: &quot;, n0.halfFaceTracker);
+return n0.halfFaceTracker;</expr>
                     </node>
-                    <node name="n1" x="296" y="104" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="296" y="104" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create n1. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
+                    </node>
                     <node name="n2" x="456" y="103" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="606" y="102" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="606" y="102" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create n3. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
+                    </node>
                     <node name="n4" x="612" y="261" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return n0.pos.addn(0,0,1);</expr>
                     </node>
@@ -143,6 +161,9 @@ return label;</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n6. Label: &quot;, label.toString());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create n6. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                 </nodes>
                 <arcs count="11">
@@ -191,35 +212,38 @@ return label;</expr>
             </left>
             <right>
                 <nodes count="8">
-                    <node name="n0" x="150" y="30" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="240" y="-30" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n0" x="180" y="120" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="270" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return new Vec3(0,0,0);</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n1. Label: &quot;, label.toString());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create. Label: &quot;, hfLabel.toString());
+return hfLabel; </expr>
                     </node>
-                    <node name="n2" x="450" y="-30" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n2" x="480" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n2. Label: &quot;, label.toString());
 return label;</expr>
                     </node>
-                    <node name="n3" x="540" y="30" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n3" x="570" y="120" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return new Vec3(1,0,0);</expr>
                     </node>
-                    <node name="n4" x="540" y="210" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n4" x="570" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n4. Label: &quot;, label.toString());
 return label;</expr>
                     </node>
-                    <node name="n5" x="450" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n5" x="480" y="390" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return new Vec3(1,1,0);</expr>
                     </node>
-                    <node name="n6" x="240" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n6" x="270" y="390" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n6. Label: &quot;, label.toString());
 return label;</expr>
                     </node>
-                    <node name="n7" x="150" y="210" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n7" x="180" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return new Vec3(0,1,0);</expr>
                     </node>
                 </nodes>
@@ -363,6 +387,11 @@ return label;</expr>
                     <node name="n0" x="90" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">@print(&quot;Vertex No_Eff n0. Label: &quot;, n0.vertexTracker);
 return n0.vertexTracker;</expr>
+                        <expr ebd="halfFaceTracker">// if n0 belongs to a face and n1 belongs to the same face while n0 != n1
+// enable this half face tracker
+OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face modify. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                     <node name="n1" x="660" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">@print(&quot;Vertex No_Eff n1. Label: &quot;, n1.vertexTracker);
@@ -475,6 +504,9 @@ return n0.vertexTracker;</expr>
                     <node name="n3" x="109" y="116" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">@print(&quot;Vertex No_Eff n3. Label: &quot;, n3.vertexTracker);
 return n0.vertexTracker;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face Modify. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                 </nodes>
                 <arcs count="1">
@@ -523,6 +555,9 @@ else{
 }
 @print(&quot;Tester en postprocess si &quot;, n2, &quot; et &quot;, n2@1@2@1, &quot; sont le même sommet ou non&quot;);
 return new OrbitLabel();</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face modify. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                     <node name="n3" x="513" y="124" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
@@ -564,6 +599,12 @@ return label;</expr>
                     <node name="n2" x="423" y="249" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="225" y="251" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return n0.pos.addn(0,1,0);</expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Vertex create n3. Label: &quot;, label.toString());
+return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                 </nodes>
                 <arcs count="11">
@@ -619,6 +660,9 @@ return label;</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Modify n0. Label: &quot;, label.toString());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face unchanged n0. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                     <node name="n1" x="403" y="100" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n2" x="524" y="98" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
@@ -628,6 +672,9 @@ return label;</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n4. Label: &quot;, label.toString());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face create. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                 </nodes>
                 <arcs count="11">

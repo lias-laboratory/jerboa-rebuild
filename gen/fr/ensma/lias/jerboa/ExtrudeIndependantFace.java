@@ -11,6 +11,7 @@ import up.jerboa.exception.JerboaException;
 import fr.ensma.lias.jerboa.JerboaRebuilt;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
+import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
@@ -43,12 +44,12 @@ public class ExtrudeIndependantFace extends JerboaRuleGenerated {
         ln0.setAlpha(2, ln0);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn0vertexTracker());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn0vertexTracker(), new ExtrudeIndependantFaceExprRn0halfFaceTracker());
         JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,-1), 3);
         JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(-1,2), 3);
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(-1,2), 3, new ExtrudeIndependantFaceExprRn3pos());
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(-1,2), 3, new ExtrudeIndependantFaceExprRn3pos(), new ExtrudeIndependantFaceExprRn3halfFaceTracker());
         JerboaRuleNode rn4 = new JerboaRuleNode("n4", 4, JerboaOrbit.orbit(0,-1), 3);
-        JerboaRuleNode rn5 = new JerboaRuleNode("n5", 5, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn5vertexTracker());
+        JerboaRuleNode rn5 = new JerboaRuleNode("n5", 5, JerboaOrbit.orbit(0,1), 3, new ExtrudeIndependantFaceExprRn5vertexTracker(), new ExtrudeIndependantFaceExprRn5halfFaceTracker());
         right.add(rn0);
         right.add(rn1);
         right.add(rn2);
@@ -127,6 +128,30 @@ return label;
         }
     }
 
+    private class ExtrudeIndependantFaceExprRn0halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+System.out.print("Half-face unchanged n0. Label: ");
+System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
+return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2);
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
+        }
+    }
+
     private class ExtrudeIndependantFaceExprRn3pos implements JerboaRuleExpression {
 
         @Override
@@ -146,6 +171,31 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0).ad
         @Override
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getPos().getID();
+        }
+    }
+
+    private class ExtrudeIndependantFaceExprRn3halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face create n3. Label: ");
+System.out.println(hfLabel.toString());
+return hfLabel;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
         }
     }
 
@@ -171,6 +221,31 @@ return label;
         @Override
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getVertexTracker().getID();
+        }
+    }
+
+    private class ExtrudeIndependantFaceExprRn5halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face create n5. Label: ");
+System.out.println(hfLabel.toString());
+return hfLabel;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
         }
     }
 

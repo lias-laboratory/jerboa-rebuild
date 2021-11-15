@@ -32,6 +32,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
     // BEGIN LIST OF EMBEDDINGS
     protected JerboaEmbeddingInfo pos;
     protected JerboaEmbeddingInfo vertexTracker;
+    protected JerboaEmbeddingInfo halfFaceTracker;
     // END LIST OF EMBEDDINGS
 
     // BEGIN USER DECLARATION
@@ -46,8 +47,9 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
     // END USER HEAD CONSTRUCTOR TRANSLATION
         pos = new JerboaEmbeddingInfo("pos", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.Vec3.class);
         vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1,2,3), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
+        halfFaceTracker = new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0,1), fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
-        this.registerEbdsAndResetGMAP(pos,vertexTracker);
+        this.registerEbdsAndResetGMAP(pos,vertexTracker,halfFaceTracker);
 
         this.registerRule(new CreateDart(this));
         this.registerRule(new ExtrudeIndependantFace(this));
@@ -70,6 +72,10 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
 
     public final JerboaEmbeddingInfo getVertexTracker() {
         return vertexTracker;
+    }
+
+    public final JerboaEmbeddingInfo getHalfFaceTracker() {
+        return halfFaceTracker;
     }
 
 }

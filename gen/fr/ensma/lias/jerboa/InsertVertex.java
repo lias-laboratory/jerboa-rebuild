@@ -11,6 +11,7 @@ import up.jerboa.exception.JerboaException;
 import fr.ensma.lias.jerboa.JerboaRebuilt;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
+import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
@@ -45,7 +46,7 @@ public class InsertVertex extends JerboaRuleGenerated {
         ln0.setAlpha(0, ln1);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(2,3), 3, new InsertVertexExprRn0vertexTracker());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(2,3), 3, new InsertVertexExprRn0vertexTracker(), new InsertVertexExprRn0halfFaceTracker());
         JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(2,3), 3, new InsertVertexExprRn1vertexTracker());
         JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(2,3), 3, new InsertVertexExprRn2pos(), new InsertVertexExprRn2vertexTracker());
         JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(2,3), 3);
@@ -110,6 +111,31 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd
         @Override
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getVertexTracker().getID();
+        }
+    }
+
+    private class InsertVertexExprRn0halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face modify. Label: ");
+System.out.println(hfLabel.toString());
+return hfLabel;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
         }
     }
 

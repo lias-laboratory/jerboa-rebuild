@@ -11,6 +11,7 @@ import up.jerboa.exception.JerboaException;
 import fr.ensma.lias.jerboa.JerboaRebuilt;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
+import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
@@ -51,7 +52,7 @@ public class VertexCollapse extends JerboaRuleGenerated {
         ln1.setAlpha(1, ln3);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 0, JerboaOrbit.orbit(-1,-1), 3, new VertexCollapseExprRn2pos(), new VertexCollapseExprRn2vertexTracker());
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 0, JerboaOrbit.orbit(-1,-1), 3, new VertexCollapseExprRn2pos(), new VertexCollapseExprRn2vertexTracker(), new VertexCollapseExprRn2halfFaceTracker());
         JerboaRuleNode rn3 = new JerboaRuleNode("n3", 1, JerboaOrbit.orbit(-1,-1), 3);
         right.add(rn2);
         right.add(rn3);
@@ -139,6 +140,31 @@ return new OrbitLabel();
         @Override
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getVertexTracker().getID();
+        }
+    }
+
+    private class VertexCollapseExprRn2halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face modify. Label: ");
+System.out.println(hfLabel.toString());
+return hfLabel;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
         }
     }
 

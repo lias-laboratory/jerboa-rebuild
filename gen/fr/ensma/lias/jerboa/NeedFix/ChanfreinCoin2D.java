@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.untested;
+package fr.ensma.lias.jerboa.NeedFix;
 
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
 
     public ChanfreinCoin2D(JerboaRebuilt modeler) throws JerboaException {
 
-        super(modeler, "ChanfreinCoin2D", "untested");
+        super(modeler, "ChanfreinCoin2D", "NeedFix");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,2), 3);
@@ -50,8 +50,8 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
         // -------- RIGHT GRAPH
         JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(-1,2), 3);
         JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(1,2), 3);
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(0,-1), 3);
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(0,1), 3);
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(0,-1), 3, new ChanfreinCoin2DExprRn2vertexTracker());
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(0,1), 3, new ChanfreinCoin2DExprRn3halfFaceTracker());
         right.add(rn0);
         right.add(rn1);
         right.add(rn2);
@@ -95,6 +95,56 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
         ____jme_hooks.addCol(n0);
         return applyRule(gmap, ____jme_hooks);
 	}
+
+    private class ChanfreinCoin2DExprRn2vertexTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel label = new OrbitLabel();
+System.out.print("Vertex split n0. Label: ");
+System.out.println(label.toString());
+return label;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "vertexTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getVertexTracker().getID();
+        }
+    }
+
+    private class ChanfreinCoin2DExprRn3halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face create. Label: ");
+System.out.println(hfLabel.toString());
+return hfLabel;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
+        }
+    }
 
     // Facility for accessing to the dart
     private JerboaDart n0() {

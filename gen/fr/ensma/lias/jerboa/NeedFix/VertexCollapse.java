@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa;
+package fr.ensma.lias.jerboa.NeedFix;
 
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class VertexCollapse extends JerboaRuleGenerated {
 
     public VertexCollapse(JerboaRebuilt modeler) throws JerboaException {
 
-        super(modeler, "VertexCollapse", "");
+        super(modeler, "VertexCollapse", "NeedFix");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(2,3), 3);

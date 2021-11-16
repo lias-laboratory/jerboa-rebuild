@@ -13,13 +13,14 @@ import fr.ensma.lias.jerboa.ExtrudeVolumeFace;
 import fr.ensma.lias.jerboa.Creation.CreateSquareFace;
 import fr.ensma.lias.jerboa.Creation.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
-import fr.ensma.lias.jerboa.untested.ChanfreinCoin2D;
+import fr.ensma.lias.jerboa.NeedFix.ChanfreinCoin2D;
 import fr.ensma.lias.jerboa.MergeEdge;
-import fr.ensma.lias.jerboa.VertexCollapse;
+import fr.ensma.lias.jerboa.NeedFix.VertexCollapse;
 import fr.ensma.lias.jerboa.ExtrudeEdge;
 import fr.ensma.lias.jerboa.ExtrudeFaceEdge;
 import fr.ensma.lias.jerboa.UnSewA2;
 import fr.ensma.lias.jerboa.SewA2;
+import fr.ensma.lias.jerboa.Creation.CreateCorner2D;
 
 
 
@@ -64,6 +65,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new ExtrudeFaceEdge(this));
         this.registerRule(new UnSewA2(this));
         this.registerRule(new SewA2(this));
+        this.registerRule(new CreateCorner2D(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 // TODO: Maxime tu dois continuer/remodeler cette classe selon tes besoins
+
+// IDEE: implémenter une méthode pour calculer la position des sommets dans
+//       le cas du chanfreinage d'un coin.
 public class Vec3 {
 
   private float x, y, z;
@@ -16,6 +19,12 @@ public class Vec3 {
     this.z = z;
   }
 
+  public Vec3(double x, double y, double z) {
+	    this.x = (float)x;
+	    this.y = (float)y;
+	    this.z = (float)z;
+	  }
+  
   public Vec3(Vec3 v) {
     this.x = v.x();
     this.y = v.y();

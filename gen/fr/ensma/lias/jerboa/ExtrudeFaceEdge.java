@@ -133,7 +133,7 @@ return label;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel hfLabel = new OrbitLabel();
-System.out.print("Half-face unchanged n0. Label: ");
+System.out.print("Half-face Unchanged n0. Label: ");
 System.out.println(hfLabel.toString());
 return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -205,7 +205,7 @@ return label;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel hfLabel = new OrbitLabel();
-System.out.print("Half-face create. Label: ");
+System.out.print("Half-face Create. Label: ");
 System.out.println(hfLabel.toString());
 return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION

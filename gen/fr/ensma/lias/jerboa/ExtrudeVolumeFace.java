@@ -140,7 +140,7 @@ return label;
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Half-face unchanged n0. Label: ");
+System.out.print("Half-face Unchanged n0. Label: ");
 System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
 return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -165,7 +165,7 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel hfLabel = new OrbitLabel();
-System.out.print("Half-face create n1. Label: ");
+System.out.print("Half-face Create n1. Label: ");
 System.out.println(hfLabel.toString());
 return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -190,7 +190,7 @@ return hfLabel;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel hfLabel = new OrbitLabel();
-System.out.print("Half-face create n3. Label: ");
+System.out.print("Half-face Create n3. Label: ");
 System.out.println(hfLabel.toString());
 return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -262,7 +262,7 @@ return label;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel hfLabel = new OrbitLabel();
-System.out.print("Half-face create n6. Label: ");
+System.out.print("Half-face Create n6. Label: ");
 System.out.println(hfLabel.toString());
 return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION

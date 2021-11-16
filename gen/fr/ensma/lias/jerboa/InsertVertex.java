@@ -97,7 +97,7 @@ public class InsertVertex extends JerboaRuleGenerated {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Vertex No_Eff n0. Label: ");
+System.out.print("Vertex Unchanged n0. Label: ");
 System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -146,7 +146,7 @@ return hfLabel;
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Vertex No_Eff n1. Label: ");
+System.out.print("Vertex Unchanged n1. Label: ");
 System.out.println(curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 return curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION

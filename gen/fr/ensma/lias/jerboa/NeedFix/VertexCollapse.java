@@ -80,12 +80,6 @@ public class VertexCollapse extends JerboaRuleGenerated {
         return -1;
     }
 
-    @Override
-    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaInputHooks _hooks) throws JerboaException {
-        preprocess(gmap, _hooks);
-        JerboaRuleResult res = super.applyRule(gmap, _hooks);
-        return res;
-    }
     public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         ____jme_hooks.addCol(n0);
@@ -172,17 +166,6 @@ return hfLabel;
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
         }
-    }
-
-    @Override
-    public boolean hasPreprocess() { return true; }
-    @Override
-    public boolean preprocess(JerboaGMap gmap, JerboaInputHooks hooks) throws JerboaException {
-	// BEGIN PREPROCESS CODE
-System.out.println("run pre-process");
-return true;
-
-	// END PREPROCESS CODE
     }
 
     // Facility for accessing to the dart

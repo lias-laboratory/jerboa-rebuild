@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>VertexCollapse</openRules>
-	<openRules>ChanfreinCoin2D</openRules>
 	<openRules>CreateCorner2D</openRules>
+	<openRules>ChanfreinCoin2D</openRules>
+	<openRules>VertexCollapse</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -549,21 +549,22 @@ return hfLabel;</expr>
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n2" x="-433" y="294" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n2" x="159" y="198" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
                         <expr ebd="vertexTracker">if( n0.vertexTracker == n1.vertexTracker){
-    @print(&quot;Vertex Modify n2. Label: &quot;, n2.vertexTracker);    
+   @print(&quot;Vertex Modify n2. Label: &quot;, n2.vertexTracker);    
 }
 else{
    @print(&quot;Vertex Merge n2, n3. Label: &quot;, n2.vertexTracker); 
 }
+ctlList.add(n2, n2@1@2@2);
 @print(&quot;Tester en postprocess si &quot;, n2, &quot; et &quot;, n2@1@2@1, &quot; sont le même sommet ou non&quot;);
 return new OrbitLabel();</expr>
                         <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
 @print(&quot;Half-face modify. Label: &quot;, hfLabel.toString());
 return hfLabel;</expr>
                     </node>
-                    <node name="n3" x="513" y="124" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="594" y="206" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">
                     <arc dim="1" a="n2" b="n3" size="0">
@@ -571,11 +572,14 @@ return hfLabel;</expr>
                 </arcs>
             </right>
             <preprocess>@header(java){
-import ControlStructure;
-}</preprocess>
-            <postprocess></postprocess>
+import fr.ensma.lias.jerboa.datastructures.DartPairs;
+}
+return true;</preprocess>
+            <postprocess>Pair&lt;JerboaDart, JerboaDart&gt; p = ctlList.get(0);
+@print(p.l(), p.r());</postprocess>
             <midprocess></midprocess>
             <paramsebd>
+                <paramebd name="ctlList" type="DartPairs" order="0">new DartPairs();</paramebd>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />

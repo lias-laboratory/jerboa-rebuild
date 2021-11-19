@@ -13,6 +13,8 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
+import fr.ensma.lias.jerboa.datastructures.DartPairs;
+
 
 
 /**
@@ -28,6 +30,7 @@ public class VertexCollapse extends JerboaRuleGenerated {
 
 	// BEGIN PARAMETERS Transformed 
 
+	protected DartPairs ctlList; 
 
 	// END PARAMETERS 
 
@@ -62,7 +65,7 @@ public class VertexCollapse extends JerboaRuleGenerated {
         computeEfficientTopoStructure();
         computeSpreadOperation();
         // ------- USER DECLARATION 
-    }
+        ctlList = new DartPairs();;    }
 
     public int reverseAssoc(int i) {
         switch(i) {
@@ -80,9 +83,17 @@ public class VertexCollapse extends JerboaRuleGenerated {
         return -1;
     }
 
-    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0) throws JerboaException {
+    @Override
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaInputHooks _hooks) throws JerboaException {
+        preprocess(gmap, _hooks);
+        JerboaRuleResult res = super.applyRule(gmap, _hooks);
+        postprocess(gmap,res);
+        return res;
+    }
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0, DartPairs ctlList) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         ____jme_hooks.addCol(n0);
+        setCtlList(ctlList);
         return applyRule(gmap, ____jme_hooks);
 	}
 
@@ -123,6 +134,7 @@ else {
    System.out.print("Vertex Merge n2, n3. Label: ");
    System.out.println(curleftPattern.getNode(2).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 }
+ctlList.add(curleftPattern.getNode(2),curleftPattern.getNode(2).alpha(1).alpha(2).alpha(2));
 System.out.print("Tester en postprocess si ");
 System.out.print(curleftPattern.getNode(2));
 System.out.print(" et ");
@@ -168,6 +180,28 @@ return hfLabel;
         }
     }
 
+    @Override
+    public boolean hasPreprocess() { return true; }
+    @Override
+    public boolean preprocess(JerboaGMap gmap, JerboaInputHooks hooks) throws JerboaException {
+	// BEGIN PREPROCESS CODE
+return true;
+
+	// END PREPROCESS CODE
+    }
+
+    @Override
+    public boolean hasPostprocess() { return true; }
+    @Override
+    public void postprocess(JerboaGMap gmap, JerboaRuleResult res) throws JerboaException {
+	// BEGIN POSTPROCESS CODE
+Pair<JerboaDart,JerboaDart> p = ctlList.get(0);
+System.out.print(p.l());
+System.out.println(p.r());
+
+	// END POSTPROCESS CODE
+    }
+
     // Facility for accessing to the dart
     private JerboaDart n0() {
         return curleftPattern.getNode(0);
@@ -185,4 +219,10 @@ return hfLabel;
         return curleftPattern.getNode(3);
     }
 
+	public DartPairs getCtlList(){
+		return ctlList;
+	}
+	public void setCtlList(DartPairs _ctlList){
+		this.ctlList = _ctlList;
+	}
 } // end rule Class

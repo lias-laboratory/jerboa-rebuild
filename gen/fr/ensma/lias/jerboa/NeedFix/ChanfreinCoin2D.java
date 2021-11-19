@@ -28,6 +28,7 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
 
 	// BEGIN PARAMETERS Transformed 
 
+	protected float weight; 
 
 	// END PARAMETERS 
 
@@ -39,25 +40,17 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,2), 3);
-        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(1,2), 3);
         left.add(ln0);
-        left.add(ln1);
         hooks.add(ln0);
-        ln0.setAlpha(0, ln1);
         ln0.setAlpha(3, ln0);
-        ln1.setAlpha(3, ln1);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(-1,2), 3);
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(1,2), 3);
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(0,-1), 3, new ChanfreinCoin2DExprRn2vertexTracker());
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(0,1), 3, new ChanfreinCoin2DExprRn3halfFaceTracker());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(-1,2), 3, new ChanfreinCoin2DExprRn0halfFaceTracker());
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 1, JerboaOrbit.orbit(0,-1), 3, new ChanfreinCoin2DExprRn2vertexTracker(), new ChanfreinCoin2DExprRn2pos());
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 2, JerboaOrbit.orbit(0,1), 3, new ChanfreinCoin2DExprRn3halfFaceTracker());
         right.add(rn0);
-        right.add(rn1);
         right.add(rn2);
         right.add(rn3);
-        rn1.setAlpha(3, rn1);
-        rn0.setAlpha(0, rn1);
         rn0.setAlpha(3, rn0);
         rn2.setAlpha(1, rn0);
         rn2.setAlpha(3, rn2);
@@ -68,14 +61,13 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
         computeEfficientTopoStructure();
         computeSpreadOperation();
         // ------- USER DECLARATION 
-    }
+        weight = 1;    }
 
     public int reverseAssoc(int i) {
         switch(i) {
         case 0: return 0;
-        case 1: return 1;
+        case 1: return -1;
         case 2: return -1;
-        case 3: return -1;
         }
         return -1;
     }
@@ -85,16 +77,43 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
         case 0: return 0;
         case 1: return 0;
         case 2: return 0;
-        case 3: return 0;
         }
         return -1;
     }
 
-    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0) throws JerboaException {
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0, float weight) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         ____jme_hooks.addCol(n0);
+        setWeight(weight);
         return applyRule(gmap, ____jme_hooks);
 	}
+
+    private class ChanfreinCoin2DExprRn0halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face Modify n0. Label: ");
+System.out.print(hfLabel.toString());
+System.out.print(" from Label: ");
+System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
+return hfLabel;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
+        }
+    }
 
     private class ChanfreinCoin2DExprRn2vertexTracker implements JerboaRuleExpression {
 
@@ -104,8 +123,10 @@ public class ChanfreinCoin2D extends JerboaRuleGenerated {
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel label = new OrbitLabel();
-System.out.print("Vertex split n0. Label: ");
-System.out.println(label.toString());
+System.out.print("Vertex Split n0. Label: ");
+System.out.print(label.toString());
+System.out.print(" from Label: ");
+System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
 return label;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
@@ -121,6 +142,28 @@ return label;
         }
     }
 
+    private class ChanfreinCoin2DExprRn2pos implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+return new Vec3(Vec3.segmentABByWeight(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),curleftPattern.getNode(0).alpha(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),weight));
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "pos";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getPos().getID();
+        }
+    }
+
     private class ChanfreinCoin2DExprRn3halfFaceTracker implements JerboaRuleExpression {
 
         @Override
@@ -129,7 +172,7 @@ return label;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel hfLabel = new OrbitLabel();
-System.out.print("Half-face create. Label: ");
+System.out.print("Half-face create n3. Label: ");
 System.out.println(hfLabel.toString());
 return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
@@ -151,8 +194,10 @@ return hfLabel;
         return curleftPattern.getNode(0);
     }
 
-    private JerboaDart n1() {
-        return curleftPattern.getNode(1);
-    }
-
+	public float getWeight(){
+		return weight;
+	}
+	public void setWeight(float _weight){
+		this.weight = _weight;
+	}
 } // end rule Class

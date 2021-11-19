@@ -122,8 +122,10 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel hfLabel = new OrbitLabel();
-System.out.print("Half-face modify. Label: ");
-System.out.println(hfLabel.toString());
+System.out.print("Half-face modify n0. Label: ");
+System.out.print(hfLabel.toString());
+System.out.print(" from Label: ");
+System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
 return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }

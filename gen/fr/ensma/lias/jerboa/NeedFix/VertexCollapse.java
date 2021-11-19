@@ -80,6 +80,12 @@ public class VertexCollapse extends JerboaRuleGenerated {
         return -1;
     }
 
+    @Override
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaInputHooks _hooks) throws JerboaException {
+        preprocess(gmap, _hooks);
+        JerboaRuleResult res = super.applyRule(gmap, _hooks);
+        return res;
+    }
     public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         ____jme_hooks.addCol(n0);
@@ -169,14 +175,15 @@ return hfLabel;
     }
 
     @Override
-    public boolean hasPrecondition() { return true; }
-    public boolean evalPrecondition(final JerboaGMap gmap, final List<JerboaRowPattern> leftPattern) throws JerboaException {
+    public boolean hasPreprocess() { return true; }
+    @Override
+    public boolean preprocess(JerboaGMap gmap, JerboaInputHooks hooks) throws JerboaException {
+	// BEGIN PREPROCESS CODE
+System.out.println("run pre-process");
+return true;
 
-            // BEGIN PRECONDITION CODE
-System.out.println("Running precondition on n0!=n1");
-return (leftPattern.get(0) != leftPattern.get(1));
-            // END PRECONDITION CODE
-}
+	// END PREPROCESS CODE
+    }
 
     // Facility for accessing to the dart
     private JerboaDart n0() {

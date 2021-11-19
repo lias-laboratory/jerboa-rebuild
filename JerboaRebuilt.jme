@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>SewA2</openRules>
-	<openRules>MergeEdge</openRules>
+	<openRules>VertexCollapse</openRules>
+	<openRules>ChanfreinCoin2D</openRules>
+	<openRules>CreateCorner2D</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -325,6 +326,9 @@ return label;</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Create n0. Label: &quot;, label.toString());
 return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face Create n0. Label: &quot;, hfLabel.toString());
+return hfLabel;</expr>
                     </node>
                     <node name="n1" x="600" y="120" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return new Vec3(1,1,0);</expr>
@@ -335,7 +339,7 @@ return label;</expr>
                     <node name="n2" x="600" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="240" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="12">
+                <arcs count="10">
                     <arc dim="0" a="n0" b="n1" size="0">
                     </arc>
                     <arc dim="0" a="n3" b="n2" size="0">
@@ -344,22 +348,18 @@ return label;</expr>
                     </arc>
                     <arc dim="2" a="n0" b="n3" size="0">
                     </arc>
-                    <arcloop dim="1" node="n0" angle="3.5444326789621203" >
-                    </arcloop>
                     <arcloop dim="3" node="n0" angle="4.488595925842209" >
-                    </arcloop>
-                    <arcloop dim="1" node="n1" angle="-0.4682305255097119" >
                     </arcloop>
                     <arcloop dim="3" node="n1" angle="5.0327077366929585" >
                     </arcloop>
-                    <arcloop dim="1" node="n2" angle="6.552778134080251" >
-                    </arcloop>
                     <arcloop dim="3" node="n2" angle="-0.28776214328750105" >
-                    </arcloop>
-                    <arcloop dim="1" node="n3" angle="2.783601873857118" >
                     </arcloop>
                     <arcloop dim="3" node="n3" angle="3.4293158063550067" >
                     </arcloop>
+                    <arc dim="1" a="n0" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
                 </arcs>
             </right>
             <preprocess></preprocess>
@@ -389,10 +389,8 @@ return label;</expr>
                     <node name="n0" x="90" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">@print(&quot;Vertex Unchanged n0. Label: &quot;, n0.vertexTracker);
 return n0.vertexTracker;</expr>
-                        <expr ebd="halfFaceTracker">// if n0 belongs to a face and n1 belongs to the same face while n0 != n1
-// enable this half face tracker
-OrbitLabel hfLabel = new OrbitLabel();
-@print(&quot;Half-face modify. Label: &quot;, hfLabel.toString());
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face modify n0. Label: &quot;, hfLabel.toString(), &quot; from Label: &quot;, n0.halfFaceTracker);
 return hfLabel;</expr>
                     </node>
                     <node name="n1" x="660" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
@@ -430,39 +428,34 @@ return label;</expr>
             <precondition></precondition>
             <comment></comment>
             <left>
-                <nodes count="2">
-                    <node name="n0" x="188" y="172" orbit="1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="531" y="170" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                <nodes count="1">
+                    <node name="n0" x="387" y="166" orbit="1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="3">
-                    <arc dim="0" a="n0" b="n1" size="0">
-                    </arc>
+                <arcs count="1">
                     <arcloop dim="3" node="n0" angle="1.34027419089449" >
-                    </arcloop>
-                    <arcloop dim="3" node="n1" angle="2.134781336999468" >
                     </arcloop>
                 </arcs>
             </left>
             <right>
-                <nodes count="4">
-                    <node name="n0" x="540" y="153" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="750" y="153" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                <nodes count="3">
+                    <node name="n0" x="540" y="153" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face Modify n0. Label: &quot;, hfLabel.toString(), &quot; from Label: &quot;, n0.halfFaceTracker);
+return  hfLabel;</expr>
+                    </node>
                     <node name="n2" x="362" y="152" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
-@print(&quot;Vertex split n0. Label: &quot;, label.toString());
+@print(&quot;Vertex Split n0. Label: &quot;, label.toString(), &quot; from Label: &quot;, n0.vertexTracker);
 return label;</expr>
+                        <expr ebd="pos">return new Vec3(Vec3.segmentABByWeight(n0.pos, n0@0.pos, weight));</expr>
                     </node>
                     <node name="n3" x="166" y="152" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
-@print(&quot;Half-face create. Label: &quot;, hfLabel.toString());
+@print(&quot;Half-face create n3. Label: &quot;, hfLabel.toString());
 return hfLabel; </expr>
                     </node>
                 </nodes>
-                <arcs count="7">
-                    <arcloop dim="3" node="n1" angle="1.1423102600439101" >
-                    </arcloop>
-                    <arc dim="0" a="n0" b="n1" size="0">
-                    </arc>
+                <arcs count="5">
                     <arcloop dim="3" node="n0" angle="1.247018346846487" >
                     </arcloop>
                     <arc dim="1" a="n2" b="n0" size="0">
@@ -479,6 +472,7 @@ return hfLabel; </expr>
             <postprocess></postprocess>
             <midprocess></midprocess>
             <paramsebd>
+                <paramebd name="weight" type="float" order="0">1</paramebd>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />
@@ -535,13 +529,12 @@ return hfLabel;</expr>
         </rule>
         <rule name="VertexCollapse" module="NeedFix" category="NeedFix" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
-            <precondition>@print(&quot;Running precondition on n0!=n1&quot;);
-return n0!=n1;</precondition>
+            <precondition></precondition>
             <comment></comment>
             <left>
                 <nodes count="4">
                     <node name="n0" x="269" y="148" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="486" y="144" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="490" y="149" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n2" x="132" y="121" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="667" y="126" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
@@ -556,7 +549,7 @@ return n0!=n1;</precondition>
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n2" x="61" y="126" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n2" x="-433" y="294" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
                         <expr ebd="vertexTracker">if( n0.vertexTracker == n1.vertexTracker){
     @print(&quot;Vertex Modify n2. Label: &quot;, n2.vertexTracker);    
@@ -577,7 +570,9 @@ return hfLabel;</expr>
                     </arc>
                 </arcs>
             </right>
-            <preprocess></preprocess>
+            <preprocess>@header(java){
+import ControlStructure;
+}</preprocess>
             <postprocess></postprocess>
             <midprocess></midprocess>
             <paramsebd>

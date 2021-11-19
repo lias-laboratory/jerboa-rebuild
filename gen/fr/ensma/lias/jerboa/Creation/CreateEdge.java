@@ -40,7 +40,7 @@ public class CreateEdge extends JerboaRuleGenerated {
         // -------- LEFT GRAPH
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3, new CreateEdgeExprRn0pos(), new CreateEdgeExprRn0vertexTracker());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(), 3, new CreateEdgeExprRn0pos(), new CreateEdgeExprRn0vertexTracker(), new CreateEdgeExprRn0halfFaceTracker());
         JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(), 3, new CreateEdgeExprRn1pos(), new CreateEdgeExprRn1vertexTracker());
         JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(), 3);
         JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(), 3);
@@ -52,14 +52,12 @@ public class CreateEdge extends JerboaRuleGenerated {
         rn3.setAlpha(0, rn2);
         rn1.setAlpha(2, rn2);
         rn0.setAlpha(2, rn3);
-        rn0.setAlpha(1, rn0);
         rn0.setAlpha(3, rn0);
-        rn1.setAlpha(1, rn1);
         rn1.setAlpha(3, rn1);
-        rn2.setAlpha(1, rn2);
         rn2.setAlpha(3, rn2);
-        rn3.setAlpha(1, rn3);
         rn3.setAlpha(3, rn3);
+        rn0.setAlpha(1, rn3);
+        rn1.setAlpha(1, rn2);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
@@ -136,6 +134,31 @@ return label;
         @Override
         public int getEmbedding() {
             return ((JerboaRebuilt)modeler).getVertexTracker().getID();
+        }
+    }
+
+    private class CreateEdgeExprRn0halfFaceTracker implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face Create n0. Label: ");
+System.out.println(hfLabel.toString());
+return hfLabel;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "halfFaceTracker";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
         }
     }
 

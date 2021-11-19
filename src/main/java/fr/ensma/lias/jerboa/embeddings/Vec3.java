@@ -3,8 +3,6 @@ package fr.ensma.lias.jerboa.embeddings;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import up.jerboa.core.JerboaDart;
-
 // TODO: Maxime tu dois continuer/remodeler cette classe selon tes besoins
 
 public class Vec3 {

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>CreateCorner2D</openRules>
-	<openRules>ChanfreinCoin2D</openRules>
+	<openRules>CreateDart</openRules>
+	<openRules>SewA2</openRules>
 	<openRules>VertexCollapse</openRules>
+	<openRules>InsertVertex</openRules>
+	<openRules>RemoveEdge</openRules>
+	<openRules>ExtrudeFaceEdge</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -12,7 +15,7 @@
         <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="halfFaceTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="14">
+    <rules count="15">
         <rule name="CreateDart" module="Creation" category="Creation" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -406,7 +409,10 @@ return label;</expr>
                     <node name="n3" x="450" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="3">
-                    <arc dim="1" a="n2" b="n3" size="0">
+                    <arc dim="1" a="n2" b="n3" size="3">
+                        <point x="337" y="120" />
+                        <point x="330" y="120" />
+                        <point x="383" y="120" />
                     </arc>
                     <arc dim="0" a="n0" b="n2" size="0">
                     </arc>
@@ -549,22 +555,18 @@ return hfLabel;</expr>
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n2" x="159" y="198" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n2" x="186" y="166" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
-                        <expr ebd="vertexTracker">if( n0.vertexTracker == n1.vertexTracker){
-   @print(&quot;Vertex Modify n2. Label: &quot;, n2.vertexTracker);    
-}
-else{
-   @print(&quot;Vertex Merge n2, n3. Label: &quot;, n2.vertexTracker); 
-}
-ctlList.add(n2, n2@1@2@2);
-@print(&quot;Tester en postprocess si &quot;, n2, &quot; et &quot;, n2@1@2@1, &quot; sont le même sommet ou non&quot;);
-return new OrbitLabel();</expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+ctlList.add(n2, n2@1@2@1);
+ctlList.add(n3, n3@1@2@1);
+@print(&quot;Vertex Merge from Labels: &quot;, n0.vertexTracker, &quot; and &quot;, n1.vertexTracker, &quot; to Label: &quot;, label.toString());
+return label;</expr>
                         <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
 @print(&quot;Half-face modify. Label: &quot;, hfLabel.toString());
 return hfLabel;</expr>
                     </node>
-                    <node name="n3" x="594" y="206" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="614" y="166" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">
                     <arc dim="1" a="n2" b="n3" size="0">
@@ -573,13 +575,29 @@ return hfLabel;</expr>
             </right>
             <preprocess>@header(java){
 import fr.ensma.lias.jerboa.datastructures.DartPairs;
+//DartPairs ctlList = new DartPairs();
 }
+
+
+
 return true;</preprocess>
-            <postprocess>Pair&lt;JerboaDart, JerboaDart&gt; p = ctlList.get(0);
-@print(p.l(), p.r());</postprocess>
+            <postprocess>for(int i = 0; i &lt; ctlList.size(); i++){
+    Pair&lt;JerboaDart, JerboaDart&gt; p = ctlList.get(0); 
+    JerboaDart l = p.l();
+    JerboaDart r = p.r();
+
+    if(l.vertexTracker != r.vertexTracker)
+    {
+        @print(&quot;Vertex Split&quot;);
+    }
+    else{
+        @print(&quot;No Vertex Split&quot;);
+    }
+}</postprocess>
             <midprocess></midprocess>
             <paramsebd>
                 <paramebd name="ctlList" type="DartPairs" order="0">new DartPairs();</paramebd>
+                <paramebd name="counter" type="int" order="1">0</paramebd>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />
@@ -670,9 +688,8 @@ return hfLabel;</expr>
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
 @print(&quot;Vertex Modify n0. Label: &quot;, label.toString());
 return label;</expr>
-                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
-@print(&quot;Half-face Unchanged n0. Label: &quot;, hfLabel.toString());
-return hfLabel;</expr>
+                        <expr ebd="halfFaceTracker">@print(&quot;Half-face Unchanged n0. Label: &quot;, n0.halfFaceTracker);
+return n0.halfFaceTracker;</expr>
                     </node>
                     <node name="n1" x="403" y="100" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n2" x="524" y="98" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
@@ -770,8 +787,8 @@ return label;</expr>
             <comment></comment>
             <left>
                 <nodes count="2">
-                    <node name="n0" x="218" y="138" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="437" y="129" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="218" y="138" orbit="0,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="434" y="138" orbit="0,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="2">
                     <arcloop dim="2" node="n0" angle="1.212255396026478" >
@@ -782,12 +799,21 @@ return label;</expr>
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n0" x="232" y="128" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n0" x="232" y="128" orbit="0,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
-@print(&quot;Vertex Modify n0, n1. Label: &quot;, label.toString());
+if( n0.vertexTracker == n1.vertexTracker){
+    @print(&quot;Vertex Modify n0, n1. Label: &quot;, label.toString());
+} else {
+    @print(&quot;Vertex Merge n0, n1. From Labels: &quot;, n0.vertexTracker, &quot; and &quot;, n1.vertexTracker, &quot; Label: &quot;, label.toString());   
+}
 return label;</expr>
+                        <expr ebd="halfFaceTracker">@print(&quot;Half-face Unchanged n0. Label: &quot;, n0.halfFaceTracker);
+return n0.halfFaceTracker;</expr>
                     </node>
-                    <node name="n1" x="464" y="126" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="464" y="126" orbit="0,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="halfFaceTracker">@print(&quot;Half-face Unchanged n1. Label: &quot;, n1.halfFaceTracker);
+return n1.halfFaceTracker;</expr>
+                    </node>
                 </nodes>
                 <arcs count="1">
                     <arc dim="2" a="n0" b="n1" size="0">
@@ -924,6 +950,53 @@ return label;</expr>
             <paramsebd>
             </paramsebd>
             <paramstopo>
+            </paramstopo>
+        </rule>
+        <rule name="RemoveEdge" module="NeedFix" category="NeedFix" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="300" y="150" orbit="0,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="420" y="150" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="3">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n0" angle="2.840374880245566" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="0.9059844151542464" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n1" x="305" y="169" orbit="-1,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Vertex Modify n1. Label: &quot;, label.toString());
+return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+if(n0.halfFaceTracker == n0@2.halfFaceTracker){
+    @print(&quot;Half-face Merge. Label: &quot;, hfLabel.toString());
+} else {
+    @print(&quot;Half-face Modify. Label: &quot;, hfLabel.toString());   
+}
+return hfLabel;</expr>
+                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="3" node="n1" angle="4.450013193797275" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
     </rules>

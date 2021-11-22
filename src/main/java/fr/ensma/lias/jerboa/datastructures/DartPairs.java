@@ -22,10 +22,15 @@ public class DartPairs {
         return ctlList.get(index);
     }
 
+    public int size() {
+        return this.ctlList.size();
+    }
+
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("DataCtrl: ");
+        StringBuilder sb = new StringBuilder("DataCtrl:\n");
         for (Pair<JerboaDart, JerboaDart> pair : ctlList) {
-            sb.append("left: ").append(pair.l()).append(" right: ").append(pair.r());
+            sb.append("[left: ").append(pair.l()).append(" right: ").append(pair.r()).append("]\r");
         }
         return sb.toString();
     }

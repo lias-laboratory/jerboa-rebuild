@@ -14,6 +14,7 @@ import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 import fr.ensma.lias.jerboa.datastructures.DartPairs;
+//DartPairs ctlList = new DartPairs();
 
 
 
@@ -31,6 +32,7 @@ public class VertexCollapse extends JerboaRuleGenerated {
 	// BEGIN PARAMETERS Transformed 
 
 	protected DartPairs ctlList; 
+	protected int counter; 
 
 	// END PARAMETERS 
 
@@ -65,7 +67,7 @@ public class VertexCollapse extends JerboaRuleGenerated {
         computeEfficientTopoStructure();
         computeSpreadOperation();
         // ------- USER DECLARATION 
-        ctlList = new DartPairs();;    }
+        ctlList = new DartPairs();;        counter = 0;    }
 
     public int reverseAssoc(int i) {
         switch(i) {
@@ -90,10 +92,11 @@ public class VertexCollapse extends JerboaRuleGenerated {
         postprocess(gmap,res);
         return res;
     }
-    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0, DartPairs ctlList) throws JerboaException {
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0, DartPairs ctlList, int counter) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         ____jme_hooks.addCol(n0);
         setCtlList(ctlList);
+        setCounter(counter);
         return applyRule(gmap, ____jme_hooks);
 	}
 
@@ -126,21 +129,16 @@ return Vec3.mid(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-if((curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1) == curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1))) {
-   System.out.print("Vertex Modify n2. Label: ");
-   System.out.println(curleftPattern.getNode(2).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
-}
-else {
-   System.out.print("Vertex Merge n2, n3. Label: ");
-   System.out.println(curleftPattern.getNode(2).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
-}
-ctlList.add(curleftPattern.getNode(2),curleftPattern.getNode(2).alpha(1).alpha(2).alpha(2));
-System.out.print("Tester en postprocess si ");
-System.out.print(curleftPattern.getNode(2));
-System.out.print(" et ");
-System.out.print(curleftPattern.getNode(2).alpha(1).alpha(2).alpha(1));
-System.out.println(" sont le même sommet ou non");
-return new OrbitLabel();
+OrbitLabel label = new OrbitLabel();
+ctlList.add(curleftPattern.getNode(2),curleftPattern.getNode(2).alpha(1).alpha(2).alpha(1));
+ctlList.add(curleftPattern.getNode(3),curleftPattern.getNode(3).alpha(1).alpha(2).alpha(1));
+System.out.print("Vertex Merge from Labels: ");
+System.out.print(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+System.out.print(" and ");
+System.out.print(curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+System.out.print(" to Label: ");
+System.out.println(label.toString());
+return label;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -195,9 +193,17 @@ return true;
     @Override
     public void postprocess(JerboaGMap gmap, JerboaRuleResult res) throws JerboaException {
 	// BEGIN POSTPROCESS CODE
-Pair<JerboaDart,JerboaDart> p = ctlList.get(0);
-System.out.print(p.l());
-System.out.println(p.r());
+for(int i = 0; (i < ctlList.size()); i ++ ){
+   Pair<JerboaDart,JerboaDart> p = ctlList.get(0);
+   JerboaDart l = p.l();
+   JerboaDart r = p.r();
+   if((l.<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1) != r.<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1))) {
+      System.out.println("Vertex Split");
+   }
+   else {
+      System.out.println("No Vertex Split");
+   }
+}
 
 	// END POSTPROCESS CODE
     }
@@ -224,5 +230,11 @@ System.out.println(p.r());
 	}
 	public void setCtlList(DartPairs _ctlList){
 		this.ctlList = _ctlList;
+	}
+	public int getCounter(){
+		return counter;
+	}
+	public void setCounter(int _counter){
+		this.counter = _counter;
 	}
 } // end rule Class

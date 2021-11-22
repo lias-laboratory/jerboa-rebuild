@@ -132,10 +132,9 @@ return label;
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-OrbitLabel hfLabel = new OrbitLabel();
 System.out.print("Half-face Unchanged n0. Label: ");
-System.out.println(hfLabel.toString());
-return hfLabel;
+System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
+return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 

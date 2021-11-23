@@ -22,6 +22,7 @@ import fr.ensma.lias.jerboa.UnSewA2;
 import fr.ensma.lias.jerboa.SewA2;
 import fr.ensma.lias.jerboa.Creation.CreateCorner2D;
 import fr.ensma.lias.jerboa.NeedFix.RemoveEdge;
+import fr.ensma.lias.jerboa.DeleteFace;
 
 
 
@@ -68,6 +69,7 @@ public class JerboaRebuilt extends JerboaModelerGeneric {
         this.registerRule(new SewA2(this));
         this.registerRule(new CreateCorner2D(this));
         this.registerRule(new RemoveEdge(this));
+        this.registerRule(new DeleteFace(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

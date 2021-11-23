@@ -65,7 +65,6 @@ public class CreateSquareFace extends JerboaRuleGenerated {
         rn6.setAlpha(1, rn7);
         rn7.setAlpha(0, rn0);
         rn1.setAlpha(2, rn1);
-        rn1.setAlpha(3, rn1);
         rn2.setAlpha(2, rn2);
         rn2.setAlpha(3, rn2);
         rn3.setAlpha(2, rn3);
@@ -80,6 +79,7 @@ public class CreateSquareFace extends JerboaRuleGenerated {
         rn7.setAlpha(3, rn7);
         rn0.setAlpha(2, rn0);
         rn0.setAlpha(3, rn0);
+        rn1.setAlpha(3, rn1);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();

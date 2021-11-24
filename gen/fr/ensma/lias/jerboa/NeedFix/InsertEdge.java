@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa;
+package fr.ensma.lias.jerboa.NeedFix;
 
 
 import java.util.List;
@@ -21,7 +21,7 @@ import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 
 
 
-public class SewA2 extends JerboaRuleGenerated {
+public class InsertEdge extends JerboaRuleGenerated {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -33,26 +33,30 @@ public class SewA2 extends JerboaRuleGenerated {
 
 
 
-    public SewA2(JerboaRebuilt modeler) throws JerboaException {
+    public InsertEdge(JerboaRebuilt modeler) throws JerboaException {
 
-        super(modeler, "SewA2", "");
+        super(modeler, "InsertEdge", "NeedFix");
 
         // -------- LEFT GRAPH
-        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,3), 3);
-        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,3), 3);
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,3), 3);
+        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(1,3), 3);
         left.add(ln0);
         left.add(ln1);
         hooks.add(ln0);
         hooks.add(ln1);
-        ln0.setAlpha(2, ln0);
-        ln1.setAlpha(2, ln1);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,3), 3, new SewA2ExprRn0vertexTracker(), new SewA2ExprRn0halfFaceTracker());
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,3), 3, new SewA2ExprRn1halfFaceTracker());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(-1,3), 3, new InsertEdgeExprRn0vertexTracker(), new InsertEdgeExprRn0halfFaceTracker());
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,3), 3, new InsertEdgeExprRn1vertexTracker());
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(2,3), 3);
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(2,3), 3);
         right.add(rn0);
         right.add(rn1);
-        rn0.setAlpha(2, rn1);
+        right.add(rn2);
+        right.add(rn3);
+        rn2.setAlpha(0, rn3);
+        rn3.setAlpha(1, rn1);
+        rn0.setAlpha(1, rn2);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
@@ -64,6 +68,8 @@ public class SewA2 extends JerboaRuleGenerated {
         switch(i) {
         case 0: return 0;
         case 1: return 1;
+        case 2: return -1;
+        case 3: return -1;
         }
         return -1;
     }
@@ -72,6 +78,8 @@ public class SewA2 extends JerboaRuleGenerated {
         switch(i) {
         case 0: return 1;
         case 1: return 1;
+        case 2: return 1;
+        case 3: return 1;
         }
         return -1;
     }
@@ -83,7 +91,7 @@ public class SewA2 extends JerboaRuleGenerated {
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class SewA2ExprRn0vertexTracker implements JerboaRuleExpression {
+    private class InsertEdgeExprRn0vertexTracker implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
@@ -91,18 +99,10 @@ public class SewA2 extends JerboaRuleGenerated {
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
 OrbitLabel label = new OrbitLabel();
-if((curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1) == curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1))) {
-   System.out.print("Vertex Modify n0, n1. Label: ");
-   System.out.println(label.toString());
-}
-else {
-   System.out.print("Vertex Merge n0, n1. From Labels: ");
-   System.out.print(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
-   System.out.print(" and ");
-   System.out.print(curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
-   System.out.print(" Label: ");
-   System.out.println(label.toString());
-}
+System.out.print("Vertex Modify n0 from Label: ");
+System.out.print(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+System.out.print(" to Label: ");
+System.out.println(label.toString());
 return label;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
@@ -118,16 +118,20 @@ return label;
         }
     }
 
-    private class SewA2ExprRn0halfFaceTracker implements JerboaRuleExpression {
+    private class InsertEdgeExprRn0halfFaceTracker implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Half-face Unchanged n0. Label: ");
-System.out.println(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
-return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2);
+OrbitLabel hfLabel = new OrbitLabel();
+System.out.print("Half-face Split n0 from Label: ");
+System.out.print(curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
+System.out.print(" to Label: ");
+System.out.println(hfLabel.toString());
+System.out.println("Cas à gérer, on  peut relabeliser une seule demi-face sur les deux et ces dernières passent de 4 à 3 côtés.");
+return hfLabel;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -142,27 +146,30 @@ return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd
         }
     }
 
-    private class SewA2ExprRn1halfFaceTracker implements JerboaRuleExpression {
+    private class InsertEdgeExprRn1vertexTracker implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-System.out.print("Half-face Unchanged n1. Label: ");
-System.out.println(curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2));
-return curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(2);
+OrbitLabel label = new OrbitLabel();
+System.out.print("Vertex Modify n0 from Label:");
+System.out.print(curleftPattern.getNode(1).<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+System.out.print(" to Label: ");
+System.out.println(label.toString());
+return label;
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
         @Override
         public String getName() {
-            return "halfFaceTracker";
+            return "vertexTracker";
         }
 
         @Override
         public int getEmbedding() {
-            return ((JerboaRebuilt)modeler).getHalfFaceTracker().getID();
+            return ((JerboaRebuilt)modeler).getVertexTracker().getID();
         }
     }
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>InsertEdge</openRules>
-	<openRules>ExtrudeIndependantFace</openRules>
-	<openRules>CreateDart</openRules>
-	<openRules>DeleteFace</openRules>
 	<openRules>ExtrudeFaceEdge</openRules>
+	<openRules>DeleteFace</openRules>
 	<openRules>SewA2</openRules>
+	<openRules>CreateDart</openRules>
+	<openRules>VertexCollapse</openRules>
+	<openRules>InsertEdge</openRules>
 	<openRules>RemoveEdge</openRules>
 	<openRules>CreateSquareFace</openRules>
-	<openRules>VertexCollapse</openRules>
+	<openRules>ExtrudeIndependantFace</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -588,12 +588,13 @@ return true;</preprocess>
 
     if(l.vertexTracker != r.vertexTracker)
     {
-        @print(&quot;Vertex Split&quot;);
-    }
-    else{
+        @print(&quot;Vertex Split to Labels: &quot;, l.vertexTracker, &quot; and &quot;, r.vertexTracker );
+        //break;
+    } else {
         @print(&quot;No Vertex Split&quot;);
     }
-}</postprocess>
+}
+</postprocess>
             <midprocess></midprocess>
             <paramsebd>
                 <paramebd name="ctlList" type="DartPairs" order="0">new DartPairs();</paramebd>
@@ -1005,11 +1006,9 @@ return hfLabel;</expr>
             <comment></comment>
             <left>
                 <nodes count="1">
-                    <node name="n0" x="294" y="111" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="294" y="111" orbit="0,1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="1">
-                    <arcloop dim="3" node="n0" angle="5.633697543498911" >
-                    </arcloop>
+                <arcs count="0">
                 </arcs>
             </left>
             <right>
@@ -1027,7 +1026,7 @@ return hfLabel;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="InsertEdge" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+        <rule name="InsertEdge" module="NeedFix" category="NeedFix" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -1042,22 +1041,28 @@ return hfLabel;</expr>
             <right>
                 <nodes count="4">
                     <node name="n0" x="120" y="120" orbit="-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="vertexTracker"></expr>
+                        <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
+@print(&quot;Vertex Modify n0 from Label: &quot;, n0.vertexTracker, &quot; to Label: &quot;, label.toString());
+return label;</expr>
+                        <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
+@print(&quot;Half-face Split n0 from Label: &quot;, n0.halfFaceTracker, &quot; to Label: &quot;, hfLabel.toString());
+@print(&quot;Cas à gérer, on  peut relabeliser une seule demi-face sur les deux et ces dernières passent de 4 à 3 côtés.&quot;);
+return hfLabel;</expr>
                     </node>
                     <node name="n1" x="660" y="120" orbit="-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="vertexTracker"></expr>
-                    </node>
-                    <node name="n2" x="300" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="vertexTracker">OrbitLabel label = new OrbitLabel();
-@print(&quot;Vertex Modify n0 from Label:&quot;, n0.vertexTracker, &quot; to Label: &quot;, label.toString());
+@print(&quot;Vertex Modify n0 from Label:&quot;, n1.vertexTracker, &quot; to Label: &quot;, label.toString());
 return label;</expr>
                     </node>
+                    <node name="n2" x="300" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="510" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="2">
+                <arcs count="3">
                     <arc dim="0" a="n2" b="n3" size="0">
                     </arc>
                     <arc dim="1" a="n3" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n0" b="n2" size="0">
                     </arc>
                 </arcs>
             </right>

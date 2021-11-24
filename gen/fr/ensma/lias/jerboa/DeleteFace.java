@@ -38,10 +38,9 @@ public class DeleteFace extends JerboaRuleGenerated {
         super(modeler, "DeleteFace", "");
 
         // -------- LEFT GRAPH
-        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3);
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1,3), 3);
         left.add(ln0);
         hooks.add(ln0);
-        ln0.setAlpha(3, ln0);
 
         // -------- RIGHT GRAPH
 ;

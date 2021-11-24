@@ -198,7 +198,10 @@ for(int i = 0; (i < ctlList.size()); i ++ ){
    JerboaDart l = p.l();
    JerboaDart r = p.r();
    if((l.<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1) != r.<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1))) {
-      System.out.println("Vertex Split");
+      System.out.print("Vertex Split to Labels: ");
+      System.out.print(l.<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
+      System.out.print(" and ");
+      System.out.println(r.<fr.ensma.lias.jerboa.embeddings.OrbitLabel>ebd(1));
    }
    else {
       System.out.println("No Vertex Split");

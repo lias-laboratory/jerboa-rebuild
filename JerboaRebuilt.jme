@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>ExtrudeFaceEdge</openRules>
 	<openRules>DeleteFace</openRules>
-	<openRules>SewA2</openRules>
-	<openRules>CreateDart</openRules>
-	<openRules>VertexCollapse</openRules>
 	<openRules>InsertEdge</openRules>
-	<openRules>RemoveEdge</openRules>
-	<openRules>CreateSquareFace</openRules>
-	<openRules>ExtrudeIndependantFace</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -57,7 +50,7 @@ return label;</expr>
             <paramstopo>
             </paramstopo>
         </rule>
-        <rule name="ExtrudeIndependantFace" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="ExtrudeIndependantFace" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -129,7 +122,7 @@ return hfLabel;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="ExtrudeVolumeFace" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="ExtrudeVolumeFace" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -578,8 +571,6 @@ import fr.ensma.lias.jerboa.datastructures.DartPairs;
 //DartPairs ctlList = new DartPairs();
 }
 
-
-
 return true;</preprocess>
             <postprocess>for(int i = 0; i &lt; ctlList.size(); i++){
     Pair&lt;JerboaDart, JerboaDart&gt; p = ctlList.get(0); 
@@ -604,7 +595,7 @@ return true;</preprocess>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="ExtrudeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="ExtrudeEdge" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -670,7 +661,7 @@ return hfLabel;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="ExtrudeFaceEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="ExtrudeFaceEdge" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -1000,7 +991,7 @@ return hfLabel;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="DeleteFace" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="DeleteFace" module="Suppression" category="Suppression" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -1018,9 +1009,18 @@ return hfLabel;</expr>
                 </arcs>
             </right>
             <preprocess></preprocess>
-            <postprocess></postprocess>
-            <midprocess></midprocess>
+            <postprocess>foreach(var label : visites){
+    @print(&quot;Half-face Delete Label: &quot;, label);
+}</postprocess>
+            <midprocess>foreach(JerboaDart dart : &lt;0,1,3&gt;_&lt;&gt;(n0#0)){
+    Integer currentTracker = dart.halfFaceTracker.getLabel();
+    if(!visites.contains(currentTracker)){
+        visites.add(currentTracker);
+    }
+}
+return true;</midprocess>
             <paramsebd>
+                <paramebd name="visites" type="List" order="0">new ArrayList&lt;Integer&gt;();</paramebd>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />
@@ -1032,8 +1032,8 @@ return hfLabel;</expr>
             <comment></comment>
             <left>
                 <nodes count="2">
-                    <node name="n0" x="150" y="180" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="330" y="180" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="360" y="120" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="540" y="120" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="0">
                 </arcs>
@@ -1046,7 +1046,6 @@ return hfLabel;</expr>
 return label;</expr>
                         <expr ebd="halfFaceTracker">OrbitLabel hfLabel = new OrbitLabel();
 @print(&quot;Half-face Split n0 from Label: &quot;, n0.halfFaceTracker, &quot; to Label: &quot;, hfLabel.toString());
-@print(&quot;Cas à gérer, on  peut relabeliser une seule demi-face sur les deux et ces dernières passent de 4 à 3 côtés.&quot;);
 return hfLabel;</expr>
                     </node>
                     <node name="n1" x="660" y="120" orbit="-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
@@ -1055,7 +1054,7 @@ return hfLabel;</expr>
 return label;</expr>
                     </node>
                     <node name="n2" x="300" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="510" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="480" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="3">
                     <arc dim="0" a="n2" b="n3" size="0">

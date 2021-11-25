@@ -70,8 +70,8 @@ public class SewA2 extends JerboaRuleGenerated {
 
     public int attachedNode(int i) {
         switch(i) {
-        case 0: return 1;
-        case 1: return 1;
+        case 0: return 0;
+        case 1: return 0;
         }
         return -1;
     }

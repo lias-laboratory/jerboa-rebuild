@@ -21,6 +21,8 @@ import up.jerboa.core.util.JerboaGMapDuplicateFactory;
 import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaGMapDuplicateException;
 
+// TODO: ajouter un toString pour les plongements
+
 public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicateFactory {
 
 	private JerboaRebuilt modeler;
@@ -108,8 +110,7 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	}
 
 	@Override
-	public void load(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {
-	}
+	public void load(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {}
 
 	@Override
 	public GMapViewerTuple normals(JerboaDart arg0) {
@@ -121,16 +122,15 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 		StringTokenizer tokenizer = new StringTokenizer(line);
 		String action = tokenizer.nextToken();
 		switch (action) {
-		case "echo": {
-			String arg = line.substring(5);
-			console.append("MA SORTIE: " + arg);
-			return true; // la commande est gérée
-		}
+			case "echo": {
+				String arg = line.substring(5);
+				console.append("MA SORTIE: " + arg);
+				return true; // la commande est gérée
+			}
 		}
 		return false; // la commande n'est pas gérée
 	}
 
 	@Override
-	public void save(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {
-	}
+	public void save(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {}
 }

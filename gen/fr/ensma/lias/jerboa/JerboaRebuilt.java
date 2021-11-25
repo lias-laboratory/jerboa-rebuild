@@ -8,21 +8,21 @@ import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
 
 import fr.ensma.lias.jerboa.Creation.CreateDart;
-import fr.ensma.lias.jerboa.ExtrudeIndependantFace;
-import fr.ensma.lias.jerboa.ExtrudeVolumeFace;
+import fr.ensma.lias.jerboa.Extrusion.ExtrudeIndependantFace;
+import fr.ensma.lias.jerboa.Extrusion.ExtrudeVolumeFace;
 import fr.ensma.lias.jerboa.Creation.CreateSquareFace;
 import fr.ensma.lias.jerboa.Creation.CreateEdge;
 import fr.ensma.lias.jerboa.InsertVertex;
 import fr.ensma.lias.jerboa.NeedFix.ChanfreinCoin2D;
 import fr.ensma.lias.jerboa.MergeEdge;
 import fr.ensma.lias.jerboa.NeedFix.VertexCollapse;
-import fr.ensma.lias.jerboa.ExtrudeEdge;
-import fr.ensma.lias.jerboa.ExtrudeFaceEdge;
+import fr.ensma.lias.jerboa.Extrusion.ExtrudeEdge;
+import fr.ensma.lias.jerboa.Extrusion.ExtrudeFaceEdge;
 import fr.ensma.lias.jerboa.UnSewA2;
 import fr.ensma.lias.jerboa.SewA2;
 import fr.ensma.lias.jerboa.Creation.CreateCorner2D;
 import fr.ensma.lias.jerboa.NeedFix.RemoveEdge;
-import fr.ensma.lias.jerboa.DeleteFace;
+import fr.ensma.lias.jerboa.Suppression.DeleteFace;
 import fr.ensma.lias.jerboa.NeedFix.InsertEdge;
 
 

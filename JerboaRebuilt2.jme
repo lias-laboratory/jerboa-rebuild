@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<jerboamodelereditor version="1" >
+<modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="." projectDir=".">
+    <comment></comment>
+    <header></header>
+<generationType>java</generationType>
+    <embeddings count="1">
+        <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
+    </embeddings>
+    <rules count="17">
+        <rule name="MergeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="4">
+                    <node name="n0" x="529" y="136" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="753" y="135" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="296" y="144" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="77" y="140" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="3">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n0" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n2" size="0">
+                    </arc>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n1" x="494" y="119" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="109" y="116" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="0" a="n3" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="InsertVertex" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="233" y="148" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="457" y="149" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="4">
+                    <node name="n0" x="90" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="660" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="270" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
+                    </node>
+                    <node name="n3" x="450" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="3">
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="0" a="n0" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="SewA2" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="218" y="138" orbit="0,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="434" y="138" orbit="0,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="1.212255396026478" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="4.0360044366820595" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="232" y="128" orbit="0,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="464" y="126" orbit="0,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+                <paramtopo name="n1" order="1" />
+            </paramstopo>
+        </rule>
+        <rule name="UnSewA2" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="210" y="150" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="450" y="150" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="99" y="81" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="352" y="87" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="0.04828364027681864" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="3.2006245638817803" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="CreateCorner2D" module="Creation" category="Creation" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="12">
+                    <node name="n0" x="111" y="-243" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="192" y="-422" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,1,0);</expr>
+                    </node>
+                    <node name="n2" x="526" y="-444" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="659" y="-290" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="490" y="-9" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="304" y="-8" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="-312" y="-432" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0.5, 1.5,0);</expr>
+                    </node>
+                    <node name="n7" x="-171" y="-612" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n8" x="834" y="-729" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1.5, 1.5, 0);</expr>
+                    </node>
+                    <node name="n9" x="999" y="-582" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n10" x="490" y="285" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,0.5,0);</expr>
+                    </node>
+                    <node name="n11" x="296" y="282" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="33">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="2" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="2" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="1" a="n5" b="n0" size="0">
+                    </arc>
+                    <arc dim="0" a="n5" b="n11" size="0">
+                    </arc>
+                    <arc dim="0" a="n4" b="n10" size="0">
+                    </arc>
+                    <arc dim="2" a="n10" b="n11" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n8" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n9" size="0">
+                    </arc>
+                    <arc dim="2" a="n8" b="n9" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n7" size="0">
+                    </arc>
+                    <arc dim="0" a="n0" b="n6" size="0">
+                    </arc>
+                    <arc dim="2" a="n6" b="n7" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n1" angle="3.3116109919099106" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="0.9597205161438627" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="3.474223598516332" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="4.75692360976103" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="6.216737825976693" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="5.0795932313888095" >
+                    </arcloop>
+                    <arcloop dim="1" node="n8" angle="1.8916053861495534" >
+                    </arcloop>
+                    <arcloop dim="3" node="n8" angle="4.181193465415851" >
+                    </arcloop>
+                    <arcloop dim="1" node="n9" angle="0.35544365399644384" >
+                    </arcloop>
+                    <arcloop dim="3" node="n9" angle="0.23045110269898927" >
+                    </arcloop>
+                    <arcloop dim="1" node="n10" angle="1.488413912954229" >
+                    </arcloop>
+                    <arcloop dim="3" node="n10" angle="3.974215004035077" >
+                    </arcloop>
+                    <arcloop dim="1" node="n11" angle="5.770585234311637" >
+                    </arcloop>
+                    <arcloop dim="3" node="n11" angle="0.1513919435516148" >
+                    </arcloop>
+                    <arcloop dim="1" node="n6" angle="2.3787570750707463" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="4.098332288181524" >
+                    </arcloop>
+                    <arcloop dim="1" node="n7" angle="3.965380253305133" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="2.313066116675115" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <rule name="CreateDart" module="Creation" category="Creation" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n0" x="300" y="121" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,0,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="4">
+                    <arcloop dim="0" node="n0" angle="4.733225151874209" >
+                    </arcloop>
+                    <arcloop dim="1" node="n0" angle="0.09039872582329811" >
+                    </arcloop>
+                    <arcloop dim="2" node="n0" angle="7.844717645630819" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="3.0770176009492722" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <rule name="CreateEdge" module="Creation" category="Creation" shape="ROUNDRECTANGLE" magnetic="false" showgrid="true" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="4">
+                    <node name="n0" x="240" y="120" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,0,0);</expr>
+                    </node>
+                    <node name="n1" x="600" y="120" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,1,0);</expr>
+                    </node>
+                    <node name="n2" x="600" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="240" y="300" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="10">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n2" size="0">
+                    </arc>
+                    <arc dim="2" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="2" a="n0" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n0" angle="4.488595925842209" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="5.0327077366929585" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="-0.28776214328750105" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="3.4293158063550067" >
+                    </arcloop>
+                    <arc dim="1" a="n0" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <rule name="CreateSquareFace" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="8">
+                    <node name="n0" x="150" y="180" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="300" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,0,0);</expr>
+                    </node>
+                    <node name="n2" x="480" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="630" y="180" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,0,0);</expr>
+                    </node>
+                    <node name="n4" x="630" y="330" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="480" y="450" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,1,0);</expr>
+                    </node>
+                    <node name="n6" x="270" y="450" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n7" x="150" y="330" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,1,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="24">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="1" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="0" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="1" a="n6" b="n7" size="0">
+                    </arc>
+                    <arc dim="0" a="n7" b="n0" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n1" angle="5.0440610399951415" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="-0.36789329453880404" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="5.176265633182975" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="0.456609900403278" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="5.418034590978829" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="0.30637057923858785" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="0.9835899641649277" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="7.083003370031082" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="1.50196510486703" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="2.7184425919861908" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="1.867269915839529" >
+                    </arcloop>
+                    <arcloop dim="2" node="n7" angle="3.0736807465023905" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="3.629049216264791" >
+                    </arcloop>
+                    <arcloop dim="2" node="n0" angle="9.11406476238109" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="3.7352071811501295" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="3.6682599250785715" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <rule name="ChanfreinCoin2D" module="NeedFix" category="NeedFix" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="387" y="166" orbit="1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="3" node="n0" angle="1.34027419089449" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="3">
+                    <node name="n0" x="540" y="153" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="362" y="152" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(Vec3.segmentABByWeight(n0.pos, n0@0.pos, weight));</expr>
+                    </node>
+                    <node name="n3" x="166" y="152" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="5">
+                    <arcloop dim="3" node="n0" angle="1.247018346846487" >
+                    </arcloop>
+                    <arc dim="1" a="n2" b="n0" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n2" angle="1.4270310013341572" >
+                    </arcloop>
+                    <arc dim="2" a="n3" b="n2" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n3" angle="3.001368225738638" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="weight" type="float" order="0">1</paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="InsertEdge" module="NeedFix" category="NeedFix" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="360" y="120" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="540" y="120" orbit="1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="4">
+                    <node name="n0" x="120" y="120" orbit="-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="660" y="120" orbit="-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="300" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="480" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="3">
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n0" b="n2" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+                <paramtopo name="n1" order="1" />
+            </paramstopo>
+        </rule>
+        <rule name="RemoveEdge" module="NeedFix" category="NeedFix" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="300" y="150" orbit="0,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="420" y="150" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="3">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n0" angle="2.840374880245566" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="0.9059844151542464" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n1" x="305" y="169" orbit="-1,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="3" node="n1" angle="4.450013193797275" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="VertexCollapse" module="NeedFix" category="NeedFix" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="4">
+                    <node name="n0" x="269" y="148" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="490" y="149" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="132" y="121" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="667" y="126" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="3">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n0" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n3" size="0">
+                    </arc>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n2" x="186" y="166" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return Vec3.mid(n0.pos, n1.pos);</expr>
+                    </node>
+                    <node name="n3" x="614" y="166" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess>@header(java){
+import fr.ensma.lias.jerboa.datastructures.DartPairs;
+//DartPairs ctlList = new DartPairs();
+}
+
+return true;</preprocess>
+            <postprocess>for(int i = 0; i &lt; ctlList.size(); i++){
+    Pair&lt;JerboaDart, JerboaDart&gt; p = ctlList.get(0); 
+    JerboaDart l = p.l();
+    JerboaDart r = p.r();
+
+    if(l.vertexTracker != r.vertexTracker)
+    {
+        @print(&quot;Vertex Split to Labels: &quot;, l.vertexTracker, &quot; and &quot;, r.vertexTracker );
+        //break;
+    } else {
+        @print(&quot;No Vertex Split&quot;);
+    }
+}
+</postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="ctlList" type="DartPairs" order="0">new DartPairs();</paramebd>
+                <paramebd name="counter" type="int" order="1">0</paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="DeleteFace" module="Suppression" category="Suppression" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="294" y="111" orbit="0,1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess>foreach(var label : visites){
+    @print(&quot;Half-face Delete Label: &quot;, label);
+}</postprocess>
+            <midprocess>foreach(JerboaDart dart : &lt;0,1,3&gt;_&lt;&gt;(n0#0)){
+    Integer currentTracker = dart.halfFaceTracker.getLabel();
+    if(!visites.contains(currentTracker)){
+        visites.add(currentTracker);
+    }
+}
+return true;</midprocess>
+            <paramsebd>
+                <paramebd name="visites" type="List" order="0">new ArrayList&lt;Integer&gt;();</paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="ExtrudeEdge" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="265" y="163" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="2" node="n0" angle="4.611225274217041" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="4">
+                    <node name="n0" x="227" y="97" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="421" y="97" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="423" y="249" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="225" y="251" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n0.pos.addn(0,1,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="11">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="3.6395984616027617" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="3.14031099137145" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="2.4237657721654937" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="3.0221880300185227" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="0.6100637277802337" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="6.5110230668856985" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="0.009983405569156556" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="5.824001795179564" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="ExtrudeFaceEdge" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="265" y="163" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="2" node="n0" angle="4.611225274217041" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="5">
+                    <node name="n0" x="245" y="101" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="403" y="100" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="524" y="98" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="527" y="289" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="395" y="286" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n0.pos.addn(0,1,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="11">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n4" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n2" angle="2.2442924049611346" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="6.024240050722778" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="4.995876395743557" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="4.3829845921311446" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.0549442114407803" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="3.4559646986786348" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="0.5023683265637483" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="ExtrudeIndependantFace" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="262" y="243" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="2" node="n0" angle="3.077277852935947" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="6">
+                    <node name="n0" x="316" y="115" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="492" y="114" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="639" y="115" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="643" y="269" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n0.pos.addn(0,0,1);</expr>
+                    </node>
+                    <node name="n4" x="494" y="271" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="317" y="272" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="10">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="2" a="n5" b="n4" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n4" b="n3" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n1" angle="-1.4940216850595909" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="1.5040853807211514" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="1.905307870065184" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="6.942373618296614" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="-0.8294040455187381" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="ExtrudeVolumeFace" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="222" y="241" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="3" node="n0" angle="3.22547786201352" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="7">
+                    <node name="n0" x="140" y="107" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="296" y="104" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="456" y="103" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="606" y="102" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="612" y="261" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n0.pos.addn(0,0,1);</expr>
+                    </node>
+                    <node name="n5" x="469" y="261" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="308" y="261" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="11">
+                    <arc dim="3" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="2" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n2" angle="4.593403330916095" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="4.976390338770951" >
+                    </arcloop>
+                    <arc dim="0" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="1" a="n4" b="n5" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n4" angle="0.8116985047543608" >
+                    </arcloop>
+                    <arc dim="2" a="n6" b="n5" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n6" angle="0.8459394229883586" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="1.4253656321169057" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+    </rules>
+    <inferrules count="0">
+    </inferrules>
+</modeler>
+</jerboamodelereditor>

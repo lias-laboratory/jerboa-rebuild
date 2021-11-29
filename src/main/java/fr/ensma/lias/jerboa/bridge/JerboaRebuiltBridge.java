@@ -42,6 +42,12 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	}
 
 	@Override
+	public String toString() {
+		return "";
+	}
+
+
+	@Override
 	public boolean manageEmbedding(JerboaEmbeddingInfo arg0) {
 		return false;
 	}

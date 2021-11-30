@@ -18,7 +18,7 @@ public class JerboaLauncher {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1024, 768);
 
-        JerboaRebuilt modeler = new JerboaRebuilt();
+        JerboaRebuiltModeler modeler = new JerboaRebuiltModeler();
 
         /*
          * Si je l'ajoute ici, je dois tout de même l'enregistrer depuis registerEbdsAndResetGMAP

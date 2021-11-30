@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>VertexCollapse</openRules>
 <modeler name="JerboaRebuilt" module="fr.ensma.lias.jerboa" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -594,30 +595,10 @@
                     </arc>
                 </arcs>
             </right>
-            <preprocess>@header(java){
-import fr.ensma.lias.jerboa.datastructures.DartPairs;
-//DartPairs ctlList = new DartPairs();
-}
-
-return true;</preprocess>
-            <postprocess>for(int i = 0; i &lt; ctlList.size(); i++){
-    Pair&lt;JerboaDart, JerboaDart&gt; p = ctlList.get(0); 
-    JerboaDart l = p.l();
-    JerboaDart r = p.r();
-
-    if(l.vertexTracker != r.vertexTracker)
-    {
-        @print(&quot;Vertex Split to Labels: &quot;, l.vertexTracker, &quot; and &quot;, r.vertexTracker );
-        //break;
-    } else {
-        @print(&quot;No Vertex Split&quot;);
-    }
-}
-</postprocess>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
             <midprocess></midprocess>
             <paramsebd>
-                <paramebd name="ctlList" type="DartPairs" order="0">new DartPairs();</paramebd>
-                <paramebd name="counter" type="int" order="1">0</paramebd>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />

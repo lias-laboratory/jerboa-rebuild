@@ -16,16 +16,16 @@ public class JerboaRebuiltModeler extends JerboaRebuilt {
 
         super();
 
-
         vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1, 2, 3),
                 OrbitLabel.class);
         this.addEmbedding(vertexTracker);
-        halfFaceTracker = new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0, 1),
-                OrbitLabel.class);
-        this.addEmbedding(halfFaceTracker);
+
+        // halfFaceTracker = new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0, 1),
+        // OrbitLabel.class);
+        // this.addEmbedding(halfFaceTracker);
 
         this.ebds.clear();
-        this.registerEbdsAndResetGMAP(getPos(), vertexTracker, halfFaceTracker);
+        this.registerEbdsAndResetGMAP(getPos(), vertexTracker); // , halfFaceTracker);
 
     }
 

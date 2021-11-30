@@ -4,10 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
-import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
-import up.jerboa.core.JerboaEmbeddingInfo;
-import up.jerboa.core.JerboaOrbit;
 import up.jerboa.exception.JerboaException;
 
 public class JerboaLauncher {
@@ -19,13 +16,6 @@ public class JerboaLauncher {
         frame.setSize(1024, 768);
 
         JerboaRebuiltModeler modeler = new JerboaRebuiltModeler();
-
-        /*
-         * Si je l'ajoute ici, je dois tout de même l'enregistrer depuis registerEbdsAndResetGMAP
-         * dans JerboaRebuilt. Si je le fais depuis JerboaRebuiltModeler (mon wrapper qui doit
-         * «étendre» JerboaRebuilt) => Embedding seems shared between many modelers Si je n'utilise
-         * pas registerEbdsAndResetGMAP le plongement reste initialisé à -1 -> OOB
-         */
 
         JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
         GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);

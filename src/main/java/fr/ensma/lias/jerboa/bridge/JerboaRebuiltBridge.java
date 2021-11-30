@@ -42,9 +42,13 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 		return value;
 	}
 
-	@Override
 	public String toString() {
-		return "";
+		StringBuilder sb = new StringBuilder();
+		sb.append("Embeddings:\n");
+		for (var ebd : modeler.getAllEmbedding()) {
+			sb.append(ebd.toString()).append(" ID: ").append(ebd.getID()).append("\n");
+		}
+		return sb.toString();
 	}
 
 

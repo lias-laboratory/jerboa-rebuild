@@ -27,10 +27,6 @@ public class JerboaLauncher {
          * pas registerEbdsAndResetGMAP le plongement reste initialisé à -1 -> OOB
          */
 
-        var vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(0, 1, 2),
-                OrbitLabel.class);
-        modeler.addEmbedding(vertexTracker);
-
         JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
         GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);
 

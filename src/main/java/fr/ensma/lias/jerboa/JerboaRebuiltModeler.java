@@ -5,7 +5,7 @@ import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.exception.JerboaException;
 
-// FIXME: Les plongements "semblent partagés"
+// FIXME Out Of Bound while applying a rule
 
 public class JerboaRebuiltModeler extends JerboaRebuilt {
 
@@ -16,15 +16,16 @@ public class JerboaRebuiltModeler extends JerboaRebuilt {
 
         super();
 
+
         vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1, 2, 3),
                 OrbitLabel.class);
         this.addEmbedding(vertexTracker);
         halfFaceTracker = new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0, 1),
                 OrbitLabel.class);
         this.addEmbedding(halfFaceTracker);
-        /* «Le plongement semble être partagé entre plusieurs modeleurs» */
-        this.registerEbdsAndResetGMAP(getPos(), vertexTracker, halfFaceTracker);
 
+        this.ebds.clear();
+        this.registerEbdsAndResetGMAP(getPos(), vertexTracker, halfFaceTracker);
 
     }
 

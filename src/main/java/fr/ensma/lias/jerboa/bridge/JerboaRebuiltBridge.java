@@ -1,7 +1,6 @@
 package fr.ensma.lias.jerboa.bridge;
 
-// import fr.ensma.lias.jerboa.JerboaRebuilt;
-import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
+import fr.ensma.lias.jerboa.JerboaModelerExtender;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
 import fr.up.xlim.sic.ig.jerboa.viewer.IJerboaModelerViewer;
@@ -26,9 +25,9 @@ import up.jerboa.exception.JerboaGMapDuplicateException;
 
 public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicateFactory {
 
-	private JerboaRebuiltModeler modeler;
+	private JerboaModelerExtender modeler;
 
-	public JerboaRebuiltBridge(JerboaRebuiltModeler modeler) {
+	public JerboaRebuiltBridge(JerboaModelerExtender modeler) {
 		this.modeler = modeler;
 	}
 

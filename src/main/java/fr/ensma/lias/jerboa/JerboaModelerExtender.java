@@ -1,13 +1,8 @@
 package fr.ensma.lias.jerboa;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import fr.ensma.lias.jerboa.trackingModeler.JerboaTrackingModelerGenerated;
-import up.jerboa.core.rule.JerboaRuleNode;
+import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.util.JerboaRuleGenerated;
-// import up.jerboa.core.JerboaEmbeddingInfo;
-// import up.jerboa.core.JerboaOrbit;
 import up.jerboa.exception.JerboaException;
 
 public class JerboaModelerExtender extends JerboaTrackingModelerGenerated {
@@ -24,40 +19,45 @@ public class JerboaModelerExtender extends JerboaTrackingModelerGenerated {
         // this.addEmbedding(vertexTracker);
         // this.init();
 
-        var ebdsIter = getAllEmbedding().iterator();
-        while (ebdsIter.hasNext()) {
-            var info = ebdsIter.next();
-            var infoName = info.getName();
-            var infoOrbit = info.getOrbit();
-            System.out.println("Embedding's name is: " + infoName + " Orbit is: " + infoOrbit);
+        for (JerboaEmbeddingInfo info : getAllEmbedding()) {
+            System.out.println(
+                    "Embedding's name is: " + info.getName() + " Orbit is: " + info.getOrbit());
         }
 
         /*
-         * La volonté à cette étape est, dans chaque règle, d'ajouter une expression de plongement
+         * The plan here is for each rule to add a JerboaRuleExpression
          */
-        var rulesIter = getRules().iterator();
-        while (rulesIter.hasNext()) {
-            JerboaRuleGenerated currentRule = (JerboaRuleGenerated) rulesIter.next();
-            System.out.print("Rule's name is: " + currentRule.getName());
-            System.out.print(" Deleted nodes are: ");
-            // Tentative de récupération des nœuds
-            for (int i : currentRule.getCreatedIndexes()) {
-                var iNode = currentRule.getRightGraph().get(i);
-                System.out.print(iNode + " ");
-            }
-            System.out.println();
-        }
+        for (var rule : getRules()) {
 
-        // JerboaRuleGenerated rule = (JerboaRuleGenerated) getRule("InsertVertex");
-        // for (int c : rule.getCreatedIndexes()) {
-        // JerboaRuleNode node = rule.getRight().get(c);
-        // int attachedID = rule.searchAttachedKeptNode(node); // protected
-        // // int attachedID = searchAttachedKeptNode(node, vertexTracker); // private
-        // if (attachedID != -1) {
-        // // System.out.println("SPREAD FROM nodeID:"+right.get(attachedID)+" to "+node);
-        // spreads.get(info.getID()).add(new Pair<Integer, Integer>(attachedID, node.getID()));
-        // }
-        // }
+            /*
+             * We need to cast each rule to JerboaRuleGenerated to get to the actual data
+             */
+            var currentRule = (JerboaRuleGenerated) rule;
+
+            /*
+             * We create a string builder to have the choice to not create output in case some rules
+             * does not have created indexes
+             */
+            StringBuilder sb = new StringBuilder();
+            sb.append("Rule's name is: ").append(currentRule.getName());
+            sb.append(" Expressions are: ");
+
+            if (currentRule.getCreatedIndexes().length > 0) {
+
+                /*
+                 * There we get access to the rulenodes from the rule's right graph. We can
+                 * potentially add some JerboaRuleExpression to the nodes and `express` how the rule
+                 * affects the filtered part (left graph) of the gmap.
+                 */
+                for (int index : currentRule.getCreatedIndexes()) {
+                    var ithNode = currentRule.getRightGraph().get(index);
+                    // iNode.addExpression(null)
+                    sb.append(ithNode).append(" ");
+                }
+                System.out.println(sb.toString());
+
+            }
+        }
 
     }
 
@@ -66,3 +66,14 @@ public class JerboaModelerExtender extends JerboaTrackingModelerGenerated {
     // }
 
 }
+
+// JerboaRuleGenerated rule = (JerboaRuleGenerated) getRule("InsertVertex");
+// for (int c : rule.getCreatedIndexes()) {
+// JerboaRuleNode node = rule.getRight().get(c);
+// int attachedID = rule.searchAttachedKeptNode(node); // protected
+// // int attachedID = searchAttachedKeptNode(node, vertexTracker); // private
+// if (attachedID != -1) {
+// // System.out.println("SPREAD FROM nodeID:"+right.get(attachedID)+" to "+node);
+// spreads.get(info.getID()).add(new Pair<Integer, Integer>(attachedID, node.getID()));
+// }
+// }

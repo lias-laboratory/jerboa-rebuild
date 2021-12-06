@@ -1,9 +1,17 @@
 package fr.ensma.lias.jerboa;
 
+import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 import fr.ensma.lias.jerboa.trackingModeler.JerboaTrackingModelerGenerated;
 import up.jerboa.core.JerboaEmbeddingInfo;
+import up.jerboa.core.JerboaGMap;
+import up.jerboa.core.JerboaOrbit;
+import up.jerboa.core.JerboaRuleOperation;
+import up.jerboa.core.rule.JerboaRowPattern;
+import up.jerboa.core.rule.JerboaRuleExpression;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
 import up.jerboa.exception.JerboaException;
+import fr.ensma.lias.jerboa.core.VertexTrackerRuleExpression;
 
 public class JerboaModelerExtender extends JerboaTrackingModelerGenerated {
 
@@ -19,10 +27,15 @@ public class JerboaModelerExtender extends JerboaTrackingModelerGenerated {
         // this.addEmbedding(vertexTracker);
         // this.init();
 
-        for (JerboaEmbeddingInfo info : getAllEmbedding()) {
-            System.out.println(
-                    "Embedding's name is: " + info.getName() + " Orbit is: " + info.getOrbit());
-        }
+        /* Demonstrate how to add a rule expression within a rule node */
+        // var someRule = getRule("InsertVertex");
+        // someRule.getRightRuleNode(2)
+        // .addExpression(new VertexTrackerRuleExpression(vertexTracker, "Create"));
+
+        // for (JerboaEmbeddingInfo info : getAllEmbedding()) {
+        // System.out.println(
+        // "Embedding's name is: " + info.getName() + " Orbit is: " + info.getOrbit());
+        // }
 
         /*
          * The plan here is for each rule to add a JerboaRuleExpression
@@ -54,7 +67,7 @@ public class JerboaModelerExtender extends JerboaTrackingModelerGenerated {
                     // iNode.addExpression(null)
                     sb.append(ithNode).append(" ");
                 }
-                System.out.println(sb.toString());
+                // System.out.println(sb.toString());
 
             }
         }

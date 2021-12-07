@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core;
+package fr.ensma.lias.jerboa.core.rule;
 
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 import up.jerboa.core.JerboaEmbeddingInfo;
@@ -9,12 +9,12 @@ import up.jerboa.core.rule.JerboaRuleExpression;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
 
-public class VertexTrackerRuleExpression implements JerboaRuleExpression {
+public class TrackerRuleExpression implements JerboaRuleExpression {
 
     private JerboaEmbeddingInfo info;
     private String action;
 
-    public VertexTrackerRuleExpression(JerboaEmbeddingInfo info, String action) {
+    public TrackerRuleExpression(JerboaEmbeddingInfo info, String action) {
         this.info = info;
         this.action = action;
     }

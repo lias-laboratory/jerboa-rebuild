@@ -1,5 +1,9 @@
 package fr.ensma.lias.jerboa;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.util.JerboaModelerGeneric;
@@ -8,14 +12,39 @@ import up.jerboa.exception.JerboaException;
 public class JerboaRebuiltModeler extends JerboaModelerGeneric {
 
     protected JerboaEmbeddingInfo vertexTracker;
+    protected List<JerboaEmbeddingInfo> trackers;
 
     public JerboaRebuiltModeler(int dim) throws JerboaException {
 
         super(dim);
 
+        trackers = new ArrayList<JerboaEmbeddingInfo>();
+
         vertexTracker = new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1, 2, 3),
                 fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
+        trackers.add(vertexTracker);
+        registerEbdsAndResetGMAP(vertexTracker);
+
+    }
+
+    /* It works without explicit redefinition so… */
+    // @Override
+    // public void registerEbdsAndResetGMAP(JerboaEmbeddingInfo... ebd) throws JerboaException {
+    // List<JerboaEmbeddingInfo> embeddings = new ArrayList<JerboaEmbeddingInfo>();
+    // Stream.of(ebd).forEach(embeddings::add);
+    // for (JerboaEmbeddingInfo info : embeddings) {
+    // this.ebds.add(info);
+    // }
+    // this.init();
+    // }
+
+    public final JerboaEmbeddingInfo getVertexTracker() {
+        return vertexTracker;
+    }
+
+    public final List<JerboaEmbeddingInfo> getTrackers() {
+        return trackers;
     }
 
 
@@ -55,14 +84,6 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
     // }
     // }
 
-    @Override
-    public void registerEbdsAndResetGMAP(JerboaEmbeddingInfo... ebd) throws JerboaException {
-        for(JerboaEmbeddingInfo info : getAllEmbedding())
-    }
-
-    public final JerboaEmbeddingInfo getVertexTracker() {
-        return vertexTracker;
-    }
 
 }
 

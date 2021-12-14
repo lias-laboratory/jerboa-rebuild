@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
 	<openRules>DeleteFace</openRules>
-	<openRules>EdgeCollapse</openRules>
 	<openRules>InsertEdge</openRules>
+	<openRules>EdgeCollapse</openRules>
 <modeler name="JerboaReferenceModelerGenerated" module="fr.ensma.lias.jerboa.referenceModeler" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -993,7 +993,7 @@ return hfLabel;</expr>
             </paramstopo>
         </rule>
         <rule name="DeleteFace" module="Suppression" category="Suppression" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
-            <header></header>
+            <header>List&lt;Integer&gt; visites = new ArrayList&lt;Integer&gt;();</header>
             <precondition></precondition>
             <comment></comment>
             <left>
@@ -1021,7 +1021,6 @@ return hfLabel;</expr>
 }
 return true;</midprocess>
             <paramsebd>
-                <paramebd name="visites" type="List" order="0">new ArrayList&lt;Integer&gt;();</paramebd>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />

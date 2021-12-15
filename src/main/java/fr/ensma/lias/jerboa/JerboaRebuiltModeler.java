@@ -24,20 +24,17 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
                 fr.ensma.lias.jerboa.embeddings.OrbitLabel.class);
 
         trackers.add(vertexTracker);
-        registerEbdsAndResetGMAP(vertexTracker);
+        this.ebds.add(vertexTracker);
+        // registerEbdsAndResetGMAP(vertexTracker);
 
     }
 
     /* It works without explicit redefinition so… */
-    // @Override
-    // public void registerEbdsAndResetGMAP(JerboaEmbeddingInfo... ebd) throws JerboaException {
-    // List<JerboaEmbeddingInfo> embeddings = new ArrayList<JerboaEmbeddingInfo>();
-    // Stream.of(ebd).forEach(embeddings::add);
-    // for (JerboaEmbeddingInfo info : embeddings) {
-    // this.ebds.add(info);
-    // }
-    // this.init();
-    // }
+    @Override
+    public void registerEbdsAndResetGMAP(JerboaEmbeddingInfo... ebd) throws JerboaException {
+        JerboaEmbeddingInfo[] ebds = new JerboaEmbeddingInfo[ebd.length + 1];
+        super.registerEbdsAndResetGMAP(ebd);
+    }
 
     public final JerboaEmbeddingInfo getVertexTracker() {
         return vertexTracker;

@@ -3,7 +3,6 @@ package fr.ensma.lias.jerboa.core.rule;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaModeler;
 import up.jerboa.core.JerboaOrbit;
@@ -21,16 +20,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         super(modeler, name, category);
     }
 
-    protected void computeTrackingConditions(List<JerboaEmbeddingInfo> trackers) {
-        for (JerboaEmbeddingInfo tracker : trackers) {
-
-        }
-    }
-
-    private boolean creationPredicate() {
-        return true;
-    }
-
     public int attachedNode(int arg0) {
         return 0;
     }
@@ -39,36 +28,62 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return 0;
     }
 
-    private List<Integer> search(JerboaOrbit orbit, JerboaRuleNode root) {
-        List<Integer> visited = new ArrayList<Integer>();
-        var stack = new Stack<JerboaRuleNode>();
-        stack.push(root);
-        JerboaRuleNode node;
-        while (true) {
-            // Parcours de la stack. Tant que la stack n'est pas vide et que le
-            // top element n'a pas été visité, node devient le top element. Si
-            // la stack est vide la recherche se termine.
-            do {
-                if (stack.isEmpty()) {
-                    return visited;
-                }
-                node = (JerboaRuleNode) stack.pop();
-            } while (visited.contains(node));
+    protected void computeTrackingConditions(List<JerboaEmbeddingInfo> trackers) {
 
-            visited.add(node.getID());
-            var orbitIter = orbit.iterator();
+        for (JerboaEmbeddingInfo tracker : trackers) {
+            for (var node : right) {
 
-            // Pour chaque voisin v accessible via `orbit`, on ajoute v dans la
-            // stack
-            while (orbitIter.hasNext()) {
-                var link = orbitIter.next();
-                JerboaRuleNode neighbor = node.alpha(link);
-                if (neighbor != null && neighbor != node && !visited.contains(neighbor)) {
-                    stack.push(neighbor);
+                var nodeOrbit = JerboaRuleNode.orbit(node, tracker.getOrbit());
+                if (creationCondition(tracker.getOrbit(), nodeOrbit)) {
+                    node.addExpression(new TrackerRuleExpression(tracker, "Create"));
+                } else if (unchangedCondition(tracker.getOrbit(), nodeOrbit)) {
+                    node.addExpression(new TrackerRuleExpression(tracker, "Unchanged"));
+
+                } else {
+                    node.addExpression(new TrackerRuleExpression(tracker, "Modify"));
                 }
             }
-
         }
     }
 
+    private boolean creationCondition(JerboaOrbit orbit, List<JerboaRuleNode> nodeOrbit) {
+        return isOrbitComplete(orbit, nodeOrbit) && areAllNotFoundInMember(left, nodeOrbit);
+    }
+
+    private boolean suppressionCondition(JerboaOrbit orbit, List<JerboaRuleNode> nodeOrbit) {
+        return isOrbitComplete(orbit, nodeOrbit) && areAllNotFoundInMember(right, hooks);
+    }
+
+    private boolean unchangedCondition(JerboaOrbit orbit, List<JerboaRuleNode> nodeOrbit) {
+        return isOrbitComplete(orbit, nodeOrbit) && areAllKept(nodeOrbit);
+    }
+
+    private boolean isOrbitComplete(JerboaOrbit orbit, List<JerboaRuleNode> nodeOrbit) {
+        for (var node : nodeOrbit) {
+            for (var link : orbit) {
+                if (node.alpha(link) == null)
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean areAllNotFoundInMember(List<JerboaRuleNode> member,
+            List<JerboaRuleNode> nodeOrbit) {
+        for (var node : nodeOrbit) {
+            if (member.contains(node)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean areAllKept(List<JerboaRuleNode> nodeOrbit) {
+        for (var node : nodeOrbit) {
+            if (!(left.contains(node) && right.contains(node))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

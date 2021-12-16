@@ -49,6 +49,8 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 if (visited.contains(node.getID())) {
                     continue;
                 }
+                // TODO: add expression based on condition matching. constraint: make it in one
+                // course through the orbit subgraph
                 // FIXME: this one is ODD it works but may fail majestically
                 for (var currentNode : JerboaRuleNode.orbit(node, tracker.getOrbit())) {
                     visited.add(currentNode.getID());

@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule;
+package fr.ensma.lias.jerboa.core.rule.expression;
 
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 import up.jerboa.core.JerboaEmbeddingInfo;
@@ -9,14 +9,12 @@ import up.jerboa.core.rule.JerboaRuleExpression;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
 
-public class TrackerRuleExpression implements JerboaRuleExpression {
+public class UnchangedExpression implements JerboaRuleExpression {
 
     private JerboaEmbeddingInfo info;
-    private String action;
 
-    public TrackerRuleExpression(JerboaEmbeddingInfo info, String action) {
+    public UnchangedExpression(JerboaEmbeddingInfo info) {
         this.info = info;
-        this.action = action;
     }
 
     @Override
@@ -25,7 +23,7 @@ public class TrackerRuleExpression implements JerboaRuleExpression {
         OrbitLabel label = new OrbitLabel();
         StringBuilder sb = new StringBuilder();
         sb.append(info.getName().substring(0, info.getName().length() - 7)).append(" ")
-                .append(action).append(" Label: ").append(label.toString());
+                .append("Unchanged").append(" Label: ").append(label.toString());
         System.out.println(sb.toString());
         return label;
     }

@@ -54,10 +54,8 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 // FIXME: this one is ODD it works but may fail majestically
                 for (var currentNode : JerboaRuleNode.orbit(node, tracker.getOrbit())) {
                     visited.add(currentNode.getID());
-                    if (isOrbitComplete(currentNode, tracker)) {
-                        if (!left.contains(currentNode)) {
-                            action = Action.CREATE;
-                        }
+                    if (!left.contains(currentNode) && isOrbitComplete(currentNode, tracker)) {
+                        action = Action.CREATE;
                     } else if (isOrbitPreserved(currentNode, tracker)) {
                         action = Action.UNCHANGED;
                     } else {

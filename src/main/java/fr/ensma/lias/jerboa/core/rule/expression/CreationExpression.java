@@ -21,10 +21,7 @@ public class CreationExpression implements JerboaRuleExpression {
     public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
             JerboaRuleNode arg3) throws JerboaException {
         OrbitLabel label = new OrbitLabel();
-        StringBuilder sb = new StringBuilder();
-        sb.append(info.getName().substring(0, info.getName().length() - 7)).append(" ")
-                .append("Create").append(" Label: ").append(label.toString());
-        System.out.println(sb.toString());
+        System.out.println(getOrbitType() + " Create Label: " + label.toString());
         return label;
     }
 
@@ -36,6 +33,10 @@ public class CreationExpression implements JerboaRuleExpression {
     @Override
     public String getName() {
         return info.getName();
+    }
+
+    private String getOrbitType() {
+        return info.getName().substring(0, info.getName().length() - 7);
     }
 
 }

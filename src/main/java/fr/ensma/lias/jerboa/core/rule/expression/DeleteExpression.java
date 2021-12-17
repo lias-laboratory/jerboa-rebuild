@@ -38,4 +38,7 @@ public class DeleteExpression implements JerboaRuleExpression {
         return info.getName();
     }
 
+    private String getOrbitType() {
+        return info.getName().substring(0, info.getName().length() - 7);
+    }
 }

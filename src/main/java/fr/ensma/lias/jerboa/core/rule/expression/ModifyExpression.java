@@ -21,10 +21,9 @@ public class ModifyExpression implements JerboaRuleExpression {
     public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
             JerboaRuleNode arg3) throws JerboaException {
         OrbitLabel label = new OrbitLabel();
-        StringBuilder sb = new StringBuilder();
-        sb.append(info.getName().substring(0, info.getName().length() - 7)).append(" ")
-                .append("Modify").append(" Label: ").append(label.toString());
-        System.out.println(sb.toString());
+        var oldLabel = arg2.getNode(arg3.getID()).getEmbedding(this.getEmbedding());
+        System.out.println(
+                getOrbitType() + " modify label from " + oldLabel + " to " + label.toString());
         return label;
     }
 
@@ -38,4 +37,7 @@ public class ModifyExpression implements JerboaRuleExpression {
         return info.getName();
     }
 
+    private String getOrbitType() {
+        return info.getName().substring(0, info.getName().length() - 7);
+    }
 }

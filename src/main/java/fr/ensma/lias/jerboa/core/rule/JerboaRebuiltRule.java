@@ -1,8 +1,10 @@
 package fr.ensma.lias.jerboa.core.rule;
 
+import static fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule.Action.MODIFY;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
 import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.CreationExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.DeleteExpression;
@@ -27,7 +29,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         CREATE, DELETE, MERGE, SPLIT, MODIFY, UNCHANGED
     };
 
-    public Action action = Action.MODIFY;
+    public Action action = MODIFY;
 
     public JerboaRebuiltRule(JerboaModeler modeler, String name, String category)
             throws JerboaException {
@@ -43,30 +45,46 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     }
 
     protected void computeExpressions(JerboaRebuiltModeler modeler) {
-        for (var tracker : modeler.getTrackers()) {
-            List<Integer> visited = new ArrayList<>();
+        var trackers = modeler.getTrackers();
+
+        // Course through the trackers
+        for (var tracker : trackers) {
+            var visited = new ArrayList<Integer>();
+
+            // Course through right hand side nodes
             for (var node : right) {
                 if (visited.contains(node.getID())) {
                     continue;
                 }
-                // TODO: add expression based on condition matching. constraint: make it in one
-                // course through the orbit subgraph
-                // FIXME: this one is ODD it works but may fail majestically
-                for (var currentNode : JerboaRuleNode.orbit(node, tracker.getOrbit())) {
-                    visited.add(currentNode.getID());
-                    if (!left.contains(currentNode) && isOrbitComplete(currentNode, tracker)) {
+                var orbitNode = JerboaRuleNode.orbit(node, tracker.getOrbit());
+
+                // Add orbitNode IDs to visited
+                visited.addAll(orbitNode.stream().map(n -> n.getID()).collect(Collectors.toList()));
+
+                // Course through orbit's filtered nodes
+                for (JerboaRuleNode currentNode : orbitNode) {
+                    if (isOrbitComplete(currentNode, tracker) && !left.contains(currentNode)) {
                         action = Action.CREATE;
                     } else if (isOrbitPreserved(currentNode, tracker)) {
                         action = Action.UNCHANGED;
                     } else {
-                        action = Action.MODIFY;
+                        printOrbitIDs(orbitNode);
+                        action = MODIFY;
+                        break;
                     }
-                    addExpression(node, tracker);
                 }
 
+                addExpression(node, tracker);
+
             }
+
         }
 
+    }
+
+    private void printOrbitIDs(List<JerboaRuleNode> orbitNode) {
+        System.out.printf("%s — %s: Modify case\n", name,
+                orbitNode.stream().map(n -> n.getID()).collect(Collectors.toList()));
     }
 
     private boolean isOrbitPreserved(JerboaRuleNode node, JerboaEmbeddingInfo tracker) {
@@ -76,7 +94,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 return false;
             }
         }
-        return true;
+        return node.getOrbit() == left.get(node.getID()).getOrbit();
     }
 
     private boolean isOrbitComplete(JerboaRuleNode node, JerboaEmbeddingInfo tracker) {

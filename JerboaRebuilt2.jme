@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>CreateEdge</openRules>
-	<openRules>EdgeCollapse</openRules>
 	<openRules>InsertVertex</openRules>
-	<openRules>ExtrudeEdge</openRules>
+	<openRules>ChanfreinCoin2D</openRules>
+	<openRules>CreateEdge</openRules>
 	<openRules>ExtrudeIndependantFace</openRules>
+	<openRules>EdgeCollapse</openRules>
+	<openRules>FaceTriangulation</openRules>
+	<openRules>ExtrudeEdge</openRules>
+	<openRules>InsertEdge</openRules>
+	<openRules>UnSewA2</openRules>
 <modeler name="JerboaTrackingModelerGenerated" module="fr.ensma.lias.jerboa.trackingModeler" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -12,7 +16,7 @@
     <embeddings count="1">
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="17">
+    <rules count="18">
         <rule name="MergeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -335,10 +339,7 @@
                     </arc>
                     <arc dim="0" a="n3" b="n2" size="0">
                     </arc>
-                    <arc dim="2" a="n1" b="n2" size="3">
-                        <point x="542" y="124" />
-                        <point x="502" y="184" />
-                        <point x="543" y="241" />
+                    <arc dim="2" a="n1" b="n2" size="0">
                     </arc>
                     <arc dim="2" a="n0" b="n3" size="0">
                     </arc>
@@ -350,10 +351,7 @@
                     </arcloop>
                     <arcloop dim="3" node="n3" angle="3.4293158063550067" >
                     </arcloop>
-                    <arc dim="1" a="n0" b="n3" size="3">
-                        <point x="178" y="124" />
-                        <point x="129" y="189" />
-                        <point x="177" y="241" />
+                    <arc dim="1" a="n0" b="n3" size="0">
                     </arc>
                     <arc dim="1" a="n1" b="n2" size="0">
                     </arc>
@@ -866,6 +864,47 @@ return true;</midprocess>
                     <arcloop dim="3" node="n6" angle="0.8459394229883586" >
                     </arcloop>
                     <arcloop dim="3" node="n5" angle="1.4253656321169057" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="FaceTriangulation" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="259" y="123" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="3" node="n0" angle="0.5708908309452081" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="3">
+                    <node name="n0" x="148" y="136" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="300" y="137" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="448" y="137" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="5">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n0" angle="3.7288367310302033" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.2150652128999742" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="5.260738636956246" >
                     </arcloop>
                 </arcs>
             </right>

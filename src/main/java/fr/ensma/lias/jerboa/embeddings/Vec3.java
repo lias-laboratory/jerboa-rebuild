@@ -1,5 +1,7 @@
 package fr.ensma.lias.jerboa.embeddings;
 
+import java.util.List;
+
 // TODO: Maxime tu dois continuer/remodeler cette classe selon tes besoins
 // TODO: Test if vectors are colinear or not
 
@@ -43,6 +45,20 @@ public class Vec3 {
 		return new Vec3(x + dx, y + dy, z + dz);
 	}
 
+	public void barycenter(List<Vec3> vecList) {
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
+		for (Vec3 v : vecList) {
+			this.x += v.x();
+			this.y += v.y();
+			this.z += v.z();
+		}
+		this.x /= vecList.size();
+		this.y /= vecList.size();
+		this.z /= vecList.size();
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Vec3[");
@@ -60,4 +76,5 @@ public class Vec3 {
 		return new Vec3(a.x + ((b.x - a.x) * weight), a.y + ((b.y - a.y) * weight),
 				a.z + ((b.z - a.z) * weight));
 	}
+
 }

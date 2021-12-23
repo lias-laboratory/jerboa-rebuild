@@ -1,35 +1,32 @@
 package fr.ensma.lias.jerboa.core.rule;
 
-import static fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule.Action.MODIFY;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import java.util.stream.Collectors;
 import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.CreationExpression;
-import fr.ensma.lias.jerboa.core.rule.expression.DeleteExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.MergeExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.ModifyExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.SplitExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.UnchangedExpression;
 import up.jerboa.core.JerboaEmbeddingInfo;
+import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaModeler;
-import up.jerboa.core.JerboaOrbit;
-import up.jerboa.core.rule.JerboaRowPattern;
-import up.jerboa.core.rule.JerboaRuleExpression;
+import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaRuleNode;
+import up.jerboa.core.rule.JerboaRowPattern;
 import up.jerboa.core.util.JerboaRuleGenerated;
 import up.jerboa.exception.JerboaException;
 
 public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
-    private transient JerboaRowPattern curleftPattern;
-
     public enum Action {
         CREATE, DELETE, MERGE, SPLIT, MODIFY, UNCHANGED
     };
 
-    public Action action = MODIFY;
+    public Action action = Action.MODIFY;
+
+    public List<Integer> deletedLabels = new ArrayList<Integer>();
 
     public JerboaRebuiltRule(JerboaModeler modeler, String name, String category)
             throws JerboaException {
@@ -69,9 +66,31 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                         action = Action.UNCHANGED;
                     } else {
                         printOrbitIDs(orbitNode);
-                        action = MODIFY;
+                        action = Action.MODIFY;
                         break;
                     }
+                }
+
+                addExpression(node, tracker);
+
+            }
+
+            for (var node : left) {
+                if (visited.contains(node.getID())) {
+                    continue;
+                }
+
+                var orbitNode = JerboaRuleNode.orbit(node, tracker.getOrbit());
+                visited.addAll(orbitNode.stream().map(n -> n.getID()).collect(Collectors.toList()));
+
+                for (JerboaRuleNode currentNode : orbitNode) {
+                    if (right.contains(currentNode)) {
+                        action = Action.MODIFY;
+                        addExpression(node, tracker);
+                        break;
+                    }
+                    action = Action.DELETE;
+                    System.out.println("Node " + currentNode + " is Deleted!");
                 }
 
                 addExpression(node, tracker);
@@ -117,7 +136,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 node.addExpression(new CreationExpression(tracker));
                 return;
             case DELETE:
-                node.addExpression(new DeleteExpression(tracker));
                 return;
             case MERGE:
                 node.addExpression(new MergeExpression(tracker));

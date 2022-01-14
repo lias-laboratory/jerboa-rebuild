@@ -20,8 +20,7 @@ public class UnchangedExpression implements JerboaRuleExpression {
     public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
             JerboaRuleNode arg3) throws JerboaException {
         var unchangedLabel = arg2.getNode(arg3.getID()).getEmbedding(this.getEmbedding());
-        System.out.print(getOrbitType() + " unchanged label: ");
-        System.out.println(unchangedLabel);
+        System.out.println(getOrbitType() + " unchanged label: " + unchangedLabel);
         return unchangedLabel;
     }
 

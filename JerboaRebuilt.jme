@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>EdgeCollapse</openRules>
+	<openRules>MergeFaces</openRules>
+	<openRules>CreateSquareFace</openRules>
 	<openRules>DeleteFace</openRules>
 	<openRules>InsertEdge</openRules>
-	<openRules>EdgeCollapse</openRules>
 <modeler name="JerboaReferenceModelerGenerated" module="fr.ensma.lias.jerboa.referenceModeler" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -12,7 +14,7 @@
         <embedding name="vertexTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="halfFaceTracker" type="fr.ensma.lias.jerboa.embeddings.OrbitLabel" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="17">
+    <rules count="18">
         <rule name="CreateDart" module="Creation" category="Creation" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -1062,6 +1064,42 @@ return label;</expr>
                     <arc dim="1" a="n3" b="n1" size="0">
                     </arc>
                     <arc dim="1" a="n0" b="n2" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+                <paramtopo name="n1" order="1" />
+            </paramstopo>
+        </rule>
+        <rule name="MergeFaces" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="253" y="111" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="435" y="115" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="5.135541274082376" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="6.171175484655172" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="118" y="104" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="256" y="93" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="2" a="n0" b="n1" size="0">
                     </arc>
                 </arcs>
             </right>

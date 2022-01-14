@@ -5,28 +5,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.CreationExpression;
-import fr.ensma.lias.jerboa.core.rule.expression.MergeExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.ModifyExpression;
-import fr.ensma.lias.jerboa.core.rule.expression.SplitExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.UnchangedExpression;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaModeler;
-import up.jerboa.core.JerboaRuleResult;
-import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.rule.JerboaRowPattern;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
 import up.jerboa.exception.JerboaException;
 
 public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
-    public enum Action {
-        CREATE, DELETE, MERGE, SPLIT, MODIFY, UNCHANGED
-    };
-
-    public Action action = Action.MODIFY;
-
-    public List<Integer> deletedLabels = new ArrayList<Integer>();
+    public StringBuilder deletedLabels = new StringBuilder();
 
     public JerboaRebuiltRule(JerboaModeler modeler, String name, String category)
             throws JerboaException {
@@ -41,115 +32,168 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return 0;
     }
 
-    protected void computeExpressions(JerboaRebuiltModeler modeler) {
+    protected void identifyExpressions(JerboaRebuiltModeler modeler) {
         var trackers = modeler.getTrackers();
 
-        // Course through the trackers
         for (var tracker : trackers) {
+            // List of visited nodes; Initialized at each orbit tracker
             var visited = new ArrayList<Integer>();
 
-            // Course through right hand side nodes
+            // Course through right hand side nodes of the rule
             for (var node : right) {
                 if (visited.contains(node.getID())) {
                     continue;
                 }
-                var orbitNode = JerboaRuleNode.orbit(node, tracker.getOrbit());
+                // subgraph is the list of all the nodes starting from `node`
+                // and following tracker's orbit
+                var subgraph = JerboaRuleNode.orbit(node, tracker.getOrbit());
 
-                // Add orbitNode IDs to visited
-                visited.addAll(orbitNode.stream().map(n -> n.getID()).collect(Collectors.toList()));
+                // this lambda adds all node's IDs from the subgraph to visited
+                visited.addAll(subgraph.stream().map(n -> n.getID()).collect(Collectors.toList()));
 
-                // Course through orbit's filtered nodes
-                for (JerboaRuleNode currentNode : orbitNode) {
-                    if (isOrbitComplete(currentNode, tracker) && !left.contains(currentNode)) {
-                        action = Action.CREATE;
-                    } else if (isOrbitPreserved(currentNode, tracker)) {
-                        action = Action.UNCHANGED;
-                    } else {
-                        printOrbitIDs(orbitNode);
-                        action = Action.MODIFY;
-                        break;
-                    }
+                if (testCreationCondition(subgraph, tracker)) {
+                    node.addExpression(new CreationExpression(tracker));
+                } else if (testUnchangedCondition(subgraph, tracker)) {
+                    node.addExpression(new UnchangedExpression(tracker));
+                } else {
+                    node.addExpression(new ModifyExpression(tracker));
                 }
-
-                addExpression(node, tracker);
-
             }
+        }
+    }
 
-            for (var node : left) {
-                if (visited.contains(node.getID())) {
+    private boolean testCreationCondition(List<JerboaRuleNode> subgraph,
+            JerboaEmbeddingInfo tracker) {
+        return isOrbitFullyFiltered(subgraph, tracker) && isOrbitFullyCreated(subgraph);
+    }
+
+    private boolean testUnchangedCondition(List<JerboaRuleNode> subgraph,
+            JerboaEmbeddingInfo tracker) {
+        return isOrbitFullyPreExistant(subgraph) && isOrbitUnchanged(subgraph, tracker);
+    }
+
+    public boolean midprocess(JerboaGMap gmap, List<JerboaRowPattern> leftPattern,
+            JerboaRebuiltModeler modeler) throws JerboaException {
+
+        // Process each tracker
+        for (var tracker : modeler.getTrackers()) {
+            var visitedNodes = new ArrayList<Integer>();
+            var visitedLabels = new ArrayList<Object>();
+
+            // Process each `deleted` node
+            for (var nodeID : deleted) {
+
+                if (visitedNodes.contains(nodeID)) {
                     continue;
                 }
+                visitedNodes.add(nodeID);
 
-                var orbitNode = JerboaRuleNode.orbit(node, tracker.getOrbit());
-                visited.addAll(orbitNode.stream().map(n -> n.getID()).collect(Collectors.toList()));
+                var subgraph = JerboaRuleNode.orbit(left.get(nodeID), tracker.getOrbit());
 
-                for (JerboaRuleNode currentNode : orbitNode) {
-                    if (right.contains(currentNode)) {
-                        action = Action.MODIFY;
-                        addExpression(node, tracker);
-                        break;
+                // this lambda adds all node's IDs from the subgraph to visited
+                visitedNodes
+                        .addAll(subgraph.stream().map(n -> n.getID()).collect(Collectors.toList()));
+
+                // Process label extraction if orbit is fully deleted
+                if (isOrbitFullyFiltered(subgraph, tracker) && isOrbitFullyDeleted(subgraph)) {
+
+                    for (var rowpattern : getLeftFilter()) {
+
+                        var label = rowpattern.get(nodeID).getEmbedding(tracker.getID());
+
+                        if (visitedLabels.contains(label)) {
+                            continue;
+                        }
+
+                        visitedLabels.add(label);
+
+                        deletedLabels
+                                .append(tracker.getName().substring(0,
+                                        tracker.getName().length() - 7))
+                                .append(" Delete Label:").append(label).append('\n');
                     }
-                    action = Action.DELETE;
-                    System.out.println("Node " + currentNode + " is Deleted!");
                 }
-
-                addExpression(node, tracker);
-
             }
-
         }
 
+        return true;
     }
 
-    private void printOrbitIDs(List<JerboaRuleNode> orbitNode) {
-        System.out.printf("%s — %s: Modify case\n", name,
-                orbitNode.stream().map(n -> n.getID()).collect(Collectors.toList()));
+    public void postprocess(JerboaRebuiltModeler modeler) {
+        System.out.println(deletedLabels.toString());
+        deletedLabels = new StringBuilder();
     }
 
-    private boolean isOrbitPreserved(JerboaRuleNode node, JerboaEmbeddingInfo tracker) {
+    private boolean isOrbitFullyFiltered(List<JerboaRuleNode> subgraph,
+            JerboaEmbeddingInfo tracker) {
+        for (var node : subgraph) {
+            for (var aLink : tracker.getOrbit()) {
+                // left side: check if aLink is not explicit
+                // right side: check if aLink is not implicit
+                if (node.alpha(aLink) == null && !node.getOrbit().contains(aLink))
+                    // if in both cases it is false then
+                    // the node is not filtering the tracker's orbit
+                    return false;
+            }
+        }
+        return true;
+    }
 
-        for (var a : tracker.getOrbit()) {
-            if (node.alpha(a) != left.get(node.getID()).alpha(a)) {
+    // If at least one node in subgraph is present in the left hand side of the
+    // rule then the subgraph is not created
+    private boolean isOrbitFullyCreated(List<JerboaRuleNode> subgraph) {
+        for (var node : subgraph) {
+            if (left.contains(node))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isOrbitFullyDeleted(List<JerboaRuleNode> subgraph) {
+        for (var node : subgraph) {
+            if (right.contains(node)) {
                 return false;
             }
         }
-        return node.getOrbit() == left.get(node.getID()).getOrbit();
+        return true;
     }
 
-    private boolean isOrbitComplete(JerboaRuleNode node, JerboaEmbeddingInfo tracker) {
-        var orbit = new ArrayList<Integer>();
-        var innerLink = node.getOrbit();
-        for (var a : tracker.getOrbit()) {
-            if (node.alpha(a) != null)
-                orbit.add(a);
+    private boolean isOrbitFullyPreExistant(List<JerboaRuleNode> subgraph) {
+        for (var node : subgraph) {
+            if (reverseAssoc(node.getID()) == -1) {
+                return false;
+            }
         }
-        for (var a : innerLink) {
-            if (a != null && tracker.getOrbit().contains(a))
-                orbit.add(a);
-        }
-        return orbit.size() == tracker.getOrbit().size();
+        return true;
     }
 
-    private void addExpression(JerboaRuleNode node, JerboaEmbeddingInfo tracker) {
-        switch (action) {
-            case CREATE:
-                node.addExpression(new CreationExpression(tracker));
-                return;
-            case DELETE:
-                return;
-            case MERGE:
-                node.addExpression(new MergeExpression(tracker));
-                return;
-            case SPLIT:
-                node.addExpression(new SplitExpression(tracker));
-                return;
-            case UNCHANGED:
-                node.addExpression(new UnchangedExpression(tracker));
-                return;
-            default:
-                node.addExpression(new ModifyExpression(tracker));
-                return;
-        }
+    // Check whether an explicit link between the left and right version of a node
+    // is modified or not
+    private boolean isExplicitLinkModified(Integer aLink, JerboaRuleNode leftNode,
+            JerboaRuleNode rightNode) {
+        return leftNode.alpha(aLink) != rightNode.alpha(aLink);
     }
 
+    private boolean isImplicitLinkModified(Integer aLink, JerboaRuleNode leftNode,
+            JerboaRuleNode rightNode) {
+        return leftNode.getOrbit().contains(aLink) != rightNode.getOrbit().contains(aLink);
+    }
+
+    // Check if every node in the subgraph remains unchanged in regard
+    // of the nodes in the left hand side of the rule
+    private boolean isOrbitUnchanged(List<JerboaRuleNode> subgraph, JerboaEmbeddingInfo tracker) {
+        for (var node : subgraph) {
+            // for each explicit link test whether or it changed between left and
+            // right
+            for (var aLink : tracker.getOrbit()) {
+                // Using reverseAssoc to match the actual node ID in left
+                var leftNodeAssoc = left.get(reverseAssoc(node.getID()));
+                if (isImplicitLinkModified(aLink, leftNodeAssoc, node)
+                        || isExplicitLinkModified(aLink, leftNodeAssoc, node)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

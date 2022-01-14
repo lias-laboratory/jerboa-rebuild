@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>InsertEdge</openRules>
 	<openRules>InsertVertex</openRules>
 	<openRules>ChanfreinCoin2D</openRules>
 	<openRules>CreateEdge</openRules>
 	<openRules>ExtrudeIndependantFace</openRules>
-	<openRules>EdgeCollapse</openRules>
-	<openRules>FaceTriangulation</openRules>
+	<openRules>MergeHalfFaces</openRules>
+	<openRules>FaceCollapse</openRules>
 	<openRules>ExtrudeEdge</openRules>
-	<openRules>InsertEdge</openRules>
+	<openRules>FaceTriangulation</openRules>
+	<openRules>EdgeCollapse</openRules>
 	<openRules>UnSewA2</openRules>
 <modeler name="JerboaTrackingModelerGenerated" module="fr.ensma.lias.jerboa.trackingModeler" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
@@ -16,7 +18,7 @@
     <embeddings count="1">
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="18">
+    <rules count="20">
         <rule name="MergeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -665,7 +667,7 @@ return true;</midprocess>
                 <nodes count="4">
                     <node name="n0" x="134" y="58" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n1" x="137" y="252" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos"></expr>
+                        <expr ebd="pos">return n0.pos.addn(0,1,0);</expr>
                     </node>
                     <node name="n2" x="337" y="65" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="347" y="260" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
@@ -905,6 +907,83 @@ return true;</midprocess>
                     <arcloop dim="3" node="n1" angle="1.2150652128999742" >
                     </arcloop>
                     <arcloop dim="3" node="n2" angle="5.260738636956246" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="MergeHalfFaces" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="272" y="124" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="498" y="130" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="2.5890633338179256" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="5.68051427043568" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="166" y="131" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="300" y="84" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n1" order="0" />
+                <paramtopo name="n0" order="1" />
+            </paramstopo>
+        </rule>
+        <rule name="FaceCollapse" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="3">
+                    <node name="n0" x="151" y="102" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="324" y="99" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="485" y="100" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="5">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n0" angle="4.238905542251963" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.403225954385416" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="0.526430671102108" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n2" x="336" y="146" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="3" node="n2" angle="5.493671770629335" >
                     </arcloop>
                 </arcs>
             </right>

@@ -18,8 +18,8 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
         trackers = new ArrayList<JerboaEmbeddingInfo>();
         trackers.add(new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1, 2, 3),
                 fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
-        trackers.add(new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0, 1),
-                fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
+        // trackers.add(new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0, 1),
+        // fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
 
         // registerEbdsAndResetGMAP(vertexTracker);
 

@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>InsertEdge</openRules>
-	<openRules>InsertVertex</openRules>
-	<openRules>ChanfreinCoin2D</openRules>
-	<openRules>CreateEdge</openRules>
-	<openRules>ExtrudeIndependantFace</openRules>
-	<openRules>MergeHalfFaces</openRules>
-	<openRules>FaceCollapse</openRules>
-	<openRules>ExtrudeEdge</openRules>
 	<openRules>FaceTriangulation</openRules>
-	<openRules>EdgeCollapse</openRules>
-	<openRules>UnSewA2</openRules>
 <modeler name="JerboaTrackingModelerGenerated" module="fr.ensma.lias.jerboa.trackingModeler" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -895,7 +885,11 @@ return true;</midprocess>
                 <nodes count="3">
                     <node name="n0" x="148" y="136" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n1" x="300" y="137" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n2" x="448" y="137" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="448" y="137" orbit="1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">Vec3 res = new Vec3();
+res.barycenter(&lt;0,1&gt;_pos(n0));
+return res;</expr>
+                    </node>
                 </nodes>
                 <arcs count="5">
                     <arc dim="1" a="n0" b="n1" size="0">

@@ -21,10 +21,10 @@ public class SplitExpression implements JerboaRuleExpression {
     public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
             JerboaRuleNode arg3) throws JerboaException {
         OrbitLabel label = new OrbitLabel();
-        StringBuilder sb = new StringBuilder();
-        sb.append(info.getName().substring(0, info.getName().length() - 7)).append(" ")
-                .append("Split").append(" Label: ").append(label.toString());
-        System.out.println(sb.toString());
+        // OrbitLabel oldLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
+
+        System.out.println(getOrbitType() + "split label from " /* + oldLabel.toString() */ + " to "
+                + label.toString());
         return label;
     }
 

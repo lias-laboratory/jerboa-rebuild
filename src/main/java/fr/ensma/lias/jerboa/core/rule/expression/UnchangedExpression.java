@@ -1,5 +1,6 @@
 package fr.ensma.lias.jerboa.core.rule.expression;
 
+import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaRuleOperation;
@@ -17,10 +18,11 @@ public class UnchangedExpression implements JerboaRuleExpression {
     }
 
     @Override
-    public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
-            JerboaRuleNode arg3) throws JerboaException {
-        var unchangedLabel = arg2.getNode(arg3.getID()).getEmbedding(this.getEmbedding());
-        System.out.println(getOrbitType() + " unchanged label: " + unchangedLabel);
+    public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2, JerboaRuleNode arg3)
+            throws JerboaException {
+
+        OrbitLabel unchangedLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
+        System.out.println(getOrbitType() + " unchanged label: " + unchangedLabel.toString());
         return unchangedLabel;
     }
 

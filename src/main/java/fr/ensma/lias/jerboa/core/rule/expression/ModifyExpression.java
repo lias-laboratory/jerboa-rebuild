@@ -20,10 +20,12 @@ public class ModifyExpression implements JerboaRuleExpression {
     @Override
     public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
             JerboaRuleNode arg3) throws JerboaException {
+
         OrbitLabel label = new OrbitLabel();
-        var oldLabel = arg2.getNode(arg3.getID()).getEmbedding(this.getEmbedding());
-        System.out.println(
-                getOrbitType() + " modify label from " + oldLabel + " to " + label.toString());
+        OrbitLabel oldLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
+
+        System.out.println(getOrbitType() + " modify label from " + oldLabel.toString() + " to "
+                + label.toString());
         return label;
     }
 

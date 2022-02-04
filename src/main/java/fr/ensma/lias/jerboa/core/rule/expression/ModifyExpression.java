@@ -24,8 +24,8 @@ public class ModifyExpression implements JerboaRuleExpression {
         OrbitLabel label = new OrbitLabel();
         OrbitLabel oldLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
 
-        System.out.println(getOrbitType() + " modify label from " + oldLabel.toString() + " to "
-                + label.toString());
+        System.out.println(
+                getOrbitType() + " modify label from " + oldLabel + " to " + label.toString());
         return label;
     }
 

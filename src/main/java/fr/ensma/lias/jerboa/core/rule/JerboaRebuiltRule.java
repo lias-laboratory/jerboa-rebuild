@@ -161,50 +161,88 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 		return true;
 	}
 
-	// NOTE: this method should not be considered finished
-	// TODO: test it,give a correct name, clean its
-	/*
-	 * Check if there is at least one i-th implicit alpha in left orbit that is never reachable in
-	 * right orbit
+	/**
+	 * REVIEW description, name, implementation
+	 * <p>
+	 * This method checks if there is at least one i-th implicit link present in an orbit from
+	 * `left` that is never reachable in the corresponding orbit from `right`.
+	 *
+	 * </p>
+	 *
+	 * @param rightOrbit an orbit in `right`
+	 * @param tracker an embedding such as {vertex,half-face} tracker
+	 * @return true or false
 	 */
 	private boolean isIthImplicitLinkReachable(List<JerboaRuleNode> rightOrbit,
 			JerboaEmbeddingInfo tracker) {
 
-		// get leftnode relative to rightOrbit root node
 		JerboaRuleNode leftNode = left.get(reverseAssoc(rightOrbit.get(0).getID()));
 		List<JerboaRuleNode> leftOrbit = JerboaRuleNode.orbit(leftNode, tracker.getOrbit());
-		int orbitTypeSize = leftNode.getOrbit().size();
+		int nbImplicitLinks = leftNode.getOrbit().size();
 
-		// init indexes list this list is used to know if for all nodes in
-		// rightOrbit there is an ith implicit link that is never reachable
-		Integer indexes[] = new Integer[orbitTypeSize];
-		for (int i = 0; i < orbitTypeSize; i++) {
-			indexes[i] = 0;
-		}
+		// 2D int array each value is the number of time an ith implicit link is
+		// unreachable
+		int[][] implicitLinks = new int[leftOrbit.size()][nbImplicitLinks];
 
-		// for each node r in R
-		for (JerboaRuleNode rightNode : rightOrbit) {
-			JerboaOrbit rightNodeOrbitType = rightNode.getOrbit();
-			// for each node l in L
-			for (JerboaRuleNode lNode : leftOrbit) {
-				JerboaOrbit leftNodeOrbitType = leftNode.getOrbit();
-				// for each ith link in r if its implicit links are not in
-				// l's orbitType then increment indexes counters
-				for (int index = 0; index < orbitTypeSize; index++) {
-					if (!leftNodeOrbitType.contains(rightNodeOrbitType.get(index)))
-						indexes[index] += 1;
+		// initialize implicitLinks so that the untracked links are set to -1
+		for (int i = 0; i < leftOrbit.size(); i++) {
+			JerboaRuleNode lNode = leftOrbit.get(i);
+			for (int j = 0; j < nbImplicitLinks; j++) {
+				int iLink = lNode.getOrbit().get(j);
+				if (!tracker.getOrbit().contains(iLink)) {
+					implicitLinks[i][j] = -1;
 				}
 			}
 		}
-		// if there is an index equal to the orbit size then there is definetely
-		// an ith implicit that is never reachable
-		for (int index = 0; index < orbitTypeSize; index++) {
-			if (indexes[index] == rightOrbit.size())
-				return true;
+
+		// for each ith implicit Link of each rNode increment the corresponding
+		// index in implicitLinks. If an index is set to -1 it is already
+		// missing or not tracked
+		for (int i = 0; i < leftOrbit.size(); i++) {
+			for (var rNode : rightOrbit) {
+				for (int j = 0; j < nbImplicitLinks; j++) {
+					int iLink = rNode.getOrbit().get(j);
+					if (!tracker.getOrbit().contains(iLink)) {
+						if (implicitLinks[i][j] != -1) {
+							implicitLinks[i][j] += 1;
+						}
+						if (implicitLinks[i][j] == rightOrbit.size())
+							return true;
+					}
+				}
+			}
 		}
 
 		return false;
+
 	}
+	// JerboaRuleNode leftNode = left.get(reverseAssoc(rightOrbit.get(0).getID()));
+	// List<JerboaRuleNode> leftOrbit = JerboaRuleNode.orbit(leftNode, tracker.getOrbit());
+	// int orbitTypeSize = leftNode.getOrbit().size();
+
+	// if (isOrbitFullyFiltered(leftOrbit, tracker)) {
+
+	// // init indexes list this list is used to know if for all nodes in
+	// // rightOrbit there is an ith implicit link that is never reachable
+	// int implicitLinks[] = new int[orbitTypeSize];
+
+	// for (JerboaRuleNode rightNode : rightOrbit) {
+	// JerboaOrbit rightNodeOrbitType = rightNode.getOrbit();
+	// // for each ith implicit link within rightNode's orbit
+	// // if i is not a tracked link -> increment indexes[i] by one
+	// // if there is at least one indexes[i] equal to the number of nodes
+	// // within rightOrbit return true
+	// for (int i = 0; i < orbitTypeSize; i++) {
+	// if (!tracker.getOrbit().contains(rightNodeOrbitType.get(i)))
+	// implicitLinks[i] += 1;
+	// if (implicitLinks[i] == rightOrbit.size()) {
+	// return true;
+	// }
+	// }
+	// }
+	// }
+	// return false;
+
 
 	public boolean hasMidprocess() {
 		return true;

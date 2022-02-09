@@ -1,17 +1,16 @@
 package fr.ensma.lias.jerboa.core.rule;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.CreationExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.ModifyExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.SplitExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.UnchangedExpression;
 import fr.ensma.lias.jerboa.embeddings.OrbitLabel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
-import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaRowPattern;
 import up.jerboa.core.rule.JerboaRuleNode;
@@ -162,7 +161,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     }
 
     /**
-     * TODO Check if does actually work
+     * TODO Check if it does actually work
      *
      * <p>
      * This method checks if two nodes belonging to two different orbits in `right` shared the same
@@ -252,33 +251,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return false;
 
     }
-    // JerboaRuleNode leftNode = left.get(reverseAssoc(rightOrbit.get(0).getID()));
-    // List<JerboaRuleNode> leftOrbit = JerboaRuleNode.orbit(leftNode, tracker.getOrbit());
-    // int orbitTypeSize = leftNode.getOrbit().size();
-
-    // if (isOrbitFullyFiltered(leftOrbit, tracker)) {
-
-    // // init indexes list this list is used to know if for all nodes in
-    // // rightOrbit there is an ith implicit link that is never reachable
-    // int implicitLinks[] = new int[orbitTypeSize];
-
-    // for (JerboaRuleNode rightNode : rightOrbit) {
-    // JerboaOrbit rightNodeOrbitType = rightNode.getOrbit();
-    // // for each ith implicit link within rightNode's orbit
-    // // if i is not a tracked link -> increment indexes[i] by one
-    // // if there is at least one indexes[i] equal to the number of nodes
-    // // within rightOrbit return true
-    // for (int i = 0; i < orbitTypeSize; i++) {
-    // if (!tracker.getOrbit().contains(rightNodeOrbitType.get(i)))
-    // implicitLinks[i] += 1;
-    // if (implicitLinks[i] == rightOrbit.size()) {
-    // return true;
-    // }
-    // }
-    // }
-    // }
-    // return false;
-
 
     public boolean hasMidprocess() {
         return true;

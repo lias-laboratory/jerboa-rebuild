@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>FaceTriangulation</openRules>
+	<openRules>MergeEdge</openRules>
 <modeler name="JerboaTrackingModelerGenerated" module="fr.ensma.lias.jerboa.trackingModeler" dimension="3" destDir="gen/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -9,16 +9,16 @@
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
     <rules count="20">
-        <rule name="MergeEdge" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="MergeEdge" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
             <left>
                 <nodes count="4">
-                    <node name="n0" x="529" y="136" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="753" y="135" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n2" x="296" y="144" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="77" y="140" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="480" y="120" orbit="2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="690" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="330" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="120" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="3">
                     <arc dim="0" a="n0" b="n1" size="0">
@@ -31,8 +31,8 @@
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n1" x="494" y="119" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="109" y="116" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="330" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="120" y="120" orbit="2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">
                     <arc dim="0" a="n3" b="n1" size="0">

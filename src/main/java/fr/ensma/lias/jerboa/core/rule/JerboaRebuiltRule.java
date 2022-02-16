@@ -48,6 +48,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 if (visited.contains(node.getID())) {
                     continue;
                 }
+
                 // orbit is the list of all the nodes starting from `node`
                 // and following tracker's orbit
                 List<JerboaRuleNode> orbit = JerboaRuleNode.orbit(node, tracker.getOrbit());
@@ -74,10 +75,12 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
     private boolean testUnchangedCondition(List<JerboaRuleNode> orbit,
             JerboaEmbeddingInfo tracker) {
-        return isOrbitFullyPreExistant(orbit) && isOrbitUnchanged(orbit, tracker);
+        // TODO: clean everything here
+        return isOrbitPreserved(orbit, tracker) && areNodesUnchanged(orbit, tracker);
     }
 
     private boolean testSplitCondition(List<JerboaRuleNode> orbit, JerboaEmbeddingInfo tracker) {
+        // TODO: clean everything here
         return isOrbitSplitted(orbit, tracker) || isIthImplicitLinkReachable(orbit, tracker);
     }
 
@@ -114,13 +117,33 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return true;
     }
 
-    private boolean isOrbitFullyPreExistant(List<JerboaRuleNode> orbit) {
-        for (var node : orbit) {
+    /**
+     * <p>
+     * This method checks that every nodes of an orbit is preserved meaning that all of them must
+     * have an equivalent in `left` AND the number of must remains the same
+     * </p>
+     *
+     * @param rightOrbit : an orbit from `right`
+     * @param tracker : a custom embedding to have informations on a specific a orbit type
+     */
+    private boolean isOrbitPreserved(List<JerboaRuleNode> rightOrbit, JerboaEmbeddingInfo tracker) {
+        // if at least one node is not associated to a node in left return false
+        for (var node : rightOrbit) {
             if (reverseAssoc(node.getID()) == -1) {
                 return false;
             }
         }
-        return true;
+
+        var leftNode = left.get(reverseAssoc(rightOrbit.get(0).getID()));
+        var leftOrbit = JerboaRuleNode.orbit(leftNode, tracker.getOrbit());
+        // return leftOrbit.size() == rightOrbit.size();
+        for (var node : rightOrbit) {
+            var lNode = left.get(reverseAssoc(node.getID()));
+            if (!leftOrbit.contains(lNode))
+                return false;
+        }
+        return leftOrbit.size() == rightOrbit.size();
+
     }
 
     // Check whether an explicit link between the left and right version of a node
@@ -144,7 +167,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
     // Check if every node in the orbit remains unchanged in regard
     // of the nodes in the left hand side of the rule
-    private boolean isOrbitUnchanged(List<JerboaRuleNode> orbit, JerboaEmbeddingInfo tracker) {
+    private boolean areNodesUnchanged(List<JerboaRuleNode> orbit, JerboaEmbeddingInfo tracker) {
         for (var node : orbit) {
             // for each explicit link test whether or it changed between left and
             // right
@@ -196,12 +219,31 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return false;
     }
 
+    private boolean isOrbitMissingNode(List<JerboaRuleNode> leftOrbit,
+            List<JerboaRuleNode> rightOrbit, JerboaEmbeddingInfo tracker) {
+
+        var nbLNodes = leftOrbit.size();
+        var counter = 0;
+
+        for (var rNode : rightOrbit) {
+            int reverseID = reverseAssoc(rNode.getID());
+            if (reverseID != -1) {
+                if (leftOrbit.contains(left.get(reverseID))) {
+                    counter += 1;
+                }
+            }
+        }
+
+        return counter != nbLNodes;
+    }
+
+    // REVIEW description, name, implementation
+    // TODO change this method's name it is aweful
+    // TODO cleanup needed
     /**
-     * REVIEW description, name, implementation
      * <p>
      * This method checks if there is at least one i-th implicit link present in an orbit from
      * `left` that is never reachable in the corresponding orbit from `right`.
-     *
      * </p>
      *
      * @param rightOrbit an orbit in `right`
@@ -213,6 +255,11 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
         JerboaRuleNode leftNode = left.get(reverseAssoc(rightOrbit.get(0).getID()));
         List<JerboaRuleNode> leftOrbit = JerboaRuleNode.orbit(leftNode, tracker.getOrbit());
+
+        // precondition -> all nodes in leftOrbit must be present in rightOrbit
+        if (isOrbitMissingNode(leftOrbit, rightOrbit, tracker))
+            return false;
+
         int nbImplicitLinks = leftNode.getOrbit().size();
 
         // 2D int array each value is the number of time an ith implicit link is

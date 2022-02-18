@@ -17,6 +17,11 @@ import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
 import up.jerboa.exception.JerboaException;
 
+// TODO: rename methods to check unchanged orbit | enforce orbit type
+// verification to prevent a super-orbit from being caught in place of one of
+// its sub-orbit e.g.: <1,2,3> currently catches <1,2> and <0,1,3> catches <0,1>
+
+
 public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
     public StringBuilder deletedLabels = new StringBuilder();
@@ -294,9 +299,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 }
             }
         }
-
         return false;
-
     }
 
     public boolean hasMidprocess() {

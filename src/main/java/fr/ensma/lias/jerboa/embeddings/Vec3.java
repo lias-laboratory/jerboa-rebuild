@@ -2,9 +2,6 @@ package fr.ensma.lias.jerboa.embeddings;
 
 import java.util.List;
 
-// TODO: Maxime tu dois continuer/remodeler cette classe selon tes besoins
-// TODO: Test if vectors are colinear or not
-
 public class Vec3 {
 
 	private float x, y, z;

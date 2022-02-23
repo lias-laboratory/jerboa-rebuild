@@ -17,7 +17,7 @@ import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
 import up.jerboa.exception.JerboaException;
 
-// TODO prevent super orbits to catch expression for their subs
+// TODO populate doc: javadoc style
 
 
 public class JerboaRebuiltRule extends JerboaRuleGenerated {
@@ -47,7 +47,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         List<JerboaEmbeddingInfo> trackers = rebuiltModeler.getTrackers();
 
         for (JerboaEmbeddingInfo tracker : trackers) {
-            // List of visited nodes; Initialized at each orbit tracker
+            // List of visited nodes; Initialized at each orbit tracker
             var visited = new ArrayList<Integer>();
 
             // Course through right hand side nodes of the rule
@@ -198,9 +198,9 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
             // left and right
             for (Integer aLink : tracker.getOrbit()) {
                 // Using reverseAssoc to match the actual node ID in left
-                JerboaRuleNode leftNodeAssoc = left.get(reverseAssoc(node.getID()));
-                if (!isImplicitLinkUnchanged(aLink, leftNodeAssoc, node)
-                        || !isExplicitLinkUnchanged(aLink, leftNodeAssoc, node)) {
+                JerboaRuleNode leftNode = left.get(reverseAssoc(node.getID()));
+                if (!isImplicitLinkUnchanged(aLink, leftNode, node)
+                        || !isExplicitLinkUnchanged(aLink, leftNode, node)) {
                     return false;
                 }
             }

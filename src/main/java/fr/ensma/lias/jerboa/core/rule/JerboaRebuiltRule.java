@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.CreationExpression;
+import fr.ensma.lias.jerboa.core.rule.expression.MergeExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.ModifyExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.SplitExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.UnchangedExpression;
@@ -15,6 +16,7 @@ import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaRowPattern;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
+import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaException;
 
 // TODO populate doc: javadoc style
@@ -52,24 +54,25 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
             // Course through right hand side nodes of the rule
             for (JerboaRuleNode node : right) {
-                if (visited.contains(node.getID())) {
-                    continue;
-                }
+                if (!visited.contains(node.getID())) {
 
-                // orbit is the list of all the nodes starting from `node`
-                // and following tracker's orbit
-                List<JerboaRuleNode> orbit = JerboaRuleNode.orbit(node, tracker.getOrbit());
+                    // orbit is the list of all the nodes starting from `node`
+                    // and following tracker's orbit
+                    List<JerboaRuleNode> orbit = JerboaRuleNode.orbit(node, tracker.getOrbit());
 
-                addAllNodesToVisited(orbit, visited);
+                    addAllNodesToVisited(orbit, visited);
 
-                if (testCreationCondition(orbit, tracker)) {
-                    node.addExpression(new CreationExpression(tracker));
-                } else if (testUnchangedCondition(orbit, tracker)) {
-                    node.addExpression(new UnchangedExpression(tracker));
-                } else if (testSplitCondition(orbit, tracker)) {
-                    node.addExpression(new SplitExpression(tracker));
-                } else {
-                    node.addExpression(new ModifyExpression(tracker));
+                    if (testCreationCondition(orbit, tracker)) {
+                        node.addExpression(new CreationExpression(tracker));
+                    } else if (testUnchangedCondition(orbit, tracker)) {
+                        node.addExpression(new UnchangedExpression(tracker));
+                    } else if (testSplitCondition(orbit, tracker)) {
+                        node.addExpression(new SplitExpression(tracker));
+                    } else if (testMergeCondition(orbit, tracker)) {
+                        node.addExpression(new MergeExpression(tracker));
+                    } else {
+                        node.addExpression(new ModifyExpression(tracker));
+                    }
                 }
             }
         }
@@ -86,6 +89,10 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
     private boolean testSplitCondition(List<JerboaRuleNode> orbit, JerboaEmbeddingInfo tracker) {
         return isOrbitSplitted(orbit, tracker) || isOrbitPatternSplitted(orbit, tracker);
+    }
+
+    private boolean testMergeCondition(List<JerboaRuleNode> orbit, JerboaEmbeddingInfo tracker) {
+        return isOrbitMerged(orbit, tracker);
     }
 
     private boolean isNodeCreated(JerboaRuleNode node) {
@@ -208,6 +215,38 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return true;
     }
 
+    private JerboaRuleNode getLeftNode(JerboaRuleNode node) {
+        return left.get(reverseAssoc(node.getID()));
+    }
+
+    private List<JerboaRuleNode> getOrbit(JerboaRuleNode node, JerboaEmbeddingInfo tracker) {
+        return JerboaRuleNode.orbit(node, tracker.getOrbit());
+    }
+
+    private List<JerboaRuleNode> getLeftOrbit(JerboaRuleNode node, JerboaEmbeddingInfo tracker) {
+        return JerboaRuleNode.orbit(getLeftNode(node), tracker.getOrbit());
+    }
+
+    private boolean isOrbitMerged(List<JerboaRuleNode> rightOrbit, JerboaEmbeddingInfo tracker) {
+        var leftNode = getLeftNode(rightOrbit.get(0));
+
+        for (JerboaRuleNode rNode : rightOrbit) {
+            if (isNodeCreated(rNode)) {
+                break;
+            }
+
+            var lOrbit = getLeftOrbit(rNode, tracker);
+
+            if (!lOrbit.contains(leftNode)) {
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
     /**
      * REVIEW
      *
@@ -219,26 +258,22 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      */
     private boolean isOrbitSplitted(List<JerboaRuleNode> rightOrbit, JerboaEmbeddingInfo tracker) {
 
-        JerboaRuleNode rightNode = rightOrbit.get(0);
-        JerboaRuleNode leftNode = left.get(reverseAssoc(rightNode.getID()));
-        List<JerboaRuleNode> leftOrbit = JerboaRuleNode.orbit(leftNode, tracker.getOrbit());
 
-        for (JerboaRuleNode rNode : right) {
-            // if rightNode and rNode have the same orbit type
-            if (rightNode.getOrbit().equals(rNode.getOrbit())) {
-                // if rNode is not in the same orbit as rightNode
-                if (!rightOrbit.contains(rNode)) {
-                    int lNodeID = reverseAssoc(rNode.getID());
-                    // if rNode exists in `left`
-                    if (!isNodeCreated(lNodeID)) {
-                        // if rNode and rightNode shared the same orbit in `left`
-                        if (leftOrbit.contains(left.get(lNodeID))) {
-                            return true;
+        for (JerboaRuleNode rNode1 : right) {
+            var rOrbit1 = getOrbit(rNode1, tracker);
+            if (!isNodeCreated(rNode1)) {
+                for (JerboaRuleNode rNode2 : right) {
+                    if (rNode1 != rNode2) {
+                        if (!isNodeCreated(rNode2) && !rOrbit1.contains(rNode2)) {
+                            if (getLeftOrbit(rNode1, tracker).contains(getLeftNode(rNode2))) {
+                                return true;
+                            }
                         }
                     }
                 }
             }
         }
+
         return false;
     }
 

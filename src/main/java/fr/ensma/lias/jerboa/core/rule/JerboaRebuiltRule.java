@@ -92,7 +92,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     }
 
     private boolean testMergeCondition(List<JerboaRuleNode> orbit, JerboaEmbeddingInfo tracker) {
-        return isOrbitMerged(orbit, tracker);
+        return isOrbitMerged(orbit, tracker) || isOrbitPatternMerged(orbit, tracker);
     }
 
     private boolean isNodeCreated(JerboaRuleNode node) {
@@ -318,12 +318,13 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
 
     /**
-     * REVIEW
+     * HACK me: maybe find a way to make this statement valid for merge case under logical NOT
+     * operator
      *
      * Look for at least one untracked ith implicit link within rightOrbit
      */
-    private boolean hasUntrackedIthLink(List<JerboaRuleNode> leftOrbit,
-            List<JerboaRuleNode> rightOrbit, JerboaEmbeddingInfo tracker, int[] iLinksArray) {
+    private boolean hasUntrackedIthLink(List<JerboaRuleNode> rightOrbit,
+            JerboaEmbeddingInfo tracker, int[] iLinksArray) {
 
         // for each rNode
         for (var rNode : rightOrbit) {
@@ -364,8 +365,8 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     private boolean isOrbitPatternSplitted(List<JerboaRuleNode> rightOrbit,
             JerboaEmbeddingInfo tracker) {
 
-        JerboaRuleNode leftNode = left.get(reverseAssoc(rightOrbit.get(0).getID()));
-        List<JerboaRuleNode> leftOrbit = JerboaRuleNode.orbit(leftNode, tracker.getOrbit());
+        JerboaRuleNode leftNode = getLeftNode(rightOrbit.get(0));
+        List<JerboaRuleNode> leftOrbit = getOrbit(leftNode, tracker);
 
         // precondition -> all nodes in leftOrbit must be present in rightOrbit
         if (isOrbitMissingNode(leftOrbit, rightOrbit, tracker))
@@ -375,9 +376,47 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
         // track accessible implicit Links per nodes in leftOrbit
         int[] iLinksArray = new int[nbImplicitLinks];
+        // compute untracked iLinks in leftOrbit
         initializeImplicitLinksArray(leftOrbit, tracker, nbImplicitLinks, iLinksArray);
 
-        return hasUntrackedIthLink(leftOrbit, rightOrbit, tracker, iLinksArray);
+        return hasUntrackedIthLink(rightOrbit, tracker, iLinksArray);
+    }
+
+    /**
+     * TODO clean
+     *
+     */
+    private boolean isOrbitPatternMerged(List<JerboaRuleNode> rightOrbit,
+            JerboaEmbeddingInfo tracker) {
+
+        for (var rNode : rightOrbit) {
+            if (isNodeCreated(rNode)) {
+                return false;
+            }
+        }
+
+        JerboaRuleNode leftNode = getLeftNode(rightOrbit.get(0));
+        List<JerboaRuleNode> leftOrbit = getOrbit(leftNode, tracker);
+
+        int nbImplicitLinks = leftNode.getOrbit().size();
+
+        int[] iLinksArray = new int[nbImplicitLinks];
+        // compute untracked iLinks in leftOrbit
+        initializeImplicitLinksArray(leftOrbit, tracker, nbImplicitLinks, iLinksArray);
+
+        int[] iLinksArray2 = new int[nbImplicitLinks];
+        // compute untracked iLinks in rightOrbit
+        initializeImplicitLinksArray(rightOrbit, tracker, nbImplicitLinks, iLinksArray2);
+
+        // if there remain an untracked ith iLink
+        // then the orbit pattern may have not been merged
+        for (int i = 0; i < nbImplicitLinks; i++) {
+            if (iLinksArray2[i] == -1)
+                return false;
+        }
+
+        return true;
+        // return !hasUntrackedIthLink(rightOrbit, tracker, iLinksArray);
     }
 
     public boolean hasMidprocess() {

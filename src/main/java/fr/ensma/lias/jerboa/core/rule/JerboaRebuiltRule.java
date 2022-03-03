@@ -408,7 +408,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         // compute untracked iLinks in rightOrbit
         initializeImplicitLinksArray(rightOrbit, tracker, nbImplicitLinks, iLinksArray2);
 
-        // if there remain an untracked ith iLink
+        // if there remains an untracked ith iLink
         // then the orbit pattern may have not been merged
         for (int i = 0; i < nbImplicitLinks; i++) {
             if (iLinksArray2[i] == -1)

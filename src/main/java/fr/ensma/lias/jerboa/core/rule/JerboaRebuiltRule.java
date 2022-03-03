@@ -408,15 +408,14 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         // compute untracked iLinks in rightOrbit
         initializeImplicitLinksArray(rightOrbit, tracker, nbImplicitLinks, iLinksArray2);
 
-        // if there remains an untracked ith iLink
-        // then the orbit pattern may have not been merged
+        // if there is an ith implicit link that was untracked and is now
+        // then the orbit pattern may have been merged
         for (int i = 0; i < nbImplicitLinks; i++) {
-            if (iLinksArray2[i] == -1)
-                return false;
+            if (iLinksArray[i] == -1 && iLinksArray2[i] != -1)
+                return true;
         }
 
-        return true;
-        // return !hasUntrackedIthLink(rightOrbit, tracker, iLinksArray);
+        return false;
     }
 
     public boolean hasMidprocess() {

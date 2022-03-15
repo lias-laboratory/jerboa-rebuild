@@ -369,8 +369,8 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         List<JerboaRuleNode> leftOrbit = getOrbit(leftNode, tracker);
 
         // precondition -> all nodes in leftOrbit must be present in rightOrbit
-        if (isOrbitMissingNode(leftOrbit, rightOrbit, tracker))
-            return false;
+        // if (isOrbitMissingNode(leftOrbit, rightOrbit, tracker))
+        // return false;
 
         int nbImplicitLinks = leftNode.getOrbit().size();
 

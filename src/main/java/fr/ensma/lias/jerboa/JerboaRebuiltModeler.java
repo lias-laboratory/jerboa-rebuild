@@ -20,6 +20,10 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
                 fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
         trackers.add(new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0, 1),
                 fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
+        // trackers.add(new JerboaEmbeddingInfo("halfEdgeTracker", JerboaOrbit.orbit(0),
+        // fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
+        // trackers.add(new JerboaEmbeddingInfo("edgeTracker", JerboaOrbit.orbit(0, 2, 3),
+        // fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
     }
 
     @Override

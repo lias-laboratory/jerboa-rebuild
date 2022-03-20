@@ -39,7 +39,7 @@ your file system.
 * From command line, execute the following instructions.
 
 ```
-$ mvn install:install-file -Dfile=Jerboa_04032022.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboa -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+$ mvn install:install-file -Dfile=Jerboa_04032022.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboa -Dversion=1.1 -Dpackaging=jar -DgeneratePom=true
 $ mvn install:install-file -Dfile=JerboaModelerViewer_05102021.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboamodelerviewer -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 $ mvn install:install-file -Dfile=JerboaModelerTransmitter_05102021.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboamodelertransmitter -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 ```

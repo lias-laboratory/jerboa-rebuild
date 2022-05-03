@@ -3,7 +3,7 @@ package fr.ensma.lias.jerboa.core.rule;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import fr.ensma.lias.jerboa.JerboaRebuiltModeler;
+import fr.ensma.lias.jerboa.core.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.CreationExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.MergeExpression;
 import fr.ensma.lias.jerboa.core.rule.expression.ModifyExpression;

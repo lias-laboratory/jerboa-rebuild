@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa;
+package fr.ensma.lias.jerboa.core;
 
 import java.util.ArrayList;
 import java.util.List;

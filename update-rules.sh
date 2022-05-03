@@ -1,28 +1,29 @@
 #!/bin/bash
 
-MODELER="./gen/fr/ensma/lias/jerboa/trackingModeler/JerboaTrackingModelerGenerated.java"
+WORKING_DIR="./src/main/java/fr/ensma/lias/jerboa/core/rule/rules"
+MODELER="$WORKING_DIR/JerboaRebuiltModelerGenerated.java"
 
 is_file_updated(){
 	if [[ $(grep -F "$2" "$1") == *"$2"* ]]
 	then
-		return 1
+		return 0
 	fi
-	return 0
+	return 1
 }
 
 update_modeler() {
-	is_file_updated "$1" "JerboaRebuiltModeler"
+	is_file_updated "$1" "JerboaModelerGeneric"
 	if [[ $? -eq 1 ]]
 	then
 		return
 	else
-		sed -i '0,/^package*/a import fr.ensma.lias.jerboa.JerboaRebuiltModeler;' "$1"
+		sed -i '0,/^package*/a import fr.ensma.lias.jerboa.core.JerboaRebuiltModeler;' "$1"
 		sed -i 's/JerboaModelerGeneric/JerboaRebuiltModeler/g' "$1"
 	fi
 }
 
 update_entry() {
-	is_file_updated "$1" "JerboaRebuiltRule"
+	is_file_updated "$1" "JerboaRuleGenerated"
 	if [[ $? -eq 1 ]]  
 	then
 		return
@@ -33,7 +34,7 @@ update_entry() {
 	fi
 }
 
-search_dir=$(find ./gen/fr/ensma/lias/jerboa/trackingModeler/ -type f)
+search_dir=$(find "$WORKING_DIR/" -type f)
 for entry in $search_dir
 do
 	if [ "$entry" = $MODELER ]

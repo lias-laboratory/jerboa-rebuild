@@ -1,7 +1,7 @@
 #!/bin/bash
 
-WORKING_DIR="./src/main/java/fr/ensma/lias/jerboa/core/rule/rules"
-MODELER="$WORKING_DIR/JerboaRebuiltModelerGenerated.java"
+WORKING_DIR="../src/main/java/fr/ensma/lias/jerboa/core/rule/rules"
+MODELER="$WORKING_DIR/ModelerGenerated.java"
 
 is_file_updated(){
 	if [[ $(grep -F "$2" "$1") == *"$2"* ]]
@@ -30,7 +30,7 @@ update_entry() {
 	else
 		sed -i '0,/^package*/a import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;' "$1"
 		sed -i 's/JerboaRuleGenerated/JerboaRebuiltRule/g' "$1"
-		sed -i '/SPECIFIED FEATURE/a enrichTrackingExpressions();' "$1"
+		#sed -i '/SPECIFIED FEATURE/a enrichTrackingExpressions();' "$1"
 	fi
 }
 

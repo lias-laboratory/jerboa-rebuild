@@ -9,27 +9,27 @@ public class Points {
 	private float x;
 	private float y;
 	private float z;
-	
-	public String toString() { 
-	    return "X: " + this.x + ", Y: " + this.y + ", Z: " + this.z;
-	} 
-	
+
+	public String toString() {
+		return "X: " + this.x + ", Y: " + this.y + ", Z: " + this.z;
+	}
+
 	public Points() {
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;
 	}
-	
+
 	public Points(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	public Points(double x, double y, double z) {
-		this.x = (float)x;
-		this.y = (float)y;
-		this.z = (float)z;
+		this.x = (float) x;
+		this.y = (float) y;
+		this.z = (float) z;
 	}
 
 	public Points(Points ebd) {
@@ -37,13 +37,13 @@ public class Points {
 		this.y = ebd.y;
 		this.z = ebd.z;
 	}
-	
+
 	public Points(Points pt, Vec3 vect) {
 		this.x = pt.x + vect.x();
 		this.y = pt.y + vect.y();
 		this.z = pt.z + vect.z();
 	}
-	
+
 	public Points(java.util.List<Points> list) {
 		float x = 0;
 		float y = 0;
@@ -53,16 +53,16 @@ public class Points {
 			x += pt.x;
 			y += pt.y;
 			z += pt.z;
-			count ++;
+			count++;
 		}
-		x = x/count;
-		y = y/count;
-		z = z/count;
+		x = x / count;
+		y = y / count;
+		z = z / count;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	public void centerPoint(java.util.List<Points> list) {
 		System.out.println(list);
 		this.x = 0;
@@ -73,19 +73,19 @@ public class Points {
 			this.x += pt.x;
 			this.y += pt.y;
 			this.z += pt.z;
-			count ++;
+			count++;
 		}
-		this.x = x/count;
-		this.y = y/count;
-		this.z = z/count;
+		this.x = x / count;
+		this.y = y / count;
+		this.z = z / count;
 	}
-	
+
 	public void centerPoint(Points pt1, Points pt2) {
-		this.x = (pt1.x + pt2.x)/2;
-		this.y = (pt1.y + pt2.y)/2;
-		this.z = (pt1.z + pt2.z)/2;
+		this.x = (pt1.x + pt2.x) / 2;
+		this.y = (pt1.y + pt2.y) / 2;
+		this.z = (pt1.z + pt2.z) / 2;
 	}
-	
+
 	public void distFromCorner(java.util.List<Points> list, Points b, double d) {
 		this.x = 0;
 		this.y = 0;
@@ -95,19 +95,19 @@ public class Points {
 			this.x += pt.x;
 			this.y += pt.y;
 			this.z += pt.z;
-			times ++;
+			times++;
 		}
-		this.x = x/times;
-		this.y = y/times;
-		this.z = z/times;
-		
+		this.x = x / times;
+		this.y = y / times;
+		this.z = z / times;
+
 		this.x += d * b.getX();
 		this.y += d * b.getY();
 		this.z += d * b.getZ();
-		
-		this.x = (float) (x/(d+1));
-		this.y = (float) (y/(d+1));
-		this.z = (float) (z/(d+1));
+
+		this.x = (float) (x / (d + 1));
+		this.y = (float) (y / (d + 1));
+		this.z = (float) (z / (d + 1));
 	}
 
 	public float getX() {
@@ -127,23 +127,23 @@ public class Points {
 		this.y += ebd.y();
 		this.z += ebd.z();
 	}
-	
+
 	public void add(float x, float y, float z) {
 		this.x += x;
 		this.y += y;
 		this.z += z;
 	}
-	
+
 	public void movePoint(Points pt, Vec3 vect) {
 		pt.x = pt.x + vect.x();
 		pt.y = pt.y + vect.y();
 		pt.z = pt.z + vect.z();
 	}
-	
+
 	public float halfWay(float a, float b) {
-		return b-((a-b)/2);
+		return b - ((a - b) / 2);
 	}
-	
+
 	public static Points askForCoords() {
 		JFrame floatFrame = new JFrame();
 		floatFrame.setLocationRelativeTo(null);

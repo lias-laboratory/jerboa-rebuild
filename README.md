@@ -9,8 +9,16 @@ specification.
 
 In order to be able to run the project you will need to export the modeler
 through the Jerboa Modeler Editor interface which is not found within this
-project. The modeler will generate a `gen` directory containing the Jerboa
-rules as well as the modeler's class.
+project and update it using a script as follow:
+
+From within `$PROJECT_ROOT/scripts/`
+``` sh
+$ ./update-rules.sh
+```
+
+This script updates the generated files (modeler and rules) in order to match
+the project structure.
+
 
 ## Jerboa dependencies
 
@@ -34,11 +42,11 @@ Two approches to add Jerboa Jar dependencies:
 We suppose the files related to the Jerboa Jar dependencies are available on
 your file system.
 
-### Manual way
+### Manually
 
 * From command line, execute the following instructions.
 
-```
+``` sh
 $ mvn install:install-file -Dfile=Jerboa_04032022.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboa -Dversion=1.1 -Dpackaging=jar -DgeneratePom=true
 $ mvn install:install-file -Dfile=JerboaModelerViewer_05102021.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboamodelerviewer -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 $ mvn install:install-file -Dfile=JerboaModelerTransmitter_05102021.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboamodelertransmitter -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
@@ -51,7 +59,7 @@ $ mvn install:install-file -Dfile=JerboaModelerTransmitter_05102021.jar -DgroupI
 * Edit the _settings.xml_ file (located to Maven installation directory) and
   replace by this content
 
-```
+``` xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -102,3 +110,16 @@ $ mvn install:install-file -Dfile=JerboaModelerTransmitter_05102021.jar -DgroupI
     </activeProfiles>
 </settings>
 ```
+
+## Directories
+
+### Exports
+This directory should contain any file exported by the user such as:
+- parametric specifications,
+- history records, 
+- matching trees (coming soon),
+- graphviz dots and pdfs.
+
+### Scripts
+- update-rules.sh updates files generated with the Jerboa Modeler Editor,
+- hr-graphic-export generates graphviz exports from history record json exports.

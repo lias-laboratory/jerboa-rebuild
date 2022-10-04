@@ -1,17 +1,22 @@
 package fr.ensma.lias.jerboa.bridge;
 
 import fr.ensma.lias.jerboa.embeddings.Vec3;
-import fr.ensma.lias.jerboa.core.rule.rules.JerboaRebuiltModelerGenerated;
+import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
 import fr.up.xlim.sic.ig.jerboa.viewer.IJerboaModelerViewer;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerBridge;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerColor;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerPoint;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerTuple;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
@@ -20,14 +25,13 @@ import up.jerboa.core.JerboaModeler;
 import up.jerboa.core.util.JerboaGMapDuplicateFactory;
 import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaGMapDuplicateException;
-
-// TODO: ajouter un toString pour les plongements
+import up.jerboa.util.serialization.jba.JBAFormat;
 
 public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicateFactory {
 
-	private JerboaRebuiltModelerGenerated modeler;
+	private ModelerGenerated modeler;
 
-	public JerboaRebuiltBridge(JerboaRebuiltModelerGenerated modeler) {
+	public JerboaRebuiltBridge(ModelerGenerated modeler) {
 		this.modeler = modeler;
 	}
 
@@ -49,7 +53,6 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 		}
 		return sb.toString();
 	}
-
 
 	@Override
 	public boolean manageEmbedding(JerboaEmbeddingInfo arg0) {
@@ -142,5 +145,15 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	}
 
 	@Override
-	public void save(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {}
+	public void save(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {
+		JFileChooser file = new JFileChooser(new File("."));
+		file.showSaveDialog(null);
+		String filename = file.getSelectedFile().toString();
+		modeler.spec.export(filename);
+	}
+
+	// petit fix pour nouvelle version de Hakim
+	public void loadFile(String filepath) {
+		throw new Error("not yet implemented");	
+	}
 }

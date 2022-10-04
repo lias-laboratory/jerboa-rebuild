@@ -19,7 +19,7 @@ public class MergeExpression implements JerboaRuleExpression {
 
 
     /**
-     * TODO find a way to collect all `oldLabel`s used in merge event
+     * Deprecated
      */
 
     @Override

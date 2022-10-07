@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
@@ -56,9 +54,8 @@ public class DemoRejeuID {
         JerboaGMap gmap = bridge.getGMap(); // gmap in which we rebuild the model
 
         // NOTE: rules with suppression and merge are not yet supported!
-        ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./examples",
-                "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
-                modeler);
+        ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./exports",
+                "rebuild-add-vertex.json", modeler);
         List<SpecificationEntry> specEntries = spec.getSpec();
 
         List<HistoryRecord> historyRecords = new ArrayList<>();

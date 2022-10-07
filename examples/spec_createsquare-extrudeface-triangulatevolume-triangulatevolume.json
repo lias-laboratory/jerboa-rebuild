@@ -1,0 +1,49 @@
+[
+  {
+    "appID": 1,
+    "appType": "INIT",
+    "rule": {
+      "name": "CreateSquareFace"
+    },
+    "PNs": []
+  },
+  {
+    "appID": 2,
+    "appType": "INIT",
+    "rule": {
+      "name": "ExtrudeIndependantFace"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4}]",
+        "orbitType": "(0, 1)"
+      }
+    ]
+  },
+  {
+    "appID": 3,
+    "appType": "INIT",
+    "rule": {
+      "name": "TriangulateVolume"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4; 2 - n3}]",
+        "orbitType": "(0, 1, 2)"
+      }
+    ]
+  },
+  {
+    "appID": 4,
+    "appType": "INIT",
+    "rule": {
+      "name": "TriangulateVolume"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4; 2 - n3; 3 - n0}]",
+        "orbitType": "(0, 1, 2)"
+      }
+    ]
+  }
+]

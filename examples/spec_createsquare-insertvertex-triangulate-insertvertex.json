@@ -1,0 +1,49 @@
+[
+  {
+    "appID": 1,
+    "appType": "INIT",
+    "rule": {
+      "name": "CreateSquareFace"
+    },
+    "PNs": []
+  },
+  {
+    "appID": 2,
+    "appType": "INIT",
+    "rule": {
+      "name": "InsertVertex"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n1}]",
+        "orbitType": "(2, 3)"
+      }
+    ]
+  },
+  {
+    "appID": 3,
+    "appType": "INIT",
+    "rule": {
+      "name": "FaceTriangulation"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n1; 2 - n2}]",
+        "orbitType": "(0, 1, 3)"
+      }
+    ]
+  },
+  {
+    "appID": 4,
+    "appType": "INIT",
+    "rule": {
+      "name": "InsertVertexFolded"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n1; 2 - n2; 3 - n1}]",
+        "orbitType": "(0, 2, 3)"
+      }
+    ]
+  }
+]

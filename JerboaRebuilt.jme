@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>CreateDart</openRules>
-	<openRules>SewA2</openRules>
-	<openRules>EdgeFlip</openRules>
-	<openRules>InsertEdge</openRules>
-	<openRules>FaceTriangulation</openRules>
-	<openRules>CreateVertex</openRules>
-	<openRules>BreakVolume</openRules>
-	<openRules>AssembleFaceToVertex</openRules>
-	<openRules>AssembleVolumes</openRules>
+	<openRules>TriangulateVolume</openRules>
+	<openRules>MergeVolumesAroundVertex</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -2034,8 +2027,7 @@ return res;</expr>
             <paramsebd>
             </paramsebd>
             <paramstopo>
-                <paramtopo name="n0" order="0" />
-                <paramtopo name="n8" order="1" />
+                <paramtopo name="n8" order="0" />
             </paramstopo>
         </rule>
         <rule name="ExtrudeFaceEdgeXAxis" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
@@ -2449,7 +2441,7 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="BreakVolume" module="Experiments" category="Experiments" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+        <rule name="TriangulateVolume" module="Experiments" category="Experiments" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -2489,7 +2481,7 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="AssembleVolumes" module="Experiments" category="Experiments" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+        <rule name="MergeVolumesAroundVertex" module="Experiments" category="Experiments" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -2853,22 +2845,13 @@ return res;</expr>
                     </arc>
                     <arc dim="2" a="n3" b="n4" size="0">
                     </arc>
-                    <arc dim="1" a="n4" b="n5" size="3">
-                        <point x="332" y="451" />
-                        <point x="324" y="448" />
-                        <point x="303" y="453" />
+                    <arc dim="1" a="n4" b="n5" size="0">
                     </arc>
                     <arc dim="2" a="n5" b="n6" size="0">
                     </arc>
-                    <arc dim="1" a="n6" b="n7" size="3">
-                        <point x="105" y="265" />
-                        <point x="102" y="261" />
-                        <point x="108" y="246" />
+                    <arc dim="1" a="n6" b="n7" size="0">
                     </arc>
-                    <arc dim="2" a="n7" b="n0" size="3">
-                        <point x="157" y="148" />
-                        <point x="170" y="139" />
-                        <point x="186" y="120" />
+                    <arc dim="2" a="n7" b="n0" size="0">
                     </arc>
                     <arcloop dim="0" node="n0" angle="3.0107635648332085" >
                     </arcloop>

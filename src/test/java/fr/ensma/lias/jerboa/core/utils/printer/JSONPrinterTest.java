@@ -1,7 +1,7 @@
 package fr.ensma.lias.jerboa.core.utils.printer;
 
 import static org.junit.Assert.assertEquals;
-
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.junit.Test;
@@ -23,14 +23,6 @@ public class JSONPrinterTest {
 
 	public JSONPrinterTest() throws JerboaException {}
 
-	@Test
-	public void test_HistoryRecord_import_specParam_from_JSON()
-			throws IOException, JerboaException {
-
-		ParametricSpecifications spec = JSONPrinter.importParametricSpecification(
-				"ParametricSpecification_insert-vertex-created-edge.json", modeler);
-		assertEquals(4, spec.getSpec().size());
-	}
 
 	private HistoryRecord setupHistoryRecord(String path, int specEntryIndex, int pNameIndex,
 			int pIdIndex) throws IOException, JerboaException {
@@ -51,25 +43,27 @@ public class JSONPrinterTest {
 	}
 
 	@Test
-	public void test_HistoryRecord_export() throws IOException, JerboaException {
-		// HistoryRecord hr = setupHistoryRecord(
-		// "ParametricSpecification_triangulate-triangulated-face.json",
-		// 3, 0, 0);
-		// hr.export();
-		// TODO: levelOrbit now points to list of levelEvents
-		HistoryRecord hr = setupHistoryRecord(
-				"ParametricSpecification_insert-vertex-created-edge.json", 4, 0, 0);
-		hr.export("HR-insert-vertex-created-edge.json");
-		// hr = setupHistoryRecord("case1.json", 3, 0, 0);
-		// hr.export("HR-case1.json");
-		// hr = setupHistoryRecord("case2.json", 4, 0, 0);
-		// hr.export("HR-case2.json");
-		hr = setupHistoryRecord("case3-but-triangulated.json", 5, 0, 0);
-		hr.export("HR-case3.json");
-		// hr = setupHistoryRecord("case4.json", 3, 0, 0);
-		// hr.export("HR-case4.json");
-		hr = setupHistoryRecord("case3-alt.json", 5, 0, 0);
-		hr.export("HR-case3-alt.json");
+	public void test_HistoryRecord_import_specParam_from_JSON()
+			throws IOException, JerboaException {
+
+		ParametricSpecifications spec = JSONPrinter.importParametricSpecification(
+				"ParametricSpecification_createface-insertvertex-triangulate-insertvertex_Test.json",
+				modeler);
+		assertEquals(4, spec.getSpec().size());
+	}
+
+	@Test
+	public void test_HistoryRecord_export_HistoryRecord_to_JSON()
+			throws IOException, JerboaException {
+		String exportPath = "./src/test/resources";
+		String fileName = "HR_createface-insertvertex-triangulate-insertvertex_Generated.json";
+		HistoryRecord hrToExport = setupHistoryRecord(
+				"ParametricSpecification_createface-insertvertex-triangulate-insertvertex_Test.json",
+				4, 0, 0);
+		assert (hrToExport != null);
+		hrToExport.export(exportPath, fileName);
+		File f = new File(exportPath + "/" + fileName);
+		assert (f.exists() && !f.isDirectory());
 	}
 
 }

@@ -27,6 +27,10 @@ import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
 import up.jerboa.exception.JerboaException;
 
+/**
+ * This class' purpose is to demonstrate the reevaluation without change of a model built with
+ * parametric operations
+ */
 public class DemoRejeuID {
 
     public static void main(String[] args) throws JerboaException, IOException {
@@ -51,14 +55,11 @@ public class DemoRejeuID {
 
         JerboaGMap gmap = bridge.getGMap(); // gmap in which we rebuild the model
 
-        // NOTE: rules with suppression (and most likely some with merging) are not yet supported!
-        ParametricSpecifications spec =
-                JSONPrinter.importParametricSpecification("lantern.json", modeler);
+        // NOTE: rules with suppression and merge are not yet supported!
+        ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./examples",
+                "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
+                modeler);
         List<SpecificationEntry> specEntries = spec.getSpec();
-
-        int count = 1;
-        // Map to store rule applications results
-        // Map<Integer, JerboaRuleResult> ruleAppResults = new HashMap<>();
 
         List<HistoryRecord> historyRecords = new ArrayList<>();
         List<MatchingTree> matchingTrees = new ArrayList<>();
@@ -66,8 +67,6 @@ public class DemoRejeuID {
         // compute and store all history records
         for (var specEntry : specEntries) {
             var PNs = specEntry.getPNs();
-
-            List<List<JerboaDart>> topoParameters = new ArrayList<>();
 
             for (PersistentName PN : PNs) {
                 JerboaOrbit orbitType = PN.getOrbitType();
@@ -79,16 +78,9 @@ public class DemoRejeuID {
                     historyRecords.add(hr);
                     MatchingTree mt = new MatchingTree();
                     matchingTrees.add(mt);
-                    // hr.export("auto-hr" + count++ + ".json");
-                    // // Compute MT from current HR
-                    // MatchingTree mt = new MatchingTree(ruleAppResults, spec, hr);
-                    // topoParameters.add(Arrays.asList(mt.getTopoParameter()));
 
                 }
             }
-            // ruleAppResults.put(specEntry.getAppID(), specEntry.getRule().applyRule(gmap,
-            // new JerboaInputHooksGeneric(topoParameters)));
-
         }
 
         int counter = 0;
@@ -123,6 +115,8 @@ public class DemoRejeuID {
 
                 // for each pn add a topological parameters
                 for (int i = 0; i < specEntry.getPNs().size(); i++) {
+                    System.out.println("auto" + counter + ".json");
+                    historyRecords.get(counter).export("./exports", "auto" + counter + ".json");
                     topoParameters
                             .add(Arrays.asList(matchingTrees.get(counter++).getTopoParameter()));
                 }
@@ -148,29 +142,3 @@ public class DemoRejeuID {
 
 
 }
-
-// loop content to find dartID when doing pure identical recontruction
-
-// JerboaDart prevDartID = null;
-// JerboaDart dartID = null;
-
-// for (PersistentIdElement pie : PI.getPIdElements()) {
-// int currentAppNumber = pie.getAppNumber();
-// String currentNodeName = pie.getNodeName();
-// JerboaRuleResult appResult = ruleAppResults.get(currentAppNumber);
-
-// int rowIndex = 0;
-// for (int i = 0; i < appResult.sizeCol(); i++) {
-// for (int j = 0; j < appResult.sizeRow(i); j++) {
-// if (appResult.get(i, j) == prevDartID)
-// rowIndex = j;
-// }
-// }
-
-// int colIndex = spec.getSpecEntry(currentAppNumber).getRule()
-// .getRightIndexRuleNode(currentNodeName);
-
-// dartID = appResult.get(colIndex, rowIndex);
-// prevDartID = dartID;
-// }
-// topoParameters.add(Arrays.asList(dartID));

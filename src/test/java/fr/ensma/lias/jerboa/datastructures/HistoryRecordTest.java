@@ -22,9 +22,7 @@ public class HistoryRecordTest {
 
 	private ModelerGenerated modeler = new ModelerGenerated();
 
-	public HistoryRecordTest() throws JerboaException {
-		System.out.println("HistoryRecordTest:");
-	}
+	public HistoryRecordTest() throws JerboaException {}
 
 
 	private HistoryRecord setupHistoryRecord(String path, int specEntryIndex, int pNameIndex,
@@ -46,50 +44,39 @@ public class HistoryRecordTest {
 
 	}
 
-	// @Test
-	// public void test_HistoryRecord_construction_full_creation()
-	// throws IOException, JerboaException {
+	@Test
+	public void test_HistoryRecord_construction_full_creation()
+			throws IOException, JerboaException {
 
-	// HistoryRecord HR = setupHistoryRecord(
-	// "ParametricSpecification_insert-vertex-created-edge.json", 4, 0, 0);
+		HistoryRecord HR = setupHistoryRecord(
+				"ParametricSpecification_createface-insertvertex-triangulate-insertvertex_Test.json",
+				4, 0, 0);
 
-	// assertNotNull(HR.getLeaves().keySet());
-	// assertEquals(1, HR.getLeaves().size());
-	// LevelEventHR leaf = HR.getLeaf(0);
-	// System.out.println("leaf: " + leaf);
-	// for (LevelEventHR level : leaf) {
-	// assertEquals(Event.CREATION, level.getEventList().get(0).getEvent());
-	// }
-	// }
+		HashMap<Integer, List<LevelEventHR>> hrMap = HR.getLeaves();
+		assertEquals(3, hrMap.size());
 
-	// @Test
-	// public void test_HistoryRecord_construction_with_split() throws IOException, JerboaException
-	// {
+		for (Map.Entry<Integer, List<LevelEventHR>> entry : hrMap.entrySet()) {
+			List<LevelEventHR> levels = entry.getValue();
+			for (LevelEventHR level : levels) {
+				assert (level.getEventList().stream()
+						.allMatch(event -> event.event == Event.CREATION));
+			}
+		}
+	}
 
-	// HistoryRecord HR =
-	// setupHistoryRecord("ParametricSpecification_triangulate-triangulated-face.json", 3, 0, 0);
+	@Test
+	public void test_HistoryRecord_construction_with_split() throws IOException, JerboaException {
 
-	// assertNotNull(HR);
-	// LevelEventHR leaf = HR.getLeaf(0);
+		HistoryRecord HR = setupHistoryRecord(
+				"ParametricSpecification_triangulate-triangulated-face.json", 3, 0, 0);
 
-	// assertEquals(Event.CREATION, leaf.getEventList().get(0).getEvent());
-	// assertEquals(Event.CREATION, leaf.getEventList().get(1).getEvent());
+		HashMap<Integer, List<LevelEventHR>> hrMap = HR.getLeaves();
+		assertEquals(2, hrMap.size());
 
-	// leaf = leaf.getNextLevelOrbitHR().getNextLevelEventHRAtIndex(0);
-	// assertEquals(Event.SPLIT, leaf.getEventList().get(0).getEvent());
+		assertEquals(Event.CREATION, hrMap.get(1).get(0).getEventList().get(0).getEvent());
+		assertEquals(Event.CREATION, hrMap.get(1).get(0).getEventList().get(1).getEvent());
 
-	// }
-
-	// @Test
-	// public void test_Case3() throws IOException, JerboaException {
-	// HistoryRecord HR = setupHistoryRecord("case3-but-triangulated.json", 5, 0, 0);
-	// assertNotNull(HR);
-	// LevelEventHR leaf = HR.getLeaf(0);
-	// // for (LevelEventHR level : leaf) {
-	// // System.out.println(level);
-	// // }
-	// assertEquals(3, leaf.getEventList().size());
-
-	// }
+		assertEquals(Event.SPLIT, hrMap.get(2).get(0).getEventList().get(0).getEvent());
+	}
 
 }

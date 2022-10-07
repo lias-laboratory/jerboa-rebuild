@@ -35,14 +35,22 @@ public class JSONPrinter {
 				StandardOpenOption.CREATE);
 	}
 
-	public static <T> void exportParametricSpecification(Collection<T> c, String filename)
+	public static void exportHistoryRecord(HashMap<Integer, List<LevelEventHR>> leaves,
+			String directory, String fileName) throws IOException {
+		GsonBuilder gBuilder = new GsonBuilder().setPrettyPrinting();
+		String json = gBuilder.create().toJson(leaves);
+		Files.write(Path.of(directory + "/" + fileName), json.getBytes(),
+				StandardOpenOption.CREATE);
+	}
+
+	public static <T> void exportParametricSpecification(Collection<T> c, String fileName)
 			throws IOException {
 		GsonBuilder gBuilder = new GsonBuilder().setPrettyPrinting();
 		gBuilder.registerTypeAdapter(PersistentName.class, new JerboaOrbitSerializer());
 		gBuilder.registerTypeAdapter(JerboaRuleOperation.class,
 				new JerboaRuleOperationSerializer());
 		String json = gBuilder.create().toJson(c);
-		Files.write(Path.of(filename), json.getBytes(), StandardOpenOption.CREATE);
+		Files.write(Path.of(fileName), json.getBytes(), StandardOpenOption.CREATE);
 	}
 
 	public static ParametricSpecifications importParametricSpecification(String filename,
@@ -61,4 +69,22 @@ public class JSONPrinter {
 
 		return paramSpec;
 	}
+
+	public static ParametricSpecifications importParametricSpecification(String directory,
+			String filename, ModelerGenerated modeler) throws IOException, JerboaException {
+		JsonReader reader = new JsonReader(new FileReader(directory + "/" + filename));
+
+		GsonBuilder builder = new GsonBuilder();
+
+		builder.registerTypeAdapter(JerboaRuleOperation.class,
+				new JerboaRuleOperationDeserializer(modeler));
+		builder.registerTypeAdapter(PersistentName.class, new PersistentNameDeserializer());
+		SpecificationEntry[] spec = builder.create().fromJson(reader, SpecificationEntry[].class);
+		List<SpecificationEntry> entries = Arrays.asList(spec);
+
+		ParametricSpecifications paramSpec = new ParametricSpecifications(entries);
+
+		return paramSpec;
+	}
+
 }

@@ -239,4 +239,12 @@ public class HistoryRecord {
 
 	}
 
+	public void export(String directory, String fileName) {
+		try {
+			JSONPrinter.exportHistoryRecord(leaves, directory, fileName);
+		} catch (IOException exception) {
+			System.out.println("Could not write to file");
+		}
+
+	}
 }

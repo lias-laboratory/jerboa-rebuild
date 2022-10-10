@@ -125,11 +125,11 @@ public class JerboaRebuiltRuleTest {
 
 	@Test
 	/*
-	 * Test computeBBOrigin method. Rule is FaceTriangulation, node for which to find origin is n1
-	 * and entry orbit is <0,2>. <1> is expected.
+	 * Test computeBBOrigin method. Rule is TriangulateFace, node for which to find origin is n1 and
+	 * entry orbit is <0,2>. <1> is expected.
 	 */
 	public void test_computeBBOrigin_triangulation_edge_creation() {
-		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("FaceTriangulation");
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
 		JerboaOrbit orbitType = JerboaOrbit.orbit(0, 2);
 		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n1"));
 		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
@@ -138,11 +138,11 @@ public class JerboaRebuiltRuleTest {
 
 	@Test
 	/*
-	 * Test computeBBOrigin method. Rule is FaceTriangulation, node for which to find origin is n2
-	 * and entry orbit is <1,2>. <0,1> is expected.
+	 * Test computeBBOrigin method. Rule is TriangulateFace, node for which to find origin is n2 and
+	 * entry orbit is <1,2>. <0,1> is expected.
 	 */
 	public void test_computeBBOrigin_triangulation_vertex_creation() {
-		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("FaceTriangulation");
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
 		JerboaOrbit orbitType = JerboaOrbit.orbit(1, 2);
 		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n2"));
 		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);

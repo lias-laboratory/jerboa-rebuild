@@ -24,15 +24,16 @@ public class NodeOrbitHRTest {
 	/**
 	 * Test if a BB build entry is valid.
 	 *
-	 * Settings are: nodeName=n1; currentNodeOrbit=(0,2); rule=FaceTriangulation;
+	 * Settings are: nodeName=n1; currentNodeOrbit=(0,2); rule=TriangulateFace;
 	 * levelEvent=LevelEvent's instance
 	 */
-	public void test_BBBuildEntry_FaceTriangulation_creation() throws JerboaException {
-		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("FaceTriangulation");
+	public void test_BBBuildEntry_TriangulateFace_creation() throws JerboaException {
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
 		NodeOrbitHR nodeOrbit = new NodeOrbitHR(JerboaOrbit.orbit(0, 2));
 		String nodeName = "n1";
 		LevelEventHR levelEvent = new LevelEventHR(3, null);
-		List<NodeOrbitHR> result = nodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, new ArrayList<NodeOrbitHR>());
+		List<NodeOrbitHR> result =
+				nodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, new ArrayList<NodeOrbitHR>());
 		assertEquals(1, result.size());
 		assertEquals(JerboaOrbit.orbit(1), result.get(0).getOrbit());
 		assertEquals(1, levelEvent.eventList.size());

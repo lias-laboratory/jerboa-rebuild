@@ -54,8 +54,9 @@ public class DemoRejeuID {
         JerboaGMap gmap = bridge.getGMap(); // gmap in which we rebuild the model
 
         // NOTE: rules with suppression and merge are not yet supported!
-        ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./exports",
-                "rebuild-add-vertex.json", modeler);
+        ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./examples",
+                "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
+                modeler);
         List<SpecificationEntry> specEntries = spec.getSpec();
 
         List<HistoryRecord> historyRecords = new ArrayList<>();

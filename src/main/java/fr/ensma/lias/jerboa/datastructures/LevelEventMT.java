@@ -24,6 +24,10 @@ public class LevelEventMT {
         this.eventList = eventList;
     }
 
+    public LevelOrbitMT getNextLevelOrbit() {
+        return nextLevelOrbit;
+    }
+
     @Override
     public String toString() {
         return "appNumber " + appNumber + " | " + eventList + " --> " + nextLevelOrbit;

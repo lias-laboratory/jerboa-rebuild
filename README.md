@@ -113,6 +113,9 @@ $ mvn install:install-file -Dfile=JerboaModelerTransmitter_05102021.jar -DgroupI
 
 ## Directories
 
+### Examples
+This directory should contain examples of models to reevaluate.
+
 ### Exports
 This directory should contain any file exported by the user such as:
 - parametric specifications,
@@ -121,5 +124,5 @@ This directory should contain any file exported by the user such as:
 - graphviz dots and pdfs.
 
 ### Scripts
-- update-rules.sh updates files generated with the Jerboa Modeler Editor,
+- update-rules.sh updates files generated with the Jerboa Modeler Editor.
 - hr-graphic-export generates graphviz exports from history record json exports.

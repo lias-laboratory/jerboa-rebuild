@@ -87,7 +87,6 @@ public class DemoRejeuID {
         for (var specEntry : specEntries) {
             List<List<JerboaDart>> topoParameters = new ArrayList<>();
             int appNumber = specEntry.getAppID();
-            System.out.println("current specEntry: " + specEntry);
 
             // compute if current entry has at list one topological parameter
             if (!specEntry.getPNs().isEmpty()) {
@@ -101,8 +100,6 @@ public class DemoRejeuID {
                         List<LevelEventHR> levelEvent =
                                 historyRecords.get(index).getLeaves().get(previousAppNumber);
 
-                        System.out.println("current levelEvent: " + levelEvent);
-
                         MatchingTree currentMT = matchingTrees.get(index);
 
                         // add a level to the current matching tree
@@ -113,8 +110,7 @@ public class DemoRejeuID {
 
                 // for each pn add a topological parameters
                 for (int i = 0; i < specEntry.getPNs().size(); i++) {
-                    System.out.println("auto" + counter + ".json");
-                    historyRecords.get(counter).export("./exports", "auto" + counter + ".json");
+                    historyRecords.get(counter).export("./exports", "auto-" + counter + ".json");
                     topoParameters
                             .add(Arrays.asList(matchingTrees.get(counter++).getTopoParameter()));
                 }

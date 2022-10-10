@@ -63,9 +63,9 @@ public class ParametricSpecifications {
 	 *
 	 * @return specification entry which holds persistent names and a rule.
 	 */
-	public SpecificationEntry getSpecEntry(int appID) {
+	public SpecificationEntry getSpecEntry(int appNumber) {
 		for (SpecificationEntry specEntry : spec) {
-			if (specEntry.getAppID() == appID)
+			if (specEntry.getAppID() == appNumber)
 				return specEntry;
 		}
 		return null;

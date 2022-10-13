@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
+import fr.ensma.lias.jerboa.datastructures.ApplicationType;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.MatchingTree;
@@ -59,6 +60,9 @@ public class DemoRejeuAjout {
 		// NOTE: Edition of a parametric specification must happen after loading the
 		// reference one and building the related history record.
 
+		// ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./examples",
+		// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
+		// modeler);
 		ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./exports",
 				"rebuild-add-vertex.json", modeler);
 
@@ -86,14 +90,18 @@ public class DemoRejeuAjout {
 			}
 		}
 
+		// ParametricSpecifications editedSpec =
+		// JSONPrinter.importParametricSpecification("./exports",
+		// "rebuild-add-vertex.json", modeler);
+		// List<SpecificationEntry> editedSpecEntries = editedSpec.getSpec();
+
 		int counter = 0;
 		JerboaRuleResult appResult = null;
 		int previousAppNumber = -1;
+
 		for (var specEntry : specEntries) {
 			List<List<JerboaDart>> topoParameters = new ArrayList<>();
 			int appNumber = specEntry.getAppID();
-			// System.out.println("appNumber" + appNumber + " prevAppNumber " + previousAppNumber);
-			// System.out.println("current specEntry: " + specEntry);
 
 			// compute if current entry has at list one topological parameter
 			if (!specEntry.getPNs().isEmpty()) {
@@ -107,21 +115,18 @@ public class DemoRejeuAjout {
 						List<LevelEventHR> levelEvent =
 								historyRecords.get(index).getLeaves().get(previousAppNumber);
 
-						// System.out.println("current levelEvent: " + levelEvent);
-
 						MatchingTree currentMT = matchingTrees.get(index);
 
-						System.out.println(
-								"appNumber" + appNumber + " prevAppNumber " + previousAppNumber);
 						// add a level to the current matching tree
-						currentMT.addLevel(levelEvent.get(0), spec.getSpecEntry(previousAppNumber),
-								appResult);
+						currentMT.addInitLevel(levelEvent.get(0),
+								spec.getSpecEntry(previousAppNumber), specEntry, appResult);
 					}
 				}
 
 				// for each pn add a topological parameters
 				for (int i = 0; i < specEntry.getPNs().size(); i++) {
-					historyRecords.get(counter).export("./exports", "auto-" + counter + ".json");
+					historyRecords.get(counter).export("./exports",
+							"hr-rejeu-ajout-" + counter + ".json");
 					topoParameters
 							.add(Arrays.asList(matchingTrees.get(counter++).getTopoParameter()));
 				}

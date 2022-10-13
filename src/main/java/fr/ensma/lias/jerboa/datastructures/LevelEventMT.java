@@ -24,6 +24,8 @@ public class LevelEventMT {
         this.eventList = eventList;
     }
 
+    public LevelEventMT() {}
+
     public LevelOrbitMT getNextLevelOrbit() {
         return nextLevelOrbit;
     }

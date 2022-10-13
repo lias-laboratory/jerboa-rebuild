@@ -102,6 +102,16 @@ public class HistoryRecord {
 		}
 
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (List<LevelEventHR> levels : leaves.values()) {
+			sb.append(levels.toString()).append('\n');
+		}
+		return sb.toString();
+	}
+
 }
 
 /* HistoryRecord data structure used to record the evolution of a construction */

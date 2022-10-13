@@ -103,8 +103,8 @@ public class DemoRejeuID {
                         MatchingTree currentMT = matchingTrees.get(index);
 
                         // add a level to the current matching tree
-                        currentMT.addLevel(levelEvent.get(0), spec.getSpecEntry(previousAppNumber),
-                                appResult);
+                        currentMT.addInitLevel(levelEvent.get(0),
+                                spec.getSpecEntry(previousAppNumber), specEntry, appResult);
                     }
                 }
 

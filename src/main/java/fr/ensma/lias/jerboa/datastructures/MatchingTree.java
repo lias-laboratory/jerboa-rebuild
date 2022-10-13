@@ -2,9 +2,9 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaRuleResult;
 
@@ -13,20 +13,20 @@ public class MatchingTree {
     // LevelOrbitMT root;
     JerboaDart topoParameter; // the last dartID computed at the end of the matching process
 
-    HashMap<Integer, List<LevelEventMT>> leaves;
+    List<List<LevelEventMT>> leaves;
 
     /**
      * Data structure to match a history record against a GMap and build a model from a history
      * record.
      */
     public MatchingTree() {
-        leaves = new LinkedHashMap<>();
+        leaves = new ArrayList<>();
     }
 
     public MatchingTree(JerboaRuleResult appResult, SpecificationEntry specEntry,
             HistoryRecord HR) {
 
-        leaves = new LinkedHashMap<>();
+        leaves = new ArrayList<>();
 
         // if spec is unedited
 
@@ -47,16 +47,17 @@ public class MatchingTree {
         return topoParameter;
     }
 
-    public void addLevel(LevelEventHR level, SpecificationEntry specEntry,
-            JerboaRuleResult appResult) {
+    public void addInitLevel(LevelEventHR level, SpecificationEntry prevSpecEntry,
+            SpecificationEntry curSpecEntry, JerboaRuleResult appResult) {
 
+        // System.out.println("specentry:" + prevSpecEntry);
 
+        ApplicationType appType = prevSpecEntry.getAppType();
         int appNumber = level.getAppNumber();
-        ApplicationType appType = specEntry.getAppType();
         String nodeName = level.getNextLevelOrbitHR().getNodeName();
 
         // nodeNameToDartID(appNumber, nodeName, appResult.get(appNumber), spec);
-        nodeNameToDartID(appNumber, nodeName, appResult, specEntry);
+        nodeNameToDartID(appNumber, nodeName, appResult, prevSpecEntry);
 
         // in this case appType is *always* INIT
         // ApplicationType appType = spec.getSpecEntry(appNumber).getAppType();
@@ -73,7 +74,7 @@ public class MatchingTree {
                 level.getNextLevelOrbitHR().getOrbitList(), null);
         levelEvent.nextLevelOrbit = levelOrbit;
         // root = levelOrbit;
-        leaves.put(appNumber, nextLeveleventMTs);
+        leaves.add(nextLeveleventMTs);
 
         // System.out.println(level + "\n" + levelEvent + "\n" + levelOrbit);
 
@@ -105,8 +106,7 @@ public class MatchingTree {
     }
 
     private List<LevelEventMT> getLastLevel() {
-        List<Integer> keys = new ArrayList<>(leaves.keySet());
-        return leaves.get(keys.get(keys.size() - 1));
+        return leaves.get(leaves.size() - 1);
     }
 
 }

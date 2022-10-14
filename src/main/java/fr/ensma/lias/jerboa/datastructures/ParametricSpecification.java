@@ -6,18 +6,22 @@ import java.util.List;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import up.jerboa.core.JerboaRuleOperation;
 
-public class ParametricSpecifications {
+/**
+ * A parametric specification holds the rules applied during the construction process of a model. It
+ * also allows the model to be reevaluated.
+ */
+public class ParametricSpecification {
 
-	private List<SpecificationEntry> spec;
-	private int nextEntryNumber;
+	private List<Application> spec;
+	private int nextApplicationNumber;
 
-	public ParametricSpecifications() {
+	public ParametricSpecification() {
 		spec = new ArrayList<>();
-		nextEntryNumber = 1;
+		nextApplicationNumber = 1;
 	}
 
-	public ParametricSpecifications(List<SpecificationEntry> entries) {
-		spec = new ArrayList<>(entries);
+	public ParametricSpecification(List<Application> applications) {
+		spec = new ArrayList<>(applications);
 	}
 
 	/*
@@ -27,12 +31,11 @@ public class ParametricSpecifications {
 	 *
 	 * @param hooks a collection of JerboaDarts. Those are the operation's topological parameters.
 	 */
-	public void addEntry(JerboaRuleOperation rule, List<PersistentName> PNs,
+	public void addApplication(JerboaRuleOperation rule, List<PersistentName> PNs,
 			ApplicationType appType) {
-		SpecificationEntry specEntry =
-				new SpecificationEntry(this.nextEntryNumber, rule, PNs, appType);
+		Application specEntry = new Application(this.nextApplicationNumber, rule, PNs, appType);
 		spec.add(specEntry);
-		nextEntryNumber++;
+		nextApplicationNumber++;
 	}
 
 	/*
@@ -42,8 +45,8 @@ public class ParametricSpecifications {
 	 * @return the nextEntryNumber field counting the number of elements in the parametric
 	 * specification.
 	 */
-	public int getNextEntryNumber() {
-		return nextEntryNumber;
+	public int getNextApplicationNumber() {
+		return nextApplicationNumber;
 	}
 
 	/*
@@ -52,7 +55,7 @@ public class ParametricSpecifications {
 	 *
 	 * @return full parametric specification.
 	 */
-	public List<SpecificationEntry> getSpec() {
+	public List<Application> getParametricSpecification() {
 		return spec;
 	}
 
@@ -63,10 +66,10 @@ public class ParametricSpecifications {
 	 *
 	 * @return specification entry which holds persistent names and a rule.
 	 */
-	public SpecificationEntry getSpecEntry(int appNumber) {
-		for (SpecificationEntry specEntry : spec) {
-			if (specEntry.getAppID() == appNumber)
-				return specEntry;
+	public Application getApplication(int applicationID) {
+		for (Application application : spec) {
+			if (application.getApplicationID() == applicationID)
+				return application;
 		}
 		return null;
 	}
@@ -74,12 +77,17 @@ public class ParametricSpecifications {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (SpecificationEntry e : spec) {
+		for (Application e : spec) {
 			sb.append(e.toString() + "\n");
 		}
 		return sb.toString();
 	}
 
+	/*
+	 * Exports this parametric specification to a json file
+	 *
+	 * @param filename the name of the export file
+	 */
 	public void export(String filename) {
 		try {
 			JSONPrinter.exportParametricSpecification(spec, filename);

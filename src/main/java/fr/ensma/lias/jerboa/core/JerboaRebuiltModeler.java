@@ -1,6 +1,6 @@
 package fr.ensma.lias.jerboa.core;
 
-import fr.ensma.lias.jerboa.datastructures.ParametricSpecifications;
+import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaOrbit;
@@ -11,7 +11,7 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
 
 	// protected List<JerboaEmbeddingInfo> trackers;
 	protected JerboaEmbeddingInfo persistentID;
-	public ParametricSpecifications spec;
+	public ParametricSpecification spec;
 
 	public JerboaRebuiltModeler(int dim) throws JerboaException {
 
@@ -28,7 +28,7 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
 		// fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
 		persistentID =
 				new JerboaEmbeddingInfo("PersistentID", JerboaOrbit.orbit(), PersistentID.class);
-		spec = new ParametricSpecifications();
+		spec = new ParametricSpecification();
 
 	}
 

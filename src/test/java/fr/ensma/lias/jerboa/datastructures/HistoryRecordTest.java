@@ -25,18 +25,18 @@ public class HistoryRecordTest {
 	public HistoryRecordTest() throws JerboaException {}
 
 
-	private HistoryRecord setupHistoryRecord(String path, int specEntryIndex, int pNameIndex,
-			int pIdIndex) throws IOException, JerboaException {
+	private HistoryRecord setupHistoryRecord(String path, int applicationID,
+			int persistentNameIndex, int persistentIDIndex) throws IOException, JerboaException {
 
 		try {
-			ParametricSpecifications paramSpec =
+			ParametricSpecification parametricSpecification =
 					JSONPrinter.importParametricSpecification(path, modeler);
-			SpecificationEntry entry = paramSpec.getSpecEntry(specEntryIndex);
+			Application application = parametricSpecification.getApplication(applicationID);
 
-			PersistentName PN = entry.getPNs().get(pNameIndex);
-			PersistentID PI = PN.getPIs().get(pIdIndex);
+			PersistentName PN = application.getPersistentNames().get(persistentNameIndex);
+			PersistentID PI = PN.getPIs().get(persistentIDIndex);
 			JerboaOrbit orbitType = PN.getOrbitType();
-			return new HistoryRecord(PI, orbitType, paramSpec);
+			return new HistoryRecord(PI, orbitType, parametricSpecification);
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not find file by `path`");
 			return null;

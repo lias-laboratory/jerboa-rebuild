@@ -7,10 +7,10 @@ import java.io.IOException;
 import org.junit.Test;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
-import fr.ensma.lias.jerboa.datastructures.ParametricSpecifications;
+import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.ensma.lias.jerboa.datastructures.SpecificationEntry;
+import fr.ensma.lias.jerboa.datastructures.Application;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.exception.JerboaException;
 
@@ -28,11 +28,11 @@ public class JSONPrinterTest {
 			int pIdIndex) throws IOException, JerboaException {
 
 		try {
-			ParametricSpecifications paramSpec =
+			ParametricSpecification paramSpec =
 					JSONPrinter.importParametricSpecification(path, modeler);
-			SpecificationEntry entry = paramSpec.getSpecEntry(specEntryIndex);
+			Application entry = paramSpec.getApplication(specEntryIndex);
 
-			PersistentName PN = entry.getPNs().get(pNameIndex);
+			PersistentName PN = entry.getPersistentNames().get(pNameIndex);
 			PersistentID PI = PN.getPIs().get(pIdIndex);
 			JerboaOrbit orbitType = PN.getOrbitType();
 			return new HistoryRecord(PI, orbitType, paramSpec);
@@ -46,10 +46,10 @@ public class JSONPrinterTest {
 	public void test_HistoryRecord_import_specParam_from_JSON()
 			throws IOException, JerboaException {
 
-		ParametricSpecifications spec = JSONPrinter.importParametricSpecification(
+		ParametricSpecification spec = JSONPrinter.importParametricSpecification(
 				"ParametricSpecification_createface-insertvertex-triangulate-insertvertex_Test.json",
 				modeler);
-		assertEquals(4, spec.getSpec().size());
+		assertEquals(4, spec.getParametricSpecification().size());
 	}
 
 	@Test

@@ -23,8 +23,7 @@ public class MatchingTree {
         leaves = new ArrayList<>();
     }
 
-    public MatchingTree(JerboaRuleResult appResult, SpecificationEntry specEntry,
-            HistoryRecord HR) {
+    public MatchingTree(JerboaRuleResult appResult, Application specEntry, HistoryRecord HR) {
 
         leaves = new ArrayList<>();
 
@@ -47,12 +46,12 @@ public class MatchingTree {
         return topoParameter;
     }
 
-    public void addInitLevel(LevelEventHR level, SpecificationEntry prevSpecEntry,
-            SpecificationEntry curSpecEntry, JerboaRuleResult appResult) {
+    public void addInitLevel(LevelEventHR level, Application prevSpecEntry,
+            Application curSpecEntry, JerboaRuleResult appResult) {
 
         // System.out.println("specentry:" + prevSpecEntry);
 
-        ApplicationType appType = prevSpecEntry.getAppType();
+        ApplicationType appType = prevSpecEntry.getApplicationType();
         int appNumber = level.getAppNumber();
         String nodeName = level.getNextLevelOrbitHR().getNodeName();
 
@@ -85,7 +84,7 @@ public class MatchingTree {
      * applying a rule
      */
     private void nodeNameToDartID(int AppNumber, String nodeName, JerboaRuleResult appResult,
-            SpecificationEntry specEntry) {
+            Application specEntry) {
 
         int rowIndex = 0;
         for (int i = 0; i < appResult.sizeCol(); i++) {

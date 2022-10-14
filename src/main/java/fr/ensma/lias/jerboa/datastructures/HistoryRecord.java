@@ -19,7 +19,7 @@ public class HistoryRecord {
 	}
 
 	public HistoryRecord(PersistentID pID, JerboaOrbit orbitType,
-			ParametricSpecifications parametricSpecification) {
+			ParametricSpecification parametricSpecification) {
 
 		leaves = new LinkedHashMap<>();
 
@@ -47,7 +47,7 @@ public class HistoryRecord {
 	}
 
 	private List<NodeOrbitHR> addLevel(List<NodeOrbitHR> nodeOrbitList,
-			PersistentIdElement pIDElement, ParametricSpecifications parametricSpecification) {
+			PersistentIdElement pIDElement, ParametricSpecification parametricSpecification) {
 
 		List<LevelEventHR> entryLevelEvent = new ArrayList<>();
 		List<NodeOrbitHR> nextStepOrbits = new ArrayList<>();
@@ -58,7 +58,8 @@ public class HistoryRecord {
 		LevelEventHR levelEvent = new LevelEventHR(appNumber, levelOrbit);
 
 
-		JerboaRuleOperation currentRule = parametricSpecification.getSpecEntry(appNumber).getRule();
+		JerboaRuleOperation currentRule =
+				parametricSpecification.getApplication(appNumber).getRule();
 		for (NodeOrbitHR currentNodeOrbit : nodeOrbitList) {
 			fillLevel(currentNodeOrbit, levelEvent, nextStepOrbits, pIDElement.getNodeName(),
 					currentRule);

@@ -13,9 +13,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
-import fr.ensma.lias.jerboa.datastructures.ParametricSpecifications;
+import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.ensma.lias.jerboa.datastructures.SpecificationEntry;
+import fr.ensma.lias.jerboa.datastructures.Application;
 import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.exception.JerboaException;
 
@@ -53,7 +53,7 @@ public class JSONPrinter {
 		Files.write(Path.of(fileName), json.getBytes(), StandardOpenOption.CREATE);
 	}
 
-	public static ParametricSpecifications importParametricSpecification(String filename,
+	public static ParametricSpecification importParametricSpecification(String filename,
 			ModelerGenerated modeler) throws IOException, JerboaException {
 		JsonReader reader = new JsonReader(new FileReader(resourcesPath + "/" + filename));
 
@@ -62,15 +62,15 @@ public class JSONPrinter {
 		builder.registerTypeAdapter(JerboaRuleOperation.class,
 				new JerboaRuleOperationDeserializer(modeler));
 		builder.registerTypeAdapter(PersistentName.class, new PersistentNameDeserializer());
-		SpecificationEntry[] spec = builder.create().fromJson(reader, SpecificationEntry[].class);
-		List<SpecificationEntry> entries = Arrays.asList(spec);
 
-		ParametricSpecifications paramSpec = new ParametricSpecifications(entries);
+		Application[] applications = builder.create().fromJson(reader, Application[].class);
+		ParametricSpecification parametricSpecification =
+				new ParametricSpecification(Arrays.asList(applications));
 
-		return paramSpec;
+		return parametricSpecification;
 	}
 
-	public static ParametricSpecifications importParametricSpecification(String directory,
+	public static ParametricSpecification importParametricSpecification(String directory,
 			String filename, ModelerGenerated modeler) throws IOException, JerboaException {
 		JsonReader reader = new JsonReader(new FileReader(directory + "/" + filename));
 
@@ -79,12 +79,12 @@ public class JSONPrinter {
 		builder.registerTypeAdapter(JerboaRuleOperation.class,
 				new JerboaRuleOperationDeserializer(modeler));
 		builder.registerTypeAdapter(PersistentName.class, new PersistentNameDeserializer());
-		SpecificationEntry[] spec = builder.create().fromJson(reader, SpecificationEntry[].class);
-		List<SpecificationEntry> entries = Arrays.asList(spec);
 
-		ParametricSpecifications paramSpec = new ParametricSpecifications(entries);
+		Application[] applications = builder.create().fromJson(reader, Application[].class);
+		ParametricSpecification parametricSpecification =
+				new ParametricSpecification(Arrays.asList(applications));
 
-		return paramSpec;
+		return parametricSpecification;
 	}
 
 }

@@ -1,4 +1,3 @@
-
 package fr.ensma.lias.jerboa;
 
 import java.awt.Dimension;
@@ -11,14 +10,13 @@ import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
-import fr.ensma.lias.jerboa.datastructures.ApplicationType;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.MatchingTree;
-import fr.ensma.lias.jerboa.datastructures.ParametricSpecifications;
+import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.ensma.lias.jerboa.datastructures.SpecificationEntry;
+import fr.ensma.lias.jerboa.datastructures.Application;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
@@ -60,20 +58,19 @@ public class DemoRejeuAjout {
 		// NOTE: Edition of a parametric specification must happen after loading the
 		// reference one and building the related history record.
 
-		// ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./examples",
-		// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
-		// modeler);
-		ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./exports",
-				"rebuild-add-vertex.json", modeler);
+		ParametricSpecification parametricSpecification =
+				JSONPrinter.importParametricSpecification("./examples",
+						"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
+						modeler);
 
-		List<SpecificationEntry> specEntries = spec.getSpec();
+		List<Application> applications = parametricSpecification.getParametricSpecification();
 
 		List<HistoryRecord> historyRecords = new ArrayList<>();
 		List<MatchingTree> matchingTrees = new ArrayList<>();
 
 		// compute and store all history records
-		for (var specEntry : specEntries) {
-			var PNs = specEntry.getPNs();
+		for (var application : applications) {
+			var PNs = application.getPersistentNames();
 
 			for (PersistentName PN : PNs) {
 				JerboaOrbit orbitType = PN.getOrbitType();
@@ -81,7 +78,7 @@ public class DemoRejeuAjout {
 
 				for (PersistentID PI : PIs) {
 					// Compute and export HRs from current spec
-					HistoryRecord hr = new HistoryRecord(PI, orbitType, spec);
+					HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification);
 					historyRecords.add(hr);
 					MatchingTree mt = new MatchingTree();
 					matchingTrees.add(mt);
@@ -90,21 +87,22 @@ public class DemoRejeuAjout {
 			}
 		}
 
-		// ParametricSpecifications editedSpec =
-		// JSONPrinter.importParametricSpecification("./exports",
-		// "rebuild-add-vertex.json", modeler);
-		// List<SpecificationEntry> editedSpecEntries = editedSpec.getSpec();
+		ParametricSpecification editedParametricSpecification = JSONPrinter
+				.importParametricSpecification("./exports", "rebuild-add-vertex.json", modeler);
+		List<Application> editedApplications =
+				editedParametricSpecification.getParametricSpecification();
 
 		int counter = 0;
 		JerboaRuleResult appResult = null;
 		int previousAppNumber = -1;
 
-		for (var specEntry : specEntries) {
+		// TODO: add support for added applications of a spec
+		for (var application : editedApplications) {
 			List<List<JerboaDart>> topoParameters = new ArrayList<>();
-			int appNumber = specEntry.getAppID();
+			int appNumber = application.getApplicationID();
 
 			// compute if current entry has at list one topological parameter
-			if (!specEntry.getPNs().isEmpty()) {
+			if (!application.getPersistentNames().isEmpty()) {
 
 				// for each history record compute a level for each matching tree
 				for (int index = 0; index < historyRecords.size(); index++) {
@@ -119,12 +117,13 @@ public class DemoRejeuAjout {
 
 						// add a level to the current matching tree
 						currentMT.addInitLevel(levelEvent.get(0),
-								spec.getSpecEntry(previousAppNumber), specEntry, appResult);
+								parametricSpecification.getApplication(previousAppNumber),
+								application, appResult);
 					}
 				}
 
 				// for each pn add a topological parameters
-				for (int i = 0; i < specEntry.getPNs().size(); i++) {
+				for (int i = 0; i < application.getPersistentNames().size(); i++) {
 					historyRecords.get(counter).export("./exports",
 							"hr-rejeu-ajout-" + counter + ".json");
 					topoParameters
@@ -133,7 +132,7 @@ public class DemoRejeuAjout {
 			}
 
 			// apply rule and save its result until next application
-			appResult = specEntry.getRule().applyRule(gmap,
+			appResult = application.getRule().applyRule(gmap,
 					new JerboaInputHooksGeneric(topoParameters));
 			previousAppNumber = appNumber;
 		}

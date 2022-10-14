@@ -107,9 +107,9 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
             // applyrule is before setAppId; setAppID would stop incrementing
             // when applyRule is after addEntry; --> bad try setup ?
 
-            setAppID(((JerboaRebuiltModeler) modeler).spec.getNextEntryNumber());
+            setAppID(((JerboaRebuiltModeler) modeler).spec.getNextApplicationNumber());
             res = super.applyRule(gmap, hooks);
-            ((JerboaRebuiltModeler) modeler).spec.addEntry(this, PNs, ApplicationType.INIT);
+            ((JerboaRebuiltModeler) modeler).spec.addApplication(this, PNs, ApplicationType.INIT);
         } finally {
             System.out.println(((JerboaRebuiltModeler) modeler).spec.toString());
         }

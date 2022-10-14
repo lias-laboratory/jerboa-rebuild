@@ -13,10 +13,10 @@ import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.MatchingTree;
-import fr.ensma.lias.jerboa.datastructures.ParametricSpecifications;
+import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.ensma.lias.jerboa.datastructures.SpecificationEntry;
+import fr.ensma.lias.jerboa.datastructures.Application;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
@@ -54,17 +54,17 @@ public class DemoRejeuID {
         JerboaGMap gmap = bridge.getGMap(); // gmap in which we rebuild the model
 
         // NOTE: rules with suppression and merge are not yet supported!
-        ParametricSpecifications spec = JSONPrinter.importParametricSpecification("./examples",
+        ParametricSpecification spec = JSONPrinter.importParametricSpecification("./examples",
                 "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
                 modeler);
-        List<SpecificationEntry> specEntries = spec.getSpec();
+        List<Application> specEntries = spec.getParametricSpecification();
 
         List<HistoryRecord> historyRecords = new ArrayList<>();
         List<MatchingTree> matchingTrees = new ArrayList<>();
 
         // compute and store all history records
         for (var specEntry : specEntries) {
-            var PNs = specEntry.getPNs();
+            var PNs = specEntry.getPersistentNames();
 
             for (PersistentName PN : PNs) {
                 JerboaOrbit orbitType = PN.getOrbitType();
@@ -86,10 +86,10 @@ public class DemoRejeuID {
         int previousAppNumber = -1;
         for (var specEntry : specEntries) {
             List<List<JerboaDart>> topoParameters = new ArrayList<>();
-            int appNumber = specEntry.getAppID();
+            int appNumber = specEntry.getApplicationID();
 
             // compute if current entry has at list one topological parameter
-            if (!specEntry.getPNs().isEmpty()) {
+            if (!specEntry.getPersistentNames().isEmpty()) {
 
                 // for each history record compute a level for each matching tree
                 for (int index = 0; index < historyRecords.size(); index++) {
@@ -104,12 +104,12 @@ public class DemoRejeuID {
 
                         // add a level to the current matching tree
                         currentMT.addInitLevel(levelEvent.get(0),
-                                spec.getSpecEntry(previousAppNumber), specEntry, appResult);
+                                spec.getApplication(previousAppNumber), specEntry, appResult);
                     }
                 }
 
                 // for each pn add a topological parameters
-                for (int i = 0; i < specEntry.getPNs().size(); i++) {
+                for (int i = 0; i < specEntry.getPersistentNames().size(); i++) {
                     historyRecords.get(counter).export("./exports", "auto-" + counter + ".json");
                     topoParameters
                             .add(Arrays.asList(matchingTrees.get(counter++).getTopoParameter()));

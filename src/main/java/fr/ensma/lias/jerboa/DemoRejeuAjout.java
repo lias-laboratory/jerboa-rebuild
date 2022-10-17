@@ -21,6 +21,7 @@ import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
+import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
 import up.jerboa.exception.JerboaException;
@@ -30,6 +31,150 @@ import up.jerboa.exception.JerboaException;
  * parametric operations
  */
 public class DemoRejeuAjout {
+
+	JerboaGMap gmap;
+
+	public DemoRejeuAjout(ModelerGenerated modeler, JerboaRebuiltBridge bridge)
+			throws IOException, JerboaException {
+
+		this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
+
+		ParametricSpecification parametricSpecification =
+				JSONPrinter.importParametricSpecification("./examples",
+						"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
+						modeler);
+
+		List<Application> applications = parametricSpecification.getParametricSpecification();
+
+		List<HistoryRecord> historyRecords = new ArrayList<>();
+		List<MatchingTree> matchingTrees = new ArrayList<>();
+
+		createTrees(parametricSpecification, applications, historyRecords, matchingTrees);
+
+		ParametricSpecification editedParametricSpecification = JSONPrinter
+				.importParametricSpecification("./exports", "rebuild-add-vertex.json", modeler);
+		List<Application> editedApplications =
+				editedParametricSpecification.getParametricSpecification();
+
+		reevaluateModel(editedParametricSpecification, editedApplications, historyRecords,
+				matchingTrees);
+	}
+
+	private void createTrees(ParametricSpecification parametricSpecification,
+			List<Application> applications, List<HistoryRecord> historyRecords,
+			List<MatchingTree> matchingTrees) {
+
+		int counter = 0;
+		// compute and store all history records
+		for (var application : applications) {
+			var PNs = application.getPersistentNames();
+
+			for (PersistentName PN : PNs) {
+				JerboaOrbit orbitType = PN.getOrbitType();
+				var PIs = PN.getPIs();
+
+				for (PersistentID PI : PIs) {
+					// Compute and export HRs from current spec
+					HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification);
+					hr.export("./exports", "hr-rejeu-ajout-" + counter++ + ".json");
+					historyRecords.add(hr);
+					MatchingTree mt = new MatchingTree();
+					matchingTrees.add(mt);
+
+				}
+			}
+		}
+	}
+
+	private void reevaluateModel(ParametricSpecification parametricSpecification,
+			List<Application> applications, List<HistoryRecord> historyRecords,
+			List<MatchingTree> matchingTrees) throws IOException, JerboaException {
+
+		int counter = 0;
+		JerboaRuleResult appResult = null;
+		int previousAppNumber = -1;
+
+		for (Application application : applications) {
+
+			List<List<JerboaDart>> topoParameters = new ArrayList<>();
+			int appNumber = application.getApplicationID();
+
+			switch (application.getApplicationType()) {
+				case INIT:
+					computeMatchingTreeLevel(parametricSpecification, application, appResult,
+							previousAppNumber, historyRecords, matchingTrees);
+					counter = collectTopologicalParameters(topoParameters, matchingTrees,
+							application.getPersistentNames().size(), counter);
+					appResult = apply(application.getRule(), topoParameters);
+					break;
+				case ADD:
+					topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
+					appResult = apply(application.getRule(), topoParameters);
+					computeMatchingTreeLevel(application, matchingTrees);
+					break;
+				default:
+					break;
+			}
+
+			previousAppNumber = appNumber;
+		}
+	}
+
+
+	private void computeMatchingTreeLevel(ParametricSpecification parametricSpecification,
+			Application application, JerboaRuleResult appResult, int previousAppNumber,
+			List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees) {
+
+		// for each history record compute a level for each matching tree
+		for (int index = 0; index < historyRecords.size(); index++) {
+
+			// compute if current history record has a key for this entry
+			if (historyRecords.get(index).getLeaves().get(previousAppNumber) != null) {
+
+				List<LevelEventHR> levelEvent =
+						historyRecords.get(index).getLeaves().get(previousAppNumber);
+
+				MatchingTree currentMT = matchingTrees.get(index);
+
+				// add a level to the current matching tree
+				currentMT.addInitLevel(levelEvent.get(0),
+						parametricSpecification.getApplication(previousAppNumber), application,
+						appResult);
+			}
+		}
+	}
+
+	private void computeMatchingTreeLevel(Application application,
+			List<MatchingTree> matchingTrees) {
+		for (MatchingTree matchingTree : matchingTrees) {
+			matchingTree.addAddLevel(application);
+		}
+	}
+
+	private int collectTopologicalParameters(List<List<JerboaDart>> topoParameters,
+			List<MatchingTree> matchingTrees, int nbPNs, int counter) {
+		// for each pn add a topological parameters
+		for (int i = 0; i < nbPNs; i++) {
+			topoParameters.add(Arrays.asList(matchingTrees.get(counter++).getTopoParameter()));
+		}
+		return counter;
+
+	}
+
+	private List<List<JerboaDart>> dartIDsToJerboaDarts(List<Integer> dartIDs,
+			List<List<JerboaDart>> topoParameters) {
+		for (Integer dartID : dartIDs) {
+			topoParameters.add(Arrays.asList(gmap.getNode(dartID)));
+		}
+		return topoParameters;
+	}
+
+	private JerboaRuleResult apply(JerboaRuleOperation rule, List<List<JerboaDart>> topoParameters)
+			throws JerboaException {
+
+		// apply rule and save its result until next application
+		return rule.applyRule(gmap, new JerboaInputHooksGeneric(topoParameters));
+	}
 
 	public static void main(String[] args) throws JerboaException, IOException {
 
@@ -42,6 +187,8 @@ public class DemoRejeuAjout {
 		JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
 		GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);
 
+		DemoRejeuAjout demo = new DemoRejeuAjout(modeler, bridge);
+
 		frame.getContentPane().add(gmapviewer);
 		frame.setSize(1024, 768);
 		frame.pack();
@@ -51,91 +198,6 @@ public class DemoRejeuAjout {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 
-		JerboaGMap gmap = bridge.getGMap(); // gmap in which we rebuild the model
-
-		// TODO: Adapt this modeler to add an operation with ADD appType.
-
-		// NOTE: Edition of a parametric specification must happen after loading the
-		// reference one and building the related history record.
-
-		ParametricSpecification parametricSpecification =
-				JSONPrinter.importParametricSpecification("./examples",
-						"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
-						modeler);
-
-		List<Application> applications = parametricSpecification.getParametricSpecification();
-
-		List<HistoryRecord> historyRecords = new ArrayList<>();
-		List<MatchingTree> matchingTrees = new ArrayList<>();
-
-		// compute and store all history records
-		for (var application : applications) {
-			var PNs = application.getPersistentNames();
-
-			for (PersistentName PN : PNs) {
-				JerboaOrbit orbitType = PN.getOrbitType();
-				var PIs = PN.getPIs();
-
-				for (PersistentID PI : PIs) {
-					// Compute and export HRs from current spec
-					HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification);
-					historyRecords.add(hr);
-					MatchingTree mt = new MatchingTree();
-					matchingTrees.add(mt);
-
-				}
-			}
-		}
-
-		ParametricSpecification editedParametricSpecification = JSONPrinter
-				.importParametricSpecification("./exports", "rebuild-add-vertex.json", modeler);
-		List<Application> editedApplications =
-				editedParametricSpecification.getParametricSpecification();
-
-		int counter = 0;
-		JerboaRuleResult appResult = null;
-		int previousAppNumber = -1;
-
-		// TODO: add support for added applications of a spec
-		for (var application : editedApplications) {
-			List<List<JerboaDart>> topoParameters = new ArrayList<>();
-			int appNumber = application.getApplicationID();
-
-			// compute if current entry has at list one topological parameter
-			if (!application.getPersistentNames().isEmpty()) {
-
-				// for each history record compute a level for each matching tree
-				for (int index = 0; index < historyRecords.size(); index++) {
-
-					// compute if current history record has a key for this entry
-					if (historyRecords.get(index).getLeaves().get(previousAppNumber) != null) {
-
-						List<LevelEventHR> levelEvent =
-								historyRecords.get(index).getLeaves().get(previousAppNumber);
-
-						MatchingTree currentMT = matchingTrees.get(index);
-
-						// add a level to the current matching tree
-						currentMT.addInitLevel(levelEvent.get(0),
-								parametricSpecification.getApplication(previousAppNumber),
-								application, appResult);
-					}
-				}
-
-				// for each pn add a topological parameters
-				for (int i = 0; i < application.getPersistentNames().size(); i++) {
-					historyRecords.get(counter).export("./exports",
-							"hr-rejeu-ajout-" + counter + ".json");
-					topoParameters
-							.add(Arrays.asList(matchingTrees.get(counter++).getTopoParameter()));
-				}
-			}
-
-			// apply rule and save its result until next application
-			appResult = application.getRule().applyRule(gmap,
-					new JerboaInputHooksGeneric(topoParameters));
-			previousAppNumber = appNumber;
-		}
 
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -148,6 +210,5 @@ public class DemoRejeuAjout {
 		});
 
 	}
-
 
 }

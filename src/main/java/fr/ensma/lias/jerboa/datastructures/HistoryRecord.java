@@ -10,6 +10,8 @@ import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 
+// TODO: Document this class
+
 public class HistoryRecord {
 
 	HashMap<Integer, List<LevelEventHR>> leaves;
@@ -211,12 +213,10 @@ public class HistoryRecord {
 // */
 // private void fillLevel(NodeOrbitHR currentNodeOrbit, LevelEventHR levelEvent,
 // List<NodeOrbitHR> nextStepOrbitHRs, String nodeName, JerboaRuleOperation rule) {
-// // TODO impl: method to compute one building board rule application
 // // Adding currentNodeOrbit because of ORIGIN nodes which are not taken from the
 // // rule input
 // currentNodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, nextStepOrbitHRs);
 // // System.out.println("nextStepOrbitHRs insidefillLevel " + nextStepOrbitHRs);
-// // TODO impl: merge next orbit nodes in current nodeOrbitList
 // // levelOrbit.mergeNodesFromList(nodeOrbitList);
 // }
 

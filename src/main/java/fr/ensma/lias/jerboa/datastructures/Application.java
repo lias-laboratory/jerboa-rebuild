@@ -1,5 +1,6 @@
 package fr.ensma.lias.jerboa.datastructures;
 
+import java.util.ArrayList;
 import java.util.List;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
@@ -37,7 +38,7 @@ public class Application {
 		this.type = type;
 		this.rule = rule;
 		this.PNs = PNs;
-		this.dartIDs = null;
+		this.dartIDs = new ArrayList<>();
 	}
 
 	/**

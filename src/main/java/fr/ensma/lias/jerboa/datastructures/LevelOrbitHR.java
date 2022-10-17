@@ -44,10 +44,9 @@ public class LevelOrbitHR {
 		return nextLevelEvents.get(index);
 	}
 
-
-	public void mergeNodesFromList(List<NodeOrbitHR> nodeOrbitList) {
-		// TODO impl: merge a list of NodeOrbitHR into current LevelOrbitHR
-	}
+	// public void mergeNodesFromList(List<NodeOrbitHR> nodeOrbitList) {
+	// // TODO impl: merge a list of NodeOrbitHR into current LevelOrbitHR
+	// }
 
 	@Override
 	public String toString() {

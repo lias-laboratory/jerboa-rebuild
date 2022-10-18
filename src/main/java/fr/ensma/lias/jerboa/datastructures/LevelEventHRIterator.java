@@ -22,7 +22,7 @@ public class LevelEventHRIterator implements Iterator<LevelEventHR> {
 	@Override
 	public LevelEventHR next() {
 		LevelEventHR level = current;
-		current = current.getNextLevelOrbitHR().getNextLevelEventAtIndex(0);
+		current = current.getNextLevelOrbit().getNextLevelEventAtIndex(0);
 		return level;
 	}
 

@@ -28,22 +28,11 @@ public class LevelEventHR implements Iterable<LevelEventHR> {
 		this.nextLevelOrbit = nextLevelOrbit;
 	}
 
-	// public LevelEventHR(int appID, List<NodeEventHR> eventList) {
-	// this.appNumber = appID;
-	// this.eventList = eventList;
-	// }
-
-	// public LevelEventHR(LevelEventHR levelEvent) {
-	// this.appNumber = levelEvent.getAppNumber();
-	// this.eventList = levelEvent.getEventList();
-	// this.nextLevelOrbit = levelEvent.getNextLevelOrbitHR();
-	// }
-
 	public int getAppNumber() {
 		return appNumber;
 	}
 
-	public LevelOrbitHR getNextLevelOrbitHR() {
+	public LevelOrbitHR getNextLevelOrbit() {
 		return nextLevelOrbit;
 	}
 
@@ -68,4 +57,16 @@ public class LevelEventHR implements Iterable<LevelEventHR> {
 	public Iterator<LevelEventHR> iterator() {
 		return new LevelEventHRIterator(this);
 	}
+	//
+	// public LevelEventHR(int appID, List<NodeEventHR> eventList) {
+	// this.appNumber = appID;
+	// this.eventList = eventList;
+	// }
+
+	// public LevelEventHR(LevelEventHR levelEvent) {
+	// this.appNumber = levelEvent.getAppNumber();
+	// this.eventList = levelEvent.getEventList();
+	// this.nextLevelOrbit = levelEvent.getNextLevelOrbitHR();
+	// }
+
 }

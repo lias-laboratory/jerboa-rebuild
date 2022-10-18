@@ -1,0 +1,66 @@
+[
+  {
+    "ID": 1,
+    "type": "INIT",
+    "rule": {
+      "name": "CreateSquareFace"
+    },
+    "PNs": []
+  },
+  {
+    "ID": 2,
+    "type": "INIT",
+    "rule": {
+      "name": "ExtrudeFaceEdgeXAxis"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4}]",
+        "orbitType": "(0)"
+      }
+    ]
+  },
+  {
+    "ID": 3,
+    "type": "INIT",
+    "rule": {
+      "name": "InsertEdge"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4; 2 - n2}]",
+        "orbitType": "(1, 3)"
+      },
+      {
+        "PersistentName": "[{1 - n3; 2 - n4}]",
+        "orbitType": "(1, 3)"
+      }
+    ]
+  },
+  {
+    "ID": 4,
+    "type": "INIT",
+    "rule": {
+      "name": "DeleteEdge"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n3; 2 - n1}]",
+        "orbitType": "(0, 2, 3)"
+      }
+    ]
+  },
+  {
+    "ID": 5,
+    "type": "INIT",
+    "rule": {
+      "name": "FaceTriangulation"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n5; 4 - n1}]",
+        "orbitType": "(0, 1, 3)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "ID": 1,
+    "Type": "INIT",
+    "rule": {
+      "name": "CreateSquareFace"
+    },
+    "PNs": []
+  },
+  {
+    "ID": 2,
+    "Type": "INIT",
+    "rule": {
+      "name": "TriangulateFace"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n6}]",
+        "orbitType": "(0, 1, 3)"
+      }
+    ]
+  },
+  {
+    "ID": 3,
+    "Type": "INIT",
+    "rule": {
+      "name": "TriangulateFace"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n6; 2 - n2}]",
+        "orbitType": "(0, 1, 3)"
+      }
+    ]
+  }
+]

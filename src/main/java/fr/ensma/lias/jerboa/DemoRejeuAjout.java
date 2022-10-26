@@ -17,6 +17,7 @@ import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
 import fr.ensma.lias.jerboa.datastructures.Application;
+import fr.ensma.lias.jerboa.datastructures.ApplicationType;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
@@ -51,8 +52,12 @@ public class DemoRejeuAjout {
 
 		createTrees(parametricSpecification, applications, historyRecords, matchingTrees);
 
-		ParametricSpecification editedParametricSpecification = JSONPrinter
-				.importParametricSpecification("./exports", "rebuild-add-vertex.json", modeler);
+		ParametricSpecification editedParametricSpecification =
+				// JSONPrinter.importParametricSpecification("./examples",
+				// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
+				// modeler);
+				JSONPrinter.importParametricSpecification("./examples", "rebuild-add-vertex.json",
+						modeler);
 		List<Application> editedApplications =
 				editedParametricSpecification.getParametricSpecification();
 
@@ -90,64 +95,76 @@ public class DemoRejeuAjout {
 			List<Application> applications, List<HistoryRecord> historyRecords,
 			List<MatchingTree> matchingTrees) throws IOException, JerboaException {
 
-		int counter = 0;
+		Integer counter = 0;
 		JerboaRuleResult appResult = null;
-		int previousAppNumber = -1;
 
-		for (Application application : applications) {
+		// int previousAppNumber = -1;
 
+		// for (Application application : applications) {
+		for (int applicationIndex = 0; applicationIndex < applications.size(); applicationIndex++) {
+
+			Application application = applications.get(applicationIndex);
+			// int appNumber = application.getApplicationID();
+			int nbPNs = application.getPersistentNames().size();
 			List<List<JerboaDart>> topoParameters = new ArrayList<>();
-			int appNumber = application.getApplicationID();
 
-			switch (application.getApplicationType()) {
-				case INIT:
-					computeMatchingTreeLevel(parametricSpecification, application, appResult,
-							previousAppNumber, historyRecords, matchingTrees);
-					counter = collectTopologicalParameters(topoParameters, matchingTrees,
-							application.getPersistentNames().size(), counter);
-					appResult = apply(application.getRule(), topoParameters);
-					break;
-				case ADD:
-					topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
-					appResult = apply(application.getRule(), topoParameters);
-					computeMatchingTreeLevel(application, matchingTrees);
-					break;
-				default:
-					break;
+			if (application.getApplicationType() != ApplicationType.ADD) {
+				counter =
+						collectTopologicalParameters(topoParameters, matchingTrees, nbPNs, counter);
+			} else {
+				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
 			}
 
-			previousAppNumber = appNumber;
+			appResult = apply(application.getRule(), topoParameters);
+
+			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
+
+
+
+			// switch (application.getApplicationType()) {
+			// case INIT:
+			// computeMatchingTreeLevel(parametricSpecification, application, appResult,
+			// previousAppNumber, historyRecords, matchingTrees);
+			// counter = collectTopologicalParameters(topoParameters, matchingTrees,
+			// application.getPersistentNames().size(), counter);
+			// appResult = apply(application.getRule(), topoParameters);
+			// break;
+			// case ADD:
+			// topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
+			// appResult = apply(application.getRule(), topoParameters);
+			// computeMatchingTreeLevel(application, matchingTrees);
+			// break;
+			// default:
+			// break;
+			// }
+
+			// previousAppNumber = appNumber;
 		}
+
 	}
 
 
-	private void computeMatchingTreeLevel(ParametricSpecification parametricSpecification,
-			Application application, JerboaRuleResult appResult, int previousAppNumber,
+	private void computeMatchingTreeLevel(Application application, JerboaRuleResult appResult,
 			List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees) {
 
-		// for each history record compute a level for each matching tree
 		for (int index = 0; index < historyRecords.size(); index++) {
 
-			// compute if current history record has a key for this entry
-			if (historyRecords.get(index).getLeaves().get(previousAppNumber) != null) {
+			if (historyRecords.get(index).getLeaves().get(application.getApplicationID()) != null
+					|| application.getApplicationType() == ApplicationType.ADD) {
 
-				List<LevelEventHR> levelEvent =
-						historyRecords.get(index).getLeaves().get(previousAppNumber);
+				LevelEventHR levelEventHR = null;
 
-				MatchingTree currentMT = matchingTrees.get(index);
+				List<LevelEventHR> levelEventHRs = historyRecords.get(index).getLeaves()
+						.getOrDefault(application.getApplicationID(), new ArrayList<>());
 
-				// add a level to the current matching tree
-				currentMT.addInitLevel(levelEvent.get(0),
-						parametricSpecification.getApplication(previousAppNumber), application,
-						appResult);
+				if (!levelEventHRs.isEmpty()) {
+					levelEventHR = levelEventHRs.get(0);
+				}
+
+				MatchingTree mt = matchingTrees.get(index);
+
+				mt.addLevel(levelEventHR, application, appResult);
 			}
-		}
-	}
-
-	private void computeMatchingTreeLevel(Application application,
-			List<MatchingTree> matchingTrees) {
-		for (MatchingTree matchingTree : matchingTrees) {
-			matchingTree.addAddLevel(application);
 		}
 	}
 
@@ -155,7 +172,8 @@ public class DemoRejeuAjout {
 			List<MatchingTree> matchingTrees, int nbPNs, int counter) {
 		// for each pn add a topological parameters
 		for (int i = 0; i < nbPNs; i++) {
-			topoParameters.add(Arrays.asList(matchingTrees.get(counter++).getTopoParameter()));
+			topoParameters.add(Arrays.asList(matchingTrees.get(counter).getTopoParameter()));
+			counter += 1;
 		}
 		return counter;
 

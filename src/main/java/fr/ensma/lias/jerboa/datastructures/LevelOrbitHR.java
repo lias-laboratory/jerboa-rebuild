@@ -45,7 +45,7 @@ public class LevelOrbitHR {
 	}
 
 	// public void mergeNodesFromList(List<NodeOrbitHR> nodeOrbitList) {
-	// // TODO impl: merge a list of NodeOrbitHR into current LevelOrbitHR
+	// // impl: merge a list of NodeOrbitHR into current LevelOrbitHR
 	// }
 
 	@Override

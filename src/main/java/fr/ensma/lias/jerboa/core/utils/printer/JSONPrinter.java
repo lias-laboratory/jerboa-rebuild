@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
@@ -26,7 +27,7 @@ public class JSONPrinter {
 
 	public JSONPrinter() {}
 
-	public static <T> void exportHistoryRecord(HashMap<Integer, List<LevelEventHR>> leaves,
+	public static <T> void exportHistoryRecord(Map<Integer, List<LevelEventHR>> leaves,
 			String fileName) throws IOException {
 		GsonBuilder gBuilder = new GsonBuilder().setPrettyPrinting();
 		// gBuilder.registerTypeAdapter(LevelOrbitHRSerializer.class, new LevelOrbitHRSerializer());
@@ -35,7 +36,7 @@ public class JSONPrinter {
 				StandardOpenOption.CREATE);
 	}
 
-	public static void exportHistoryRecord(HashMap<Integer, List<LevelEventHR>> leaves,
+	public static void exportHistoryRecord(Map<Integer, List<LevelEventHR>> leaves,
 			String directory, String fileName) throws IOException {
 		GsonBuilder gBuilder = new GsonBuilder().setPrettyPrinting();
 		String json = gBuilder.create().toJson(leaves);

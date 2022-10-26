@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import fr.ensma.lias.jerboa.core.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.PIExpression;
 import fr.ensma.lias.jerboa.datastructures.ApplicationType;
+import fr.ensma.lias.jerboa.datastructures.Event;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
 import up.jerboa.core.JerboaDart;
@@ -103,10 +104,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         // System.out.println("Check PNs to string : " + PNs.toString());
 
         try {
-            // TODO find out why the process would be prone to bugs when
-            // applyrule is before setAppId; setAppID would stop incrementing
-            // when applyRule is after addEntry; --> bad try setup ?
-
             setAppID(((JerboaRebuiltModeler) modeler).spec.getNextApplicationNumber());
             res = super.applyRule(gmap, hooks);
             ((JerboaRebuiltModeler) modeler).spec.addApplication(this, PNs, ApplicationType.INIT);
@@ -568,6 +565,20 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return getRightRuleNode(nodeIndex);
     }
 
+    public Event getRuleNodesOrbitEvent(List<JerboaRuleNode> ruleNodesOrbit,
+            JerboaOrbit orbitType) {
+        if (isRuleNodesOrbitCreated(ruleNodesOrbit)) {
+            return Event.CREATION;
+        } else if (isRuleNodesOrbitUnchanged(ruleNodesOrbit, orbitType)) {
+            return Event.NOMODIF;
+        } else if (isRuleNodesOrbitSplitted(ruleNodesOrbit, orbitType)) {
+            return Event.SPLIT;
+        } else if (isRuleNodesOrbitModified(ruleNodesOrbit, orbitType)) {
+            return Event.MODIFICATION;
+        }
+        return Event.NOEFFECT;
+    }
+
     /**
      * Collect explicit aLinks to build origin's orbit type. Such aLink is collected if and only if
      * both its source is preserved and its target in Right belong to rightRuleNodesOrbit
@@ -619,10 +630,10 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         JerboaRuleNode hookNode = getLeftRuleNode(hookIndex);
         List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(hookNode, orbitType);
         HashSet<Integer> aLinkSet = new HashSet<>();
-        // TODO: consider this case in non-creation events only
         collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
         // NOTE: this method's call is for collecting aLinks only in `hook` node
         // collectRewrittenImplicitALinks(aLinkSet, hookNode, ruleNodesOrbit, orbitType);
+        // TODO: consider these methods in non-creation events only
         collectUnfilteredALinks(aLinkSet, ruleNodesOrbit, orbitType);
         collectPreservedExplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
         return JerboaOrbit.orbit(aLinkSet);

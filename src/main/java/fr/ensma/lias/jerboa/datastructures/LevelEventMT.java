@@ -25,6 +25,10 @@ public class LevelEventMT extends LevelEvent {
 
 	public LevelEventMT() {}
 
+	public List<NodeEventHR> getEventList() {
+		return eventList;
+	}
+
 	public LevelOrbitMT getNextLevelOrbit() {
 		return nextLevelOrbit;
 	}

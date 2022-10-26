@@ -52,7 +52,7 @@ public class HistoryRecordTest {
 				"ParametricSpecification_createface-insertvertex-triangulate-insertvertex_Test.json",
 				4, 0, 0);
 
-		HashMap<Integer, List<LevelEventHR>> hrMap = HR.getLeaves();
+		Map<Integer, List<LevelEventHR>> hrMap = HR.getLeaves();
 		assertEquals(3, hrMap.size());
 
 		for (Map.Entry<Integer, List<LevelEventHR>> entry : hrMap.entrySet()) {
@@ -70,7 +70,7 @@ public class HistoryRecordTest {
 		HistoryRecord HR = setupHistoryRecord(
 				"ParametricSpecification_triangulate-triangulated-face.json", 3, 0, 0);
 
-		HashMap<Integer, List<LevelEventHR>> hrMap = HR.getLeaves();
+		Map<Integer, List<LevelEventHR>> hrMap = HR.getLeaves();
 		assertEquals(2, hrMap.size());
 
 		assertEquals(Event.CREATION, hrMap.get(1).get(0).getEventList().get(0).getEvent());

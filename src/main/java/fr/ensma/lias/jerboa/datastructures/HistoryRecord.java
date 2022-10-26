@@ -2,24 +2,36 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 
-// TODO: Document this class
-
+/**
+ * This class represents a directed acyclic graph to trace the origins and the evolution of a
+ * topological parameters described by a persistent name
+ */
 public class HistoryRecord {
 
-	HashMap<Integer, List<LevelEventHR>> leaves;
+	Map<Integer, List<LevelEventHR>> leaves;
 
+	/**
+	 * Constructor. Initializes an empty history record.
+	 */
 	public HistoryRecord() {
 		leaves = new LinkedHashMap<>();
 	}
 
+	/**
+	 * Constructor. Build a history record.
+	 *
+	 * @param pID Persistent ID of a topological parameter
+	 * @param orbitType a JerboaOrbit designating the orbit this history record is associated with
+	 * @param parametricSpecification
+	 */
 	public HistoryRecord(PersistentID pID, JerboaOrbit orbitType,
 			ParametricSpecification parametricSpecification) {
 
@@ -35,10 +47,20 @@ public class HistoryRecord {
 		}
 	}
 
-	public HashMap<Integer, List<LevelEventHR>> getLeaves() {
+	/**
+	 * Get the field leaves of this history record
+	 *
+	 * @return Map of this history record
+	 */
+	public Map<Integer, List<LevelEventHR>> getLeaves() {
 		return leaves;
 	}
 
+	/**
+	 * Get the top LevelEvent from this history record
+	 *
+	 * @return LevelEvent
+	 */
 	private List<LevelEventHR> getTopLevelEvents() {
 		List<Integer> entries = new LinkedList<Integer>(this.leaves.keySet());
 		if (entries.isEmpty())
@@ -48,6 +70,17 @@ public class HistoryRecord {
 		}
 	}
 
+	/**
+	 * Build a LevelEvent and add it to this history record.
+	 *
+	 * @param nodeOrbitList a list of {@link NodeOrbitHR}
+	 *
+	 * @param pIDElement {@link PersistentIdElement} an element of a persistent ID
+	 *
+	 * @param parametricSpecification a {@link ParametricSpecification} instance
+	 *
+	 * @return a list of {@link NodeOrbitHR}s used for next/upper level construction
+	 */
 	private List<NodeOrbitHR> addLevel(List<NodeOrbitHR> nodeOrbitList,
 			PersistentIdElement pIDElement, ParametricSpecification parametricSpecification) {
 
@@ -81,6 +114,16 @@ public class HistoryRecord {
 		return nextStepOrbits;
 	}
 
+	/**
+	 * Fill a LevelEvent with {@link NodeEventHR}s. A building board entry is computed in order to
+	 * prepare the next level's construction.
+	 *
+	 * @param currentNodeOrbit a {@link NodeOrbitHR} from which to compute a building board entry
+	 * @param levelEvent {@link LevelEventHR} to fill
+	 * @param nextStepOrbits a list of node orbits to fill
+	 * @param nodeName String a jerboa rule node's name
+	 * @param rule a jerboa rule operation
+	 */
 	private void fillLevel(NodeOrbitHR currentNodeOrbit, LevelEventHR levelEvent,
 			List<NodeOrbitHR> nextStepOrbits, String nodeName, JerboaRuleOperation rule) {
 
@@ -88,6 +131,11 @@ public class HistoryRecord {
 
 	}
 
+	/**
+	 * Export this history record as a json file
+	 *
+	 * @param fileName name of the export file
+	 */
 	public void export(String fileName) {
 		try {
 			JSONPrinter.exportHistoryRecord(leaves, fileName);
@@ -96,6 +144,13 @@ public class HistoryRecord {
 		}
 
 	}
+
+	/**
+	 * Export this history record as a json file
+	 *
+	 * @param directory Path relative to the project
+	 * @param filaName name of the export file
+	 */
 
 	public void export(String directory, String fileName) {
 		try {

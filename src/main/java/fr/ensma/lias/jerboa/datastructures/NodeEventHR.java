@@ -21,8 +21,16 @@ public class NodeEventHR {
 		return event;
 	}
 
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
 	public NodeOrbitHR getChild() {
 		return child;
+	}
+
+	public void setChild(NodeOrbitHR child) {
+		this.child = child;
 	}
 
 	@Override
@@ -43,5 +51,6 @@ public class NodeEventHR {
 		}
 		return super.equals(obj);
 	}
+
 
 }

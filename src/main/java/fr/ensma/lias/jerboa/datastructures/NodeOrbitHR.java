@@ -1,5 +1,6 @@
 package fr.ensma.lias.jerboa.datastructures;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +28,10 @@ public class NodeOrbitHR {
 
 	public List<Link> getChildren() {
 		return children;
+	}
+
+	public void setChildren(List<Link> children) {
+		this.children = new ArrayList<>(children);
 	}
 
 	/*
@@ -58,7 +63,6 @@ public class NodeOrbitHR {
 	 * @param nodeOrbitList
 	 */
 	public static void addNodes(NodeOrbitHR nodeToMerge, List<NodeOrbitHR> nodeOrbitList) {
-		// TODO impl:
 		if (nodeOrbitList.isEmpty()) {
 			nodeOrbitList.add(nodeToMerge);
 			return;

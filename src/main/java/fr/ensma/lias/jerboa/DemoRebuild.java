@@ -31,11 +31,11 @@ import up.jerboa.exception.JerboaException;
  * This class' purpose is to demonstrate the reevaluation without change of a model built with
  * parametric operations
  */
-public class DemoRejeuAjout {
+public class DemoRebuild {
 
 	JerboaGMap gmap;
 
-	public DemoRejeuAjout(ModelerGenerated modeler, JerboaRebuiltBridge bridge)
+	public DemoRebuild(ModelerGenerated modeler, JerboaRebuiltBridge bridge)
 			throws IOException, JerboaException {
 
 		this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
@@ -52,19 +52,25 @@ public class DemoRejeuAjout {
 
 		createTrees(parametricSpecification, applications, historyRecords, matchingTrees);
 
-		ParametricSpecification editedParametricSpecification =
-				// JSONPrinter.importParametricSpecification("./examples",
-				// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
-				// modeler);
-				JSONPrinter.importParametricSpecification("./examples", "rebuild-add-vertex.json",
-						modeler);
+		ParametricSpecification editedParametricSpecification = JSONPrinter
+				.importParametricSpecification("./examples", "rebuild-add-vertex.json", modeler);
 		List<Application> editedApplications =
 				editedParametricSpecification.getParametricSpecification();
 
-		reevaluateModel(editedParametricSpecification, editedApplications, historyRecords,
-				matchingTrees);
+		reevaluateModel(editedApplications, historyRecords, matchingTrees);
+
+		for (MatchingTree mt : matchingTrees) {
+			System.out.println(mt.toString());
+		}
 	}
 
+	/**
+	 *
+	 * @param parametricSpecification
+	 * @param applications
+	 * @param historyRecords
+	 * @param matchingTrees
+	 */
 	private void createTrees(ParametricSpecification parametricSpecification,
 			List<Application> applications, List<HistoryRecord> historyRecords,
 			List<MatchingTree> matchingTrees) {
@@ -89,22 +95,28 @@ public class DemoRejeuAjout {
 				}
 			}
 		}
+
 	}
 
-	private void reevaluateModel(ParametricSpecification parametricSpecification,
-			List<Application> applications, List<HistoryRecord> historyRecords,
+	/**
+	 * Reevaluate a model based on a parametric specification. This parametric specification may be
+	 * edited or not but must concern the same object.
+	 *
+	 * @param applications
+	 * @param historyRecords
+	 * @param matchingTrees
+	 * @throws IOException
+	 * @throws JerboaException
+	 */
+	private void reevaluateModel(List<Application> applications, List<HistoryRecord> historyRecords,
 			List<MatchingTree> matchingTrees) throws IOException, JerboaException {
 
 		Integer counter = 0;
 		JerboaRuleResult appResult = null;
 
-		// int previousAppNumber = -1;
-
-		// for (Application application : applications) {
 		for (int applicationIndex = 0; applicationIndex < applications.size(); applicationIndex++) {
 
 			Application application = applications.get(applicationIndex);
-			// int appNumber = application.getApplicationID();
 			int nbPNs = application.getPersistentNames().size();
 			List<List<JerboaDart>> topoParameters = new ArrayList<>();
 
@@ -118,32 +130,18 @@ public class DemoRejeuAjout {
 			appResult = apply(application.getRule(), topoParameters);
 
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
-
-
-
-			// switch (application.getApplicationType()) {
-			// case INIT:
-			// computeMatchingTreeLevel(parametricSpecification, application, appResult,
-			// previousAppNumber, historyRecords, matchingTrees);
-			// counter = collectTopologicalParameters(topoParameters, matchingTrees,
-			// application.getPersistentNames().size(), counter);
-			// appResult = apply(application.getRule(), topoParameters);
-			// break;
-			// case ADD:
-			// topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
-			// appResult = apply(application.getRule(), topoParameters);
-			// computeMatchingTreeLevel(application, matchingTrees);
-			// break;
-			// default:
-			// break;
-			// }
-
-			// previousAppNumber = appNumber;
 		}
 
 	}
 
 
+	/**
+	 *
+	 * @param application
+	 * @param appResult
+	 * @param historyRecords
+	 * @param matchingTrees
+	 */
 	private void computeMatchingTreeLevel(Application application, JerboaRuleResult appResult,
 			List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees) {
 
@@ -168,6 +166,14 @@ public class DemoRejeuAjout {
 		}
 	}
 
+	/**
+	 *
+	 * @param topoParameters
+	 * @param matchingTrees
+	 * @param nbPNs
+	 * @param counter
+	 * @return
+	 */
 	private int collectTopologicalParameters(List<List<JerboaDart>> topoParameters,
 			List<MatchingTree> matchingTrees, int nbPNs, int counter) {
 		// for each pn add a topological parameters
@@ -179,6 +185,12 @@ public class DemoRejeuAjout {
 
 	}
 
+	/**
+	 *
+	 * @param dartIDs
+	 * @param topoParameters
+	 * @return
+	 */
 	private List<List<JerboaDart>> dartIDsToJerboaDarts(List<Integer> dartIDs,
 			List<List<JerboaDart>> topoParameters) {
 		for (Integer dartID : dartIDs) {
@@ -187,6 +199,13 @@ public class DemoRejeuAjout {
 		return topoParameters;
 	}
 
+	/**
+	 *
+	 * @param rule
+	 * @param topoParameters
+	 * @return
+	 * @throws JerboaException
+	 */
 	private JerboaRuleResult apply(JerboaRuleOperation rule, List<List<JerboaDart>> topoParameters)
 			throws JerboaException {
 
@@ -205,7 +224,7 @@ public class DemoRejeuAjout {
 		JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
 		GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);
 
-		DemoRejeuAjout demo = new DemoRejeuAjout(modeler, bridge);
+		DemoRebuild demo = new DemoRebuild(modeler, bridge);
 
 		frame.getContentPane().add(gmapviewer);
 		frame.setSize(1024, 768);

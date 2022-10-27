@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
+import fr.ensma.lias.jerboa.datastructures.LevelEventMT;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
 import fr.ensma.lias.jerboa.datastructures.Application;
@@ -87,5 +88,12 @@ public class JSONPrinter {
 
 		return parametricSpecification;
 	}
+
+	// TODO fill export matching tree
+	public static void exportMatchingTree(List<List<LevelEventMT>> leaves, String directory,
+			String fileName) {}
+
+	// TODO fill export matching tree
+	public static void exportMatchingTree(List<List<LevelEventMT>> leaves, String fileName) {}
 
 }

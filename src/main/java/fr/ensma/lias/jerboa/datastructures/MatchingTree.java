@@ -1,9 +1,11 @@
 package fr.ensma.lias.jerboa.datastructures;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
+import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -193,5 +195,46 @@ public class MatchingTree {
 
 	private List<LevelEventMT> getLastLevel() {
 		return leaves.get(leaves.size() - 1);
+	}
+
+	/**
+	 * Export this matching tree as a json file
+	 *
+	 * @param fileName name of the export file
+	 */
+	// public void export(String fileName) {
+	// try {
+	// JSONPrinter.exportMatchingTree(leaves, fileName);
+	// } catch (IOException exception) {
+	// System.out.println("Could not write to file");
+	// }
+
+	// }
+
+	/**
+	 * Export this matching tree as a json file
+	 *
+	 * @param directory Path relative to the project
+	 * @param filaName name of the export file
+	 */
+	// public void export(String directory, String fileName) {
+	// try {
+	// JSONPrinter.exportMatchingTree(leaves, directory, fileName);
+	// } catch (IOException exception) {
+	// System.out.println("Could not write to file");
+	// }
+
+	// }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (var level : leaves) {
+			sb.append(level).append('\n');
+			for (var orbit : level.get(0).getNextLevelOrbit().getOrbitList()) {
+				sb.append(orbit.getChildren()).append('\n');
+			}
+		}
+		return sb.toString();
 	}
 }

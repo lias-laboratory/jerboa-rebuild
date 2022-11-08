@@ -1,22 +1,20 @@
 package fr.ensma.lias.jerboa.bridge;
 
-import fr.ensma.lias.jerboa.embeddings.Vec3;
+import java.awt.Color;
+import java.io.File;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+import javax.swing.JFileChooser;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
+import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
 import fr.up.xlim.sic.ig.jerboa.viewer.IJerboaModelerViewer;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerBridge;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerColor;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerPoint;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerTuple;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
@@ -25,14 +23,17 @@ import up.jerboa.core.JerboaModeler;
 import up.jerboa.core.util.JerboaGMapDuplicateFactory;
 import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaGMapDuplicateException;
-import up.jerboa.util.serialization.jba.JBAFormat;
 
 public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicateFactory {
 
 	private ModelerGenerated modeler;
+	private JerboaEmbeddingInfo ebdColor;
+	private int ebdColorID;
 
 	public JerboaRebuiltBridge(ModelerGenerated modeler) {
 		this.modeler = modeler;
+		this.ebdColor = modeler.getColor();
+		this.ebdColorID = ebdColor.getID();
 	}
 
 	@Override
@@ -66,7 +67,13 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 
 	@Override
 	public GMapViewerColor colors(JerboaDart arg0) {
-		return null;
+
+		Color c = Color.LIGHT_GRAY;
+		if (arg0.ebd(ebdColorID) != null) {
+			c = (Color) arg0.ebd(ebdColorID);
+		}
+		GMapViewerColor color = new GMapViewerColor(c);
+		return color;
 	}
 
 	@Override
@@ -109,7 +116,7 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 
 	@Override
 	public boolean hasColor() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -154,6 +161,6 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 
 	// petit fix pour nouvelle version de Hakim
 	public void loadFile(String filepath) {
-		throw new Error("not yet implemented");	
+		throw new Error("not yet implemented");
 	}
 }

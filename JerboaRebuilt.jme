@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>TriangulateFace</openRules>
-	<openRules>ExtrudeIndependentFace</openRules>
 	<openRules>TriangulateVolume</openRules>
-	<openRules>MergeVolumesAroundVertex</openRules>
 	<openRules>ChamferCorner</openRules>
+	<openRules>MakeBlue</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
 <generationType>java</generationType>
-    <embeddings count="1">
+    <embeddings count="2">
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
+        <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="44">
+    <rules count="45">
         <rule name="MergeEdge" module="Merge" category="Merge" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -2763,6 +2762,36 @@ return res;</expr>
                     </arcloop>
                     <arcloop dim="1" node="n1" angle="2.125067784001189" >
                     </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="MakeBlue" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="270" y="99" orbit="" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n0" x="170" y="148" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="color">Color res = Color::BLUE;
+return res;</expr>
+                    </node>
+                </nodes>
+                <arcs count="0">
                 </arcs>
             </right>
             <preprocess></preprocess>

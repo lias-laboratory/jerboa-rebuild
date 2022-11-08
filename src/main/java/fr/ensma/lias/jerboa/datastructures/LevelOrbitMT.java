@@ -10,13 +10,13 @@ public class LevelOrbitMT {
 
     private int dartID;
     private List<NodeOrbitHR> orbitList;
-    private List<LevelEventMT> nextLevelEventMTList;
+    private List<LevelEventMT> nextLevelEvents;
 
     public LevelOrbitMT(int dartID, List<NodeOrbitHR> orbitList,
             List<LevelEventMT> nextLevelEventList) {
         this.dartID = dartID;
         this.orbitList = orbitList;
-        this.nextLevelEventMTList = nextLevelEventList;
+        this.nextLevelEvents = nextLevelEventList;
     }
 
     /*
@@ -32,11 +32,11 @@ public class LevelOrbitMT {
     }
 
     protected void setNextLevelEventMTList(List<LevelEventMT> nexLevelEventMTList) {
-        this.nextLevelEventMTList = nexLevelEventMTList;
+        this.nextLevelEvents = nexLevelEventMTList;
     }
 
     public List<LevelEventMT> getNextLevelEventMTList() {
-        return nextLevelEventMTList;
+        return nextLevelEvents;
     }
 
     public int getDartID() {

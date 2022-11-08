@@ -17,19 +17,9 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
 
 		super(dim);
 
-		// trackers = new ArrayList<JerboaEmbeddingInfo>();
-		// trackers.add(new JerboaEmbeddingInfo("vertexTracker", JerboaOrbit.orbit(1, 2, 3),
-		// fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
-		// trackers.add(new JerboaEmbeddingInfo("halfFaceTracker", JerboaOrbit.orbit(0, 1),
-		// fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
-		// trackers.add(new JerboaEmbeddingInfo("halfEdgeTracker", JerboaOrbit.orbit(0),
-		// fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
-		// trackers.add(new JerboaEmbeddingInfo("edgeTracker", JerboaOrbit.orbit(0, 2, 3),
-		// fr.ensma.lias.jerboa.embeddings.OrbitLabel.class));
 		persistentID =
 				new JerboaEmbeddingInfo("PersistentID", JerboaOrbit.orbit(), PersistentID.class);
 		spec = new ParametricSpecification();
-
 	}
 
 	@Override
@@ -41,23 +31,10 @@ public class JerboaRebuiltModeler extends JerboaModelerGeneric {
 		}
 		ebds[nbEbds - 1] = getPersistentID();
 		super.registerEbdsAndResetGMAP(ebds);
-
-		// JerboaEmbeddingInfo[] ebds = new JerboaEmbeddingInfo[ebd.length + trackers.size()];
-
-		// for (int index = 0; index < ebd.length; index++) {
-		// ebds[index] = ebd[index];
-		// }
-		// for (int index = 0; index < trackers.size(); index++) {
-		// ebds[ebd.length + index] = trackers.get(index);
-		// }
-		// super.registerEbdsAndResetGMAP(ebd);
 	}
 
 	public final JerboaEmbeddingInfo getPersistentID() {
 		return persistentID;
 	}
 
-	// public final List<JerboaEmbeddingInfo> getTrackers() {
-	// return trackers;
-	// }
 }

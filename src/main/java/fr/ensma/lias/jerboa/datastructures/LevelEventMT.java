@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * LevelEventMT
  */
-public class LevelEventMT extends LevelEvent {
+public class LevelEventMT {
 
 	public int appNumber;
 	public ApplicationType appType;

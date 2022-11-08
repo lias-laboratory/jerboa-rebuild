@@ -7,9 +7,7 @@ import java.util.List;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import up.jerboa.core.JerboaDart;
-import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
-import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaRuleNode;
 
@@ -27,123 +25,171 @@ public class MatchingTree {
 		leaves = new ArrayList<>();
 	}
 
-	public MatchingTree(JerboaRuleResult appResult, Application specEntry, HistoryRecord HR) {
-
-		leaves = new ArrayList<>();
-
-		// if spec is unedited
-
-		// for (LevelEventHR level : HR.getLeaf(0)) {
-		// // addLevel(level, spec, appResults);
-		// addLevel(level, specEntry, appResult);
-		// }
-
-		// else (spec is edited)
-		// -- op added
-		// -- op deleted
-		// -- op moved
-		// -- geometry modified (see if we should move it to `unedited` phase)
-	}
-
 	public JerboaDart getTopoParameter() {
 		return topoParameter;
 	}
 
-	public void addLevel(LevelEventHR levelEventHR, Application application,
-			JerboaRuleResult appResult) {
-
-		LevelEventMT levelEventMT = new LevelEventMT();
-		LevelOrbitMT levelOrbitMT;
-		JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
-		if (application.getApplicationType() != ApplicationType.ADD) {
-
-			int appNumber = levelEventHR.getAppNumber();
-			String nodeName = levelEventHR.getNextLevelOrbit().getNodeName();
-
-			nodeNameToDartID(appNumber, nodeName, appResult, application);
-
-			matchLevel(levelEventHR, application, nodeName, rule);
-
-			ApplicationType appType = application.getApplicationType();
-			levelEventMT = new LevelEventMT(levelEventHR.getAppNumber(),
-					levelEventHR.getEventList(), appType);
-
-			levelOrbitMT = new LevelOrbitMT(topoParameter.getID(),
-					levelEventHR.getNextLevelOrbit().getOrbitList(), null);
-			levelEventMT.nextLevelOrbit = levelOrbitMT;
-
-			// leaves.add(Arrays.asList(levelEventMT));
-
-		} else {
-			// ADD application type case
-			int nodeIndex = -1;
-			for (int i = 0; i < appResult.sizeCol(); i++) {
-				if (appResult.get(i).contains(topoParameter)) {
-					// compute events
-					nodeIndex = i;
-					break;
-				}
-			}
-			LevelEventMT topLevelEventMT = getLastLevel().get(0);
-			List<NodeEventHR> eventList = new ArrayList<>();
-			List<NodeOrbitHR> orbitList = new ArrayList<>();
-			if (nodeIndex < 0) {
-				// topological parameter is not filtered
-				// events are NOEFFECT
-				for (NodeEventHR nodeEventHR : topLevelEventMT.getEventList()) {
-					JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
-					Event event = Event.NOEFFECT;
-
-					NodeEventHR newNodeEventHR = new NodeEventHR(event);
-					// set new node event's child
-					newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
-					// child's own children are upper node event's child children
-					newNodeEventHR.child.setChildren(nodeEventHR.getChild().getChildren());
-
-					orbitList.add(newNodeEventHR.getChild());
-					eventList.add(newNodeEventHR);
-					nodeEventHR.getChild()
-							.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEventHR)));
-				}
-			} else {
-				JerboaRuleNode rootNode = rule.getRightRuleNode(nodeIndex);
-				for (NodeEventHR nodeEventHR : topLevelEventMT.getEventList()) {
-					JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
-					List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(rootNode, orbitType);
-					Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
-
-					// create new node event to insert
-					NodeEventHR newNodeEventHR = new NodeEventHR(event);
-					// set new node event's child
-					newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
-					// child's own children are upper node event's child children
-					newNodeEventHR.child.setChildren(nodeEventHR.getChild().getChildren());
-
-					orbitList.add(newNodeEventHR.getChild());
-					eventList.add(newNodeEventHR);
-					nodeEventHR.getChild()
-							.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEventHR)));
-
-				}
-			}
-			levelEventMT = new LevelEventMT(application.getApplicationID(), eventList,
-					application.getApplicationType());
-			levelOrbitMT = new LevelOrbitMT(topoParameter.getID(), orbitList, null);
-			levelEventMT.nextLevelOrbit = levelOrbitMT;
-
-		}
-
-		leaves.add(Arrays.asList(levelEventMT));
-		System.out.println("\n");
-		System.out.println("topLevelEventMT: " + getLastLevel());
-		System.out.println("\n");
-	}
-
 	/*
-	 * Match a reevaluated application against an initial evaluation
+	 * Add a LevelEventMT to this matching tree
 	 *
 	 * @param levelEventHR
 	 *
+	 * @param application
+	 *
+	 * @param appResult
+	 */
+	public void addLevel(LevelEventHR levelEventHR, Application application,
+			JerboaRuleResult appResult) {
+
+		LevelEventMT newLevelEventMT = new LevelEventMT();
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
+		ApplicationType appType = application.getApplicationType();
+
+		switch (appType) {
+			case INIT:
+				int appNumber = levelEventHR.getAppNumber();
+				String nodeName = levelEventHR.getNextLevelOrbit().getNodeName();
+
+				nodeNameToDartID(appNumber, nodeName, appResult, application);
+
+				matchLevel(levelEventHR, application, nodeName, rule);
+
+				registerLevel(appNumber, newLevelEventMT, levelEventHR.getEventList(),
+						levelEventHR.getNextLevelOrbit().getOrbitList(), appType);
+				break;
+
+			case ADD:
+				// Look for a node which filters the current topological parameter
+				int nodeIndex = -1;
+				for (int i = 0; i < appResult.sizeCol(); i++) {
+					if (appResult.get(i).contains(topoParameter)) {
+						// compute events
+						nodeIndex = i;
+						break;
+					}
+				}
+
+				// Those lists should contain events and orbits for the new level
+				List<NodeEventHR> eventList = new ArrayList<>();
+				List<NodeOrbitHR> orbitList = new ArrayList<>();
+
+				// if the topological parameter is not filtered by any node
+				if (nodeIndex == -1) {
+					// TODO: prepare support for deleted topological parameters
+					computeLevelLists(eventList, orbitList, getLastLevel().get(0));
+				} else {
+					JerboaRuleNode rootNode = rule.getRightRuleNode(nodeIndex);
+					computeLevelLists(eventList, orbitList, rootNode, newLevelEventMT, rule);
+				}
+				registerLevel(application.getApplicationID(), newLevelEventMT, eventList, orbitList,
+						appType);
+				break;
+
+			default:
+				break;
+		}
+
+		// System.out.println("\n");
+		// System.out.println("topLevelEventMT: " +
+
+		// getLastLevel());
+		// System.out.println("\n");
+	}
+
+	/**
+	 * Register a new level event in the matching tree
+	 *
+	 * @param applicationID
+	 * @param levelEventMT
+	 * @param eventList
+	 * @param orbitList
+	 * @param type
+	 */
+	private void registerLevel(int applicationID, LevelEventMT newLevelEventMT,
+			List<NodeEventHR> eventList, List<NodeOrbitHR> orbitList, ApplicationType type) {
+
+		LevelOrbitMT levelOrbitMT;
+
+		newLevelEventMT = new LevelEventMT(applicationID, eventList, type);
+		levelOrbitMT = new LevelOrbitMT(topoParameter.getID(), orbitList, null);
+		newLevelEventMT.nextLevelOrbit = levelOrbitMT;
+
+		if (!leaves.isEmpty())
+			getLastLevel().get(0).getNextLevelOrbit()
+					.setNextLevelEventMTList(Arrays.asList(newLevelEventMT));
+
+		leaves.add(Arrays.asList(newLevelEventMT));
+	}
+
+	/**
+	 * Compute events and orbits for the new level event
+	 *
+	 * @param eventList
+	 * @param orbitList
+	 * @param newLevelEventMT
+	 */
+	private void computeLevelLists(List<NodeEventHR> eventList, List<NodeOrbitHR> orbitList,
+			LevelEventMT newLevelEventMT) {
+
+		// Until the support of added splits/merges consider this case as NOEFFECT as it
+		// could also represent a deleted parameter
+		// NOTE: maybe dynamically check for non-filtering
+
+		// for each node event in top level LevelEventMT
+		for (NodeEventHR nodeEventHR : getLastLevel().get(0).getEventList()) {
+			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
+			Event event = Event.NOEFFECT;
+
+			NodeEventHR newNodeEventHR = new NodeEventHR(event);
+			// set new node event's child
+			newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
+			// child's own children are upper node event's child children
+			newNodeEventHR.child.setChildren(nodeEventHR.getChild().getChildren());
+
+			orbitList.add(newNodeEventHR.getChild());
+			eventList.add(newNodeEventHR);
+			nodeEventHR.getChild()
+					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEventHR)));
+		}
+	}
+
+	/**
+	 * Compute events and orbits for the new level event
+	 *
+	 * @param eventList
+	 * @param orbitList
+	 * @param rootNode
+	 * @param newLevelEventMT
+	 * @param rule
+	 */
+	private void computeLevelLists(List<NodeEventHR> eventList, List<NodeOrbitHR> orbitList,
+			JerboaRuleNode rootNode, LevelEventMT newLevelEventMT, JerboaRebuiltRule rule) {
+
+		// for each node event in top level LevelEventMT
+		for (NodeEventHR nodeEventHR : getLastLevel().get(0).getEventList()) {
+			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
+			List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(rootNode, orbitType);
+			Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
+
+			// create new node event to insert
+			NodeEventHR newNodeEventHR = new NodeEventHR(event);
+			// set new node event's child
+			newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
+			// child's own children are upper node event's child children
+			newNodeEventHR.child.setChildren(nodeEventHR.getChild().getChildren());
+
+			orbitList.add(newNodeEventHR.getChild());
+			eventList.add(newNodeEventHR);
+			nodeEventHR.getChild()
+					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEventHR)));
+
+		}
+	}
+
+	/**
+	 * Match a reevaluated application against an initial evaluation
+	 *
+	 * @param levelEventHR
 	 * @param application
 	 */
 	private void matchLevel(LevelEventHR levelEventHR, Application application, String nodeName,
@@ -217,14 +263,14 @@ public class MatchingTree {
 	 * @param directory Path relative to the project
 	 * @param filaName name of the export file
 	 */
-	// public void export(String directory, String fileName) {
-	// try {
-	// JSONPrinter.exportMatchingTree(leaves, directory, fileName);
-	// } catch (IOException exception) {
-	// System.out.println("Could not write to file");
-	// }
+	public void export(String directory, String fileName) {
+		try {
+			JSONPrinter.exportMatchingTree(leaves, directory, fileName);
+		} catch (IOException exception) {
+			System.out.println("Could not write to file");
+		}
 
-	// }
+	}
 
 	@Override
 	public String toString() {

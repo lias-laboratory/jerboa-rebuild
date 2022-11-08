@@ -6,18 +6,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
+import fr.ensma.lias.jerboa.datastructures.Application;
+import fr.ensma.lias.jerboa.datastructures.ApplicationType;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.MatchingTree;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.ensma.lias.jerboa.datastructures.Application;
-import fr.ensma.lias.jerboa.datastructures.ApplicationType;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaProgressBar;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaTask;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
@@ -34,44 +37,62 @@ import up.jerboa.exception.JerboaException;
 public class DemoRebuild {
 
 	JerboaGMap gmap;
+	GMapViewer gmapviewer;
 
-	public DemoRebuild(ModelerGenerated modeler, JerboaRebuiltBridge bridge)
-			throws IOException, JerboaException {
+
+	public DemoRebuild(JerboaRebuiltBridge bridge, String referenceDir, String referenceSpec,
+			String editedDir, String editedSpec, JFrame frame, GMapViewer gmapviewer)
+			throws IOException, JerboaException, InterruptedException {
 
 		this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
+		this.gmapviewer = gmapviewer;
+		ModelerGenerated modeler = (ModelerGenerated) bridge.getModeler();
 
 		ParametricSpecification parametricSpecification =
-				JSONPrinter.importParametricSpecification("./examples",
-						"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
-						modeler);
-
+				JSONPrinter.importParametricSpecification(referenceDir, referenceSpec, modeler);
 		List<Application> applications = parametricSpecification.getParametricSpecification();
 
 		List<HistoryRecord> historyRecords = new ArrayList<>();
 		List<MatchingTree> matchingTrees = new ArrayList<>();
 
-		createTrees(parametricSpecification, applications, historyRecords, matchingTrees);
+		initializeReevaluation(parametricSpecification, applications, historyRecords,
+				matchingTrees);
 
-		ParametricSpecification editedParametricSpecification = JSONPrinter
-				.importParametricSpecification("./examples", "rebuild-add-vertex.json", modeler);
+		ParametricSpecification editedParametricSpecification =
+				JSONPrinter.importParametricSpecification(editedDir, editedSpec, modeler);
 		List<Application> editedApplications =
 				editedParametricSpecification.getParametricSpecification();
 
-		reevaluateModel(editedApplications, historyRecords, matchingTrees);
-
-		for (MatchingTree mt : matchingTrees) {
-			System.out.println(mt.toString());
-		}
+		reevaluateModel(editedApplications, historyRecords, matchingTrees, frame);
+		exportMatchingTrees(matchingTrees);
 	}
 
 	/**
+	 *
+	 * Export the matching trees created during the model's reevaluation
+	 *
+	 * @param matchingTrees
+	 */
+	private void exportMatchingTrees(List<MatchingTree> matchingTrees) {
+
+		int counter = 0;
+		for (MatchingTree mt : matchingTrees) {
+			mt.export("exports", "matchingtree-" + counter + ".json");
+			counter++;
+		}
+
+	}
+
+	/**
+	 * Initialize the reevaluation process by computing history records and creating empty matching
+	 * trees
 	 *
 	 * @param parametricSpecification
 	 * @param applications
 	 * @param historyRecords
 	 * @param matchingTrees
 	 */
-	private void createTrees(ParametricSpecification parametricSpecification,
+	private void initializeReevaluation(ParametricSpecification parametricSpecification,
 			List<Application> applications, List<HistoryRecord> historyRecords,
 			List<MatchingTree> matchingTrees) {
 
@@ -105,11 +126,14 @@ public class DemoRebuild {
 	 * @param applications
 	 * @param historyRecords
 	 * @param matchingTrees
+	 * @param frame
 	 * @throws IOException
 	 * @throws JerboaException
+	 * @throws InterruptedException
 	 */
 	private void reevaluateModel(List<Application> applications, List<HistoryRecord> historyRecords,
-			List<MatchingTree> matchingTrees) throws IOException, JerboaException {
+			List<MatchingTree> matchingTrees, JFrame frame)
+			throws IOException, JerboaException, InterruptedException {
 
 		Integer counter = 0;
 		JerboaRuleResult appResult = null;
@@ -129,11 +153,14 @@ public class DemoRebuild {
 
 			appResult = apply(application.getRule(), topoParameters);
 
+			gmapviewer.updateIHM();
+
+			// TODO explore jerboa tasks to not block ihm interaction during reconstruction
+			JOptionPane.showMessageDialog(frame, "Click 'OK' once you reviewed change");
+
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
 		}
-
 	}
-
 
 	/**
 	 *
@@ -182,7 +209,6 @@ public class DemoRebuild {
 			counter += 1;
 		}
 		return counter;
-
 	}
 
 	/**
@@ -213,7 +239,8 @@ public class DemoRebuild {
 		return rule.applyRule(gmap, new JerboaInputHooksGeneric(topoParameters));
 	}
 
-	public static void main(String[] args) throws JerboaException, IOException {
+	public static void main(String[] args)
+			throws JerboaException, IOException, InterruptedException {
 
 		final JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -224,8 +251,6 @@ public class DemoRebuild {
 		JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
 		GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);
 
-		DemoRebuild demo = new DemoRebuild(modeler, bridge);
-
 		frame.getContentPane().add(gmapviewer);
 		frame.setSize(1024, 768);
 		frame.pack();
@@ -235,6 +260,20 @@ public class DemoRebuild {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 
+		DemoRebuild demo = new DemoRebuild(bridge, //
+				// "examples", //
+				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
+				// //
+				// "examples", //
+				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
+				// //
+				"./examples", //
+				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				"./examples", //
+				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				// "./examples", //
+				// "rebuild-add-vertex.json", //
+				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -245,7 +284,5 @@ public class DemoRebuild {
 				gmapviewer.updateIHM();
 			}
 		});
-
 	}
-
 }

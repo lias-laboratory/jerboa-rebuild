@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.google.gson.GsonBuilder;
@@ -89,11 +88,21 @@ public class JSONPrinter {
 		return parametricSpecification;
 	}
 
-	// TODO fill export matching tree
-	public static void exportMatchingTree(List<List<LevelEventMT>> leaves, String directory,
-			String fileName) {}
+	public static void exportMatchingTree(List<List<LevelEventMT>> leaves, String fileName)
+			throws IOException {
+		GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
+		String json = builder.create().toJson(leaves);
+		Files.write(Path.of(exportsPath + "/" + fileName), json.getBytes(),
+				StandardOpenOption.CREATE);
+	}
 
-	// TODO fill export matching tree
-	public static void exportMatchingTree(List<List<LevelEventMT>> leaves, String fileName) {}
+	public static void exportMatchingTree(List<List<LevelEventMT>> leaves, String directory,
+			String fileName) throws IOException {
+		//
+		GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
+		String json = builder.create().toJson(leaves);
+		Files.write(Path.of(directory + "/" + fileName), json.getBytes(),
+				StandardOpenOption.CREATE);
+	}
 
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>TriangulateVolume</openRules>
+	<openRules>MergeEdge</openRules>
+	<openRules>MergeEdge2</openRules>
 	<openRules>ChamferCorner</openRules>
 	<openRules>MakeBlue</openRules>
+	<openRules>TriangulateVolume</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -11,7 +13,7 @@
         <embedding name="pos" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="1,2,3" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="45">
+    <rules count="46">
         <rule name="MergeEdge" module="Merge" category="Merge" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -2790,6 +2792,36 @@ return res;</expr>
                         <expr ebd="color">Color res = Color::BLUE;
 return res;</expr>
                     </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="MergeEdge2" module="Merge" category="Merge" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="251" y="128" orbit="1,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="394" y="125" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n1" x="230" y="110" orbit="0,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="0">
                 </arcs>

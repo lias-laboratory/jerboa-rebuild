@@ -15,10 +15,12 @@ import up.jerboa.core.rule.JerboaRuleNode;
 public class NodeOrbitHR {
 
 	private JerboaOrbit orbit;
+	private List<Integer> alphaPath;
 	private List<Link> children;
 
 	public NodeOrbitHR(JerboaOrbit orbit) {
 		this.orbit = orbit;
+		alphaPath = new ArrayList<>();
 		children = new LinkedList<Link>();
 	}
 

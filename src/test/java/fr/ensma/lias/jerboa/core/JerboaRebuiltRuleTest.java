@@ -215,7 +215,8 @@ public class JerboaRebuiltRuleTest {
 		JerboaOrbit orbitType = JerboaOrbit.orbit(0, 1, 3);
 		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n0"));
 		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
-		assertEquals(JerboaOrbit.orbit(0, 3), rule.computeBBOrigin(ruleNodesOrbit, orbitType));
+		assertEquals(JerboaOrbit.orbit(3), rule.computeBBOrigin(ruleNodesOrbit, orbitType));
+		// assertEquals(JerboaOrbit.orbit(0, 3), rule.computeBBOrigin(ruleNodesOrbit, orbitType));
 	}
 
 }

@@ -483,23 +483,22 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      *
      * @param orbitType a given trace orbit
      */
-    private void collectRewrittenImplicitALinks(HashSet<Integer> aLinkSet,
-            List<JerboaRuleNode> leftRuleNodesOrbit, List<JerboaRuleNode> rightRuleNodesOrbit,
-            JerboaOrbit orbitType) {
-        // private void collectRewrittenImplicitALinks(HashSet<Integer> aLinkSet, JerboaRuleNode
-        // hookNode,
-        // List<JerboaRuleNode> rightRuleNodesOrbit, JerboaOrbit orbitType) {
+    // private void collectRewrittenImplicitALinks(HashSet<Integer> aLinkSet,
+    // List<JerboaRuleNode> leftRuleNodesOrbit, List<JerboaRuleNode> rightRuleNodesOrbit,
+    // JerboaOrbit orbitType) {
+    private void collectRewrittenImplicitALinks(HashSet<Integer> aLinkSet, JerboaRuleNode hookNode,
+            List<JerboaRuleNode> rightRuleNodesOrbit, JerboaOrbit orbitType) {
 
         for (JerboaRuleNode rightRuleNode : rightRuleNodesOrbit) {
 
-            int controlRuleNodeIndex = attachedNode(rightRuleNode.getID());
-            JerboaRuleNode controlRuleNode = getLeftRuleNode(controlRuleNodeIndex);
-            if (!isNodeCreated(rightRuleNode)) {
-                var leftNodeIndex = reverseAssoc(rightRuleNode.getID());
-                controlRuleNode = getLeftRuleNode(leftNodeIndex);
+            // int controlRuleNodeIndex = attachedNode(rightRuleNode.getID());
+            // JerboaRuleNode controlRuleNode = getLeftRuleNode(controlRuleNodeIndex);
+            // if (!isNodeCreated(rightRuleNode)) {
+            // var leftNodeIndex = reverseAssoc(rightRuleNode.getID());
+            // controlRuleNode = getLeftRuleNode(leftNodeIndex);
 
-            }
-            JerboaOrbit leftOrbit = controlRuleNode.getOrbit();
+            // }
+            JerboaOrbit leftOrbit = hookNode.getOrbit();
             JerboaOrbit rightOrbit = rightRuleNode.getOrbit();
 
             for (int aLinkIndex = 0; aLinkIndex < leftOrbit.size(); aLinkIndex++) {
@@ -630,12 +629,12 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         JerboaRuleNode hookNode = getLeftRuleNode(hookIndex);
         List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(hookNode, orbitType);
         HashSet<Integer> aLinkSet = new HashSet<>();
-        collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
+        // collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
         // NOTE: this method's call is for collecting aLinks only in `hook` node
-        // collectRewrittenImplicitALinks(aLinkSet, hookNode, ruleNodesOrbit, orbitType);
+        collectRewrittenImplicitALinks(aLinkSet, hookNode, ruleNodesOrbit, orbitType);
         // TODO: consider these methods in non-creation events only
-        collectUnfilteredALinks(aLinkSet, ruleNodesOrbit, orbitType);
-        collectPreservedExplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
+        // collectUnfilteredALinks(aLinkSet, ruleNodesOrbit, orbitType);
+        // collectPreservedExplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
         return JerboaOrbit.orbit(aLinkSet);
     }
 

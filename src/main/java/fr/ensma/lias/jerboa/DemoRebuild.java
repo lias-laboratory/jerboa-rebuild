@@ -260,21 +260,6 @@ public class DemoRebuild {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 
-		DemoRebuild demo = new DemoRebuild(bridge, //
-				// "examples", //
-				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
-				// //
-				// "examples", //
-				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
-				// //
-				"./examples", //
-				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
-				"./examples", //
-				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
-				// "./examples", //
-				// "rebuild-add-vertex.json", //
-				frame, gmapviewer);
-
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -284,5 +269,21 @@ public class DemoRebuild {
 				gmapviewer.updateIHM();
 			}
 		});
+
+		DemoRebuild demo = new DemoRebuild(bridge, //
+				// "examples", //
+				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
+				// //
+				// "examples", //
+				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
+				// //
+				"./examples", //
+				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				// "./examples", //
+				// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				"./examples", //
+				"rebuild-add-vertex.json", //
+				frame, gmapviewer);
+
 	}
 }

@@ -303,16 +303,6 @@ public class DemoRebuild {
 				// "examples", //
 				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
 				// //
-<<<<<<< Updated upstream
-				"./examples", //
-				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
-				// "./examples", //
-				// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
-				"./examples", //
-				"rebuild-add-vertex.json", //
-				frame, gmapviewer);
-
-=======
 				// "./examples", //
 				// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
 				"./examples", //
@@ -320,6 +310,4 @@ public class DemoRebuild {
 				"./examples", //
 				"rebuild-add-vertex.json", //
 				frame, gmapviewer);
->>>>>>> Stashed changes
-	}
 }

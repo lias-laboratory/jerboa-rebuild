@@ -5,8 +5,8 @@ package fr.ensma.lias.jerboa.datastructures;
  */
 public class NodeEventHR {
 
-	Event event;
-	NodeOrbitHR child;
+	private Event event;
+	private NodeOrbitHR child;
 
 	public NodeEventHR(Event event) {
 		this.event = event;

@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class LevelEventHR implements Iterable<LevelEventHR> {
 
-	public int appNumber;
-	public List<NodeEventHR> eventList;
-	public LevelOrbitHR nextLevelOrbit;
+	private int appNumber;
+	private List<NodeEventHR> eventList;
+	private LevelOrbitHR nextLevelOrbit;
 
 	public LevelEventHR() {
 		eventList = new ArrayList<>();

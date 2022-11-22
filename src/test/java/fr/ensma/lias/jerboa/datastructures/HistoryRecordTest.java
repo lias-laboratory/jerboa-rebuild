@@ -59,7 +59,7 @@ public class HistoryRecordTest {
 			List<LevelEventHR> levels = entry.getValue();
 			for (LevelEventHR level : levels) {
 				assert (level.getEventList().stream()
-						.allMatch(event -> event.event == Event.CREATION));
+						.allMatch(event -> event.getEvent() == Event.CREATION));
 			}
 		}
 	}

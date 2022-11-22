@@ -36,8 +36,8 @@ public class NodeOrbitHRTest {
 				nodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, new ArrayList<NodeOrbitHR>());
 		assertEquals(1, result.size());
 		assertEquals(JerboaOrbit.orbit(1), result.get(0).getOrbit());
-		assertEquals(1, levelEvent.eventList.size());
-		assertEquals(Event.CREATION, levelEvent.eventList.get(0).event);
+		assertEquals(1, levelEvent.getEventList().size());
+		assertEquals(Event.CREATION, levelEvent.getEventList().get(0).getEvent());
 	}
 
 	@Test

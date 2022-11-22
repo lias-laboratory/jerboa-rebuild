@@ -112,7 +112,7 @@ public class MatchingTree {
 
 		newLevelEventMT = new LevelEventMT(applicationID, eventList, type);
 		levelOrbitMT = new LevelOrbitMT(topoParameter.getID(), orbitList, null);
-		newLevelEventMT.nextLevelOrbit = levelOrbitMT;
+		newLevelEventMT.setNextLevelOrbit(levelOrbitMT);
 
 		if (!leaves.isEmpty())
 			getLastLevel().get(0).getNextLevelOrbit()
@@ -144,7 +144,7 @@ public class MatchingTree {
 			// set new node event's child
 			newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
 			// child's own children are upper node event's child children
-			newNodeEventHR.child.setChildren(nodeEventHR.getChild().getChildren());
+			newNodeEventHR.getChild().setChildren(nodeEventHR.getChild().getChildren());
 
 			orbitList.add(newNodeEventHR.getChild());
 			eventList.add(newNodeEventHR);
@@ -176,7 +176,7 @@ public class MatchingTree {
 			// set new node event's child
 			newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
 			// child's own children are upper node event's child children
-			newNodeEventHR.child.setChildren(nodeEventHR.getChild().getChildren());
+			newNodeEventHR.getChild().setChildren(nodeEventHR.getChild().getChildren());
 
 			orbitList.add(newNodeEventHR.getChild());
 			eventList.add(newNodeEventHR);

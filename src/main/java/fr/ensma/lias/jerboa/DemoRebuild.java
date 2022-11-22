@@ -1,13 +1,19 @@
 package fr.ensma.lias.jerboa;
 
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
@@ -65,6 +71,23 @@ public class DemoRebuild {
 
 		reevaluateModel(editedApplications, historyRecords, matchingTrees, frame);
 		exportMatchingTrees(matchingTrees);
+	}
+
+	/**
+	 * Organize the demo step by step.
+	 *
+	 * @param frame
+	 * @param gmapviewer
+	 */
+	private void stepByStep(JFrame frame, GMapViewer gmapviewer) {
+		// JButton confirmButton = new JButton("click");
+		// confirmButton.addActionListener(new ActionListener() {
+
+		// });
+		// JOptionPane.showMessageDialog(frame, "Click 'OK' once you reviewed change");
+		// JDialog dialog = new JDialog(frame, "click", Dialog.DEFAULT_MODALITY_TYPE);
+		// dialog.setVisible(true);
+		// frame.add(dialog);
 	}
 
 	/**
@@ -155,12 +178,15 @@ public class DemoRebuild {
 
 			gmapviewer.updateIHM();
 
+			stepByStep(frame, gmapviewer);
+
 			// TODO explore jerboa tasks to not block ihm interaction during reconstruction
-			JOptionPane.showMessageDialog(frame, "Click 'OK' once you reviewed change");
+			// SwingUtilities.invokeLater(new Runnable() {
 
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
 		}
 	}
+
 
 	/**
 	 *
@@ -277,6 +303,7 @@ public class DemoRebuild {
 				// "examples", //
 				// "spec_createsquare-extrudeface-extrudevolume-collapseface-pierceface-pierceface.json",
 				// //
+<<<<<<< Updated upstream
 				"./examples", //
 				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
 				// "./examples", //
@@ -285,5 +312,14 @@ public class DemoRebuild {
 				"rebuild-add-vertex.json", //
 				frame, gmapviewer);
 
+=======
+				// "./examples", //
+				// "spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				"./examples", //
+				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				"./examples", //
+				"rebuild-add-vertex.json", //
+				frame, gmapviewer);
+>>>>>>> Stashed changes
 	}
 }

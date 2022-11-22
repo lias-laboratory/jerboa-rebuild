@@ -627,7 +627,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
             return JerboaOrbit.orbit();
         }
         JerboaRuleNode hookNode = getLeftRuleNode(hookIndex);
-        List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(hookNode, orbitType);
+        // List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(hookNode, orbitType);
         HashSet<Integer> aLinkSet = new HashSet<>();
         // collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
         // NOTE: this method's call is for collecting aLinks only in `hook` node

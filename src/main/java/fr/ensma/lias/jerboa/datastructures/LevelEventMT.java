@@ -7,10 +7,10 @@ import java.util.List;
  */
 public class LevelEventMT {
 
-	public int appNumber;
-	public ApplicationType appType;
-	public List<NodeEventHR> eventList;
-	public LevelOrbitMT nextLevelOrbit;
+	private int appNumber;
+	private ApplicationType appType;
+	private List<NodeEventHR> eventList;
+	private LevelOrbitMT nextLevelOrbit;
 
 	public LevelEventMT(List<NodeEventHR> eventList, ApplicationType appType) {
 		this.eventList = eventList;
@@ -31,6 +31,10 @@ public class LevelEventMT {
 
 	public LevelOrbitMT getNextLevelOrbit() {
 		return nextLevelOrbit;
+	}
+
+	public void setNextLevelOrbit(LevelOrbitMT nextLevelOrbit) {
+		this.nextLevelOrbit = nextLevelOrbit;
 	}
 
 	@Override

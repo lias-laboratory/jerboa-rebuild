@@ -9,7 +9,7 @@ import java.util.List;
 public class LevelOrbitHR extends LevelOrbit {
 
 	private String nodeName;
-	private List<NodeOrbit> orbitList;
+	// private List<NodeOrbit> orbitList;
 	private List<LevelEventHR> nextLevelEvents;
 	// private List<Integer> nextLevelEventsAppNumbers;
 

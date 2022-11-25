@@ -12,13 +12,13 @@ import up.jerboa.core.rule.JerboaRuleNode;
 /**
  * NodeOrbitHR
  */
-public class NodeOrbitHR {
+public class NodeOrbit {
 
 	private JerboaOrbit orbit;
 	private List<Integer> alphaPath;
 	private List<Link> children;
 
-	public NodeOrbitHR(JerboaOrbit orbit) {
+	public NodeOrbit(JerboaOrbit orbit) {
 		this.orbit = orbit;
 		alphaPath = new ArrayList<>();
 		children = new LinkedList<Link>();
@@ -50,7 +50,7 @@ public class NodeOrbitHR {
 	 *
 	 * @param extNodeOrbitHR a given node to merge this node with
 	 */
-	private void mergeWithNode(NodeOrbitHR nodeOrbit) {
+	private void mergeWithNode(NodeOrbit nodeOrbit) {
 		List<Link> childrenToAdd = nodeOrbit.children.stream()//
 				.filter((child) -> !children.contains(child))//
 				.collect(Collectors.toList());
@@ -64,12 +64,12 @@ public class NodeOrbitHR {
 	 *
 	 * @param nodeOrbitList
 	 */
-	public static void addNodes(NodeOrbitHR nodeToMerge, List<NodeOrbitHR> nodeOrbitList) {
+	public static void addNodes(NodeOrbit nodeToMerge, List<NodeOrbit> nodeOrbitList) {
 		if (nodeOrbitList.isEmpty()) {
 			nodeOrbitList.add(nodeToMerge);
 			return;
 		}
-		for (NodeOrbitHR node : nodeOrbitList) {
+		for (NodeOrbit node : nodeOrbitList) {
 			if (node.equals(nodeToMerge)) {
 				node.mergeWithNode(nodeToMerge);
 				return;
@@ -88,8 +88,8 @@ public class NodeOrbitHR {
 	 * @return a node orbit list of the traced and/or origin of the current orbit for a given node
 	 * name and rule
 	 */
-	public List<NodeOrbitHR> BBBuildEntry(String nodeName, JerboaRuleOperation rule,
-			LevelEventHR levelEvent, List<NodeOrbitHR> nextStepOrbitHRs) {
+	public List<NodeOrbit> BBBuildEntry(String nodeName, JerboaRuleOperation rule,
+			LevelEventHR levelEvent, List<NodeOrbit> nextStepOrbitHRs) {
 
 		int currentRuleNodeIndex = rule.getRightIndexRuleNode(nodeName);
 		JerboaOrbit orbitType = this.getOrbit();
@@ -100,22 +100,22 @@ public class NodeOrbitHR {
 
 		/* // CREATED CASE ///////////////////////////////////////////////////// */
 		if (rebuiltRule.isRuleNodesOrbitCreated(ruleNodesOrbit)) {
-			NodeEventHR creationEvent = new NodeEventHR(Event.CREATION, this);
+			NodeEvent creationEvent = new NodeEvent(Event.CREATION, this);
 			levelEvent.addEvent(creationEvent);
 			if (rebuiltRule.getLeft().isEmpty()) {
 				return nextStepOrbitHRs;
 			}
-			NodeOrbitHR previousOrbitHR =
-					new NodeOrbitHR(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
+			NodeOrbit previousOrbitHR =
+					new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
 			previousOrbitHR.addChild(new Link(LinkType.ORIGIN, creationEvent));
 			addNodes(previousOrbitHR, nextStepOrbitHRs);
 			return nextStepOrbitHRs;
 		}
 		/* // UNCHANGED CASE ///////////////////////////////////////////// */
 		else if (rebuiltRule.isRuleNodesOrbitUnchanged(ruleNodesOrbit, orbitType)) {
-			NodeEventHR unchangedEvent = new NodeEventHR(Event.NOMODIF, this);
+			NodeEvent unchangedEvent = new NodeEvent(Event.NOMODIF, this);
 			levelEvent.addEvent(unchangedEvent);
-			NodeOrbitHR previousOrbitHR = new NodeOrbitHR(orbitType);
+			NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);
 			previousOrbitHR.addChild(new Link(LinkType.TRACE, unchangedEvent));
 			addNodes(previousOrbitHR, nextStepOrbitHRs);
 			return nextStepOrbitHRs;
@@ -123,21 +123,21 @@ public class NodeOrbitHR {
 		/* // SPLIT CASE ///////////////////////////////////////////////////// */
 		else if (rebuiltRule.isRuleNodesOrbitSplitted(ruleNodesOrbit, this.orbit)) {
 			//
-			NodeEventHR splitEvent = new NodeEventHR(Event.SPLIT, this);
+			NodeEvent splitEvent = new NodeEvent(Event.SPLIT, this);
 			levelEvent.addEvent(splitEvent);
-			NodeOrbitHR previousOrbitHR =
-					new NodeOrbitHR(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
+			NodeOrbit previousOrbitHR =
+					new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
 			previousOrbitHR.addChild(new Link(LinkType.ORIGIN, splitEvent));
 			addNodes(previousOrbitHR, nextStepOrbitHRs);
-			previousOrbitHR = new NodeOrbitHR(orbitType);
+			previousOrbitHR = new NodeOrbit(orbitType);
 			previousOrbitHR.addChild(new Link(LinkType.TRACE, splitEvent));
 			addNodes(previousOrbitHR, nextStepOrbitHRs);
 		}
 		/* // MODIFIED CASE ///////////////////////////////////////////// */
 		else if (rebuiltRule.isRuleNodesOrbitModified(ruleNodesOrbit, orbitType)) {
-			NodeEventHR modificationEvent = new NodeEventHR(Event.MODIFICATION, this);
+			NodeEvent modificationEvent = new NodeEvent(Event.MODIFICATION, this);
 			levelEvent.addEvent(modificationEvent);
-			NodeOrbitHR previousOrbitHR = new NodeOrbitHR(orbitType);
+			NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);
 			previousOrbitHR.addChild(new Link(LinkType.TRACE, modificationEvent));
 			addNodes(previousOrbitHR, nextStepOrbitHRs);
 			return nextStepOrbitHRs;
@@ -147,8 +147,8 @@ public class NodeOrbitHR {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof NodeOrbitHR) {
-			NodeOrbitHR no = (NodeOrbitHR) obj;
+		if (obj instanceof NodeOrbit) {
+			NodeOrbit no = (NodeOrbit) obj;
 			return orbit.equals(no.orbit);
 		}
 

@@ -37,8 +37,8 @@ public class HistoryRecord {
 
 		leaves = new LinkedHashMap<>();
 
-		List<NodeOrbitHR> nodeOrbitList = new ArrayList<>();
-		nodeOrbitList.add(new NodeOrbitHR(orbitType));
+		List<NodeOrbit> nodeOrbitList = new ArrayList<>();
+		nodeOrbitList.add(new NodeOrbit(orbitType));
 
 		List<PersistentIdElement> pIDElements = pID.getPIdElements();
 		for (int index = pIDElements.size() - 1; index >= 0; index--) {
@@ -73,19 +73,19 @@ public class HistoryRecord {
 	/**
 	 * Build a LevelEvent and add it to this history record.
 	 *
-	 * @param nodeOrbitList a list of {@link NodeOrbitHR}
+	 * @param nodeOrbitList a list of {@link NodeOrbit}
 	 *
 	 * @param pIDElement {@link PersistentIdElement} an element of a persistent ID
 	 *
 	 * @param parametricSpecification a {@link ParametricSpecification} instance
 	 *
-	 * @return a list of {@link NodeOrbitHR}s used for next/upper level construction
+	 * @return a list of {@link NodeOrbit}s used for next/upper level construction
 	 */
-	private List<NodeOrbitHR> addLevel(List<NodeOrbitHR> nodeOrbitList,
-			PersistentIdElement pIDElement, ParametricSpecification parametricSpecification) {
+	private List<NodeOrbit> addLevel(List<NodeOrbit> nodeOrbitList, PersistentIdElement pIDElement,
+			ParametricSpecification parametricSpecification) {
 
 		List<LevelEventHR> entryLevelEvent = new ArrayList<>();
-		List<NodeOrbitHR> nextStepOrbits = new ArrayList<>();
+		List<NodeOrbit> nextStepOrbits = new ArrayList<>();
 		String nodeName = pIDElement.getNodeName();
 		int appNumber = pIDElement.getAppNumber();
 
@@ -95,7 +95,7 @@ public class HistoryRecord {
 
 		JerboaRuleOperation currentRule =
 				parametricSpecification.getApplication(appNumber).getRule();
-		for (NodeOrbitHR currentNodeOrbit : nodeOrbitList) {
+		for (NodeOrbit currentNodeOrbit : nodeOrbitList) {
 			fillLevel(currentNodeOrbit, levelEvent, nextStepOrbits, pIDElement.getNodeName(),
 					currentRule);
 
@@ -115,17 +115,17 @@ public class HistoryRecord {
 	}
 
 	/**
-	 * Fill a LevelEvent with {@link NodeEventHR}s. A building board entry is computed in order to
+	 * Fill a LevelEvent with {@link NodeEvent}s. A building board entry is computed in order to
 	 * prepare the next level's construction.
 	 *
-	 * @param currentNodeOrbit a {@link NodeOrbitHR} from which to compute a building board entry
+	 * @param currentNodeOrbit a {@link NodeOrbit} from which to compute a building board entry
 	 * @param levelEvent {@link LevelEventHR} to fill
 	 * @param nextStepOrbits a list of node orbits to fill
 	 * @param nodeName String a jerboa rule node's name
 	 * @param rule a jerboa rule operation
 	 */
-	private void fillLevel(NodeOrbitHR currentNodeOrbit, LevelEventHR levelEvent,
-			List<NodeOrbitHR> nextStepOrbits, String nodeName, JerboaRuleOperation rule) {
+	private void fillLevel(NodeOrbit currentNodeOrbit, LevelEventHR levelEvent,
+			List<NodeOrbit> nextStepOrbits, String nodeName, JerboaRuleOperation rule) {
 
 		currentNodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, nextStepOrbits);
 

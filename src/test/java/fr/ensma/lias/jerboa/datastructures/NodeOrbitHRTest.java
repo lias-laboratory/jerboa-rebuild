@@ -29,11 +29,11 @@ public class NodeOrbitHRTest {
 	 */
 	public void test_BBBuildEntry_TriangulateFace_creation() throws JerboaException {
 		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
-		NodeOrbitHR nodeOrbit = new NodeOrbitHR(JerboaOrbit.orbit(0, 2));
+		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(0, 2));
 		String nodeName = "n1";
 		LevelEventHR levelEvent = new LevelEventHR(3, null);
-		List<NodeOrbitHR> result =
-				nodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, new ArrayList<NodeOrbitHR>());
+		List<NodeOrbit> result =
+				nodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, new ArrayList<NodeOrbit>());
 		assertEquals(1, result.size());
 		assertEquals(JerboaOrbit.orbit(1), result.get(0).getOrbit());
 		assertEquals(1, levelEvent.getEventList().size());
@@ -45,27 +45,27 @@ public class NodeOrbitHRTest {
 	 * Test if the method addNodes performs the merge correctly
 	 */
 	public void test_addNodes_addNodeWithSameOrbit_but_withDifferentChildren() {
-		NodeEventHR nodeEventA = new NodeEventHR(Event.NOEFFECT);
-		NodeEventHR nodeEventB = new NodeEventHR(Event.SPLIT);
+		NodeEvent nodeEventA = new NodeEvent(Event.NOEFFECT);
+		NodeEvent nodeEventB = new NodeEvent(Event.SPLIT);
 		// LevelEventHR levelEventC = new LevelEventHR(1, null);
 		// levelEventC.addEvent(new NodeEventHR(Event.CREATION));
-		NodeOrbitHR nodeOrbitA = new NodeOrbitHR(JerboaOrbit.orbit(0, 1));
-		NodeOrbitHR nodeOrbitB = new NodeOrbitHR(JerboaOrbit.orbit(0, 1));
+		NodeOrbit nodeOrbitA = new NodeOrbit(JerboaOrbit.orbit(0, 1));
+		NodeOrbit nodeOrbitB = new NodeOrbit(JerboaOrbit.orbit(0, 1));
 		nodeOrbitA.addChild(new Link(LinkType.TRACE, nodeEventA));
 		nodeOrbitB.addChild(new Link(LinkType.TRACE, nodeEventB));
 
 		int expected_size = 1;
-		NodeOrbitHR expected_node = new NodeOrbitHR(JerboaOrbit.orbit(0, 1));
+		NodeOrbit expected_node = new NodeOrbit(JerboaOrbit.orbit(0, 1));
 		expected_node.addChild(new Link(LinkType.TRACE, nodeEventA));
 		expected_node.addChild(new Link(LinkType.TRACE, nodeEventB));
-		List<NodeOrbitHR> expected_list = new ArrayList<>();
+		List<NodeOrbit> expected_list = new ArrayList<>();
 		expected_list.add(expected_node);
 
-		List<NodeOrbitHR> list = new ArrayList<>();
+		List<NodeOrbit> list = new ArrayList<>();
 
-		NodeOrbitHR.addNodes(nodeOrbitA, list);
+		NodeOrbit.addNodes(nodeOrbitA, list);
 		assertEquals(expected_size, list.size());
-		NodeOrbitHR.addNodes(nodeOrbitB, list);
+		NodeOrbit.addNodes(nodeOrbitB, list);
 
 		assertEquals(expected_size, list.size());
 		assertEquals(expected_list, list);

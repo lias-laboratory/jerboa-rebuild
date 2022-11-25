@@ -5,19 +5,19 @@ import java.util.List;
 /**
  * LevelEventMT
  */
-public class LevelEventMT {
+public class LevelEventMT extends LevelEvent {
 
-	private int appNumber;
-	private ApplicationType appType;
-	private List<NodeEventHR> eventList;
+	// private int appNumber;
+	// private ApplicationType appType;
+	// private List<NodeEvent> eventList;
 	private LevelOrbitMT nextLevelOrbit;
 
-	public LevelEventMT(List<NodeEventHR> eventList, ApplicationType appType) {
+	public LevelEventMT(List<NodeEvent> eventList, ApplicationType appType) {
 		this.eventList = eventList;
 		this.appType = appType;
 	}
 
-	public LevelEventMT(int appNumber, List<NodeEventHR> eventList, ApplicationType appType) {
+	public LevelEventMT(int appNumber, List<NodeEvent> eventList, ApplicationType appType) {
 		this.appNumber = appNumber;
 		this.appType = appType;
 		this.eventList = eventList;
@@ -25,7 +25,7 @@ public class LevelEventMT {
 
 	public LevelEventMT() {}
 
-	public List<NodeEventHR> getEventList() {
+	public List<NodeEvent> getEventList() {
 		return eventList;
 	}
 

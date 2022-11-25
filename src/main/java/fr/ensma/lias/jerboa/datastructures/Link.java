@@ -6,9 +6,9 @@ package fr.ensma.lias.jerboa.datastructures;
 public class Link {
 
 	LinkType type;
-	NodeEventHR child;
+	NodeEvent child;
 
-	public Link(LinkType type, NodeEventHR child) {
+	public Link(LinkType type, NodeEvent child) {
 		this.type = type;
 		this.child = child;
 	}
@@ -21,11 +21,11 @@ public class Link {
 		this.type = type;
 	}
 
-	public NodeEventHR getChild() {
+	public NodeEvent getChild() {
 		return child;
 	}
 
-	public void setChild(NodeEventHR child) {
+	public void setChild(NodeEvent child) {
 		this.child = child;
 	}
 

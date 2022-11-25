@@ -1,19 +1,12 @@
 package fr.ensma.lias.jerboa;
 
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
@@ -25,6 +18,7 @@ import fr.ensma.lias.jerboa.datastructures.MatchingTree;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaProgressBar;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaTask;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
@@ -78,16 +72,17 @@ public class DemoRebuild {
 	 *
 	 * @param frame
 	 * @param gmapviewer
+	 * @throws InterruptedException
 	 */
 	private void stepByStep(JFrame frame, GMapViewer gmapviewer) {
-		// JButton confirmButton = new JButton("click");
-		// confirmButton.addActionListener(new ActionListener() {
+		// JerboaProgressBar bar = new JerboaProgressBar(frame, "bar", "wait", new JerboaTask() {
 
+		// @Override
+		// public void run(JerboaMonitorInfo arg0) {
+		// arg0.setMinMax(0, 100);
+		// arg0.setProgressBar(10);
+		// }
 		// });
-		// JOptionPane.showMessageDialog(frame, "Click 'OK' once you reviewed change");
-		// JDialog dialog = new JDialog(frame, "click", Dialog.DEFAULT_MODALITY_TYPE);
-		// dialog.setVisible(true);
-		// frame.add(dialog);
 	}
 
 	/**
@@ -179,9 +174,6 @@ public class DemoRebuild {
 			gmapviewer.updateIHM();
 
 			stepByStep(frame, gmapviewer);
-
-			// TODO explore jerboa tasks to not block ihm interaction during reconstruction
-			// SwingUtilities.invokeLater(new Runnable() {
 
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
 		}
@@ -310,4 +302,5 @@ public class DemoRebuild {
 				"./examples", //
 				"rebuild-add-vertex.json", //
 				frame, gmapviewer);
+	}
 }

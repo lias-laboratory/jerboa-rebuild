@@ -15,8 +15,8 @@ public class NodeEventHRTest {
 	@Test
 	public void test_NodeEvent_equality_true() {
 
-		NodeEventHR nodeA = new NodeEventHR(Event.CREATION);
-		NodeEventHR nodeB = new NodeEventHR(Event.CREATION);
+		NodeEvent nodeA = new NodeEvent(Event.CREATION);
+		NodeEvent nodeB = new NodeEvent(Event.CREATION);
 		assertEquals(nodeA, nodeB);
 
 	}
@@ -24,8 +24,8 @@ public class NodeEventHRTest {
 	@Test
 	public void test_NodeEvent_equality_false() {
 
-		NodeEventHR nodeA = new NodeEventHR(Event.CREATION);
-		NodeEventHR nodeB = new NodeEventHR(Event.SPLIT);
+		NodeEvent nodeA = new NodeEvent(Event.CREATION);
+		NodeEvent nodeB = new NodeEvent(Event.SPLIT);
 		assertNotEquals(nodeA, nodeB);
 
 	}

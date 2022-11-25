@@ -70,8 +70,8 @@ public class MatchingTree {
 				}
 
 				// Those lists should contain events and orbits for the new level
-				List<NodeEventHR> eventList = new ArrayList<>();
-				List<NodeOrbitHR> orbitList = new ArrayList<>();
+				List<NodeEvent> eventList = new ArrayList<>();
+				List<NodeOrbit> orbitList = new ArrayList<>();
 
 				// if the topological parameter is not filtered by any node
 				if (nodeIndex == -1) {
@@ -106,7 +106,7 @@ public class MatchingTree {
 	 * @param type
 	 */
 	private void registerLevel(int applicationID, LevelEventMT newLevelEventMT,
-			List<NodeEventHR> eventList, List<NodeOrbitHR> orbitList, ApplicationType type) {
+			List<NodeEvent> eventList, List<NodeOrbit> orbitList, ApplicationType type) {
 
 		LevelOrbitMT levelOrbitMT;
 
@@ -128,7 +128,7 @@ public class MatchingTree {
 	 * @param orbitList
 	 * @param newLevelEventMT
 	 */
-	private void computeLevelLists(List<NodeEventHR> eventList, List<NodeOrbitHR> orbitList,
+	private void computeLevelLists(List<NodeEvent> eventList, List<NodeOrbit> orbitList,
 			LevelEventMT newLevelEventMT) {
 
 		// Until the support of added splits/merges consider this case as NOEFFECT as it
@@ -136,20 +136,20 @@ public class MatchingTree {
 		// NOTE: maybe dynamically check for non-filtering
 
 		// for each node event in top level LevelEventMT
-		for (NodeEventHR nodeEventHR : getLastLevel().get(0).getEventList()) {
+		for (NodeEvent nodeEventHR : getLastLevel().get(0).getEventList()) {
 			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
 			Event event = Event.NOEFFECT;
 
-			NodeEventHR newNodeEventHR = new NodeEventHR(event);
+			NodeEvent newNodeEvent = new NodeEvent(event);
 			// set new node event's child
-			newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
+			newNodeEvent.setChild(new NodeOrbit(orbitType));
 			// child's own children are upper node event's child children
-			newNodeEventHR.getChild().setChildren(nodeEventHR.getChild().getChildren());
+			newNodeEvent.getChild().setChildren(nodeEventHR.getChild().getChildren());
 
-			orbitList.add(newNodeEventHR.getChild());
-			eventList.add(newNodeEventHR);
+			orbitList.add(newNodeEvent.getChild());
+			eventList.add(newNodeEvent);
 			nodeEventHR.getChild()
-					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEventHR)));
+					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent)));
 		}
 	}
 
@@ -162,26 +162,26 @@ public class MatchingTree {
 	 * @param newLevelEventMT
 	 * @param rule
 	 */
-	private void computeLevelLists(List<NodeEventHR> eventList, List<NodeOrbitHR> orbitList,
+	private void computeLevelLists(List<NodeEvent> eventList, List<NodeOrbit> orbitList,
 			JerboaRuleNode rootNode, LevelEventMT newLevelEventMT, JerboaRebuiltRule rule) {
 
 		// for each node event in top level LevelEventMT
-		for (NodeEventHR nodeEventHR : getLastLevel().get(0).getEventList()) {
+		for (NodeEvent nodeEventHR : getLastLevel().get(0).getEventList()) {
 			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
 			List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(rootNode, orbitType);
 			Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
 
 			// create new node event to insert
-			NodeEventHR newNodeEventHR = new NodeEventHR(event);
+			NodeEvent newNodeEvent = new NodeEvent(event);
 			// set new node event's child
-			newNodeEventHR.setChild(new NodeOrbitHR(orbitType));
+			newNodeEvent.setChild(new NodeOrbit(orbitType));
 			// child's own children are upper node event's child children
-			newNodeEventHR.getChild().setChildren(nodeEventHR.getChild().getChildren());
+			newNodeEvent.getChild().setChildren(nodeEventHR.getChild().getChildren());
 
-			orbitList.add(newNodeEventHR.getChild());
-			eventList.add(newNodeEventHR);
+			orbitList.add(newNodeEvent.getChild());
+			eventList.add(newNodeEvent);
 			nodeEventHR.getChild()
-					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEventHR)));
+					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent)));
 
 		}
 	}
@@ -195,10 +195,10 @@ public class MatchingTree {
 	private void matchLevel(LevelEventHR levelEventHR, Application application, String nodeName,
 			JerboaRebuiltRule rule) {
 		// MatchingType levelMatchingType = MatchingType.IDENTICAL;
-		// List<NodeEventHR> eventList = new ArrayList<>();
+		// List<NodeEvent> eventList = new ArrayList<>();
 		JerboaRuleNode rootNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
 
-		for (NodeEventHR nodeEventHR : levelEventHR.getEventList()) {
+		for (NodeEvent nodeEventHR : levelEventHR.getEventList()) {
 			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
 			List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(rootNode, orbitType);
 			Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
@@ -211,7 +211,7 @@ public class MatchingTree {
 	}
 
 	// private void isLevelIdentical(LevelEventHR levelEventHR, Application application) {
-	// List<NodeEventHR> nodeEventHRs = levelEventHR.getEventList();
+	// List<NodeEvent> nodeEventHRs = levelEventHR.getEventList();
 	// return;
 	// }
 

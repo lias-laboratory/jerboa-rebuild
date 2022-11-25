@@ -6,20 +6,20 @@ import java.util.List;
 /**
  * LevelOrbitHR
  */
-public class LevelOrbitHR {
+public class LevelOrbitHR extends LevelOrbit {
 
 	private String nodeName;
-	private List<NodeOrbitHR> orbitList;
+	private List<NodeOrbit> orbitList;
 	private List<LevelEventHR> nextLevelEvents;
 	// private List<Integer> nextLevelEventsAppNumbers;
 
-	public LevelOrbitHR(String nodeName, NodeOrbitHR nodeOrbit) {
+	public LevelOrbitHR(String nodeName, NodeOrbit nodeOrbit) {
 		this.nodeName = nodeName;
 		orbitList = new ArrayList<>();
 		orbitList.add(nodeOrbit);
 	}
 
-	public LevelOrbitHR(String nodeName, List<NodeOrbitHR> orbitList,
+	public LevelOrbitHR(String nodeName, List<NodeOrbit> orbitList,
 			List<LevelEventHR> nextLevelEvents) {
 
 		this.nodeName = nodeName;
@@ -28,11 +28,13 @@ public class LevelOrbitHR {
 		this.nextLevelEvents = nextLevelEvents;
 	}
 
+	public LevelOrbitHR() {}
+
 	public String getNodeName() {
 		return nodeName;
 	}
 
-	public List<NodeOrbitHR> getOrbitList() {
+	public List<NodeOrbit> getOrbitList() {
 		return orbitList;
 	}
 

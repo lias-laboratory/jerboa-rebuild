@@ -3,16 +3,16 @@ package fr.ensma.lias.jerboa.datastructures;
 /**
  * NodeEventHR
  */
-public class NodeEventHR {
+public class NodeEvent {
 
 	private Event event;
-	private NodeOrbitHR child;
+	private NodeOrbit child;
 
-	public NodeEventHR(Event event) {
+	public NodeEvent(Event event) {
 		this.event = event;
 	}
 
-	public NodeEventHR(Event event, NodeOrbitHR child) {
+	public NodeEvent(Event event, NodeOrbit child) {
 		this.event = event;
 		this.child = child;
 	}
@@ -25,11 +25,11 @@ public class NodeEventHR {
 		this.event = event;
 	}
 
-	public NodeOrbitHR getChild() {
+	public NodeOrbit getChild() {
 		return child;
 	}
 
-	public void setChild(NodeOrbitHR child) {
+	public void setChild(NodeOrbit child) {
 		this.child = child;
 	}
 
@@ -45,8 +45,8 @@ public class NodeEventHR {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof NodeEventHR) {
-			NodeEventHR ne = (NodeEventHR) obj;
+		if (obj instanceof NodeEvent) {
+			NodeEvent ne = (NodeEvent) obj;
 			return event == ne.event;
 		}
 		return super.equals(obj);

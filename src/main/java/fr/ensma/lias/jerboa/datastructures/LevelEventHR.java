@@ -7,10 +7,11 @@ import java.util.List;
 /**
  * LevelEventHR
  */
-public class LevelEventHR implements Iterable<LevelEventHR> {
+public class LevelEventHR extends LevelEvent implements Iterable<LevelEventHR> {
 
-	private int appNumber;
-	private List<NodeEventHR> eventList;
+	// private int appNumber;
+	// private ApplicationType appType;
+	// private List<NodeEvent> eventList;
 	private LevelOrbitHR nextLevelOrbit;
 
 	public LevelEventHR() {
@@ -36,11 +37,11 @@ public class LevelEventHR implements Iterable<LevelEventHR> {
 		return nextLevelOrbit;
 	}
 
-	public List<NodeEventHR> getEventList() {
+	public List<NodeEvent> getEventList() {
 		return eventList;
 	}
 
-	public void addEvent(NodeEventHR event) {
+	public void addEvent(NodeEvent event) {
 		this.eventList.add(event);
 	}
 

@@ -1,18 +1,17 @@
 package fr.ensma.lias.jerboa;
 
 import java.awt.Dimension;
+import java.awt.Dialog.ModalityType;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.Timer;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
@@ -24,9 +23,6 @@ import fr.ensma.lias.jerboa.datastructures.MatchingTree;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
-import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaProgressBar;
-import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaTask;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
@@ -177,7 +173,26 @@ public class DemoRebuild {
 				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
 			}
 
-			JOptionPane.showConfirmDialog(gmapviewer, "clickme");
+			// int res = JOptionPane.showConfirmDialog(null, "clickme");
+
+			final JOptionPane optionPane = new JOptionPane("clickme", JOptionPane.QUESTION_MESSAGE,
+					JOptionPane.YES_NO_OPTION);
+
+			SwingWorker<Object, String> w = new SwingWorker<>() {
+
+				@Override
+				protected Object doInBackground() throws Exception {
+					JDialog d = optionPane.createDialog(gmapviewer, "clickme");
+					d.setVisible(true);
+					d.setModalityType(ModalityType.MODELESS);
+					return null;
+				}
+
+			};
+			w.execute();
+
+			while (!w.isDone()) {
+			}
 
 			try {
 				appResult = apply(application.getRule(), topoParameters);
@@ -186,17 +201,7 @@ public class DemoRebuild {
 			}
 
 			gmapviewer.updateIHM();
-
-			Thread.sleep(3000);
-
-			// Thread t = new Thread(new Runnable() {
-			// @Override
-			// public void run() {// TODO Auto-generated method stub
-			// JOptionPane.showConfirmDialog(gmapviewer, "clickme");
-			// }
-			// });
-			// t.start();
-
+			Thread.sleep(5000);
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
 		}
 
@@ -306,6 +311,7 @@ public class DemoRebuild {
 				"./examples", //
 				"rebuild-add-vertex.json", //
 				frame, gmapviewer);
+
 		// Thread t = new Thread(new Runnable() {
 
 		// @Override
@@ -318,15 +324,17 @@ public class DemoRebuild {
 		// }
 		// }
 		// });
-		SwingWorker<Void, Void> worker = new SwingWorker<>() {
 
-			@Override
-			protected Void doInBackground() throws Exception {
-				// TODO Auto-generated method stub
-				demo.reevaluateModel(frame, gmapviewer);
-				return null;
-			}
-		};
+		demo.reevaluateModel(frame, gmapviewer);
+		// SwingWorker<Void, Void> worker = new SwingWorker<>() {
+
+		// @Override
+		// protected Void doInBackground() throws Exception {
+		// demo.reevaluateModel(frame, gmapviewer);
+		// return null;
+		// }
+
+		// };
 
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -339,22 +347,7 @@ public class DemoRebuild {
 
 		});
 
-		worker.execute();
-
-		// SwingUtilities.invokeAndWait(new Runnable() {
-
-		// @Override
-		// public void run() {
-		// // TODO Auto-generated method stub
-		// try {
-		// demo.reevaluateModel(frame, gmapviewer);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
-		// }
-		// });
+		// worker.execute();
 
 
 	}

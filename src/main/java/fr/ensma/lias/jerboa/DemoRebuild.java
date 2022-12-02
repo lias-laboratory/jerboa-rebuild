@@ -201,8 +201,8 @@ public class DemoRebuild {
 			}
 
 			gmapviewer.updateIHM();
-			Thread.sleep(5000);
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
+			Thread.sleep(5000);
 		}
 
 	}

@@ -145,6 +145,12 @@ public class NodeOrbit {
 		return nextStepOrbitHRs;
 	}
 
+	public List<Integer> computePath(JerboaRuleOperation rule, JerboaRuleNode source,
+			JerboaRuleNode target) {
+
+		return null;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof NodeOrbit) {

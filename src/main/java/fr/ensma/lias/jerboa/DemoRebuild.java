@@ -7,11 +7,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
@@ -23,6 +25,9 @@ import fr.ensma.lias.jerboa.datastructures.MatchingTree;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaProgressBar;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaTask;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
@@ -45,7 +50,7 @@ public class DemoRebuild {
 	private List<HistoryRecord> historyRecords;
 	private List<MatchingTree> matchingTrees;
 	private List<Application> editedApplications;
-	private JerboaRuleResult appResult;
+	// private JerboaRuleResult appResult;
 	private List<List<JerboaDart>> topoParameters;
 
 
@@ -147,17 +152,21 @@ public class DemoRebuild {
 	 * @param historyRecords
 	 * @param matchingTrees
 	 * @param frame
+	 * @param s
 	 * @throws IOException
 	 * @throws JerboaException
 	 * @throws InterruptedException
+	 * @throws InvocationTargetException
 	 */
 	// private synchronized void reevaluateModel(List<Application> applications,
 	// List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees, JFrame frame)
 	// throws IOException, JerboaException {
-	private void reevaluateModel(JFrame frame, GMapViewer gmapviewer) throws InterruptedException {
+	private void reevaluateModel(JFrame frame, GMapViewer gmapviewer, Semaphore s)
+			throws InterruptedException, JerboaException, InvocationTargetException {
 
 		Integer counter = 0;
-		appResult = null;
+		JerboaRuleResult appResult = null;
+
 
 		for (int applicationIndex = 0; applicationIndex < editedApplications
 				.size(); applicationIndex++) {
@@ -173,26 +182,18 @@ public class DemoRebuild {
 				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
 			}
 
-			// int res = JOptionPane.showConfirmDialog(null, "clickme");
+			// JOptionPane.showConfirmDialog(null, "clickme");
 
-			final JOptionPane optionPane = new JOptionPane("clickme", JOptionPane.QUESTION_MESSAGE,
-					JOptionPane.YES_NO_OPTION);
-
-			SwingWorker<Object, String> w = new SwingWorker<>() {
+			SwingUtilities.invokeAndWait(new Runnable() {
 
 				@Override
-				protected Object doInBackground() throws Exception {
-					JDialog d = optionPane.createDialog(gmapviewer, "clickme");
-					d.setVisible(true);
-					d.setModalityType(ModalityType.MODELESS);
-					return null;
+				public void run() {
+					JOptionPane.showConfirmDialog(null, "Continue?");
+
+					s.release();
 				}
+			});
 
-			};
-			w.execute();
-
-			while (!w.isDone()) {
-			}
 
 			try {
 				appResult = apply(application.getRule(), topoParameters);
@@ -202,7 +203,7 @@ public class DemoRebuild {
 
 			gmapviewer.updateIHM();
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
-			Thread.sleep(5000);
+
 		}
 
 	}
@@ -312,29 +313,25 @@ public class DemoRebuild {
 				"rebuild-add-vertex.json", //
 				frame, gmapviewer);
 
-		// Thread t = new Thread(new Runnable() {
+		Semaphore s = new Semaphore(1);
 
-		// @Override
-		// public void run() {
-		// try {
-		// demo.reevaluateModel(frame, gmapviewer);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		// });
+		JerboaTask task = new JerboaTask() {
 
-		demo.reevaluateModel(frame, gmapviewer);
-		// SwingWorker<Void, Void> worker = new SwingWorker<>() {
+			@Override
+			public void run(JerboaMonitorInfo arg0) {
+				arg0.setMinMax(1, 1);
+				try {
+					demo.reevaluateModel(frame, gmapviewer, s);
+				} catch (InterruptedException | JerboaException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
 
-		// @Override
-		// protected Void doInBackground() throws Exception {
-		// demo.reevaluateModel(frame, gmapviewer);
-		// return null;
-		// }
+		};
 
-		// };
+		JerboaProgressBar bar = new JerboaProgressBar(frame, "RebuildBar", "Wait until done", task);
 
 		SwingUtilities.invokeLater(new Runnable() {
 
@@ -343,12 +340,14 @@ public class DemoRebuild {
 				frame.invalidate();
 				frame.repaint(1000);
 				gmapviewer.updateIHM();
+				try {
+					s.acquire();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 
 		});
-
-		// worker.execute();
-
 
 	}
 }

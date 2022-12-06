@@ -1,8 +1,14 @@
 package fr.ensma.lias.jerboa;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -15,33 +21,34 @@ import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.exception.JerboaException;
 
 public class Demo {
-
-	public static void count(Semaphore s) {
-		// Thread t = new Thread(new Runnable() {
-
-		// @Override
-		// public void run() {
-		for (int i = 0; i < 5; i++) {
-			System.out.println("counter = " + i);
-			// try {
-			SwingUtilities.invokeLater(new Runnable() {
-				// SwingUtilities.invokeAndWait(new Runnable() {
-
-				@Override
-				public void run() {
-					JOptionPane.showConfirmDialog(null, "Continue?");
-				}
-			});
-			// } catch (InvocationTargetException | InterruptedException e) {
-			// e.printStackTrace();
-			// }
-			s.release();
-		}
-
-		// }
-		// });
-		// t.start();
+	
+	/**
+	 * ici j'ai mis le code de mon traitement qui peut prendre beaucoup de temps!
+	 * tu verras dans la suite que ce traitement est lancee dans un autre thread
+	 */
+	public static void montraitement() {
+		JerboaLongTaskWait longtask = new JerboaLongTaskWait();
+		int i = 0;
+		// je fais mon traitement
+		boolean cont = true;
+		do {
+			
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			i ++;
+			System.out.println("Traitement jusqu'à i = "+ i);
+			cont = longtask.waitUI();
+			
+		} while(cont);
+		System.out.println("Pouf je continue mon traitement");
 	}
+
+	
 
 	public static void main(String[] args) throws JerboaException {
 
@@ -63,33 +70,25 @@ public class Demo {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 
-		final Semaphore s = new Semaphore(1);
-
-		JerboaTask t = new JerboaTask() {
-			@Override
-			public void run(JerboaMonitorInfo info) {
-				info.setMinMax(1, 1);
-				count(s);
-			}
-		};
-
-		new JerboaProgressBar(frame, "progressbar", "wait until done", t);
-
 		SwingUtilities.invokeLater(new Runnable() {
-
 			@Override
 			public void run() {
 				frame.invalidate();
 				frame.repaint(1000);
 				gmapviewer.updateIHM();
-				try {
-					s.acquire();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 			}
 		});
-
+		
+		// j'ai lancé mon calcul dans un autre thread expres pour montrer
+		// ce calcul long, histoire de garder la main pour les modifs
+		Thread moncalculparallel = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				montraitement();
+			}
+		});
+		moncalculparallel.start(); // je lance le traitement sur un autre thread
 	}
 
 }

@@ -1,18 +1,12 @@
 package fr.ensma.lias.jerboa;
 
 import java.awt.Dimension;
-import java.awt.Dialog.ModalityType;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
@@ -25,9 +19,6 @@ import fr.ensma.lias.jerboa.datastructures.MatchingTree;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
-import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaProgressBar;
-import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaTask;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
@@ -151,8 +142,6 @@ public class DemoRebuild {
 	 * @param applications
 	 * @param historyRecords
 	 * @param matchingTrees
-	 * @param frame
-	 * @param s
 	 * @throws IOException
 	 * @throws JerboaException
 	 * @throws InterruptedException
@@ -161,8 +150,9 @@ public class DemoRebuild {
 	// private synchronized void reevaluateModel(List<Application> applications,
 	// List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees, JFrame frame)
 	// throws IOException, JerboaException {
-	private void reevaluateModel(JFrame frame, GMapViewer gmapviewer, Semaphore s)
-			throws InterruptedException, JerboaException, InvocationTargetException {
+	private void reevaluateModel(GMapViewer gmapviewer) {
+		JerboaLongTaskWait longtask = new JerboaLongTaskWait();
+		boolean cont = true;
 
 		Integer counter = 0;
 		JerboaRuleResult appResult = null;
@@ -170,6 +160,11 @@ public class DemoRebuild {
 
 		for (int applicationIndex = 0; applicationIndex < editedApplications
 				.size(); applicationIndex++) {
+
+			cont = longtask.waitUI();
+			if (!cont) {
+				break;
+			}
 
 			Application application = editedApplications.get(applicationIndex);
 			int nbPNs = application.getPersistentNames().size();
@@ -182,19 +177,6 @@ public class DemoRebuild {
 				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
 			}
 
-			// JOptionPane.showConfirmDialog(null, "clickme");
-
-			SwingUtilities.invokeAndWait(new Runnable() {
-
-				@Override
-				public void run() {
-					JOptionPane.showConfirmDialog(null, "Continue?");
-
-					s.release();
-				}
-			});
-
-
 			try {
 				appResult = apply(application.getRule(), topoParameters);
 			} catch (JerboaException e) {
@@ -203,7 +185,6 @@ public class DemoRebuild {
 
 			gmapviewer.updateIHM();
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
-
 		}
 
 	}
@@ -313,26 +294,6 @@ public class DemoRebuild {
 				"rebuild-add-vertex.json", //
 				frame, gmapviewer);
 
-		Semaphore s = new Semaphore(1);
-
-		JerboaTask task = new JerboaTask() {
-
-			@Override
-			public void run(JerboaMonitorInfo arg0) {
-				arg0.setMinMax(1, 1);
-				try {
-					demo.reevaluateModel(frame, gmapviewer, s);
-				} catch (InterruptedException | JerboaException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				}
-			}
-
-		};
-
-		JerboaProgressBar bar = new JerboaProgressBar(frame, "RebuildBar", "Wait until done", task);
-
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -340,14 +301,21 @@ public class DemoRebuild {
 				frame.invalidate();
 				frame.repaint(1000);
 				gmapviewer.updateIHM();
-				try {
-					s.acquire();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 			}
 
 		});
+
+		Thread worker = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				demo.reevaluateModel(gmapviewer);
+			}
+
+		});
+
+		worker.start();
 
 	}
 }

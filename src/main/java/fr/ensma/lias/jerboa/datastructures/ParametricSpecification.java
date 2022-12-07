@@ -66,12 +66,20 @@ public class ParametricSpecification {
 	 *
 	 * @return specification entry which holds persistent names and a rule.
 	 */
-	public Application getApplication(int applicationID) {
+	public Application getApplicationByID(int applicationID) {
 		for (Application application : spec) {
 			if (application.getApplicationID() == applicationID)
 				return application;
 		}
 		return null;
+	}
+
+	public List<Application> getApplications() {
+		return this.spec;
+	}
+
+	public int size() {
+		return this.spec.size();
 	}
 
 	@Override

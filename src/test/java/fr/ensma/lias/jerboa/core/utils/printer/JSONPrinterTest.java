@@ -30,7 +30,7 @@ public class JSONPrinterTest {
 		try {
 			ParametricSpecification paramSpec =
 					JSONPrinter.importParametricSpecification(path, modeler);
-			Application entry = paramSpec.getApplication(specEntryIndex);
+			Application entry = paramSpec.getApplicationByID(specEntryIndex);
 
 			PersistentName PN = entry.getPersistentNames().get(pNameIndex);
 			PersistentID PI = PN.getPIs().get(pIdIndex);

@@ -89,10 +89,20 @@ public class NodeOrbit {
 	 * name and rule
 	 */
 	public List<NodeOrbit> BBBuildEntry(String nodeName, JerboaRuleOperation rule,
-			LevelEventHR levelEvent, List<NodeOrbit> nextStepOrbitHRs) {
+			LevelEventHR levelEvent, List<NodeOrbit> nextStepOrbitHRs, boolean ISNOEFFECT) {
+
+		JerboaOrbit orbitType = this.getOrbit();
+
+		if (ISNOEFFECT) {
+			NodeEvent NOEFFECTEvent = new NodeEvent(Event.NOEFFECT, this);
+			levelEvent.addEvent(NOEFFECTEvent);
+			NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);
+			previousOrbitHR.addChild(new Link(LinkType.TRACE, NOEFFECTEvent));
+			addNodes(previousOrbitHR, nextStepOrbitHRs);
+			return nextStepOrbitHRs;
+		}
 
 		int currentRuleNodeIndex = rule.getRightIndexRuleNode(nodeName);
-		JerboaOrbit orbitType = this.getOrbit();
 		JerboaRuleNode currentRuleNode = rule.getRightRuleNode(currentRuleNodeIndex);
 
 		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(currentRuleNode, this.orbit);

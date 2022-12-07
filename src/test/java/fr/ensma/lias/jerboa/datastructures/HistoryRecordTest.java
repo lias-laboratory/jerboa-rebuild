@@ -31,7 +31,7 @@ public class HistoryRecordTest {
 		try {
 			ParametricSpecification parametricSpecification =
 					JSONPrinter.importParametricSpecification(path, modeler);
-			Application application = parametricSpecification.getApplication(applicationID);
+			Application application = parametricSpecification.getApplicationByID(applicationID);
 
 			PersistentName PN = application.getPersistentNames().get(persistentNameIndex);
 			PersistentID PI = PN.getPIs().get(persistentIDIndex);

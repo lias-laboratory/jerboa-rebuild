@@ -32,8 +32,8 @@ public class NodeOrbitHRTest {
 		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(0, 2));
 		String nodeName = "n1";
 		LevelEventHR levelEvent = new LevelEventHR(3, null);
-		List<NodeOrbit> result =
-				nodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, new ArrayList<NodeOrbit>());
+		List<NodeOrbit> result = nodeOrbit.BBBuildEntry(nodeName, rule, levelEvent,
+				new ArrayList<NodeOrbit>(), false);
 		assertEquals(1, result.size());
 		assertEquals(JerboaOrbit.orbit(1), result.get(0).getOrbit());
 		assertEquals(1, levelEvent.getEventList().size());

@@ -21,10 +21,10 @@ import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import up.jerboa.exception.JerboaException;
 
 public class Demo {
-	
+
 	/**
-	 * ici j'ai mis le code de mon traitement qui peut prendre beaucoup de temps!
-	 * tu verras dans la suite que ce traitement est lancee dans un autre thread
+	 * ici j'ai mis le code de mon traitement qui peut prendre beaucoup de temps! tu verras dans la
+	 * suite que ce traitement est lancee dans un autre thread
 	 */
 	public static void montraitement() {
 		JerboaLongTaskWait longtask = new JerboaLongTaskWait();
@@ -32,23 +32,23 @@ public class Demo {
 		// je fais mon traitement
 		boolean cont = true;
 		do {
-			
+
 			try {
 				Thread.sleep(4000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			i ++;
-			System.out.println("Traitement jusqu'à i = "+ i);
+
+			i++;
+			System.out.println("Traitement jusqu'a i = " + i);
 			cont = longtask.waitUI();
-			
-		} while(cont);
+
+		} while (cont);
 		System.out.println("Pouf je continue mon traitement");
 	}
 
-	
+
 
 	public static void main(String[] args) throws JerboaException {
 
@@ -78,11 +78,11 @@ public class Demo {
 				gmapviewer.updateIHM();
 			}
 		});
-		
-		// j'ai lancé mon calcul dans un autre thread expres pour montrer
+
+		// j'ai lance mon calcul dans un autre thread expres pour montrer
 		// ce calcul long, histoire de garder la main pour les modifs
 		Thread moncalculparallel = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				montraitement();

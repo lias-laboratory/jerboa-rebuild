@@ -11,212 +11,209 @@ import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 
 /**
- * This class represents a directed acyclic graph to trace the origins and the
- * evolution of a topological parameters described by a persistent name
+ * This class represents a directed acyclic graph to trace the origins and the evolution of a
+ * topological parameters described by a persistent name
  */
 public class HistoryRecord {
 
-  Map<Integer, List<LevelEventHR>> leaves;
+    Map<Integer, List<LevelEventHR>> leaves;
 
-  /**
-   * Constructor. Initializes an empty history record.
-   */
-  public HistoryRecord() { leaves = new LinkedHashMap<>(); }
+    /**
+     * Constructor. Initializes an empty history record.
+     */
+    public HistoryRecord() {
+        leaves = new LinkedHashMap<>();
+    }
 
-  /**
-   * Constructor. Build a history record.
-   *
-   * @param pID Persistent ID of a topological parameter
-   * @param orbitType a JerboaOrbit designating the orbit this history record is
-   *     associated with
-   * @param parametricSpecification
-   */
-  public HistoryRecord(PersistentID pID, JerboaOrbit orbitType,
-                       ParametricSpecification parametricSpecification) {
+    /**
+     * Constructor. Build a history record.
+     *
+     * @param pID Persistent ID of a topological parameter
+     * @param orbitType a JerboaOrbit designating the orbit this history record is associated with
+     * @param parametricSpecification
+     */
+    public HistoryRecord(PersistentID pID, JerboaOrbit orbitType,
+            ParametricSpecification parametricSpecification) {
 
-    leaves = new LinkedHashMap<>();
+        leaves = new LinkedHashMap<>();
 
-    List<NodeOrbit> nodeOrbitList = new ArrayList<>();
-    nodeOrbitList.add(new NodeOrbit(orbitType));
+        List<NodeOrbit> nodeOrbitList = new ArrayList<>();
+        nodeOrbitList.add(new NodeOrbit(orbitType));
 
-    List<PersistentIdElement> pIDElements = pID.getPIdElements();
+        List<PersistentIdElement> pIDElements = pID.getPIdElements();
 
-    System.out.println("HistoryRecord: current PI is " + pID);
-    for (int appIndex = parametricSpecification.size() - 1; appIndex >= 0;
-         appIndex--) {
+        System.out.println("HistoryRecord: current PI is " + pID);
+        for (int appIndex = parametricSpecification.size() - 1; appIndex >= 0; appIndex--) {
 
-      PersistentIdElement pie = pIDElements.get(0);
-      Application application =
-          parametricSpecification.getApplications().get(appIndex);
-      int appID = application.getApplicationID();
+            PersistentIdElement pie = pIDElements.get(0);
+            Application application = parametricSpecification.getApplications().get(appIndex);
+            int appID = application.getApplicationID();
 
-      if (isCurrentPIStoredInCurrentApplication(pID, application)) {
-        continue;
-      }
+            if (isCurrentPIStoredInCurrentApplication(pID, application)
+                    || appID < pIDElements.get(0).getAppNumber()) {
+                continue;
+            }
 
-      boolean ISNOEFFECT = true;
+            boolean ISNOEFFECT = true;
 
-      for (int pieIndex = 0; pieIndex < pIDElements.size(); pieIndex++) {
-        pie = pIDElements.get(pieIndex);
-        if (pie.getAppNumber() == appID) {
-          ISNOEFFECT = false;
-          break;
+            for (int pieIndex = 0; pieIndex < pIDElements.size(); pieIndex++) {
+                pie = pIDElements.get(pieIndex);
+                if (pie.getAppNumber() == appID) {
+                    ISNOEFFECT = false;
+                    break;
+                }
+            }
+
+            if (ISNOEFFECT) {
+                pie = new PersistentIdElement(appID, "0");
+            }
+
+            nodeOrbitList = addLevel(nodeOrbitList, pie, parametricSpecification, ISNOEFFECT);
         }
-      }
-
-      if (ISNOEFFECT)
-        pie = new PersistentIdElement(appID, "0");
-
-      nodeOrbitList =
-          addLevel(nodeOrbitList, pie, parametricSpecification, ISNOEFFECT);
-    }
-  }
-
-  private boolean
-  isCurrentPIStoredInCurrentApplication(PersistentID pID,
-                                        Application application) {
-    // HACK ugly mean to skip currents application current application
-    // is skip because it cannot be part of its parameter's tree
-    for (var PN : application.getPersistentNames()) {
-      if (PN.getPIs().contains(pID)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Get the field leaves of this history record
-   *
-   * @return Map of this history record
-   */
-  public Map<Integer, List<LevelEventHR>> getLeaves() { return leaves; }
-
-  /**
-   * Get the top LevelEvent from this history record
-   *
-   * @return LevelEvent
-   */
-  private List<LevelEventHR> getTopLevelEvents() {
-    List<Integer> entries = new LinkedList<Integer>(this.leaves.keySet());
-    if (entries.isEmpty())
-      return null;
-    else {
-      return leaves.get(((LinkedList<Integer>)entries).getLast());
-    }
-  }
-
-  /**
-   * Build a LevelEvent and add it to this history record.
-   *
-   * @param nodeOrbitList a list of {@link NodeOrbit}
-   * @param pIDElement {@link PersistentIdElement} an element of a persistent ID
-   *
-   * @param parametricSpecification a {@link ParametricSpecification} instance
-   * @param iSNOEFFECT
-   *
-   * @return a list of {@link NodeOrbit}s used for next/upper level construction
-   */
-  private List<NodeOrbit>
-  addLevel(List<NodeOrbit> nodeOrbitList, PersistentIdElement pIDElement,
-           ParametricSpecification parametricSpecification,
-           boolean ISNOEFFECT) {
-
-    List<LevelEventHR> entryLevelEvent = new ArrayList<>();
-    List<NodeOrbit> nextStepOrbits = new ArrayList<>();
-    String nodeName = pIDElement.getNodeName();
-    int appNumber = pIDElement.getAppNumber();
-
-    // boolean ISNOEFFECT = false;
-    // if (!pIDElements.contains(pIDElement))
-    // ISNOEFFECT = true;
-
-    System.out.println("PIE is: " + pIDElement);
-    System.out.println("noeffect is: " + ISNOEFFECT);
-
-    LevelOrbitHR levelOrbit =
-        new LevelOrbitHR(nodeName, nodeOrbitList, getTopLevelEvents());
-    LevelEventHR levelEvent = new LevelEventHR(appNumber, levelOrbit);
-
-    JerboaRuleOperation currentRule =
-        parametricSpecification.getApplicationByID(appNumber).getRule();
-    for (NodeOrbit currentNodeOrbit : nodeOrbitList) {
-      fillLevel(currentNodeOrbit, levelEvent, nextStepOrbits,
-                pIDElement.getNodeName(), currentRule, ISNOEFFECT);
     }
 
-    if (leaves.containsKey(pIDElement.getAppNumber())) {
-      entryLevelEvent = leaves.get(pIDElement.getAppNumber());
+    private boolean isCurrentPIStoredInCurrentApplication(PersistentID pID,
+            Application application) {
+        // HACK ugly mean to skip currents application current application
+        // is skip because it cannot be part of its parameter's tree
+        for (var PN : application.getPersistentNames()) {
+            if (PN.getPIs().contains(pID)) {
+                return true;
+            }
+        }
+        return false;
     }
-    entryLevelEvent.add(levelEvent);
-    // List<Integer> appNumbers =
-    // entryLevelEvent.stream().mapToInt(LevelEventHR::getAppNumber)
-    // .boxed().collect(Collectors.toList());
-    // levelOrbit.setNextLevelEventsAppNumbers(appNumbers);
-    leaves.put(appNumber, entryLevelEvent);
 
-    return nextStepOrbits;
-  }
-
-  /**
-   * Fill a LevelEvent with {@link NodeEvent}s. A building board entry is
-   * computed in order to prepare the next level's construction.
-   *
-   * @param currentNodeOrbit a {@link NodeOrbit} from which to compute a
-   *     building board entry
-   * @param levelEvent {@link LevelEventHR} to fill
-   * @param nextStepOrbits a list of node orbits to fill
-   * @param nodeName String a jerboa rule node's name
-   * @param rule a jerboa rule operation
-   * @param iSNOEFFECT
-   */
-  private void fillLevel(NodeOrbit currentNodeOrbit, LevelEventHR levelEvent,
-                         List<NodeOrbit> nextStepOrbits, String nodeName,
-                         JerboaRuleOperation rule, boolean ISNOEFFECT) {
-
-    currentNodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, nextStepOrbits,
-                                  ISNOEFFECT);
-  }
-
-  /**
-   * Export this history record as a json file
-   *
-   * @param fileName name of the export file
-   */
-  public void export(String fileName) {
-    try {
-      JSONPrinter.exportHistoryRecord(leaves, fileName);
-    } catch (IOException exception) {
-      System.out.println("Could not write to file");
+    /**
+     * Get the field leaves of this history record
+     *
+     * @return Map of this history record
+     */
+    public Map<Integer, List<LevelEventHR>> getLeaves() {
+        return leaves;
     }
-  }
 
-  /**
-   * Export this history record as a json file
-   *
-   * @param directory Path relative to the project
-   * @param filaName name of the export file
-   */
-
-  public void export(String directory, String fileName) {
-    try {
-      JSONPrinter.exportHistoryRecord(leaves, directory, fileName);
-    } catch (IOException exception) {
-      System.out.println("Could not write to file");
+    /**
+     * Get the top LevelEvent from this history record
+     *
+     * @return LevelEvent
+     */
+    private List<LevelEventHR> getTopLevelEvents() {
+        List<Integer> entries = new LinkedList<Integer>(this.leaves.keySet());
+        if (entries.isEmpty())
+            return null;
+        else {
+            return leaves.get(((LinkedList<Integer>) entries).getLast());
+        }
     }
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    for (List<LevelEventHR> levels : leaves.values()) {
-      sb.append(levels.toString()).append('\n');
+    /**
+     * Build a LevelEvent and add it to this history record.
+     *
+     * @param nodeOrbitList a list of {@link NodeOrbit}
+     * @param pIDElement {@link PersistentIdElement} an element of a persistent ID
+     *
+     * @param parametricSpecification a {@link ParametricSpecification} instance
+     * @param iSNOEFFECT
+     *
+     * @return a list of {@link NodeOrbit}s used for next/upper level construction
+     */
+    private List<NodeOrbit> addLevel(List<NodeOrbit> nodeOrbitList, PersistentIdElement pIDElement,
+            ParametricSpecification parametricSpecification, boolean ISNOEFFECT) {
+
+        List<LevelEventHR> entryLevelEvent = new ArrayList<>();
+        List<NodeOrbit> nextStepOrbits = new ArrayList<>();
+        String nodeName = pIDElement.getNodeName();
+        int appNumber = pIDElement.getAppNumber();
+
+        // boolean ISNOEFFECT = false;
+        // if (!pIDElements.contains(pIDElement))
+        // ISNOEFFECT = true;
+
+        System.out.println("PIE is: " + pIDElement);
+        System.out.println("noeffect is: " + ISNOEFFECT);
+
+        LevelOrbitHR levelOrbit = new LevelOrbitHR(nodeName, nodeOrbitList, getTopLevelEvents());
+        LevelEventHR levelEvent = new LevelEventHR(appNumber, levelOrbit);
+
+        JerboaRuleOperation currentRule =
+                parametricSpecification.getApplicationByID(appNumber).getRule();
+        for (NodeOrbit currentNodeOrbit : nodeOrbitList) {
+            fillLevel(currentNodeOrbit, levelEvent, nextStepOrbits, pIDElement.getNodeName(),
+                    currentRule, ISNOEFFECT);
+        }
+
+        if (leaves.containsKey(pIDElement.getAppNumber())) {
+            entryLevelEvent = leaves.get(pIDElement.getAppNumber());
+        }
+        entryLevelEvent.add(levelEvent);
+        // List<Integer> appNumbers =
+        // entryLevelEvent.stream().mapToInt(LevelEventHR::getAppNumber)
+        // .boxed().collect(Collectors.toList());
+        // levelOrbit.setNextLevelEventsAppNumbers(appNumbers);
+        leaves.put(appNumber, entryLevelEvent);
+
+        return nextStepOrbits;
     }
-    return sb.toString();
-  }
+
+    /**
+     * Fill a LevelEvent with {@link NodeEvent}s. A building board entry is computed in order to
+     * prepare the next level's construction.
+     *
+     * @param currentNodeOrbit a {@link NodeOrbit} from which to compute a building board entry
+     * @param levelEvent {@link LevelEventHR} to fill
+     * @param nextStepOrbits a list of node orbits to fill
+     * @param nodeName String a jerboa rule node's name
+     * @param rule a jerboa rule operation
+     * @param iSNOEFFECT
+     */
+    private void fillLevel(NodeOrbit currentNodeOrbit, LevelEventHR levelEvent,
+            List<NodeOrbit> nextStepOrbits, String nodeName, JerboaRuleOperation rule,
+            boolean ISNOEFFECT) {
+
+        currentNodeOrbit.BBBuildEntry(nodeName, rule, levelEvent, nextStepOrbits, ISNOEFFECT);
+    }
+
+    /**
+     * Export this history record as a json file
+     *
+     * @param fileName name of the export file
+     */
+    public void export(String fileName) {
+        try {
+            JSONPrinter.exportHistoryRecord(leaves, fileName);
+        } catch (IOException exception) {
+            System.out.println("Could not write to file");
+        }
+    }
+
+    /**
+     * Export this history record as a json file
+     *
+     * @param directory Path relative to the project
+     * @param filaName name of the export file
+     */
+
+    public void export(String directory, String fileName) {
+        try {
+            JSONPrinter.exportHistoryRecord(leaves, directory, fileName);
+        } catch (IOException exception) {
+            System.out.println("Could not write to file");
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (List<LevelEventHR> levels : leaves.values()) {
+            sb.append(levels.toString()).append('\n');
+        }
+        return sb.toString();
+    }
 }
 
-/* HistoryRecord data structure used to record the evolution of a construction
+/*
+ * HistoryRecord data structure used to record the evolution of a construction
  */
 
 // public class HistoryRecord {

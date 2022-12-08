@@ -187,6 +187,7 @@ public class DemoRebuild {
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
 		}
 
+		exportMatchingTrees();
 	}
 
 
@@ -217,6 +218,7 @@ public class DemoRebuild {
 				MatchingTree mt = matchingTrees.get(index);
 
 				mt.addLevel(levelEventHR, application, appResult);
+				System.out.println("HistoryRecord: matchingtree " + mt);
 			}
 		}
 	}
@@ -288,10 +290,10 @@ public class DemoRebuild {
 		frame.setVisible(true);
 
 		DemoRebuild demo = new DemoRebuild(bridge, //
-				"./examples", //
-				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
-				"./examples", //
-				"rebuild-add-vertex.json", //
+				"./exports", //
+				"exemple-pres.json", //
+				"./exports", //
+				"exemple-pres.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {

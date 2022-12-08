@@ -49,10 +49,16 @@ public class MatchingTree {
 			case INIT:
 				int appNumber = levelEventHR.getAppNumber();
 				String nodeName = levelEventHR.getNextLevelOrbit().getNodeName();
+				boolean ISNOEFFECT = false;
 
-				nodeNameToDartID(appNumber, nodeName, appResult, application);
 
-				matchLevel(levelEventHR, application, nodeName, rule);
+				if (nodeName == "0") {
+					ISNOEFFECT = true;
+				}
+
+				nodeNameToDartID(appNumber, nodeName, appResult, application, ISNOEFFECT);
+
+				matchLevel(levelEventHR, application, nodeName, rule, ISNOEFFECT);
 
 				registerLevel(appNumber, newLevelEventMT, levelEventHR.getEventList(),
 						levelEventHR.getNextLevelOrbit().getOrbitList(), appType);
@@ -193,22 +199,40 @@ public class MatchingTree {
 	 * @param application
 	 */
 	private void matchLevel(LevelEventHR levelEventHR, Application application, String nodeName,
-			JerboaRebuiltRule rule) {
+			JerboaRebuiltRule rule, boolean ISNOEFFECT) {
 		// MatchingType levelMatchingType = MatchingType.IDENTICAL;
 		// List<NodeEvent> eventList = new ArrayList<>();
+
+		// if nodeName is "0" then it is de facto NOEFFECT in the whole current level
+		if (ISNOEFFECT) {
+			/*
+			 * if (parameter has been merged and it is no longer noeffects nor exists)
+			 *
+			 * {compute the new events accordingly}
+			 */
+
+			return;
+
+		}
+		// find root node to match level
 		JerboaRuleNode rootNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
 
+		// for each event in the current level
 		for (NodeEvent nodeEventHR : levelEventHR.getEventList()) {
 			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
 			List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(rootNode, orbitType);
+			// compute an event
 			Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
 
+			// if there is no match replace the event with the newly computed one
 			if (event != nodeEventHR.getEvent()) {
 				// levelMatchingType = MatchingType.MODIFIED;
 				nodeEventHR.setEvent(event);
 			}
 		}
+
 	}
+
 
 	// private void isLevelIdentical(LevelEventHR levelEventHR, Application application) {
 	// List<NodeEvent> nodeEventHRs = levelEventHR.getEventList();
@@ -218,9 +242,20 @@ public class MatchingTree {
 	/**
 	 * Method to convert a nodeName from HR to an actual dart id (NID) the gmap can recognize when
 	 * applying a rule
+	 *
+	 * @param iSNOEFFECT
 	 */
 	private void nodeNameToDartID(int AppNumber, String nodeName, JerboaRuleResult appResult,
-			Application specEntry) {
+			Application specEntry, boolean ISNOEFFECT) {
+
+		if (ISNOEFFECT) {
+			/*
+			 * if (parameter has been merged and it is no longer noeffects nor exists)
+			 *
+			 * { find at least one new dart in appResult}
+			 */
+			return;
+		}
 
 		int rowIndex = 0;
 		for (int i = 0; i < appResult.sizeCol(); i++) {

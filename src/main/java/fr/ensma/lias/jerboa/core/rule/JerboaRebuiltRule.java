@@ -638,6 +638,11 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return JerboaOrbit.orbit(aLinkSet);
     }
 
+    // node is a right node
+    public boolean isNodeHook(JerboaRuleNode node) {
+        return getHooks().contains(left.get(reverseAssoc(node.getID())));
+    }
+
 }
 
 // private void addAllNodesToVisited(List<JerboaRuleNode> orbit, List<Integer>

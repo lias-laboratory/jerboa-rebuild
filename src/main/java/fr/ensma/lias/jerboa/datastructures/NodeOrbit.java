@@ -1,6 +1,7 @@
 package fr.ensma.lias.jerboa.datastructures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.rule.JerboaRuleNode;
+import up.jerboa.core.util.Pair;
 
 /**
  * NodeOrbitHR
@@ -153,6 +155,59 @@ public class NodeOrbit {
 			return nextStepOrbitHRs;
 		}
 		return nextStepOrbitHRs;
+	}
+
+	// NOTE: Draft —— Process in `rule.left`
+	private List<Integer> customBFS(JerboaRebuiltRule rule, JerboaRuleNode node) {
+		int dimension = rule.getOwner().getDimension();
+		LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
+		queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, Arrays.asList()));
+
+		while (!queue.isEmpty()) {
+			Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
+			// JerboaRuleNode v = queue.pollFirst();
+
+			// if match
+			if (rule.getHooks().contains(p.l())) {
+				return p.r();
+			}
+
+			for (int index = 0; index <= dimension; index++) {
+
+				if (p.l().alpha(index) != null) {
+					JerboaRuleNode w = p.l().alpha(index);
+					List<Integer> path = new ArrayList<Integer>(p.r());
+					path.add(index);
+
+					Pair<JerboaRuleNode, List<Integer>> q =
+							new Pair<JerboaRuleNode, List<Integer>>(w, path);
+					if (!w.isNotMarked()) {
+						w.setMark(true);
+						// neighbors.push(w);
+						queue.push(q);
+					}
+				}
+			}
+		}
+
+		for (JerboaRuleNode n : rule.getLeft()) {
+			if (!n.isNotMarked())
+				n.setMark(false);;
+		}
+		return null;
+	}
+
+	// NOTE: Draft
+	private List<Integer> computePath(JerboaRebuiltRule rule, JerboaRuleNode node) {
+		if (rule.isNodeCreated(node)) {
+			// find hook in `rule.right`
+		} else if (rule.isNodeHook(node)) {
+			return Arrays.asList();
+		} else {
+			return customBFS(rule, node);
+		}
+
+		return null;
 	}
 
 	public List<Integer> computePath(JerboaRuleOperation rule, JerboaRuleNode source,

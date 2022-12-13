@@ -219,4 +219,14 @@ public class JerboaRebuiltRuleTest {
 		// assertEquals(JerboaOrbit.orbit(0, 3), rule.computeBBOrigin(ruleNodesOrbit, orbitType));
 	}
 
+	@Test
+	public void test_detectMergeEvent_DeleteEdge() {
+		//
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("DeleteEdge");
+		JerboaOrbit orbitType = JerboaOrbit.orbit(0, 1, 3);
+		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n1"));
+		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+		assertTrue(rule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType));
+	}
+
 }

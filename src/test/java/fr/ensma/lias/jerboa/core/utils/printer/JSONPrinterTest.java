@@ -30,12 +30,13 @@ public class JSONPrinterTest {
 		try {
 			ParametricSpecification paramSpec =
 					JSONPrinter.importParametricSpecification(path, modeler);
-			Application entry = paramSpec.getApplicationByID(specEntryIndex);
+			Application application = paramSpec.getApplicationByID(specEntryIndex);
 
-			PersistentName PN = entry.getPersistentNames().get(pNameIndex);
+			PersistentName PN = application.getPersistentNames().get(pNameIndex);
 			PersistentID PI = PN.getPIs().get(pIdIndex);
 			JerboaOrbit orbitType = PN.getOrbitType();
-			return new HistoryRecord(PI, orbitType, paramSpec);
+			return new HistoryRecord(PI, orbitType, paramSpec,
+					paramSpec.getApplications().indexOf(application));
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not find file by `path`");
 			return null;

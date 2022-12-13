@@ -20,8 +20,14 @@ public class HistoryRecord {
 
     /**
      * Constructor. Initializes an empty history record.
+     *
+     * @param application
+     * @param parametricSpecification
+     * @param orbitType
+     * @param pI
      */
-    public HistoryRecord() {
+    public HistoryRecord(PersistentID pI, JerboaOrbit orbitType,
+            ParametricSpecification parametricSpecification, Application application) {
         leaves = new LinkedHashMap<>();
     }
 
@@ -33,7 +39,7 @@ public class HistoryRecord {
      * @param parametricSpecification
      */
     public HistoryRecord(PersistentID pID, JerboaOrbit orbitType,
-            ParametricSpecification parametricSpecification) {
+            ParametricSpecification parametricSpecification, int applicationIndex) {
 
         leaves = new LinkedHashMap<>();
 
@@ -43,14 +49,14 @@ public class HistoryRecord {
         List<PersistentIdElement> pIDElements = pID.getPIdElements();
 
         System.out.println("HistoryRecord: current PI is " + pID);
-        for (int appIndex = parametricSpecification.size() - 1; appIndex >= 0; appIndex--) {
+        for (int appIndex = applicationIndex - 1; appIndex >= 0; appIndex--) {
 
             PersistentIdElement pie = pIDElements.get(0);
             Application application = parametricSpecification.getApplications().get(appIndex);
-            int appID = application.getApplicationID();
+            int currAppID = application.getApplicationID();
 
-            if (isCurrentPIStoredInCurrentApplication(pID, application)
-                    || appID < pIDElements.get(0).getAppNumber()) {
+            // skip current application if it is applied before the PI's first element
+            if (currAppID < pIDElements.get(0).getAppNumber()) {
                 continue;
             }
 
@@ -58,30 +64,19 @@ public class HistoryRecord {
 
             for (int pieIndex = 0; pieIndex < pIDElements.size(); pieIndex++) {
                 pie = pIDElements.get(pieIndex);
-                if (pie.getAppNumber() == appID) {
+                // if currAppID is found within PI then it cannot be NOEFFECT
+                if (pie.getAppNumber() == currAppID) {
                     ISNOEFFECT = false;
                     break;
                 }
             }
 
             if (ISNOEFFECT) {
-                pie = new PersistentIdElement(appID, "0");
+                pie = new PersistentIdElement(currAppID, "ø");
             }
 
             nodeOrbitList = addLevel(nodeOrbitList, pie, parametricSpecification, ISNOEFFECT);
         }
-    }
-
-    private boolean isCurrentPIStoredInCurrentApplication(PersistentID pID,
-            Application application) {
-        // HACK ugly mean to skip currents application current application
-        // is skip because it cannot be part of its parameter's tree
-        for (var PN : application.getPersistentNames()) {
-            if (PN.getPIs().contains(pID)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

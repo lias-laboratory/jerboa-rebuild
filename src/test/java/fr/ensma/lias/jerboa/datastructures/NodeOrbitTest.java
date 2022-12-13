@@ -78,13 +78,9 @@ public class NodeOrbitTest {
 	@Test
 	public void test_compute_path() {
 		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("DeleteEdge");
-		// int nodeOfInterest = rule.getRightIndexRuleNode("n1");
-		// int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
-		// JerboaRuleNode node = rule.getLeftRuleNode(leftNodeOfInterest);
-		// System.out.println("NodeOrbitTest: nodeOrbit " + node);
-		// NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(2));
-		// nodeOrbit.computePath(rule, "n1");
-		// assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
+		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(2));
+		nodeOrbit.computePath(rule, "n1");
+		assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
 	}
 
 }

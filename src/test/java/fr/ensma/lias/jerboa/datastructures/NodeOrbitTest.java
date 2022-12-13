@@ -2,21 +2,23 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import up.jerboa.core.JerboaOrbit;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
 
 /**
  * NodeOrbitHRTest
  */
-public class NodeOrbitHRTest {
+public class NodeOrbitTest {
 
 	private ModelerGenerated modeler = new ModelerGenerated();
 
-	public NodeOrbitHRTest() throws JerboaException {
+	public NodeOrbitTest() throws JerboaException {
 
 	}
 
@@ -71,6 +73,18 @@ public class NodeOrbitHRTest {
 		assertEquals(expected_list, list);
 
 		// TODO: show equality through children
+	}
+
+	@Test
+	public void test_compute_path() {
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("DeleteEdge");
+		// int nodeOfInterest = rule.getRightIndexRuleNode("n1");
+		// int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
+		// JerboaRuleNode node = rule.getLeftRuleNode(leftNodeOfInterest);
+		// System.out.println("NodeOrbitTest: nodeOrbit " + node);
+		// NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(2));
+		// nodeOrbit.computePath(rule, "n1");
+		// assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
 	}
 
 }

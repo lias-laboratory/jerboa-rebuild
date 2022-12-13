@@ -97,7 +97,7 @@ public class PIExpression implements JerboaRuleExpression {
 
                 if (v.alpha(index) != null) {
                     JerboaRuleNode w = v.alpha(index);
-                    if (!w.isNotMarked()) {
+                    if (w.isNotMarked()) {
                         w.setMark(true);
                         // neighbors.push(w);
                         queue.push(w);

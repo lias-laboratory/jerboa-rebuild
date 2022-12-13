@@ -34,6 +34,10 @@ public class NodeOrbit {
 		return children;
 	}
 
+	public List<Integer> getAlphaPath() {
+		return this.alphaPath;
+	}
+
 	public void setChildren(List<Link> children) {
 		this.children = new ArrayList<>(children);
 	}
@@ -159,20 +163,28 @@ public class NodeOrbit {
 
 	// NOTE: Draft —— Process in `rule.left`
 	private List<Integer> customBFS(JerboaRebuiltRule rule, JerboaRuleNode node) {
+		List<Integer> pathToCompute = new ArrayList<>();
 		int dimension = rule.getOwner().getDimension();
 		LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
 		queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, Arrays.asList()));
+		System.out.println("CustomBFS: queue " + queue);
+		System.out.println("CustomBFS: hooks " + rule.getHooks());
+
 
 		while (!queue.isEmpty()) {
 			Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
+			System.out.println("CustomBFS: while loop " + p.l() + " " + p.r());
 			// JerboaRuleNode v = queue.pollFirst();
 
 			// if match
 			if (rule.getHooks().contains(p.l())) {
-				return p.r();
+				System.out.println("CustomBFS: hook found ");
+				pathToCompute = p.r();
+				break;
 			}
 
 			for (int index = 0; index <= dimension; index++) {
+				System.out.println("CustomBFS: neighbors are " + p.l().alpha(index));
 
 				if (p.l().alpha(index) != null) {
 					JerboaRuleNode w = p.l().alpha(index);
@@ -181,12 +193,14 @@ public class NodeOrbit {
 
 					Pair<JerboaRuleNode, List<Integer>> q =
 							new Pair<JerboaRuleNode, List<Integer>>(w, path);
-					if (!w.isNotMarked()) {
+					if (w.isNotMarked()) {
 						w.setMark(true);
 						// neighbors.push(w);
 						queue.push(q);
 					}
 				}
+
+				System.out.println("CustomBFS: queue end of for loop " + queue);
 			}
 		}
 
@@ -194,27 +208,31 @@ public class NodeOrbit {
 			if (!n.isNotMarked())
 				n.setMark(false);;
 		}
-		return null;
+		return pathToCompute;
 	}
 
 	// NOTE: Draft
-	private List<Integer> computePath(JerboaRebuiltRule rule, JerboaRuleNode node) {
-		if (rule.isNodeCreated(node)) {
+	public void computePath(JerboaRebuiltRule rule, String nodeName) {
+		int nodeOfInterest = rule.getRightIndexRuleNode(nodeName);
+		JerboaRuleNode rNode = rule.getRightRuleNode(nodeOfInterest);
+
+		if (rule.isNodeCreated(rNode)) {
 			// find hook in `rule.right`
-		} else if (rule.isNodeHook(node)) {
-			return Arrays.asList();
+		} else if (rule.isNodeHook(rNode)) {
+			this.alphaPath = Arrays.asList();
 		} else {
-			return customBFS(rule, node);
+			System.out.println("NodeOrbit: go into custom BFS");
+			int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
+			JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
+			this.alphaPath = customBFS(rule, lNode);
 		}
-
-		return null;
 	}
 
-	public List<Integer> computePath(JerboaRuleOperation rule, JerboaRuleNode source,
-			JerboaRuleNode target) {
+	// public List<Integer> computePath(JerboaRuleOperation rule, JerboaRuleNode source,
+	// JerboaRuleNode target) {
 
-		return null;
-	}
+	// return null;
+	// }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -228,6 +246,9 @@ public class NodeOrbit {
 
 	@Override
 	public String toString() {
-		return orbit.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(alphaPath).append("·");
+		sb.append(orbit.toString());
+		return sb.toString();
 	}
 }

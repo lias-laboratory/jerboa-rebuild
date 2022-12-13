@@ -52,7 +52,7 @@ public class MatchingTree {
 				boolean ISNOEFFECT = false;
 
 
-				if (nodeName == "0") {
+				if (nodeName == "ø") {
 					ISNOEFFECT = true;
 				}
 

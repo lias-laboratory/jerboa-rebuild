@@ -121,7 +121,8 @@ public class DemoRebuild {
 
 				for (PersistentID PI : PIs) {
 					// Compute and export HRs from current spec
-					HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification);
+					HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification,
+							applications.indexOf(application));
 					hr.export("./exports", "hr-rejeu-ajout-" + counter++ + ".json");
 					historyRecords.add(hr);
 					MatchingTree mt = new MatchingTree();

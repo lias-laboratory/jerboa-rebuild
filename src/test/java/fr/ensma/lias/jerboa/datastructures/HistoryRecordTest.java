@@ -36,7 +36,8 @@ public class HistoryRecordTest {
 			PersistentName PN = application.getPersistentNames().get(persistentNameIndex);
 			PersistentID PI = PN.getPIs().get(persistentIDIndex);
 			JerboaOrbit orbitType = PN.getOrbitType();
-			return new HistoryRecord(PI, orbitType, parametricSpecification);
+			return new HistoryRecord(PI, orbitType, parametricSpecification,
+					parametricSpecification.getApplications().indexOf(application));
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not find file by `path`");
 			return null;

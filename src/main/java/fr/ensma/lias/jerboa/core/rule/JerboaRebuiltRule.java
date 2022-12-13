@@ -374,13 +374,10 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      */
     private boolean hasUntrackedIthLink(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType,
             int[] aLinksArray) {
-
         // for each ruleNode
         for (JerboaRuleNode ruleNode : ruleNodesOrbit) {
             // for each iLink in rNode
-            System.out.println("hasUntrackedIthLink: nodename " + ruleNode.getName());
-            System.out.println("hasUntrackedIthLink: nodeorbit " + ruleNode.getOrbit());
-            for (int index = 0; index < ruleNodesOrbit.size(); index++) {
+            for (int index = 0; index < ruleNode.getOrbit().size(); index++) {
                 // if array index is -1 we do not need to test then continue
                 if (aLinksArray[index] == -1) {
                     continue;
@@ -392,7 +389,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 if (aLinksArray[index] == ruleNodesOrbit.size()) {
                     return true;
                 }
-
             }
         }
 
@@ -428,6 +424,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
         // track accessible implicit Links per nodes in leftOrbit
         int[] iLinksArray = new int[nbImplicitLinks];
+
         // compute untracked iLinks in leftOrbit
         initializeImplicitLinksArray(leftRuleNodesOrbit, orbitType, nbImplicitLinks, iLinksArray);
 
@@ -460,6 +457,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
         // track accessible implicit Links per nodes in leftOrbit
         int[] iLinksArray = new int[nbImplicitLinks];
+
         // compute untracked iLinks in leftOrbit
         initializeImplicitLinksArray(ruleNodesOrbit, orbitType, nbImplicitLinks, iLinksArray);
 

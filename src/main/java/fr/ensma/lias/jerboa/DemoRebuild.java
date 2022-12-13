@@ -42,7 +42,6 @@ public class DemoRebuild {
 	private List<MatchingTree> matchingTrees;
 	private List<Application> editedApplications;
 	// private JerboaRuleResult appResult;
-	private List<List<JerboaDart>> topoParameters;
 
 
 	public DemoRebuild(JerboaRebuiltBridge bridge, String referenceDir, String referenceSpec,
@@ -157,7 +156,7 @@ public class DemoRebuild {
 
 		Integer counter = 0;
 		JerboaRuleResult appResult = null;
-
+		List<List<JerboaDart>> topoParameters = new ArrayList<>();
 
 		for (int applicationIndex = 0; applicationIndex < editedApplications
 				.size(); applicationIndex++) {
@@ -166,9 +165,11 @@ public class DemoRebuild {
 			if (!cont) {
 				break;
 			}
+			gmapviewer.clearDartSelection();
 
 			Application application = editedApplications.get(applicationIndex);
 			int nbPNs = application.getPersistentNames().size();
+
 			topoParameters = new ArrayList<>();
 
 			if (application.getApplicationType() != ApplicationType.ADD) {
@@ -178,17 +179,23 @@ public class DemoRebuild {
 				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
 			}
 
+			for (List<JerboaDart> parameter : topoParameters) {
+				gmapviewer.switchDartSelection(parameter);
+			}
+
 			try {
 				appResult = apply(application.getRule(), topoParameters);
+				gmapviewer.updateIHM();
 			} catch (JerboaException e) {
 				e.printStackTrace();
 			}
 
-			gmapviewer.updateIHM();
 			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
+
 		}
 
 		exportMatchingTrees();
+
 	}
 
 
@@ -290,10 +297,10 @@ public class DemoRebuild {
 		frame.setVisible(true);
 
 		DemoRebuild demo = new DemoRebuild(bridge, //
-				"./exports", //
-				"exemple-pres.json", //
-				"./exports", //
-				"exemple-pres.json", //
+				"./examples", //
+				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
+				"./examples", //
+				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {

@@ -219,7 +219,6 @@ public class DemoRebuild {
 				MatchingTree mt = matchingTrees.get(index);
 
 				mt.addLevel(levelEventHR, application, appResult);
-				System.out.println("HistoryRecord: matchingtree " + mt);
 			}
 		}
 	}

@@ -48,7 +48,6 @@ public class HistoryRecord {
 
         List<PersistentIdElement> pIDElements = pID.getPIdElements();
 
-        System.out.println("HistoryRecord: current PI is " + pID);
         for (int appIndex = applicationIndex - 1; appIndex >= 0; appIndex--) {
 
             PersistentIdElement pie = pIDElements.get(0);
@@ -120,13 +119,6 @@ public class HistoryRecord {
         List<NodeOrbit> nextStepOrbits = new ArrayList<>();
         String nodeName = pIDElement.getNodeName();
         int appNumber = pIDElement.getAppNumber();
-
-        // boolean ISNOEFFECT = false;
-        // if (!pIDElements.contains(pIDElement))
-        // ISNOEFFECT = true;
-
-        System.out.println("PIE is: " + pIDElement);
-        System.out.println("noeffect is: " + ISNOEFFECT);
 
         LevelOrbitHR levelOrbit = new LevelOrbitHR(nodeName, nodeOrbitList, getTopLevelEvents());
         LevelEventHR levelEvent = new LevelEventHR(appNumber, levelOrbit);

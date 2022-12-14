@@ -252,13 +252,10 @@ public class NodeOrbit {
 		}
 	}
 
-	private List<Integer> collectImplicitLabels(JerboaRuleNode node,
-			List<Integer> implicitIndexes) {
-		List<Integer> implicitLabels = new ArrayList<>();
+	private void collectImplicitLabels(JerboaRuleNode node, List<Integer> implicitIndexes) {
 		for (Integer index : implicitIndexes) {
-			implicitLabels.add(node.getOrbit().get(index));
+			alphaPath.add(node.getOrbit().get(index));
 		}
-		return implicitLabels;
 	}
 
 	// NOTE: Draft
@@ -273,7 +270,6 @@ public class NodeOrbit {
 			if (rule.isNodeHook(rNode)) {
 				this.alphaPath = Arrays.asList();
 			} else {
-				System.out.println("NodeOrbit: go into custom BFS");
 				int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
 				JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
 				this.alphaPath =
@@ -285,18 +281,21 @@ public class NodeOrbit {
 			JerboaRuleNode hook = findClosestHook(rule, lNode, rule.getHooks());
 
 			List<Integer> implicitPath = new ArrayList<>();
+			List<Integer> path = new ArrayList<>();
 
 			// - rejouer le chemin à partir de nodeName dans right
 			// et enregistrer les index d'arcs implicites traversés
 			initializeUpdatePath(rNode, implicitPath);
+			alphaPath = new ArrayList<>();
 			// - aller de nodename vers hook (enregistrer les arcs explicites) dans left
-			alphaPath = collectLabelsFromSourceToClosestTarget(rule, lNode, rule.getHooks(), hook);
+			path = collectLabelsFromSourceToClosestTarget(rule, lNode, rule.getHooks(), hook);
+			alphaPath.addAll(path);
 			// - enregistrer les arcs implicites dans l'ordre des index enregistrés avant et dans
 			// hook
-			alphaPath.addAll(collectImplicitLabels(hook, implicitPath));
+			collectImplicitLabels(hook, implicitPath);
 			// - aller de hook vers nodename en enregistrant les arcs explicites traversés dans left
-			alphaPath.addAll(
-					collectLabelsFromSourceToClosestTarget(rule, hook, Arrays.asList(lNode), null));
+			path = collectLabelsFromSourceToClosestTarget(rule, hook, Arrays.asList(lNode), null);
+			alphaPath.addAll(path);
 		}
 	}
 

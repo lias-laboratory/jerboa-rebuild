@@ -76,14 +76,16 @@ public class NodeOrbitTest {
 	}
 
 	@Test
-	public void test_compute_path() {
+	public void test_compute_path_oneNewTwoUpdates() {
 		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("DeleteEdge");
 		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(2));
 		nodeOrbit.computePath(rule, "n1");
 		assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
 		nodeOrbit.computePath(rule, "n1");
 		assertEquals(Arrays.asList(1, 2, 1), nodeOrbit.getAlphaPath());
-
+		rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
+		nodeOrbit.computePath(rule, "n0");
+		assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
 	}
 
 }

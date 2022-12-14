@@ -161,31 +161,61 @@ public class NodeOrbit {
 		return nextStepOrbitHRs;
 	}
 
-	// NOTE: Draft —— Process in `rule.left`
-	private List<Integer> customBFS(JerboaRebuiltRule rule, JerboaRuleNode node,
+	private JerboaRuleNode findClosestHook(JerboaRebuiltRule rule, JerboaRuleNode node,
 			List<JerboaRuleNode> targets) {
-		List<Integer> pathToCompute = new ArrayList<>();
+		JerboaRuleNode target = null;
 		int dimension = rule.getOwner().getDimension();
-		LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
-		queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, Arrays.asList()));
-		System.out.println("CustomBFS: queue " + queue);
-		System.out.println("CustomBFS: hooks " + rule.getHooks());
-
+		LinkedList<JerboaRuleNode> queue = new LinkedList<>();
+		queue.push(node);
 
 		while (!queue.isEmpty()) {
-			Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
-			System.out.println("CustomBFS: while loop " + p.l() + " " + p.r());
-			// JerboaRuleNode v = queue.pollFirst();
+			JerboaRuleNode v = queue.pollFirst();
 
-			// if match
-			if (targets.contains(p.l())) {
-				System.out.println("CustomBFS: hook found ");
-				pathToCompute = p.r();
+			if (targets.contains(v)) {
+				target = v;
 				break;
 			}
 
 			for (int index = 0; index <= dimension; index++) {
-				System.out.println("CustomBFS: neighbors are " + p.l().alpha(index));
+
+				if (v.alpha(index) != null) {
+					JerboaRuleNode w = v.alpha(index);
+
+					if (w.isNotMarked()) {
+						w.setMark(true);
+						queue.push(w);
+					}
+				}
+			}
+		}
+
+		for (JerboaRuleNode n : rule.getLeft()) {
+			if (!n.isNotMarked())
+				n.setMark(false);;
+		}
+		return target;
+	}
+
+	private List<Integer> collectLabelsFromSourceToClosestTarget(JerboaRebuiltRule rule,
+			JerboaRuleNode node, List<JerboaRuleNode> targets, JerboaRuleNode hook) {
+		List<Integer> pathToCompute = new ArrayList<>();
+		int dimension = rule.getOwner().getDimension();
+		LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
+		queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, Arrays.asList()));
+
+		while (!queue.isEmpty()) {
+			Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
+			// JerboaRuleNode v = queue.pollFirst();
+
+			// if match
+			if (targets.contains(p.l())) {
+				pathToCompute = p.r();
+				if (hook == null)
+					hook = p.l();
+				break;
+			}
+
+			for (int index = 0; index <= dimension; index++) {
 
 				if (p.l().alpha(index) != null) {
 					JerboaRuleNode w = p.l().alpha(index);
@@ -200,8 +230,6 @@ public class NodeOrbit {
 						queue.push(q);
 					}
 				}
-
-				System.out.println("CustomBFS: queue end of for loop " + queue);
 			}
 		}
 
@@ -210,6 +238,27 @@ public class NodeOrbit {
 				n.setMark(false);;
 		}
 		return pathToCompute;
+	}
+
+	private void initializeUpdatePath(JerboaRuleNode sourceNode,
+			List<Integer> implicitLinksIndexes) {
+		JerboaRuleNode curNode = sourceNode;
+		for (Integer label : this.alphaPath) {
+			if (curNode.getOrbit().contains(label)) {
+				implicitLinksIndexes.add(curNode.getOrbit().indexOf(label));
+			} else if (curNode.alpha(label) != null) {
+				curNode = curNode.alpha(label);
+			}
+		}
+	}
+
+	private List<Integer> collectImplicitLabels(JerboaRuleNode node,
+			List<Integer> implicitIndexes) {
+		List<Integer> implicitLabels = new ArrayList<>();
+		for (Integer index : implicitIndexes) {
+			implicitLabels.add(node.getOrbit().get(index));
+		}
+		return implicitLabels;
 	}
 
 	// NOTE: Draft
@@ -227,14 +276,27 @@ public class NodeOrbit {
 				System.out.println("NodeOrbit: go into custom BFS");
 				int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
 				JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
-				this.alphaPath = customBFS(rule, lNode, rule.getHooks());
+				this.alphaPath =
+						collectLabelsFromSourceToClosestTarget(rule, lNode, rule.getHooks(), null);
 			}
 		else {
+			int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
+			JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
+			JerboaRuleNode hook = findClosestHook(rule, lNode, rule.getHooks());
+
+			List<Integer> implicitPath = new ArrayList<>();
+
 			// - rejouer le chemin à partir de nodeName dans right
-			// - enregistrer les index d'arcs implicites traversés
-			// - aller de nodename vers hook (enregistrer les arcs explicites)
-			// - enregistrer les arcs implicites dans l'ordre des index enregistrés avant
-			// - aller de hook vers nodename en enregistrant les arcs explicites traversés
+			// et enregistrer les index d'arcs implicites traversés
+			initializeUpdatePath(rNode, implicitPath);
+			// - aller de nodename vers hook (enregistrer les arcs explicites) dans left
+			alphaPath = collectLabelsFromSourceToClosestTarget(rule, lNode, rule.getHooks(), hook);
+			// - enregistrer les arcs implicites dans l'ordre des index enregistrés avant et dans
+			// hook
+			alphaPath.addAll(collectImplicitLabels(hook, implicitPath));
+			// - aller de hook vers nodename en enregistrant les arcs explicites traversés dans left
+			alphaPath.addAll(
+					collectLabelsFromSourceToClosestTarget(rule, hook, Arrays.asList(lNode), null));
 		}
 	}
 

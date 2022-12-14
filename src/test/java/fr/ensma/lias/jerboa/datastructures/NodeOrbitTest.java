@@ -81,6 +81,9 @@ public class NodeOrbitTest {
 		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(2));
 		nodeOrbit.computePath(rule, "n1");
 		assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
+		nodeOrbit.computePath(rule, "n1");
+		assertEquals(Arrays.asList(1, 2, 1), nodeOrbit.getAlphaPath());
+
 	}
 
 }

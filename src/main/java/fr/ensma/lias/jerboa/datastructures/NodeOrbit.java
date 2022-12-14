@@ -162,7 +162,8 @@ public class NodeOrbit {
 	}
 
 	// NOTE: Draft —— Process in `rule.left`
-	private List<Integer> customBFS(JerboaRebuiltRule rule, JerboaRuleNode node) {
+	private List<Integer> customBFS(JerboaRebuiltRule rule, JerboaRuleNode node,
+			List<JerboaRuleNode> targets) {
 		List<Integer> pathToCompute = new ArrayList<>();
 		int dimension = rule.getOwner().getDimension();
 		LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
@@ -177,7 +178,7 @@ public class NodeOrbit {
 			// JerboaRuleNode v = queue.pollFirst();
 
 			// if match
-			if (rule.getHooks().contains(p.l())) {
+			if (targets.contains(p.l())) {
 				System.out.println("CustomBFS: hook found ");
 				pathToCompute = p.r();
 				break;
@@ -216,23 +217,26 @@ public class NodeOrbit {
 		int nodeOfInterest = rule.getRightIndexRuleNode(nodeName);
 		JerboaRuleNode rNode = rule.getRightRuleNode(nodeOfInterest);
 
-		if (rule.isNodeCreated(rNode)) {
+		if (this.alphaPath.isEmpty())
+			// if (rule.isNodeCreated(rNode)) {
 			// find hook in `rule.right`
-		} else if (rule.isNodeHook(rNode)) {
-			this.alphaPath = Arrays.asList();
-		} else {
-			System.out.println("NodeOrbit: go into custom BFS");
-			int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
-			JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
-			this.alphaPath = customBFS(rule, lNode);
+			// }
+			if (rule.isNodeHook(rNode)) {
+				this.alphaPath = Arrays.asList();
+			} else {
+				System.out.println("NodeOrbit: go into custom BFS");
+				int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
+				JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
+				this.alphaPath = customBFS(rule, lNode, rule.getHooks());
+			}
+		else {
+			// - rejouer le chemin à partir de nodeName dans right
+			// - enregistrer les index d'arcs implicites traversés
+			// - aller de nodename vers hook (enregistrer les arcs explicites)
+			// - enregistrer les arcs implicites dans l'ordre des index enregistrés avant
+			// - aller de hook vers nodename en enregistrant les arcs explicites traversés
 		}
 	}
-
-	// public List<Integer> computePath(JerboaRuleOperation rule, JerboaRuleNode source,
-	// JerboaRuleNode target) {
-
-	// return null;
-	// }
 
 	@Override
 	public boolean equals(Object obj) {

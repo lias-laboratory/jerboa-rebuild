@@ -47,7 +47,7 @@ public class PIExpression implements JerboaRuleExpression {
                 if (ref == -1) {
                     PI = new PersistentID();
                 } else {
-                    dart = rowPattern.get(rule.getHooks().get(ref).getID());
+                    dart = rowPattern.get(rule.getLeftRuleNode(ref).getID());
                     PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));
                 }
             } else {
@@ -90,15 +90,23 @@ public class PIExpression implements JerboaRuleExpression {
             JerboaRuleNode v = queue.pollFirst();
 
             if (rule.reverseAssoc(v.getID()) != -1) {
+                System.out.println("rulename " + rule.getName() + "\n\tnode " + node.getID()
+                        + "\n\trefnode " + v.getID());
                 return rule.reverseAssoc(v.getID());
             }
 
             for (int index = 0; index <= dimension; index++) {
 
                 if (v.alpha(index) != null) {
+                    System.out.println("rulename " + rule.getName() + "\n\tnode " + node.getID());
                     JerboaRuleNode w = v.alpha(index);
+                    System.out.println("PIExpression: before mark test — node mark is not marked "
+                            + w.isNotMarked());
                     if (w.isNotMarked()) {
                         w.setMark(true);
+                        System.out
+                                .println("PIExpression: after mark test — node mark is not marked "
+                                        + w.isNotMarked());
                         // neighbors.push(w);
                         queue.push(w);
                     }

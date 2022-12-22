@@ -457,7 +457,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
         for (JerboaRuleNode leftRuleNode : leftRuleNodesOrbit) {
             for (JerboaRuleNode rightRuleNode : ruleNodesOrbit) {
-                for (int aLinkIndex = 0; aLinkIndex < orbitType.size(); aLinkIndex++) {
+                for (int aLinkIndex = 0; aLinkIndex < rightRuleNode.getOrbit().size(); aLinkIndex++) {
                     int leftALink = leftRuleNode.getOrbit().get(aLinkIndex);
                     int rightALink = rightRuleNode.getOrbit().get(aLinkIndex);
                     if (orbitType.contains(leftALink) && orbitType.contains(rightALink)

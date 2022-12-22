@@ -90,24 +90,15 @@ public class PIExpression implements JerboaRuleExpression {
             JerboaRuleNode v = queue.pollFirst();
 
             if (rule.reverseAssoc(v.getID()) != -1) {
-                System.out.println("rulename " + rule.getName() + "\n\tnode " + node.getID()
-                        + "\n\trefnode " + v.getID());
                 return rule.reverseAssoc(v.getID());
             }
 
             for (int index = 0; index <= dimension; index++) {
 
                 if (v.alpha(index) != null) {
-                    System.out.println("rulename " + rule.getName() + "\n\tnode " + node.getID());
                     JerboaRuleNode w = v.alpha(index);
-                    System.out.println("PIExpression: before mark test — node mark is not marked "
-                            + w.isNotMarked());
                     if (w.isNotMarked()) {
                         w.setMark(true);
-                        System.out
-                                .println("PIExpression: after mark test — node mark is not marked "
-                                        + w.isNotMarked());
-                        // neighbors.push(w);
                         queue.push(w);
                     }
                 }

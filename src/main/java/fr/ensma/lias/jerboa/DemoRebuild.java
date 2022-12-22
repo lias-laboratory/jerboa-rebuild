@@ -298,9 +298,10 @@ public class DemoRebuild {
 
 		DemoRebuild demo = new DemoRebuild(bridge, //
 				"./exports", //
-				"exemple-pres3", //
+				"pyramid.json", //
 				"./exports", //
-				"exemple-pres3", frame, gmapviewer);
+				"pyramid.json", //
+				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {
 

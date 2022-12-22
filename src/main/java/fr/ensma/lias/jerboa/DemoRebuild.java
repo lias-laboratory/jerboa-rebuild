@@ -297,10 +297,10 @@ public class DemoRebuild {
 		frame.setVisible(true);
 
 		DemoRebuild demo = new DemoRebuild(bridge, //
-				"./examples", //
-				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json",
-				"./examples", //
-				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				"./exports", //
+				"pyramid.json", //
+				"./exports", //
+				"pyramid.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {

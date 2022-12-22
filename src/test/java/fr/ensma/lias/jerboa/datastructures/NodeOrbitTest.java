@@ -2,21 +2,23 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import up.jerboa.core.JerboaOrbit;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
 
 /**
  * NodeOrbitHRTest
  */
-public class NodeOrbitHRTest {
+public class NodeOrbitTest {
 
 	private ModelerGenerated modeler = new ModelerGenerated();
 
-	public NodeOrbitHRTest() throws JerboaException {
+	public NodeOrbitTest() throws JerboaException {
 
 	}
 
@@ -71,6 +73,30 @@ public class NodeOrbitHRTest {
 		assertEquals(expected_list, list);
 
 		// TODO: show equality through children
+	}
+
+	@Test
+	public void test_compute_path_oneNewTwoUpdates() {
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("DeleteEdge");
+		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(2));
+		nodeOrbit.computePath(rule, "n1");
+		assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
+		nodeOrbit.computePath(rule, "n1");
+		assertEquals(Arrays.asList(1, 2, 1), nodeOrbit.getAlphaPath());
+		rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
+		nodeOrbit.computePath(rule, "n0");
+		assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
+		rule = (JerboaRebuiltRule) modeler.getRule("InsertEdge");
+		nodeOrbit.computePath(rule, "n0");
+		assertEquals(Arrays.asList(), nodeOrbit.getAlphaPath());
+	}
+
+	@Test
+	public void test_compute_path_pyramid() {
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("FaceToPyramid");
+		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(0, 1, 3));
+		nodeOrbit.computePath(rule, "n1");
+		assertEquals(Arrays.asList(3), nodeOrbit.getAlphaPath());
 	}
 
 }

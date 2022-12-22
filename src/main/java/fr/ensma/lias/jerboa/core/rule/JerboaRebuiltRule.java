@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import fr.ensma.lias.jerboa.core.JerboaRebuiltModeler;
 import fr.ensma.lias.jerboa.core.rule.expression.PIExpression;
 import fr.ensma.lias.jerboa.datastructures.ApplicationType;
@@ -298,11 +297,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                 && areNodesUnchanged(ruleNodesOrbit, orbitType);
     }
 
-    public boolean isRuleNodesOrbitSplitted(List<JerboaRuleNode> orbit, JerboaOrbit orbitType) {
-        return isRuleNodesOrbitExplicitlySplitted(orbit, orbitType)
-                || isRuleNodesOrbitImplicitlySplitted(orbit, orbitType);
-    }
-
     /**
      * This method checks if two nodes belonging to two different orbits in `right` shared the same
      * orbit in `left`
@@ -380,26 +374,20 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      */
     private boolean hasUntrackedIthLink(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType,
             int[] aLinksArray) {
-
-        // for each rNode
-        for (var rNode : ruleNodesOrbit) {
+        // for each ruleNode
+        for (JerboaRuleNode ruleNode : ruleNodesOrbit) {
             // for each iLink in rNode
-            for (var iLink : rNode.getOrbit()) {
-                // get iLinks' index
-                var iLinkIndex = rNode.getOrbit().indexOf(iLink);
-                // if iLink is not tracked
-                if (!orbitType.contains(iLink)) {
-                    // and current iLink is supposed to be tracked
-                    if (aLinksArray[iLinkIndex] != -1) {
-                        // increment counter for the current ith iLink
-                        aLinksArray[iLinkIndex] += 1;
-                    }
-                    // if a counter in iLinksArray equals the number of rNodes
-                    if (aLinksArray[iLinkIndex] == ruleNodesOrbit.size()) {
-                        // at least one ith iLink is never accessible for the
-                        // current tracker, return false
-                        return true;
-                    }
+            for (int index = 0; index < ruleNode.getOrbit().size(); index++) {
+                // if array index is -1 we do not need to test then continue
+                if (aLinksArray[index] == -1) {
+                    continue;
+                }
+                // if implicit arc at index is not in orbitType increment array value at index
+                if (!orbitType.contains(ruleNode.getOrbit().get(index))) {
+                    aLinksArray[index] += 1;
+                }
+                if (aLinksArray[index] == ruleNodesOrbit.size()) {
+                    return true;
                 }
             }
         }
@@ -436,10 +424,72 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
         // track accessible implicit Links per nodes in leftOrbit
         int[] iLinksArray = new int[nbImplicitLinks];
+
         // compute untracked iLinks in leftOrbit
         initializeImplicitLinksArray(leftRuleNodesOrbit, orbitType, nbImplicitLinks, iLinksArray);
 
         return hasUntrackedIthLink(ruleNodesOrbit, orbitType, iLinksArray);
+    }
+
+    public boolean isRuleNodesOrbitSplitted(List<JerboaRuleNode> orbit, JerboaOrbit orbitType) {
+        return isRuleNodesOrbitExplicitlySplitted(orbit, orbitType)
+                || isRuleNodesOrbitImplicitlySplitted(orbit, orbitType);
+    }
+
+    private boolean isRuleNodesOrbitImplicitlyMerged(List<JerboaRuleNode> ruleNodesOrbit,
+            JerboaOrbit orbitType) {
+
+        // compute a collection of preserved rule nodes
+        List<JerboaRuleNode> preservedRuleNodes = ruleNodesOrbit.stream()
+                .filter((node) -> reverseAssoc(node.getID()) != -1).collect(Collectors.toList());
+
+        // if there is no preserved rule nodes there is no merge possible for this
+        // ruleNodesOrbit
+        if (preservedRuleNodes.isEmpty()) {
+            return false;
+        }
+
+        JerboaRuleNode leftRuleNode =
+                getLeftRuleNode(reverseAssoc(preservedRuleNodes.get(0).getID()));
+        List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, orbitType);
+
+        int nbImplicitLinks = ruleNodesOrbit.get(0).getOrbit().size();
+
+        // track accessible implicit Links per nodes in leftOrbit
+        int[] iLinksArray = new int[nbImplicitLinks];
+
+        // compute untracked iLinks in leftOrbit
+        initializeImplicitLinksArray(ruleNodesOrbit, orbitType, nbImplicitLinks, iLinksArray);
+
+        return hasUntrackedIthLink(leftRuleNodesOrbit, orbitType, iLinksArray);
+    }
+
+    private boolean isRuleNodesOrbitExplicitlyMerged(List<JerboaRuleNode> ruleNodesOrbit,
+            JerboaOrbit orbitType) {
+
+        // compute left rule nodes' orbit from a preserved right rule node
+        List<JerboaRuleNode> leftRuleNodesOrbit = ruleNodesOrbit.stream()
+                .filter((node) -> reverseAssoc(node.getID()) != -1).collect(Collectors.toList());
+
+        // if there is a preserved rule node that belongs to current rule node's
+        // orbit in right and not in left then the orbit is explicitly merged
+        if (!left.isEmpty()) {
+            for (JerboaRuleNode rightRuleNode : right) {
+                if (!isNodeCreated(rightRuleNode) //
+                        && ruleNodesOrbit.contains(rightRuleNode) //
+                        && !leftRuleNodesOrbit
+                                .contains(getLeftRuleNode(reverseAssoc(rightRuleNode.getID())))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isRuleNodesOrbitMerged(List<JerboaRuleNode> orbit, JerboaOrbit orbitType) {
+        return isRuleNodesOrbitExplicitlyMerged(orbit, orbitType)
+                || isRuleNodesOrbitImplicitlyMerged(orbit, orbitType);
     }
 
     public boolean isRuleNodesOrbitModified(List<JerboaRuleNode> ruleNodesOrbit,
@@ -636,6 +686,11 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         // collectUnfilteredALinks(aLinkSet, ruleNodesOrbit, orbitType);
         // collectPreservedExplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
         return JerboaOrbit.orbit(aLinkSet);
+    }
+
+    // node is a right node
+    public boolean isNodeHook(JerboaRuleNode node) {
+        return getHooks().contains(left.get(reverseAssoc(node.getID())));
     }
 
 }

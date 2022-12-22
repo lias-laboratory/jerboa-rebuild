@@ -86,6 +86,17 @@ public class NodeOrbitTest {
 		rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
 		nodeOrbit.computePath(rule, "n0");
 		assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
+		rule = (JerboaRebuiltRule) modeler.getRule("InsertEdge");
+		nodeOrbit.computePath(rule, "n0");
+		assertEquals(Arrays.asList(), nodeOrbit.getAlphaPath());
+	}
+
+	@Test
+	public void test_compute_path_pyramid() {
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("FaceToPyramid");
+		NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(0, 1, 3));
+		nodeOrbit.computePath(rule, "n1");
+		assertEquals(Arrays.asList(3), nodeOrbit.getAlphaPath());
 	}
 
 }

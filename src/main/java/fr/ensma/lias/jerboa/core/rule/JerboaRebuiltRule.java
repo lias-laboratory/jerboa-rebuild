@@ -467,13 +467,26 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     private boolean isRuleNodesOrbitExplicitlyMerged(List<JerboaRuleNode> ruleNodesOrbit,
             JerboaOrbit orbitType) {
 
+
         // compute left rule nodes' orbit from a preserved right rule node
-        List<JerboaRuleNode> leftRuleNodesOrbit = ruleNodesOrbit.stream()
-                .filter((node) -> reverseAssoc(node.getID()) != -1).collect(Collectors.toList());
+
+        // ruleNodesOrbit.stream().filter((node) -> reverseAssoc(node.getID()) != -1)
+        // .collect(Collectors.toList());
 
         // if there is a preserved rule node that belongs to current rule node's
         // orbit in right and not in left then the orbit is explicitly merged
         if (!left.isEmpty()) {
+
+            List<JerboaRuleNode> leftRuleNodesOrbit = new ArrayList<>();
+            for (JerboaRuleNode node : ruleNodesOrbit) {
+                if (!isNodeCreated(node)) {
+                    leftRuleNodesOrbit = JerboaRuleNode
+                            .orbit(getLeftRuleNode(reverseAssoc(node.getID())), orbitType);
+                    break;
+                }
+            }
+            System.out.println("leftRuleNodesOrbit: " + leftRuleNodesOrbit);
+
             for (JerboaRuleNode rightRuleNode : right) {
                 if (!isNodeCreated(rightRuleNode) //
                         && ruleNodesOrbit.contains(rightRuleNode) //

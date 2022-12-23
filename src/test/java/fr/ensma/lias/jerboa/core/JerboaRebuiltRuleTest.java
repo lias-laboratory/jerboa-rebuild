@@ -229,4 +229,14 @@ public class JerboaRebuiltRuleTest {
 		assertTrue(rule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType));
 	}
 
+	@Test
+	public void test_detectMergeEvent_SewA3() {
+		//
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("SewA3");
+		JerboaOrbit orbitType = JerboaOrbit.orbit(0, 1, 3);
+		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n1"));
+		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+		assertTrue(rule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType));
+	}
+
 }

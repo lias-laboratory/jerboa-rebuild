@@ -307,16 +307,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     private boolean isRuleNodesOrbitExplicitlySplitted(List<JerboaRuleNode> ruleNodesOrbit,
             JerboaOrbit orbitType) {
 
-        // return left.stream()
-        // .filter((node) -> kept[node.getID()] == 1
-        // && getLeftRuleNodesOrbit(ruleNodesOrbit.get(0), orbitType).contains(node))
-        // .anyMatch(
-        // (node) -> !ruleNodesOrbit.contains(getRightRuleNodeFromLeftRuleNode(node)));
-
-        // compute left rule nodes' orbit from a preserved right rule node
-        // List<JerboaRuleNode> leftRuleNodesOrbit = ruleNodesOrbit.stream()
-        // .filter((node) -> reverseAssoc(node.getID()) != -1).collect(Collectors.toList());
-
         // if there is a preserved rule node that belongs to current rule node's
         // orbit in left and not in right then the orbit is explicitly splitted
         if (!left.isEmpty() && !right.isEmpty()) {

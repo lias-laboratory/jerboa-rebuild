@@ -314,12 +314,22 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         // (node) -> !ruleNodesOrbit.contains(getRightRuleNodeFromLeftRuleNode(node)));
 
         // compute left rule nodes' orbit from a preserved right rule node
-        List<JerboaRuleNode> leftRuleNodesOrbit = ruleNodesOrbit.stream()
-                .filter((node) -> reverseAssoc(node.getID()) != -1).collect(Collectors.toList());
+        // List<JerboaRuleNode> leftRuleNodesOrbit = ruleNodesOrbit.stream()
+        // .filter((node) -> reverseAssoc(node.getID()) != -1).collect(Collectors.toList());
 
         // if there is a preserved rule node that belongs to current rule node's
         // orbit in left and not in right then the orbit is explicitly splitted
-        if (!leftRuleNodesOrbit.isEmpty()) {
+        if (!left.isEmpty() && !right.isEmpty()) {
+
+            List<JerboaRuleNode> leftRuleNodesOrbit = new ArrayList<>();
+            for (JerboaRuleNode node : ruleNodesOrbit) {
+                if (!isNodeCreated(node)) {
+                    leftRuleNodesOrbit = JerboaRuleNode
+                            .orbit(getLeftRuleNode(reverseAssoc(node.getID())), orbitType);
+                    break;
+                }
+            }
+
             for (JerboaRuleNode leftRuleNode : left) {
                 if (getRightIndexRuleNode(leftRuleNode.getName()) != -1
                         && leftRuleNodesOrbit.contains(leftRuleNode) && !ruleNodesOrbit
@@ -475,7 +485,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
         // if there is a preserved rule node that belongs to current rule node's
         // orbit in right and not in left then the orbit is explicitly merged
-        if (!left.isEmpty()) {
+        if (!left.isEmpty() && !right.isEmpty()) {
 
             List<JerboaRuleNode> leftRuleNodesOrbit = new ArrayList<>();
             for (JerboaRuleNode node : ruleNodesOrbit) {

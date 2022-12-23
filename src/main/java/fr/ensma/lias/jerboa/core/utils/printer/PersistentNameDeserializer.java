@@ -45,8 +45,12 @@ public class PersistentNameDeserializer implements JsonDeserializer<PersistentNa
 		String orbitTypeString = jObject.get("orbitType").getAsString();
 		String[] orbitTypesStrings =
 				orbitTypeString.replaceAll("\\(", "").replaceAll("\\)", "").split("\\s*,\\s*");
+
 		List<Integer> orbitType = new ArrayList<>();
 		for (int i = 0; i < orbitTypesStrings.length; i++) {
+			if (orbitTypesStrings[i].compareTo("") == 0) {
+				break;
+			}
 			orbitType.add(Integer.valueOf(orbitTypesStrings[i]));
 		}
 		PN.setOrbitType(JerboaOrbit.orbit(orbitType));

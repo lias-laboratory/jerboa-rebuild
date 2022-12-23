@@ -42,7 +42,7 @@ public class PIExpression implements JerboaRuleExpression {
              */
             if (nodeReverseID == -1) {
                 /* ref is a hook IF hook still exists */
-                int ref = getNodeReferenceID(rebuiltRule, node);
+                int ref = rebuiltRule.findClosestPreservedNode(node);
                 /* if ref is not null then an oldPI is expected */
                 if (ref == -1) {
                     PI = new PersistentID();
@@ -81,36 +81,36 @@ public class PIExpression implements JerboaRuleExpression {
      * @return (Left) ID of closest preserved neighbor node or attached hook else -1 (pure creation
      * rule)
      */
-    private int getNodeReferenceID(JerboaRebuiltRule rule, JerboaRuleNode node) {
-        int dimension = rule.getOwner().getDimension();
-        LinkedList<JerboaRuleNode> queue = new LinkedList<>();
-        queue.push(node);
+    // public int findClosestPreservedNode(JerboaRebuiltRule rule, JerboaRuleNode node) {
+    // int dimension = rule.getOwner().getDimension();
+    // LinkedList<JerboaRuleNode> queue = new LinkedList<>();
+    // queue.push(node);
 
-        while (!queue.isEmpty()) {
-            JerboaRuleNode v = queue.pollFirst();
+    // while (!queue.isEmpty()) {
+    // JerboaRuleNode v = queue.pollFirst();
 
-            if (rule.reverseAssoc(v.getID()) != -1) {
-                return rule.reverseAssoc(v.getID());
-            }
+    // if (rule.reverseAssoc(v.getID()) != -1) {
+    // return rule.reverseAssoc(v.getID());
+    // }
 
-            for (int index = 0; index <= dimension; index++) {
+    // for (int index = 0; index <= dimension; index++) {
 
-                if (v.alpha(index) != null) {
-                    JerboaRuleNode w = v.alpha(index);
-                    if (w.isNotMarked()) {
-                        w.setMark(true);
-                        queue.push(w);
-                    }
-                }
-            }
-        }
+    // if (v.alpha(index) != null) {
+    // JerboaRuleNode w = v.alpha(index);
+    // if (w.isNotMarked()) {
+    // w.setMark(true);
+    // queue.push(w);
+    // }
+    // }
+    // }
+    // }
 
-        for (JerboaRuleNode n : rule.getRight()) {
-            if (!n.isNotMarked())
-                n.setMark(false);;
-        }
-        return rule.attachedNode(node.getID());
-    }
+    // for (JerboaRuleNode n : rule.getRight()) {
+    // if (!n.isNotMarked())
+    // n.setMark(false);;
+    // }
+    // return rule.attachedNode(node.getID());
+    // }
 
     /*
      * Replace nodes from rule's Right member with those from Left member if they do exist

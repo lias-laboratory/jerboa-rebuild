@@ -142,6 +142,93 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     }
 
     /**
+     * BFS to get closest hook in `left` from a given node
+     *
+     * @param node a given {@link JerboaRuleNode}
+     * @param targets a list of {@link JerboaRuleNode} hooks
+     * @return target a JerboaRuleNode hook
+     */
+    public JerboaRuleNode findClosestHook(JerboaRuleNode node, List<JerboaRuleNode> targets) {
+        JerboaRuleNode target = null;
+        int dimension = getOwner().getDimension();
+        LinkedList<JerboaRuleNode> queue = new LinkedList<>();
+        queue.push(node);
+
+        while (!queue.isEmpty()) {
+            JerboaRuleNode v = queue.pollFirst();
+
+            if (targets.contains(v)) {
+                target = v;
+                break;
+            }
+
+            for (int index = 0; index <= dimension; index++) {
+
+                if (v.alpha(index) != null) {
+                    JerboaRuleNode w = v.alpha(index);
+
+                    if (w.isNotMarked()) {
+                        w.setMark(true);
+                        queue.push(w);
+                    }
+                }
+            }
+        }
+
+        for (JerboaRuleNode n : getLeft()) {
+            if (!n.isNotMarked())
+                n.setMark(false);;
+        }
+
+        if (target == null) {
+            target = targets.get(0);
+        }
+
+        return target;
+    }
+
+    /*
+     * Breadth first search, find a closest target neighbor
+     *
+     * @param rule JerboaOperationRule -> current rule
+     *
+     * @param node added (in Right) node to which we research the reference node's PI
+     *
+     * @return (Left) ID of closest preserved neighbor node or attached hook else -1 (pure creation
+     * rule)
+     */
+    public int findClosestPreservedNode(JerboaRuleNode node) {
+        int dimension = getOwner().getDimension();
+        LinkedList<JerboaRuleNode> queue = new LinkedList<>();
+        queue.push(node);
+
+        while (!queue.isEmpty()) {
+            JerboaRuleNode v = queue.pollFirst();
+
+            if (reverseAssoc(v.getID()) != -1) {
+                return reverseAssoc(v.getID());
+            }
+
+            for (int index = 0; index <= dimension; index++) {
+
+                if (v.alpha(index) != null) {
+                    JerboaRuleNode w = v.alpha(index);
+                    if (w.isNotMarked()) {
+                        w.setMark(true);
+                        queue.push(w);
+                    }
+                }
+            }
+        }
+
+        for (JerboaRuleNode n : getRight()) {
+            if (!n.isNotMarked())
+                n.setMark(false);;
+        }
+        return attachedNode(node.getID());
+    }
+
+    /**
      * Check if all nodes in a given list of Right nodes are created
      *
      * @param nodeOrbit a list of Right nodes
@@ -486,7 +573,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
                     break;
                 }
             }
-            System.out.println("leftRuleNodesOrbit: " + leftRuleNodesOrbit);
 
             for (JerboaRuleNode rightRuleNode : right) {
                 if (!isNodeCreated(rightRuleNode) //
@@ -687,11 +773,27 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      * @return origin's orbit type
      */
     public JerboaOrbit computeBBOrigin(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType) {
-        int hookIndex = attachedNode(ruleNodesOrbit.get(0).getID());
-        if (hookIndex == -1) {
+
+        System.out.println("computeBBOrigin: this rule : " + name);
+        if (left.isEmpty()) {
             return JerboaOrbit.orbit();
         }
-        JerboaRuleNode hookNode = getLeftRuleNode(hookIndex);
+
+        JerboaRuleNode hookNode;
+
+        if (getHooks().size() == 1) {
+            hookNode = getHooks().get(0);
+        } else {
+            int nodeOfInterest = findClosestPreservedNode(ruleNodesOrbit.get(0));
+            if (nodeOfInterest != -1) {
+                int leftNodeOfInterest = reverseAssoc(nodeOfInterest);
+
+                JerboaRuleNode lNode = getLeftRuleNode(leftNodeOfInterest);
+                hookNode = findClosestHook(lNode, getHooks());
+            }
+            hookNode = getHooks().get(0);
+        }
+
         // List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(hookNode, orbitType);
         HashSet<Integer> aLinkSet = new HashSet<>();
         // collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);

@@ -139,29 +139,34 @@ public class NodeOrbit {
 			return nextStepOrbitHRs;
 		}
 		/* // SPLIT CASE ///////////////////////////////////////////////////// */
-		else if (rebuiltRule.isRuleNodesOrbitSplitted(ruleNodesOrbit, this.orbit)) {
+		else if (rebuiltRule.isRuleNodesOrbitSplitted(ruleNodesOrbit, this.orbit)
+				|| rebuiltRule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType)) {
 			//
-			NodeEvent splitEvent = new NodeEvent(Event.SPLIT, this);
-			levelEvent.addEvent(splitEvent);
-			NodeOrbit previousOrbitHR =
-					new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
-			previousOrbitHR.computePath(rebuiltRule, nodeName);
-			previousOrbitHR.addChild(new Link(LinkType.ORIGIN, splitEvent));
-			addNodes(previousOrbitHR, nextStepOrbitHRs);
-			previousOrbitHR = new NodeOrbit(orbitType);
-			previousOrbitHR.addChild(new Link(LinkType.TRACE, splitEvent));
-			addNodes(previousOrbitHR, nextStepOrbitHRs);
-		} else if (rebuiltRule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType)) {
-			NodeEvent mergeEvent = new NodeEvent(Event.MERGE, this);
-			levelEvent.addEvent(mergeEvent);
-			NodeOrbit previousOrbitHR =
-					new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
-			previousOrbitHR.computePath(rebuiltRule, nodeName);
-			previousOrbitHR.addChild(new Link(LinkType.ORIGIN, mergeEvent));
-			addNodes(previousOrbitHR, nextStepOrbitHRs);
-			previousOrbitHR = new NodeOrbit(orbitType);
-			previousOrbitHR.addChild(new Link(LinkType.TRACE, mergeEvent));
-			addNodes(previousOrbitHR, nextStepOrbitHRs);
+			if (rebuiltRule.isRuleNodesOrbitSplitted(ruleNodesOrbit, this.orbit)) {
+				NodeEvent splitEvent = new NodeEvent(Event.SPLIT, this);
+				levelEvent.addEvent(splitEvent);
+				NodeOrbit previousOrbitHR =
+						new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
+				previousOrbitHR.computePath(rebuiltRule, nodeName);
+				previousOrbitHR.addChild(new Link(LinkType.ORIGIN, splitEvent));
+				addNodes(previousOrbitHR, nextStepOrbitHRs);
+				previousOrbitHR = new NodeOrbit(orbitType);
+				previousOrbitHR.addChild(new Link(LinkType.TRACE, splitEvent));
+				addNodes(previousOrbitHR, nextStepOrbitHRs);
+			}
+			if (rebuiltRule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType)) {
+				NodeEvent mergeEvent = new NodeEvent(Event.MERGE, this);
+				levelEvent.addEvent(mergeEvent);
+				NodeOrbit previousOrbitHR =
+						new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
+				previousOrbitHR.computePath(rebuiltRule, nodeName);
+				previousOrbitHR.addChild(new Link(LinkType.ORIGIN, mergeEvent));
+				addNodes(previousOrbitHR, nextStepOrbitHRs);
+				previousOrbitHR = new NodeOrbit(orbitType);
+				previousOrbitHR.addChild(new Link(LinkType.TRACE, mergeEvent));
+				addNodes(previousOrbitHR, nextStepOrbitHRs);
+			}
+			return nextStepOrbitHRs;
 		}
 		/* // MODIFIED CASE ///////////////////////////////////////////// */
 		else if (rebuiltRule.isRuleNodesOrbitModified(ruleNodesOrbit, orbitType)) {
@@ -174,41 +179,6 @@ public class NodeOrbit {
 			return nextStepOrbitHRs;
 		}
 		return nextStepOrbitHRs;
-	}
-
-	private JerboaRuleNode findClosestHook(JerboaRebuiltRule rule, JerboaRuleNode node,
-			List<JerboaRuleNode> targets) {
-		JerboaRuleNode target = null;
-		int dimension = rule.getOwner().getDimension();
-		LinkedList<JerboaRuleNode> queue = new LinkedList<>();
-		queue.push(node);
-
-		while (!queue.isEmpty()) {
-			JerboaRuleNode v = queue.pollFirst();
-
-			if (targets.contains(v)) {
-				target = v;
-				break;
-			}
-
-			for (int index = 0; index <= dimension; index++) {
-
-				if (v.alpha(index) != null) {
-					JerboaRuleNode w = v.alpha(index);
-
-					if (w.isNotMarked()) {
-						w.setMark(true);
-						queue.push(w);
-					}
-				}
-			}
-		}
-
-		for (JerboaRuleNode n : rule.getLeft()) {
-			if (!n.isNotMarked())
-				n.setMark(false);;
-		}
-		return target;
 	}
 
 	private List<Integer> collectLabelsFromSourceToClosestTarget(JerboaRebuiltRule rule,
@@ -296,7 +266,10 @@ public class NodeOrbit {
 		else {
 			int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
 			JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
-			JerboaRuleNode hook = findClosestHook(rule, lNode, rule.getHooks());
+			JerboaRuleNode hook = rule.findClosestHook(lNode, rule.getHooks());
+			if (hook == null) {
+				hook = rule.getHooks().get(0);
+			}
 
 			List<Integer> implicitPath = new ArrayList<>();
 			List<Integer> path = new ArrayList<>();

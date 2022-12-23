@@ -22,9 +22,12 @@ def computeEvent(appNumber, event, eventsChild):
     return [str(appNumber) + event["event"] + str(eventsChild["dim"]), event["event"]]
 
 
-def computeOrbit(appNumber, dartID, orbit):
+def computeOrbit(appNumber, dartID, path, orbit):
     """Create a name and id for an orbit node."""
-    return [str(appNumber) + str(dartID) + str(orbit["dim"]), str(orbit["dim"])]
+    return [
+        str(appNumber) + str(dartID) + str(orbit["dim"]),
+        str(path) + "·" + str(orbit["dim"]),
+    ]
 
 
 def createEventNode(graph, appNumber, event, child):
@@ -34,9 +37,9 @@ def createEventNode(graph, appNumber, event, child):
     return gEventName
 
 
-def createOrbitNode(graph, appNumber, dartID, keyValue):
+def createOrbitNode(graph, appNumber, dartID, path, keyValue):
     """Wrapping method for `graph.node()` to create an orbit node."""
-    gOrbitName, orbitStr = computeOrbit(appNumber, dartID, keyValue)
+    gOrbitName, orbitStr = computeOrbit(appNumber, dartID, path, keyValue)
     graph.node(gOrbitName, orbitStr)
     return gOrbitName
 
@@ -67,7 +70,11 @@ def drawLevel(level, graph):
                 graph, appNumber, event, event["child"]["orbit"]
             )
             gOrbitName = createOrbitNode(
-                graph, appNumber, dartID, event["child"]["orbit"]
+                graph,
+                appNumber,
+                dartID,
+                event["child"]["alphaPath"],
+                event["child"]["orbit"],
             )
             eventCluster.node(gEventName)
             drawEdge(graph, gEventName, gOrbitName, event["event"])
@@ -82,7 +89,9 @@ def drawLevel(level, graph):
             str(appNumber) + str(dartID), str(dartID), style="filled", color="lightblue"
         )
         for orbit in currentLevel["nextLevelOrbit"]["orbitList"]:
-            gOrbitName = createOrbitNode(graph, appNumber, dartID, orbit["orbit"])
+            gOrbitName = createOrbitNode(
+                graph, appNumber, dartID, orbit["alphaPath"], orbit["orbit"]
+            )
             orbitCluster.node(gOrbitName)
             for event in orbit["children"]:
                 gEventName = createEventNode(

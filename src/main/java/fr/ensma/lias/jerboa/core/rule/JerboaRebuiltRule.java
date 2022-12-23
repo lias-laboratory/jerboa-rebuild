@@ -302,7 +302,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      * orbit in `left`
      *
      * @param ruleNodesOrbit an orbit in `right`
-     * @param orbitType an embedding such as {vertex,half-face} tracker
+     * @param orbitType
      */
     private boolean isRuleNodesOrbitExplicitlySplitted(List<JerboaRuleNode> ruleNodesOrbit,
             JerboaOrbit orbitType) {
@@ -464,14 +464,15 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return hasUntrackedIthLink(leftRuleNodesOrbit, orbitType, iLinksArray);
     }
 
+    /**
+     * This method checks if two nodes belonging to the same orbit in `right` belonged to at least
+     * two separate orbits in `left`
+     *
+     * @param ruleNodesOrbit an orbit in `right`
+     * @param orbitType
+     */
     private boolean isRuleNodesOrbitExplicitlyMerged(List<JerboaRuleNode> ruleNodesOrbit,
             JerboaOrbit orbitType) {
-
-
-        // compute left rule nodes' orbit from a preserved right rule node
-
-        // ruleNodesOrbit.stream().filter((node) -> reverseAssoc(node.getID()) != -1)
-        // .collect(Collectors.toList());
 
         // if there is a preserved rule node that belongs to current rule node's
         // orbit in right and not in left then the orbit is explicitly merged

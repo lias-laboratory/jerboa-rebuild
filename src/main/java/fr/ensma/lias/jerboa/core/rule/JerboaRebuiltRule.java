@@ -715,6 +715,8 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return getRightRuleNode(nodeIndex);
     }
 
+    // TODO split absorbs merge when there is both split and merge for same
+    // parameters in rule --> to fix
     public Event getRuleNodesOrbitEvent(List<JerboaRuleNode> ruleNodesOrbit,
             JerboaOrbit orbitType) {
         if (isRuleNodesOrbitCreated(ruleNodesOrbit)) {
@@ -723,6 +725,8 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
             return Event.NOMODIF;
         } else if (isRuleNodesOrbitSplitted(ruleNodesOrbit, orbitType)) {
             return Event.SPLIT;
+        } else if (isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType)) {
+            return Event.MERGE;
         } else if (isRuleNodesOrbitModified(ruleNodesOrbit, orbitType)) {
             return Event.MODIFICATION;
         }
@@ -774,7 +778,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      */
     public JerboaOrbit computeBBOrigin(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType) {
 
-        System.out.println("computeBBOrigin: this rule : " + name);
         if (left.isEmpty()) {
             return JerboaOrbit.orbit();
         }

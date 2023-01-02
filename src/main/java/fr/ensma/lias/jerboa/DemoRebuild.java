@@ -297,10 +297,14 @@ public class DemoRebuild {
 		frame.setVisible(true);
 
 		DemoRebuild demo = new DemoRebuild(bridge, //
-				"./exports", //
-				"pyramid.json", //
-				"./exports", //
-				"pyramid.json", //
+				// "./exports", //
+				// "pyramid.json", //
+				// "./exports", //
+				// "pyramid.json", //
+				"./examples", //
+				"spec_penta-split-triangulate-two-deleteedge.json", //
+				"./examples", //
+				"spec_penta-split-triangulate-two-deleteedge.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {

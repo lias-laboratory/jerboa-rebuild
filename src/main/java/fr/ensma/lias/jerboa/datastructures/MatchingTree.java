@@ -51,7 +51,6 @@ public class MatchingTree {
 				String nodeName = levelEventHR.getNextLevelOrbit().getNodeName();
 				boolean ISNOEFFECT = false;
 
-
 				if (nodeName == "ø") {
 					ISNOEFFECT = true;
 				}

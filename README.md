@@ -54,7 +54,7 @@ $ mvn install:install-file -Dfile=JerboaModelerTransmitter_05102021.jar -DgroupI
 
 ### LIAS repository manager
 
-**Note: this approach requires your computer is connected to the ISAE-ENSMA LAN network.**
+**Note: this approach requires the computer to be connected to the ISAE-ENSMA LAN network.**
 
 * Edit the _settings.xml_ file (located to Maven installation directory) and
   replace by this content

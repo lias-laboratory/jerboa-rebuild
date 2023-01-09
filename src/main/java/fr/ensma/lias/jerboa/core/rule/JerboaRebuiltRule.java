@@ -1,6 +1,7 @@
 package fr.ensma.lias.jerboa.core.rule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
+import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaException;
 
 public class JerboaRebuiltRule extends JerboaRuleGenerated {
@@ -185,6 +187,50 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         }
 
         return target;
+    }
+
+    public List<Integer> collectLabelsFromSourceToClosestTarget(JerboaRuleNode node,
+            List<JerboaRuleNode> targets, JerboaRuleNode hook) {
+        List<Integer> pathToCompute = new ArrayList<>();
+        int dimension = getOwner().getDimension();
+        LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
+        queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, Arrays.asList()));
+
+        while (!queue.isEmpty()) {
+            Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
+            // JerboaRuleNode v = queue.pollFirst();
+
+            // if match
+            if (targets.contains(p.l())) {
+                pathToCompute = p.r();
+                if (hook == null)
+                    hook = p.l();
+                break;
+            }
+
+            for (int index = 0; index <= dimension; index++) {
+
+                if (p.l().alpha(index) != null) {
+                    JerboaRuleNode w = p.l().alpha(index);
+                    List<Integer> path = new ArrayList<Integer>(p.r());
+                    path.add(index);
+
+                    Pair<JerboaRuleNode, List<Integer>> q =
+                            new Pair<JerboaRuleNode, List<Integer>>(w, path);
+                    if (w.isNotMarked()) {
+                        w.setMark(true);
+                        // neighbors.push(w);
+                        queue.push(q);
+                    }
+                }
+            }
+        }
+
+        for (JerboaRuleNode n : getLeft()) {
+            if (!n.isNotMarked())
+                n.setMark(false);;
+        }
+        return pathToCompute;
     }
 
     /*
@@ -731,6 +777,31 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
             return Event.MODIFICATION;
         }
         return Event.NOEFFECT;
+    }
+
+    public List<Event> getRuleNodesOrbitEvents(List<JerboaRuleNode> ruleNodesOrbit,
+            JerboaOrbit orbitType) {
+        List<Event> events = new ArrayList<>();
+
+        if (isRuleNodesOrbitCreated(ruleNodesOrbit)) {
+            events.add(Event.CREATION);
+        }
+        if (isRuleNodesOrbitUnchanged(ruleNodesOrbit, orbitType)) {
+            events.add(Event.NOMODIF);
+        }
+        if (isRuleNodesOrbitSplitted(ruleNodesOrbit, orbitType)) {
+            events.add(Event.SPLIT);
+        }
+        if (isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType)) {
+            events.add(Event.MERGE);
+        }
+        if (isRuleNodesOrbitModified(ruleNodesOrbit, orbitType)) {
+            events.add(Event.MODIFICATION);
+        }
+        if (events.isEmpty()) {
+            events.add(Event.NOEFFECT);
+        }
+        return events;
     }
 
     /**

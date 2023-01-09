@@ -181,49 +181,49 @@ public class NodeOrbit {
 		return nextStepOrbitHRs;
 	}
 
-	private List<Integer> collectLabelsFromSourceToClosestTarget(JerboaRebuiltRule rule,
-			JerboaRuleNode node, List<JerboaRuleNode> targets, JerboaRuleNode hook) {
-		List<Integer> pathToCompute = new ArrayList<>();
-		int dimension = rule.getOwner().getDimension();
-		LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
-		queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, Arrays.asList()));
+	// private List<Integer> collectLabelsFromSourceToClosestTarget(JerboaRebuiltRule rule,
+	// JerboaRuleNode node, List<JerboaRuleNode> targets, JerboaRuleNode hook) {
+	// List<Integer> pathToCompute = new ArrayList<>();
+	// int dimension = rule.getOwner().getDimension();
+	// LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
+	// queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, Arrays.asList()));
 
-		while (!queue.isEmpty()) {
-			Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
-			// JerboaRuleNode v = queue.pollFirst();
+	// while (!queue.isEmpty()) {
+	// Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
+	// // JerboaRuleNode v = queue.pollFirst();
 
-			// if match
-			if (targets.contains(p.l())) {
-				pathToCompute = p.r();
-				if (hook == null)
-					hook = p.l();
-				break;
-			}
+	// // if match
+	// if (targets.contains(p.l())) {
+	// pathToCompute = p.r();
+	// if (hook == null)
+	// hook = p.l();
+	// break;
+	// }
 
-			for (int index = 0; index <= dimension; index++) {
+	// for (int index = 0; index <= dimension; index++) {
 
-				if (p.l().alpha(index) != null) {
-					JerboaRuleNode w = p.l().alpha(index);
-					List<Integer> path = new ArrayList<Integer>(p.r());
-					path.add(index);
+	// if (p.l().alpha(index) != null) {
+	// JerboaRuleNode w = p.l().alpha(index);
+	// List<Integer> path = new ArrayList<Integer>(p.r());
+	// path.add(index);
 
-					Pair<JerboaRuleNode, List<Integer>> q =
-							new Pair<JerboaRuleNode, List<Integer>>(w, path);
-					if (w.isNotMarked()) {
-						w.setMark(true);
-						// neighbors.push(w);
-						queue.push(q);
-					}
-				}
-			}
-		}
+	// Pair<JerboaRuleNode, List<Integer>> q =
+	// new Pair<JerboaRuleNode, List<Integer>>(w, path);
+	// if (w.isNotMarked()) {
+	// w.setMark(true);
+	// // neighbors.push(w);
+	// queue.push(q);
+	// }
+	// }
+	// }
+	// }
 
-		for (JerboaRuleNode n : rule.getLeft()) {
-			if (!n.isNotMarked())
-				n.setMark(false);;
-		}
-		return pathToCompute;
-	}
+	// for (JerboaRuleNode n : rule.getLeft()) {
+	// if (!n.isNotMarked())
+	// n.setMark(false);;
+	// }
+	// return pathToCompute;
+	// }
 
 	private void initializeUpdatePath(JerboaRuleNode sourceNode,
 			List<Integer> implicitLinksIndexes) {
@@ -261,7 +261,7 @@ public class NodeOrbit {
 				int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
 				JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
 				this.alphaPath =
-						collectLabelsFromSourceToClosestTarget(rule, lNode, rule.getHooks(), null);
+						rule.collectLabelsFromSourceToClosestTarget(lNode, rule.getHooks(), null);
 			}
 		else {
 			int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
@@ -279,13 +279,13 @@ public class NodeOrbit {
 			initializeUpdatePath(rNode, implicitPath);
 			alphaPath = new ArrayList<>();
 			// - aller de nodename vers hook (enregistrer les arcs explicites) dans left
-			path = collectLabelsFromSourceToClosestTarget(rule, lNode, rule.getHooks(), hook);
+			path = rule.collectLabelsFromSourceToClosestTarget(lNode, rule.getHooks(), hook);
 			alphaPath.addAll(path);
 			// - enregistrer les arcs implicites dans l'ordre des index enregistrés avant et dans
 			// hook
 			collectImplicitLabels(hook, implicitPath);
 			// - aller de hook vers nodename en enregistrant les arcs explicites traversés dans left
-			path = collectLabelsFromSourceToClosestTarget(rule, hook, Arrays.asList(lNode), null);
+			path = rule.collectLabelsFromSourceToClosestTarget(hook, Arrays.asList(lNode), null);
 			alphaPath.addAll(path);
 		}
 	}

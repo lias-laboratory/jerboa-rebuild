@@ -225,7 +225,7 @@ public class DemoRebuild {
 
 				MatchingTree mt = matchingTrees.get(index);
 
-				mt.addLevel(levelEventHR, application, appResult);
+				mt.addLevel(levelEventHR, application, appResult, null);
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
+import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.datastructures.Application;
@@ -26,6 +27,7 @@ import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
 
 /**
@@ -160,6 +162,7 @@ public class DemoInstantRebuild {
 
 			Application application = editedApplications.get(applicationIndex);
 			int nbPNs = application.getPersistentNames().size();
+			JerboaDart controlDart = null;
 
 			topoParameters = new ArrayList<>();
 
@@ -168,6 +171,23 @@ public class DemoInstantRebuild {
 						collectTopologicalParameters(topoParameters, matchingTrees, nbPNs, counter);
 			} else {
 				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
+
+				// REVIEW: this is a workaround to get an effective distinction
+				// between NOEFFECT and MERGE with added rules
+				JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
+				JerboaRuleNode hook = rule.getHooks().get(0);
+				int controlNodeIndex = rule.findClosestPreservedNode(hook);
+				JerboaRuleNode controlNode = rule.getLeftRuleNode(controlNodeIndex);
+
+				List<Integer> pathFromRootToControl = rule.collectLabelsFromSourceToClosestTarget(
+						hook, Arrays.asList(controlNode), null);
+
+				System.out
+						.println("DEMO: path from root to control node : " + pathFromRootToControl);
+				for (Integer label : pathFromRootToControl) {
+					controlDart = topoParameters.get(0).get(0).alpha(label);
+				}
+
 			}
 
 			try {
@@ -177,7 +197,8 @@ public class DemoInstantRebuild {
 				e.printStackTrace();
 			}
 
-			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees);
+			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees,
+					controlDart);
 
 		}
 
@@ -194,7 +215,8 @@ public class DemoInstantRebuild {
 	 * @param matchingTrees
 	 */
 	private void computeMatchingTreeLevel(Application application, JerboaRuleResult appResult,
-			List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees) {
+			List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
+			JerboaDart controlDart) {
 
 		for (int index = 0; index < historyRecords.size(); index++) {
 
@@ -212,7 +234,7 @@ public class DemoInstantRebuild {
 
 				MatchingTree mt = matchingTrees.get(index);
 
-				mt.addLevel(levelEventHR, application, appResult);
+				mt.addLevel(levelEventHR, application, appResult, controlDart);
 			}
 		}
 	}
@@ -286,12 +308,16 @@ public class DemoInstantRebuild {
 		DemoInstantRebuild demo = new DemoInstantRebuild(bridge, //
 				// "./exports", //
 				// "pyramid.json", //
+				// "merge-exple-part1.json", //
 				// "./exports", //
 				// "pyramid.json", //
+				// "merge-exple-part2.json", //
 				"./examples", //
-				"spec_penta-split-triangulate-two-deleteedge.json", //
+				// "spec_penta-split-triangulate-two-deleteedge.json", //
+				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
 				"./examples", //
-				"spec_penta-split-triangulate-two-deleteedge.json", //
+				// "spec_penta-split-triangulate-two-deleteedge.json", //
+				"rebuild-add-vertex.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {

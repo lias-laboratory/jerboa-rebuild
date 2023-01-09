@@ -39,7 +39,7 @@ public class MatchingTree {
 	 * @param appResult
 	 */
 	public void addLevel(LevelEventHR levelEventHR, Application application,
-			JerboaRuleResult appResult) {
+			JerboaRuleResult appResult, JerboaDart controlDart) {
 
 		LevelEventMT newLevelEventMT = new LevelEventMT();
 		JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
@@ -64,10 +64,12 @@ public class MatchingTree {
 				break;
 
 			case ADD:
+				// REVIEW: check that distinction between NOEFFECT and MERGE does work
 				// Look for a node which filters the current topological parameter
 				int nodeIndex = -1;
 				for (int i = 0; i < appResult.sizeCol(); i++) {
-					if (appResult.get(i).contains(topoParameter)) {
+					if (appResult.get(i).contains(topoParameter)
+							|| (controlDart != null && appResult.get(i).contains(controlDart))) {
 						// compute events
 						nodeIndex = i;
 						break;
@@ -81,10 +83,14 @@ public class MatchingTree {
 				// if the topological parameter is not filtered by any node
 				if (nodeIndex == -1) {
 					// TODO: prepare support for deleted topological parameters
+					System.out.println("MATCHINGTREE: NOEFFECT");
 					computeLevelLists(eventList, orbitList, getLastLevel().get(0));
 				} else {
-					JerboaRuleNode rootNode = rule.getRightRuleNode(nodeIndex);
-					computeLevelLists(eventList, orbitList, rootNode, newLevelEventMT, rule);
+					if (controlDart != null) {
+						JerboaRuleNode rootNode = rule.getRightRuleNode(nodeIndex);
+						computeLevelLists(eventList, orbitList, rootNode, newLevelEventMT, rule);
+
+					}
 				}
 				registerLevel(application.getApplicationID(), newLevelEventMT, eventList, orbitList,
 						appType);
@@ -94,11 +100,6 @@ public class MatchingTree {
 				break;
 		}
 
-		// System.out.println("\n");
-		// System.out.println("topLevelEventMT: " +
-
-		// getLastLevel());
-		// System.out.println("\n");
 	}
 
 	/**
@@ -155,6 +156,7 @@ public class MatchingTree {
 			eventList.add(newNodeEvent);
 			nodeEventHR.getChild()
 					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent)));
+			System.out.println("MatchingTree: NodeEventHR " + nodeEventHR);
 		}
 	}
 
@@ -174,6 +176,9 @@ public class MatchingTree {
 		for (NodeEvent nodeEventHR : getLastLevel().get(0).getEventList()) {
 			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
 			List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(rootNode, orbitType);
+			// List<Event> events = rule.getRuleNodesOrbitEvents(ruleNodesOrbit, orbitType);
+			// System.out.println("MATCHINGTREE: events " + events);
+			// for (Event event : events) {
 			Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
 
 			// create new node event to insert
@@ -188,6 +193,8 @@ public class MatchingTree {
 			nodeEventHR.getChild()
 					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent)));
 
+			// }
+
 		}
 	}
 
@@ -199,10 +206,8 @@ public class MatchingTree {
 	 */
 	private void matchLevel(LevelEventHR levelEventHR, Application application, String nodeName,
 			JerboaRebuiltRule rule, boolean ISNOEFFECT) {
-		// MatchingType levelMatchingType = MatchingType.IDENTICAL;
-		// List<NodeEvent> eventList = new ArrayList<>();
 
-		// if nodeName is "0" then it is de facto NOEFFECT in the whole current level
+		// if nodeName is "ø" then it is de facto NOEFFECT in the whole current level
 		if (ISNOEFFECT) {
 			/*
 			 * if (parameter has been merged and it is no longer noeffects nor exists)
@@ -211,8 +216,8 @@ public class MatchingTree {
 			 */
 
 			return;
-
 		}
+
 		// find root node to match level
 		JerboaRuleNode rootNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
 
@@ -221,12 +226,13 @@ public class MatchingTree {
 			JerboaOrbit orbitType = nodeEventHR.getChild().getOrbit();
 			List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(rootNode, orbitType);
 			// compute an event
-			Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
+			List<Event> events = rule.getRuleNodesOrbitEvents(ruleNodesOrbit, orbitType);
+			// Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
 
-			// if there is no match replace the event with the newly computed one
-			if (event != nodeEventHR.getEvent()) {
-				// levelMatchingType = MatchingType.MODIFIED;
-				nodeEventHR.setEvent(event);
+			// HACK: if there is no match replace the event with the newly computed one
+			// if there is more than one event in events it must be a split/merge couple
+			if (!events.contains(nodeEventHR.getEvent())) {
+				nodeEventHR.setEvent(events.get(0));
 			}
 		}
 

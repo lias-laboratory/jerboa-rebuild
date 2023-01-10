@@ -182,8 +182,6 @@ public class DemoInstantRebuild {
 				List<Integer> pathFromRootToControl = rule.collectLabelsFromSourceToClosestTarget(
 						hook, Arrays.asList(controlNode), null);
 
-				System.out
-						.println("DEMO: path from root to control node : " + pathFromRootToControl);
 				for (Integer label : pathFromRootToControl) {
 					controlDart = topoParameters.get(0).get(0).alpha(label);
 				}

@@ -68,8 +68,9 @@ public class MatchingTree {
 				// Look for a node which filters the current topological parameter
 				int nodeIndex = -1;
 				for (int i = 0; i < appResult.sizeCol(); i++) {
-					if (appResult.get(i).contains(topoParameter)
-							|| (controlDart != null && appResult.get(i).contains(controlDart))) {
+					if (appResult.get(i).contains(topoParameter)) {
+						// if (appResult.get(i).contains(topoParameter)
+						// || (controlDart != null && appResult.get(i).contains(controlDart))) {
 						// compute events
 						nodeIndex = i;
 						break;
@@ -82,15 +83,17 @@ public class MatchingTree {
 
 				// if the topological parameter is not filtered by any node
 				if (nodeIndex == -1) {
-					// TODO: prepare support for deleted topological parameters
 					System.out.println("MATCHINGTREE: NOEFFECT");
+					System.out.println(
+							"MatchingTree: current topoparameter = " + topoParameter.getID());
+					// TODO: prepare support for deleted topological parameters
 					computeLevelLists(eventList, orbitList, getLastLevel().get(0));
 				} else {
-					if (controlDart != null) {
-						JerboaRuleNode rootNode = rule.getRightRuleNode(nodeIndex);
-						computeLevelLists(eventList, orbitList, rootNode, newLevelEventMT, rule);
+					// if (controlDart == null) {
+					JerboaRuleNode rootNode = rule.getRightRuleNode(nodeIndex);
+					computeLevelLists(eventList, orbitList, rootNode, newLevelEventMT, rule);
 
-					}
+					// }
 				}
 				registerLevel(application.getApplicationID(), newLevelEventMT, eventList, orbitList,
 						appType);

@@ -1,0 +1,38 @@
+% Keywords command
+\providecommand{\keywords}[1]
+{
+  \noindent\textbf{Keywords:}
+  #1
+}
+
+\renewenvironment{abstract}
+{\begin{center}\textbf{ABSTRACT}\end{center}}
+{\vfill}
+
+\newcommand{\mgnote}[1]{%
+    \textbf{\color{blue} MG: #1}
+}
+
+\newcommand{\agnes}[1]{%
+    \textbf{\color{red} AA: #1}
+}
+
+\newcommand{\dmnote}[1]{%
+    \textbf{\color{violet} DM: #1}
+}
+
+\newcommand{\xsnote}[1]{%
+    \textbf{\color{magenta} [XS]: #1}
+}
+
+\newcommand{\hakim}[1]{%
+    \textbf{\color{green} [HFB]: #1}
+}
+
+\newcommand{\highlight}[1]{%
+    \textbf{\color{orange}#1}
+}
+
+\newcommand{\orbit}[1]{%
+    \langle#1\rangle
+}

@@ -1,0 +1,70 @@
+#+title: Notes on Kripac, A mechanism for persistently naming topological entities in history-based parametric solid models
+
+* context & idea
+** context
+History-based parametric solid modeling systems have a fundamental problem:
+identifying precisely the topological entities after a model reevaluation.
+
+Solutions such as maintaining pointers or sequentially enumerating all entities
+have their flaws:
+- Pointers are transient. Any reevaluation will create a new set of pointers
+  making the old ones useless,
+- Sequential enumeration is to simple of a scheme as changing the order of
+  operations will inevitably prevent the reevaluation to be successful as the
+  enumeration is now invalid.
+
+** ideas
+To reevaluate a history-based parametric model the system must identify its
+topological entities in a way the associations between the entities and the
+models are persistent. The author proposes a system to assign IDs (names) to
+topological entities (faces, edges, vertices) in solid models and persistently
+associate entities of the model and its reevaluated version.
+
+* Method
+
+** contribution
+The authors proposes the Topological ID System. 5 major components:
+- IDs for topo entities
+- A graph datastructure (FaceIdGraph) to keep track of faces' creation,split,
+  merge and suppression. Used for mapping between old and new model.
+- A mapping algorithm
+- A algorithm to associates old model's faceId to new model's faceId and update
+  FaceIdGraph
+- A datastructure recording each modeling step and containing persistent Ids for
+  a given record/step. Upon reevaluation of a step, the system remaps the step's
+  persistent ids to corresponding topological entities in the new model.
+
+  As faces are boundaries of a solid model they are the primary topological
+  entities used in this system. Thus faces are directly associated with steps.
+  An edge is the intersection of two or more faces and is 0-1 oriented. A vertex
+  is the intersection of faces and holds an intersection code for each adjacent
+  face.
+
+  This methods provides algorithm to map faces, edges and vertices from the old
+  model against the new model and find, given some quality targets, an
+  acceptable entity. The reevaluation rolls back until no reasonably similar
+  topological entity is found.
+
+  In some cases split faces in regard of their FaceIdLoops hold the same
+  information. This mean that the faces have no direct unique way to be exactly
+  matched. It then requires to retain the orientation of the edges as they can
+  provide unique IDs for the reevaluation with their EdgeIntersCode.
+
+
+** comparison (to my works or concepts I work with)
+We are working around a similar intuition because of history-based solid
+modeling context. Our Parametric Specification is holding Persistent Names which
+themselves hold Persistent IDs. We both try to work around persistent way to
+exactly identify topological parameters when it is possible and match those
+persistent ids against the new model to process its reevaluation.
+
+A notable difference is our boundary entity. In our context faces, nor edges or
+vertices are boundaries. Instead we use darts for such purposes. Our models
+being topological graphs a dart is a node of this graph also called generalized
+map. In such context darts are atomic topological elements. They are given a
+persistent id which evolves along the model construction and are then collected
+to define a persistent name. In our work a persistent name holds as much
+persistent ids as necessary to extensively describe the creation of a given
+topological parameter.
+
+* Conclusion

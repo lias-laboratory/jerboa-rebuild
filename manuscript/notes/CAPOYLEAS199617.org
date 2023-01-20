@@ -1,0 +1,58 @@
+#+title: Notes on Vasilis Capoyleas, Xiangping Chen, Christoph M Hoffmann, Generic naming in generative, constraint-based design
+
+#+print_bibliography:
+
+* Context & idea
+** context
+Constraint designs allow to reevaluate parameters of sketching models but
+scaling to 3D would create problems such as causing semantic problems and
+requiring a greater computing power need. Also designated naming is inefficient
+as it does not work well as conflicts can appear and provoke unexpected/unwanted
+results.
+** ideas
+A generic persistent naming would allow the reevaluation of a model efficiently
+
+* Method
+** contribution
+Topology-based naming.
+
+The method uniquely names topological elements (vertices, edges, faces) from a
+generated feature (model element) and new elements' names derive from
+preexisting ones.
+
+using fresh ids bound to topological element types i.e. v_1 \dots v_k and e_1
+\dots e_i for vertices and edges. Resulting edges/faces names could be f(e_i) or
+e(v_k). This method also names elements created from an intersection with a `I`
+prefixed to the element type identifier (e.g.: I_e, I_v).
+
+Use a context description to identify to non-unique names when possible.
+Introduce feature orientation to designate a topological element when context
+description fails to do so.
+
+** comparison (to my works or concepts I work with)
+we use darts as atomic topological elements for Brep. Neither vertices, edges
+nor faces (or greater cells) represent a reduced enough boundary so darts are
+now involved. They can represent pretty much any cell of dimension $n$.
+
+Our works use no proto models for CSG meaning that every operation transform the
+model we work on should it be locally of globally.
+
+Any topological element derived from another one holds the hole history of
+operation applied to its direct `ancestor` (and likely the ones of the
+ancestor's ancestors) thus meaning that no element's name should appear twice.
+
+Though we do not intend to use orientation to formally designate a topological
+element, the rules we use to defined and apply modeling operations allow to work
+locally on the model and to formally designate any topological element of
+interest.
+
+* Conclusions
+This paper suggests a method to compute a generic persistent name for
+topological elements of a model. Though the method relates issues with
+duplicated names it appears to circumvent non-unique names by using either a
+definition context or exploiting edge's and face's orientation to allow
+designation of a topological element.
+
+Method could be robust but may find its limits when the machine finds itself
+computing lots of non-unique names. Looks like they patched most
+problem they encountered as they came up?

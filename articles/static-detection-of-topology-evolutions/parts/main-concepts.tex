@@ -1,0 +1,63 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Main concepts}
+Dans cette section nous présentons rapidement Jerboa
+\cite{belhaouari2014jerboa}, une librairie de
+modélisation géométrique, et les concepts sur lesquels nos travaux s'appuient.\\
+
+Jerboa est une librairie de modélisation géométrique dont les modèles sont
+représentés et manipulés comme des graphes topologiques, et plus
+particulièrement des cartes généralisées (ou \emph{G-cartes})
+\cite{lienhardt1991topological}. Les opérations, appelées règles, sont écrites à
+l’aide d’un langage de description de graphes et décrivent les transformations à
+appliquer.
+
+\subsection[Generalized Maps]{Generalized maps}
+\label{sec:generalized-maps}
+\mgnote{\\
+  Les G-cartes suivent la logique d'une représentation par bords. Elles mettent
+  en évidences les cellules topologiques des modèles géométriques. Ces cellules,
+  décomposables en cellules de dimensions inférieures, sont constituées
+  d'éléments topologiques indivisibles appelés \emph{brins}. Ainsi une face est
+  constituée d'arêtes, de sommets et de brins.Les arêtes de sommets et de brins.
+  Les sommets
+  uniquement de brins.\\
+  Les brins étant les nœuds du graph construit pour représenter un modèle
+  géométrique, les cellules topologiques sont liées entre elles par leurs brins.
+  Ces liens sont des arcs étiquetés par une dimension $i$ comprise dans $[0,n]$
+  où $n$ est la dimension du modèle.\\
+  \\
+  -- insérer multi-figure $\to$ face triangulée--\\
+  \\
+  - décrire face triangulée\\
+  - montrer liaisons 2 entre faces\\
+  - montrer liaisons 1 pour sommets de face\\
+  - montrer liaisons 0,1,2 pour montrer décomposition entière\\
+  - mettre en évidence brins\\
+  \highlight{Est-ce que ce paragraphe ressemble trop à
+    \cite{marcheix2018persistent} ? j'ai voulu mettre en avant que la G-carte
+    est particulièrement adéquate pour la détection de l'évolution de la
+    topologie, mais ça l'est tout autant dans ce papier et j'ai peur d'en être
+    trop proche autant dans le fond que dans la forme.}
+  \\
+  Dans une G-carte $G$ de dimension $n$, les cellules sont décrites par des
+  structures appelées orbites. Une orbite, notée $G\orbit{o}(b)$ est un
+  sous-graphe de $G$. Elle est décrite d'une part à partir d'un brin $b$
+  désigné, et d'une autre part par un type d'orbite $o$ où $o$ est une
+  collection de $i$ tel que $i\in[0,n]$.
+  Le sous-graphe alors désigné contient l'ensemble des brins de $G$ atteignables à partir de $b$ par des arcs $i$ (ou $i$-arcs) appartenant au type d'orbite $o$.\\
+  \\
+  -- réutiliser la figure précédente pour illustrer différents types d'orbites --\\
+  \\
+  Ainsi et pour représentation 2D, une face est dénotée par le type d'orbite
+  $\langle 0,1 \rangle$, une arête $\langle 0,2 \rangle$ et un sommet
+  $\langle 1,2 \rangle$. }
+
+\subsection[Graph transformation rules]{Graph transformation rules}
+\label{sec:graph-transf-rules}
+
+How about graph transformation rules?
+
+\end{document}

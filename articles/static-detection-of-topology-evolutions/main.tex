@@ -1,0 +1,37 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[english]{babel}
+\usepackage{subfiles}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\bibliographystyle{alpha}
+
+\title{Static detection of topology evolution}
+\author{}
+\date{}
+\include{commands}
+
+\begin{document}
+\maketitle
+
+%%%%%%%%%%  Abstract %%%%%%%%%%
+\begin{abstract}
+  Some content in the abstract to get people interested into our topic of
+  research! and Here we are, vfill works (should be useless anyway since we will
+  copy/paste the article in a tex template yay!)
+\end{abstract}
+
+\vfill
+
+\keywords{Graph Transformation Rules; Generalized Maps; Topology; Topology Evolution}
+
+%%%%%%%%%%%%%%%%%%%%
+\subfile{parts/introduction}
+\subfile{parts/related-works}
+\subfile{parts/main-concepts}
+\subfile{parts/detection-contrib}
+\subfile{parts/conclusion}
+
+\bibliography{references.bib}
+\end{document}

@@ -4,4 +4,52 @@
 \section[Event detection]{Event detection}
 \label{sec:event-detection}
 
+\subsection[Creation]{Creation}
+\label{sec:creation}
+
+Given the face triangulation rule and a given an orbit $n_{2}$·$\orbit{1,2}$.
+% Avant/après de la triangulation
+% surligner le sommet créé
+
+After the rule's \highlight{application} we can observe a vertex has been created at the
+center of the face.
+
+In the rule this vertex is associated with the node $n_{2}$.
+
+The node $n_{2}$ does not exist in the left member of the rule but is described
+in the right member.
+
+Because a rule can only modify what has been \highlight{filtered} then $n_{2}$
+is created.
+
+\subsection[Split]{Split}
+\label{sec:split}
+
+Given the face triangulation rule and a given an orbit $n_{0}$·$\orbit{0,1}$.
+% Avant/après de la triangulation
+% surligner le sommet créé
+
+After the rule's application we can observe the square face has been splitted
+into four triangular faces.
+
+In the rule the faces are associated with the entirety of the rule's right
+member.
+
+And darts filtered in left are splitted between each resulting faces.
+
+Unlike the $n_{0}$ in the rule's left member, the $2^{nd}$ \highlight{implicit
+  link} in $n_{0}$ in the rule's right member is missing.
+
+Because the darts of $n_{0}$ which were previously linked by $\alpha-1$
+($2^{nd} implicit links$) are not linked with an $i$-link ($i \in \orbit{0,1}$)
+then the face has been splitted.
+
+
+
+
+\subsection[Merge]{Merge}
+\label{sec:merge}
+
+
+
 \end{document}

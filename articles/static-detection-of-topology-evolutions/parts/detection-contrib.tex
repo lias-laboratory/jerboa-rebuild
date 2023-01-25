@@ -4,23 +4,74 @@
 \section[Event detection]{Event detection}
 \label{sec:event-detection}
 
+
 \subsection[Creation]{Creation}
 \label{sec:creation}
 
-Given the face triangulation rule and a given an orbit $n_{2}$·$\orbit{1,2}$.
-% Avant/après de la triangulation
-% surligner le sommet créé
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\columnwidth]{triangulation}
+  \caption{Rule $L \longrightarrow R$ of face triangulation}
+  \label{fig:rule-triangulation}
+\end{figure}
 
-After the rule's \highlight{application} we can observe a vertex has been created at the
-center of the face.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{.45\columnwidth}
+    \centering
+    \includegraphics[height=.8\columnwidth]{house-triangulated-left-filter}
+    \caption{}
+    \label{fig:house-triangulation-left-filter}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{.45\columnwidth}
+    \centering
+    \includegraphics[height=.8\columnwidth]{house-triangulated-right-filter-create-vertex}
+    \caption{}
+    \label{fig:house-triangulation-vertex-creation}
+  \end{subfigure}
+  \caption{%
+    \subref{fig:house-triangulation-left-filter} - face before triangulation.
+    \subref{fig:house-triangulation-vertex-creation} - face after triangulation.
+    Blue highlight on created vertex.}
+  \label{fig:before-after-house-triangulation}
+\end{figure}
 
-In the rule this vertex is associated with the node $n_{2}$.
+Given the face triangulation rule figure \ref{fig:rule-triangulation}, the graph
+before and after the rule's \highlight{application} in figure
+\ref{fig:before-after-house-triangulation} and the orbit type of a vertex
+$\orbit{1,2}$.
 
-The node $n_{2}$ does not exist in the left member of the rule but is described
-in the right member.
+Intuitively to detect that a rule creates some topology we compare the graph
+before and after the rule's application. We can observe in figure
+\ref{fig:house-triangulation-vertex-creation} a set of darts highlighted in
+blue. As these darts did not exist in \ref{fig:house-triangulation-left-filter}
+they result from the triangulation and, thus, were created.
 
-Because a rule can only modify what has been \highlight{filtered} then $n_{2}$
-is created.
+To statically detect the face triangulation rule creates a vertex we consider
+the rule itself.
+
+In the rule there are two created nodes being $n_{1}$ and $n_{2}$.
+
+% From $n_{1}$ and following its links label belonging to $\orbit{1,2}$ we gather
+% the node $n_{0}$. The orbit
+
+In this case we are interested in the orbit $n_{2}$·$\orbit{1,2}$. This orbit
+containing reachable nodes from $n_{2}$, followings links labeled in
+$\orbit{1,2}$, only contains \highlight{created nodes}. Thus this orbit is
+created and we can state it is a vertex.
+
+% After the rule's \highlight{application} we can observe in figure
+% the vertex highlighted in blue has been created at the center of the square
+% face.
+
+% In the rule this vertex is associated with the node $n_{2}$.
+
+% The node $n_{2}$ does not exist in the left member of the rule but is described
+% in the right member.
+
+% Because a rule can only modify what has been \highlight{filtered} then $n_{2}$
+% is created.
 
 \subsection[Split]{Split}
 \label{sec:split}
@@ -37,7 +88,7 @@ member.
 
 And darts filtered in left are splitted between each resulting faces.
 
-Unlike the $n_{0}$ in the rule's left member, the $2^{nd}$ \highlight{implicit
+Unlike the $n_{0}$ in the rule's left member, the second \highlight{implicit
   link} in $n_{0}$ in the rule's right member is missing.
 
 Because the darts of $n_{0}$ which were previously linked by $\alpha-1$
@@ -45,11 +96,15 @@ Because the darts of $n_{0}$ which were previously linked by $\alpha-1$
 then the face has been splitted.
 
 
-
-
 \subsection[Merge]{Merge}
 \label{sec:merge}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{deleteedge.pdf}
+  \caption{Rule $L \longrightarrow R$ of edge suppression}
+  \label{fig:rule-delete-edge}
+\end{figure}
 
 
 \end{document}

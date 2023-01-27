@@ -4,10 +4,10 @@
 \section[Event detection]{Event detection}
 \label{sec:event-detection}
 
-Intuitively to detect that a rule creates some topology we compare the graph
-before and after the rule's application. Comparing the members of a rule against
-each other will allow us to detect statically events. Such method is independent
-of the object affected by the rule.
+Intuitively to detect that a rule creates some topology we would compare the
+graph before and after a rule's application. On the other hand comparing the
+members of a rule against each other allow us to statically detect topological
+events. Such method is independent of the object affected by the rule.
 
 \begin{figure}[H]
   \centering
@@ -48,67 +48,41 @@ Figure \ref{fig:rule-triangulation} illustrate the face triangulation rule.
   \label{fig:before-after-house-triangulation}
 \end{figure}
 
-Figure \ref{fig:before-after-house-triangulation} illustrates a square face
-before and after its triangulation. Figures
-\ref{fig:house-triangulation-vertex-creation} and
-\ref{fig:house-triangulation-split-face} respectively highlight a vertex and a
-face resulting from the face triangulation rule's application.
-
 \subsection[Creation]{Creation}
 \label{sec:creation}
 
-% \highlight{%
-%   Soit une règle $r:L->R$, G une G-carte, et $G \longrightarrow^{r,m} H$ une application//
-%   \newline
-%   Si $R\orbit{o}(n)$ est une orbite complète créée dans la règle, c'est
-%   à dire qu'aucun nœud de $R\orbit{o}(n)$ n'appartient à $L$, alors pour tout
-%   brin b instance de n, $b\orbit{o}$ est créée dans $H$.}
+In a rule a node filters one or more darts. So when a node is created we can
+consider the darts it filters are also created.
 
 \begin{definition}
-Let there be a rule $r: L \to R$, a G-map $G$ and an \emph{application}
+\label{def:creation}
+Let there be a rule $r: L \to R$, a G-map $G$, an orbit type $\orbit{o}$, a
+node $n$ where $n \in R$ and an \emph{application}
 $G \longrightarrow^{r,m} H$.
 
-If an orbit $R\orbit{o}(n)$ is both complete and created by the rule, i.e. none
-of the nodes in $R\orbit{o}(n)$ belong to $L$, then for all dart $d$ instance of
-$n$ $d\orbit{o}(n)$ is created in $H$.
+If an orbit $R\orbit{o}(n)$ is both \emph{complete} and created by the rule,
+i.e. none of the nodes in $R\orbit{o}(n)$ belong to $L$, then and for all darts
+$d$ instance of $n$, $d\orbit{o}(n)$ is created in $H$.
 \end{definition}
 
+Definition \ref{def:creation} gives the conditions under which we can confirm a
+rule will create some topology.
 
-Given the face triangulation rule figure \ref{fig:rule-triangulation}, the graph
-before and after the rule's \highlight{application} in figures
-\ref{fig:house-triangulation-left-filter} and
-\ref{fig:house-triangulation-vertex-creation} and the orbit type $\orbit{\alpha  1,\alpha 2}$
-of a vertex.
+Given the face triangulation rule figure \ref{fig:rule-triangulation} we will
+follow the creation event of a vertex of orbit type
+$\orbit{\alpha 1, \alpha 2}$. This rule creates two nodes in $R$, namely,
+$n_{1}$ and $n_{2}$. Starting with $R\orbit{\alpha 1, \alpha 2}(n_{1})$ we
+obtain an orbit containing nodes $n_{0}$ and $n_{1}$. As this orbit contains the
+\emph{preserved} node $n_{0}$ we cannot consider the topology it filters as
+created. On the contrary the orbit $R\orbit{\alpha 1, \alpha 2}(n_{2})$ only
+contains $n_{2}$. This orbit being fully created we can affirm the rule of face
+triangulation will create a vertex during its application.
 
- We can observe in figure
-\ref{fig:house-triangulation-vertex-creation} a set of darts highlighted in
-blue. As these darts did not exist in \ref{fig:house-triangulation-left-filter}
-they result from the triangulation and, thus, were created.
-
-To statically detect the face triangulation rule creates a vertex we consider
-the rule itself.
-
-In the rule there are two created nodes being $n_{1}$ and $n_{2}$.
-
-% From $n_{1}$ and following its links label belonging to $\orbit{\alpha  1,\alpha 2}$ we gather
-% the node $n_{0}$. The orbit
-
-In this case we are interested in the orbit $n_{2}$·$\orbit{\alpha  1,\alpha 2}$. This orbit
-containing reachable nodes from $n_{2}$, followings links labeled in
-$\orbit{\alpha  1,\alpha 2}$, only contains \highlight{created nodes}. Thus this orbit is
-created and we can state it is a vertex.
-
-% After the rule's \highlight{application} we can observe in figure
-% the vertex highlighted in blue has been created at the center of the square
-% face.
-
-% In the rule this vertex is associated with the node $n_{2}$.
-
-% The node $n_{2}$ does not exist in the left member of the rule but is described
-% in the right member.
-
-% Because a rule can only modify what has been \highlight{filtered} then $n_{2}$
-% is created.
+Figure \ref{fig:before-after-house-triangulation} shows the application of the
+rule \ref{fig:rule-triangulation} on a square face. In figure
+\ref{fig:house-triangulation-vertex-creation} the orbit
+$R\orbit{\alpha 1, \alpha 2}(n_{2})$ is in a blue highlight (L'orbite concrète
+sera donné après mise à jour des figures).
 
 \subsection[Split]{Split}
 \label{sec:split}

@@ -1,36 +1,125 @@
-\documentclass[twocolumn]{article}
+%% This is file `cag-template.tex',
+%%
+%% Copyright 2018 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%%
+%% $Id: cag-template.tex 151 2018-11-22 04:42:39Z rishi $
+%%
+%% Use the options `twocolumn,final' to obtain the final layout
+%% Use `longtitle' option to break abstract to multiple pages if overfull.
+%% For Review pdf (With double line spacing)
+%\documentclass[times,twocolumn,review]{elsarticle}
+%% For abstracts longer than one page.
+%\documentclass[times,twocolumn,review,longtitle]{elsarticle}
+%% For Review pdf without preprint line
+%\documentclass[times,twocolumn,review,nopreprintline]{elsarticle}
+%% Final pdf
+%\documentclass[times,twocolumn,final]{elsarticle}
+%%
+\documentclass[times,twocolumn,final]{els-format/elsarticle}
+%%
 
-\usepackage[english]{babel}
+
+%% Stylefile to load CAG template
+\usepackage{els-format/cag}
+\usepackage{framed,multirow}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+% Following three lines are needed for this document.
+% If you are not loading colors or url, then these are
+% not required.
+\usepackage{url}
+\usepackage{xcolor}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+
+\usepackage{hyperref}
+
+\usepackage[switch,pagewise]{lineno} %Required by command \linenumbers below
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{lipsum}
 \usepackage{subfiles}
 \usepackage{subcaption}
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{float}
 
-\bibliographystyle{alpha}
-\graphicspath{ {./figures/} }
-
-\title{Static detection of topology evolution}
-\author{}
-\date{}
+\graphicspath{{./els-format/} {./figures/}}
 \include{commands}
 
+\journal{Computers \& Graphics}
+
 \begin{document}
-\maketitle
 
-%%%%%%%%%%  Abstract %%%%%%%%%%
+\verso{Preprint Submitted for review}
+
+\begin{frontmatter}
+
+\title{Static detection of topology evolution}%
+
+\author[1]{First Author Given Name \snm{Surname}\corref{cor1}}
+\cortext[cor1]{Corresponding author:
+  Tel.: +0-000-000-0000;
+  fax: +0-000-000-0000;}
+\emailauthor{example@email.com}{Corresponding Author Name}
+%\ead{example@email.com}
+
+\author[2]{Second Author Given Name \snm{Surname}\fnref{fn1}}
+\fntext[fn1]{Footnote 1.}
+
+\address[1]{Address, City, Postcode, Country}
+\address[2]{Address, City, Postcode, Country}
+
+%\received{1 February 2017}
+\received{\today}
+%%%% Do not use the below for submitted manuscripts
+%\finalform{28 March 2017}
+%\accepted{2 April 2017}
+%\availableonline{15 May 2017}
+%\communicated{S. Sarkar}
+
+
 \begin{abstract}
+%%%
+\lipsum[1]
+%%%%
 \end{abstract}
+% \begin{abstract}
+% %%%
+% \lipsum[1][1-4]
+% %%%
+% \end{abstract}
 
-\vfill
+\begin{keyword}
+\KWD Topology\sep Topology Evolution\sep Graph Transformation Rules\sep Generalized Maps
+\end{keyword}
 
-\keywords{Topology; Topology Evolution; Graph Transformation Rules; Generalized Maps}
+\end{frontmatter}
 
-%%%%%%%%%%%%%%%%%%%%
+\linenumbers
+
+%%main text
 \subfile{parts/introduction}
 \subfile{parts/main-concepts}
 \subfile{parts/detection-contrib}
 \subfile{parts/conclusion}
 
-\bibliography{references.bib}
+\bibliographystyle{els-format/cag-num-names}
+\bibliography{references}
 \end{document}
+

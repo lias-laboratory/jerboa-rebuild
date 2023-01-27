@@ -1,14 +1,3 @@
-% Keywords command
-\providecommand{\keywords}[1]
-{
-  \noindent\textbf{Keywords:}
-  #1
-}
-
-\renewenvironment{abstract}
-{\begin{center}\textbf{ABSTRACT}\end{center}}
-{\vfill}
-
 \newcommand{\mgnote}[1]{%
     \textbf{\color{blue} MG: #1}
 }
@@ -36,3 +25,7 @@
 \newcommand{\orbit}[1]{%
     \langle#1\rangle
 }
+
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{proposition}{Proposition}[subsection]
+% \newtheorem{theoreme}{Theoreme}[subsection]

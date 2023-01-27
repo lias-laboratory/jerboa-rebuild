@@ -57,12 +57,22 @@ face resulting from the face triangulation rule's application.
 \subsection[Creation]{Creation}
 \label{sec:creation}
 
-\highlight{%
-  Soit une règle $r:L->R$, G une G-carte, et $G \longrightarrow^{r,m} H$ une application//
-  \newline
-  Si $R\orbit{o}(n)$ est une orbite complète créée dans la règle, c'est
-  à dire qu'aucun nœud de $R\orbit{o}(n)$ n'appartient à $L$, alors pour tout
-  brin b instance de n, $b\orbit{o}$ est créée dans $H$.}
+% \highlight{%
+%   Soit une règle $r:L->R$, G une G-carte, et $G \longrightarrow^{r,m} H$ une application//
+%   \newline
+%   Si $R\orbit{o}(n)$ est une orbite complète créée dans la règle, c'est
+%   à dire qu'aucun nœud de $R\orbit{o}(n)$ n'appartient à $L$, alors pour tout
+%   brin b instance de n, $b\orbit{o}$ est créée dans $H$.}
+
+\begin{definition}
+Let there be a rule $r: L \to R$, a G-map $G$ and an \emph{application}
+$G \longrightarrow^{r,m} H$.
+
+If an orbit $R\orbit{o}(n)$ is both complete and created by the rule, i.e. none
+of the nodes in $R\orbit{o}(n)$ belong to $L$, then for all dart $d$ instance of
+$n$ $d\orbit{o}(n)$ is created in $H$.
+\end{definition}
+
 
 Given the face triangulation rule figure \ref{fig:rule-triangulation}, the graph
 before and after the rule's \highlight{application} in figures

@@ -4,6 +4,11 @@
 \section[Event detection]{Event detection}
 \label{sec:event-detection}
 
+Intuitively to detect that a rule creates some topology we compare the graph
+before and after the rule's application. Comparing the members of a rule against
+each other will allow us to detect statically events. Such method is independant
+of the object affected by the rule.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\columnwidth]{triangulation}
@@ -52,6 +57,12 @@ face resulting from the face triangulation rule's application.
 \subsection[Creation]{Creation}
 \label{sec:creation}
 
+\highlight{%
+  Soit une règle $r:L->R$, G une G-carte, et $G \longrightarrow^{r,m} H$ une application//
+  \newline
+  Si $R\orbit{o}(n)$ est une orbite complète créée dans la règle, c'est
+  à dire qu'aucun nœud de $R\orbit{o}(n)$ n'appartient à $L$, alors pour tout
+  brin b instance de n, $b\orbit{o}$ est créée dans $H$.}
 
 Given the face triangulation rule figure \ref{fig:rule-triangulation}, the graph
 before and after the rule's \highlight{application} in figures
@@ -59,8 +70,7 @@ before and after the rule's \highlight{application} in figures
 \ref{fig:house-triangulation-vertex-creation} and the orbit type $\orbit{\alpha  1,\alpha 2}$
 of a vertex.
 
-Intuitively to detect that a rule creates some topology we compare the graph
-before and after the rule's application. We can observe in figure
+ We can observe in figure
 \ref{fig:house-triangulation-vertex-creation} a set of darts highlighted in
 blue. As these darts did not exist in \ref{fig:house-triangulation-left-filter}
 they result from the triangulation and, thus, were created.
@@ -138,12 +148,12 @@ $L\orbit{\alpha 0,\alpha1}(n_{0})$ and the right one $R\orbit{\alpha0,\alpha1}(n
 \subsection[Merge]{Merge}
 \label{sec:merge}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.8]{deleteedge.pdf}
-  \caption{Rule $L \longrightarrow R$ of edge suppression}
-  \label{fig:rule-delete-edge}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[scale=0.8]{deleteedge.pdf}
+%   \caption{Rule $L \longrightarrow R$ of edge suppression}
+%   \label{fig:rule-delete-edge}
+% \end{figure}
 
 
 \end{document}

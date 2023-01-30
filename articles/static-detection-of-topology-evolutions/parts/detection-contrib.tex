@@ -51,8 +51,8 @@ Figure \ref{fig:rule-triangulation} illustrate the face triangulation rule.
 \subsection[Creation]{Creation}
 \label{sec:creation}
 
-In a rule a node filters one or more darts. So when a node is created we can
-consider the darts it filters are also created.
+In a rule a node filters one or more darts. So when a node is created the darts
+it filters are also created.
 
 \begin{definition}
 \label{def:creation}
@@ -65,8 +65,8 @@ i.e. none of the nodes in $R\orbit{o}(n)$ belong to $L$, then and for all darts
 $d$ instance of $n$, $d\orbit{o}(n)$ is created in $H$.
 \end{definition}
 
-Definition \ref{def:creation} gives the conditions under which we can confirm a
-rule will create some topology.
+Definition \ref{def:creation} gives the necessary and sufficient conditions
+under which we can confirm a rule will create some orbit.
 
 Given the face triangulation rule figure \ref{fig:rule-triangulation} we will
 follow the creation event of a vertex of orbit type
@@ -76,7 +76,8 @@ obtain an orbit containing nodes $n_{0}$ and $n_{1}$. As this orbit contains the
 \emph{preserved} node $n_{0}$ we cannot consider the topology it filters as
 created. On the contrary the orbit $R\orbit{\alpha 1, \alpha 2}(n_{2})$ only
 contains $n_{2}$. This orbit being fully created we can affirm the rule of face
-triangulation will create a vertex during its application.
+triangulation will create a vertex filtered by node $n_{2}$ during its
+application.
 
 Figure \ref{fig:before-after-house-triangulation} shows the application of the
 rule \ref{fig:rule-triangulation} on a square face. In figure

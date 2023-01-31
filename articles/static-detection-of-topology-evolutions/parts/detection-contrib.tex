@@ -91,7 +91,11 @@ sera donné après mise à jour des figures).
 \subsection[Split]{Split}
 \label{sec:split}
 
-\maxime{intuition}
+\maxime{intuition} As an orbit filters a set of darts an orbit split creates
+disjointed sets of these darts. An orbit split can occur in two manners either a
+set of nodes belonging to a common orbit are separated into multiple orbits or a
+set of filtered darts are splitted into disjointed subsets because of a
+rewritten $k$-th implicit link in the labels of all orbit's nodes.
 
 \begin{definition}
   Let a rule $r : L \longrightarrow R$, a G-map $G$, an orbit type $o$, a node
@@ -120,31 +124,6 @@ sera donné après mise à jour des figures).
 
 \maxime{exemples}
 \maxime{remarques}
-
-\begin{definition}
-  Let a rule $r : L \longrightarrow R$, a G-map $G$, an orbit type $o$, a node
-  $n$ where $n \in L \cap R$ and an application $G \longrightarrow^{r, m} H$.
-
-  There are two types of orbit split:
-  \begin{itemize}
-    \item An orbit is explicitly splitted if two preserved nodes belonging to
-          the same orbit in $L$ do not belong the same orbit in $R$, i.e. there
-          exists a node $n' \in L \cap R$ such that
-          $L\orbit{o}(n) = L\orbit{o}(n')$ and
-          $R\orbit{o}(n) \cap R\orbit{o}(n') = \emptyset$. Then and for all $d$
-          and $d'$, respectively instances of $n$ and $n'$, $d\orbit{o}(n)$ in
-          $G$ is splitted into $d\orbit{o}(n)$ and $d'\orbit{o}(n)$ in $H$.
-
-    \item An orbit is implicitly splitted if for all nodes within
-          $L\orbit{o}(n)$ there exists a node $n'$ whose $k$-th dimension in
-          label $l_{L}(n')$ is a dimension of $\orbit{o}$ and for all nodes $n'$
-          in $R\orbit{o}(n)$, the $k$-th dimension of $l_{R}(n')$ is rewritten
-          either to ``\_'' or to a dimension not in $\orbit{o}$. Then and for
-          all $d$ filtered by $n$ there exists $d'$, with $d \neq d'$, also
-          filtered by $n$ such that
-          $d\orbit{o}(n) \cap d'\orbit{o}(n) = \emptyset$ in $H$.
-   \end{itemize}
-\end{definition}
 
 \subsection[Merge]{Merge}
 \label{sec:merge}

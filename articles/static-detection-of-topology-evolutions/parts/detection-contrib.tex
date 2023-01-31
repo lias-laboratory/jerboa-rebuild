@@ -20,31 +20,23 @@ Figure \ref{fig:rule-triangulation} illustrate the face triangulation rule.
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}{.3\columnwidth}
+  \begin{subfigure}{.45\columnwidth}
     \centering
     \includegraphics[height=\columnwidth]{house-triangulated-left-filter}
     \caption{}
     \label{fig:house-triangulation-left-filter}
   \end{subfigure}
   \hfill
-  \begin{subfigure}{.3\columnwidth}
+  \begin{subfigure}{.45\columnwidth}
     \centering
-    \includegraphics[height=\columnwidth]{house-triangulated-right-filter-create-vertex}
+    \includegraphics[height=\columnwidth]{house-triangulated-right-filter}
     \caption{}
-    \label{fig:house-triangulation-vertex-creation}
+    \label{fig:house-triangulation-right-filter}
   \end{subfigure}
-  \hfill
-  \begin{subfigure}{.3\columnwidth}
-    \centering
-    \includegraphics[height=\columnwidth]{house-triangulated-right-filter-split-face}
-    \caption{}
-    \label{fig:house-triangulation-split-face}
-  \end{subfigure}
-  \caption{%
+   \caption{%
     \subref{fig:house-triangulation-left-filter} - Face before triangulation.
-    \subref{fig:house-triangulation-vertex-creation} - Blue highlight on created
-    vertex after triangulation.%
-    \subref{fig:house-triangulation-split-face} - Cell highlight on splitted face.}
+    \subref{fig:house-triangulation-right-filter} - Face after triangulation.%
+  }
   \label{fig:before-after-house-triangulation}
 \end{figure}
 
@@ -84,7 +76,7 @@ application.
 
 Figure \ref{fig:before-after-house-triangulation} shows the application of the
 rule \ref{fig:rule-triangulation} on a square face. In figure
-\ref{fig:house-triangulation-vertex-creation} the orbit
+\ref{fig:house-triangulation-right-filter} the orbit
 $R\orbit{\alpha 1, \alpha 2}(n_{2})$ is in a blue highlight (L'orbite concrète
 sera donné après mise à jour des figures).
 
@@ -92,12 +84,20 @@ sera donné après mise à jour des figures).
 \label{sec:split}
 
 \maxime{intuition} As an orbit filters a set of darts an orbit split creates
-disjointed sets of these darts. An orbit split can occur in two manners either a
-set of nodes belonging to a common orbit are separated into multiple orbits or a
-set of filtered darts are splitted into disjointed subsets because of a
-rewritten $k$-th implicit link in the labels of all orbit's nodes.
+disjointed sets from a former set of darts. An orbit split can occur in two
+manners either explicitly or implicitly.
 
-\begin{definition}
+In the first case a set of nodes belong to a common orbit and are separated into
+multiple orbits. An explicit split results in as much sets of darts as orbits.
+
+In the second case a an orbit has a specific implicit link that is
+\emph{rewritten} to a dimension not present in the orbit type of interest. An
+implicit split results in two or more disjointed subsets of darts all filtered
+by the same orbit. Although some $\alpha$-links may appear to connect darts
+subsets within a G-map they do not. The reason is the dimensions of these link
+do not belong to the orbit.
+
+\begin{definition}\label{def:split}
   Let a rule $r : L \longrightarrow R$, a G-map $G$, an orbit type $o$, a node
   $n$ where $n \in L \cap R$ and an application $G \longrightarrow^{r, m} H$.
 
@@ -122,8 +122,27 @@ rewritten $k$-th implicit link in the labels of all orbit's nodes.
    \end{itemize}
 \end{definition}
 
-\maxime{exemples}
-\maxime{remarques}
+\maxime{exemples : INSERT EXAMPLES HERE}
+
+In order to proceed with our exemple let's start with a case of implicit split.
+
+Given the face triangulation rule figure \ref{fig:rule-triangulation} we will
+follow the implicit split event of a face of orbit type
+$\orbit{\alpha 0, \alpha 1}$. The orbit $L\orbit{\alpha 0, \alpha 1}(n_{0})$
+comprises node $n_{0}$ and filters a single set of darts which form a face
+orbit. In this exemple nodes have two dimensions (or implicit links) in their
+label. For node $n_{0}$ first implicit link is $\alpha 0$ and second implicit
+link is $\alpha 1$ both in orbit type $\orbit{\alpha 0, \alpha 1}$. However the
+orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ comprises nodes $n_{0}$, $n_{1}$,
+$n_{2}$ and not one of them has a second implicit link whose dimension is in
+$\orbit{\alpha 0, \alpha 1}$. Under this condition we can affirm the rule figure
+\ref{fig:rule-triangulation} splits a face into two or more faces. In figure
+\ref{fig:house-triangulation-right-filter} the orbit filters four disjointed
+subsets of darts and each subset form a face orbit. The black and red dotted
+cell highlights a face resulting from the split.
+
+
+\maxime{remarques : INSERT REMARKS HERE}
 
 \subsection[Merge]{Merge}
 \label{sec:merge}
@@ -137,3 +156,8 @@ rewritten $k$-th implicit link in the labels of all orbit's nodes.
 
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

@@ -4,10 +4,11 @@
 \section[Event detection]{Event detection}
 \label{sec:event-detection}
 
-Intuitively to detect that a rule creates some orbit one would compare the graph
-before and after a rule's application. However comparing the members of a rule
-against each other allow to statically detect topological events. Such method
-presents the advantage to be independent of the object affected by the rule.
+Intuitively to detect that a rule application creates some orbit one would
+compare the graph before and after a its application. However comparing the
+members of a rule against each other allow to statically detect topological
+events. Such method presents the advantage to be independent of the object
+affected by the rule.
 
 \begin{figure}[H]
   \centering
@@ -43,24 +44,39 @@ Figure \ref{fig:rule-triangulation} illustrate the face triangulation rule.
 \subsection[Creation]{Creation}
 \label{sec:creation}
 
-In a rule a node filters one or more darts. So when a rule creates a node it
-also creates the darts the node filters. Therefore if a set of one or more
-nodes, all created, filters an orbit then the rule creates an orbit such as a
-vertex, edge or face.
+In a rule a node matches one or more darts. So when a rule creates a node it
+also creates the corresponding darts. If the right hand side of a rule contains
+a created orbit, then the application of this rule to any object creates one or
+more orbits. For example, figure \ref{fig:rule-triangulation} the face
+triangulation have created vertex $n_{2}$·$\orbit{\alpha 1, \alpha 2}$ on the
+right hand side. Therefore, the application of this rule
+\ref{fig:house-triangulation-right-filter} creates a vertex, emphasis in blue.
 
-
-\begin{definition}
-\label{def:creation}
-Let there be a rule $r: L \to R$, a G-map $G$, an orbit type $\orbit{o}$, a
-node $n$ where $n \in R$ and an \emph{application}
-$G \longrightarrow^{r,m} H$.
-
-If an orbit $R\orbit{o}(n)$ is both \emph{complete} and created by the rule,
-i.e. none of the nodes in $R\orbit{o}(n)$ belong to $L$, then and for all darts
-$d$ instance of $n$, $d\orbit{o}(n)$ is created in $H$.
+\begin{definition}[Orbit creation]
+  \label{def:orbit-creation}
+  Let a rule $r : L \longrightarrow R$, an orbit type $\orbit{o}$ and a created
+  node $n \in R$. The following syntactic conditions defines a created orbit
+  $R\orbit{o}(n)$:
+  \begin{itemize}
+    \item $R\orbit{o}(n)$ is complete and,
+    % , i.e. all of its nodes are the source of
+    %       all dimensions in $\orbit{o}$ either explicitly or implicitly, and,
+    \item $r$ fully creates $R\orbit{o}(n)$, i.e. $r$ creates all the nodes
+          present in $R\orbit{o}(n)$.
+  \end{itemize}
 \end{definition}
 
-Definition \ref{def:creation} gives the necessary and sufficient conditions
+% \begin{definition}[Not a def]
+%   \label{def:creation}
+%   Let a rule $r: L \longrightarrow R$, a G-map $G$, an orbit type $\orbit{o}$, a node $n$
+%   where $n \in R$ and an \emph{application} $G \longrightarrow^{r,m} H$.
+
+%   If an orbit $R\orbit{o}(n)$ is both \emph{complete} and created by the rule,
+%   i.e. none of the nodes in $R\orbit{o}(n)$ belong to $L$, then and for all darts
+%   $d$ instance of $n$, $H\orbit{o}(d)$ is created in $H$.
+% \end{definition}
+
+Definition \ref{def:orbit-creation} gives the necessary and sufficient conditions
 under which we can confirm a rule will create some orbit.
 
 Given the face triangulation rule figure \ref{fig:rule-triangulation} we will
@@ -68,11 +84,11 @@ follow the creation event of a vertex of orbit type
 $\orbit{\alpha 1, \alpha 2}$. This rule creates two nodes in $R$, namely,
 $n_{1}$ and $n_{2}$. Starting with $R\orbit{\alpha 1, \alpha 2}(n_{1})$ we
 obtain an orbit containing nodes $n_{0}$ and $n_{1}$. As this orbit contains the
-\emph{preserved} node $n_{0}$ we cannot consider the topology it filters as
+\emph{preserved} node $n_{0}$ we cannot consider the orbit it matches as
 created. On the contrary the orbit $R\orbit{\alpha 1, \alpha 2}(n_{2})$ only
-contains $n_{2}$. This orbit being fully created we can affirm the rule of face
-triangulation will create a vertex filtered by node $n_{2}$ during its
-application.
+contains $n_{2}$. As this orbit only has created nodes, and so is fully created,
+we can affirm the rule of face triangulation creates a vertex matched by node
+$n_{2}$ during its application.
 
 Figure \ref{fig:before-after-house-triangulation} shows the application of the
 rule \ref{fig:rule-triangulation} on a square face. In figure
@@ -83,7 +99,7 @@ sera donné après mise à jour des figures).
 \subsection[Split]{Split}
 \label{sec:split}
 
-\maxime{intuition} As an orbit filters a set of darts an orbit split creates
+\maxime{intuition} As an orbit matches a set of darts an orbit split creates
 disjointed sets from a former set of darts. An orbit split can occur in two
 manners either explicitly or implicitly.
 
@@ -92,7 +108,7 @@ multiple orbits. An explicit split results in as much sets of darts as orbits.
 
 In the second case a an orbit has a specific implicit link that is
 \emph{rewritten} to a dimension not present in the orbit type of interest. An
-implicit split results in two or more disjointed subsets of darts all filtered
+implicit split results in two or more disjointed subsets of darts all matched
 by the same orbit. Although some $\alpha$-links may appear to connect darts
 subsets within a G-map they do not. The reason is the dimensions of these link
 do not belong to the orbit.
@@ -116,8 +132,8 @@ do not belong to the orbit.
           label $l_{L}(n')$ is a dimension of $\orbit{o}$ and for all nodes $n'$
           in $R\orbit{o}(n)$, the $k$-th dimension of $l_{R}(n')$ is rewritten
           either to ``\_'' or to a dimension not in $\orbit{o}$. Then and for
-          all $d$ filtered by $n$ there exists $d'$, with $d \neq d'$, also
-          filtered by $n$ such that
+          all $d$ matched by $n$ there exists $d'$, with $d \neq d'$, also
+          matched by $n$ such that
           $d\orbit{o}(n) \cap d'\orbit{o}(n) = \emptyset$ in $H$.
    \end{itemize}
 \end{definition}
@@ -129,7 +145,7 @@ In order to proceed with our exemple let's start with a case of implicit split.
 Given the face triangulation rule figure \ref{fig:rule-triangulation} we will
 follow the implicit split event of a face of orbit type
 $\orbit{\alpha 0, \alpha 1}$. The orbit $L\orbit{\alpha 0, \alpha 1}(n_{0})$
-comprises node $n_{0}$ and filters a single set of darts which form a face
+comprises node $n_{0}$ and matches a single set of darts which form a face
 orbit. In this exemple nodes have two dimensions (or implicit links) in their
 label. For node $n_{0}$ first implicit link is $\alpha 0$ and second implicit
 link is $\alpha 1$ both in orbit type $\orbit{\alpha 0, \alpha 1}$. However the
@@ -137,7 +153,7 @@ orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ comprises nodes $n_{0}$, $n_{1}$,
 $n_{2}$ and not one of them has a second implicit link whose dimension is in
 $\orbit{\alpha 0, \alpha 1}$. Under this condition we can affirm the rule figure
 \ref{fig:rule-triangulation} splits a face into two or more faces. In figure
-\ref{fig:house-triangulation-right-filter} the orbit filters four disjointed
+\ref{fig:house-triangulation-right-filter} the orbit matches four disjointed
 subsets of darts and each subset form a face orbit. The black and red dotted
 cell highlights a face resulting from the split.
 

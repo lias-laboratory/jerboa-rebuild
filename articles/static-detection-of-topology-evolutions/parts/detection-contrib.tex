@@ -54,12 +54,13 @@ affected by the rule.
 In a rule a node matches one or more darts. So when a rule creates a node it
 also creates the corresponding darts. If the right hand side of a rule contains
 a created orbit, then the application of this rule on any object creates one or
-more orbits. For example, in figure \ref{fig:before-after-house-triangulation},
+more orbits. For example, in figure \ref{fig:rule-triangulation},
 the face triangulation rule creates the orbit
 $n_{2}$·$\orbit{\alpha 0, \alpha 2}$ in the right hand side. Therefore the
 application of this rule on the square face, in figure
 \ref{fig:house-triangulation-left-match}, creates four edges (emphasis in purple
 in figure \ref{fig:house-triangulation-right-match}).
+
 
 \begin{definition}[Orbit creation]
   \label{def:orbit-creation}
@@ -82,6 +83,8 @@ in figure \ref{fig:house-triangulation-right-match}).
 %   intuitive, en t'appuyant sur l'exemple.} Definition \ref{def:orbit-creation}
 % gives the necessary and sufficient conditions under which we can confirm a rule
 % will create some orbit.
+Definition \ref{def:orbit-creation} gives the necessary and sufficient
+conditions under which we can confirm a rule will create an orbit.
 
 Given the face triangulation rule in figure \ref{fig:rule-triangulation} and its
 instanciation in figure \ref{fig:before-after-house-triangulation} we will
@@ -89,14 +92,13 @@ follow the creation event of a vertex of orbit type
 $\orbit{\alpha 1, \alpha 2}$. This rule creates two nodes in $R$, namely,
 $n_{1}$ and $n_{2}$. Starting with $R\orbit{\alpha 1, \alpha 2}(n_{1})$ we
 obtain an orbit containing nodes $n_{0}$ and $n_{1}$. As this orbit contains the
-\emph{preserved} node $n_{0}$ we cannot consider the orbit it matches as
+preserved node $n_{0}$ we cannot consider the set of darts it matches as fully
 created. On the contrary the orbit $R\orbit{\alpha 1, \alpha 2}(n_{2})$ only
 contains $n_{2}$. As this orbit only has created nodes it is fully created. Thus
-we can affirm the application of face triangulation rule on the square in figure
-\ref{fig:house-triangulation-left-match} will create the vertex in a blue
-emphasis in figure \ref{fig:house-triangulation-right-match} (i.e. the orbit
-$H\orbit{\alpha 1, \alpha 2}(9)$ with $9$ a dart ID of $H$ matched by $n_{2}$ in
-$R$.)
+we can state that the application of the face triangulation rule on the square
+in figure \ref{fig:house-triangulation-left-match} will create the vertex in
+blue in figure \ref{fig:house-triangulation-right-match} (i.e. the orbit
+$H\orbit{\alpha 1, \alpha 2}(9)$ where $9$ is a dart matched by $n_{2}$.)
 
 \subsection[Split]{Split}
 \label{sec:split}

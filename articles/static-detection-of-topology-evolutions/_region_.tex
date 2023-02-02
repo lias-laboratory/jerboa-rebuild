@@ -1,11 +1,78 @@
-\documentclass[../main.tex]{subfiles}
+\message{ !name(../main.tex)}%% This is file `cag-template.tex',
+%%
+%% Copyright 2018 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%%
+%% $Id: cag-template.tex 151 2018-11-22 04:42:39Z rishi $
+%%
+%% Use the options `twocolumn,final' to obtain the final layout
+%% Use `longtitle' option to break abstract to multiple pages if overfull.
+%% For Review pdf (With double line spacing)
+%\documentclass[times,twocolumn,review]{elsarticle}
+%% For abstracts longer than one page.
+%\documentclass[times,twocolumn,review,longtitle]{elsarticle}
+%% For Review pdf without preprint line
+%\documentclass[times,twocolumn,review,nopreprintline]{elsarticle}
+%% Final pdf
+%\documentclass[times,twocolumn,final]{elsarticle}
+%%
+\documentclass[times,twocolumn,final]{els-format/elsarticle}
+%%
+
+
+%% Stylefile to load CAG template
+\usepackage{els-format/cag}
+\usepackage{framed,multirow}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+% Following three lines are needed for this document.
+% If you are not loading colors or url, then these are
+% not required.
+\usepackage{url}
+\usepackage{xcolor}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+
+\usepackage{hyperref}
+
+\usepackage[switch,pagewise]{lineno} %Required by command \linenumbers below
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{lipsum}
+\usepackage{subfiles}
+\usepackage{subcaption}
+
+\graphicspath{{./els-format/} {./figures/}}
+\include{commands}
+
+\journal{Computers \& Graphics}
 
 \begin{document}
+
+\message{ !name(parts/detection-contrib.tex) !offset(-67) }
+
 \section[Event detection]{Event detection}
 \label{sec:event-detection}
 
 Intuitively to detect that a rule application creates some orbit one would
-compare the graph before and after its application. However comparing the
+compare the graph before and after a its application. However comparing the
 members of a rule against each other allow to statically detect topological
 events. Such method presents the advantage to be independent of the object
 affected by the rule.
@@ -17,34 +84,27 @@ affected by the rule.
   \label{fig:rule-triangulation}
 \end{figure}
 
+Figure \ref{fig:rule-triangulation} illustrate the face triangulation rule.
 
 \begin{figure}[H]
   \centering
   \begin{subfigure}{.45\columnwidth}
     \centering
-    \includegraphics[width=.7\columnwidth]{house-triangulated-left-match}
+    \includegraphics[height=\columnwidth]{house-triangulated-left-filter}
     \caption{}
-    \label{fig:house-triangulation-left-match}
+    \label{fig:house-triangulation-left-filter}
   \end{subfigure}
   \hfill
   \begin{subfigure}{.45\columnwidth}
     \centering
-    \includegraphics[width=.7\columnwidth]{house-triangulated-right-match}
+    \includegraphics[height=\columnwidth]{house-triangulated-right-filter}
     \caption{}
-    \label{fig:house-triangulation-right-match}
+    \label{fig:house-triangulation-right-filter}
   \end{subfigure}
-  % \hfill
-  % \begin{subfigure}{.3\columnwidth}
-  %   \centering
-  %   \includegraphics[width=\columnwidth]{house-triangulated-right-match-edges}
-  %   \caption{}
-  %   \label{fig:house-triangulation-right-match-edges}
-  % \end{subfigure}
-  \caption{%
-     \subref{fig:house-triangulation-left-match} - Graph $G$ - before triangulation.%
-     \subref{fig:house-triangulation-right-match} - Graph $H$ - after triangulation.%
-    % \subref{fig:house-triangulation-right-match-edges} - Edges created by triangulation.
-   }
+   \caption{%
+    \subref{fig:house-triangulation-left-filter} - Face before triangulation.
+    \subref{fig:house-triangulation-right-filter} - Face after triangulation.%
+  }
   \label{fig:before-after-house-triangulation}
 \end{figure}
 
@@ -53,50 +113,48 @@ affected by the rule.
 
 In a rule a node matches one or more darts. So when a rule creates a node it
 also creates the corresponding darts. If the right hand side of a rule contains
-a created orbit, then the application of this rule on any object creates one or
-more orbits. For example, in figure \ref{fig:before-after-house-triangulation},
-the face triangulation rule creates the orbit
-$n_{2}$·$\orbit{\alpha 0, \alpha 2}$ in the right hand side. Therefore the
-application of this rule on the square face, in figure
-\ref{fig:house-triangulation-left-match}, creates four edges (emphasis in purple
-in figure \ref{fig:house-triangulation-right-match}).
+a created orbit, then the application of this rule to any object creates one or
+more orbits. For example, in figure \ref{fig:rule-triangulation}, the face
+triangulation have created vertex $n_{2}$·$\orbit{\alpha 1, \alpha 2}$ on the
+right hand side. Therefore, the application of this rule
+\ref{fig:house-triangulation-right-filter} creates a vertex, emphasis in blue.
 
 \begin{definition}[Orbit creation]
   \label{def:orbit-creation}
-  Let $r : L \longrightarrow R$ be a rule, $\orbit{o}$ an orbit type and $n \in R$ a created
-  node. An orbit $R\orbit{o}(n)$ is created if it is a complete orbit and if
+  Let a rule $r : L \longrightarrow R$, an orbit type $\orbit{o}$ and a created
+  node $n \in R$. An orbit $R\orbit{o}(n)$ is created if it is complete and if
   all of its nodes are created.
 \end{definition}
 
 %then and for all darts
 %   $d$ instance of $n$, $H\orbit{o}(d)$ is created in $H$.
-%
-% \agnes{En fait il faudrait définir ce qu'est une orbite complète (si ce n'est
-%   pas déjà fait dans la section précédente) et une orbite créée.}
 
-% \agnes{La def peut pas contenir une proposition. Il faut y mettre seulement la
-%   condition syntaxique sur la règle dans la def. Ensuite tu as 2 possibilités.
-%   (1) faire une proposition, mais tu devras au minimum donner une idée de la
-%   preuve. (2) expliquer à la suite de la def dans texte que c'est une condition
-%   nécessaire et suffisante pour la règle et l'expliquer de manière plus
-%   intuitive, en t'appuyant sur l'exemple.} Definition \ref{def:orbit-creation}
-% gives the necessary and sufficient conditions under which we can confirm a rule
-% will create some orbit.
+\agnes{La def peut pas contenir une proposition. Il faut y mettre seulement la
+  condition syntaxique sur la règle dans la def. Ensuite tu as 2 possibilités.
+  (1) faire une proposition, mais tu devras au minimum donner une idée de la
+  preuve. (2) expliquer à la suite de la def dans texte que c'est une condition
+  nécessaire et suffisante pour la règle et l'expliquer de manière plus
+  intuitive, en t'appuyant sur l'exemple.}
 
-Given the face triangulation rule in figure \ref{fig:rule-triangulation} and its
-instanciation in figure \ref{fig:before-after-house-triangulation} we will
-follow the creation event of a vertex of orbit type
+Definition \ref{def:orbit-creation} gives the necessary and sufficient conditions
+under which we can confirm a rule will create some orbit.
+
+Given the face triangulation rule figure \ref{fig:rule-triangulation} we will
+f$G$ollow the creation event of a vertex of orbit type
 $\orbit{\alpha 1, \alpha 2}$. This rule creates two nodes in $R$, namely,
 $n_{1}$ and $n_{2}$. Starting with $R\orbit{\alpha 1, \alpha 2}(n_{1})$ we
 obtain an orbit containing nodes $n_{0}$ and $n_{1}$. As this orbit contains the
 \emph{preserved} node $n_{0}$ we cannot consider the orbit it matches as
 created. On the contrary the orbit $R\orbit{\alpha 1, \alpha 2}(n_{2})$ only
-contains $n_{2}$. As this orbit only has created nodes it is fully created. Thus
-we can affirm the application of face triangulation rule on the square in figure
-\ref{fig:house-triangulation-left-match} will create the vertex in a blue
-emphasis in figure \ref{fig:house-triangulation-right-match} (i.e. the orbit
-$H\orbit{\alpha 1, \alpha 2}(9)$ with $9$ a dart ID of $H$ matched by $n_{2}$ in
-$R$.)
+contains $n_{2}$. As this orbit only has created nodes, and so is fully created,
+we can affirm the rule of face triangulation creates a vertex matched by node
+$n_{2}$ during its application.
+
+Figure \ref{fig:before-after-house-triangulation} shows the application of the
+rule \ref{fig:rule-triangulation} on a square face. In figure
+\ref{fig:house-triangulation-right-filter} the orbit
+$R\orbit{\alpha 1, \alpha 2}(n_{2})$ is in a blue highlight (L'orbite concrète
+sera donné après mise à jour des figures).
 
 \subsection[Split]{Split}
 \label{sec:split}
@@ -155,7 +213,7 @@ orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ comprises nodes $n_{0}$, $n_{1}$,
 $n_{2}$ and not one of them has a second implicit link whose dimension is in
 $\orbit{\alpha 0, \alpha 1}$. Under this condition we can affirm the rule figure
 \ref{fig:rule-triangulation} splits a face into two or more faces. In figure
-\ref{fig:house-triangulation-right-match} the orbit matches four disjointed
+\ref{fig:house-triangulation-right-filter} the orbit matches four disjointed
 subsets of darts and each subset form a face orbit. The black and red dotted
 cell highlights a face resulting from the split.
 
@@ -179,3 +237,5 @@ cell highlights a face resulting from the split.
 %%% mode: latex
 %%% TeX-master: "../main"
 %%% End:
+
+\message{ !name(../main.tex) !offset(-241) }

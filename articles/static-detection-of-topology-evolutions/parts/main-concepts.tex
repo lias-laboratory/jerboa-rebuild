@@ -7,34 +7,66 @@
 \subsection[Generalized Maps]{Generalized maps}
 \label{sec:generalized-maps}
 
-\cite{lienhardt1991topological}
+G-Maps, as stated in\cite{marcheix2018persistent}, intuitively represent the
+decomposition of $n$-dimensional objects according to the successive dimensions
+of their boundaries, the different parts being linked by relationships noted
+$\alpha i$.
+
+\begin{definition}[Orbit]
+
+  Let $G = (V, E, s, t, \alpha)$ topological graph of dimension $n$, $o$ a
+  subset of $[0, n]$ and $v$ a node of $G$.
+
+  The orbit $G\orbit{o}(v)$, incident to $v$ and of type $\orbit{o}$ (or
+  $\orbit{o}$-orbit), is the sub-graph of $G$ containing $v$ and the nodes of
+  $G$ reachable through edges labeled in $\orbit{o}$ as well as these edges.
+
+  When there is no ambiguity about the considered graph $G$ the orbit is written
+  $\orbit{o}$·$v$.
+\end{definition}
+
 \begin{itemize}
-	\item definition gmap
-  \item definition orbit
+	\item vertex is of type $\orbit{\alpha 1, \alpha 2}$,
+  \item edge is of type $\orbit{\alpha 0, \alpha 2}$,
+  \item face is of type $\orbit{\alpha 0, \alpha 1}$
 \end{itemize}
+
 
 \subsection[Graph transformation rules]{Graph transformation rules}
 \label{sec:graph-transf-rules}
 
-\cite{belhaouari2014jerboa}
-\begin{itemize}
-    \item syntax + intuition + example
-    \item definition rule
-    \item implicit/explicit links
-    \item node creation, suppression, preservation
-    \item complete orbit (ici ou plutôt directement après la def. d'une orbite ?)
-    \item application + morphism
-\end{itemize}
+Since G-Maps are graphs we use graph transformation rules, or \emph{rules}, as
+modeling operations. Intuitively, given two G-Maps $G$ and $H$, a rule, written
+$L \longrightarrow R$, describes the transformation of a sub-graph of $G$ with a
+scheme $L$ into a sub-graph of $H$ with a scheme $R$.
 
+A scheme being an abstract layer on graphs, they contain labeled nodes used to
+match sub-graphs.
 
-A rule, written $r : L \longrightarrow R$, defines two schemes $L$ and $R$. $L$
-describes a sub-graph to transform and $R$ a transformation of $L$.
+A rule node $n$ of label $l(n)$ matches a set of darts and their
+$\alpha i$-links if they are in $l(n)$.
 
-\begin{definition}[Rule]
-  Let $G$ be a Gmap and $H$ the transformation of $G$.
+We consider two different types of $\alpha i$-links within a scheme. First
+\emph{explicit links}. These links connects rule nodes together allowing to
+match a connected component within a sub-graph. Second \emph{implicit links}.
+These links connect together the darts matched by any node $n$ and implicitly
+express those links by having their $\alpha i$ in $l(n)$, hence implicit links.
 
-  A rule $r: L \longrightarrow R$ is defined by a couple of schemes $L$ and $R$.
-  Its application on $G$ produces $H$.
+Rule nodes can be considered created, deleted or preserved. A node is a
+\emph{created node} $n$ if it only exists in $R$, i.e. if $n \in R \setminus L$.
+A node is \emph{deleted node} $n$ if it only exists in $L$, i.e. if
+$n \in L \setminus R$. Finally, a node is a \emph{preserved node} $n$ if it
+exists in both $L$ and $R$, i.e. if $n \in L \cap R$.
+
+\begin{definition}[Complete orbit]
+  Let $r : L \longrightarrow R$ be a rule, $n$ a node such that $n \in L$ and
+  $\orbit{o}$ an orbit type.
+
+  $L\orbit{o}(n)$ is a \emph{complete orbit} if and only if for all node
+  $n'\in L\orbit{o}(n)$, $n'$ filters either implicitly or explicitly all
+  dimensions in $\orbit{o}$, i.e. for all dimensions $i \in \orbit{o}$, $n'$ is
+  either the source of an $\alpha i$-link or $i \in l(n')$.
+
 \end{definition}
 
 \end{document}

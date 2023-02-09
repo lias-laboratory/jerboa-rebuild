@@ -26,6 +26,13 @@
     \langle#1\rangle
 }
 
-\newtheorem{definition}{Definition}[subsection]
-\newtheorem{proposition}{Proposition}[subsection]
-\newtheorem{proofidea}{Idea of proof}[subsection]
+\newenvironment{proofidea}{\noindent\textbf{Idea of proof:}}{\newline}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{definition}[thm]{Definition}%[subsection]
+\newtheorem{proposition}[thm]{Proposition}%[subsection]
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

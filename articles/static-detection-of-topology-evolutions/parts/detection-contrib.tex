@@ -4,13 +4,13 @@
 \section[Event detection]{Event detection}
 \label{sec:event-detection}
 
-Intuitively to detect that a rule application creates some orbit one would
-compare the graph before and after its application. However comparing the
-members of a rule against each other allow to statically detect topological
-events. Such method presents the advantage to be independent of the object
-affected by the rule.
+Intuitively, to detect that a rule application creates (or splits, merges, …) an
+orbit, one would compare the graph before and after its application. However,
+comparing the members of a rule against each other allows a static detection of
+topological events. Such a method presents the advantage of being independent of
+the object transformed by the rule.
 
-\begin{figure}[H]
+\begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{triangulation}
   \caption{Rule $L \longrightarrow R$ of face triangulation}
@@ -18,7 +18,7 @@ affected by the rule.
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[t]
   \centering
   \begin{subfigure}{.45\columnwidth}
     \centering
@@ -51,95 +51,102 @@ affected by the rule.
 \subsection[Creation]{Creation}
 \label{sec:creation}
 
-In a rule a node matches one or more darts. So when a rule creates a node it
-also creates the corresponding darts. If the right hand side of a rule contains
-a created orbit, then the application of this rule on any object creates one or
-more orbits. For example, in figure \ref{fig:rule-triangulation},
-the face triangulation rule creates the orbit
-$n_{2}$·$\orbit{\alpha 0, \alpha 2}$ in the right hand side. Therefore the
-application of this rule on the square face, in figure
-\ref{fig:house-triangulation-left-match}, creates four edges (emphasis in purple
-in figure \ref{fig:house-triangulation-right-match}).
-
+A rule node matches one or more darts. So when a rule creates a node, it also
+creates the corresponding darts. If the right hand side of a rule contains a
+created orbit, then the application of this rule on any object creates one or
+more orbits. For example, the triangulation rule
+(fig.~\ref{fig:rule-triangulation}) creates the edge orbit
+$R\orbit{\alpha 0, \alpha 2}(n_{1})$. Therefore, the application of this rule on
+the square face (fig.~\ref{fig:before-after-house-triangulation}) creates four
+edge orbits $H\orbit{\alpha 0, \alpha 2}(i)$, $H\orbit{\alpha 0, \alpha 2}(u)$,
+$H\orbit{\alpha 0, \alpha 2}(q)$ and $H\orbit{\alpha 0, \alpha 2}(m)$ in $H$.
 
 \begin{definition}[Orbit creation]
   \label{def:orbit-creation}
-  Let $r : L \longrightarrow R$ be a rule, $\orbit{o}$ an orbit type and $n \in R$ a created
-  node. An orbit $R\orbit{o}(n)$ is created if it is a complete orbit and if
-  all of its nodes are created.
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match morphism,
+  $t: G \longrightarrow^{r,m} H$ the transformation of $G$ by $(r,m)$,
+  $\orbit{o}$ an orbit type, $n$ a created node of $R$ and $d$ a dart of $H$
+  matched by $n$.
+
+  An orbit $R\orbit{o}(n)$ is \emph{created} in the rule $r$ if all of its nodes
+  are created in $r$.
+
+  An orbit $H\orbit{o}(d)$ is created by the transformation $t$ if and only if
+  all of its darts are created by $t$.
 \end{definition}
 
-%then and for all darts
-%   $d$ instance of $n$, $H\orbit{o}(d)$ is created in $H$.
-%
-% \agnes{En fait il faudrait définir ce qu'est une orbite complète (si ce n'est
-%   pas déjà fait dans la section précédente) et une orbite créée.}
+\begin{proposition}
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match morphism,
+  $t: G \longrightarrow^{r,m} H$ the transformation of $G$ by $(r,m)$,
+  $\orbit{o}$ an orbit type, $n$ a created node of $R$ and $d$ a dart of $H$
+  matched by $n$.
 
-% \agnes{La def peut pas contenir une proposition. Il faut y mettre seulement la
-%   condition syntaxique sur la règle dans la def. Ensuite tu as 2 possibilités.
-%   (1) faire une proposition, mais tu devras au minimum donner une idée de la
-%   preuve. (2) expliquer à la suite de la def dans texte que c'est une condition
-%   nécessaire et suffisante pour la règle et l'expliquer de manière plus
-%   intuitive, en t'appuyant sur l'exemple.} Definition \ref{def:orbit-creation}
-% gives the necessary and sufficient conditions under which we can confirm a rule
-% will create some orbit.
-Definition \ref{def:orbit-creation} gives the necessary and sufficient
-conditions under which we can confirm a rule will create an orbit.
+  Orbit $H\orbit{o}(d)$ is created if and only if $R\orbit{o}(n)$ is created.
+\end{proposition}
 
-Given the face triangulation rule in figure \ref{fig:rule-triangulation} and its
-instanciation in figure \ref{fig:before-after-house-triangulation} we will
-follow the creation event of a vertex of orbit type
-$\orbit{\alpha 1, \alpha 2}$. This rule creates two nodes in $R$, namely,
-$n_{1}$ and $n_{2}$. Starting with $R\orbit{\alpha 1, \alpha 2}(n_{1})$ we
-obtain an orbit containing nodes $n_{0}$ and $n_{1}$. As this orbit contains the
-preserved node $n_{0}$ we cannot consider the set of darts it matches as fully
-created. On the contrary the orbit $R\orbit{\alpha 1, \alpha 2}(n_{2})$ only
-contains $n_{2}$. As this orbit only has created nodes it is fully created. Thus
-we can state that the application of the face triangulation rule on the square
-in figure \ref{fig:house-triangulation-left-match} will create the vertex in
-blue in figure \ref{fig:house-triangulation-right-match} (i.e. the orbit
-$H\orbit{\alpha 1, \alpha 2}(9)$ where $9$ is a dart matched by $n_{2}$.)
+\begin{proofidea}
+  Due to the syntactic condition on rules, the orbit $R\orbit{o}(n)$ is
+  complete. Thus, due to application of rules, $H\orbit{o}(d)$ is included in
+  the image of $R\orbit{o}(n)$. Therefore, all nodes of $H\orbit{o}(d)$ are
+  created. Conversely, if $H\orbit{o}(d)$ is created, then it is included in the
+  image of $R\orbit{o}(n)$ and then $R\orbit{o}(n)$ is created.
+\end{proofidea}
+
+Back to the example of the face triangulation (figures
+\ref{fig:rule-triangulation} and~\ref{fig:before-after-house-triangulation}), we
+will follow the creation of an edge. The edge orbit
+$R\orbit{\alpha 0, \alpha 2}(n_{1})$ in the triangulation rule is created
+because its two nodes $n_{1}$ and $n_{2}$ are created. In the transformation,
+$n_{1}$ matches 8 darts, including for example dart $i$, and $n_{2}$ also
+matches 8 darts including dart $j$. The edge orbit
+$H\orbit{\alpha 0, \alpha 2}(i)$ is created as well as darts $j, k, l$
+(fig.~\ref{fig:house-triangulation-right-match}).
+
 
 \subsection[Split]{Split}
 \label{sec:split}
 
-\maxime{intuition} As an orbit matches a set of darts an orbit split creates
-disjointed sets from a former set of darts. An orbit split can occur in two
-manners either explicitly or implicitly.
+When a rule explicitly splits an orbit, it also splits the set of matched darts.
+For example, the unsewing rule (fig.~$\ref{fig:rule-unsew-a2}$) splits the edge
+orbit $L\orbit{\alpha 0, \alpha 2}(n_{0})$ into two edge orbits
+$R\orbit{\alpha 0, \alpha 2}(n_{0})$ and $R\orbit{\alpha 0, \alpha 2}(n_{1})$.
+Therefore the application of this rule (fig.~\ref{fig:before-after-unsew-a2})
+splits the edge into two edges $H\orbit{\alpha 0, \alpha 2}(g)$ and
+$H\orbit{\alpha 0, \alpha 2}(y)$.
 
-In the first case a set of nodes belong to a common orbit and are separated into
-multiple orbits. An explicit split results in as much sets of darts as orbits.
+A rule can also split an orbit implicitly. For example
+(fig.~\ref{fig:rule-triangulation}) the triangulation rule splits the face orbit
+$L\orbit{\alpha 0, \alpha 1}(n_{0})$ along the second implicit links. Because in
+the right hand side $R\orbit{\alpha 0, \alpha 1}(n_{0})$ contains the nodes
+$n_{0}$, $n_{1}$ and $n_{2}$ : the second implicit links of $n_{0}$ is deleted
+and the second implicit links of $n_{1}$ and $n_{2}$ are renamed to $\alpha 2$
+not in $\orbit{\alpha 0, \alpha 1}$. Therefore the application of this rule
+(fig.~\ref{fig:before-after-house-triangulation}) splits
+$G\orbit{\alpha 0, \alpha 1}(a)$ into four faces orbits
+$H\orbit{\alpha 0, \alpha 1}(a)$, $H\orbit{\alpha 0, \alpha 1}(c)$,
+$H\orbit{\alpha 0, \alpha 1}(e)$, $H\orbit{\alpha 0, \alpha 1}(g)$. Notice that
+the edges of the former square face do not belong to the same face anymore.
 
-In the second case a an orbit has a specific implicit link that is
-\emph{rewritten} to a dimension not present in the orbit type of interest. An
-implicit split results in two or more disjointed subsets of darts all matched
-by the same orbit. Although some $\alpha$-links may appear to connect darts
-subsets within a G-map they do not. The reason is the dimensions of these link
-do not belong to the orbit.
+\begin{definition}[Orbit split]
+  Let $r: L \longrightarrow R$ be a rule, $m: L \to G$ a morphism,
+  $t: G \longrightarrow^{r,m}H$ the transformation of G by $(r,m)$, $\orbit{o}$
+  an orbit type, $n$ a preserved node and $d$ a preserved dart matched by~$n$.
 
-\begin{definition}\label{def:split}
-  Let a rule $r : L \longrightarrow R$, a G-map $G$, an orbit type $o$, a node
-  $n$ where $n \in L \cap R$ and an application $G \longrightarrow^{r, m} H$.
+  An orbit $L\orbit{o}(n)$ is \emph{splitting} by the rule $r$ either:
+ \begin{itemize}
+   \item explicitly if there exists two preserved nodes $n$ and $n'$ in
+         $L\orbit{o}(n)$ do not belong the same orbit in $R$, i.e.
+         $R\orbit{o}(n) \neq R\orbit{o}(n')$.
 
-  There are two types of orbit split:
-  \begin{itemize}
-    \item An orbit is explicitly splitted if two preserved nodes belonging to
-          the same orbit in $L$ do not belong the same orbit in $R$, i.e. there
-          exists a node $n' \in L \cap R$ such that
-          $L\orbit{o}(n) = L\orbit{o}(n')$ and
-          $R\orbit{o}(n) \cap R\orbit{o}(n') = \emptyset$. Then and for all $d$
-          and $d'$, respectively instances of $n$ and $n'$, $d\orbit{o}(n)$ in
-          $G$ is splitted into $d\orbit{o}(n)$ and $d'\orbit{o}(n)$ in $H$.
+   \item implicitly if for all nodes within $L\orbit{o}(n)$ there exists a node
+         $n'$ whose $k$-th implicit link is in $\orbit{o}$ and for all nodes
+         $n'$ in $R\orbit{o}(n)$, the $k$-th implicit link is either deleted or
+         renamed not in $\orbit{o}$.
 
-    \item An orbit is implicitly splitted if for all nodes within
-          $L\orbit{o}(n)$ there exists a node $n'$ whose $k$-th dimension in
-          label $l_{L}(n')$ is a dimension of $\orbit{o}$ and for all nodes $n'$
-          in $R\orbit{o}(n)$, the $k$-th dimension of $l_{R}(n')$ is rewritten
-          either to ``\_'' or to a dimension not in $\orbit{o}$. Then and for
-          all $d$ matched by $n$ there exists $d'$, with $d \neq d'$, also
-          matched by $n$ such that
-          $d\orbit{o}(n) \cap d'\orbit{o}(n) = \emptyset$ in $H$.
    \end{itemize}
+   An orbit $G\orbit{o}(d)$ is \emph{splitting} by the transformation $t$ if and
+   only if there exists at least one preserved dart $d'$ in $G\orbit{o}(d)$,
+   such that $H\orbit{o}(d) \neq H\orbit{o}(d')$.
 \end{definition}
 
 \maxime{exemples : INSERT EXAMPLES HERE}

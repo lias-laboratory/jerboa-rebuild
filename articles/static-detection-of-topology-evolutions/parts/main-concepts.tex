@@ -4,41 +4,118 @@
 
 \section{Main concepts}
 
-\subsection[Generalized Maps]{Generalized maps}
-\label{sec:generalized-maps}
+We define in this section the \maxime{todo}
 
-G-Maps, as stated in\cite{marcheix2018persistent}, intuitively represent the
-decomposition of $n$-dimensional objects according to the successive dimensions
-of their boundaries, the different parts being linked by relationships noted
-$\alpha i$.
+\subsection{Generalized maps}
 
-\begin{definition}[Orbit]
+\emph{Generalized maps} (or G-maps) \cite{lienhardt1991topological,
+  Damiand-Lienhardt14} allow the representation of geometric object and their
+cellular $n$-dimensional topological structure.
 
-  Let $G = (V, E, s, t, \alpha)$ topological graph of dimension $n$, $o$ a
-  subset of $[0, n]$ and $v$ a node of $G$.
+\begin{figure}
+  \begin{subfigure}[t]{.24\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-ABCDE.pdf}
+    \caption{}
+    \label{fig:house-ABCDE}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{.24\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-faces-decomposition}
+    \caption{}
+    \label{fig:house-faces-decomposition}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{.24\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-show-1-links.pdf}
+    \caption{}
+    \label{fig:house-show-1-links}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{.24\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-show-all-links.pdf}
+    \caption{}
+    \label{fig:house-show-all-links}
+  \end{subfigure}
+  \caption{Cell decomposition of a geometric 2D object}
+  \label{fig:house-cell-decomposition}
+\end{figure}
 
-  The orbit $G\orbit{o}(v)$, incident to $v$ and of type $\orbit{o}$ (or
-  $\orbit{o}$-orbit), is the sub-graph of $G$ containing $v$ and the nodes of
-  $G$ reachable through edges labeled in $\orbit{o}$ as well as these edges.
+The representation of an object as a G-map comes intuitively from its
+decomposition into topological cells (vertices, edges, faces, volumes, etc.).
+For example, the 2D topological object (Fig.~\ref{fig:house-ABCDE}) can be
+decomposed into a $2$-dimensional G-map (or $2$-G-map). The object is first
+decomposed into faces (Fig.~\ref{fig:house-faces-decomposition}). These faces
+are \emph{linked} along their common edge with an $\alpha 2$ link: the index 2
+indicates that two cells of dimension 2 (faces) share an edge. In the same way,
+faces are split into edges connected with the $\alpha 1$ link
+(Fig~\ref{fig:house-show-1-links}). At last, edges are split into vertices by
+the $\alpha 0$ link to obtain the $2$-G-map
+(Fig~\ref{fig:house-show-all-links}). Vertices obtained at the end of the
+process are the nodes of the G-map graph also named \emph{darts}.
 
-  When there is no ambiguity about the considered graph $G$ the orbit is written
-  $\orbit{o}$·$v$.
-\end{definition}
+G-maps have conditions guaranteeing objects coherence, for example, two faces
+are always linked along an edge.
 
-\begin{itemize}
-	\item vertex is of type $\orbit{\alpha 1, \alpha 2}$,
-  \item edge is of type $\orbit{\alpha 0, \alpha 2}$,
-  \item face is of type $\orbit{\alpha 0, \alpha 1}$
-\end{itemize}
+\begin{figure}
+  \begin{subfigure}[t]{.19\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-2-cell-a.pdf}
+    \caption{}
+    \label{fig:house-2-cell-a}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{.19\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-1-cell-a.pdf}
+    \caption{}
+    \label{fig:house-1-cell-a}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{.19\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-1-cell-c.pdf}
+    \caption{}
+    \label{fig:house-1-cell-c}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{.19\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-1-cell-a0-a.pdf}
+    \caption{}
+    \label{fig:house-1-cell-a0-a}
+  \end{subfigure} \hfill
+  \begin{subfigure}[t]{.19\columnwidth}
+    \includegraphics[width=\columnwidth]{figures/house-0-cell-a.pdf}
+    \caption{}
+    \label{fig:house-0-cell-a}
+  \end{subfigure}
+  \caption{Orbit decomposition of a geometric 2D object}
+  \label{fig:house-orbit-decomposition}
+\end{figure}
 
+Topological cells are not explicitly represented in G-maps but only implicitly
+defined as subgraphs. They can be computed using graph traversals defined by an
+originating node and by a given set of link labels named \emph{orbit}. For
+example, the 2-cell adjacent to $a$ (or object face attached to the dart $a$)
+(Fig.~\ref{fig:house-2-cell-a}) is the subgraph which contains $a$, darts
+reachable from the dart $a$ using links labeled by $\alpha 0$ or $\alpha 1$
+(darts $a$, $b$, $c$, $d$, $e$, $f$, $g$ and $h$) and the links themselves. This
+subgraph is denoted by $G\orbit{\alpha 1 \alpha 2}(a)$ and models the face
+$BCED$ (Fig.~\ref{fig:house-ABCDE}). The $1$-cell adjacent to $a$ (or object
+edge attached to the dart $a$) (Fig.~\ref{fig:house-1-cell-a}) is the subgraph
+$G \orbit{\alpha 0 \alpha 2}(a)$ that contains the dart $a$ and all darts that
+are reachable by using links labeled by $\alpha 0$ or $\alpha 2$ (darts
+$a, b, l$ and $m$) and the corresponding links. It represents the topological
+edge $BC$. Thanks to $\alpha 2$-loops on the object border
+$G\orbit{\alpha 0, \alpha 2}(c)$ (Fig.~\ref{fig:house-1-cell-c} also represents
+the edge $CE$ attached to dart $c$. The $0$-cell adjacent to $a$ (or object face
+attached to dart $a$) (Fig.~\ref{fig:house-0-cell-a}) is the subgraph which is
+denoted by $G\orbit{\alpha 1, \alpha 2}(a)$ and built from the dart $a$ and
+links labeled by $\alpha 1$ or $\alpha 2$ and represents the vertex $B$.
+Finally, the face edge $G\orbit{\alpha 0}(a)$ (Fig.~\ref{fig:house-1-cell-a0-a})
+is an $\alpha 0$ orbit incident to $a$. $\orbit{\alpha 0}$ is called the orbit
+type.
 
-\subsection[Graph transformation rules]{Graph transformation rules}
-\label{sec:graph-transf-rules}
+\subsection{(Jerboa) Graph transformation rules}
 
-Since G-Maps are graphs we use graph transformation rules, or \emph{rules}, as
-modeling operations. Intuitively, given two G-Maps $G$ and $H$, a rule, written
-$L \longrightarrow R$, describes the transformation of a sub-graph of $G$ with a
-scheme $L$ into a sub-graph of $H$ with a scheme $R$.
+% \cite{belhaouari2014jerboa}
+
+Since G-maps are graphs we use graph transformation rules, or \emph{rules}, as
+modeling operations. Intuitively, given two G-maps $G$ and $H$, a rule, written
+$r : L \longrightarrow R$, describes the transformation of a sub-graph of $G$
+with a scheme $L$ into a sub-graph of $H$ with a scheme $R$.
+
+\maxime{example + definition needed}
 
 A scheme being an abstract layer on graphs, they contain labeled nodes used to
 match sub-graphs.
@@ -50,23 +127,38 @@ We consider two different types of $\alpha i$-links within a scheme. First
 \emph{explicit links}. These links connects rule nodes together allowing to
 match a connected component within a sub-graph. Second \emph{implicit links}.
 These links connect together the darts matched by any node $n$ and implicitly
-express those links by having their $\alpha i$ in $l(n)$, hence implicit links.
+express those links by having their $\alpha i$ in $l(n)$, hence, implicit links.
 
 Rule nodes can be considered created, deleted or preserved. A node is a
 \emph{created node} $n$ if it only exists in $R$, i.e. if $n \in R \setminus L$.
-A node is \emph{deleted node} $n$ if it only exists in $L$, i.e. if
+A node is a \emph{deleted node} $n$ if it only exists in $L$, i.e. if
 $n \in L \setminus R$. Finally, a node is a \emph{preserved node} $n$ if it
 exists in both $L$ and $R$, i.e. if $n \in L \cap R$.
 
 \begin{definition}[Complete orbit]
-  Let $r : L \longrightarrow R$ be a rule, $n$ a node such that $n \in L$ and
-  $\orbit{o}$ an orbit type.
+  \label{def:complete-orbit} Let $r : L \longrightarrow R$ be a rule, $n$ a node
+  such that $n \in L$ and $\orbit{o}$ an orbit type.
 
-  $L\orbit{o}(n)$ is a \emph{complete orbit} if and only if for all node
-  $n'\in L\orbit{o}(n)$, $n'$ filters either implicitly or explicitly all
-  dimensions in $\orbit{o}$, i.e. for all dimensions $i \in \orbit{o}$, $n'$ is
-  either the source of an $\alpha i$-link or $i \in l(n')$.
+  $L\orbit{o}(n)$ is a \emph{complete orbit} on $\orbit{o}$ if and only if for
+  all nodes $n'\in L\orbit{o}(n)$, $n'$ filters either implicitly or explicitly
+  all dimensions in $\orbit{o}$, i.e. for all dimensions $i \in \orbit{o}$, $n'$
+  is either the source of an $\alpha i$-link or $i \in l(n')$.
 
+\end{definition}
+
+Intuitively, a morphism between two graphs $m : G \to G'$ is a mapping defined
+respectively from the nodes and edges of $G$ to the nodes and edges of $G'$
+preserving the sources, targets and labels of edges.
+
+\begin{definition}[Morphism] Let $G=(V, E, s, t, \alpha)$ and
+  $G'=(V',E',s',t',\alpha')$ be two graphs. A \emph{morphism} $m : G \to G'$ is a
+  pair of functions $m_{V} : V \to V'$ and $m_{E} : E \to E'$ preserving the
+  sources, targets and labels of $G$ to $G'$, such that for all $e \in E$,
+  $m_{V}(s(e)) = s'(m_{E}(e))$, $m_{V}(t(e)) = t'(m_{E}(e))$ and
+  $\alpha(e) = \alpha'(m_{E}(e))$. A morphism $G \to G'$ is an inclusion morphism,
+  noted $\iota : G \hookrightarrow G'$ or simply $G \hookrightarrow G'$, if
+  $\iota_{V}$ and $\iota_{E}$ are identity mappings. A morphism is an
+  \emph{isomorphism} if its functions $m_{V}$ and $m_{E}$ are bijections.
 \end{definition}
 
 \end{document}

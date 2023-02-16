@@ -1,0 +1,35 @@
+#+title: State of the art
+
+
+#+STARTUP: shrink
+|--------------------------------------------------------------------------------------------------------------------------------------------------+------------------+----------------------------------------------------------------------------------------------------------|
+| Title                                                                                                                                            | Authors          | Brief                                                                                                    |
+|--------------------------------------------------------------------------------------------------------------------------------------------------+------------------+----------------------------------------------------------------------------------------------------------|
+| <l40>                                                                                                                                            | <l40>            | <l100>                                                                                                   |
+| Parametric/Direct CAD integration                                                                                                                | Qiang            | Review on current parametric/direct integration approaches                                               |
+| Variational Direct Modeling : A framework towards integration of parametric modeling and direct modeling in CAD                                  | Qiang et al.     | parametric/direct integration for "variation direct modeling                                             |
+| Reconstructing editable prismatic CAD from rounded voxel models                                                                                  | Lambourne et al. | using machine learning to reverse engineer CAD shape and obtain editable constrained parametric sketches |
+| Differentiable 3D CAD programs for bidirectional editing                                                                                         | Cascaval et al.  | interactive editing system through direct model manipulation                                             |
+| Feature based translation of CAD models with macro-parametric approach: issues of feature mapping, persistent naming, and constraint translation | Safdar et al.    | transCAD system : transfer model from a CAD system to another CAD system                                 |
+| Point-Oriented Persistent Identification of entities for exchanging parametric CAD data                                                          | Safdar et al.    |                                                                                                          |
+| Propagating design updates to structured analysis meshes                                                                                         | Lecallard et al. |                                                                                                          |
+|--------------------------------------------------------------------------------------------------------------------------------------------------+------------------+----------------------------------------------------------------------------------------------------------|
+
+* Cascaval et al. [Differentiable 3D cad programs for bidirectional editing]
+In 3.1 Language design \to "Static Model Topology"
++ "We must guarantee that a given operation returns the same number of vertices
+  for all parameter combinations — if this number were allowed to change during
+  optimization, it would be unclear which vertices are being referred to by an
+  index reference."
+* Safdar et al. [Feature based translation of CAD models with macro-parametric approach…]
+Relies on persistent naming and constraint features.
+In 5.2 Issues of Persistent naming
++ "During the translation of a CAD model, distinct entities of the source system
+  get different IDs in the target system. It is one of the primary conditions
+  for an exchange to be successful between two commercial CAD systems."
+* Safdar et al. [Point-Oriented Persistent Identification…]
+Persistent naming for :
++ oriented Point
++ vertex (based on oriented point)
++ edge (based on oriented point)
++ face (based on oriented point)

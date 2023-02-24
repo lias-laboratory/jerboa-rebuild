@@ -53,6 +53,7 @@
 \usepackage{hyperref}
 
 \usepackage[switch,pagewise]{lineno} %Required by command \linenumbers below
+\usepackage{adjustbox}
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{lipsum}
@@ -93,12 +94,36 @@
 %\availableonline{15 May 2017}
 %\communicated{S. Sarkar}
 
-
 \begin{abstract}
-%%%
-\lipsum[1]
-%%%%
+  La plupart des systèmes de CAO actuels utilisent des noyaux géométriques
+  propriétaires et fournissent une API contenant un ensemble d'opérations de
+  modélisation géométriques. Ces opérations entrainent dans la plupart des cas
+  des changements importants sur les cellules topologiques des objets (sommets,
+  arêtes, faces, etc). Or, les noyaux géométriques de ces modeleurs doivent
+  pouvoir tracer ces changements et fournir un journal de bord précis décrivant
+  l'évolution des cellules (création, suppression, scission, fusion,
+  modification) à la fin de chaque opération. La plupart des noyaux géométriques
+  fournissent des méthodes permettant aux développeur des systèmes de CAO de
+  retrouver un certain nombre d'évènements survenus sur les cellules. Mais les
+  calculs sont généralement réalisés de manière dynamique car ces changements ne
+  sont déductibles qu'après avoir terminé d'appliquer l'opération de
+  modélisation, et dans sa conception dynamique, la détection des changements
+  topologiques peut rapidement devenir très coûteuse à mesure que les modèles en
+  construction deviennent importants. Dans ce papier, nous proposons une méthode
+  pour détecter de manière statique les changements topologiques. Nos travaux
+  s'appuient sur une définition des opérations utilisant des règles de
+  réécriture de graphes. Une analyse syntaxique de ces règles permet alors de
+  calculer, de manière statique et avant toute application, les changements qui
+  affecteront les entités topologiques. Nous définissons également un cas limite
+  dans lequel il est impossible d'affirmer qu'une entité topologique sera
+  scindée et/ou fusionnée et où il sera donc nécessaire de procéder à une
+  analyse dynamique du modèle.
 \end{abstract}
+% \begin{abstract}
+% %%%
+% \lipsum[1]
+% %%%%
+% \end{abstract}
 
 \begin{keyword}
   \KWD Topology-based modeling\sep Topological change detection\sep Static analysis\sep Graph

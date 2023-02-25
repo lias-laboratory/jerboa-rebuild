@@ -235,7 +235,7 @@ $\orbit{o}$. Therefore, such a statement must be confirmed dynamically.
   \centering
   \maxsizebox{\columnwidth}{.15\columnwidth}{%
     \includegraphics{figures/rule-delete-edge.pdf}}
-  \caption{Rule $r: L \longrightarrow R$ of edge suppression}
+  \caption{Rule $r: L \longrightarrow R$ of edge deletion}
   \label{fig:rule-delete-edge}
 \end{figure}
 
@@ -251,7 +251,7 @@ $\orbit{o}$. Therefore, such a statement must be confirmed dynamically.
     \caption{$H$}
     \label{fig:house-merge-right-match}
   \end{subfigure}
-  \caption{Application of the edge suppression rule \ref{fig:rule-delete-edge} on match dart $k_{0}$}
+  \caption{Application of the edge deletion rule \ref{fig:rule-delete-edge} on match dart $k_{0}$}
   \label{fig:before-after-delete-edge}
 \end{figure}
 
@@ -270,7 +270,7 @@ $R\orbit{\alpha 0, \alpha 2}$. Therefore, the application of the sewing rule
 merges two edges of $H_{1}$ into one edge $G\orbit{\alpha 0, \alpha 2}(a_{0})$.
 
 The same goes for the implicit merge. For example, in the implicit case, the
-edge suppression rule (Fig.~\ref{fig:rule-delete-edge}) merges the vertex orbits
+edge deletion rule (Fig.~\ref{fig:rule-delete-edge}) merges the vertex orbits
 mapped to $L\orbit{\alpha 1}(n_{0})$ along the second implicit link because in
 the right hand side, the second implicit link of $n_{1}$ is rewritten into
 $\alpha 1$. Therefore, the application of this rule
@@ -332,7 +332,7 @@ $G\orbit{\alpha 0, \alpha 2}(a_{0})$ and $G\orbit{\alpha 0, \alpha 2}(c_{1})$
 are merged into the orbit $H\orbit{\alpha 0, \alpha 2}(a_{0})$ (i.e $a_{0}$,
 $b_{0}$, $c_{0}$ and $d_{0}$)(Fig.~\ref{fig:unsew-a2-left-match})
 
-With the edge suppression rule (Fig.~\ref{fig:rule-delete-edge}), we will follow
+With the edge deletion rule (Fig.~\ref{fig:rule-delete-edge}), we will follow
 the implicit merge event of the face vertices of orbit types $\orbit{\alpha 1}$.
 The orbit $L\orbit{\alpha 1}(n_{0})$ comprises nodes $n_{0}$ and $n_{1}$ and
 matches a single set of darts forming four face vertices. In this example, since
@@ -346,7 +346,7 @@ $G\orbit{\alpha 1}(d_{1})$. Then, the vertices opposed by the then deleted edge
 will be merged into the two vertices matched from $R\orbit{\alpha 1}(n_{1})$
 (i.e. $H\orbit{\alpha 1}(d_{1})$ and $H\orbit{\alpha 1}(c_{1})$).
 
-Note that although the edge suppression rule may merge two adjacent faces
+Note that although the edge deletion rule may merge two adjacent faces
 (Fig.~\ref{fig:house-merge-right-match}), the rule is not complete on
 $\orbit{\alpha 0, \alpha}$ because of a missing $\alpha$. Therefore, such a
 merge must be confirmed dynamically.
@@ -354,13 +354,13 @@ merge must be confirmed dynamically.
 \subsection{Other events}
 \label{sec:other-events}
 
-The remaining events, namely \emph{suppression}, \emph{constancy} and
+The remaining events, namely \emph{deletion}, \emph{constancy} and
 \emph{modification}, will be presented succinctly.
 
-\subsubsection{Suppression}
+\subsubsection{Deletion}
 
 This event mirrors the one of the creation. Let us get back to the edge
-suppression rule (Fig.~\ref{fig:rule-delete-edge}). This rule, as its name
+deletion rule (Fig.~\ref{fig:rule-delete-edge}). This rule, as its name
 suggests, deletes an edge orbit $L\orbit{\alpha 0, \alpha 2}(n_{0})$. Its node
 $n_{0}$, which by itself matches an edge, no longer exists in the right side of
 the rule and, therefore, is deleted. Applying the rule on the house

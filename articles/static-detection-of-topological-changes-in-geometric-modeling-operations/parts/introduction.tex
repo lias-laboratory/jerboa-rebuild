@@ -1,35 +1,40 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-\section[Introduction]{Introduction}
-\label{sec:introduction}
+\section{Introduction}
 
-For the last few decades, CAD softwares have been essentials tools for both general and specific purpose designs.
-It allows to represent, for example, building, furniture or even high precision mechanical pieces.
-These softwares rely on their geometric modeling kernel to provide the functionality needed to realize such tasks.
-To provide users with good quality building boards and precisely describe models topological cells (vertex, edge, face, etc) changes, kernels require efficient topological changes tracking methods.
+Nowadays, geometric modelers are everywhere to be found, for example, in
+archaeology, architecture and mechanical engineering, just to name a few
+domains. Their importance in design and conception have grown to make them
+essentials. These softwares rely on geometric modeling kernels to maintain the
+designs and allow precise and complex works.
 
-% Informal definition of what is an event.
-% \subsection[Motivations]{Motivations}
-% \label{sec:motivations}
+Topological changes (or \emph{events}) tracking is a key functionality for these
+kernels such as (\textit{ACIS}, …). Such a functionality shows its importance
+during the construction of a model when the applied operations modify its
+geometry and topology. Considering how models tend to grow during their
+conception, the tracking may become slower and coherence issues may arise.
 
-% \begin{itemize}
-%   \item parallelization
-%   \item topology evolution logging (geometric modeler API)
-%   \item naming for rebuilding processes
-% \end{itemize}
 
-% \subsection[Technical difficulties]{Technical difficulties}
-% \label{sec:technical-difficulties}
 
-% \begin{itemize}
-%   \item dynamic detection is costly in time and space (parallelization,…)
-%   \item partially dynamic detection (naming, modeling operations)
-% \end{itemize}
+\subsection*{motivation}
+\begin{itemize}
+    \item Modelers API (events logging) \cite{baba2007generic}
+    \item Persistent naming \cite{cardot2019persistent} \cite{jauhar2020assembly} and model re-evaluation/re-construction \cite{guo2022complexgen} \cite{lambourne2022reconstructing}
+    \item parallelism (automatique ou non) \cite{gargallo2017subdividing} \cite{bourquat2020transparent} \cite{mlakar2018alsub} \cite{kalatzantonakis2020cooperative}
+    \item …
+\end{itemize}
+\subsection*{Verrou}
+\begin{itemize}
+    \item méthode dynamique (coûteuse temps/place)
+    \item méthode dynamique partielle (nommage, par opération)
+\end{itemize}
+%
+\subsection*{Approche proposée}
+
+Our approach relies on the static analysis of graph transformation rules to detect events before their applications on an object.
 
 \section{Related works}
-
-
 
 \end{document}
 

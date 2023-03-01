@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import fr.ensma.lias.jerboa.tracking.rule.rules.RawDynaOrTrackModeler;
 import up.jerboa.core.JerboaEmbeddingInfo;
@@ -51,6 +52,16 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 			}
 			
 		}
+		
+		{
+			List<JerboaDynaOrTrackingItem> items = new ArrayList<JerboaDynaOrTrackingItem>();
+			for (JerboaOrbit orbit : trackedOrbits) {
+				JerboaDynaOrTrackingItem init = new JerboaDynaOrTrackingItem("(initial)", orbit);
+				init.fetch(gmap);
+				items.add(init);
+			}
+			trackedItems.add(items);
+		}
 	}
 
 	@Override
@@ -79,17 +90,32 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 	}
 	
 	public void exportTracking(String filename, int i) {
+		final String sep = ";";
 		try {
+			
+			int max = trackedItems.parallelStream().mapToInt(items -> items.get(i).getIslet().size()).max().orElse(0);
 			
 			PrintStream ps = new PrintStream(filename);
 			int l = 0;
+			for(int j = 0; j < max; ++j) {
+				ps.print(j);
+				if(j != max-1)
+					ps.print(sep);
+			}
+			ps.println();
+			
+			List<JerboaDynaOrTrackingItem> previtems = null;
 			for (List<JerboaDynaOrTrackingItem> items : trackedItems) {
 				{
 					JerboaDynaOrTrackingItem item = items.get(i); 
-					ps.println((l++)+","+item.getName()+","+item.getOrbit());
+					ps.println((l++)+sep+item.getName()+sep+item.getOrbit());
 					List<Integer> islet = item.getIslet();
-					String line = islet.stream().map(v -> v.toString()).collect(Collectors.joining(","));
+					String line = islet.stream().map(v -> v.toString()).collect(Collectors.joining(sep));
 					ps.println(line);
+					if(previtems != null) {
+						IntStream.range(0, islet.size()).parallel().	
+					}
+					previtems = items;
 				}
 			}
 			ps.close();

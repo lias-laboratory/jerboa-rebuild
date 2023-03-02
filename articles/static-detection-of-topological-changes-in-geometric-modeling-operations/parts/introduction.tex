@@ -3,31 +3,56 @@
 \begin{document}
 \section{Introduction}
 
+%%% Introduce the topic ==> geometric modeling softwares
 Nowadays, geometric modelers are everywhere to be found, for example, in
 archaeology, architecture and mechanical engineering, just to name a few
-domains. Their importance in design and conception have grown to make them
-essentials. These softwares rely on geometric modeling kernels to maintain the
+domains. Their importance in design and conception has grown to the point to
+where they are %make them
+essential. These softwares rely on geometric modeling kernels to maintain the
 designs and allow precise and complex works.
 
-Topological changes (or \emph{events}) tracking is a key functionality for these
-kernels such as (\textit{ACIS}, …). Such a functionality shows its importance
-during the construction of a model when the applied operations modify its
-geometry and topology. Considering how models tend to grow during their
-conception, the tracking may become slower and coherence issues may arise.
+%% Topological changes tracking is our main interest
+Topological changes (or \emph{events}) tracking is a key feature %functionality
+of these kernels such as (\textit{ACIS}, …). Such a feature %functionality
+is necessary %shows its importance
+during the construction of a model when the applied operations modify both % its
+geometry and topology. Considering how models tend to grow in size during their
+conception, the tracking may slow down over time and the more elaborated the
+model, the more coherence issues may arise.
+%% We know models grow and become large. Dynamically tracking events may not be ideal
+In its dynamic conception, since it requires to compare a model before and after the
+application of an operation, event tracking may become a heavy task to perform and
+its time cost may become significant.
+%% We propose a method to statically detect events to alleviate the cost of tracking them
+Our intent here is to propose to alleviate this time cost by analyzing
+operations rather than the model before and after their application. Operating
+in such a way also allows to detect events before actually using an operation
+and would be beneficial in preventing inconsistency.
+%% Events tracking is a background process that can be particularly useful.
+%%
+%%% Modelers API log events in Bulletin Board.
+%%%
+%%% In parametric modeling, persistent naming is used for model reevaluation or
+%%% exchange from a cad system to another one. While some naming scheme have
+%%% ambiguity depending on the event (usually splitting and merging events)
+%%% other methods make use of events detection to avoid ambiguity in the naming
+%%% scheme.
+%%%
+%%% Parallelism for geometric modelers
 
-
-
-\subsection*{motivation}
+\subsection*{Motivations}
 \begin{itemize}
-    \item Modelers API (events logging) \cite{baba2007generic}
-    \item Persistent naming \cite{cardot2019persistent} \cite{jauhar2020assembly} and model re-evaluation/re-construction \cite{guo2022complexgen} \cite{lambourne2022reconstructing}
-    \item parallelism (automatique ou non) \cite{gargallo2017subdividing} \cite{bourquat2020transparent} \cite{mlakar2018alsub} \cite{kalatzantonakis2020cooperative}
-    \item …
+  \item Modelers API (events logging) \cite{baba2007generic}
+  \item Persistent naming \cite{cardot2019persistent} \cite{jauhar2020assembly}
+        and model re-evaluation/re-construction \cite{guo2022complexgen}
+        \cite{lambourne2022reconstructing}
+  \item Parallelizing (auto or not) \cite{gargallo2017subdividing}
+        \cite{bourquat2020transparent} \cite{mlakar2018alsub}
 \end{itemize}
-\subsection*{Verrou}
+\subsection*{Dynamic and hybrid detection}
 \begin{itemize}
-    \item méthode dynamique (coûteuse temps/place)
-    \item méthode dynamique partielle (nommage, par opération)
+    \item full dynamic approach (time/size costly) % méthode dynamique (coûteuse temps/place)
+    \item partial dynamic approach (naming per operation) %méthode dynamique partielle (nommage, par opération)
 \end{itemize}
 %
 \subsection*{Approche proposée}

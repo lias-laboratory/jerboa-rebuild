@@ -148,7 +148,8 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 				console.append("MA SORTIE: " + arg);
 				return true; // la commande est gérée
 			}
-			case "exporttracking": {
+			case "exporttracking": 
+			case "exporttrack":{
 				String filename = tokenizer.nextToken();
 				String sorbitid = tokenizer.nextToken();
 				modeler.exportTracking(filename, Integer.parseInt(sorbitid));

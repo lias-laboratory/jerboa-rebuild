@@ -107,13 +107,39 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 			List<JerboaDynaOrTrackingItem> previtems = null;
 			for (List<JerboaDynaOrTrackingItem> items : trackedItems) {
 				{
+					List<JerboaDynaOrTrackingItem> fprevitems = previtems;
 					JerboaDynaOrTrackingItem item = items.get(i); 
 					ps.println((l++)+sep+item.getName()+sep+item.getOrbit());
 					List<Integer> islet = item.getIslet();
 					String line = islet.stream().map(v -> v.toString()).collect(Collectors.joining(sep));
 					ps.println(line);
 					if(previtems != null) {
-						IntStream.range(0, islet.size()).parallel().	
+						line = IntStream.range(0, islet.size()).mapToObj(col -> {
+							int old_state = -1;
+							int new_state = -1; 
+							try {
+								new_state = items.get(i).getIslet().get(col);
+							} catch(Exception e) { }
+							
+							try {
+								old_state = fprevitems.get(i).getIslet().get(col);
+							} catch(Exception e) { }
+							
+							if(old_state == new_state) {
+								return DynOrTrackState.NOMODIF; 
+							}
+							else if(old_state == -1 && new_state != -1) {
+								return DynOrTrackState.CREATED;
+							}
+							else if(old_state != -1 && new_state == -1) {
+								return DynOrTrackState.DELETED;
+							}
+							else if(old_state != -1 && new_state != -1 && old_state != new_state) {
+								return DynOrTrackState.MODIF;
+							}
+							return DynOrTrackState.NOMODIF;
+						}).map(state -> state.toString()).collect(Collectors.joining(sep));
+						ps.println(line);
 					}
 					previtems = items;
 				}

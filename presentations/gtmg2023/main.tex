@@ -1,5 +1,3 @@
-
-
 \documentclass[presentation]{beamer}
 \usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
@@ -78,10 +76,10 @@
         \item <1-> Suivi des événements topologiques
         \item <2-> Exemples d'applications nécessitant un suivi
         \begin{itemize}
-          \item API des modeleurs
-          \item Nommage persistant dans les systèmes
-          \item Parallélisation des opérations géométriques
-          \item Etc.
+          \item <3-> API des modeleurs
+          \item <4-> Nommage persistant dans les systèmes
+          \item <5-> Parallélisation des opérations géométriques
+          \item <6-> Etc.
         \end{itemize}
       \end{itemize}
     \end{column}
@@ -114,7 +112,7 @@
 \begin{frame}{Problématique}
   \begin{itemize}
     \item Calcul dynamique a posteriori
-    \item Coût
+    \item Coût dépendant de la taille de l'objet modifié
   \end{itemize}
 \end{frame}
 
@@ -122,7 +120,7 @@
 
 \begin{frame}{Notions importantes pour la compréhension}
   \begin{itemize}
-    \item formalisation des modèles en G-cartes
+    \item formalisation des modèles en cartes généralisées
     \item formalisation des opérations en règles de transformation de graphe
   \end{itemize}
 \end{frame}
@@ -544,7 +542,7 @@
 \begin{frame}{Conclusions}
     \begin{itemize}
         \item Avant toute application d'opération, méthode statique de détection des changements topologiques.
-        \item Pour chaque type d'évènement, définition des conditions nécessaires et suffisantes de détection sur les règles.
+        \item Pour chaque type d'événement, définition des conditions nécessaires et suffisantes de détection sur les règles.
         \item Cas limites clairement définis avec "faible" surcoût.
         \item Hors cas limites, aucun calcul dynamique.
         \item \color{red}{À voir les résultats de comparaisons}

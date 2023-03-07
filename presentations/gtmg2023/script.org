@@ -1,0 +1,228 @@
+#+title: Script présentation
+#+author:
+
+Dans cet exposé, nous allons traiter la question des évolutions topologique (ou
+événements) lors de la modification d'objets n-dimensionnels à l'aide de modeleurs
+géométriques et plus particulièrement de leur détection.
+
+* Contexte et Problématique
+Il est de notoriété de publique que, de nos jours, les logiciels de modélisation
+géométrique sont utilisé pour la conception de pratiquement toute construction
+que l'on et que l'on ne voit pas.
+
+** Contexte
+Ces outils, afin de construire des modèles cohérents et souvent complexe,
+s'appuient sur des noyaux dont l'API propose nombre de fonctionnalités. L'une
+d'entre elles est le suivi des événements topologiques. Suivre les événements
+topologiques, ça signifie détecter des événements tels que la création,
+scission, fusion, suppression, modification voire le non-changement d'entités
+topologiques propres à un modèle.
+
+Celle fonctionnalité est utilisée, entre autres, pour :
+- la construction d'historiques,
+- le nommage persistant dans les systèmes modélisation,
+- la parallélisation en vue de l'application d'opérations,
+- et bien d'autres.
+
+** Problématique
+À ce jour, les méthodes de détection d'événements sont essentiellement
+dynamiques. C'est-à-dire qu'elles nécessitent une analyse des modèles après
+application des opérations pour évaluer les changements.
+
+Ce type d'analyse à pour inconvénient de devenir coûteux en temps de calcul et
+ce à mesure que les modèles évoluent et grossissent, rendant la quantité de
+données à analyser proportionnellement importante.
+
+Dans cet exposé, nous souhaitons donc vous proposer une méthode basée sur
+l'analyse statique des opérations afin de détecter des événements en amont de
+leur applications sur un objet. De fait, cette méthode est, hors cas limites,
+indépendante des objets modifiés.
+
+* Concepts principaux
+Dans cette partie nous posons les bases qui nous permettent de mettre en œuvre
+une méthode statique.
+** Notions importantes pour la compréhension
+Dans un premier temps nous vous présenterons notre modèle de représentation des objets à base de cartes généralisées (ou G-cartes).
+
+Ensuite  nous vous  présenterons les  règles de  transformation de  graphes pour
+formaliser  les  opérations de  modélisation  et  ainsi permettre  leur  analyse
+statique.
+
+** Cartes généralisées
+Une G-carte est un graphe topologique, de dimension n, dont les nœuds sont
+appelés brins.
+
+Dans l'exemple suivant, une petite maison est tout d'abord présentée en figure
+(a).
+
+L'apparition d'arcs étiquetés α2 en (b) explicite la relation entre deux bords
+de faces. Dans le cas des boucles, ces bords sont dits α2 isolés.
+
+Des arcs étiquetés α1, en (c), connectent deux à deux les brins entre deux bords
+de face et forment des sommets de face.
+
+Enfin, en (d), les arcs étiquetés α0 complètent la vue éclatée de la petite
+maison. Les arcs α0 et connectent les brins deux à deux pour former des arêtes
+de face.
+
+** Orbites
+Une orbite est un sous-graphe issu de l'objet étudié.
+Dans l'exemple qui suit, appelons la petite maison graphe G :
+- (a) représente l'orbite de type <0,1> incidente au brin 'a' dans la G-carte G
+  (que nous abrègerons G<0,1>(a)) et représente une face. En effet, l'ensemble
+  de ses arcs sont étiquetés 0 ou 1.
+- (b) représente une orbite arête G<02>(a) qui fait le lien entre deux faces
+- (c) est également une arête mais incidente au brin c (ou d, au choix) et α2 isolée.
+- (d) est une orbite sommet G<12>(a) elle aussi répartie sur deux faces (dans cet exemple).
+- (e) est une orbite arête de face G<0>(a), elle a appartient à une unique face et son seul arc et étiqueté α0.
+
+** Règles de transformation de graphe
+Une règle de transformation est un formalisme permettant de filtrer une
+composante connexe dans un sous-graphe et de la remplacer par une autre.
+
+Par exemple ici (Transformation), la règle dispose de deux membres. Le membre
+droite filtre une face carrée dans le graphe G et le membre gauche insère une
+face triangulée dans un nouveau graphe que l'on appellera H.
+
+Cette forme de règle, aussi efficace qu'elle puisse être nous intéresse peu.
+
+Cette forme de règle, en revanche, nous permet d'identifier des propriétés sur
+les composantes connexes filtrées et leurs transformations.
+
+Les nœuds filtrent des ensembles de brins dans une G-carte, et leurs étiquettes
+sont composés des étiquettes d'arcs reliant ses brins entre eux. Ces arcs sont
+appelés arcs implicites. Par exemple, dans le membre gauche, n0 étiqueté 01
+filtre une face.
+
+Les arcs reliant les nœuds entre eux permettent d'étendre une composante connexe
+en allant chercher les brins d'un autre nœud. Ces arcs sont appelés arcs
+explicites. Par exemple, dans le membre droite, l'arc α1 relie les brins
+identifiés par 0 au brins identifiés par 1.
+
+Avec les règles il est également possible de supprimer ou réécrire les
+étiquettes et donc de modifier les arcs entre les brins. Par exemple, dans le
+membre droite, le deuxième arc implicite de n0 est 1, dans le membre droite, celui-ci est supprimé (noté _).
+
+Les nœuds peuvent être créés, c'est à dire qu'ils n'existent que dans le membre
+gauche. Les brins associés à un nœud créés sont eux-mêmes créés.
+
+Ils peuvent être également supprimés et n'exister que dans le membre gauche, en
+quel cas les brins sont supprimés.
+
+Enfin, les nœuds peuvent être préservés, c'est-à-dire qu'ils existent à la fois
+dans le membre gauche et le membre droite. Il en va de même pour les brins.
+
+Notons plusieurs propriétés associées aux nœuds créés.
+- Par conditions de cohérences des G-cartes, tout nœud créé filtrent
+  explicitement ou implicitement l'ensemble des dimensions définies dans une
+  G-carte.
+- Les brins sont créés à partir de ceux filtrés par le nœud d'accroche (double
+  cerclé).
+
+Pour en finir avec les concepts, une orbite est dite complète lorsque l'ensemble
+de ses nœuds filtrent toutes les dimensions de son type.
+Une telle orbite filtre la totalité des brins d'une cellule topologique.
+Par exemple, ici, l'orbite L<01>(n0) filtre une face.
+
+* Détection statique des événements topologiques
+Venons-en au événements que l'on souhaite détecter à partir des formalismes
+présentés plus tôt.
+
+Nous allons vous présenter, dans cet ordre, comment repérer les événements de
+créations, scission, fusion, suppression, modification et de non-changement à
+partir des règles.
+
+** Création
+Tout d'abord, une entité topologique est créée dans un objet lorsque n'existait
+pas dans la version précédente de ce même objet.
+Dans cet exemple, un sommet est créé sur une arête.
+
+Ici, nous avons une règle où les nœuds n1 et n2 sont créés et filtrent donc les dimensions 0,1 et 2.
+Suivant l'orbite R<02>(n1), cette règle crée au moins une arête.
+
+Dans le graph H, n1 et n2 créent 4 arêtes dont les brins sont vert et bleu et connectés par des α0-arcs.
+
+** Scission
+Une entité topologique est scindée dans un objet lorsque ses brins, entre G et
+H, alors qu'ils sont préservés, cessent d'appartenir à une même cellule. Les
+cellules résultantes de la scissions sont de la même nature.
+
+Dans cette règle, nous présentons une scission explicite, c'est-à-dire qu'une
+composante connexe est scindée en deux par la rupture d'un arc explicite.
+Ici, la rupture d'un α2-arc sépare deux orbites <0>
+
+G<02>(a0) est équivalent à G<02>(c1) et est composé de 4 brins.
+H<02>(a0) n'en dispose plus que de 2 et est distinct de H<02>(c1).
+
+Pour le cas implicite, L<01>(n0), autrement dit le nœud n0 a pour arcs
+implicites 0 en première position et 1 en deuxième position. L'orbite associée
+dans R comporte les nœuds n0, n1 et n2. Or aucun de ces nœuds n'a d'arc
+implicite étiqueté 0 ou 1 en deuxième position. Il faut comprendre par là, qu'un
+ensemble de brins est scindé en sous-ensembles distincts les uns des autres.
+
+On peut voir que la face filtré G<01>(a0) a été scindée en 4 faces
+H<01>(a0, c0, e0 et g0) toutes distinctes puisque α2 n'est pas suivi.
+
+** Fusion
+Deux entités topologiques sont dites fusionnées lorsqu'au moins deux de leurs
+brins, qui appartenaient à deux orbites distinctes appartiennent à une même
+orbite.
+Ici, nous avons la fusion de deux sommet par contraction d'une arête.
+
+Cas explicite et symétrique à celui de la scission. Deux orbites <02> sont
+reliées par couture d'un α2-arc entre elles.
+
+De mêmes, deux arêtes G<02>(a0) et G<02>(c1) sont fusionnées en une arête
+H<02>(a0).
+
+Dans ce cas, implicite, l'orbite L<1>(n1) est composée des nœuds n0 et n1. Aucun
+de ces nœuds n'a d'α1-arc implicite. Or, R<1>(n1) a pour deuxième arc implicite
+un α1-arc. Il y a donc fusion.
+
+Dans cet exemple, nous mettons en évidence la fusion de sommets de faces. En
+effet, les sommets G<1>(j1) et G<1>(d1) sont fusionnés en H<1>(j1) et les
+sommets G<1>(m1) et G<1>(c1) sont fusionnés en H<1>(m1).
+
+Notons un cas, limite. Ici, deux faces sont fusionnées, cependant L<01>(n1) est
+incomplète, la fusion ne peut donc être garantie et nécessite une confirmation
+en analysant les cellules correspondantes.
+
+** Autres événements
+Nous abordons désormais les trois derniers événements
+
+*** Suppression
+La suppression est en quelque sorte le symétrique de la création, pour qu'une orbite soit entièrement supprimée, il est nécessaire qu'elle soit complète.
+
+Ici, l'orbite sommet L<02>(n0) est supprimée. Il en résulte, dans G la
+suppression de l'arête d'orbite G<02>(a0) dont tous les brins sont supprimés
+dans H.
+
+*** Modification
+La modification est un événement où au moins un arc d'une orbite est réécrite,
+avec suppression ou création de nœud, et ne résulte ni en scission ni en fusion.
+
+Ici, l'orbite sommet L<1,2>(n1) est modifiée car il existe un deuxième arc
+implicite écrit α2 dans n0 et dans R<1,2>(n1), le deuxième arc implicite de n1
+est réécrit en α2. Il n'y a donc ni scission, ni fusion et il y a réécriture
+d'un arc implicite avec une étiquette issue du type <1,2>.
+
+*** Non-changement
+Cet événement est le symétrique de la modification. Une orbite est inchangée si
+elle ne subit aucune réécriture sur son type et qu'elle n'est ni augmentée ou
+réduite.
+
+Ici, L<0>(n0) filtre des arêtes de faces et puisque dans R<0>(n0) le premier arc
+implicite de n0 est toujours α0, l'orbite est inchangée.
+
+Concrètement, les arêtes de la face triangulée sont inchangées : relation
+identiques entre les mêmes brins.
+
+** Étude comparative de la détection statique avec la détection dynamique
+Pour le moment nous n'avons pas ces données.
+
+* Conclusions
+Nous proposons une méthode de détection statique des événements qui :
+- a lieu avant toute application d'opération
+- définie les conditions nécessaires et suffisantes pour chaque type d'événement
+- définie des cas limites clair avec faible surcoût (confirmer avec tests)
+- ne nécessite aucun calcul dynamique hors cas limites

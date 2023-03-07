@@ -73,18 +73,24 @@
 
 \title{Static detection of topological changes in geometric modeling operations}%
 
-\author[1]{First Author Given Name \snm{Surname}\corref{cor1}}
-\cortext[cor1]{Corresponding author:
-  Tel.: +0-000-000-0000;
-  fax: +0-000-000-0000;}
-\emailauthor{example@email.com}{Corresponding Author Name}
+\author[1]{Maxime Gaide}%\snm{}\corref{cor1}}
+% \cortext[cor1]{Corresponding author:
+  % Tel.: +0-000-000-0000;
+  % fax: +0-000-000-0000;
+  % }
+\emailauthor{maxime.gaide@ensma.fr}{Maxime Gaide}
 %\ead{example@email.com}
 
-\author[2]{Second Author Given Name \snm{Surname}\fnref{fn1}}
-\fntext[fn1]{Footnote 1.}
+\author[2]{David Marcheix}
+% \fntext[fn1]{Footnote 1.}
 
-\address[1]{Address, City, Postcode, Country}
-\address[2]{Address, City, Postcode, Country}
+\author[3]{Agnès Arnould}
+\author[4]{Xavier Skapin}
+\author[5]{Hakim Belhaouari}
+\author[6]{Stéphane Jean}
+
+\address[1]{Address, City, Postcode, France}
+\address[2]{Address, City, Postcode, France}
 
 %\received{1 February 2017}
 \received{\today}
@@ -95,22 +101,20 @@
 %\communicated{S. Sarkar}
 
 \begin{abstract}
-  Number of geometric modelers require the detection of topological changes
+  Advanced geometric modelers require the detection of topological changes
   caused by modeling operations on objects such as face splitting or volume
   merging. As a result, modeling kernels APIs generally give access to this
   data. This tracking is dynamically performed by comparing topological cells
-  (vertices, edges, faces, volumes) before and after each modification which is
-  expensive in computing time.
+  (vertices, edges, faces, volumes) before and after each modification, which can be very time consuming.
 
-  In this article, we propose a static method to detect topological changes. In
+  In this article, we propose a method to statically detect topological changes. In
   order to do so, we rely on the formalisation of geometric models and their
-  operations: generalized maps and graph transformation rules. To syntactically
-  analyse rules allow to compute, statically and before any application, the
+  operations: generalized maps and graph transformation rules. A syntactical analysis of such rules  allow to compute, statically and before any application, the
   changes that will affect topological entities. We also precisely define the
-  edge cases where it is impossible to state that an entity has been splitted or
-  merged and, thus, will require ad hoc dynamique analysis of the model. A cost
+  borderline situations where it is impossible to state that an entity has been split or
+  merged and, thus, will require some \textit{ad hoc} dynamic analysis of the model. A cost
   comparison of both methods, dynamic and static, with standard modeling
-  operations make it possible to mesure time gains.
+  operations make it possible to estimate time savings.
 \end{abstract}
 
 % \begin{abstract}

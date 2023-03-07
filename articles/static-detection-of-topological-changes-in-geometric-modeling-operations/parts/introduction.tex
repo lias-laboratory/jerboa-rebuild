@@ -3,61 +3,70 @@
 \begin{document}
 \section{Introduction}
 
-%%% Introduce the topic ==> geometric modeling softwares
 Nowadays, geometric modelers are everywhere to be found, for example, in
 archaeology, architecture and mechanical engineering, just to name a few
-domains. Their importance in design and conception has grown to the point to
-where they are %make them
-essential. These softwares rely on geometric modeling kernels to maintain the
-designs and allow precise and complex works.
-
-%% Topological changes tracking is our main interest
-Topological changes (or \emph{events}) tracking is a key feature %functionality
-of these kernels such as (\textit{ACIS}, …). Such a feature %functionality
-is necessary %shows its importance
-during the construction of a model when the applied operations modify both % its
-geometry and topology. Considering how models tend to grow in size during their
-conception, the tracking may slow down over time and the more elaborated the
-model, the more coherence issues may arise.
-%% We know models grow and become large. Dynamically tracking events may not be ideal
-In its dynamic conception, since it requires to compare a model before and after the
-application of an operation, event tracking may become a heavy task to perform and
-its time cost may become significant.
-%% We propose a method to statically detect events to alleviate the cost of tracking them
-Our intent here is to propose to alleviate this time cost by analyzing
-operations rather than the model before and after their application. Operating
-in such a way also allows to detect events before actually using an operation
-and would be beneficial in preventing inconsistency.
-%% Events tracking is a background process that can be particularly useful.
-%%
-%%% Modelers API log events in Bulletin Board.
-%%%
-%%% In parametric modeling, persistent naming is used for model reevaluation or
-%%% exchange from a cad system to another one. While some naming scheme have
-%%% ambiguity depending on the event (usually splitting and merging events)
-%%% other methods make use of events detection to avoid ambiguity in the naming
-%%% scheme.
-%%%
-%%% Parallelism for geometric modelers
+domains.
+%
+These tools allow to design and maintain precise and complexe works.
+%
+To do so, they rely on geometric modeling kernels (\textit{ACIS},
+\textit{Parasolid}, \textit{OpenCascade}, etc) whose API provide them with the
+necessary tools.
+%
+Thus, their importance has grown to the point to where they are essential.
+One of the features of these kernels is the topological change (or
+\emph{events}) tracking (creation, deletion, split, merging, constancy and
+modification).
+%
+During the construction of a model, the applied operations can change both its
+topology and geometry and the subsequent events need to be detected.
+%
+Since the tracking intervenes during the construction of a model to manage cells
+identification and consistency, then it is an ad hoc solution to help maintain
+the models consistency and, hence, is a key feature proposed by kernels.
 
 \subsection*{Motivations}
-\begin{itemize}
-  \item Modelers API (events logging) \cite{baba2007generic}
-  \item Persistent naming \cite{cardot2019persistent} \cite{jauhar2020assembly}
-        and model re-evaluation/re-construction \cite{guo2022complexgen}
-        \cite{lambourne2022reconstructing}
-  \item Parallelizing (auto or not) \cite{gargallo2017subdividing}
-        \cite{bourquat2020transparent} \cite{mlakar2018alsub}
-\end{itemize}
-\subsection*{Dynamic and hybrid detection}
-\begin{itemize}
-    \item full dynamic approach (time/size costly) % méthode dynamique (coûteuse temps/place)
-    \item partial dynamic approach (naming per operation) %méthode dynamique partielle (nommage, par opération)
-\end{itemize}
-%
-\subsection*{Approche proposée}
 
-Our approach relies on the static analysis of graph transformation rules to detect events before their applications on an object.
+Events detection has a variety of purpose such as the construction of bulletin
+boards, persistent naming schemes and modeling parallelization.
+
+A bulletin board  is a data structure describing the  cells evolution during the
+construction of  a model  in a  form of  history. Hence,  their use  to maintain
+models consistency.
+%
+Persistent naming schemes can depend on bulletin boards, and indirectly events
+detection, to propose unique names for cells and, thus, allowing the
+reevaluation of models or their transfer towards other systems.
+%
+Events detection could also show its usefulness in the parallelization of
+modeling operations.
+
+\subsection*{Dynamic and hybrid detection}
+In its dynamic conception, an event detection method requires to compare a model
+before and after the application of an operation.
+%
+As a result, the tracking may become a heavy task to perform and its time
+cost may become significant.
+%
+Moreover, considering how models tend to grow in size during their conception,
+the tracking may slow down over time and the more elaborated the model, the more
+coherence issues may arise.
+
+An hybrid conception of events detection would allow, depending on the
+operations, to analyze only the modified part of the models. This approach, in
+comparison to the dynamic one, is expected to reduce time by analyzing a model
+subset. However, this approach requires the identify, from the coding of the
+operation, the specific cells being modified which could be the model itself.
+
+\subsection*{Our approach}
+
+The proposed approach, here, is a method to statically detect events from the
+modeling operations. To do so, our method is based on the usage of a graph
+transformation rule formalism as operations. The analysis of such rules allow to
+obtain events information without the need to apply them and, in most cases,
+independent from the modified models. For certain operations, this method is
+able to detect a potential split or merging. In theses cases, a dynamic analysis
+of the models are needed to assert the event.
 
 \section{Related works}
 

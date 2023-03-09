@@ -46,6 +46,11 @@
   \titlepage
 \end{frame}
 
+\begin{frame}
+  \frametitle{Plan}
+  \tableofcontents
+\end{frame}
+
 \section{Contexte et problématique}
 
 \begin{frame}{Contexte}
@@ -104,20 +109,19 @@
         \end{figure}
       \end{column}
       \begin{column}{.49\textwidth}
-        \begin{block}{Cellule de dimension }
+        \begin{block}{Cellule de dimension}
           \begin{itemize}
-            \item<1->objet%
-            \item<2->2-cellule%
-            \item<3->1-cellule%
-            \item<4>0-cellule%
+            \item<2-> 2%
+            \item<3-> 1%
+            \item<4> 0%
           \end{itemize}
         \end{block}
       \end{column}
     \end{columns}
   \end{figure}
   \begin{block}{Brins et arcs}<4>
-    Dans une carte généralisée (G-carte), les sommets sont appelés \emph{brins}
-    et les arêtes des \emph{arcs}
+    Les sommets d'une carte généralisée (G-carte) sont appelés \emph{brins}
+    et les arêtes des \emph{arcs}.
   \end{block}
 \end{frame}
 
@@ -146,22 +150,24 @@
     \end{column}
   \end{columns}
 
-  \begin{block}{Notation}<5>
-    Une orbite, issue d'une G-carte $G$ et de type $\orbit{o}$ incidente à un
-    brin $b$ sera notée : $G\orbit{o}(b)$
+  \begin{block}{Une orbite}<5> Composante connexe issue d'une G-carte $G$, de
+    type $\orbit{o}$ et incidente à un brin $b$.
   \end{block}
 \end{frame}
 
 \subsection{Règles de transformation de graphe Jerboa}
 
-\begin{frame}
+\begin{frame}{Règles de transformation de graphe Jerboa : Définition}
   \begin{figure}
     \centering
     \includegraphics<1>[width=.5\textwidth]{transformation-animation-1-2.pdf}%
     \includegraphics<2>[width=.5\textwidth]{transformation-animation-1-3.pdf}%
     \includegraphics<3>[width=.5\textwidth]{transformation-animation-1-4.pdf}%
     \includegraphics<4->[width=.5\textwidth]{transformation-animation-1-5.pdf}%
-    \caption{Structure de règle}
+    \caption{%
+      \only<1-2> {Structure de règle}%
+      \only<3-> {Application de règle}%
+      }
   \end{figure}
   \begin{block}{Notations}
     \begin{itemize}
@@ -174,7 +180,7 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Règles de transformation de graphe}
+\begin{frame}{Règles de transformation de graphe Jerboa : Application}
   \begin{figure}
     \centering
     \includegraphics<1>[height=.8\textheight]{transformation-animation-2-left-match.pdf}%

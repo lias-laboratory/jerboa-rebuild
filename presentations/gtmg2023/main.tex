@@ -60,21 +60,25 @@
             \end{itemize}
     \end{itemize}
   \end{minipage}
-  \begin{minipage}[c][.64\textheight][t]{1.0\linewidth}
+  \begin{minipage}[s][.64\textheight][t]{1.0\linewidth}
     \begin{figure}
       \centering
       \includegraphics<1>[height=.49\textheight]{icosahedron00.png}%
       \only<1>{\hspace*{2em}}
       \includegraphics<1>[height=.49\textheight]{icosahedron-caltmull-clark01.png}%
-      \includegraphics<2->[height=.49\textheight]{solidworks.jpg}%
+      \includegraphics<3>[height=.55\textheight]{lcc-triangulation.pdf}%
+      \includegraphics<4->[height=.49\textheight]{solidworks.jpg}%
     \end{figure}
   \end{minipage}
 \end{frame}
 
-\begin{frame}{Problématique} % fusionner avec Notions importantes…
+\begin{frame}{Problématique}
   \begin{figure}
     \centering
-    \includegraphics[height=.35\textheight]{icosahedron00.png}
+    \includegraphics<1->[height=.35\textheight]{icosahedron00.png}%
+    \hspace*{2em}
+    \includegraphics<1>[height=.35\textheight]{icosahedron-caltmull-clark01.png}%
+    \includegraphics<2>[height=.35\textheight]{icosahedron-catmull-clark01-coloriage.pdf}%
   \end{figure}
   \begin{itemize}
     \item Calcul dynamique
@@ -148,7 +152,7 @@
   \end{block}
 \end{frame}
 
-\subsection{Règles de transformation de graphe}
+\subsection{Règles de transformation de graphe Jerboa}
 
 \begin{frame}
   \begin{figure}
@@ -287,8 +291,8 @@
       \centering
       \includegraphics[height=.6\textheight]{evenement-modification-animation-2.pdf}
     \end{subfigure}
-    \caption{Les nœuds $n_{0}$ et $n_{1}$ modifient des sommets de type
-      $\orbit{ \alpha 1, \alpha 2 }$ : les orbites ont été réduites}
+    \caption{Les nœuds $n_{0}$ et $n_{1}$ modifient des sommets
+      $\orbit{ \alpha 1, \alpha 2 }$}
   \end{figure}
 
 \end{frame}
@@ -309,7 +313,7 @@
       \centering
       \includegraphics[height=.6\textheight]{evenement-no-change-animation-2.pdf}
     \end{subfigure}
-    \caption{Le nœud $n_{0}$ filtres des orbites de type $\orbit{\alpha 0}$ qui restent inchangées}
+    \caption{Le nœud $n_{0}$ filtre des arêtes $\orbit{\alpha 0}$ inchangées}
   \end{figure}
 
 \end{frame}
@@ -344,8 +348,7 @@
       \centering
       \includegraphics[height=.6\textheight]{evenement-scission-impl-animation-2.pdf}
     \end{subfigure}
-    \caption{La face filtrée par le nœud $n_{0}$ de $L$ est scindée par les
-      nœuds $n_{0}$, $n_{1}$ et $n_{2}$ de $R$}
+    \caption{Les nœuds $n_{0}$, $n_{1}$ et $n_{2}$ scindent une face en quatre}
   \end{figure}
 \end{frame}
 
@@ -354,7 +357,6 @@
     \centering
     \includegraphics[height=.15\textheight]{rule-unsewA2-presentation.pdf}
     \label{figrule-unsewa2}
-    \caption{La rupture du $\alpha 2$-arc provoque la scission d'une arête en deux}
   \end{figure}
   \begin{figure}
     \begin{subfigure}{.45\textwidth}
@@ -366,7 +368,7 @@
       \centering
       \includegraphics[height=.35\textheight]{square-plan-first-unsew.pdf}
     \end{subfigure}
-    \caption{Scission d'une arête en arêtes de face $\orbit{\alpha 0}$}
+    \caption{Les nœuds $n_{0}$ et $n_{1}$ scindent une arête en deux}
   \end{figure}
 \end{frame}
 

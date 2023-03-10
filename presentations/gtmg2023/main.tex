@@ -135,7 +135,7 @@
         \includegraphics<1>[height=.6\textheight]{house-2-cell-a.pdf}%
         \includegraphics<2>[height=.6\textheight]{house-1-cell-a.pdf}%
         \includegraphics<3>[height=.6\textheight]{house-1-cell-c.pdf}%
-        \includegraphics<4>[height=.6\textheight]{house-0-cell-a.pdf}%
+        \includegraphics<4>[height=.6\textheight]{house-0-cell-n.pdf}%
         \includegraphics<5>[height=.6\textheight]{house-1-cell-a0-a.pdf}%
       \end{figure}
     \end{column}
@@ -190,7 +190,7 @@
     \includegraphics<3>[height=.8\textheight]{transformation-animation-4-left-match.pdf}%
     \includegraphics<4>[height=.8\textheight]{transformation-animation-5-left-match.pdf}%
     \includegraphics<5>[height=.8\textheight]{transformation-animation-6-left-match.pdf}%
-    \includegraphics<6>[height=.8\textheight]{transformation-animation-7.pdf}%
+    \includegraphics<6>[height=.8\textheight]{transformation-animation-7-left-match.pdf}%
     \caption{Application d'une règle de transformation}
   \end{figure}
 \end{frame}
@@ -211,7 +211,7 @@
 % \end{frame}
 
 
-\section{Détection statique}
+\section{Détection statique des événements topologiques}
 
 % \begin{frame}{Détection statique des événements topologiques}
 %   \begin{itemize}
@@ -230,14 +230,14 @@
 \begin{frame}{Événement de création : Définition}
   \begin{figure}
     \centering
-    \includegraphics[height=.8\textheight]{evenement-creation-animation-1.pdf}
+    \includegraphics[height=.8\textheight]{demo-fig-left-1}
     \hspace{2em}
     \includegraphics[height=.8\textheight]{evenement-creation-animation-2.pdf}
     \caption{Orbite créée}
   \end{figure}
 \end{frame}
 
-\begin{frame}{Événement de création : application de la règle}
+\begin{frame}{Création de quatre arêtes $\orbit{\alpha 0, \alpha 2}$}
   \begin{figure}
     \centering
     \includegraphics[height=.15\textheight]{triangulation-presentation-creation.pdf}
@@ -245,7 +245,7 @@
   \begin{figure}
     \begin{subfigure}{.45\textwidth}
       \centering
-      \includegraphics[height=.6\textheight]{evenement-creation-animation-1.pdf}
+      \includegraphics[height=.6\textheight]{demo-fig-left-1.pdf}
     \end{subfigure}
     \hfill
     \begin{subfigure}{.45\textwidth}
@@ -339,7 +339,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Événements de scission par les liaisons implicites}
+\begin{frame}{Scission d'une face $\orbit{\alpha 0, \alpha 1}$ par les liaisons implicites}
   \centering
   \begin{figure}
     \centering
@@ -360,7 +360,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Événements de scission par les liaisons explicites}
+\begin{frame}{Scission d'arête $\orbit{\alpha 0, \alpha 2}$ par les liaisons explicites}
   \begin{figure}
     \centering
     \includegraphics[height=.15\textheight]{rule-unsewA2-presentation.pdf}
@@ -484,20 +484,33 @@
 
 
 \section{Conclusion et perspectives}
-\begin{frame}{Conclusion}
+\begin{frame}{Conclusion et perspectives}
   \begin{itemize}
-    \item Déduction d'événement à l'aide de G-cartes et de règles de
-          transformation de graphes Jerboa
-    \item Méthode statique de détection agissant avant l'application des règles
-    \item Définition de cas limite
-    \item Hors cas limite, aucun calcul dynamique
+    \item<1-> Conclusions
+          \begin{itemize}
+            \item<1-> Détection d'événements à l'aide des G-cartes et des règles
+                  de transformation de graphes Jerboa
+            \item<2-> Détection statique en pré-calcul
+            \item<3-> Détection dynamique simplifiée
+            % \item Hors cas limite, aucun calcul dynamique
+          \end{itemize}
+          \vspace*{1em}
+    \item<4-> Perspectives
+          \begin{itemize}
+            \item<4-> Rejeu de spécifications paramétriques
+                  \begin{itemize}
+                    \item<5-> Séquences d'applications de règles
+                    \item<6-> Séquences d'opérations (scripts de règles)
+                  \end{itemize}
+          \end{itemize}
+
   \end{itemize}
+
 \end{frame}
 
 \begin{frame}{Perspectives}
   À court terme :
   \begin{itemize}
-    \item Définition de cas de tests
     \item Calcul du gain entre le suivi statique et le suivi dynamique
     \item Intégration pour la génération de journaux de bord
     \item Intégration pour le nommage persistant

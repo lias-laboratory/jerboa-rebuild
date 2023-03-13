@@ -68,11 +68,11 @@
   \begin{minipage}[t][.35\textheight][t]{1.0\linewidth}
     Suivi des événements topologiques
     \begin{itemize}
-      \item <2-> Exemples d'applications nécessitant un suivi
+      \item <4-> Exemples d'applications nécessitant un suivi
             \begin{itemize}
-              \item <3-> API des modeleurs
-              \item <4-> Nommage persistant dans les systèmes paramétriques
-              \item <5-> Optimisation des opérations géométriques
+              \item <4-> API des modeleurs
+              \item <5-> Nommage persistant dans les systèmes paramétriques
+              \item <6-> Optimisation des opérations géométriques
             \end{itemize}
     \end{itemize}
   \end{minipage}
@@ -80,10 +80,13 @@
     \begin{figure}
       \centering
       \includegraphics<1>[height=.49\textheight]{icosahedron00.png}%
-      \only<1>{\hspace*{2em}}
+      \includegraphics<2-3>[height=.49\textheight]{icosahedron00-coloriage}%
+      \onslide<1-3>{\hspace*{2em}}
       \includegraphics<1>[height=.49\textheight]{icosahedron-catmull-clark01.png}%
-      \includegraphics<3>[height=.55\textheight]{lcc-triangulation.pdf}%
-      \includegraphics<4->[height=.49\textheight]{solidworks.jpg}%
+      \includegraphics<2>[height=.49\textheight]{icosahedron-catmull-clark01-coloriage-1}%
+      \includegraphics<3>[height=.49\textheight]{icosahedron-catmull-clark01-coloriage-2}%
+      \includegraphics<4>[height=.55\textheight]{lcc-triangulation.pdf}%
+      \includegraphics<5->[height=.49\textheight]{solidworks.jpg}%
     \end{figure}
   \end{minipage}
 \end{frame}
@@ -94,11 +97,25 @@
     \includegraphics<3->[height=.35\textheight]{icosahedron00-coloriage}%
     \hspace*{2em}
     \includegraphics<2-3>[height=.35\textheight]{icosahedron-catmull-clark01}%
-    \includegraphics<4>[height=.35\textheight]{icosahedron-catmull-clark01-coloriage}%
+    \includegraphics<4>[height=.35\textheight]{icosahedron-catmull-clark01-coloriage-1}%
   \end{figure}
   \begin{itemize}
     \item Calcul dynamique
-    \item Coût dépendant de la taille de l'objet modifié
+    \item Coût dépendant de la complexité de l'objet modifié
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Contribution}
+  \begin{itemize}
+    \item<1-> Objectif :\\
+    Détection statique des événements topologiques
+    \vspace*{1em}
+    \item<2-> Méthode :
+    \begin{itemize}
+      \item<2-> Formalisation des objets : cartes généralisées
+      \item<3-> Formalisation des opérations : règles de transformation Jerboa
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -130,9 +147,8 @@
       \end{column}
     \end{columns}
   \end{figure}
-  \begin{block}{Brins et liaisons}<4>
-    Les sommets d'une carte généralisée (G-carte) sont appelés \emph{brins}
-    et sont reliés par des \emph{liaisons}.
+  \begin{block}{Une carte généralisée (G-carte)}<4>
+    Graphe dont les sommets sont appelés \emph{brins} et les arcs sont appelés \emph{liaisons}.
   \end{block}
 \end{frame}
 
@@ -145,7 +161,7 @@
         \includegraphics<2>[height=.6\textheight]{orbit-edge-02-a}%
         \includegraphics<3>[height=.6\textheight]{orbit-edge-02-c}%
         \includegraphics<4>[height=.6\textheight]{orbit-vertex-12-n}%
-        \includegraphics<5>[height=.6\textheight]{orbit-edge-0-a}%
+        \includegraphics<5->[height=.6\textheight]{orbit-edge-0-a}%
       \end{figure}
     \end{column}
     \begin{column}{.49\textwidth}
@@ -154,15 +170,15 @@
           \item<1-> Face $\orbit{\alpha 0, \alpha 1}(a)$%
           \item<2-> Arête $\orbit{\alpha 0, \alpha 2}(a)$%
           \item<3-> Arête $\orbit{\alpha 0, \alpha 2}(c)$%
-          \item<4-> Sommet $\orbit{\alpha 1, \alpha 2}(n)$%
+          \item<4-> Sommet $\orbit{\alpha 1, \alpha 2}(a)$%
           \item<5-> Arête de face $\orbit{\alpha 0}(a)$%
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
 
-  \begin{block}{Une orbite}<5> Composante connexe issue d'une G-carte $G$, de
-    type $\orbit{o}$ et incidente à un brin $b$.
+  \begin{block}{Une orbite}<6>
+    Sous-graphe d'une G-carte, de type $\orbit{o}$ et incidente à un brin $b$.
   \end{block}
 \end{frame}
 
@@ -205,6 +221,7 @@
     \includegraphics<9>[height=.9\textheight]{application-4-expl}%
     \includegraphics<10>[height=.9\textheight]{application-5-darts}%
     \includegraphics<11>[height=.9\textheight]{application-5-impl}%
+    \includegraphics<12>[height=.9\textheight]{application-complete}%
   \end{figure}
 \end{frame}
 
@@ -250,20 +267,20 @@
 %   \end{figure}
 % \end{frame}
 
-\begin{frame}{Création de quatre arêtes $\orbit{\alpha 0, \alpha 2}$}
+\begin{frame}{Création}
   \begin{figure}
     \centering
     \includegraphics<1>[height=.9\textheight]{evenement-creation-animation-grey}%
     \includegraphics<2>[height=.9\textheight]{evenement-creation-animation-target}%
     \includegraphics<3>[height=.9\textheight]{evenement-creation-animation-begin}%
-    \includegraphics<4>[height=.9\textheight]{evenement-creation-animation-1-darts}%
-    \includegraphics<5>[height=.9\textheight]{evenement-creation-animation-1-darts-impl}%
-    \includegraphics<6>[height=.9\textheight]{evenement-creation-animation-1-darts-impl-highlight}%
-    \includegraphics<7>[height=.9\textheight]{evenement-creation-animation-1-darts-expl}%
-    \includegraphics<8>[height=.9\textheight]{evenement-creation-animation-1-darts-expl-highlight}%
-    \includegraphics<9>[height=.9\textheight]{evenement-creation-animation-2-darts}%
-    \includegraphics<10>[height=.9\textheight]{evenement-creation-animation-2-darts-impl}%
-    \includegraphics<11>[height=.9\textheight]{evenement-creation-animation-end}%
+    % \includegraphics<4>[height=.9\textheight]{evenement-creation-animation-1-darts}%
+    % \includegraphics<5>[height=.9\textheight]{evenement-creation-animation-1-darts-impl}%
+    % \includegraphics<6>[height=.9\textheight]{evenement-creation-animation-1-darts-impl-highlight}%
+    % \includegraphics<7>[height=.9\textheight]{evenement-creation-animation-1-darts-expl}%
+    % \includegraphics<8>[height=.9\textheight]{evenement-creation-animation-1-darts-expl-highlight}%
+    % \includegraphics<9>[height=.9\textheight]{evenement-creation-animation-2-darts}%
+    % \includegraphics<10>[height=.9\textheight]{evenement-creation-animation-2-darts-impl}%
+    \includegraphics<4>[height=.9\textheight]{evenement-creation-animation-end}%
   \end{figure}
 \end{frame}
 
@@ -287,17 +304,17 @@
     \includegraphics<1>[height=.9\textheight]{evenement-scission-impl-animation-grey}%
     \includegraphics<2>[height=.9\textheight]{evenement-scission-impl-animation-target}%
     \includegraphics<3>[height=.9\textheight]{evenement-scission-impl-animation-begin}%
-    \includegraphics<4>[height=.9\textheight]{evenement-scission-impl-animation-0-darts}%
-    \includegraphics<5>[height=.9\textheight]{evenement-scission-impl-animation-0-impl}%
-    \includegraphics<6>[height=.9\textheight]{evenement-scission-impl-animation-0-highlight}%
-    \includegraphics<7>[height=.9\textheight]{evenement-scission-impl-animation-0-expl}%
-    \includegraphics<8>[height=.9\textheight]{evenement-scission-impl-animation-0-expl-highlight}%
-    \includegraphics<9>[height=.9\textheight]{evenement-scission-impl-animation-1-darts}%
-    \includegraphics<10>[height=.9\textheight]{evenement-scission-impl-animation-1-darts-expl}%
-    \includegraphics<11>[height=.9\textheight]{evenement-scission-impl-animation-1-darts-expl-highlight}%
-    \includegraphics<12>[height=.9\textheight]{evenement-scission-impl-animation-2-darts}%
-    \includegraphics<13>[height=.9\textheight]{evenement-scission-impl-animation-2-darts-impl}%
-    \includegraphics<14>[height=.9\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight}%
+    % \includegraphics<4>[height=.9\textheight]{evenement-scission-impl-animation-0-darts}%
+    % \includegraphics<5>[height=.9\textheight]{evenement-scission-impl-animation-0-impl}%
+    % \includegraphics<6>[height=.9\textheight]{evenement-scission-impl-animation-0-highlight}%
+    % \includegraphics<7>[height=.9\textheight]{evenement-scission-impl-animation-0-expl}%
+    % \includegraphics<8>[height=.9\textheight]{evenement-scission-impl-animation-0-expl-highlight}%
+    % \includegraphics<9>[height=.9\textheight]{evenement-scission-impl-animation-1-darts}%
+    % \includegraphics<10>[height=.9\textheight]{evenement-scission-impl-animation-1-darts-expl}%
+    % \includegraphics<11>[height=.9\textheight]{evenement-scission-impl-animation-1-darts-expl-highlight}%
+    % \includegraphics<12>[height=.9\textheight]{evenement-scission-impl-animation-2-darts}%
+    % \includegraphics<13>[height=.9\textheight]{evenement-scission-impl-animation-2-darts-impl}%
+    \includegraphics<4>[height=.9\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight}%
   \end{figure}
 \end{frame}
 
@@ -323,8 +340,9 @@
 \begin{frame}{Autres événements}
   \begin{itemize}
     \item<1-> Suppression
-    \item<2-> Modification
-    \item<3-> Non-changement
+    \item<2-> Fusion
+    \item<3-> Modification
+    \item<4-> Non-changement
   \end{itemize}
 \end{frame}
 
@@ -439,10 +457,11 @@
           \vspace*{1em}
     \item<4-> Perspectives
           \begin{itemize}
-            \item<4-> Rejeu de spécifications paramétriques
+            \item<4-> Comparaison coûts dynamique vs statique
+            \item<5-> Rejeu de spécifications paramétriques
                   \begin{itemize}
-                    \item<5-> Séquences d'applications de règles
-                    \item<6-> Séquences d'opérations (scripts de règles)
+                    \item<6-> Séquences d'applications de règles
+                    \item<7-> Séquences d'opérations (scripts de règles)
                   \end{itemize}
           \end{itemize}
 
@@ -450,19 +469,19 @@
 
 \end{frame}
 
-\begin{frame}{Perspectives}
-  À court terme :
-  \begin{itemize}
-    \item Calcul du gain entre le suivi statique et le suivi dynamique
-    \item Intégration pour la génération de journaux de bord
-    \item Intégration pour le nommage persistant
-  \end{itemize}
-  \vspace*{1em}
-  À plus long terme :
-  \begin{itemize}
-    \item Détection d'événement dans les scripts de règles
-  \end{itemize}
-\end{frame}
+% \begin{frame}{Perspectives}
+%   À court terme :
+%   \begin{itemize}
+%     \item Calcul du gain entre le suivi statique et le suivi dynamique
+%     \item Intégration pour la génération de journaux de bord
+%     \item Intégration pour le nommage persistant
+%   \end{itemize}
+%   \vspace*{1em}
+%   À plus long terme :
+%   \begin{itemize}
+%     \item Détection d'événement dans les scripts de règles
+%   \end{itemize}
+% \end{frame}
 
 \begin{frame}[noframenumbering,plain]
   \frametitle{References}

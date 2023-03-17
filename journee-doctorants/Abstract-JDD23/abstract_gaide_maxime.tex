@@ -1,0 +1,97 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{array}%création tableaux
+\usepackage{graphicx}%pour les photosimages
+% \usepackage{gentium}
+
+\usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0pt}
+% \setlength\headheight{80.0pt}
+% \addtolength{\textheight}{-80.0pt}
+% \chead{\includegraphics[scale=0.4]{Logo-template.PNG}}
+
+\usepackage{mathptmx} % Use Times Font
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  left=14mm,
+  top=20mm,
+  right =15mm,
+  bottom =15mm
+}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\chead{\includegraphics[scale=9.]{logos_2023.pdf}}
+
+
+
+\begin{document}
+
+\begin{center}
+  {\Large \textbf{Détection statique des changements topologiques dans le opérations de modélisation géométrique}}
+\end{center}
+
+\setlength\parindent{0em}%
+\textbf{\underline{P. Nom Doctorant}$^{1}$, P. Nom Dir.Thèse$^{1}$, P. Nom1 Dir.Thèse$^{2}$, P. NomCo-Encadrant1$^{1}$, P. NomParticipant$^{3}$ }%
+
+\begin{flushright}
+  \underline{Contact} : maxime.gaide@ensma.fr
+\end{flushright}
+
+\begin{flushleft}
+  \scriptsize{
+    $^1$, LIAS - IDD, ISAE-ENSMA\\%
+    $^2$, XLIM - ASALI, Université de Poitiers%
+  }
+\end{flushleft}
+
+\rule{1\linewidth}{3pt}
+
+\setlength\parindent{0em} \normalsize{ \textbf{Mots-clés} : Modélisation
+  géométrique à base topologique, Detection de modifications topologiques,
+  Analyse statique, Règles de transformation de graphe, Cartes généralisée}
+
+\vspace*{1em}
+
+\normalsize{
+  De nombreuses applications de modélisation géométrique nécessitent de détecter
+  les changements topologiques effectués par les opérations de construction ou
+  modification des objets, comme les scissions de faces ou les fusions de
+  volumes par exemple. C'est pourquoi les API des noyaux de modeleurs permettent
+  généralement d'accéder à ces informations. Ce suivi est effectué de manière
+  dynamique en comparant les cellules topologiques (sommets, arrêtes, faces,
+  volumes) avant et après chaque modification, ce qui est couteux en temps de
+  calcul.
+
+  Dans cet exposé, nous proposons une méthode \emph{statique} pour détecter les
+  changements topologiques. Pour cela nous utilisons une formalisation des
+  modèles géométriques et de leurs opérations de manipulation : les cartes
+  généralisées et les transformations de graphes. Une analyse syntaxique des
+  règles de transformation permet de calculer, de manière statique et avant
+  toute application, les changements qui affecteront les entités topologiques.
+  Nous définissons également de manière précise les cas limites dans lesquels il
+  sera impossible d'affirmer qu'une entité topologique sera scindée ou fusionnée
+  et où il sera donc nécessaire de procéder à une analyse dynamique ponctuelle
+  du modèle. Une comparaison du coût des deux méthodes, dynamique et statique,
+  de quelques opérations classiques sur les maillages permet de mesurer le gain.
+}
+
+\begin{flushright}
+  \rule{0.85\linewidth}{3pt}
+\end{flushright}
+
+\textbf{Références (optionnelles)} {\color{red}(TNR, 11, Gras, justifié)} 
+
+\footnotesize{$^{[1]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale. }
+
+\footnotesize{$^{[2]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale. }
+
+\footnotesize{$^{[3]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale. }
+
+\end{document}
+

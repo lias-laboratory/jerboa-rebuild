@@ -5,7 +5,10 @@
 \usepackage{multicol}
 \usepackage{array}%création tableaux
 \usepackage{graphicx}%pour les photosimages
+\usepackage{subfigure}
 % \usepackage{gentium}
+
+\graphicspath{{figures}{../../resources-figures-jerboa}}
 
 \usepackage{fancyhdr}
 % \pagestyle{fancy}
@@ -37,7 +40,7 @@
 \end{center}
 
 \setlength\parindent{0em}%
-\textbf{\underline{P. Nom Doctorant}$^{1}$, P. Nom Dir.Thèse$^{1}$, P. Nom1 Dir.Thèse$^{2}$, P. NomCo-Encadrant1$^{1}$, P. NomParticipant$^{3}$ }%
+\textbf{\underline{M. Gaide}$^{1}$, S. Jean$^{1}$, D. Marcheix$^{1}$, X. Skapin$^{2}$, A. Arnould$^{2}$, H. Belhaouari$^{2}$}%
 
 \begin{flushright}
   \underline{Contact} : maxime.gaide@ensma.fr
@@ -65,33 +68,85 @@
   volumes par exemple. C'est pourquoi les API des noyaux de modeleurs permettent
   généralement d'accéder à ces informations. Ce suivi est effectué de manière
   dynamique en comparant les cellules topologiques (sommets, arrêtes, faces,
-  volumes) avant et après chaque modification, ce qui est couteux en temps de
+  volumes) avant et après chaque modification, ce qui est coûteux en temps de
   calcul.
 
   Dans cet exposé, nous proposons une méthode \emph{statique} pour détecter les
   changements topologiques. Pour cela nous utilisons une formalisation des
   modèles géométriques et de leurs opérations de manipulation : les cartes
-  généralisées et les transformations de graphes. Une analyse syntaxique des
-  règles de transformation permet de calculer, de manière statique et avant
-  toute application, les changements qui affecteront les entités topologiques.
-  Nous définissons également de manière précise les cas limites dans lesquels il
-  sera impossible d'affirmer qu'une entité topologique sera scindée ou fusionnée
-  et où il sera donc nécessaire de procéder à une analyse dynamique ponctuelle
-  du modèle. Une comparaison du coût des deux méthodes, dynamique et statique,
-  de quelques opérations classiques sur les maillages permet de mesurer le gain.
-}
+  généralisées [1,2] et les transformations de graphes [3].
+  Une analyse syntaxique des règles de transformation permet de calculer, de
+  manière statique et avant toute application, les changements qui affecteront
+  les entités topologiques. Nous définissons également de manière précise les
+  cas limites dans lesquels il sera impossible d'affirmer qu'une entité
+  topologique sera scindée ou fusionnée et où il sera donc nécessaire de
+  procéder à une analyse dynamique ponctuelle du modèle. Une comparaison du coût
+  des deux méthodes, dynamique et statique, de quelques opérations classiques
+  sur les maillages permet de mesurer le gain.}%
+
+% \vspace*{1em}%
+
+\begin{figure}[h!]
+  \begin{minipage}[c]{.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{jdd-triangulation}%
+    \caption{\footnotesize{\textbf{Règle de triangulation composée de deux
+          membre. Son membre gauche, filtre une face
+          % $\langle \alpha 0, \alpha 1 \rangle$ composée des brins atteignables
+          % par des liaisons $\alpha 0$ (en) ou $\alpha 1$ (en rouge),
+          et son
+          membre droit la scinde.}}}
+    \label{fig:rule-triangulation}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{.24\textwidth}
+    \centering
+    \includegraphics[height=.2\textheight]{jdd-triangulation-left}%
+    \caption{\footnotesize{\textbf{Face incidente à $a_{0}$ (en orange), dans une G-carte.}}}
+    \label{fig:tri-left}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{.24\textwidth}
+    \centering
+    \includegraphics[height=.2\textheight]{jdd-triangulation-right}%
+    \caption{\footnotesize{\textbf{Triangulation d'une face carrée.}}}
+    \label{fig:tri-right}
+  \end{minipage}
+\end{figure}
+
+\vspace*{1em}
+
+\normalsize{Par exemple, dans la règle de triangulation en
+  figure~\ref{fig:rule-triangulation}, son membre gauche, avec le nœud $n_{0}$,
+  filtre une face constituée de tous les brins atteignables par des liaisons
+  $\alpha 0$ (en noir) ou $\alpha 1$ (en rouge), exemple en
+  figure~\ref{fig:tri-left}. Dans son membre droit, la deuxième étiquettes de
+  tous les nœud est soit ``$\_$'' soit $\alpha 2$, autrement dit, il n'existe
+  plus de chemin uniquement composé de $\alpha 0$ et $\alpha 1$ entre toute
+  paire de brins de la face et celle-ci est scindée, exemple en
+  figure~\ref{fig:tri-right}.\\
+
+  Cette méthode de détection statique est une première étape dans nos travaux
+  pour la réévaluation de modèles. L'étape suivante portera sur son intégration
+  dans le nommage persistant des entités topologiques pour, dans un premier
+  temps, permettre le rejeu d'une séquence de règles, puis le rejeu d'une
+  séquence d'opérations (ou scripts de règles).}
 
 \begin{flushright}
   \rule{0.85\linewidth}{3pt}
 \end{flushright}
 
-\textbf{Références (optionnelles)} {\color{red}(TNR, 11, Gras, justifié)} 
+\textbf{Références}
 
-\footnotesize{$^{[1]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale. }
+\footnotesize{$^{[1]}$ P.Lienhardt. Topological models for boundary
+  representation: a comparison with n-dimensional generalized maps.
+  Computer-aided design 23(1)(1991) 59-82.}
 
-\footnotesize{$^{[2]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale. }
+\footnotesize{$^{[2]}$ G.Damiand, P.Liendhardt. Combinatorial Maps: Efficient
+  Data Structures for Computer Graphics and Image Processing. CRC Press(2014).}
 
-\footnotesize{$^{[3]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale. }
+\footnotesize{$^{[3]}$ H.Belhaouari, A.Arnould, P.Le Gall, T.Bellet. Jerboa: A
+  graph transformation library for topology-based geometric modeling.
+  International Conference on Graph Transformation(2014) 269-284.}
 
 \end{document}
-

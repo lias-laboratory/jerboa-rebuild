@@ -1,0 +1,139 @@
+#+title: État de l'art Anaïs Cardot 2019
+#+author:
+
+* historique de l'informatique graphique
+** courbes et surfaces paramétriques
+- Bézier 1986 [Bé86] (courbes)
+- Ferguson 1986 [Fer86]
+- Casteljeau [Boe93] (approximation polynomes)
+
+** Infographie
+- Sutherland 1963 [Sut63] (dessin interactif 2D sketchpad)
+- Benest 1979 (historique des systèmes CG)
+- [Jac64] (IHM via stylet sur panneau en verre)
+- [KSSH66] (dessin par moyens informatique de circuits électronique puis entrée
+  d'information par clavier. Calcul de chaque résistance de transistor par la
+  machine)
+- [Bae69] (dessin animés)
+- [The69] (animation d'éléments industriels)
+- [MH76] (imagerie médicale 3D à partir de radiographies de coupes successives)
+** Méthodes d'éléments finis (70's)
+- Abaqus [Sysa] (simulation virtuelle du comportement d'objets)
+** Modeleurs contemporains (80's)
+*** Architecture/Archéologie
+- Catia
+- Pro/Engineer [Cor]
+*** Jeux vidéos/Cinéma
+- Blender
+- Cinema 4D
+- Houdini
+
+
+* Modélisation géométrique
+** Constructive Solid Geometry (CSG)
+- Conçu par Requicha [Req77]
+- Construction par opérations booléennes entre objets
+- Représentation sous forme d'arbre
+  - Branche : opérations booléennes
+  - Feuille : primitive
+- Intéressant pour la variations de modèle mais :
+  - Lourd en mémoire (toutes les primitives à prendre en compte)
+  - Ambigüité car pas d'unicité dans la construction
+  - Objet sans frontière (impossibilité de sélection un élément de bord)
+
+** Boundary Representation (B-Rep)
+- Braid [Bra75] & Baumgart [Bau75]
+- Représentation d'un objet par ses bords
+- Bords orientés
+- «Watertightness» vérifiable
+- Exemple «facétisé» [Man88]
+
+** Courbes et surfaces paramétriques
+- [Gal99], Bézier [Bé86], Ferguson [Fer86] & Casteljeau [Boe93, DC85]
+- Éléments géométriques définis par des points de contrôle (ou pôles)
+- courbes de Bézier [GR74, Bé86, FPDM14]
+- polynômes de Bernstein, B-splines [dB78]
+- Non Uniform Ration B-Splines, NURBS [PT97]
+
+** Modèles topologiques
+- Deux classes de modèles topologiques [LFB07]
+  - type de cellules
+    - régulières : simplexes (cubique), simploïdes, complexes simpliciaux
+      abstraits [CDFM+94]
+    - quelconques : p.e. cartes généralisées [Lie94]
+  - type d'assemblage
+    - quasi-variétés : cellules de dimension n liées entre elles par des
+      cellules de dimension n-1 (incidente à maximum 2 cellules de dimension n)
+    - complexes : chaînes de cartes [EL93], ensembles semi-simpliciaux [LP16]
+
+** Cartes généralisées
+- modèle à cellules quelconques
+- nœuds \to brins
+- arcs \to liaisons
+- cartes combinatoires Vince [Vin83]
+
+* Modèles paramétriques
+- Utilisées en CAO pour la réévaluation automatique [Rol91, AM95, Kri95, BS01,
+  HK01]
+- deux approches : équationnelle et fonctionnelle
+
+** Approche équationnelle
+*** Méthodes géométriques
+- Geom3 [But79]
+- Progé [Sch93] (résolution «à la règle et au compas»)
+- [DMS98, MF09, Mou16]
+*** Méthodes combinatoires
+- [Owe91,YMJMSMC14]
+*** Méthodes numériques probabilistes
+- [FMJ05]
+
+* Nommage Persistant
+- Identification robuste des entités en dehors du modèle paramétrique
+- [MP02] (Survey)
+- [CCH96], [WZZ01] (historique propagé à la descendance)
+- Abgodan [AMP99] (entités invariantes et contingentes)
+** Capoyleas
+- Capoyleas [CCH96] (+ Chen [Che95])
+- Chen [CH94] (demi-espace)
+** Kripac
+- [Kri95] (arbre d'historique)
+** Wu
+- Wu [WZZ01] (opérations booléennes + historique dans le nom)
+*** Méthodes récentes
+- Farjana et al. [FMH15, FHM16]
+** Bidarra
+- [Bid05] (feature based)
+- [SM95] (caractéristiques représentant des intentions de conception + orientation)
+- [MNS96] (capture explicite des attributs d'ingénierie et relations entre entités)
+** Baba Ali
+- [BAMS09, BA10] (basé sur les arêtes)
+** Mise en correspondance des noms
+- [Owe97] STEP
+- Mun & Han [MH09], Cheon et al. [CMHK12] (OSI)
+- Tessier & Wang [TW13] (mise en correspondance ontologique)
+
+* Règles de réécriture
+** grammaires formelles
+- [Cho56]
+- [Car07]
+- Lindenmayer [Lin68] (L-Systèmes)
+  - Smith [Smi84]
+  - Rozenberg & Salomaa [RS80]
+  - Fitch et al. [FPL16]
+  - Prusinkiewicz [PHM93]
+    - [MP96]
+  - Terraz et al. [TGMD09]
+*** usages
+- génération procédurale
+  - modélisation croissance et prolifération plantes
+  - visualisation développement plante/fleur au cours du temps
+  - adaptation des plantes dans environnement
+  - structure interne bois
+- architecture [HMVG09, QB15]
+- jeux vidéos (aménagement d'environnement, Arena, Oblivion, Minecraft)
+*** Limitation
+- [Bel12] (chaque outil ne peut être utilisé que pour son utilisation
+  spécifique)
+*** Solution
+- [EEP06] (règles de transfo de graphe)
+  - [Bel12], [Pou09]

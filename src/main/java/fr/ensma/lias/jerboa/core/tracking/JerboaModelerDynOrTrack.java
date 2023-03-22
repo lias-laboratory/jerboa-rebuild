@@ -77,7 +77,27 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 		List<JerboaDynaOrTrackingItem> items = new ArrayList<JerboaDynaOrTrackingItem>();
 		StopWatch sw = new StopWatch();
 		sw.display("= begin register tracking orbits done");
-		for (JerboaOrbit orbit : trackedOrbits) {
+		for (int oi = 0;oi < trackedOrbits.size(); ++oi) {
+			JerboaOrbit orbit = trackedOrbits.get(oi);
+			JerboaDynaOrTrackingItem item = new JerboaDynaOrTrackingItem(rule.getFullname(), orbit );
+			sw.display(" == track orbit "+orbit);
+			if(trackedItems.size() == 0)
+				item.fetch(gmap);
+			else	
+				item.fetch(gmap, trackedItems.get(trackedItems.size()-1).get(oi));
+			items.add(item);
+		}
+		trackedItems.add(items);
+		sw.display("= end register tracking orbits done");
+		return items.size();
+	}
+	
+	/*public int push(JerboaRuleDynOrTrack rule, JerboaGMap gmap) {
+		List<JerboaDynaOrTrackingItem> items = new ArrayList<JerboaDynaOrTrackingItem>();
+		StopWatch sw = new StopWatch();
+		sw.display("= begin register tracking orbits done");
+		for (int oi = 0;oi < trackedOrbits.size(); ++oi) {
+			JerboaOrbit orbit = trackedOrbits.get(oi);
 			JerboaDynaOrTrackingItem item = new JerboaDynaOrTrackingItem(rule.getFullname(), orbit );
 			sw.display(" == track orbit "+orbit);
 			item.fetch(gmap);
@@ -87,7 +107,7 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 		trackedItems.add(items);
 		sw.display("= end register tracking orbits done");
 		return items.size();
-	}
+	}*/
 	
 	public void exportTracking(String filename, int i) {
 		final String sep = ";";

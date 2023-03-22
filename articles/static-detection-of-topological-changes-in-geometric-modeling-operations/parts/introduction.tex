@@ -5,68 +5,71 @@
 
 Nowadays, geometric modelers are everywhere to be found, for example, in
 archaeology, architecture and mechanical engineering, just to name a few
-domains.
-%
-These tools allow to design and maintain precise and complexe works.
-%
-To do so, they rely on geometric modeling kernels (\textit{ACIS},
+domains. These tools allow to design and maintain precise and complexe works. To
+do so, they rely on geometric modeling kernels (\textit{ACIS},
 \textit{Parasolid}, \textit{OpenCascade}, etc) whose API provide them with the
-necessary tools.
-%
-Thus, their importance has grown to the point to where they are essential.
-One of the features of these kernels is the topological change (or
+necessary tools. Thus, their importance has grown to the point to where they are
+essential. One of the features of these kernels is the topological change (or
 \emph{events}) tracking (creation, deletion, split, merging, constancy and
-modification).
-%
-During the construction of a model, the applied operations can change both its
-topology and geometry and the subsequent events need to be detected.
-%
-Since the tracking intervenes during the construction of a model to manage cells
-identification and consistency, then it is an ad hoc solution to help maintain
-the models consistency and, hence, is a key feature proposed by kernels.
+modification). During the construction of a model, the applied operations can
+change both its topology and geometry and the subsequent events need to be
+detected. Since the tracking intervenes during the construction of a model to
+manage cells identification and consistency, then it is an ad hoc solution to
+help maintain the models consistency and, hence, is a key feature proposed by
+kernels.
 
 \subsection*{Motivations}
 
 Events detection has a variety of purpose such as the construction of bulletin
-boards, persistent naming schemes and modeling parallelization.
+boards, persistent naming schemes and modeling optimisation A bulletin board is
+a data structure describing the cells evolution during the construction of a
+model in a form of history. Such an information is needed for the internal
+execution of a number of operations provided by a kernel and is also passed
+through the API in order to help developers using these kernels to maintain the
+models consistency. \maxime{Revoir cette phrase} A typical use of these bulletin
+boards is their integration within persistent naming schemes in parametric
+systems. Persistent naming schemes depend directly or indirectly on events
+detection to propose unique and persistent names for cells, thus, allowing the
+reevaluation of models regardless of parameter change, or their transfer towards
+other systems. Events detection is also useful in the optimisation of modeling
+operations.
 
-A bulletin board  is a data structure describing the  cells evolution during the
-construction of  a model  in a  form of  history. Hence,  their use  to maintain
-models consistency.
-%
-Persistent naming schemes can depend on bulletin boards, and indirectly events
-detection, to propose unique names for cells and, thus, allowing the
-reevaluation of models or their transfer towards other systems.
-%
-Events detection could also show its usefulness in the parallelization of
-modeling operations.
+\subsection*{Static and dynamic detection}
+An event detection can be performed either dynamically or statically
 
-\subsection*{Dynamic and hybrid detection}
-In its dynamic conception, an event detection method requires to compare a model
-before and after the application of an operation.
-%
-As a result, the tracking may become a heavy task to perform and its time
-cost may become significant.
-%
-Moreover, considering how models tend to grow in size during their conception,
-the tracking may slow down over time and the more elaborated the model, the more
-coherence issues may arise.
+A static detection, performs the analysis of the operations only. Although they
+can be tailored for specific geometry, operations are independent of the models
+on which they are applied. And since operations are not expected to change
+during modeling, then events can be computed before run-time and are known
+before any application.
 
-An hybrid conception of events detection would allow, depending on the
-operations, to analyze only the modified part of the models. This approach, in
-comparison to the dynamic one, is expected to reduce time by analyzing a model
-subset. However, this approach requires the identify, from the coding of the
-operation, the specific cells being modified which could be the model itself.
+Dynamic detection, however, requires to compare a model before and after any
+operation application. As a result the time efficiency of a dynamic method
+directly depends on the number of cells existing in a model. Therefore, and
+considering how models tend to become more complex during their construction,
+the time cost to fully perform the events tracking may dramatically increase.
+Moreover, since a dynamic event detection can be completed after the application
+of a operation only, then possible consistency issues cannot be prevented.
+
+A static detection is expected to be less time consuming compared to a dynamic
+one. However, this approach requires the identify modified cells and resulting
+events from the coding of the operation. \maxime{Remplacé par statique (et
+  paragraphe ré-écrit)}%
 
 \subsection*{Our approach}
+The analysis of an operation, although based on a well-known algorithm, may
+encounter some limitations since its coding is dependent of the developing team.
 
-The proposed approach, here, is a method to statically detect events from the
-modeling operations. To do so, our method is based on the usage of a graph
-transformation rule formalism as operations. The analysis of such rules allow to
-obtain events information without the need to apply them and, in most cases,
-independent from the modified models. For certain operations, this method is
-able to detect a potential split or merging. In theses cases, a dynamic analysis
-of the models are needed to assert the event.
+The proposed approach, here, relies on generalized maps to formalise the models
+and graph transformation rules to formalise modeling operations and make their
+static analysis possible. \maxime{À reformuler, douteux} Such rules can be
+syntactically analysed to gather the events information before any rule
+application. Thus, the time cost of the analysis is independent from the model
+complexity. In some cases, a split or a merging can be detected and a
+verification must done on the model to assert these events happened. However,
+because of the way graph transformation rules work, any verification is
+restricted to the modified cells as they are known during the application.
+\maxime{paragraphe ré-écrit}
 
 \section{Related works}
 

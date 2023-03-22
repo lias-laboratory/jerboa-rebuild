@@ -103,17 +103,19 @@
 \begin{abstract}
   Advanced geometric modelers require the detection of topological changes
   caused by modeling operations on objects such as face splitting or volume
-  merging. As a result, modeling kernels APIs generally give access to this
-  data. This tracking is dynamically performed by comparing topological cells
-  (vertices, edges, faces, volumes) before and after each modification, which can be very time consuming.
+  merging. Therefore, modeling kernels APIs generally give access to this data
+  which is obtained by tracking the topological changes. Such a tracking is
+  dynamically performed by comparing topological cells (vertices, edges, faces,
+  volumes) before and after each modification, which can be very time consuming.
 
-  In this article, we propose a method to statically detect topological changes. In
-  order to do so, we rely on the formalisation of geometric models and their
-  operations: generalized maps and graph transformation rules. A syntactical analysis of such rules  allow to compute, statically and before any application, the
-  changes that will affect topological entities. We also precisely define the
-  borderline situations where it is impossible to state that an entity has been split or
-  merged and, thus, will require some \textit{ad hoc} dynamic analysis of the model. A cost
-  comparison of both methods, dynamic and static, with standard modeling
+  In this article, we propose a method to statically detect topological changes.
+  We rely on the formalization of geometric models and their operations:
+  generalized maps and graph transformation rules. A syntactical analysis of
+  such rules allows to compute, statically before run time, the changes that
+  will affect topological entities. We also characterize the situations where it
+  is impossible to state that an entity has been split or merged and, thus,
+  entails some \textit{ad hoc} dynamic verification. A cost comparison of both
+  methods, classical dynamic and proposed static, with standard modeling
   operations make it possible to estimate time savings.
 \end{abstract}
 

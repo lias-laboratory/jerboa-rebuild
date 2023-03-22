@@ -4,19 +4,20 @@
 
 \section{Event detection}
 
-Intuitively, to detect that a rule application creates (or splits, merges, …) an
-orbit, one would compare the graph before and after its application. However,
-comparing the members of a rule against each other allows a static detection of
-topological events. Such a method presents the advantage of being independent of
-the object transformed by the rule.
+Basically, to detect that a rule application creates (or splits, merges, …) an
+orbit, one would compare the graph before and after its application.
+Furthermore, comparing the members of a rule against each other allows a static
+detection of topological events. Such a method presents the advantage of being
+independent of the object actually transformed by the rule.
 
 \subsection{Creation}
+
 \label{sec:creation}
 
-A rule node matches one or more darts. So when a rule creates a node, it also
-creates the corresponding darts. If the right hand side of a rule contains a
+A rule node matches at least one dart. So when a rule creates a node, it also
+creates the corresponding darts. If the right-hand side of a rule contains a
 created orbit, then the application of this rule on any object creates one or
-more orbits. For example, the triangulation rule
+several orbits. For example, the triangulation rule
 (Fig.~\ref{fig:rule-triangulation}) creates the edge orbit
 $R\orbit{\alpha 0, \alpha 2}(n_{1})$. Therefore, the application of this rule on
 the square face (Fig.~\ref{fig:before-after-house-triangulation}) creates four
@@ -26,7 +27,7 @@ $H\orbit{\alpha 0, \alpha 2}(g_{1})$ in $H$.
 
 \begin{definition}[Orbit creation]
   \label{def:orbit-creation}
-  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match morphism,
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
   $t: G \longrightarrow^{r,m} H$ the transformation of $G$ by $(r,m)$,
   $\orbit{o}$ an orbit type, $n$ a created node of $R$ and $d$ a dart of $H$
   matched by $n$.
@@ -39,13 +40,12 @@ $H\orbit{\alpha 0, \alpha 2}(g_{1})$ in $H$.
 \end{definition}
 
 \begin{proposition}
-  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match morphism,
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
   $t: G \longrightarrow^{r,m} H$ the transformation of $G$ by $(r,m)$,
   $\orbit{o}$ an orbit type, $n$ a created node of $R$ and $d$ a dart of $H$
   matched by $n$.
 
-  The orbit $H\orbit{o}(d)$ is created if and only if $R\orbit{o}(n)$ is
-  created.
+ The orbit $H\orbit{o}(d)$ is created if and only if $R\orbit{o}(n)$ is created.
 \end{proposition}
 
 \begin{proofidea}
@@ -56,28 +56,27 @@ $H\orbit{\alpha 0, \alpha 2}(g_{1})$ in $H$.
   image of $R\orbit{o}(n)$ and then $R\orbit{o}(n)$ is created.
 \end{proofidea}
 
-Back to the example of the face triangulation
+Back to the example of face triangulation
 (Fig.~\ref{fig:rule-triangulation}~and~\ref{fig:before-after-house-triangulation}),
-we will follow the creation of an edge. The edge orbit
+we follow the creation of an edge. The edge orbit
 $R\orbit{\alpha 0, \alpha 2}(n_{1})$ in the triangulation rule is created
 because its two nodes $n_{1}$ and $n_{2}$ are created. In the transformation,
 $n_{1}$ matches eight darts, including for example dart $a_{1}$, and $n_{2}$
 also matches eight darts including dart $a_{2}$. The edge orbit
-$H\orbit{\alpha 0, \alpha 2}(a_{1})$ is created as well as darts
-$a_{2}, h_{1}, h_{2}$ (Fig.~\ref{fig:house-triangulation-right-match}).
+$H\orbit{\alpha 0, \alpha 2}(a_{1})$ is created as well as darts $a_{2}, h_{1}$
+and $h_{2}$ (Fig.~\ref{fig:house-triangulation-right-match}).
 
 
 \subsection{Split}
 
-\begin{figure}
-  \centering
-  \maxsizebox{\columnwidth}{.15\columnwidth}{\includegraphics{figures/rule-unsewA2.pdf}}
-  % \caption{Rule $r : L \longrightarrow R$ unsews $\alpha 2$-links between two face edges of type $\orbit{\alpha 0}$}
-  \caption{Rule $r : L \longrightarrow R$ of $\alpha 2$ unsewing along an edge ($\alpha 0, \alpha 2$-orbit)}
-  \label{fig:rule-unsew-a2}
+\begin{figure}[t]
+    \centering
+    \maxsizebox{\columnwidth}{.15\columnwidth}{\includegraphics{figures/rule-unsewA2.pdf}}
+    \caption{Rule $r : L \longrightarrow R$ of $\alpha 2$ unsewing along an edge ($\alpha 0, \alpha 2$-orbit)}
+    \label{fig:rule-unsew-a2}
 \end{figure}
 
-\begin{figure*}
+\begin{figure*}[t]
   \begin{subfigure}[t]{.3\textwidth}
     \centering
       \includegraphics[height=.2\textheight]{figures/square-plan.pdf}
@@ -105,148 +104,165 @@ $a_{2}, h_{1}, h_{2}$ (Fig.~\ref{fig:house-triangulation-right-match}).
 
 When a rule explicitly splits an orbit, it also splits the set of matched darts.
 For example, the unsewing rule (Fig.~$\ref{fig:rule-unsew-a2}$) splits the edge
-orbit $L\orbit{\alpha 0, \alpha 2}(n_{0})$ into two edge orbits
+orbit $L\orbit{\alpha 0, \alpha 2}(n_{0})$ into a pair of edge orbits
 $R\orbit{\alpha 0, \alpha 2}(n_{0})$ and $R\orbit{\alpha 0, \alpha 2}(n_{1})$.
-Therefore the first application of this rule
-(Fig.~\ref{fig:before-after-unsew-a2}) splits the edge into two edges
+Therefore, the first application of this rule
+(Fig.~\ref{fig:unsew-a2-first-unsew}) splits the edge into two edges
 $H\orbit{\alpha 0, \alpha 2}(a_{0})$ and $H\orbit{\alpha 0, \alpha 2}(c_{1})$.
 
-A rule can also split an orbit implicitly. For example the triangulation rule
+A rule can also split an orbit implicitly. For example, the triangulation rule
 (Fig.~\ref{fig:rule-triangulation}) splits the face orbit
 $L\orbit{\alpha 0, \alpha 1}(n_{0})$ along the second implicit links because in
-the right hand side, all the second implicit links of the nodes belonging to the
-face orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ (i.e. $n_{0}$, $n_{1}$ and
-$n_{2}$) are deleted or different from $\alpha 0$ and $\alpha 1$. Therefore the
-application of this rule (Fig.~\ref{fig:before-after-house-triangulation})
-splits $G\orbit{\alpha 0, \alpha 1}(a_{0})$ into four face orbits
+the right-hand side, every second implicit link of the nodes belonging to the
+face orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ (\textit{i.e.} $n_{0}$, $n_{1}$
+and $n_{2}$) are either deleted or different from $\alpha 0$ and $\alpha 1$.
+Therefore, the application of this rule
+(Fig.~\ref{fig:before-after-house-triangulation}) splits
+$G\orbit{\alpha 0, \alpha 1}(a_{0})$ into four face orbits
 $H\orbit{\alpha 0, \alpha 1}(a_{0})$, $H\orbit{\alpha 0, \alpha 1}(c_{0})$,
 $H\orbit{\alpha 0, \alpha 1}(e_{0})$, $H\orbit{\alpha 0, \alpha 1}(g_{0})$.
-Notice that the edges of the former square face do not belong to the same face
-anymore. \david{pourquoi précises tu cela ?}
 
 
 \begin{definition}[Orbit split]\label{def:orbit-split}
-  Let $r: L \longrightarrow R$ be a rule, $m: L \to G$ a morphism,
-  $t: G \longrightarrow^{r,m}H$ the transformation of G by $(r,m)$, $\orbit{o}$ an
-  orbit type, $n$ a preserved node and $d$ a preserved dart matched by~$n$.
+  Let $r: L \longrightarrow R$ be a rule, $m: L \to G$ a match,
+  $t: G \longrightarrow^{r,m}H$ the transformation of G by $(r,m)$, $\orbit{o}$
+  an orbit type, $n$ a preserved node of $r$ and $d$ a preserved dart of $t$
+  matched by~$n$.
 
-  An orbit $L\orbit{o}(n)$ is \emph{split} by the rule $r$ either:
-  \begin{itemize}
-    \item explicitly if there exists two preserved nodes $n$ and $n'$ in
-          $L\orbit{o}(n)$ that do not belong to the same orbit in $R$, i.e.
-          $R\orbit{o}(n) \neq R\orbit{o}(n')$.
+  An orbit $L\orbit{o}(n)$ is \emph{split} by the rule $r$:
+ \begin{itemize}
+   \item Either \emph{explicitly} if there exists two preserved nodes $n$ and
+         $n'$ in $L\orbit{o}(n)$ that do not belong to the same orbit in $R$,
+         i.e. $R\orbit{o}(n) \neq R\orbit{o}(n')$;
 
-    \item implicitly if in $L\orbit{o}(n)$ there exists a node whose $k$-th
-          implicit link is in $\orbit{o}$ and for all nodes $n'$ in
-          $R\orbit{o}(n)$, the $k$-th implicit link is either deleted or renamed
-          not in $\orbit{o}$.
-  \end{itemize}
+   \item Or \emph{implicitly} if there exists in $L\orbit{o}(n)$ one node for
+         which the $k$-th implicit link belongs to $\orbit{o}$ and for all nodes
+         $n'$ in $R\orbit{o}(n)$, the $k$-th implicit link is either deleted or
+         replaced with a value which does not belong to $\orbit{o}$.
+   \end{itemize}
 
-  An orbit $G\orbit{o}(d)$ is \emph{split} by the transformation $t$ if and only
-  if there exists at least one preserved dart $d'$ in $G\orbit{o}(d)$, such that
-  $H\orbit{o}(d) \neq H\orbit{o}(d')$.
+   An orbit $G\orbit{o}(d)$ is \emph{split} by the transformation $t$ if and
+   only if there exists at least one preserved dart $d'$ in $G\orbit{o}(d)$,
+   such that $H\orbit{o}(d) \neq H\orbit{o}(d')$.
 \end{definition}
 
 \begin{proposition}\label{prop:orbit-split}
-  Let $r : L \longrightarrow R$ be a rule , $m : L \to G$ a match morphism,
+  Let $r : L \longrightarrow R$ be a rule , $m : L \to G$ a match,
   $t : G \longrightarrow^{r,m} H$ the transformation of G by $(r, m)$,
-  $\orbit{o}$ an orbit type, $n$ a preserved node and $d$ a preserved dart $d$
-  matched by $n$.
+  $\orbit{o}$ an orbit type, $n$ a preserved node such $L\orbit{o}(n)$ is a
+  complete orbit and $d$ a preserved dart of $G$ and $H$ matched by $n$.
 
-  The orbit $G\orbit{o}(d)$ is \emph{guaranteed} to be split if and only if
-  $L\orbit{o}(n)$ is both complete on $\orbit{o}$ and split.
+  If the orbit $L\orbit{o}(n)$ is explicitly splitted in $R$ then
+  $G\orbit{o}(d)$ is splitted in $H$. If the orbit
+  $L\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}(n)$ is implicitly
+  splitted along the $k$-th implicit links then
+  $G\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}(d)$ is splitted if and
+  only if $G\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}(d)$ contains
+  several sub-orbits of type $\orbit{o_1 \dots o_{k - 1}, o_{k + 1} \dots o_m}$.
 \end{proposition}
 
 \begin{proofidea}\label{prfid:orbit-split}
-  Since a complete orbit on $\orbit{o}$ filters all links in $\orbit{o}$, such
-  an orbit $L\orbit{o}(n)$ matches all darts in $G\orbit{o}(d)$. Due to the
-  application of rules, $G\orbit{o}(d)$ is included in the image of
-  $L\orbit{o}(n)$ and because it is split, there exists at least one preserved
-  dart $d'$ in $G\orbit{o}(d)$ such that $H\orbit{o}(d) \neq H\orbit{o}(d')$.
-  Conversely, if $H\orbit{o}(d) \neq H\orbit{o}(d')$ while
-  $G\orbit{o}(d) = G\orbit{o}(d')$, then $G\orbit{o}(d)$ is included in the
-  image of $L\orbit{o}(n)$ and then $L\orbit{o}(n)$ is split. If the orbit to
-  split is not complete then the set of matched darts can be incomplete and a
-  split cannot be guaranteed.
+  As a reminder, a complete orbit $L\orbit{o}(n)$ entirely matches an orbit
+  $G\orbit{o}(d)$.
+
+  In the case of an explicit split of $L\orbit{o}(n)$ in $r$, since
+  $L\orbit{o}(n)$ is complete, then due to rules syntactic conditions,
+  $R\orbit{o}(n)$ and $R\orbit{o}(n')$ are also complete. It follows that
+  $G\orbit{o}(d)$ is split into $H\orbit{o}(d)$ and $H\orbit{o}(d')$ where $n'$
+  matches $d'$.
+
+  In the case of an implicit split of
+  $L\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}(n)$ in $r$ along the
+  $k$-th implicit link, by definition, all the $k$-th implicit links of
+  $R\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}(n)$ are deleted or
+  renamed outside of $\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}$. As
+  a result, $R\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}(n)$ matches
+  as much $\orbit{o}$ orbits in $H$ as there are
+  $\orbit{o_1 \dots o_{k - 1}, o_{k + 1} \dots o_m}$ sub-orbits in
+  $G\orbit{o_1 \dots o_{k - 1}, o_k, o_{k + 1} \dots o_m}(d)$.
 \end{proofidea}
 
-Back to the example of the unsewing rule (Fig.~\ref{fig:rule-unsew-a2}), we will
-follow the explicit split of an edge. The edge orbit
-$L\orbit{\alpha 0, \alpha 2}(n0)$ is split in the rule because its two nodes
-$n_{1}$ and $n_{2}$ form two distincts edge orbits
-$R\orbit{\alpha 0, \alpha 2}(n_{0})$ and $R\orbit{\alpha 0, \alpha 2}(n_{1})$.
-In the transformation, $n_{0}$ (resp. $n_{1}$) matches the darts $a_{0}$ and
-$b_{0}$ (resp. $c_{1}$ and $d_{1}$). The edge orbit
-$G\orbit{\alpha 0, \alpha 2}(a_{0})$, comprising the darts matched by both
-$n_{0}$ and $n_{1}$, is split into two orbits
-$H\orbit{\alpha 0, \alpha 2}(a_{0})$ (i.e. $a_{0}$ and $b_{0}$) and
-$H\orbit{\alpha 0, \alpha 2}(c_{1})$ (i.e. $c_{1}$ and $d_{1}$)
+Referring to the example of the unsewing rule (Fig.~\ref{fig:rule-unsew-a2}), we
+follow the explicit split of an edge. The rule splits the edge orbit
+$L\orbit{\alpha 0, \alpha 2}(n0)$ because both its nodes $n_{1}$ and $n_{2}$
+form two distinct edge orbits $R\orbit{\alpha 0, \alpha 2}(n_{0})$ and
+$R\orbit{\alpha 0, \alpha 2}(n_{1})$. Rule application entails $n_{0}$ (resp.
+$n_{1}$) matching both darts $a_{0}$ and $b_{0}$ (resp. $c_{1}$ and $d_{1}$).
+The edge orbit $G\orbit{\alpha 0, \alpha 2}(a_{0})$, containing the darts
+matched by both $n_{0}$ and $n_{1}$, is split into a pair of orbits
+$H\orbit{\alpha 0, \alpha 2}(a_{0})$ (\textit{i.e.} $a_{0}$ and $b_{0}$) and
+$H\orbit{\alpha 0, \alpha 2}(c_{1})$ (\textit{i.e.} $c_{1}$ and $d_{1}$)
 (Fig.~\ref{fig:unsew-a2-first-unsew}).
 
 Continuing with the face triangulation rule (Fig.~\ref{fig:rule-triangulation}),
-we will follow the implicit split event of a face of orbit type
+we follow the implicit split event of a face orbit type
 $\orbit{\alpha 0, \alpha 1}$. The orbit $L\orbit{\alpha 0, \alpha 1}(n_{0})$
-comprises the node $n_{0}$ and matches a single set of darts which form a face
-orbit. In this example nodes have two dimensions (or implicit links) in their
-label. For node $n_{0}$, the first implicit link is $\alpha 0$ and the second
-implicit link is $\alpha 1$ both in orbit type $\orbit{\alpha 0, \alpha 1}$.
-However the orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ comprises nodes $n_{0}$,
-$n_{1}$, $n_{2}$ and none of them has a second implicit link whose dimension is
-in $\orbit{\alpha 0, \alpha 1}$. Under this condition we can state that the face
+contains the node $n_{0}$ and matches a single set of darts which form a face
+orbit. The first implicit link of $n_{0}$ is $\alpha 0$ and the second implicit
+link is $\alpha 1$; both belong to orbit type $\orbit{\alpha 0, \alpha 1}$.
+However, the orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ comprises nodes $n_{0}$,
+$n_{1}$, $n_{2}$ and none of them has a second implicit link which is neither
+$\alpha 0$ nor $\alpha 1$. Under this condition we can state that the face
 triangulation rule splits a face into two or more faces. Applying this
 triangulation rule on the square face
 (Fig.~\ref{fig:before-after-house-triangulation}),
 $L\orbit{\alpha 0, \alpha 1}(n_{0})$ matches the face orbit
-$G\orbit{\alpha 0, \alpha 1}(a_{0})$). Then, the square face will be split into
-the four faces matched from $R\orbit{\alpha 0, \alpha 1}(n_{0})$ (i.e.
+$G\orbit{\alpha 0, \alpha 1}(a_{0})$). Then, the square face is split into the
+four faces matching $R\orbit{\alpha 0, \alpha 1}(n_{0})$ (i.e.
 $H\orbit{\alpha 0, \alpha 1}(a_{0})$, $H\orbit{\alpha 0, \alpha 1}(c_{0})$,
 $H\orbit{\alpha 0, \alpha 1}(e_{0})$ and $H\orbit{\alpha 0, \alpha 1}(g_{0})$).
 
-Note that both the proposition~\ref{prop:orbit-split} and its proof
-idea~\ref{prfid:orbit-split} mention that a split is guaranteed to happen when
-the orbit is complete on $\orbit{o}$. Let us consider the unsewing rule
-(Fig.~\ref{fig:rule-unsew-a2}) and its application on a surface
-(Fig.~\ref{fig:before-after-unsew-a2}) once more but this time on the surface
-orbit $L\orbit{\alpha 0, \alpha 1, \alpha 2}(n_{0})$. The rule nodes of this
-orbit all miss an $\alpha 1$-link and, thus,
+Note that both the proposition~\ref{prop:orbit-split} and its proof idea mention
+that a split is guaranteed to happen when the orbit is complete on $\orbit{o}$.
+Let us consider the unsewing rule (Fig.~\ref{fig:rule-unsew-a2}) and its
+application on a surface (Fig.~\ref{fig:before-after-unsew-a2}) once more but
+this time on the surface orbit $L\orbit{\alpha 0, \alpha 1, \alpha 2}(n_{0})$.
+The rule nodes of this orbit all miss an $\alpha 1$-link and, thus,
 $L\orbit{\alpha 0, \alpha 1, \alpha 2}(n_{0})$ is not
 $\orbit{\alpha 0, \alpha 1, \alpha 2}$-complete. Therefore, upon the first
-application of the rule (Fig.~\ref{fig:unsew-a2-first-unsew}) the surface is not
-split, although the conditions given in the definition~\ref{def:orbit-split} are
-met. Yet, in this case, applying the unsewing rule a second time
+application of the rule (Fig.~\ref{fig:unsew-a2-first-unsew}); the surface is
+not split, although the conditions given in the definition~\ref{def:orbit-split}
+are met. Yet, in this case, applying the unsewing rule a second time
 (Fig.~\ref{fig:unsew-a2-second-unsew}) effectively splits the surface.
-Conversely, when an orbit is not $\orbit{o}$-complete the matched graph is an
-incomplete orbit and statically detected event cannot be guaranteed on
-$\orbit{o}$. Therefore, such a statement must be confirmed dynamically.
+Conversely, when an orbit is not complete, the matched graph is an incomplete
+orbit and statically detected event cannot be guaranteed on $\orbit{o}$.
+Therefore, such a statement must be confirmed dynamically.
+
+In the same way, for implicit splits along the $k$-th implicit link, the split
+is effective only if the matched orbit contains several sub-orbits. For example,
+for an operation of connected component splitting into volumes, the operation
+does not split in the edge case where this connected component contains only one
+volume. Note that this detection case, although dynamic, does not cost much
+since it only needs to check that all $k$-th links of the orbit are loops.
 
 
-\subsection{Merge}
+\subsection{Merging}
 
-\begin{figure}
+\begin{figure}[t]
   \centering
-  \maxsizebox{\columnwidth}{.15\columnwidth}{%
-    \includegraphics{figures/rule-sewA2.pdf}}
+  \maxsizebox{\columnwidth}{.15\columnwidth}{\includegraphics{figures/rule-sewA2.pdf}}
   \caption{Rule $r : L \longrightarrow R$ of $\alpha 2$ sewing along two edges
     ($\alpha 0, \alpha 2$-orbit)}
   \label{fig:rule-sewing-a2}
 \end{figure}
 
-\begin{figure}s
-  \centering
-  \maxsizebox{\columnwidth}{.15\columnwidth}{%
-    \includegraphics{figures/rule-delete-edge.pdf}}
-  \caption{Rule $r: L \longrightarrow R$ of edge deletion}
-  \label{fig:rule-delete-edge}
+\begin{figure}[t]
+    \centering
+    \maxsizebox{\columnwidth}{.15\columnwidth}{\includegraphics{figures/rule-delete-edge.pdf}}
+    \caption{Rule $r: L \longrightarrow R$ of edge deletion}
+    \label{fig:rule-delete-edge}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[t]
   \begin{subfigure}[t]{.45\columnwidth}
+    \centering
     \includegraphics[height=.25\textheight]{figures/house-merge-left-match.pdf}
     \caption{$G$}
     \label{fig:house-merge-left-match}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{.45\columnwidth}
+    \centering
     \includegraphics[height=.25\textheight]{figures/house-merge-right-match.pdf}
     \caption{$H$}
     \label{fig:house-merge-right-match}
@@ -255,8 +271,8 @@ $\orbit{o}$. Therefore, such a statement must be confirmed dynamically.
   \label{fig:before-after-delete-edge}
 \end{figure}
 
-With the same intuition as for an orbit split there are explicit and implicit
-orbits merging.
+Based on the same intuition as for orbit split, there are explicit and implicit
+merging orbits.
 
 For example, in the explicit case, the sewing rule
 (Fig.~\ref{fig:rule-sewing-a2}) is the opposite of the unsewing rule
@@ -269,144 +285,194 @@ $L\orbit{\alpha 0, \alpha 2}(n_{1})$ into a single edge orbit
 $R\orbit{\alpha 0, \alpha 2}$. Therefore, the application of the sewing rule
 merges two edges of $H_{1}$ into one edge $G\orbit{\alpha 0, \alpha 2}(a_{0})$.
 
-The same goes for the implicit merge. For example, in the implicit case, the
-edge deletion rule (Fig.~\ref{fig:rule-delete-edge}) merges the vertex orbits
-mapped to $L\orbit{\alpha 1}(n_{0})$ along the second implicit link because in
-the right hand side, the second implicit link of $n_{1}$ is rewritten into
-$\alpha 1$. Therefore, the application of this rule
+The same goes for the implicit merging. For example, in the implicit case, the
+edge deletion rule (Fig.~\ref{fig:rule-delete-edge}) merges the face vertex
+orbits mapped to $L\orbit{\alpha 1}(n_{0})$ along the second implicit link
+because in the right-hand side of the rule, the second implicit link of $n_{1}$
+is rewritten as $\alpha 1$. Therefore, the application of this rule
 (Fig.~\ref{fig:before-after-delete-edge}) merges $G\orbit{\alpha 1}(d_{1})$ with
-$G\orbit{\alpha 0, \alpha 1}(j_{1})$ into $H\orbit{\alpha 0, \alpha 1}(d_{1})$
-and $G\orbit{\alpha 1}(m_{1})$ with $G\orbit{\alpha 1}(m_{c_{1}})$ into
+$G\orbit{\alpha 1}(j_{1})$ into $H\orbit{\alpha 1}(d_{1})$ and
+$G\orbit{\alpha 1}(m_{1})$ with $G\orbit{\alpha 1}(c_{1})$ into
 $H\orbit{\alpha 1}(c_{1})$.
 
 
-
-\begin{definition}
-  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a morphism,
+\begin{definition}[Orbit merging]
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
   $t : G \longrightarrow^{r,m} H$ a transformation of $G$ by $(r,m)$,
-  $\orbit{o}$ an orbit type, $n$ a preserved node and $d$ a preserved dart
-  matched by $n$.
+  $\orbit{o}$ an orbit type, $n$ a preserved node of $r$ and $d$ a preserved
+  dart of $t$ matched by $n$.
 
   An orbit $L\orbit{o}(n)$ is merged by the rule $r$ either:
-  \begin{itemize}
-    \item explicitly if there exists a preserved node $n'$, with $n \neq n'$
-    and $L\orbit{o}(n) \neq L\orbit{o}(n')$, such that $n$ and $n'$
-    belong to the same orbit in $R$, i.e.
-    $R\orbit{o}(n) = R\orbit{o}(n')$.
+    \begin{itemize}
+      \item explicitly if there exists a preserved node $n'$, with $n \neq n'$
+            and $L\orbit{o}(n) \neq L\orbit{o}(n')$, such that both $n$ and $n'$
+            belong to the same orbit in $R$, i.e.
+            $R\orbit{o}(n) = R\orbit{o}(n')$.
 
-    \item implicitly if in $R\orbit{o}(n)$, there exists a node whose $k$-th
-    implicit link is in $\orbit{o}$ and for all nodes $n'$ in
-    $L\orbit{o}(n)$, the $k$-th implicit link is not in $\orbit{o}$.
-  \end{itemize}
+      \item implicitly if in $R\orbit{o}(n)$, there exists a node whose $k$-th
+            implicit link belongs to $\orbit{o}$ and for all nodes $n'$ in
+            $L\orbit{o}(n)$, the $k$-th implicit link does not belong to
+            $\orbit{o}$.
+    \end{itemize}
 
-  Two different orbits $G\orbit{o}(d)$ and $G\orbit{o}(d')$, with $d'$ a
-  preserved dart, are merged by the transformation $t$ if and only if
-  $H\orbit{o}(d) = H\orbit{o}(d')$.
+    Two different orbits $G\orbit{o}(d)$ and $G\orbit{o}(d')$, with $d'$ a
+    preserved dart, are merged by the transformation $t$ if and only if
+    $H\orbit{o}(d) = H\orbit{o}(d')$.
 \end{definition}
 
-\begin{proofidea}
-  The idea here is analogous to the idea of proof \ref{prfid:orbit-split}.
+\begin{proposition}\label{prop:orbit-merge}
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
+  $t : G \longrightarrow^{r,m} H$ the transformation of G by $(r, m)$,
+  $\orbit{o}$ an orbit type, $n$ and $n'$ two preserved nodes of $r$ and $d$ and
+  $d'$ two preserved darts of $t$ respectively matched by $n$ and $n'$.
 
-  Since a complete orbit on $\orbit{o}$ filters all links in $\orbit{o}$, such
-  distinct orbits $L\orbit{o}(n)$ and $L\orbit{o}(n')$ match all darts
-  respectively in $G\orbit{o}(d)$ and $G\orbit{o}(d')$. Due to the application
-  of rules, $G\orbit{o}(d)$ (resp. $G\orbit{o}(d')$) is included in the image of
-  $L\orbit{o}(n)$ (resp. $L\orbit{o}(n')$) and because it is merged,there exists
-  at least one preserved dart $d''$ in $G\orbit{o}(d)$ such that
-  $H\orbit{o}(d') = H\orbit{o}(d'') = H\orbit{o}(d)$. Conversely, if
-  $H\orbit{o}(d) = H\orbit{o}(d')$ while $G\orbit{o}(d) \neq G\orbit{o}(d')$
-  then $G\orbit{o}(d)$ (resp. $G\orbit{o}(d')$) is included in the image of
-  $L\orbit{o}(n)$ (resp. $L\orbit{o}(n')$) and then $L\orbit{o}(n)$ and
-  $L\orbit{o}(n')$ are merged. If both of the orbit to merge are not complete
-  then the merge cannot be guaranteed.
+  Let $L\orbit{o}(n)$ and $L\orbit{o}(n')$ be two complete orbits. The orbits
+  $L\orbit{o}(n)$ and $L\orbit{o}(n')$ are merged if and only if $G\orbit{o}(d)$
+  and $G\orbit{o}(d')$ are merged.
+\end{proposition}
+
+\begin{proofidea}
+  The idea is analogous to the one developed for
+  Proposition~\ref{prop:orbit-split}.
+
+  Since a complete orbit on $\orbit{o}$ matches all links in $\orbit{o}$, such
+  distinct orbits $L\orbit{o}(n)$ and $L\orbit{o}(n')$ entirely match
+  $G\orbit{o}(d)$ and $G\orbit{o}(d')$, respectively. Due to the application of
+  rules, $G\orbit{o}(d)$ (resp. $G\orbit{o}(d')$) is included in the image of
+  $L\orbit{o}(n)$ (resp. $L\orbit{o}(n')$) by the match $m$ and since they are
+  merged, $H\orbit{o}(d') = H\orbit{o}(d)$. Conversely, if
+  $H\orbit{o}(d) = H\orbit{o}(d')$ while $G\orbit{o}(d) \neq G\orbit{o}(d')$,
+  then $L\orbit{o}(n)$ and $L\orbit{o}(n')$ are merged. If both orbits to merge
+  are not complete, then the merging cannot be guaranteed in the object.
 \end{proofidea}
 
-With the example of the sewing rule (Fig.~\ref{fig:rule-sewing-a2}), we
-will follow the explicit merge of two edges. The edge orbits
-$L\orbit{\alpha 0, \alpha 2}(n_{0})$ and $L\orbit{\alpha 0, \alpha}(n_{1})$ are
-merged in the rule because their respective nodes $n_{1}$ and $n_{2}$ are part
-of the same edge orbit $R\orbit{\alpha 0, \alpha 2}(n_{0})$. In the
+With the example of the sewing rule (Fig.~\ref{fig:rule-sewing-a2}), we follow
+the explicit merging of two edges. The edge orbits
+$L\orbit{\alpha 0, \alpha 2}(n_{0})$ and $L\orbit{\alpha 0, \alpha 2}(n_{1})$
+are merged in the rule because their respective nodes $n_{1}$ and $n_{2}$ are
+part of the same edge orbit $R\orbit{\alpha 0, \alpha 2}(n_{0})$. Applying the
 transformation, $n_{0}$ (resp. $n_{1}$) matches the darts $a_{0}$ and $b_{0}$
-(resp. $c_{1}$ and $d_{1}$). The edge orbits
-$G\orbit{\alpha 0, \alpha 2}(a_{0})$ and $G\orbit{\alpha 0, \alpha 2}(c_{1})$
-are merged into the orbit $H\orbit{\alpha 0, \alpha 2}(a_{0})$ (i.e $a_{0}$,
-$b_{0}$, $c_{0}$ and $d_{0}$)(Fig.~\ref{fig:unsew-a2-left-match})
+(resp. $c_{1}$ and $d_{1}$). Edge orbits $G\orbit{\alpha 0, \alpha 2}(a_{0})$
+and $G\orbit{\alpha 0, \alpha 2}(c_{1})$ are merged into orbit
+$H\orbit{\alpha 0, \alpha 2}(a_{0})$ (\textit{i.e.} $a_{0}$, $b_{0}$, $c_{0}$
+and $d_{0}$), as shown in Fig.~\ref{fig:unsew-a2-left-match}.
 
-With the edge deletion rule (Fig.~\ref{fig:rule-delete-edge}), we will follow
-the implicit merge event of the face vertices of orbit types $\orbit{\alpha 1}$.
-The orbit $L\orbit{\alpha 1}(n_{0})$ comprises nodes $n_{0}$ and $n_{1}$ and
-matches a single set of darts forming four face vertices. In this example, since
-all nodes of $L\orbit{\alpha 1}(n_{0})$ miss an implicit $\alpha 1$ link and
-since the only remaining node in $R\orbit{\alpha 1}(n_{1})$ has one, then we can
-state that face vertices are merged. Applying this sewing rule on the horizontal
-edge of the house (Fig.~\ref{fig:before-after-delete-edge}),
+With the edge deletion rule (Fig.~\ref{fig:rule-delete-edge}), we follow the
+implicit merging event of the face vertices of orbit types $\orbit{\alpha 1}$.
+The orbit $L\orbit{\alpha 1}(n_{0})$ contains nodes $n_{0}$ and $n_{1}$ and
+matches a single set of darts representing four face vertices. In this example,
+since all nodes of $L\orbit{\alpha 1}(n_{0})$ miss an implicit $\alpha 1$ link
+and since the only remaining node in $R\orbit{\alpha 1}(n_{1})$ has such a link,
+then we can state that face vertices are merged. Applying this sewing rule on
+the horizontal edge of the house (Fig.~\ref{fig:before-after-delete-edge}),
 $L\orbit{\alpha 1}(n_{0})$ matches vertices $G\orbit{\alpha 1}(j_{1})$,
 $G\orbit{\alpha 1}(m_{1})$, $G\orbit{\alpha 1}(c_{1})$ and
-$G\orbit{\alpha 1}(d_{1})$. Then, the vertices opposed by the then deleted edge
-will be merged into the two vertices matched from $R\orbit{\alpha 1}(n_{1})$
-(i.e. $H\orbit{\alpha 1}(d_{1})$ and $H\orbit{\alpha 1}(c_{1})$).
+$G\orbit{\alpha 1}(d_{1})$. Then, the face vertices around the edge
+$G\orbit{\alpha 0, \alpha 2}(k_{0})$, which is deleted by the transformation,
+will be merged into the pair of vertices matched from $R\orbit{\alpha 1}(n_{1})$
+(\textit{i.e.} $H\orbit{\alpha 1}(d_{1})$ and $H\orbit{\alpha 1}(c_{1})$).
 
 Note that although the edge deletion rule may merge two adjacent faces
 (Fig.~\ref{fig:house-merge-right-match}), the rule is not complete on
-$\orbit{\alpha 0, \alpha}$ because of a missing $\alpha$. Therefore, such a
-merge must be confirmed dynamically.
+$\orbit{\alpha 0, \alpha 1}$ since the first implicit link of $n_1$ in $R$ does
+not belong to $\orbit{o}$. Therefore, such a merging must be confirmed
+dynamically.
 
 \subsection{Other events}
 \label{sec:other-events}
 
 The remaining events, namely \emph{deletion}, \emph{constancy} and
-\emph{modification}, will be presented succinctly.
+\emph{modification}, will be presented in a concise way.
 
 \subsubsection{Deletion}
 
-This event mirrors the one of the creation. Let us get back to the edge
-deletion rule (Fig.~\ref{fig:rule-delete-edge}). This rule, as its name
-suggests, deletes an edge orbit $L\orbit{\alpha 0, \alpha 2}(n_{0})$. Its node
-$n_{0}$, which by itself matches an edge, no longer exists in the right side of
-the rule and, therefore, is deleted. Applying the rule on the house
-(Fig.~\ref{fig:before-after-delete-edge}), as in the implicit merge example,
+This event mirrors the creation one. Let us get back to the edge deletion rule
+(Fig.~\ref{fig:rule-delete-edge}). This rule, as its name suggests, deletes an
+edge orbit $L\orbit{\alpha 0, \alpha 2}(n_{0})$. Its only node $n_{0}$, which by
+itself matches an edge because it is complete on $\orbit{0, 2}$, no longer
+exists on the right side of the rule and, therefore, is deleted. Applying the
+rule on the house (Fig.~\ref{fig:before-after-delete-edge}),
 $L\orbit{\alpha 0, \alpha 2}(n_{0})$ matches the orbit
 $G\orbit{\alpha 0, \alpha 2}(a_{0})$ whose darts, since there are no nodes in
 $R$ to match them, are then deleted in $H$
 (Fig.~\ref{fig:house-merge-right-match}).
-\maxime{definition}
 
-\subsubsection{Constancy}
-A constant orbit is an orbit whose nodes and links, given an orbit type
-$\orbit{o}$ remains unchanged in a rule. For example, in the triangulation rule
-(Fig.~\ref{fig:rule-triangulation}), the face edge orbit
-$L\orbit{\alpha 0}(n_{0})$ comprises the node $n_{0}$ only and the same goes for
+\begin{definition}[Orbit deletion]
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
+  $t : G \longrightarrow^{r,m} H$ the transformation of $G$ by $(r,m)$,
+  $\orbit{o}$ an orbit type, $n$ a node of $L$ and $d$ a dart matched by $n$.
+
+  An orbit $L\orbit{o}(n)$, complete on $\orbit{o}$, is deleted in the rule $r$
+  if all of its nodes are deleted in $r$.
+
+    An orbit $G\orbit{o}(d)$ is deleted by the transformation $t$ if and only if
+    all of its darts are deleted by $t$.
+\end{definition}
+
+\subsubsection{Constancy\xavier{Je préfère "Permanence", beaucoup plus courant}\david{on a échangé à ce niveau lors de notre dernière rencontre avec Maxime et Agnès et on partait sur un autre terme (je ne me souviens plus lequel, mais maxime a ses notes).}\maxime{"No Modification" d'après mes notes.}}
+An orbit is said to be \emph{permanent} orbit when its nodes and links remains
+unchanged in a rule, given an orbit type $\orbit{o}$. For example, in the
+triangulation rule (Fig.~\ref{fig:rule-triangulation}), the face edge orbit
+$L\orbit{\alpha 0}(n_{0})$ only contains the node $n_{0}$ and the same goes for
 the orbit $R\orbit{\alpha 0}(n_{0})$. Considering that the implicit $\alpha 0$
-link of $n_{0}$ is unchanged and that there is no more no less node in its
-orbit, we can state the triangulation rule does not modify the edges of a face.
-Applying this rule on the house
+link of $n_{0}$ is unchanged and that there is no %more no less node
+other node in its orbit, we can state the triangulation rule does not modify the
+face edges. Applying this rule on the house
 (Fig.~\ref{fig:before-after-house-triangulation}), the face edge orbits remain
 the same and $G\orbit{\alpha 0}(a_{0}) = H\orbit{\alpha 0}(a_{0})$,
 $G\orbit{\alpha 0}(c_{0}) = H\orbit{\alpha 0}(c_{0})$,
 $G\orbit{e_{0}} = H\orbit{e_{0}}$ and
 $G\orbit{\alpha}(g_{0}) = H\orbit{\alpha 0}(g_{0})$
 (Fig.~\ref{fig:house-triangulation-right-match}).
-\maxime{definition}
+
+
+\begin{definition}[Orbit permanence]
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
+  $t : G \longrightarrow^{r,m} H$ the transformation of $G$ by $(r,m)$,
+  $\orbit{o}$ an orbit type, $n$ a preserved node and $d$ a preserved dart
+  matched by $n$.
+
+  An orbit $L\orbit{o}(n)$ remains permanent in the rule $r$ if all of its
+  nodes, in regard of $\orbit{o}$, are also permanent, \textit{i.e.} their
+  implicit and explicit links are not re-labeled from or to another dimension of
+  $\orbit{o}$, in $r$.
+
+  An orbit $G\orbit{o}(d)$ is said to be permanent by the transformation $t$ if
+  all of its darts are permanent by $t$.
+\end{definition}
 
 \subsubsection{Modification}
 
-This event mirrors the one of the constancy. Generally speaking, an orbit is
+This event mirrors the one about permanent. Generally speaking, an orbit is
 modified when it is not created, deleted, unchanged, split nor merged. More
-specifically an orbit is modified when at least one of its links in $\orbit{o}$
-is relabeled or it has more (\emph{augmentation}) or less (\emph{reduction})
-nodes in the right side of the rule. Also such change must not lead to a split
-nor a merge event. For example, continuing with the triangulation rule, its
-vertex orbit $L\orbit{\alpha 1, \alpha 2}(n_{0})$ comprises the node $n_{0}$
-only while $R\orbit{\alpha 1, \alpha 2}(n_{0})$ comprises nodes $n_{0}$ and
-$n_{1}$. The orbit is augmented with $n_{1}$ and the second implicit link of
-$n_{0}$ is relabeled to ``\_'', yet, because $n_{1}$ is a created node, there is
-no split to detect and, thus, the orbit is modified. The application of this
-rule on the house (Fig.~\ref{fig:before-after-house-triangulation}) the vertex
-orbits $G\orbit{\alpha 1, \alpha 2}(a_{0})$,
-$G\orbit{\alpha 1, \alpha 2}(c_{0})$, $G\orbit{\alpha 1, \alpha 2}(e_{0})$,
-$G\orbit{\alpha 1, \alpha 2}(g_{0})$, are augmented with two new darts each.
-\maxime{definition}
+specifically, an orbit is modified when either at least one of its links in
+$\orbit{o}$ is relabeled or it has more (\emph{augmentation}) or less
+(\emph{reduction}) nodes in the right side of the rule. Also, such a change must
+not lead to a split nor a merging event. For example, once again considering the
+triangulation rule, its vertex orbit $L\orbit{\alpha 1, \alpha 2}(n_{0})$ only
+contains the node $n_{0}$, while $R\orbit{\alpha 1, \alpha 2}(n_{0})$ contains
+both nodes $n_{0}$ and $n_{1}$. The orbit is augmented with $n_{1}$ and the
+second implicit link of $n_{0}$ is relabeled to ``\_'', yet, because $n_{1}$ is
+a created node, there is no split to detect and, thus, the orbit is modified.
+Applying this rule on the house
+(Fig.~\ref{fig:before-after-house-triangulation}) entails the vertex orbits
+$G\orbit{\alpha 1, \alpha 2}(a_{0})$, $G\orbit{\alpha 1, \alpha 2}(c_{0})$,
+$G\orbit{\alpha 1, \alpha 2}(e_{0})$, $G\orbit{\alpha 1, \alpha 2}(g_{0})$ to be
+modified and augmented with two new darts each.
 
+\begin{definition}[Orbit modification]
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
+  $t : G \longrightarrow^{r,m} H$ the transformation of $G$ by $(r,m)$,
+  $\orbit{o}$ an orbit type, $n$ a preserved node and $d$ a preserved dart
+  matched by $n$.
+
+  An orbit $L\orbit{o}(n)$ is modified in the rule $r$ if its
+  reduction/augmentation or its nodes relabeling does not produce any of the
+  other events in $r$.
+
+  An orbit $G\orbit{o}(d)$ is modified by the transformation $t$ if its only
+  augmented or reduced by $t$.
+\end{definition}
 
 \end{document}
 

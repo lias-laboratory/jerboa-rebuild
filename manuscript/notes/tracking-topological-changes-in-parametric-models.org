@@ -1,0 +1,69 @@
+#+title:  tracking topological changes in parametric models
+#+subtitle: notes de lecture
+
+Auteurs : van der Meiden & Bronsvoort
+
+* résumé
+- relation between a model parameters and topology are unclear (to users)
+- should be made explicit for better control over topology
+** goal
+A method which determines parameter values for which topology changes (i.e. critical values)
+** context
+- model consists of a system of geometric constraints (parameters R. topological entities)
+
+* related works
+- Shapiro & Vossler (1995) : dual representation models & families of objects
+- Raghothama & Shapiro (1998,2002); Raghothama (2006) : representation-space
+  families defined for various types of geometric representations
+- van der Meiden & Bronsvoort (2006) : find the range of parameter values
+  associated with all solutions of a system of geometric constraints (single
+  variant parameter and no topology consideration)
+- Hoffmann & Kim (2001) : computing parameter interval corresponding to a given
+  topology. 2D with rectilinear polygons, detection of topological changes.
+- van der Meiden & Bronsvoort (2010) : tracking topological changes for a model
+  using geometric and topological constraints (geometry and topology are
+  specified declaratively)
+
+* parameters and topology
+- topology of a model must be made explicit
+- topology determined by the combined geometries of the features
+- features determined by the parameter values
+- Entities are defined with carriers where each carrier constrains the
+  geometry and allow the identification of sub-spaces
+  - An entity that is not constrained ON any carrier represents a volume, which
+    can be bounded by constraining it IN and/or OUT with respect to several
+    carriers.
+  - An entity that is constrained IN a planar carrier and IN a spherical carrier
+    generally represents a half-sphere volume.
+  - An entity that is constrained ON a single carrier generally represents a
+    surface.
+  - An entity constrained ON a planar carrier, and IN a spherical carrier,
+    generally represents a disk.
+  - An entity that is constrained ON two carriers generally represents one or
+    more curves.
+  - An entity that is constrained ON three carriers generally represents a
+    finite set of points
+
+* Computing critical values
+- Authors do not explicitly compare Cellular Models (CM) to find topological changes
+  + Entities in one CM cannot be easily be mapped onto the entities of another CM.
+  + Generating CMs for different parameter values and comparing them does not
+    help in finding the exact parameter values for which the topology changes.
+- Topological changes are found by first analysing the system of subspace
+  constraints between carriers and entities, to formulate the degenerate cases
+  of entities, and then solving these degenerate cases with a geometric
+  constraint solver.
+
+** approach
+- remove constraints to the variant parameter (considered to be a variable)
+  + constraint removed from the system
+- determine which entities are dependent of the variant parameter
+- for each degenerate case of each entity
+  + add specific constraints to the system to enforce degeneration
+- solving the modified system yields the values of the variant parameter for
+  which the degenerate case occurs, and thus the topology of the model must
+  change.
+- repeating previous steps for every entity dependent on the variant parameter :
+  acquisition of all critical values.
+** conditions
+- entities of the CM must partition the complet euclidian space into cells

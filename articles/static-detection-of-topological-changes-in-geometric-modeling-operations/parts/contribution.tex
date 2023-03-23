@@ -149,7 +149,7 @@ $H\orbit{\alpha 0, \alpha 1}(e_{0})$, $H\orbit{\alpha 0, \alpha 1}(g_{0})$.
 \begin{proposition}\label{prop:orbit-split}
   Let $r : L \longrightarrow R$ be a rule , $m : L \to G$ a match,
   $t : G \longrightarrow^{r,m} H$ the transformation of G by $(r, m)$,
-  $\orbit{o}$ an orbit type, $n$ a preserved node such $L\orbit{o}(n)$ is a
+  $\orbit{o}$ an orbit type, $n$ a preserved node such that $L\orbit{o}(n)$ is a
   complete orbit and $d$ a preserved dart of $G$ and $H$ matched by $n$.
 
   If the orbit $L\orbit{o}(n)$ is explicitly splitted in $R$ then
@@ -320,30 +320,56 @@ $H\orbit{\alpha 1}(c_{1})$.
     $H\orbit{o}(d) = H\orbit{o}(d')$.
 \end{definition}
 
-\begin{proposition}\label{prop:orbit-merge}
-  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
-  $t : G \longrightarrow^{r,m} H$ the transformation of G by $(r, m)$,
-  $\orbit{o}$ an orbit type, $n$ and $n'$ two preserved nodes of $r$ and $d$ and
-  $d'$ two preserved darts of $t$ respectively matched by $n$ and $n'$.
+\begin{proposition}% \label{prop:orbit-merge}
+  % Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
+  % $t : G \longrightarrow^{r,m} H$ the transformation of G by $(r, m)$,
+  % $\orbit{o}$ an orbit type, $n$ and $n'$ two preserved nodes of $r$ and $d$ and
+  % $d'$ two preserved darts of $t$ respectively matched by $n$ and $n'$.
 
-  Let $L\orbit{o}(n)$ and $L\orbit{o}(n')$ be two complete orbits. The orbits
-  $L\orbit{o}(n)$ and $L\orbit{o}(n')$ are merged if and only if $G\orbit{o}(d)$
-  and $G\orbit{o}(d')$ are merged.
+  % Let $L\orbit{o}(n)$ and $L\orbit{o}(n')$ be two complete orbits. The orbits
+  % $L\orbit{o}(n)$ and $L\orbit{o}(n')$ are merged if and only if $G\orbit{o}(d)$
+  % and $G\orbit{o}(d')$ are merged.
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
+  $t : G \longrightarrow^{r,m} H$ a transformation of $G$ by $(r,m)$,
+  $\orbit{o}$ an orbit type, $n$ a preserved nodes such that $L\orbit{o}(n)$ is
+  a complete orbit and $d$ a preserved dart of $G$ and $H$ matched by $n$.
+
+  If two orbits $L\orbit{o}(n)$ and $L\orbit{o}(n')$ are explicitly merged in
+  $R$ then $G\orbit{o}(d)$ and $G\orbit{o}(d')$ are merged in $H$. If the orbit
+  $L\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}(n)$ is implicitly merged
+  along the $k$-th implicit links then two sub-orbits of type
+  $G\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}(d)$ and
+  $G\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}(d')$ are merged if and only
+  if $G\orbit{o_{1} \dots o_{k-1}, o_{k}, o_{k+1} \dots o_{m}}(d)$ contains more
+  than one sub-orbit of type $\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}$.
 \end{proposition}
 
 \begin{proofidea}
   The idea is analogous to the one developed for
   Proposition~\ref{prop:orbit-split}.
 
-  Since a complete orbit on $\orbit{o}$ matches all links in $\orbit{o}$, such
-  distinct orbits $L\orbit{o}(n)$ and $L\orbit{o}(n')$ entirely match
-  $G\orbit{o}(d)$ and $G\orbit{o}(d')$, respectively. Due to the application of
-  rules, $G\orbit{o}(d)$ (resp. $G\orbit{o}(d')$) is included in the image of
-  $L\orbit{o}(n)$ (resp. $L\orbit{o}(n')$) by the match $m$ and since they are
-  merged, $H\orbit{o}(d') = H\orbit{o}(d)$. Conversely, if
-  $H\orbit{o}(d) = H\orbit{o}(d')$ while $G\orbit{o}(d) \neq G\orbit{o}(d')$,
-  then $L\orbit{o}(n)$ and $L\orbit{o}(n')$ are merged. If both orbits to merge
-  are not complete, then the merging cannot be guaranteed in the object.
+  In the case of an explicit merge of $L\orbit{o}(n)$ and $L\orbit{o}(n')$ in
+  $r$, since $L\orbit{o}(n)$ is complete, then due to rules syntactic
+  conditions, $R\orbit{o}(n)$ is also complete.
+
+  In the case of an implicit merge of
+  $L\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}(n)$ in $r$ along the $k$-th
+  implicit links, by definition, all the $k$-th implicit links of
+  $L\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}(n)$ are created or renamed
+  within $\orbit{o_{1} \dots o_{k-1}, o_{k}, o_{k+1} \dots o_{m}}$. As a result,
+  $R\orbit{o_{1} \dots o_{k-1}, o_{k}, o_{k+1} \dots o_{m}}(n)$ matches a single
+  $\orbit{o}$ orbit in $H$ made up off all
+  $\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}$ sub-orbits in
+  $G\orbit{o_{1} \dots o_{k-1}, o_{k+1} \dots o_{m}}(d)$.
+  % Since a complete orbit on $\orbit{o}$ matches all links in $\orbit{o}$, such
+  % distinct orbits $L\orbit{o}(n)$ and $L\orbit{o}(n')$ entirely match
+  % $G\orbit{o}(d)$ and $G\orbit{o}(d')$, respectively. Due to the application of
+  % rules, $G\orbit{o}(d)$ (resp. $G\orbit{o}(d')$) is included in the image of
+  % $L\orbit{o}(n)$ (resp. $L\orbit{o}(n')$) by the match $m$ and since they are
+  % merged, $H\orbit{o}(d') = H\orbit{o}(d)$. Conversely, if
+  % $H\orbit{o}(d) = H\orbit{o}(d')$ while $G\orbit{o}(d) \neq G\orbit{o}(d')$,
+  % then $L\orbit{o}(n)$ and $L\orbit{o}(n')$ are merged. If both orbits to merge
+  % are not complete, then the merging cannot be guaranteed in the object.
 \end{proofidea}
 
 With the example of the sewing rule (Fig.~\ref{fig:rule-sewing-a2}), we follow

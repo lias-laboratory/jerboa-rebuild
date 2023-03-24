@@ -61,4 +61,14 @@ public class JerboaStaticDetectionTest {
 		JerboaRuleNode ruleNode = rule.getLeftRuleNode(rule.getLeftIndexRuleNode("n0"));
 		assertTrue(detector.deletedOrbit(ruleNode, orbitType));
 	}
+
+	@Test
+	public void test_event_TriangulateFace_face_split() {
+		JerboaRuleGenerated rule = (JerboaRuleGenerated) modeler.getRule("TriangulateFace");
+		JerboaStaticDetection detector = new JerboaStaticDetection(rule);
+		JerboaOrbit orbitType = JerboaOrbit.orbit(0, 1);
+		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n1"));
+		assertTrue(detector.splittedOrbit(ruleNode, orbitType));
+	}
+
 }

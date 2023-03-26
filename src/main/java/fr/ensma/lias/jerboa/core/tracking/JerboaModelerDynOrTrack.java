@@ -12,6 +12,7 @@ import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
+import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.util.JerboaModelerGeneric;
 import up.jerboa.core.util.JerboaRuleGenerated;
 import up.jerboa.exception.JerboaException;
@@ -22,6 +23,7 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 	private List<List<JerboaDynaOrTrackingItem>> trackedItems;
 	private List<JerboaOrbit> trackedOrbits;
 	private RawDynaOrTrackModeler delegate;
+	private boolean forceDynamic = true;
 	
 
 	public JerboaModelerDynOrTrack(RawDynaOrTrackModeler modorigin, JerboaOrbit ...orbits) throws JerboaException {
@@ -56,12 +58,16 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 		{
 			List<JerboaDynaOrTrackingItem> items = new ArrayList<JerboaDynaOrTrackingItem>();
 			for (JerboaOrbit orbit : trackedOrbits) {
-				JerboaDynaOrTrackingItem init = new JerboaDynaOrTrackingItem("(initial)", orbit);
+				JerboaDynaOrTrackingItem init = new JerboaDynaOrTrackingItem(null, orbit);
 				init.fetch(gmap);
 				items.add(init);
 			}
 			trackedItems.add(items);
 		}
+	}
+	
+	public List<JerboaOrbit> getTrackedOrbit() {
+		return trackedOrbits;
 	}
 
 	@Override
@@ -73,22 +79,28 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 		return trackedItems.get(step);
 	}
 
-	public int push(JerboaRuleDynOrTrack rule, JerboaGMap gmap) {
+	public int push(JerboaRuleDynOrTrack rule, JerboaGMap gmap, JerboaRuleResult res) {
 		List<JerboaDynaOrTrackingItem> items = new ArrayList<JerboaDynaOrTrackingItem>();
 		StopWatch sw = new StopWatch();
 		sw.display("= begin register tracking orbits done");
 		for (int oi = 0;oi < trackedOrbits.size(); ++oi) {
 			JerboaOrbit orbit = trackedOrbits.get(oi);
-			JerboaDynaOrTrackingItem item = new JerboaDynaOrTrackingItem(rule.getFullname(), orbit );
+			JerboaDynaOrTrackingItem item = new JerboaDynaOrTrackingItem(rule, orbit );
 			sw.display(" == track orbit "+orbit);
 			if(trackedItems.size() == 0)
 				item.fetch(gmap);
-			else	
+			else if(rule.hasStaticDataForTrackedOrbit(oi) && !forceDynamic)
+				item.fetchStatic(gmap, trackedItems.get(trackedItems.size()-1).get(oi), oi, res);
+			else
 				item.fetch(gmap, trackedItems.get(trackedItems.size()-1).get(oi));
 			items.add(item);
 		}
 		trackedItems.add(items);
 		sw.display("= end register tracking orbits done");
+		
+		for (int oi = 0;oi < trackedOrbits.size(); ++oi) {
+			displayHistoric(System.out,oi);
+		}
 		return items.size();
 	}
 	
@@ -109,6 +121,15 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 		return items.size();
 	}*/
 	
+	private void displayHistoric(PrintStream out, int oi) {
+		for (List<JerboaDynaOrTrackingItem> list : trackedItems) {
+			JerboaDynaOrTrackingItem cur = list.get(oi);
+			out.println("OPERATION: " + cur);
+			cur.getStates().stream().forEach(out::println);
+			
+		}
+	}
+
 	public void exportTracking(String filename, int i) {
 		final String sep = ";";
 		try {

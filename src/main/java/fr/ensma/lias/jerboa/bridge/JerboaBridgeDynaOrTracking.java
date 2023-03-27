@@ -2,20 +2,28 @@ package fr.ensma.lias.jerboa.bridge;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.tracking.JerboaModelerDynOrTrack;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfoConsole;
 import fr.up.xlim.sic.ig.jerboa.viewer.IJerboaModelerViewer;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerBridge;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerColor;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerPoint;
 import fr.up.xlim.sic.ig.jerboa.viewer.tools.GMapViewerTuple;
+import fr.up.xlim.sic.ig.jerboa.viewer.tools.JerboaMonitorInfoBridgeSerializerMonitor;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
@@ -23,9 +31,14 @@ import up.jerboa.core.JerboaGMapArray;
 import up.jerboa.core.JerboaModeler;
 import up.jerboa.core.util.JerboaGMapDuplicateFactory;
 import up.jerboa.core.util.Pair;
+import up.jerboa.exception.JerboaException;
 import up.jerboa.exception.JerboaGMapDuplicateException;
+import up.jerboa.util.JerboaSerializerMonitor;
+import up.jerboa.util.serialization.JerboaSerializeException;
+import up.jerboa.util.serialization.jba.JBAFormat;
 
 public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapDuplicateFactory {
+	private static final GMapViewerColor lightGRAY = new GMapViewerColor(Color.LIGHT_GRAY);
 
 	private JerboaModelerDynOrTrack modeler;
 	private JerboaEmbeddingInfo ebdColor;
@@ -57,7 +70,10 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 	}
 
 	@Override
-	public boolean manageEmbedding(JerboaEmbeddingInfo arg0) {
+	public boolean manageEmbedding(JerboaEmbeddingInfo ebdinfo) {
+		if("point".equals(ebdinfo.getName()) || "pos".equals(ebdinfo.getName()) || "position".equals(ebdinfo.getName())) {
+			return true;
+		}
 		return false;
 	}
 
@@ -66,14 +82,15 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 		return false;
 	}
 
+
 	@Override
 	public GMapViewerColor colors(JerboaDart arg0) {
 
-		Color c = Color.LIGHT_GRAY;
+		GMapViewerColor color = lightGRAY;
 		if (arg0.ebd(ebdColorID) != null) {
-			c = (Color) arg0.ebd(ebdColorID);
+			Color c = (Color) arg0.ebd(ebdColorID);
+			color = new GMapViewerColor(c);
 		}
-		GMapViewerColor color = new GMapViewerColor(c);
 		return color;
 	}
 
@@ -131,7 +148,37 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 	}
 
 	@Override
-	public void load(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {}
+	public void load(IJerboaModelerViewer arg0, JerboaMonitorInfo worker) {
+		System.err.println("LANCMENT OUVERTURE FICHIER!");
+		JFileChooser filec = new JFileChooser(".");
+
+		FileFilter jbafilter = new FileNameExtensionFilter("JBA format (*.jba)", "jba");
+		filec.addChoosableFileFilter(jbafilter);
+		filec.setFileFilter(jbafilter);
+
+		if (filec.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			File file = filec.getSelectedFile();
+			
+			loadFile(file, worker);
+		}
+	}
+
+	private void loadFile(File file, JerboaMonitorInfo worker) {
+		JerboaSerializerMonitor monitor = new JerboaMonitorInfoBridgeSerializerMonitor(worker);
+		System.out.println("LOAD FILE: "+file);
+		JBAFormat formatJBA = new JBAFormat(modeler, monitor, new JerboaRebuiltEbdSerializer(modeler.getModeler()));
+		try(FileInputStream fis = new FileInputStream(file)) {
+			formatJBA.load(fis);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JerboaSerializeException e) {
+			e.printStackTrace();
+		} catch (JerboaException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public GMapViewerTuple normals(JerboaDart arg0) {
@@ -155,6 +202,18 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 				modeler.exportTracking(filename, Integer.parseInt(sorbitid));
 				return true;
 			}
+			case "forcedynamictracking":
+			case "dynamic": {
+				modeler.setForceDynamic(true);
+				System.out.println("Forced dynamic tracking: " + modeler.isForceDynamic());
+				return true;
+			}
+			case "defaulttracking":
+			case "static": {
+				modeler.setForceDynamic(false);
+				System.out.println("Forced dynamic tracking: " + modeler.isForceDynamic());
+				return true;
+			}
 		}
 		return false; // la commande n'est pas gérée
 	}
@@ -168,6 +227,6 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 
 	// petit fix pour nouvelle version de Hakim
 	public void loadFile(String filepath) {
-		throw new Error("not yet implemented");
+		loadFile(new File(filepath), new JerboaMonitorInfoConsole());
 	}
 }

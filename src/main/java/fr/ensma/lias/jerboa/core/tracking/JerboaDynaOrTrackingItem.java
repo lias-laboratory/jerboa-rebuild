@@ -156,7 +156,7 @@ public class JerboaDynaOrTrackingItem {
 		}).collect(Collectors.toList());
 		
 		// maintenant on fait la diffusion
-		sw.display("end analysis");
+		sw.display("end analysis of orbit "+orbit);
 	}
 	
 	
@@ -173,7 +173,7 @@ public class JerboaDynaOrTrackingItem {
 		});
 		sw.display("==== fix convention");
 		
-		
+		sw.start();
 		sw.display("Start static analysis evolution of orbit...");
 		
 		Map<String, Integer> states = rule.getTrackOrbitFacts(oi);
@@ -188,7 +188,7 @@ public class JerboaDynaOrTrackingItem {
 			
 			return orbits.stream().map(orbitID -> new DynOrTrackOrbitInst(orbitID, state));
 		}).collect(Collectors.toList());
-		sw.display("end static analysis");
+		sw.display("end static analysis of orbit "+orbit);
 	}
 	
 	@Override

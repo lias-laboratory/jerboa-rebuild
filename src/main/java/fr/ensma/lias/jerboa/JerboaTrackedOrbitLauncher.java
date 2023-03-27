@@ -21,7 +21,8 @@ public class JerboaTrackedOrbitLauncher {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1024, 768);
 
-		RawDynaOrTrackModeler modeler = new RawDynaOrTrackModeler();
+		// RawDynaOrTrackModeler modeler = new RawDynaOrTrackModeler();
+		ModelerGenerated modeler = new ModelerGenerated();
 		JerboaModelerDynOrTrack modtrack = new JerboaModelerDynOrTrack(modeler, JerboaOrbit.orbit(0,1), JerboaOrbit.orbit(0,1,2,3));
 
 		JerboaBridgeDynaOrTracking bridge = new JerboaBridgeDynaOrTracking(modtrack);

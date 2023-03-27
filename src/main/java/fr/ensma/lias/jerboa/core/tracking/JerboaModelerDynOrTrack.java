@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import fr.ensma.lias.jerboa.tracking.rule.rules.RawDynaOrTrackModeler;
+import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import up.jerboa.core.JerboaEmbeddingInfo;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -22,11 +22,11 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 
 	private List<List<JerboaDynaOrTrackingItem>> trackedItems;
 	private List<JerboaOrbit> trackedOrbits;
-	private RawDynaOrTrackModeler delegate;
+	private ModelerGenerated delegate;
 	private boolean forceDynamic = true;
 	
 
-	public JerboaModelerDynOrTrack(RawDynaOrTrackModeler modorigin, JerboaOrbit ...orbits) throws JerboaException {
+	public JerboaModelerDynOrTrack(ModelerGenerated modorigin, JerboaOrbit ...orbits) throws JerboaException {
 		super(modorigin.getDimension());
 		StopWatch sw = new StopWatch();
 		this.delegate = modorigin;
@@ -99,7 +99,7 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 		sw.display("= end register tracking orbits done");
 		
 		for (int oi = 0;oi < trackedOrbits.size(); ++oi) {
-			displayHistoric(System.out,oi);
+			// displayHistoric(System.out,oi);
 		}
 		return items.size();
 	}
@@ -199,4 +199,14 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 	public JerboaEmbeddingInfo getPos() {
 		return delegate.getPos();
 	}
+	
+	public boolean isForceDynamic() {
+		return forceDynamic;
+	}
+	
+	public void setForceDynamic(boolean b) {
+		forceDynamic = b;
+	}
+	
+	public ModelerGenerated getModeler() { return delegate; }
 }

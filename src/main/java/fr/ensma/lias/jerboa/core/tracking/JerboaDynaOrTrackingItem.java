@@ -69,7 +69,7 @@ public class JerboaDynaOrTrackingItem {
 		sw.display("==== fix convention");
 		
 		
-		
+		sw.start();
 		sw.display("Start analysis evolution of orbit...");
 		HashSet<Integer> prevIsletID = new HashSet<>(prev.islet);
 		HashSet<Integer> newIsletID = new HashSet<>(islet);

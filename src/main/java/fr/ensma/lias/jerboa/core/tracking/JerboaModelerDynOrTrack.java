@@ -82,11 +82,11 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 	public int push(JerboaRuleDynOrTrack rule, JerboaGMap gmap, JerboaRuleResult res) {
 		List<JerboaDynaOrTrackingItem> items = new ArrayList<JerboaDynaOrTrackingItem>();
 		StopWatch sw = new StopWatch();
-		sw.display("= begin register tracking orbits done");
+		sw.display("== begin register tracking orbits done");
 		for (int oi = 0;oi < trackedOrbits.size(); ++oi) {
 			JerboaOrbit orbit = trackedOrbits.get(oi);
 			JerboaDynaOrTrackingItem item = new JerboaDynaOrTrackingItem(rule, orbit );
-			sw.display(" == track orbit "+orbit);
+			// sw.display("== track orbit "+orbit);
 			if(trackedItems.size() == 0)
 				item.fetch(gmap);
 			else if(rule.hasStaticDataForTrackedOrbit(oi) && !forceDynamic)
@@ -96,7 +96,7 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 			items.add(item);
 		}
 		trackedItems.add(items);
-		sw.display("= end register tracking orbits done");
+		sw.display("== end register tracking orbits done");
 		
 		for (int oi = 0;oi < trackedOrbits.size(); ++oi) {
 			// displayHistoric(System.out,oi);

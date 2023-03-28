@@ -98,7 +98,7 @@ public class JerboaRuleDynOrTrack extends JerboaRuleGenerated {
         res = delegate.applyRule(gmap, hooks);
         sw.display("=== End delegate rule to track just after.");
         modtrack.push(this,gmap,res);
-        sw.display("=== tracking finished");
+        sw.display("=== push tracking data finished");
         return res;
     }
     

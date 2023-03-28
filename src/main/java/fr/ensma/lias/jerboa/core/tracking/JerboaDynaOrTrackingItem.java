@@ -44,33 +44,34 @@ public class JerboaDynaOrTrackingItem {
 	
 	public void fetch(JerboaGMap gmap) {
 		StopWatch sw = new StopWatch();
-		sw.display("== start tracking: (initial) - " + orbit);
+		sw.display("= start tracking: (initial) - " + orbit);
 		islet = JerboaIslet.islet_par(gmap, orbit);
-		sw.display("==== islet done");
+		sw.display("= (initial) islet done");
 		IntStream.range(0, islet.size()).parallel().forEach(i -> {
 			if(i == islet.get(i) && !gmap.existNode(i)) {
 				islet.set(i, -1);
 			}
 		});
-		sw.display("==== fix convention");
+		sw.display("= (initial) fix convention");
+		sw.display("= (initial) end tracking (initial) - " + orbit);
 	}
 	
 	
 	public void fetch(JerboaGMap gmap, JerboaDynaOrTrackingItem prev) {
 		StopWatch sw = new StopWatch();
-		sw.display("== start tracking: " + rule.getFullname() + " - " + orbit);
+		sw.display("= start tracking: " + rule.getFullname() + " - " + orbit);
 		islet = JerboaIslet.islet_par(gmap, orbit);
-		sw.display("==== islet done");
+		sw.display("= islet done");
 		IntStream.range(0, islet.size()).parallel().forEach(i -> {
 			if(i == islet.get(i) && !gmap.existNode(i)) {
 				islet.set(i, -1);
 			}
 		});
-		sw.display("==== fix convention");
+		sw.display("= fix convention");
 		
 		
-		sw.start();
-		sw.display("Start analysis evolution of orbit...");
+		//sw.start();
+		sw.display("= start analysis evolution of orbit...");
 		HashSet<Integer> prevIsletID = new HashSet<>(prev.islet);
 		HashSet<Integer> newIsletID = new HashSet<>(islet);
 		// tous les brins de l'ancienne orbite donne une orbite => nomodif
@@ -156,25 +157,28 @@ public class JerboaDynaOrTrackingItem {
 		}).collect(Collectors.toList());
 		
 		// maintenant on fait la diffusion
-		sw.display("end analysis of orbit "+orbit);
+		sw.display("= end analysis of orbit");
+		
+		sw.display("= end tracking: " + rule.getFullname());
+		
 	}
 	
 	
 	public void fetchStatic(JerboaGMap gmap, JerboaDynaOrTrackingItem prev, int oi, JerboaRuleResult res) {
 		isStatic = true;
 		StopWatch sw = new StopWatch();
-		sw.display("== start tracking: " + rule.getFullname() + " - " + orbit);
+		sw.display("= start tracking: " + rule.getFullname() + " - " + orbit);
 		islet = JerboaIslet.islet_par(gmap, orbit);
-		sw.display("==== islet done");
+		sw.display("= islet done");
 		IntStream.range(0, islet.size()).parallel().forEach(i -> {
 			if(i == islet.get(i) && !gmap.existNode(i)) {
 				islet.set(i, -1);
 			}
 		});
-		sw.display("==== fix convention");
+		sw.display("= fix convention");
 		
-		sw.start();
-		sw.display("Start static analysis evolution of orbit...");
+		// sw.start();
+		sw.display("= start static analysis evolution of orbit...");
 		
 		Map<String, Integer> states = rule.getTrackOrbitFacts(oi);
 		
@@ -188,7 +192,10 @@ public class JerboaDynaOrTrackingItem {
 			
 			return orbits.stream().map(orbitID -> new DynOrTrackOrbitInst(orbitID, state));
 		}).collect(Collectors.toList());
-		sw.display("end static analysis of orbit "+orbit);
+		sw.display("= end static analysis of orbit");
+		
+		sw.display("= end tracking: " + rule.getFullname());
+		
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -71,7 +72,8 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 
 	@Override
 	public boolean manageEmbedding(JerboaEmbeddingInfo ebdinfo) {
-		if("point".equals(ebdinfo.getName()) || "pos".equals(ebdinfo.getName()) || "position".equals(ebdinfo.getName())) {
+		if ("point".equals(ebdinfo.getName()) || "pos".equals(ebdinfo.getName())
+				|| "position".equals(ebdinfo.getName())) {
 			return true;
 		}
 		return false;
@@ -79,7 +81,7 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 
 	@Override
 	public boolean canUndo() {
-		return false;
+		return true;
 	}
 
 
@@ -158,16 +160,17 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 
 		if (filec.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File file = filec.getSelectedFile();
-			
+
 			loadFile(file, worker);
 		}
 	}
 
 	private void loadFile(File file, JerboaMonitorInfo worker) {
 		JerboaSerializerMonitor monitor = new JerboaMonitorInfoBridgeSerializerMonitor(worker);
-		System.out.println("LOAD FILE: "+file);
-		JBAFormat formatJBA = new JBAFormat(modeler, monitor, new JerboaRebuiltEbdSerializer(modeler.getModeler()));
-		try(FileInputStream fis = new FileInputStream(file)) {
+		System.out.println("LOAD FILE: " + file);
+		JBAFormat formatJBA = new JBAFormat(modeler, monitor,
+				new JerboaRebuiltEbdSerializer(modeler.getModeler()));
+		try (FileInputStream fis = new FileInputStream(file)) {
 			formatJBA.load(fis);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -195,8 +198,8 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 				console.append("MA SORTIE: " + arg);
 				return true; // la commande est gérée
 			}
-			case "exporttracking": 
-			case "exporttrack":{
+			case "exporttracking":
+			case "exporttrack": {
 				String filename = tokenizer.nextToken();
 				String sorbitid = tokenizer.nextToken();
 				modeler.exportTracking(filename, Integer.parseInt(sorbitid));
@@ -218,11 +221,30 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 		return false; // la commande n'est pas gérée
 	}
 
+	private void saveFile(File file, JerboaMonitorInfo worker) {
+		JerboaSerializerMonitor monitor = new JerboaMonitorInfoBridgeSerializerMonitor(worker);
+		System.out.println("SAVE FILE: " + file);
+		JBAFormat formatJBA = new JBAFormat(modeler, monitor,
+				new JerboaRebuiltEbdSerializer(modeler.getModeler()));
+		try (FileOutputStream fos = new FileOutputStream(file)) {
+			formatJBA.save(fos);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JerboaSerializeException e) {
+			e.printStackTrace();
+		} catch (JerboaException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void save(IJerboaModelerViewer arg0, JerboaMonitorInfo arg1) {
 		JFileChooser file = new JFileChooser(new File("."));
 		file.showSaveDialog(null);
 		String filename = file.getSelectedFile().toString();
+		saveFile(new File(filename), new JerboaMonitorInfoConsole());
 	}
 
 	// petit fix pour nouvelle version de Hakim

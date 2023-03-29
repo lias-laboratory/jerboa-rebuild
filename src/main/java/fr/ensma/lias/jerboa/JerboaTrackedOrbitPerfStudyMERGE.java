@@ -13,6 +13,7 @@ import java.util.stream.IntStream;
 import fr.ensma.lias.jerboa.bridge.JerboaBridgeDynaOrTracking;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.tracking.JerboaModelerDynOrTrack;
+import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfoConsole;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleAtomic;
@@ -20,7 +21,7 @@ import up.jerboa.core.rule.JerboaInputHooksAtomic;
 import up.jerboa.exception.JerboaException;
 import up.jerboa.util.StopWatch;
 
-public class JerboaTrackedOrbitPerfStudy {
+public class JerboaTrackedOrbitPerfStudyMERGE {
 
 	final static JerboaOrbit[] alltrackedOrbit = new JerboaOrbit[] {
 			JerboaOrbit.orbit(),
@@ -56,12 +57,12 @@ public class JerboaTrackedOrbitPerfStudy {
 		JerboaBridgeDynaOrTracking bridge = new JerboaBridgeDynaOrTracking(modtrack);
 		
 		boolean forceDynamic = false;
-		String initinputfile = "cube.jba";
+		String initinputfile = "cubes_stack.jba";
 		
 		if(args.length > 0 && "dynamic".equals(args[0]))
 			forceDynamic = true;
 		
-		JerboaRuleAtomic operation = (JerboaRuleAtomic) modtrack.getRule("SubdivQuad");
+		JerboaRuleAtomic operation = (JerboaRuleAtomic) modtrack.getRule("MergeHFaces");
 		if(args.length > 1) {
 			JerboaRuleAtomic at = (JerboaRuleAtomic) modtrack.getRule(args[1]);
 			if(at != null)
@@ -85,32 +86,14 @@ public class JerboaTrackedOrbitPerfStudy {
 		
 		StopWatch sw = new StopWatch();
 		sw.display("====================================GMAP SIZE: "+gmap.size());
-		for(int i = 0; i < 8; i++) {
+		for(int i = 47; i < gmap.size(); i+=47) {
 			sw.start();
 			sw.display("=================================== ITERATION: "+i);
-			operation.apply(modtrack.getGMap(), JerboaInputHooksAtomic.wrap(gmap.getNode(gmap.size() - 1)));
+			operation.apply(modtrack.getGMap(), JerboaInputHooksAtomic.wrap(gmap.getNode(i)));
 			sw.display("================================END ITERATION: "+i);
 			sw.display("====================================GMAP SIZE: "+gmap.size());
 			
 		}
-		
-		String rep = getBaseName(inputfile);
-		Date now = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
-		File cur = new File(".");
-		File dir = new File(cur, rep +"_" + args[0] + "_" + format.format(now));
-		
-		boolean res = dir.mkdir();
-		System.out.print("attempt create outputdir ("+rep+") " + res);
-		IntStream.range(0, modtrack.getTrackedOrbit().size()).sequential().forEach(oi -> {
-			JerboaOrbit orbit = modtrack.getTrackedOrbit().get(oi);
-			
-			String name = Arrays.stream(orbit.tab()).mapToObj(a -> "a"+a).collect(Collectors.joining());
-			
-			File fileout = new File(dir, rep+ "_"+name+".csv");
-			modtrack.exportTracking(fileout, oi);
-		});
-		
 	}
 
 	

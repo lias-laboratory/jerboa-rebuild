@@ -1,4 +1,4 @@
-JAVA=/mnt/c/Program\ Files/Java/jdk-11.0.13/bin/java.exe
+JAVA="/mnt/c/Program\ Files/Java/jdk-11.0.13/bin/java.exe"
 
 ${JAVA} -jar JerboaModelerRebuilt_perf_CREATE_SPLIT.jar dynamic SubdivQuad cube.jba > LOG_SPLIT_dynamic.log
 convertPerf.sh LOG_SPLIT_dynamic.log

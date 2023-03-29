@@ -10,11 +10,11 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.tracking.JerboaModelerDynOrTrack;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.up.xlim.sic.ig.jerboa.trigger.tools.JerboaMonitorInfo;

@@ -1,5 +1,6 @@
 package fr.ensma.lias.jerboa.core.tracking;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -131,13 +132,18 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 	}
 
 	public void exportTracking(String filename, int i) {
+		exportTracking(new File(filename), i);
+	}
+	
+	public void exportTracking(File filename, int i) {
 		final String sep = ";";
 		try {
 			
-			int max = trackedItems.parallelStream().mapToInt(items -> items.get(i).getIslet().size()).max().orElse(0);
+			// int max = trackedItems.parallelStream().mapToInt(items -> items.get(i).getIslet().size()).max().orElse(0);
 			
 			PrintStream ps = new PrintStream(filename);
-			int l = 0;
+			displayHistoric(ps, i);
+			/*int l = 0;
 			for(int j = 0; j < max; ++j) {
 				ps.print(j);
 				if(j != max-1)
@@ -185,6 +191,7 @@ public class JerboaModelerDynOrTrack extends JerboaModelerGeneric {
 					previtems = items;
 				}
 			}
+			*/
 			ps.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

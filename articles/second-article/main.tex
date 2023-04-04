@@ -12,7 +12,8 @@
 \usepackage{xcolor}
 
 \addbibresource{references.bib}
-\graphicspath{{./figures/}}
+\graphicspath{{./figures/concepts/}{./figures/rules/}{./figures/figures/}{./figures/perfs/static-detection/}}
+\include{commands.tex}
 
 \title{\highlight{Model reevaluation with graph transformation rules}}
 \author{Anonymous}
@@ -20,38 +21,28 @@
 
 \begin{document}
 
-\include{commands.tex}
-
 \maketitle
 
 \begin{abstract}
 
 \begin{itemize}
-    \item Argumentation de la méthode à partir de l'usage de règles de transformation de graphes
+    \item Argumentation de la méthode à partir du formalisme des règles Jerboa
     \item Objectif de 10-11 pages
 \end{itemize}
 
 \end{abstract}%
 
-\section{Introduction}
 \subfile{sections/introduction.tex}
 
-\section{Main concepts}
 \subfile{sections/main-concepts.tex}
 
-\section{Parametric specifications}
 \subfile{sections/parametric-specifications.tex}
-
-\section{History tree}
 \subfile{sections/history-tree.tex}
 
-\section{Reevaluation tree}
 \subfile{sections/reevaluation-tree.tex}
 
-\section{Implementation}
 \subfile{sections/implementation.tex}
 
-\section{Conclusions}
 \subfile{sections/conclusions-persp.tex}
 
 \printbibliography

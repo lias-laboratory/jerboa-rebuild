@@ -1,85 +1,61 @@
-\documentclass[../main.tex]{subfiles}
-
-\begin{document}
 \section{Introduction}
 
-Nowadays, geometric modelers are everywhere to be found, for example, in
-archaeology, architecture and mechanical engineering, just to name a few
-domains. These tools allow to design and maintain precise and complexe works. To
-do so, they rely on geometric modeling kernels (\textit{ACIS},
-\textit{Parasolid}, \textit{OpenCascade}, etc) whose API provide them with the
-necessary tools. Thus, their importance has grown to the point to where they are
-essential. One of the features of these kernels is the topological change (or
-\emph{events}) tracking (creation, deletion, split, merging, constancy and
-modification). During the construction of a model, the applied operations can
-change both its topology and geometry and the subsequent events need to be
-detected. Since the tracking intervenes during the construction of a model to
-manage cells identification and consistency, then it is an ad hoc solution to
-help maintain the models consistency and, hence, is a key feature proposed by
-kernels.
+ CAD-oriented geometric modelers allow users to design and maintain control over complex works.
+%
+To do so, they rely on geometric modeling kernels \cite{ACIS2023, OCCT2023, Parasolid2023} whose API provide them with the
+necessary tools.
+%
+%Thus, their importance has grown to the point to where they are essential.
+%\xavier{\sout{One of the features of these kernels is the topological change (or \emph{events}) tracking (creation, deletion, split, merging, constancy and modification)}.}
+An essential feature of such kernels is the capacity to track topological changes (creation, deletion, split, merge and modification) of elements during the construction process.
+%
+During the construction of a model, the modeling operations can change both its topology and geometry and the subsequent topological changes (or "events") need to be detected.
 
-\subsection*{Motivations}
+~
 
-Events detection has a variety of purpose such as the construction of bulletin
-boards, persistent naming schemes and modeling optimisation A bulletin board is
-a data structure describing the cells evolution during the construction of a
-model in a form of history. Such an information is needed for the internal
-execution of a number of operations provided by a kernel and is also passed
-through the API in order to help developers using these kernels to maintain the
-models consistency. \maxime{Revoir cette phrase} A typical use of these bulletin
-boards is their integration within persistent naming schemes in parametric
-systems. Persistent naming schemes depend directly or indirectly on events
-detection to propose unique and persistent names for cells, thus, allowing the
-reevaluation of models regardless of parameter change, or their transfer towards
-other systems. Events detection is also useful in the optimisation of modeling
-operations.
+Event detection has a variety of purposes such as, for example, the construction of bulletin
+boards  \cite{armstrong2000djinn, baba2007generic, OCCT2023}, persistent naming schemes \cite{kripac1995mechanism, Marcheix2002, Bidarra2005, cheon2012name} and modeling optimization \cite{cheng2016meta}.
 
-\subsection*{Static and dynamic detection}
-An event detection can be performed either dynamically or statically
+A bulletin board is a data structure describing the evolution of cells (edges, faces, volumes) during the construction of a model in a form of history.
+Such an information is required for the internal execution of a number of operations provided by  kernels and is also passed through the API in order to help developers using those kernels to maintain the models consistency~\cite{armstrong2000djinn, liu2018integrating}.
+A typical use of these bulletin boards is their integration within persistent naming schemes in parametric systems \cite{kripac1995mechanism, Marcheix2002, Bidarra2005, Farjana2018}.
+Persistent naming schemes depend directly or indirectly on events detection to propose unique and persistent names for cells, and thus, allow the reevaluation of models regardless of parameter changes, or their transfer towards other systems.
+Events detection is also useful in the optimisation of
+the modeling process. For example, operation conflict in feature-based collaborative CAD systems can be detected and resolved by tracking topological entity changes \cite{cheng2016meta}.
 
-A static detection, performs the analysis of the operations only. Although they
-can be tailored for specific geometry, operations are independent of the models
-on which they are applied. And since operations are not expected to change
-during modeling, then events can be computed before run-time and are known
-before any application.
+~
 
-Dynamic detection, however, requires to compare a model before and after any
-operation application. As a result the time efficiency of a dynamic method
-directly depends on the number of cells existing in a model. Therefore, and
-considering how models tend to become more complex during their construction,
-the time cost to fully perform the events tracking may dramatically increase.
-Moreover, since a dynamic event detection can be completed after the application
-of a operation only, then possible consistency issues cannot be prevented.
+An event detection can be performed either dynamically or statically.
 
-A static detection is expected to be less time consuming compared to a dynamic
-one. However, this approach requires the identify modified cells and resulting
-events from the coding of the operation. \maxime{Remplacé par statique (et
-  paragraphe ré-écrit)}%
+A dynamic detection requires comparing a model before and after any operation application  \cite{OCCT2023, baba2007generic}.
+As a result, the time efficiency of a dynamic method directly depends on the number of cells existing in a model.
+Therefore, and considering how models tend to become more complex during their construction, the time cost to fully perform the event tracking may dramatically increase.
+Moreover, since a dynamic event detection can be completed after the application of an operation only, then possible consistency issues cannot be prevented.
 
-\subsection*{Our approach}
-The analysis of an operation, although based on a well-known algorithm, may
-encounter some limitations since its coding is dependent of the developing team.
+Static detection, on the contrary, is based on the analysis of operations and allows events to be calculated before those operations are actually performed. Indeed, an operation is defined independently of any application on specific geometry, and the analysis of this operation enables the precomputation of topological events before run-time.
+%Although they can be tailored for specific geometry, operations are independent of the models on which they are applied.
+%And since operations are not expected to change during modeling, then events can be computed before run-time and are known before any application.
+A static detection is expected to be less time-consuming than a dynamic one.
+However, this approach requires being able to identify modified cells and resulting events directly from the operation code.  %\agnes{"the operation code" ou "the operation definition" si on veut être plus large}
 
-The proposed approach, here, relies on generalized maps to formalise the models
-and graph transformation rules to formalise modeling operations and make their
-static analysis possible. \maxime{À reformuler, douteux} Such rules can be
-syntactically analysed to gather the events information before any rule
-application. Thus, the time cost of the analysis is independent from the model
-complexity. In some cases, a split or a merging can be detected and a
-verification must done on the model to assert these events happened. However,
-because of the way graph transformation rules work, any verification is
-restricted to the modified cells as they are known during the application.
-\maxime{paragraphe ré-écrit}
+~
 
-The analysis of an operation code is a particularly complexe task, even out of
-reach. In order to circumvent this obstacle we propose to formalise geometric
-models as generalized maps \cite{lienhardt1991topological} and their operations
-with Jerboa graph transformation rules \cite{belhaouari2014jerboa}. The rules
-syntactic analysis allow to predicate most of the events independently from the
-modified object and its complexity. Thus, such an analysis can be computed once
-before run-time.
+%The analysis of an operation, although based on a well-known algorithm, may encounter some limitations since its coding is dependent of the developing team.
+%
+The analysis of an operation code to identify which events can be statically detected is not an easy task.
+In order to circumvent this obstacle, we propose to formalise geometric models as generalized maps \cite{lienhardt1991topological} and  modeling operations as \textit{Jerboa}'s graph transformation rules \cite{belhaouari2014jerboa}.
+The rules syntactic analysis allows us to predic most of the topological events.
+Since such an analysis is independent from the modified cells and their geometry, events can be computed once before run-time for each rule and called later at close to no cost.
+%
+The static approach is not perfect, however, and in some borderline cases can lead to false positives; Post-processing checks are necessary to confirm or deny that such events have taken place.
+Due to the way graph transformation rules work, such checks are restricted to the modified cells as they are known during the rules application.
 
-\end{document}
+~
+
+Section~\ref{sec:main-concepts} introduces the concepts of generalized maps and Jerboa's graph transformation rules, along with their associated vocabulary.
+Section~\ref{sec:event-detection} details the static analysis to perform in order to detect topological events.
+Section~\ref{sec:comparison} is dedicated to time cost comparison of static versus dynamic event detection through various scenarios.
+Section~\ref{sec:conclusion} concludes and proposes some perspectives.
 
 %%% Local Variables:
 %%% mode: latex

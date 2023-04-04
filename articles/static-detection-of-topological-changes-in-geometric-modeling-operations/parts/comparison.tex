@@ -1,5 +1,41 @@
-\documentclass[../main.tex]{subfiles}
+\section{Static and dynamic comparison}\label{sec:comparison}
 
-\begin{document}
-    We propose a time cost comparison between
-\end{document}
+This section proposes a comparison between the dynamic approach, in which the program manages the evolution of the orbits while traversing the mesh, and the static approach which exploits the techniques presented in this article. The comparison has been done on an Intel i9-11950H with 32Gb under JDK~11. We focus our study on the three main events: creation, split and merge operations. The Fig.~\ref{fig:perf} displays all experimental results of our study which computes a single representative of the target orbit as the dart with the lowest identifier. Then the static detection will help to recompute only modified orbits whereas the dynamic detection would cover the whole mesh.
+
+\begin{figure}[h!]
+    \begin{subfigure}[t]{\columnwidth}
+    \centering
+    \includegraphics[width=\linewidth]{event_CREATE.pdf}
+    \caption{Creation operation}
+    \label{fig:perf:create}
+  \end{subfigure}
+  \vfill
+  \begin{subfigure}[t]{\columnwidth}
+    \centering
+    \includegraphics[width=\linewidth]{event_SPLIT.pdf}
+    \caption{Split operation}
+    \label{fig:perf:split}
+  \end{subfigure}
+  \vfill
+  \begin{subfigure}[t]{\columnwidth}
+    \centering
+    \includegraphics[width=\linewidth]{event_MERGE.pdf}
+    \caption{Merging operation}
+    \label{fig:perf:merge}
+  \end{subfigure}
+  \caption{Comparison between static and dynamic event to track all orbits (the lower the better)}
+  \label{fig:perf}
+\end{figure}
+
+
+The performance of a creation operation, in Fig.~\ref{fig:perf:create}, is obtained from a scenario where a shape is extruded several times so as to create a new volume (\textit{i.e.} a new orbit $\orbit{\alpha 0, \alpha 1, \alpha 2}$). For every orbit type, the static detection is systematically better than the dynamic one. We note a peak in regard to the dart orbit type, corresponding to a specific case where this orbit requires a substantial treatment as darts are the lowest dimension entities and a significant amount of them are created in this scenario. However, the static detection significantly limits execution time. Orbit $\orbit{\alpha 0, \alpha 1,\alpha 2,\alpha 3}$ obtains similar values for static and dynamic detection, caused by the same process.
+
+The Fig.~\ref{fig:perf:split} shows execution time for the split operation. The study considers a cube where each face is split into four faces by applying the  Catmull-Clark subdivision scheme\cite{CATMULL1978350}. Consequently, this example focuses on the detection of events over the face orbit $\orbit{\alpha 0, \alpha 1}$. The histogram confirms the efficiency of the static approach over dynamic detection. However, we note the presence of two peaks corresponding to volume orbits $\orbit{\alpha 0,\alpha 1,\alpha 2}$ and connected component orbits $\orbit{\alpha 0, \alpha 1,\alpha 2,\alpha 3}$. Moreover, these two peaks have the same values.%
+This case results from the input mesh: as we start with a unique volume which contains a unique connected component, and the operation just splits faces without adding new volumes, then the number of faces increases and directly impacts the performance for computing static and dynamic evolution, even if the number of volumes and connected components still equals one.
+
+The Fig.~\ref{fig:perf:merge} shows execution time for a merging operation. The study starts from a stack of cubes where the faces shared between two cubes are successively deleted, resulting in the merging of the volumes and their adjacent border faces. Consequently, this example focuses on the detection of merging events over the faces of volume orbit $\orbit{\alpha 0, \alpha 1}$. Once again, the histogram confirms the efficiency of the static approach over dynamic detection.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

@@ -1,10 +1,21 @@
-\documentclass[../main.tex]{subfiles}
+\section{Conclusions and perspectives}
+\label{sec:conclusion}
 
-\begin{document}
+Event tracking is one of the core functionalities of geometric modeling kernels.
+The tracked events serve a variety of purposes such as building a construction history or avoiding ambiguities in persistent naming of entities for model reevaluation.
+In this paper, we propose a new method to statically detect topological events.
+Analysing an operation code to precisely identify which events can be statically detected is a very difficult task. To overcome this situation, we represent objects models with generalized maps and their geometric operations with Jerboa's graph transformation rules
+The generalized maps allow us to represent any topological entities such as face vertices or face edges and to define all relationships between these entities.
+Jerboa's rules can be syntactically analysed in order to detect topological events independently from any specific object.
+They also have the immediate advantage that the events can be precomputed which result in a noticeable time reduction to detect these events at runtime.
 
-\section[Conclusions and perspectives]{Conclusions and perspectives}
-\label{sec:concl-persp}
+Through a set of scenarios, we have shown the efficiency of the static event detection compared to dynamic methods.
 
+This approach leads the way towards future works.
+Firstly, as of now, the operations that can be analysed are defined with a single rule. An improvement will be to adapt this method to higher level operations defined with scripts which combine several rules.
+Secondly, most current persistent naming methods rely on the tracking of topological entities evolutions. Working on a complex model, or in case of frequent reevaluations of parametric models, the static tracking of topological entities should allow a significant improvement of the efficiency of persistent naming methods. This could be accurately evaluated by integrating this static tracking into parametric systems.
 
-
-\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

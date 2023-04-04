@@ -26,11 +26,9 @@
     \langle#1\rangle
 }
 
-\newenvironment{proofidea}{\noindent\textbf{Idea of proof:}}{\newline}
-
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{definition}[thm]{Definition}%[subsection]
-\newtheorem{proposition}[thm]{Proposition}%[subsection]
+\newenvironment{proofidea}{\noindent\textbf{Idea of proof:}}{$\square$ \newline}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{proposition}{Proposition}[subsection]
 
 %%% Local Variables:
 %%% mode: latex

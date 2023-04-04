@@ -1,0 +1,58 @@
+\documentclass[twocolumn,a4paper]{article}
+%%%
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+
+\addbibresource{references.bib}
+\graphicspath{{./figures/}}
+
+\title{\highlight{Model reevaluation with graph transformation rules}}
+\author{Anonymous}
+\date{\today}
+
+\begin{document}
+
+\include{commands.tex}
+
+\maketitle
+
+\begin{abstract}
+
+\begin{itemize}
+    \item Argumentation de la méthode à partir de l'usage de règles de transformation de graphes
+    \item Objectif de 10-11 pages
+\end{itemize}
+
+\end{abstract}%
+
+\section{Introduction}
+\subfile{sections/introduction.tex}
+
+\section{Main concepts}
+\subfile{sections/main-concepts.tex}
+
+\section{Parametric specifications}
+\subfile{sections/parametric-specifications.tex}
+
+\section{History tree}
+\subfile{sections/history-tree.tex}
+
+\section{Reevaluation tree}
+\subfile{sections/reevaluation-tree.tex}
+
+\section{Implementation}
+\subfile{sections/implementation.tex}
+
+\section{Conclusions}
+\subfile{sections/conclusions-persp.tex}
+
+\printbibliography
+\end{document}

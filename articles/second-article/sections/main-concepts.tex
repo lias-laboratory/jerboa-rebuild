@@ -1,0 +1,179 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+In this section, we present the generalized maps, graph transformation rules and their subsequent concepts which are necessary to the understanding of our contribution.
+
+\subsection{Generalized maps}\label{ssec:g-maps}
+
+\emph{Generalized maps} (or G-maps) \cite{lienhardt1991topological, Damiand-Lienhardt14} allow the representation of manifold geometric objects (with or without boundaries), based on some cellular $n$-dimensional topological structure.
+
+\begin{figure*}[t]
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[height=.2\textheight]{decomposition-no-decomp}
+        \caption{}
+        \label{fig:house-ABCDE}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[height=.2\textheight]{decomposition-2-cell}
+        \caption{}
+        \label{fig:house-faces-decomposition}
+        \end{subfigure}
+    \hfill
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[height=.2\textheight]{decomposition-1-cell}
+        \caption{}
+        \label{fig:house-show-1-links}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[height=.2\textheight]{decomposition-0-cell}
+        \caption{}
+        \label{fig:house-show-all-links}
+    \end{subfigure}
+    \caption{Cell decomposition of a geometric 2D object}
+    \label{fig:house-cell-decomposition}
+\end{figure*}
+
+The representation of an object as a G-map comes intuitively from its decomposition into topological cells (vertices, edges, faces, volumes, and so on). 
+For example, the 2D topological object (Fig.~\ref{fig:house-ABCDE}) can be decomposed into a $2$-dimensional G-map (or $2$-G-map).
+The object is first decomposed into faces (Fig.~\ref{fig:house-faces-decomposition}).
+These faces are \emph{linked} along their common edge with an $\alpha 2$ link, drawn in blue.
+Each edge on the border of the object is connected to itself (the blue $\alpha 2$ link forms a loop).
+The index "$2$" means that the link connect two $2$-dimensional (possibly a single one) faces.
+In order to simplify the reading, $\alpha 2$ labels will not be written
+in every subsequent figure.
+
+In the same way, faces are split into edges connected with red $\alpha 1$ links (Fig~\ref{fig:house-show-1-links}).
+Lastly, edges themselves are split into vertices with black $\alpha 0$ links (Fig~\ref{fig:house-show-all-links}) to produce the $2$-G-map describing the objects shown in Fig.~\ref{fig:house-ABCDE}. 
+A G-map is therefore a graph, the nodes of which are the vertices (named \emph{darts}) obtained at the end of the process and the edges are $\alpha i$ links.
+
+
+G-maps have conditions guaranteeing objects consistency, %coherence, 
+for example, two faces are always linked along an edge.
+
+\begin{figure*}[t]
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[height=.2\textheight]{orbit-face-01-a}
+    \caption{}
+    \label{fig:house-2-cell-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[height=.2\textheight]{orbit-edge-02-a}
+    \caption{}
+    \label{fig:house-1-cell-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[height=.2\textheight]{orbit-edge-02-c}
+    \caption{}
+    \label{fig:house-1-cell-c}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[height=.2\textheight]{orbit-vertex-12-n}
+    \caption{}
+    \label{fig:house-0-cell-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{.19\textwidth}
+    \centering
+    \includegraphics[height=.2\textheight]{orbit-edge-0-a}
+    \caption{}
+    \label{fig:house-1-cell-a0-a}
+  \end{subfigure}
+
+  \caption{Orbit decomposition of a geometric 2D object}
+  \label{fig:house-orbit-decomposition}
+\end{figure*}
+
+Topological cells are not explicitly represented in G-maps but only implicitly defined as subgraphs. They can be computed using graph traversals defined by an originating node and by a given set of link labels named \emph{orbit}.
+For example, the 2-cell adjacent to some dart $a$ (or the object face matching $a$) (Fig.~\ref{fig:house-2-cell-a}) is the subgraph which contains $a$ and all darts reachable from $a$, using links labeled by $\alpha 0$ or $\alpha 1$ (\textit{i.e.} darts $a$, $b$, $c$, $d$, $e$, $f$, $g$ and $h$) and the links themselves.
+This subgraph is denoted by $G\orbit{\alpha 0, \alpha 1}(a)$ and models the face $BCED$ (Fig.~\ref{fig:house-ABCDE}).
+$\orbit{\alpha 0, \alpha 1}$ is the \emph{type} of the orbit.
+The $1$-cell adjacent to $a$ (or the object edge matching to  $a$) (Fig.~\ref{fig:house-1-cell-a}) is the subgraph $G \orbit{\alpha 0, \alpha 2}(a)$ which contains $a$ and all reachable darts using links labeled by $\alpha 0$ or $\alpha 2$ (\textit{i.e.} darts $a, b, l$ and $m$) and the corresponding links.  
+It represents the topological edge $BC$.
+Thanks to $\alpha 2$-loops on the object border, $G\orbit{\alpha 0, \alpha 2}(c)$ (Fig.~\ref{fig:house-1-cell-c}) also represents the edge $CE$ matching dart $c$.
+The $0$-cell adjacent to $a$ (or the object vertex matching dart $a$) (Fig.~\ref{fig:house-0-cell-a}) is the subgraph $G\orbit{\alpha 1, \alpha 2}(a)$ and represents vertex $B$.
+Note that orbits are more general than cells.
+For example, the face edge $G\orbit{\alpha 0}(a)$ (Fig.~\ref{fig:house-1-cell-a0-a}) is an $\orbit{\alpha 0}$ orbit incident to $a$.
+
+
+\subsection{Graph transformation rules}
+\label{ssec:rules}
+
+Jerboas's \cite{belhaouari2014jerboa} graph transformation rules allow the formalisation of operations over G-maps.
+
+\begin{figure}[t]
+  \centering
+  \maxsizebox{\columnwidth}{.15\columnwidth}{\includegraphics{rule-face-triangulation}}
+  \caption{Rule $L \longrightarrow R$ of face triangulation}
+  \label{fig:rule-triangulation}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[t]{.45\columnwidth}
+    \centering
+    \includegraphics[height=.25\textheight]{figures/demo-fig-triangulation-left-match.pdf}
+    \caption{Graph $G$}
+    \label{fig:house-triangulation-left-match}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\columnwidth}
+    \centering
+    \includegraphics[height=.25\textheight]{figures/demo-fig-triangulation-right-match.pdf}
+    \caption{Graph $H$}
+    \label{fig:house-triangulation-right-match}
+  \end{subfigure}
+  \caption{Application of the triangulation rule of figure \ref{fig:rule-triangulation} on matched dart $a_{0}$}
+  \label{fig:before-after-house-triangulation}
+\end{figure}
+
+In a few words, a \emph{rule} $r : L \longrightarrow R$ and a \emph{match} $m : L \to G$ to a G-map $G$, describe the transformation $G \longrightarrow^{r,m} H$ from $G$ to $H$.
+$m$ allows to replace a sub-graph of $G$ described by the left-hand side of the rule $L$ with another one described the right-hand side $R$, on order to produce $H$.
+
+Informally, in the triangulation rule shown in Fig.~\ref{fig:rule-triangulation}, the left side is made of only one node $n_{0}$ labeled with the face $\orbit{\alpha 0, \alpha 1}$ type: this way, it can match any face.
+For the match $m : n0 \mapsto a_{0}$ from $L$ to $G$ (Fig.~\ref{fig:house-triangulation-left-match}), the whole face $G\orbit{\alpha 0, \alpha 1}(a_{0})$ is matched, highlighted in orange in the figure. $\alpha 0$ (resp. $\alpha 1$) links are represented by black (resp. red) segments.
+On the right side, the node $n_{0}$ has label $\orbit{\alpha 0, \_}$. 
+This means that when applying this rule, $\alpha 0$ links of nodes $n_{0}$ have been preserved, while $\alpha 1$ links have been deleted.
+Hence, in $H$ (Fig.~\ref{fig:house-triangulation-right-match}), the $\alpha 0$-links of the matched orange face have been preserved while $\alpha 1$-links have been deleted.
+In other words, the edges of the orange face are disconnected in $H$.
+The new node $n_{2}$ of $R$ creates, in $H$, darts copied from the matched face.
+This is why there are eight blue darts ($a_2$, $b_2$ \dots $h_2$) created from orange darts ($a_0$, $b_0$ \dots $h_0$).
+Because $n_{2}$ is labeled $\orbit{\alpha 1, \alpha 2}$, the  orange $\alpha 0$ (resp. $\alpha 1$) links on the left side of the rule are relabeled to $\alpha 1$ (resp. $\alpha 2$) links in the blue copy.
+Therefore, the rule creates a dual vertex to the matched face.
+Finally, the node $n_{1}$ creates a green copy with eight darts ($a_1$, $b_1$ \dots $h_1$), deletes the left-side $\alpha 0$ links and relabels the left-side $\alpha 1$ links to $\alpha 2$ links.
+
+All the highlighted links (Fig.~\ref{fig:before-after-house-triangulation}) are referred to as \emph{implicit links} in the rule nodes.
+Conversely, the links connecting the nodes together in $R$ are referred as \emph{explicit links}.
+For example, the explicit $\alpha 0$ links between $n_1$ and $n_2$ link one-to-one the green and blue darts.
+Therefore, the rule creates the four new edges $\orbit{\alpha 0, \alpha 2}$ in the triangulation of the matched square face.
+In the same way, the explicit $\alpha 1$ links between $n_0$ and $n_1$ link one-to-one the orange and green darts.
+
+The $n_0$ node (Fig.~\ref{fig:rule-triangulation}) is a \emph{preserved node} because it belongs to both the left and right side of the rule.
+Nodes $n_1$ and $n_2$ are \emph{created nodes} because they belong only to the right side of the rule.
+This rule does not comprise any \emph{deleted node} because none of its nodes belong only to the left side.
+
+The \emph{orbit} notion is extended to patterns of rules. 
+For example, in the right-hand side of the triangulation rule (Fig.~\ref{fig:rule-triangulation}), the $\orbit{\alpha 0, \alpha 2}$-orbit (an edge) incident to node $n_{0}$ contains the single node $n_0$, and the $\orbit{\alpha 0, \alpha 2}$-orbit incident to $n_1$ contain the two nodes $n_1$ and $n_2$ and the explicit $\alpha_0$-link which connects them.
+Additionally, an $\orbit{o}$-orbit is said to be \emph{complete} if each node in the orbit matches one link per label of $\orbit{o}$ either explicitly or implicitly.
+For example, the $\orbit{\alpha 0, \alpha 2}$-orbit incident to node $n_{0}$ in the right-hand side of the triangulation rule (Fig. 3) is not complete, because node $n_0$ has no $\alpha_2$-link, either implicitly or explicitly.
+Conversely, the $\orbit{\alpha 0, \alpha 2}$-orbit incident to $n_1$ is complete, because its two nodes $n_0$ and $n_1$ are incident to the explicit $\alpha_0$-link and both have an implicit $\alpha_2$-link.
+Note that an $\orbit{o}$-orbit in a graph is entirely matched by a rule pattern if and only if the corresponding $\orbit{o}$-orbit in the pattern is complete.
+For example, the $\orbit{\alpha 0, \alpha 2}$-orbit incident to $a_0$ in the graph $H$ (Fig.~\ref{fig:house-triangulation-right-match}) is partially matched by the triangulation rule (only darts $a_0$ and $b_0$ are matched and not their $\alpha_2$ neighbors), because the $\orbit{\alpha 0, \alpha 2}$-orbit incident to $n_0$ in the rule is not complete.
+Conversely, the $\orbit{\alpha 0, \alpha 2}$-orbit incident to $a_1$ in graph $H$ is entirely matched by the triangulation rule (both darts $a_1$ and $h_1$ are matched by node $n_1$ and darts $a_2$ and $h_2$ are matched by  node $n_2$), because the $\orbit{\alpha 0, \alpha 2}$-orbit incident to $n_1$ in the rule is complete.
+
+Jerboa's rules provide syntactic properties guaranteeing G-maps consistency preservation.
+
+\end{document}

@@ -1,18 +1,45 @@
 \section{Parametric specifications}
 
-A parametric specification is a record which describes the steps of construction
-of a model from start to end. Each entry consists of the following informations
-: an order index, an operation identifier (e.g. a name), a set of parameters as
-persistent names and an orbit type.%
+When reevaluating an object, the first step is to record its constructive
+process. %
+Such a record contains the rules applied as well as their position
+in the process (ordering) and their parameters. %
 
-\input{../tables/parametric-specification}
+The method proposed here uses a persistent naming scheme based on topological
+entity identification paired with an orbit type to represent the rules
+(operations) parameters. %
 
 \subsection{Persistent Identifiers}
 
+During a construction, topological entities are subject to changes. %
+In order to maintain the identification of any topological entity, each dart
+within a G-map holds a \emph{persistent ID}. %
+A persistent ID is a record of all the operations that had an impact on a given
+dart. %
+In such a record, every operations are recorded as a position and a node name. %
+A position, here, is the index of a rule application in the constructive
+process. %
+Upon the application of a rule, and for any matched dart, a new persistent ID is
+either created. %
+When a rule application creates a dart, this dart is assigned a persistent ID. %
+This persistent ID is derived from the one of a preserved dart plus the
+information of the current rule application. %
+
+
 \subsection{Persistent Names}
+
+\begin{itemize}
+  \item Un PI est associé à un brin
+  \item Une orbite est constituée de plusieurs brins
+  \item Pour identifier précisément une orbite on crée des PN
+  \item Un PN contient au moins 1 PI
+  \item Un PN détient au moins 1 référence pour chaque opérations ayant impacté
+        l'orbite à identifier
+\end{itemize}
 
 \subsection{Example}
 
+\input{../tables/parametric-specification}
 
 %%% Local Variables:
 %%% mode: latex

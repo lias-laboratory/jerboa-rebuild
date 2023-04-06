@@ -1,14 +1,51 @@
-\section{History tree}
+\section{History trees}
 
+Second step before the reevaluation of an object, is to retrace all the changes
+a topological entity underwent during the initial construction. %
+A history tree is a data structure conceived to represent all these changes from
+a persistent name and a tree is created for each persistent ID. %
+Such the tree is built from the last known state of an entity, which will be the
+tree root, up to first entities it originates from, \emph{i.e.} the tree
+leaves. %
+Each level of depth within a history tree represents the changes brought by a
+rule application with two sub-levels. %
+First sub-level is the event level where the nodes are events. %
+Second sub-level is the orbit level where the nodes are orbits. %
 
+In tree, event nodes are connected to orbit nodes through a \emph{trace} (black
+arrows) or \emph{origin} (red arrows) relation. %
 
 \subsection{Traces}
 
+Within a history tree, an orbit is tracked from its creation to its designated state. %
+
+
 \subsection{Origins}
+
+In some cases, namely of creation, split and merging, an event cannot
+unambiguously designate an entity and an origin must be found. %
+{\color{darkgreen}%
+  In a copy creation event, a new entity is created from another
+  one. %
+  In this case the tree needs to track this orbit the entity originates from. %
+  In a split event, several entities can appear from the result of a split. %
+  Then, the tree must track the specific sub-orbit the tracked entity originates
+  from. %
+  Conversely, in a merging event, a tracked entity comes from several entities
+  and a origin must be found. %
+}
 
 \subsection{Paths to origins}
 
-\subsection{History trees}
+In some cases (usually a merging event), an origin is a deleted entity, yet it
+is necessary to identify them to build history trees. %
+However, the operations being graph transformation rules, it is possible to
+find, from the rules only, a path from an entity to its origin.
+{\color{darkgreen}%
+  example
+}
+
+\subsection{Example}
 
 
 %%% Local Variables:

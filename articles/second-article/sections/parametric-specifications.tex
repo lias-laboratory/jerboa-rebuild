@@ -1,5 +1,7 @@
 \section{Parametric specifications}
 
+\input{../tables/parametric-specification-table}
+
 When reevaluating an object, the first step is to record its constructive
 process. %
 Such a record contains the rules applied as well as their position
@@ -9,11 +11,12 @@ The method proposed here uses a persistent naming scheme based on topological
 entity identification paired with an orbit type to represent the rules
 (operations) parameters. %
 
+During a construction, topological entities are subject to changes. %
+
 \subsection{Persistent Identifiers}
 
-During a construction, topological entities are subject to changes. %
-In order to maintain the identification of any topological entity, each dart
-within a G-map holds a \emph{persistent ID}. %
+The first step, to maintain the identification of any topological entity, is
+to associate a \emph{persistent ID} to each dart. %
 A persistent ID is a record of all the operations that had an impact on a given
 dart. %
 In such a record, every operations are recorded as a position and a node name. %
@@ -25,21 +28,45 @@ When a rule application creates a dart, this dart is assigned a persistent ID. %
 This persistent ID is derived from the one of a preserved dart plus the
 information of the current rule application. %
 
+~
+
+{\color{darkgreen} See Fig.~\ref{fig:demo-fig-triangulation-left-match}, dart
+  $a_{0}$ persistent ID is $1 — n_{6}$ because it has been created without copy
+  by the node $n_{6}$ of the first rule application. %
+  However it has been updated after the application of the face triangulation
+  rule Fig.~\ref{fig:rule-face-triangulation}. Its new persistent ID is now
+  $1 — n_{6}; 2 – n_{0}$ as it has been matched by the node $n_{0}$ of the
+  second rule application.} %
 
 \subsection{Persistent Names}
 
-\begin{itemize}
-  \item Un PI est associé à un brin
-  \item Une orbite est constituée de plusieurs brins
-  \item Pour identifier précisément une orbite on crée des PN
-  \item Un PN contient au moins 1 PI
-  \item Un PN détient au moins 1 référence pour chaque opérations ayant impacté
-        l'orbite à identifier
-\end{itemize}
+Second step is to gather a necessary amount persistent IDs within a
+\emph{persistent name} to persistently and formally designate a topological
+entity upon the object reevaluation. %
+Although darts have persistent IDs, a topological entity comprises several of
+them and a single persistent ID may not suffice to represent all the changes it
+has undergone. %
+Conversely, to formally name a topological entity a persistent name, which
+comprises at least one persistent ID, is created. %
+The persistent name should maximise the number of rules which have impacted the
+entity yet minimise the amount of persistent IDs it holds. %
+% On souhaite représenter une entité topo avec un maximum d'information d'évolution tout en ne prenant que le nécessaire en PIs.
 
 \subsection{Example}
 
-\input{../tables/parametric-specification}
+{\color{darkgreen}%
+Table~\ref{tbl:param-spec-example} illustrates the construction of a
+parametric construction. %
+The create-square rule, of ID 1, creates a square ex-nihilo and, thus, does not
+need any topological parameter. %
+However, the next entry, namely extrude-face of ID 2, as its name suggests
+extrude a face into a volume. %
+A persistent name, $PN_{1}$, is created in order to identify the face to be
+extruded. %
+Firstly, the rule expects a face as a parameters so the orbit type of the entity
+must be $\orbit{\alpha 0, \alpha 2}$. %
+Secondly, the entity to match must have a persistent ID being $1n_{0}$. %
+}
 
 %%% Local Variables:
 %%% mode: latex

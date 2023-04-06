@@ -2,33 +2,29 @@
 
 \input{../tables/parametric-specification-table}
 
-When reevaluating an object, the first step is to record its constructive
-process. %
-Such a record contains the rules applied as well as their position
-in the process (ordering) and their parameters. %
-
-The method proposed here uses a persistent naming scheme based on topological
-entity identification paired with an orbit type to represent the rules
-(operations) parameters. %
-
-During a construction, topological entities are subject to changes. %
+When reevaluating an object, it is necessary to firstly record its constructive
+process, or \emph{parametric specification}. %
+Each entry of the parametric specification comprises an application index, the
+rule associated to the application index and the topological parameters used by
+the rule. %
 
 \subsection{Persistent Identifiers}
 
-The first step, to maintain the identification of any topological entity, is
-to associate a \emph{persistent ID} to each dart. %
-A persistent ID is a record of all the operations that had an impact on a given
-dart. %
-In such a record, every operations are recorded as a position and a node name. %
-A position, here, is the index of a rule application in the constructive
-process. %
-Upon the application of a rule, and for any matched dart, a new persistent ID is
-either created. %
-When a rule application creates a dart, this dart is assigned a persistent ID. %
-This persistent ID is derived from the one of a preserved dart plus the
-information of the current rule application. %
-
-~
+Upon the application of a rule, each node matches an orbit and, subsequently,
+the darts it is comprising. %
+Since these darts can be part of several orbits, it becomes necessary to
+persistently identify each one of them when they are matched by a node. %
+To allow such an identification, a \emph{persistent ID} needs to be created and
+attached to each dart within a G-map. %
+A persistent ID, for all the rules that matched a given dart, an application
+index and the name of the node that matched this dart. %
+Depending on the matched dart, a persistent ID is either created or derived. %
+It is created when the dart is created ``ex nihilo'' and updated when the dart
+is copy created or preserved. %
+When the dart is copy created, the persistent ID is updated by adding from the
+one of a dart matched by a neighbouring node (ideally closer to the hook). %
+When the dart is preserved, the persistent ID is updated a adding an application
+index and a node name. %
 
 {\color{darkgreen} See Fig.~\ref{fig:demo-fig-triangulation-left-match}, dart
   $a_{0}$ persistent ID is $1 — n_{6}$ because it has been created without copy
@@ -40,17 +36,17 @@ information of the current rule application. %
 
 \subsection{Persistent Names}
 
-Second step is to gather a necessary amount persistent IDs within a
-\emph{persistent name} to persistently and formally designate a topological
-entity upon the object reevaluation. %
-Although darts have persistent IDs, a topological entity comprises several of
-them and a single persistent ID may not suffice to represent all the changes it
-has undergone. %
-Conversely, to formally name a topological entity a persistent name, which
-comprises at least one persistent ID, is created. %
-The persistent name should maximise the number of rules which have impacted the
-entity yet minimise the amount of persistent IDs it holds. %
-% On souhaite représenter une entité topo avec un maximum d'information d'évolution tout en ne prenant que le nécessaire en PIs.
+Although darts have persistent IDs, a topological entity comprises several. %
+A single persistent ID may not suffice to represent all the rules that impacted
+such an entity. %
+The gathering of enough persistent IDs within a persistent name can then be
+necessary to persistently and formally designate a topological entity. %
+A persistent name is created a posteriori of an application. %
+It is a collection of one or more persistent IDs found in an entity. %
+It must comprises a minimum of persistent IDs and these persistent IDs must
+represent a maximum of rule application with as little overlap as possible. %
+% On souhaite représenter une entité topo avec un maximum d'information
+% d'évolution tout en ne prenant que le nécessaire en PIs.
 
 \subsection{Example}
 

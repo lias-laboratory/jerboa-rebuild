@@ -1,32 +1,45 @@
 \section{History trees}
 
-Second step before the reevaluation of an object, is to retrace all the changes
-a topological entity underwent during the initial construction. %
-A history tree is a data structure conceived to represent all these changes from
-a persistent name and a tree is created for each persistent ID. %
-Such the tree is built from the last known state of an entity, which will be the
-tree root, up to first entities it originates from, \emph{i.e.} the tree
-leaves. %
-Each level of depth within a history tree represents the changes brought by a
-rule application with two sub-levels. %
-First sub-level is the event level where the nodes are events. %
-Second sub-level is the orbit level where the nodes are orbits. %
+Secondly, the topological changes (or events) an entity underwent during the
+initial construction must be tracked. %
+It is then necessary to trace the ``history'' leading to the registered state of
+an entity designated by a persistent name within a \emph{history tree}. %
 
-In tree, event nodes are connected to orbit nodes through a \emph{trace} (black
-arrows) or \emph{origin} (red arrows) relation. %
+\subsection{Event nodes and Orbit nodes}
 
-\subsection{Traces}
+There are two types of nodes within a history tree~: \emph{event nodes} and
+\emph{orbit nodes}. %
+An event node is connected to at most one orbit node, is associated with an
+application index and holds an event type such as a creation, a modification, a
+split and so on. %
+An orbit node is connected to one or more event nodes, is associated with a rule
+node name and holds an orbit type. %
 
-Within a history tree, an orbit is tracked from its creation to its designated state. %
+Within a history tree, each depth level is either a level of event nodes
+(\emph{i.e.} an event level) or a level of orbit nodes (\emph{i.e.} an orbit
+level). %
+These levels are created alternately during the construction of any history
+tree. %
 
+\subsection{Traces and origins}
 
-\subsection{Origins}
+There are two kind of relationship that can exist between two nodes~: the
+\emph{trace} (black arrows) or \emph{origin} (red arrows) relationships. %
 
-In some cases, namely of creation, split and merging, an event cannot
-unambiguously designate an entity and an origin must be found. %
+The trace relationship tracks an entity identified by an orbit node up to its
+previous state (another orbit node) in a history tree.
+
+In the cases of creation, split and merging events, an entity is created, split
+into several ones or several entities are merged into one. %
+It is then impossible to unambiguously designate an entity without computing an
+orbit of origin. %
+An origin orbit is an orbit that matches all the darts used to change and
+entity. %
+% Dans une création et une scission, c'est l'ensemble des brins qui sont copiées
+% Dans une l'ensemble des brins qui sont supprimés.
+
 {\color{darkgreen}%
-  In a copy creation event, a new entity is created from another
-  one. %
+  In a copy creation event, a new entity is created from another one. %
   In this case the tree needs to track this orbit the entity originates from. %
   In a split event, several entities can appear from the result of a split. %
   Then, the tree must track the specific sub-orbit the tracked entity originates
@@ -46,7 +59,14 @@ find, from the rules only, a path from an entity to its origin.
 }
 
 \subsection{Example}
+A history tree is built from the last known state of an entity, which will be
+the root, up to the first entities it originates from, the leaves. %
 
+The events, given the orbit type of an entity, can be deduced from a rule and a
+tree is created for each persistent ID of a persistent name. %
+Such a tree is built from the last known state of an entity, which will be the
+tree root, up to the first entities it originates from, \emph{i.e.} the tree
+leaves. %
 
 %%% Local Variables:
 %%% mode: latex

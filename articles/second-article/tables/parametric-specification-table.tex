@@ -1,18 +1,25 @@
 \begin{table*}[ht]
 \caption{\label{tbl:param-spec-example}Parametric specification example}
 \centering
-\begin{tabularx}{\textwidth}{|l|c|c|X|}
+\begin{tabularx}{.795\textwidth}{|l|c|c|l|}
 \hline
 Editing type & ID & name & persistent name\\[0pt]
 \hline
 INIT & 1 & Create-square & \\[0pt]
-INIT & 2 & extrude-face & \(PN_{1}\) = [\(1n_{0}\)]·\(\orbit{\alpha 0, \alpha 1}\)\\[0pt]
-INIT & 3 & insert-vertex & \(PN_{2}\) = [\(1n_{2} - 2n_{5}\)]·\(\orbit{\alpha 0, \alpha 2}\)\\[0pt]
-INIT & 4 & extrude-face & \(PN_{3}\) = [\(1n_{0} - 2n_{6}\)]·\(\orbit{\alpha 0, \alpha 1}\)\\[0pt]
-INIT & 5 & face-triangulation & \(PN_{4}\) = [\(1n_{0} - 2n_{1}\)]·\(\orbit{\alpha 0, \alpha 1}\)\\[0pt]
-INIT & 6 & collapse-face & \(PN_{5}\) = [\(1n_{1} - 2n_{5} - 4n_{6}\)]·\(\orbit{\alpha 0, \alpha 1}\)\\[0pt]
-INIT & 7 & add-cross & \(PN_{6}\) = [\(1n_{2} - 2n_{5} - 3n_{0} - 4n_{3} - 6n_{2}\)]·\(\orbit{\alpha 1, \alpha 2}\)\\[0pt]
-INIT & 8 & color-face & \(PN_{7}\) = [\(1n_{0} - 2n_{1} - 5n_{1}\)]·\(\orbit{\alpha 0, \alpha 1}\)\\[0pt]
+\hline
+INIT & 2 & extrude-face & \(PN_{1}\) = [\(1n_{0}\)]\\[0pt]
+\hline
+INIT & 3 & insert-vertex & \(PN_{2}\) = [\(1n_{2} - 2n_{5}\)]\\[0pt]
+\hline
+INIT & 4 & extrude-face & \(PN_{3}\) = [\(1n_{0} - 2n_{6}\)]\\[0pt]
+\hline
+INIT & 5 & face-triangulation & \(PN_{4}\) = [\(1n_{0} - 2n_{1}\)]\\[0pt]
+\hline
+INIT & 6 & collapse-face & \(PN_{5}\) = [\(1n_{1} - 2n_{5} - 4n_{6}\)]\\[0pt]
+\hline
+INIT & 7 & chamfer-corner & \(PN_{6}\) = [\(1n_{2} - 2n_{5} - 3n_{0} - 4n_{3} - 6n_{2}\)]\\[0pt]
+\hline
+INIT & 8 & color-face & \(PN_{7}\) = [\(1n_{0} - 2n_{1} - 5n_{1}\)]\\[0pt]
 \hline
 \end{tabularx}
 \end{table*}

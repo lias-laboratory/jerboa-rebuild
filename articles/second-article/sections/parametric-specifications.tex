@@ -2,11 +2,23 @@
 
 \input{../tables/parametric-specification-table}
 
-When reevaluating an object, it is necessary to firstly record its constructive
-process, or \emph{parametric specification}. %
-Each entry of the parametric specification comprises an application index, the
-rule associated to the application index and the topological parameters used by
-the rule. %
+% Header of the section: introduce the parametric specification. link with
+% reevaluation
+%% to reevaluate an object we have to record its construction process, i.e. its
+%% operations and parameters
+The reevaluation of an object first requires the recording of its initial
+construction ({\color{blue}modeling}) process, \textit{i.e.} the applied
+operations and their parameters, as a parametric specification. %
+In the case of rule-based operations, each entry must comprise an application
+ordering number (\emph{AppNumber}), a name (\emph{Name}), topological parameters
+(\emph{TopoParameters}) and geometric parameters (\emph{GeoParameters}) such as
+\begin{equation*}
+  \begin{split}
+    [&AppNumber, Name, TopoParameters,\\ & GeoParameters]
+  \end{split}
+\end{equation*}
+is the syntax of a parametric specification entry. %
+\maxime{TODO: présenter une entrée de spec différemment}
 
 \subsection{Persistent Identifiers}
 

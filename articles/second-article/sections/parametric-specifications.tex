@@ -2,34 +2,71 @@
 
 \input{../tables/parametric-specification-table}
 
-% Header of the section: introduce the parametric specification. link with
-% reevaluation
-%% to reevaluate an object we have to record its construction process, i.e. its
-%% operations and parameters
-The reevaluation of an object first requires the recording of its initial
-construction ({\color{blue}modeling}) process, \textit{i.e.} the applied
-operations and their parameters, as a parametric specification. %
-In the case of rule-based operations, each entry must comprise an application
+The  reevaluation of  an  object first  requires the  recording  of its  initial
+construction   ({\color{blue}modeling})  process,   \textit{i.e.}  the   applied
+operations and their parameters both topological and geometric, in the form of a
+parametric specification. %
+In the  case of rule-based operations,  each entry must comprise  an application
 ordering number (\emph{AppNumber}), a name (\emph{Name}), topological parameters
-(\emph{TopoParameters}) and geometric parameters (\emph{GeoParameters}) such as
+{\color{blue}as persistent names}  (\emph{TopoParameters}) and classic geometric
+parameters (\emph{GeoParameters}) such as
+%
 \begin{equation*}
   \begin{split}
     [&AppNumber, Name, TopoParameters,\\ & GeoParameters]
   \end{split}
 \end{equation*}
-is the syntax of a parametric specification entry. %
+%
+is a parametric specification entry template. %
 \maxime{TODO: présenter une entrée de spec différemment}
 
-\subsection{Persistent Identifiers}
+A parametric specification registers topological parameters in order to allow
+the reevaluation of an object. %
+This is a two-part task, namely the persistent identification of darts and the
+persistent naming of topological parameters. %
 
-Upon the application of a rule, each node matches an orbit and, subsequently,
-the darts it is comprising. %
-Since these darts can be part of several orbits, it becomes necessary to
-persistently identify each one of them when they are matched by a node. %
+\subsection{Persistent ID}
+
+% What is a Persistent ID ?
+\emph{Persistent IDs} (or \emph{PIs}) are part of the persistent naming scheme
+proposed in this contribution. %
+A PI is a data structure which records data about the rules that lead to the
+creation of a dart or, more generally, affected it. %
+
+% Why is a Persistent ID needed ?
+Remember from Section~\ref{ssec:g-maps}, a dart is the topological entity of
+lowest dimension in a G-map and is part of several orbits. %
+Since darts and their use result from the application of rules, to use them in a
+persistent naming scheme means they must be persistently identified for their
+reevaluation.%
+% How Persisetent IDs are built ?
+Upon the application of a rule, a node matches an orbit and, therefore, its
+darts. %
+A PI should then record all the application numbers of the applied rules and the
+node names that matched a specific dart such that %
+%
+\begin{equation*}
+  \begin{split}
+  PI_{x} = [&AppNumber_{n} - NodeName;\\ &AppNumber_{m} - NodeName\\ &\dots\\ &AppNumber_{p} - NodeName]
+  \end{split}
+\end{equation*}
+%
+%
+Such a record, allow the persistent identification of every dart within a
+G-map. %
+
+% What is the link between Persistent IDs and parametric specifications ?
+
+
+
+% Why
+
+% What is it
 To allow such an identification, a \emph{persistent ID} needs to be created and
 attached to each dart within a G-map. %
 A persistent ID, for all the rules that matched a given dart, an application
 index and the name of the node that matched this dart. %
+% How
 Depending on the matched dart, a persistent ID is either created or derived. %
 It is created when the dart is created ``ex nihilo'' and updated when the dart
 is copy created or preserved. %
@@ -48,6 +85,11 @@ index and a node name. %
 
 \subsection{Persistent Names}
 
+%
+\begin{equation*}
+  PN_{a} = \{PI_{x} \dots PI_{z}\}
+\end{equation*}
+%
 Although darts have persistent IDs, a topological entity comprises several. %
 A single persistent ID may not suffice to represent all the rules that impacted
 such an entity. %
@@ -63,17 +105,17 @@ represent a maximum of rule application with as little overlap as possible. %
 \subsection{Example}
 
 {\color{darkgreen}%
-Table~\ref{tbl:param-spec-example} illustrates the construction of a
-parametric construction. %
-The create-square rule, of ID 1, creates a square ex-nihilo and, thus, does not
-need any topological parameter. %
-However, the next entry, namely extrude-face of ID 2, as its name suggests
-extrude a face into a volume. %
-A persistent name, $PN_{1}$, is created in order to identify the face to be
-extruded. %
-Firstly, the rule expects a face as a parameters so the orbit type of the entity
-must be $\orbit{\alpha 0, \alpha 2}$. %
-Secondly, the entity to match must have a persistent ID being $1n_{0}$. %
+  Table~\ref{tbl:param-spec-example} illustrates the construction of a
+  parametric construction. %
+  The create-square rule, of ID 1, creates a square ex-nihilo and, thus, does not
+  need any topological parameter. %
+  However, the next entry, namely extrude-face of ID 2, as its name suggests
+  extrude a face into a volume. %
+  A persistent name, $PN_{1}$, is created in order to identify the face to be
+  extruded. %
+  Firstly, the rule expects a face as a parameters so the orbit type of the entity
+  must be $\orbit{\alpha 0, \alpha 2}$. %
+  Secondly, the entity to match must have a persistent ID being $1n_{0}$. %
 }
 
 %%% Local Variables:

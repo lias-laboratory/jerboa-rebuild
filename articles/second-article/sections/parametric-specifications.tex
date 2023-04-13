@@ -13,12 +13,11 @@ parameters (\emph{GeoParameters}) such as
 %
 \begin{equation*}
   \begin{split}
-    [&AppNumber, Name, TopoParameters,\\ & GeoParameters]
+    [&AppNumber, Name, TopoParameters,\\ &GeoParameters]
   \end{split}
 \end{equation*}
 %
-is a parametric specification entry template. %
-\maxime{TODO: présenter une entrée de spec différemment}
+is a syntactic example of a parametric specification entry. %
 
 A parametric specification registers topological parameters in order to allow
 the reevaluation of an object. %
@@ -27,78 +26,81 @@ persistent naming of topological parameters. %
 
 \subsection{Persistent ID}
 
-% What is a Persistent ID ?
+% What is a PI ?
 \emph{Persistent IDs} (or \emph{PIs}) are part of the persistent naming scheme
 proposed in this contribution. %
-A PI is a data structure which records data about the rules that lead to the
-creation of a dart or, more generally, affected it. %
+This structure describes any dart by recording all the rules that affected it
+during a construction. %
+A PI must also be unique in order to avoid ambiguity in a Persistent Name. %
 
-% Why is a Persistent ID needed ?
-Remember from Section~\ref{ssec:g-maps}, a dart is the topological entity of
+% Why is a PI needed ?
+As suggested in Section~\ref{ssec:g-maps}, a dart is the topological entity of
 lowest dimension in a G-map and is part of several orbits. %
-Since darts and their use result from the application of rules, to use them in a
-persistent naming scheme means they must be persistently identified for their
-reevaluation.%
-% How Persisetent IDs are built ?
-Upon the application of a rule, a node matches an orbit and, therefore, its
-darts. %
-A PI should then record all the application numbers of the applied rules and the
-node names that matched a specific dart such that %
+Since darts result from the application of rules, to use them in a persistent
+naming scheme means they must be persistently identified.%
+%
+% How PIs are built ?
+In order to describe the state of a dart at any time during a construction, a PI
+records an \textit{AppNumber} and a node name (\emph{NodeName}). %
+Upon the application of a rule, although a node matches one or more darts, a
+dart is matched by at most one node. %
+Thus, for each application that affected a dart $d$, a PI must record the name
+of the node that matched $d$ such that
 %
 \begin{equation*}
   \begin{split}
-  PI_{x} = [&AppNumber_{n} - NodeName;\\ &AppNumber_{m} - NodeName\\ &\dots\\ &AppNumber_{p} - NodeName]
+    PI_{d} = [AppNumber &- NodeName;\\ AppNumber &- NodeName;\\ &\dots\\
+    AppNumber &- NodeName]
   \end{split}
 \end{equation*}
 %
-%
-Such a record, allow the persistent identification of every dart within a
-G-map. %
+is a syntactic example of a PI associated to $d$. %
 
-% What is the link between Persistent IDs and parametric specifications ?
+% How can a PI be unique ?
+A PI, by construction, is unique. %
+When a rule has an empty left member, each node creates exactly one dart and
+each of the associated PI is \textit{de facto} unique. %
+From this point on, any future PI will either be an update or a creation derived
+from the PI of an already existing dart. %
+And because of the former PIs being unique, any subsequent PI is unique. %
 
-
-
-% Why
-
-% What is it
-To allow such an identification, a \emph{persistent ID} needs to be created and
-attached to each dart within a G-map. %
-A persistent ID, for all the rules that matched a given dart, an application
-index and the name of the node that matched this dart. %
-% How
-Depending on the matched dart, a persistent ID is either created or derived. %
-It is created when the dart is created ``ex nihilo'' and updated when the dart
-is copy created or preserved. %
-When the dart is copy created, the persistent ID is updated by adding from the
-one of a dart matched by a neighbouring node (ideally closer to the hook). %
-When the dart is preserved, the persistent ID is updated a adding an application
-index and a node name. %
-
-{\color{darkgreen} See Fig.~\ref{fig:demo-fig-triangulation-left-match}, dart
-  $a_{0}$ persistent ID is $1 — n_{6}$ because it has been created without copy
-  by the node $n_{6}$ of the first rule application. %
-  However it has been updated after the application of the face triangulation
-  rule Fig.~\ref{fig:rule-face-triangulation}. Its new persistent ID is now
-  $1 — n_{6}; 2 – n_{0}$ as it has been matched by the node $n_{0}$ of the
-  second rule application.} %
+% {\color{darkgreen} See Fig.~\ref{fig:demo-fig-triangulation-left-match}, dart
+%   $a_{0}$ persistent ID is $1 — n_{6}$ because it has been created without copy
+%   by the node $n_{6}$ of the first rule application. %
+%   However it has been updated after the application of the face triangulation
+%   rule Fig.~\ref{fig:rule-face-triangulation}. Its new persistent ID is now
+%   $1 — n_{6}; 2 – n_{0}$ as it has been matched by the node $n_{0}$ of the
+%   second rule application.} %
 
 \subsection{Persistent Names}
 
+A \emph{Persistent Name} (or \emph{PN}), is a structure which describes, with a
+collection of PIs, all the changes that affected an orbit in order to use it as
+a topological. %
+Due to the mechanism of rule application, a topological parameter is actually a
+dart and not an orbit. %
+
+Although a PI can reliably identify a dart, it may not be able, by itself, to represent all the changes that affected an orbit. %
+
+In such a case, a PN will collect one or more PIs until there is as necessary
+and sufficient amount of data to precisely describe an orbit as a topological
+parameter such that
 %
 \begin{equation*}
   PN_{a} = \{PI_{x} \dots PI_{z}\}
 \end{equation*}
 %
-Although darts have persistent IDs, a topological entity comprises several. %
-A single persistent ID may not suffice to represent all the rules that impacted
-such an entity. %
-The gathering of enough persistent IDs within a persistent name can then be
-necessary to persistently and formally designate a topological entity. %
-A persistent name is created a posteriori of an application. %
-It is a collection of one or more persistent IDs found in an entity. %
-It must comprises a minimum of persistent IDs and these persistent IDs must
-represent a maximum of rule application with as little overlap as possible. %
+is a syntactic example of a PN. %
+%
+% Although darts have persistent IDs, a topological entity comprises several. %
+% A single persistent ID may not suffice to represent all the rules that impacted
+% such an entity. %
+% The gathering of enough persistent IDs within a persistent name can then be
+% necessary to persistently and formally designate a topological entity. %
+% A persistent name is created a posteriori of an application. %
+% It is a collection of one or more persistent IDs found in an entity. %
+% It must comprises a minimum of persistent IDs and these persistent IDs must
+% represent a maximum of rule application with as little overlap as possible. %
 % On souhaite représenter une entité topo avec un maximum d'information
 % d'évolution tout en ne prenant que le nécessaire en PIs.
 

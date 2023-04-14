@@ -1,35 +1,16 @@
 \section{Parametric specifications}
 
-\input{../tables/parametric-specification-table}
-
-The  reevaluation of  an  object first  requires the  recording  of its  initial
-construction   ({\color{blue}modeling})  process,   \textit{i.e.}  the   applied
-operations and their parameters both topological and geometric, in the form of a
-parametric specification. %
-In the  case of rule-based operations,  each entry must comprise  an application
-ordering number (\emph{AppNumber}), a name (\emph{Name}), topological parameters
-{\color{blue}as persistent names}  (\emph{TopoParameters}) and classic geometric
-parameters (\emph{GeoParameters}) such as
-%
-\begin{equation*}
-  \begin{split}
-    [&AppNumber, Name, TopoParameters,\\ &GeoParameters]
-  \end{split}
-\end{equation*}
-%
-is a syntactic example of a parametric specification entry. %
-
-A parametric specification registers topological parameters in order to allow
-the reevaluation of an object. %
-This is a two-part task, namely the persistent identification of darts and the
-persistent naming of topological parameters. %
+The reevaluation of an object first requires the recording of its construction
+({\color{blue}modelling}) process in the form of a parametric specification. %
+The production of such a record is a two-part task, namely the persistent
+identification of darts and the persistent naming of topological parameters. %
 
 \subsection{Persistent ID}
 
 % What is a PI ?
 \emph{Persistent IDs} (or \emph{PIs}) are part of the persistent naming scheme
 proposed in this contribution. %
-This structure describes any dart by recording all the rules that affected it
+This structure identifies a dart by recording all the rules that affected it
 during a construction. %
 A PI must also be unique in order to avoid ambiguity in a Persistent Name. %
 
@@ -59,26 +40,33 @@ is a syntactic example of a PI associated to $d$. %
 % How can a PI be unique ?
 A PI, by construction, is unique. %
 When a rule has an empty left member, each node creates exactly one dart and
-each of the associated PI is \textit{de facto} unique. %
+each of the associated PI is unique. %
+{\color{darkgreen}For example, the create-square rule listed in
+  Table~\ref{tbl:param-spec-example} has no left member. %
+  When the rule is applied, each of its nodes creates a dart such that each one
+  has a unique PI (\textit{i.e.}, $PI_{d} = [1n_{0}]$, $PI_{d'} = [1n_{1}]$,
+  $\dots$, $PI_{d''} = [1n_{7}]$). %
+} %
+
 From this point on, any future PI will either be an update or a creation derived
 from the PI of an already existing dart. %
 And because of the former PIs being unique, any subsequent PI is unique. %
+{\color{darkgreen}For example, the extrude-face rule, also listed in
+  Table~\ref{tbl:param-spec-example}, has one node in its left member and six in
+  its right member. %
+  With this rule, the darts matched by the left member (preserved by the node
+  $n_{0}$ in the right member) are updated from $[1n_{0}]$, $[1n_{1}]$, $\dots$,
+  $[1n_{7}]$ to $[1n_{0} - 2n_{0}]$, $[1n_{1} - 2n_{0}]$, $\dots$,
+  $[1n_{7} - 2n_{0}]$ and each PI remains unique. %
+  The same goes for the newly created darts, depending of the node that creates
+  them. %
+}
 
-% {\color{darkgreen} See Fig.~\ref{fig:demo-fig-triangulation-left-match}, dart
-%   $a_{0}$ persistent ID is $1 — n_{6}$ because it has been created without copy
-%   by the node $n_{6}$ of the first rule application. %
-%   However it has been updated after the application of the face triangulation
-%   rule Fig.~\ref{fig:rule-face-triangulation}. Its new persistent ID is now
-%   $1 — n_{6}; 2 – n_{0}$ as it has been matched by the node $n_{0}$ of the
-%   second rule application.} %
 
 \subsection{Persistent Names}
 
-A \emph{Persistent Name} (or \emph{PN}), is a structure which describes, with a
-collection of PIs, all the changes that affected an orbit in order to use it as
-a topological. %
-Due to the mechanism of rule application, a topological parameter is actually a
-dart and not an orbit. %
+A \emph{Persistent Name} (or \emph{PN}), is a structure which identifies, with a
+collection of PIs, an orbit designated as a topological parameter. %
 
 Although a PI can reliably identify a dart, it may not be able, by itself, to represent all the changes that affected an orbit. %
 
@@ -106,19 +94,21 @@ is a syntactic example of a PN. %
 
 \subsection{Example}
 
-{\color{darkgreen}%
-  Table~\ref{tbl:param-spec-example} illustrates the construction of a
-  parametric construction. %
-  The create-square rule, of ID 1, creates a square ex-nihilo and, thus, does not
-  need any topological parameter. %
-  However, the next entry, namely extrude-face of ID 2, as its name suggests
-  extrude a face into a volume. %
-  A persistent name, $PN_{1}$, is created in order to identify the face to be
-  extruded. %
-  Firstly, the rule expects a face as a parameters so the orbit type of the entity
-  must be $\orbit{\alpha 0, \alpha 2}$. %
-  Secondly, the entity to match must have a persistent ID being $1n_{0}$. %
-}
+\input{../tables/parametric-specification-table}
+
+In the case of rule-based operations, each entry must comprise an application
+ordering number (\emph{AppNumber}), a name (\emph{Name}), topological parameters
+{\color{blue}as persistent names} (\emph{TopoParameters}) and geometric
+parameters (\emph{GeoParameters}) such as
+%
+\begin{equation*}
+  \begin{split}
+    [&AppNumber, Name, TopoParameters,\\ &GeoParameters]
+  \end{split}
+\end{equation*}
+%
+is a syntactic example of a parametric specification entry. %
+
 
 %%% Local Variables:
 %%% mode: latex

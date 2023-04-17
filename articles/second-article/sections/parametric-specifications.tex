@@ -1,9 +1,22 @@
 \section{Parametric specifications}
 
+\input{../tables/parametric-specification-table}
+
 The reevaluation of an object first requires the recording of its construction
 ({\color{blue}modelling}) process in the form of a parametric specification. %
 The production of such a record is a two-part task, namely the persistent
 identification of darts and the persistent naming of topological parameters. %
+In such a record, an entry must comprise an application ordering number
+(\emph{AppNumber}), a name (\emph{Name}), topological parameters {\color{blue}as
+  persistent names} (\emph{TopoParameters}) and geometric parameters
+(\emph{GeoParameters}) such as follow
+%
+\begin{equation*}
+  \begin{split}
+    [&AppNumber, Name, TopoParameters,\\ &GeoParameters]
+  \end{split}
+\end{equation*}
+%
 
 \subsection{Persistent ID}
 
@@ -17,7 +30,7 @@ A PI must also be unique in order to avoid ambiguity in a Persistent Name. %
 % Why is a PI needed ?
 As suggested in Section~\ref{ssec:g-maps}, a dart is the topological entity of
 lowest dimension in a G-map and is part of several orbits. %
-Since darts result from the application of rules, to use them in a persistent
+Since darts result from the application of rules, their usage in a persistent
 naming scheme means they must be persistently identified.%
 %
 % How PIs are built ?
@@ -65,50 +78,92 @@ And because of the former PIs being unique, any subsequent PI is unique. %
 
 \subsection{Persistent Names}
 
+% What is a PN?
 A \emph{Persistent Name} (or \emph{PN}), is a structure which identifies, with a
 collection of PIs, an orbit designated as a topological parameter. %
 
-Although a PI can reliably identify a dart, it may not be able, by itself, to represent all the changes that affected an orbit. %
+% Why is a PN needed ?
+Although PIs can persistently identify darts, a dart is only a part of an
+orbit. %
+When two operations affect two parts of an orbit which do not share any dart,
+some changes to the orbit may be lost in the record if only one PI is
+considered. %
 
-In such a case, a PN will collect one or more PIs until there is as necessary
-and sufficient amount of data to precisely describe an orbit as a topological
-parameter such that
+% How a PN is built?
+In such a case, a PN will collect one or more PIs to precisely describe an orbit
+as a topological parameter such that
 %
 \begin{equation*}
   PN_{a} = \{PI_{x} \dots PI_{z}\}
 \end{equation*}
 %
 is a syntactic example of a PN. %
+
+\begin{figure*}[ht!]
+  \centering
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-ground}
+    \caption{}
+    \label{fig:house-ground}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-walls}
+    \caption{}
+    \label{fig:house-walls}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-reshape-flat-roof}
+    \caption{}
+    \label{fig:house-reshape-flat-roof}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-higher-flat-roof}
+    \caption{}
+    \label{fig:house-higher-flat-roof}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-triangulate-facade}
+    \caption{}
+    \label{fig:house-triangulate-facade}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-reshape-flat-to-sharp-roof}
+    \caption{}
+    \label{fig:house-reshape-flat-to-sharp-roof}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-flatten-sharp-roof}
+    \caption{}
+    \label{fig:house-flatten-sharp-roof}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{house-color-facade}
+    \caption{}
+    \label{fig:house-color-facade}
+  \end{subfigure}
+  \caption{House modelling process}
+  \label{house-color-facade}
+\end{figure*}
+
+% How much PIs are necessary to persistently describe an orbit?
+In order to precisely describe an orbit, a PN must gather a necessary and
+sufficient number of PIs. %
+Since the rules that affected an orbit may not all be recorded in a single PI,
+then a PN must collect PIs such that a maximum of rules are represented. %
+To avoid redundancy, and make a PN easier to read, it is possible to prune PIs
+such that a minimum of PIs remains, provided that there is always at least one
+occurrence of each rule related to the orbit. %
+{\color{darkgreen}For example, the Table~\ref{tbl:param-spec-example} eighth
+  entry identifies a face coloured in blue during the modelling process
+  (Fig.~\ref{fig:house-color-facade}). %
+  This face is the result of three rule applications namely the creation of a
+  face, the extrusion of this face and finally the insertion of a vertex. %
+  Therefore, its PN must gather PIs in order to describe the applications theses
+  three rules. %
+  Since the only PI within $PN_{7}$ holds an occurrence of AppNumbers one, two
+  and three in its record, no other PI is needed. %
 %
-% Although darts have persistent IDs, a topological entity comprises several. %
-% A single persistent ID may not suffice to represent all the rules that impacted
-% such an entity. %
-% The gathering of enough persistent IDs within a persistent name can then be
-% necessary to persistently and formally designate a topological entity. %
-% A persistent name is created a posteriori of an application. %
-% It is a collection of one or more persistent IDs found in an entity. %
-% It must comprises a minimum of persistent IDs and these persistent IDs must
-% represent a maximum of rule application with as little overlap as possible. %
-% On souhaite représenter une entité topo avec un maximum d'information
-% d'évolution tout en ne prenant que le nécessaire en PIs.
-
-\subsection{Example}
-
-\input{../tables/parametric-specification-table}
-
-In the case of rule-based operations, each entry must comprise an application
-ordering number (\emph{AppNumber}), a name (\emph{Name}), topological parameters
-{\color{blue}as persistent names} (\emph{TopoParameters}) and geometric
-parameters (\emph{GeoParameters}) such as
-%
-\begin{equation*}
-  \begin{split}
-    [&AppNumber, Name, TopoParameters,\\ &GeoParameters]
-  \end{split}
-\end{equation*}
-%
-is a syntactic example of a parametric specification entry. %
-
+}
 
 %%% Local Variables:
 %%% mode: latex

@@ -47,6 +47,9 @@ public class JerboaStaticDetection {
 	 */
 	private boolean unchangedOrbit(JerboaRuleNode ruleNode, JerboaOrbit otype) {
 		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, otype);
+		// TODO: replace test 1 and 2 with areAllNodesPreserved
+		// TODO: all implicit links in <o> are preserved
+		// TODO: all explicit links are preserved
 		return !isThereAnyCreatedNode(ruleNodesOrbit) // No Created Node
 				&& isThereAnyMissingNode(ruleNodesOrbit, otype) // No Missing Node
 				&& areNodesUnchanged(ruleNodesOrbit, otype); // No Change in (between) nodes
@@ -109,7 +112,8 @@ public class JerboaStaticDetection {
 	private boolean isThereAnyMissingNode(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit otype) {
 
 		JerboaRuleNode leftRuleNode =
-				rule.getLeftRuleNode(rule.reverseAssoc(ruleNodesOrbit.get(0).getID()));
+				// rule.getLeftRuleNode(rule.reverseAssoc(ruleNodesOrbit.get(0).getID()));
+				rule.getLeftRuleNode(rule.getLeftIndexRuleNode(ruleNodesOrbit.get(0).getName()));
 		List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, otype);
 
 		return leftRuleNodesOrbit.size() == ruleNodesOrbit.size();

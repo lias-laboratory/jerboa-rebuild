@@ -149,13 +149,27 @@ public class JerboaRebuiltRuleTest {
 	 * and entry orbit is <1>. <0> is expected.
 	 */
 	@Test
-	public void test_computeBBOrigin_InsertVertex_vertex_creation() {
+	public void test_computeBBOrigin_InsertVertex_vertex_creation_1() {
 		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("InsertVertexFolded");
 		JerboaOrbit orbitType = JerboaOrbit.orbit(1);
 		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n1"));
 		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
 		assertEquals(JerboaOrbit.orbit(0), rule.computeBBOrigin(ruleNodesOrbit, orbitType));
 	}
+
+	/*
+	 * Test computeBBOrigin method. Rule is InsertVertexFolded, node for which to find origin is n1
+	 * and entry orbit is <1,2>. <0,2> is expected.
+	 */
+	@Test
+	public void test_computeBBOrigin_InsertVertex_vertex_creation_12() {
+		JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("InsertVertexFolded");
+		JerboaOrbit orbitType = JerboaOrbit.orbit(1, 2);
+		JerboaRuleNode ruleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode("n1"));
+		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+		assertEquals(JerboaOrbit.orbit(0, 2), rule.computeBBOrigin(ruleNodesOrbit, orbitType));
+	}
+
 
 	@Test
 	public void test_computeBBOrigin_InserteEdge_face_split() {

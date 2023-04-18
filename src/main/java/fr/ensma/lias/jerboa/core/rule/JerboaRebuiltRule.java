@@ -755,10 +755,11 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
      * @return a right rule node if it exists else null
      */
     private JerboaRuleNode getRightRuleNodeFromLeftRuleNode(JerboaRuleNode ruleNode) {
-        int nodeIndex = getRightIndexRuleNode(ruleNode.getName());
-        if (nodeIndex == -1)
+        String nodeName = ruleNode.getName();
+        int rightIndex = getRightIndexRuleNode(nodeName);
+        if (rightIndex == -1)
             return null;
-        return getRightRuleNode(nodeIndex);
+        return getRightRuleNode(rightIndex);
     }
 
     // TODO split absorbs merge when there is both split and merge for same

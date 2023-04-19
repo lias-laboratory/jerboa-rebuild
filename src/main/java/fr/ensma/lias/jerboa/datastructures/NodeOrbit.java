@@ -26,6 +26,12 @@ public class NodeOrbit {
 		children = new LinkedList<Link>();
 	}
 
+	public NodeOrbit(JerboaOrbit orbit, List<Integer> alphaPath) {
+		this.orbit = orbit;
+		this.alphaPath = new ArrayList<>(alphaPath);
+		children = new LinkedList<Link>();
+	}
+
 	public JerboaOrbit getOrbit() {
 		return orbit;
 	}
@@ -35,7 +41,7 @@ public class NodeOrbit {
 	}
 
 	public List<Integer> getAlphaPath() {
-		return this.alphaPath;
+		return alphaPath;
 	}
 
 	public void setChildren(List<Link> children) {
@@ -102,7 +108,7 @@ public class NodeOrbit {
 		if (ISNOEFFECT) {
 			NodeEvent NOEFFECTEvent = new NodeEvent(Event.NOEFFECT, this);
 			levelEvent.addEvent(NOEFFECTEvent);
-			NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);
+			NodeOrbit previousOrbitHR = new NodeOrbit(orbitType, this.getAlphaPath());
 			previousOrbitHR.addChild(new Link(LinkType.TRACE, NOEFFECTEvent));
 			addNodes(previousOrbitHR, nextStepOrbitHRs);
 			return nextStepOrbitHRs;

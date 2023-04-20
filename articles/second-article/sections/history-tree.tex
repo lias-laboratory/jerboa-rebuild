@@ -1,52 +1,127 @@
-\section{History DAG}
+\section{History Tree}
 
-Secondly, the topological changes (or events) an entity underwent during the
-initial construction must be tracked. %
-It is then necessary to trace the ``history'' leading to the registered state of
-an entity designated by a persistent name within a \emph{history tree}. %
+Following the construction of a Parametric Specification with PIs and PNs, the
+events that led to the registered topological parameters must be arranged into a
+\emph{History Tree} (or \emph{HT}). %
+An HT must be issued for each PI. %
+It is built in a reverse order, \textit{i.e.} from the last record of a PI up to
+the first. %
 
 \subsection{Event nodes and Orbit nodes}
 
-There are two types of nodes within a history tree~: \emph{event nodes} and
-\emph{orbit nodes}. %
-An event node is connected to at most one orbit node, is associated with an
-application index and holds an event type such as a creation, a modification, a
-split and so on. %
-An orbit node is connected to one or more event nodes, is associated with a rule
-node name and holds an orbit type. %
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.3\textwidth]{hr-rejeu-ajout-0-export}
+  \caption{History Tree of the Persistent Name $PN_{1}$}
+  \label{fig:history-tree-pn1}
+\end{figure}
 
-Within a history tree, each depth level is either a level of event nodes
-(\emph{i.e.} an event level) or a level of orbit nodes (\emph{i.e.} an orbit
-level). %
-These levels are created alternately during the construction of any history
-tree. %
+In order to represent the history of an orbit, a HT must arrange more
+than just a list of the rules involved and the events they produced. %
+Therefore, and with the intent to not miss important data, they comprise two
+types of nodes~: \emph{event nodes} and \emph{orbit nodes}. %
+Such an arrangement traces an topological parameter back to former orbits it
+derives from until these former orbits were created \textit{ex nihilo}. %
+
+An event node (Fig.~\ref{fig:history-tree-pn1}) is a node which represents a
+specific event produced by a rule application. %
+Therefore, it contains an event type (\textit{i.e.} Creation, Merge, Split and
+so on) and is associated to an application number. %
+
+An orbit node (Fig.~\ref{fig:history-tree-pn1}) is a node which represent a
+specific orbit resulting from the application of rule given a node of the rule
+right member. %
+Therefore, it contains an orbit type and is associated to a node. %
+
+Intuitively, each rule application generates a depth level within a HT and each
+level is made up of two layers. %
+A layer for the event nodes (\textit{i.e.} an \emph{Event Level}), and a layer
+for the orbit nodes (\textit{i.e.} an \emph{Orbit Level}). %
+For example, the Persistent Name $PN_{1}$ (Fig.~\ref{fig:history-tree-pn1})
+designates a face orbit ($\orbit{\alpha 0, \alpha 1}$)
+(Fig.~\ref{fig:house-ground}) in order to extrude it. %
+In the related HT (Fig.~\ref{fig:history-tree-pn1}), the upper layer is the
+Event Level and the lower layer is the Orbit Level. %
+The Event Level holds an application number $1$ (in a grey box with rounded
+corners) as well as an event node (also with rounded corners). %
+The Orbit Level holds a node name, $n_{3}$ (in a blue box with sharp corners) as
+well as an orbit node. %
+With such an arrangement, a node can only be linked with one the other type,
+\textit{i.e.} an event node with an orbit node. %
+In order to avoid ambiguity in a HT, an event node can lead to only one orbit
+node while an orbit node can lead to one or more event nodes. %
+
 
 \subsection{Traces and origins}
 
-There are two kind of relationship that can exist between two nodes~: the
-\emph{trace} (black arrows) or \emph{origin} (red arrows) relationships. %
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.4\textwidth]{ht-5-top-half}
+  \caption{Top half of the $PN_{6}$ History Tree}
+  \label{fig:history-tree-pn6}
+\end{figure}
 
-The trace relationship tracks an entity identified by an orbit node up to its
-previous state (another orbit node) in a history tree.
+In an intent to accurately describe the history of an orbit, a HT defines two
+types of relationships between nodes, namely a \emph{trace} (black arrows) and
+an \emph{origin} (red arrows). %
+Although the arrows point downwards to represent the evolution of an orbit, a HT
+is built and read upwards. %
 
-In the cases of creation, split and merging events, an entity is created, split
-into several ones or several entities are merged into one. %
-It is then impossible to unambiguously designate an entity without computing an
-orbit of origin. %
-An origin orbit is an orbit that matches all the darts used to change and
-entity. %
-% Dans une création et une scission, c'est l'ensemble des brins qui sont copiées
-% Dans une l'ensemble des brins qui sont supprimés.
+A trace relationship represents the evolution of an orbit through an event back
+to its previous state. %
 
-{\color{darkgreen}%
-  In a copy creation event, a new entity is created from another one. %
-  In this case the tree needs to track this orbit the entity originates from. %
-  In a split event, several entities can appear from the result of a split. %
-  Then, the tree must track the specific sub-orbit the tracked entity originates
-  from. %
-  Conversely, in a merging event, a tracked entity comes from several entities
-  and a origin must be found. %
-}
+An origin relationship represents an additional orbit used to describe a
+relation of creation or to get rid of ambiguities when there is a split or a
+merging event. %
+
+Intuitively, an orbit can be traced when it existed prior to a rule application
+and that there is no ambiguity, \textit{i.e.}, the orbit to be traced is not the
+result of a split nor a merging event. %
+In such a case, since the orbit is the same at a previous state, both version of
+the orbit share the same orbit type. %
+For example, the Persistent Name $PN_{6}$ (Fig.~\ref{fig:history-tree-pn6})
+designates a vertex ($\orbit{\alpha 1, \alpha 2}$) to chamfer
+(Fig.~\ref{fig:house-reshape-flat-to-sharp-roof}). %
+In an excerpt of the related HT, the face vertex orbit ($\orbit{\alpha 1}$),
+associated to the node $n_{0}$ existed prior to the third rule application and,
+thus, are linked with trace relationships. %
+
+When an orbit is the result of a creation event, it cannot be traced. %
+In this case, its origin is the orbit that led to its creation. %
+For example, in the $PN_{6}$ HT excerpt, the face vertex orbit
+$\orbit{\alpha 1}$ associated to the node $n_{6}$ is created by the second rule
+application and its origin is the face vertex orbit associated to the node
+$n_{5}$ (which is created \textit{ex nihilo} since the first rule has no
+topological parameter). %
+When an orbit is the result of a split or a merging event, an additional origin
+orbit helps to have a more precise history as well as to get rid of ambiguities
+at reevaluation time. %
+For example, in the $PN_{6}$ HT excerpt, the face edge orbit
+($\orbit{\alpha 0}$) associated to the node $n_{0}$ is split by the third rule
+application. %
+Thus, in order to know from which side of the split the orbit evolved, the
+origin relationship designates a dart (which the larger sub-orbit of
+$\orbit{0}$, excluding $\orbit{0}$ itself). %
+
+
+% In the cases of creation, split and merging events, an entity is created, split
+% into several ones or several entities are merged into one. %
+% It is then impossible to unambiguously designate an entity without computing an
+% orbit of origin. %
+% An origin orbit is an orbit that matches all the darts used to change and
+% entity. %
+% % Dans une création et une scission, c'est l'ensemble des brins qui sont copiées
+% % Dans une l'ensemble des brins qui sont supprimés.
+
+% {\color{darkgreen}%
+%   In a copy creation event, a new entity is created from another one. %
+%   In this case the tree needs to track this orbit the entity originates from. %
+%   In a split event, several entities can appear from the result of a split. %
+%   Then, the tree must track the specific sub-orbit the tracked entity originates
+%   from. %
+%   Conversely, in a merging event, a tracked entity comes from several entities
+%   and a origin must be found. %
+% }
 
 \subsection{Paths to origins}
 

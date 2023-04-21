@@ -11,7 +11,7 @@ the first. %
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.3\textwidth]{hr-rejeu-ajout-0-export}
+  \includegraphics[width=0.25\textwidth]{hr-rejeu-ajout-0-export}
   \caption{History Tree of the Persistent Name $PN_{1}$}
   \label{fig:history-tree-pn1}
 \end{figure}
@@ -52,7 +52,7 @@ In order to avoid ambiguity in a HT, an event node can lead to only one orbit
 node while an orbit node can lead to one or more event nodes. %
 
 
-\subsection{Traces and origins}
+\subsection{Trace and origin}
 
 \begin{figure}[ht!]
   \centering
@@ -64,74 +64,89 @@ node while an orbit node can lead to one or more event nodes. %
 In an intent to accurately describe the history of an orbit, a HT defines two
 types of relationships between nodes, namely a \emph{trace} (black arrows) and
 an \emph{origin} (red arrows). %
-Although the arrows point downwards to represent the evolution of an orbit, a HT
-is built and read upwards. %
 
-A trace relationship represents the evolution of an orbit through an event back
-to its previous state. %
+A trace relationship indicates that an orbit existed prior to a rule
+application. %
+Intuitively, these orbits have the same type. %
+{\color{darkgreen}%
+  For example, the $PN_{6}$ in the parametric specification
+  (Table~\ref{tbl:param-spec-example}) designates a vertex
+  ($\orbit{\alpha 1, \alpha 2}$) to chamfer
+  (Fig.~\ref{fig:house-reshape-flat-to-sharp-roof}). %
+  In an excerpt of the related HT (Fig.~\ref{fig:history-tree-pn6}), the face
+  vertex orbit ($\orbit{\alpha 1}$), associated to the node $n_{0}$ existed
+  prior to the third rule application and, thus, are linked with trace
+  relationships. %
+}
 
-An origin relationship represents an additional orbit used to describe a
-relation of creation or to get rid of ambiguities when there is a split or a
-merging event. %
+An origin relationship represents an additional orbit, it is issued when there
+is a creation, a split or a merging event. %
+For example, in a creation, an origin is the orbit used to copy create another
+orbit. in a split or a merging event, it helps to get rid of ambiguities and
+offer a precise history description of an orbit. %
 
-Intuitively, an orbit can be traced when it existed prior to a rule application
-and that there is no ambiguity, \textit{i.e.}, the orbit to be traced is not the
-result of a split nor a merging event. %
-In such a case, since the orbit is the same at a previous state, both version of
-the orbit share the same orbit type. %
-For example, the Persistent Name $PN_{6}$ (Fig.~\ref{fig:history-tree-pn6})
-designates a vertex ($\orbit{\alpha 1, \alpha 2}$) to chamfer
-(Fig.~\ref{fig:house-reshape-flat-to-sharp-roof}). %
-In an excerpt of the related HT, the face vertex orbit ($\orbit{\alpha 1}$),
-associated to the node $n_{0}$ existed prior to the third rule application and,
-thus, are linked with trace relationships. %
+\begin{definition}[Origin]\label{def:origin}
+  Let $r : L \longrightarrow R$ be a rule, $m : L \to G$ a match,
+  % $t : G \longrightarrow^{r,m} H$ a transformation of $G$ by $(r,m)$,
+  $\orbit{o}$ an orbit type, $n$ a preserved node of $r$ and $d$ a preserved
+  dart of $t$.
+
+  An origin orbit of $R\orbit{o}(n)$ in $L$ is an orbit $L\orbit{o'}(n')$ where:
+  \begin{itemize}
+    \item $n'$ is a node of $L$
+    \item $\orbit{o'}$ is the set of dimensions $i$ where $i$ is rewritten in an
+          implicit link of $n'$; \textit{i.e.}
+          $(l_{L}(n') \mapsto l_{R}(n))(i) = j \in \orbit{o}$
+  \end{itemize}
+  An origin orbit of $H\orbit{o}(d')$, where $d'$ is a dart matched by $n'$, is
+  an orbit $G\orbit{o'}(d)$.
+\end{definition}
 
 When an orbit is the result of a creation event, it cannot be traced. %
 In this case, its origin is the orbit that led to its creation. %
-For example, in the $PN_{6}$ HT excerpt, the face vertex orbit
-$\orbit{\alpha 1}$ associated to the node $n_{6}$ is created by the second rule
-application and its origin is the face vertex orbit associated to the node
-$n_{5}$ (which is created \textit{ex nihilo} since the first rule has no
-topological parameter). %
+{\color{darkgreen}%
+  For example, the vertex orbit $R\orbit{\alpha 1, \alpha 2}(n_{2})$ in the face
+  triangulation rule (Fig.~\ref{fig:rule-face-triangulation}) is a created
+  orbit. %
+  Following the definition~\ref{def:origin} and given that
+  $\orbit{o} = \orbit{\alpha 1, \alpha 2}$, $R(n_{2})$ first implicit link belongs
+  to $\orbit{o}$, therefore, $L(n_{0})$ first implicit link belongs to
+  $\orbit{o'}$, such that $\alpha 0 \in \orbit{o'}$. %
+  Since the second implicit link of the orbit also belongs to $\orbit{o}$, then,
+  $\alpha 1 \in \orbit{o'}$ and $\orbit{o'} = \orbit{\alpha 0, \alpha 1}$. %
+  Therefore, the vertex created by the face triangulation rule originates from
+  the face being triangulated. %
+  %
+  In the $PN_{6}$ HT excerpt, the face vertex orbit $\orbit{\alpha 1}$
+  associated to the node $n_{6}$ is created by the second rule application and
+  its origin is the face vertex orbit associated to the node $n_{5}$ (which is
+  created \textit{ex nihilo} since the first rule has no topological
+  parameter). %
+}%
 When an orbit is the result of a split or a merging event, an additional origin
 orbit helps to have a more precise history as well as to get rid of ambiguities
 at reevaluation time. %
-For example, in the $PN_{6}$ HT excerpt, the face edge orbit
-($\orbit{\alpha 0}$) associated to the node $n_{0}$ is split by the third rule
-application. %
-Thus, in order to know from which side of the split the orbit evolved, the
-origin relationship designates a dart (which the larger sub-orbit of
-$\orbit{0}$, excluding $\orbit{0}$ itself). %
-
-
-% In the cases of creation, split and merging events, an entity is created, split
-% into several ones or several entities are merged into one. %
-% It is then impossible to unambiguously designate an entity without computing an
-% orbit of origin. %
-% An origin orbit is an orbit that matches all the darts used to change and
-% entity. %
-% % Dans une création et une scission, c'est l'ensemble des brins qui sont copiées
-% % Dans une l'ensemble des brins qui sont supprimés.
-
-% {\color{darkgreen}%
-%   In a copy creation event, a new entity is created from another one. %
-%   In this case the tree needs to track this orbit the entity originates from. %
-%   In a split event, several entities can appear from the result of a split. %
-%   Then, the tree must track the specific sub-orbit the tracked entity originates
-%   from. %
-%   Conversely, in a merging event, a tracked entity comes from several entities
-%   and a origin must be found. %
-% }
-
-\subsection{Paths to origins}
-
-In some cases (usually a merging event), an origin is a deleted entity, yet it
-is necessary to identify them to build history trees. %
-However, the operations being graph transformation rules, it is possible to
-find, from the rules only, a path from an entity to its origin.
 {\color{darkgreen}%
-  example
-}
+  For example, the face orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ in the face
+  triangulation rule is a split orbit. %
+  Given that $\orbit{o} = \orbit{\alpha 0, \alpha 1}$, $R(n_{0})$ first implicit
+  link belongs to $\orbit{o}$, therefore, $L(n_{0})$ first implicit link belongs
+  to $\orbit{o'}$, such that $\alpha 0 \in \orbit{o'}$. %
+  $R(n_{1})$ has no implicit link within $\orbit{o}$ and $R(n_{2})$ also has
+  only the first implicit link within $\orbit{o}$. %
+  Therefore, the face orbit $R\orbit{\alpha 0, \alpha 1}(n_{0})$ originates from
+  the face edge orbit $L\orbit{\alpha 0}(n_{0})$. In the $PN_{6}$ HT excerpt,
+  the face edge orbit ($\orbit{\alpha 0}$) associated to the node $n_{0}$ is
+  split by the third rule application. %
+  Thus, in order to know from which side of the split the orbit evolved, the
+  origin relationship designates a dart (which the larger sub-orbit of
+  $\orbit{0}$, excluding $\orbit{0}$ itself). %
+}%
+
+
+\subsection{Relative path to an origin}
+
+
 
 \subsection{Example}
 A history tree is built from the last known state of an entity, which will be

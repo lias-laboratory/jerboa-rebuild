@@ -46,6 +46,7 @@ public class MatchingTree {
 		ApplicationType appType = application.getApplicationType();
 
 		switch (appType) {
+			case DELETE:
 			case INIT:
 				int appNumber = levelEventHR.getAppNumber();
 				String nodeName = levelEventHR.getNextLevelOrbit().getNodeName();
@@ -98,7 +99,6 @@ public class MatchingTree {
 				registerLevel(application.getApplicationID(), newLevelEventMT, eventList, orbitList,
 						appType);
 				break;
-
 			default:
 				break;
 		}
@@ -190,6 +190,10 @@ public class MatchingTree {
 			newNodeEvent.setChild(new NodeOrbit(orbitType));
 			// child's own children are upper node event's child children
 			newNodeEvent.getChild().setChildren(nodeEventHR.getChild().getChildren());
+
+			if (newNodeEvent.getEvent() == Event.SPLIT) {
+				System.out.println(newNodeEvent.getEvent());
+			}
 
 			orbitList.add(newNodeEvent.getChild());
 			eventList.add(newNodeEvent);

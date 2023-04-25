@@ -189,8 +189,10 @@ public class DemoInstantRebuild {
 			}
 
 			try {
-				appResult = apply(application.getRule(), topoParameters);
-				gmapviewer.updateIHM();
+				if (application.getApplicationType() != ApplicationType.DELETE) {
+					appResult = apply(application.getRule(), topoParameters);
+					gmapviewer.updateIHM();
+				}
 			} catch (JerboaException e) {
 				e.printStackTrace();
 			}
@@ -312,10 +314,10 @@ public class DemoInstantRebuild {
 				// "merge-exple-part2.json", //
 				"./examples", //
 				// "spec_penta-split-triangulate-two-deleteedge.json", //
-				"spec_createpentagon-insertvertex-insertedge-triangulate-triangulate.json", //
+				"article-2-build.json", //
 				"./examples", //
 				// "spec_penta-split-triangulate-two-deleteedge.json", //
-				"rebuild-add-vertex.json", //
+				"article-2-build-reevaluation.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {

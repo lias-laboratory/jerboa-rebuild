@@ -107,7 +107,7 @@ public class NodeOrbitTest {
 
 		rule = (JerboaRebuiltRule) modeler.getRule("CreateSquareFace");
 		nodeOrbit.computePath(rule, "n1");
-		// assertEquals(Arrays.asList(), nodeOrbit.getAlphaPath());
+		assertEquals(Arrays.asList(), nodeOrbit.getAlphaPath());
 	}
 
 	@Test

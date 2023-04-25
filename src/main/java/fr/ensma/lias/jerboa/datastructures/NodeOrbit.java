@@ -254,15 +254,16 @@ public class NodeOrbit {
 		int nodeOfInterest = rule.getRightIndexRuleNode(nodeName);
 		JerboaRuleNode rNode = rule.getRightRuleNode(nodeOfInterest);
 
-		if (rule.isNodeCreated(rNode))
-			return;
+		// if (rule.isNodeCreated(rNode)) {
+		// return;
+		// }
 
 		if (this.alphaPath.isEmpty())
 			// if (rule.isNodeCreated(rNode)) {
 			// find hook in `rule.right`
 			// }
-			if (rule.isNodeHook(rNode)) {
-				this.alphaPath = Arrays.asList();
+			if (rule.isNodeHook(rNode) || rule.isNodeCreated(rNode)) {
+				this.alphaPath = new ArrayList<>();
 			} else {
 				int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
 				JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
@@ -270,6 +271,11 @@ public class NodeOrbit {
 						rule.collectLabelsFromSourceToClosestTarget(lNode, rule.getHooks(), null);
 			}
 		else {
+
+			if (rule.isNodeCreated(rNode)) {
+				alphaPath = new ArrayList<>();
+				return;
+			}
 			int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
 			JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
 			JerboaRuleNode hook = rule.findClosestHook(lNode, rule.getHooks());

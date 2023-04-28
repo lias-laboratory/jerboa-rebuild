@@ -6,32 +6,53 @@ The reevaluation of an object first requires the recording of its construction
 ({\color{blue}/modelling}) process in the form of a parametric specification. %
 The production of such a record is a two-part task, namely the persistent
 identification of darts and the persistent naming of topological parameters. %
-In such a record, an entry must comprise an application ordering number
-(\emph{AppNumber}), a name (\emph{Name}), topological parameters {\color{blue}as
+Each record is made of a rule application ordering number
+(\emph{AppNumber}), a rule name (\emph{RuleName}), topological parameters {\color{blue}as
   persistent names} (\emph{TopoParameters}) and geometric parameters
 (\emph{GeoParameters}) such as follow
 %
 \begin{equation*}
   \begin{split}
-    [&AppNumber, Name, TopoParameters,\\ &GeoParameters]
+    [&AppNumber, RuleName, TopoParameters,\\ &GeoParameters]
   \end{split}
 \end{equation*}
 %
 
 \subsection{Persistent ID}
 
+Persistent identifiers must help following the evolution of orbits through rule
+applications. %
+In order to find a certain dart at reevaluation, it is possible to record the
+successive rule applications with the nodes that matched the dart. %
+For example, dart $11$ (fig eval-4) has the same persistent identifier than dart
+$b$ (fig reeval-4) even though the specification modification leads to it having
+another concrete name. %
+At initial evaluation, create-square node $n_{3}$ creates dart $3$, then the
+extrusion-face node $n_{4}$ copy creates dart $11$ from dart $3$ and, finally,
+insert-vertex does not match dart $11$. %
+At reevaluation, create-square node $n_{3}$ recreates dart $3$ identically,
+insert-vertex node $n_{0}$ matches dart $3$ without modifying it and, finally,
+face-extrusion node $n_{4}$ copy creates dart $b$ from dart $3$. %
+Dart $11$ Persistent Identifier, thus, helps finding dart $b$ new identity
+(being $13$). %
+
+
+
+
 % What is a PI ?
 A \emph{Persistent ID} (or \emph{PI}) is a data structure which is part of the
 persistent naming scheme proposed in this contribution. %
-This structure identifies a dart by recording all the rules that affected it
-during a construction. %
-A PI must also be unique in order to avoid ambiguity in a Persistent Name. %
-
+This structure identifies a dart in a unique way by recording how the rules
+affected it during the construction process. %
 % Why is a PI needed ?
-As suggested in Section~\ref{ssec:g-maps}, a dart is the topological entity of
-lowest dimension in a G-map and is part of several orbits. %
-Since darts result from the application of rules, their usage in a persistent
-naming scheme means they must be persistently identified.%
+As described in Section~\ref{ssec:g-maps}, a dart is the atomic topological
+entity in a G-map and, thus, is the most stable entity to use in an
+identification scheme. %
+Both the existence and evolution of a dart is the result from the application of
+rules and, subsequently, from a unique construction and rewrite process proper
+to rules. %
+Hence, a PI, which exactly records this process, has the ability to persistently
+identify a dart. %
 %
 % How PIs are built ?
 In order to describe the state of a dart at any time during a construction, a PI
@@ -50,26 +71,42 @@ of the node that matched $d$ such that
 %
 is a syntactic example of a PI associated to $d$. %
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\linewidth]{rule-square-face-creation}
+  \caption{Rule $r: L \longrightarrow R$ of square face creation}
+  \label{fig:rule-square-face}
+\end{figure}
+
 % How can a PI be unique ?
 A PI, by construction, is unique. %
-When a rule has an empty left member, each node creates exactly one dart and
+When a rule has an empty left-hand side, each node creates exactly one dart and
 each of the associated PI is unique. %
-{\color{darkgreen}For example, the create-square rule listed in
-  Table~\ref{tbl:param-spec-example} has no left member. %
+{\color{darkgreen}For example, the create-square rule
+  (Fig~\ref{fig:rule-square-face}) listed in Table~\ref{tbl:param-spec-example}
+  has no left-hand side. %
   When the rule is applied, each of its nodes creates a dart such that each one
   has a unique PI (\textit{i.e.}, $PI_{d} = [1n_{0}]$, $PI_{d'} = [1n_{1}]$,
   $\dots$, $PI_{d''} = [1n_{7}]$). %
 } %
 
-From this point on, any future PI will either be an update or a creation derived
-from the PI of an already existing dart. %
-And because of the former PIs being unique, any subsequent PI is unique. %
-{\color{darkgreen}For example, the extrude-face rule, also listed in
-  Table~\ref{tbl:param-spec-example}, has one node in its left member and six in
-  its right member. %
-  With this rule, the darts matched by the left member (preserved by the node
-  $n_{0}$ in the right member) are updated from $[1n_{0}]$, $[1n_{1}]$, $\dots$,
-  $[1n_{7}]$ to $[1n_{0} - 2n_{0}]$, $[1n_{1} - 2n_{0}]$, $\dots$,
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{rule-extrude-faceA3}
+  \caption{Rule $r: L \longrightarrow R$ of face extrusion}
+  \label{fig:rule-face-extrusion}
+\end{figure}
+
+Otherwise, when a rule has a non empty left-hand side, any future PI will either
+be an update or a creation derived from the PI of an already existing dart. %
+And the former PIs being unique, any subsequent PI is unique. %
+{\color{darkgreen}For example, the extrude-face rule
+  (Fig.~\ref{fig:rule-face-extrusion}), also listed in
+  Table~\ref{tbl:param-spec-example}, has one node in its left-hand side and six
+  in its right-hand side. %
+  With this rule, the darts matched by the left-hand side (preserved by the node
+  $n_{0}$ in the right-hand side) are updated from $[1n_{0}]$, $[1n_{1}]$,
+  $\dots$, $[1n_{7}]$ to $[1n_{0} - 2n_{0}]$, $[1n_{1} - 2n_{0}]$, $\dots$,
   $[1n_{7} - 2n_{0}]$ and each PI remains unique. %
   The same goes for the newly created darts, depending of the node that creates
   them. %

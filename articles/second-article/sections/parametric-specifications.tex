@@ -20,97 +20,111 @@ Each record is made of a rule application ordering number
 
 \subsection{Persistent ID}
 
-Persistent identifiers must help following the evolution of orbits through rule
-applications. %
-In order to find a certain dart at reevaluation, it is possible to record the
-successive rule applications with the nodes that matched the dart. %
-For example, dart $11$ (fig eval-4) has the same persistent identifier than dart
-$b$ (fig reeval-4) even though the specification modification leads to it having
-another concrete name. %
-At initial evaluation, create-square node $n_{3}$ creates dart $3$, then the
-extrusion-face node $n_{4}$ copy creates dart $11$ from dart $3$ and, finally,
-insert-vertex does not match dart $11$. %
-At reevaluation, create-square node $n_{3}$ recreates dart $3$ identically,
-insert-vertex node $n_{0}$ matches dart $3$ without modifying it and, finally,
-face-extrusion node $n_{4}$ copy creates dart $b$ from dart $3$. %
-Dart $11$ Persistent Identifier, thus, helps finding dart $b$ new identity
-(being $13$). %
+Persistent identifiers must allow the tracking of orbits evolution through rules
+application. %
+In order to find a given dart, it is possible to record the successive
+applications of rules paired with the matching nodes. %
 
+For example, dart $9$ has the same Persistent ID than dart $b$ although they
+are given different fresh concrete names following the modification of the
+parametric specification. %
+At evaluation, the rule node $n_{3}$ from $create\_square$ creates dart $3$,
+then rule node $n_{6}$ from $extrude\_face$ copy creates dart $13$ from dart $3$
+and, finally, the $insert\_vertex$ rule does not match dart $13$. %
+At reevaluation, the rule node $n_{3}$ from $create\_square$ re-creates dart $3$
+as done in the initial evaluation, the rule node $n_{0}$ from the added
+$insert\_vertex$ matches dart $3$ without modifying it and, finally, the rule
+node $n_{6}$ copy creates dart $b$ from dart $3$. %
+Thus, dart $9$ Persistent Identifier provides a way to find dart $b$ new name
+(which is $11$). %
 
+\maxime{Les deux paragraphes qui suivent tirent beaucoup des stratégies de
+  parameter matching} %
 
+Regarding dart $a$, things become more complexe since the
+dart $56$ does not exist anymore at reevaluation due to the third rule
+application $insert\_vertex$ not being reevaluated. %
+Therefore, the Persistent Identifier must provide a way to find another dart
+representing the face incident to $56$ which is the topological parameter to the
+rule $colour\_face$. %
+At evaluation, the rule node $n_{5}$ from $create\_square$ creates dart $5$,
+then rule node $n_{5}$ from the $extrude\_face$ copy creates dart $48$ from dart
+$5$ and, finally, the rule node $n_{1}$ from $insert\_vertex$ copy creates dart
+$56$ from dart $48$. %
+The latter application modifies the face incident to the dart $56$ which is also
+the face incident to the dart $48$. %
+At reevaluation, the rule node $n_{5}$ from $create\_square$ creates dart $5$ as
+done in the initial evaluation, $insert\_vertex$ does not match dart $5$, the
+rule node $n_{6}$ from $extrude\_face$ copy creates the dart $a$ from dart
+$5$. %
+As stated above, the dart $a$ ($48$) is incident the face to find. %
 
-% What is a PI ?
-A \emph{Persistent ID} (or \emph{PI}) is a data structure which is part of the
-persistent naming scheme proposed in this contribution. %
-This structure identifies a dart in a unique way by recording how the rules
-affected it during the construction process. %
-% Why is a PI needed ?
-As described in Section~\ref{ssec:g-maps}, a dart is the atomic topological
-entity in a G-map and, thus, is the most stable entity to use in an
-identification scheme. %
-Both the existence and evolution of a dart is the result from the application of
-rules and, subsequently, from a unique construction and rewrite process proper
-to rules. %
-Hence, a PI, which exactly records this process, has the ability to persistently
-identify a dart. %
-%
-% How PIs are built ?
-In order to describe the state of a dart at any time during a construction, a PI
-records an \textit{AppNumber} and a node name (\emph{NodeName}). %
-Upon the application of a rule, although a node matches one or more darts, a
-dart is matched by at most one node. %
-Thus, for each application that affected a dart $d$, a PI must record the name
-of the node that matched $d$ such that
-%
-\begin{equation*}
-  \begin{split}
-    PI_{d} = [AppNumber &- NodeName;\\ AppNumber &- NodeName;\\ &\dots\\
-    AppNumber &- NodeName]
-  \end{split}
-\end{equation*}
-%
-is a syntactic example of a PI associated to $d$. %
+Similarly, the edge split caused by the added $insert\_vertex$ rule gives a way
+to find that the edge incident to the dart $3$ is split into two edges incident
+to the darts $3$ and $4$, then the rule node $n_{2}$ copy creates darts $b$ ($11$) and
+$c$ ($53$) from darts $3$ and $4$ respectively. %
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\linewidth]{rule-square-face-creation}
-  \caption{Rule $r: L \longrightarrow R$ of square face creation}
-  \label{fig:rule-square-face}
-\end{figure}
+In brief, a Persistent Identifier is a record of couples
+$[application, rule node]$. For example, the Persistent Identifier of dart $9$
+is $[1n_{3}; 2n_{5}]$. %
 
-% How can a PI be unique ?
-A PI, by construction, is unique. %
-When a rule has an empty left-hand side, each node creates exactly one dart and
-each of the associated PI is unique. %
-{\color{darkgreen}For example, the create-square rule
-  (Fig~\ref{fig:rule-square-face}) listed in Table~\ref{tbl:param-spec-example}
-  has no left-hand side. %
-  When the rule is applied, each of its nodes creates a dart such that each one
-  has a unique PI (\textit{i.e.}, $PI_{d} = [1n_{0}]$, $PI_{d'} = [1n_{1}]$,
-  $\dots$, $PI_{d''} = [1n_{7}]$). %
-} %
+Note that, by construction, a Persistent Identifier identifies a unique dart. %
+That is, darts all have different Persistent Identifiers. %
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{rule-extrude-faceA3}
-  \caption{Rule $r: L \longrightarrow R$ of face extrusion}
-  \label{fig:rule-face-extrusion}
-\end{figure}
+% % What is a PI ?
+% A \emph{Persistent ID} (or \emph{PI}) is a data structure which is part of the
+% persistent naming scheme proposed in this contribution. %
+% This structure identifies a dart by recording all the rules that affected it
+% during a construction. %
+% A PI must also be unique in order to avoid ambiguity in a Persistent Name. %
 
-Otherwise, when a rule has a non empty left-hand side, any future PI will either
-be an update or a creation derived from the PI of an already existing dart. %
-And the former PIs being unique, any subsequent PI is unique. %
-{\color{darkgreen}For example, the extrude-face rule
-  (Fig.~\ref{fig:rule-face-extrusion}), also listed in
-  Table~\ref{tbl:param-spec-example}, has one node in its left-hand side and six
-  in its right-hand side. %
-  With this rule, the darts matched by the left-hand side (preserved by the node
-  $n_{0}$ in the right-hand side) are updated from $[1n_{0}]$, $[1n_{1}]$,
-  $\dots$, $[1n_{7}]$ to $[1n_{0} - 2n_{0}]$, $[1n_{1} - 2n_{0}]$, $\dots$,
-  $[1n_{7} - 2n_{0}]$ and each PI remains unique. %
-  The same goes for the newly created darts, depending of the node that creates
-  them. %
-}
+% % Why is a PI needed ?
+% As suggested in Section~\ref{ssec:g-maps}, a dart is the topological entity of
+% lowest dimension in a G-map and is part of several orbits. %
+% Since darts result from the application of rules, their usage in a persistent
+% naming scheme means they must be persistently identified.%
+% %
+% % How PIs are built ?
+% In order to describe the state of a dart at any time during a construction, a PI
+% records an \textit{AppNumber} and a node name (\emph{NodeName}). %
+% Upon the application of a rule, although a node matches one or more darts, a
+% dart is matched by at most one node. %
+% Thus, for each application that affected a dart $d$, a PI must record the name
+% of the node that matched $d$ such that
+% %
+% \begin{equation*}
+%   \begin{split}
+%     PI_{d} = [AppNumber &- NodeName;\\ AppNumber &- NodeName;\\ &\dots\\
+%     AppNumber &- NodeName]
+%   \end{split}
+% \end{equation*}
+% %
+% is a syntactic example of a PI associated to $d$. %
+
+% % How can a PI be unique ?
+% A PI, by construction, is unique. %
+% When a rule has an empty left member, each node creates exactly one dart and
+% each of the associated PI is unique. %
+% {\color{darkgreen}For example, the create-square rule listed in
+%   Table~\ref{tbl:param-spec-example} has no left member. %
+%   When the rule is applied, each of its nodes creates a dart such that each one
+%   has a unique PI (\textit{i.e.}, $PI_{d} = [1n_{0}]$, $PI_{d'} = [1n_{1}]$,
+%   $\dots$, $PI_{d''} = [1n_{7}]$). %
+% } %
+
+% From this point on, any future PI will either be an update or a creation derived
+% from the PI of an already existing dart. %
+% And because of the former PIs being unique, any subsequent PI is unique. %
+% {\color{darkgreen}For example, the extrude-face rule, also listed in
+%   Table~\ref{tbl:param-spec-example}, has one node in its left member and six in
+%   its right member. %
+%   With this rule, the darts matched by the left member (preserved by the node
+%   $n_{0}$ in the right member) are updated from $[1n_{0}]$, $[1n_{1}]$, $\dots$,
+%   $[1n_{7}]$ to $[1n_{0} - 2n_{0}]$, $[1n_{1} - 2n_{0}]$, $\dots$,
+%   $[1n_{7} - 2n_{0}]$ and each PI remains unique. %
+%   The same goes for the newly created darts, depending of the node that creates
+%   them. %
+% }
 
 
 \subsection{Persistent Name}

@@ -1,0 +1,23 @@
+Dans le cadre de nos travaux, nous utilisons la librairie Jerboa. Cette
+librairie, développée au laboratoire XLIM, permet la construction et la
+manipulation de modèles géométriques à base topologique.
+
+Les modèles 3D sont représentés à partir de leur structure topologique
+(autrement dit leurs sommets, arêtes, faces, volumes et les relations entre ces
+éléments) sous la forme de graphes topologiques. Ces derniers peuvent
+être modifiés à l'aide de règles de transformations de graphes qui
+permettent de filtrer une partie du graphe et de le remplacer par le
+résultat de la transformation. Ces règles sont paramétrées, entre autres, par
+des entités topologiques. Par exemple, la règle qui assemble deux volumes prend
+en paramètre les deux faces le long desquelles les volumes seront cousus. Jerboa
+permet de définir des opérations plus complexes construites par des scripts,
+c'est-à-dire des enchaînements de règles.
+
+Dans cette thèse, nous poursuivons l'approche de \cite{cardo2019}. Nous
+considérons l'usage de brins comme entité topologique invariante. Les brins ne
+peuvent être ni scindés ni fusionnés. Ils peuvent ainsi être utilisés pour
+identifier les sommets, arêtes et faces d'un modèle.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

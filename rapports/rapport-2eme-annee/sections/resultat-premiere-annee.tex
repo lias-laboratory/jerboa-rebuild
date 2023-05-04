@@ -1,0 +1,64 @@
+Au cours de cette première année, nous avons tout d'abord étudié les évènements
+to\-po\-lo\-gi\-ques ayant lieu lors de l'application de règles. %
+Ces é\-vé\-ne\-ments sont la création d'une entité topologique, sa suppression, son
+non-changement, sa modification, la scission de deux entités topologiques et
+leur fusion. %
+
+Cette étude a d'abord donné lieu à l'implémentation d'une méthode pour mettre en
+évidence les évènements ayant lieu lors de la construction d'un modèle 3D. %
+Pour cela nous avons donc analysé des exemples puis documenté et formalisé ce
+qui dans leur écriture provoque un évènement pour chaque entité impactée par la
+règle. %
+Ainsi, nous avons défini de manière générique et pour chaque entité topologique
+les conditions dans lesquelles une règle provoquera un évènement donné. %
+
+
+Après cela, nous avons pu travailler sur des structures de données, que l'on
+appelle journaux d'historiques. %
+Ceux-ci permettent, à partir d'un nom persistant, de tracer l'origine et
+l'évolution de l'entité désignée dans la spécification paramétrique. %
+L'étape suivante a consisté à enregistrer les règles utilisées et leurs
+paramètres dans une spécification paramétrique puis de développer des structures
+de données pour représenter ces journaux d'historiques. %
+Nous avons implémenté un algorithme permettant de construire ces journaux
+d'historiques. %
+
+Par la suite, nous avons défini une structure de données pour représenter un
+arbre d'appariement. %
+Construit à partir d'un journal d'historique et d'une spécification
+pa\-ra\-mé\-tri\-que, ce dernier permet de retrouver dans le modèle réévalué,
+les entités correspondant aux entités désignées dans la spécification
+paramétrique initiale. %
+En l'état actuel, nous avons ensuite pu implémenter une méthode pour la
+reconstruction automatique d'un modèle à deux cond\-i\-t\-i\-ons : il doit
+s'agir d'une construction dont la spécification pa\-ra\-mé\-tri\-que n'a pas été
+éditée et ses règles ne doivent pas provoquer de fusion. %
+
+À ce jour, nous avons donc pu implémenter l'enregistrement de spécifications
+para\-mé\-tri\-ques, la construction de journaux d'historique, d'arbres
+d'appariement et le rejeu de modèles non-édités ne présentant pas d'évènement de
+fusion. %
+Nous avons également un document de travail dans lequel sont formalisés nos
+travaux, document servira pour la rédaction du manuscript de thèse et pour la
+rédaction d'un futur article. %
+
+
+D'ici décembre, nous prévoyons d'intégrer les cas de fusion, d'implémenter
+l'édition des spécifications paramétriques avec l'ajout, la suppression et le
+déplacement d'appels de règles. %
+Puis nous enchaînerons en fin d'année sur l'implémentation du rejeu de
+spé\-ci\-fi\-ca\-t\-i\-ons paramétriques après édition. %
+Les arbres d'appariement permettront ainsi de tracer les évènements et de
+proposer des options dans les cas où plusieurs paramètres topologiques
+apparaissent ou si, au contraire, aucun paramètre topologique ne peut être
+trouvé. %
+L'in\-té\-gra\-t\-i\-on d'une dimension temporelle pour animer l'évolution d'un
+modèle devra cer\-tai\-ne\-ment être mise de côté par soucis de temps afin d'une
+part d'étendre notre travail à l'utilisation d'opérations plus complexes
+définies à partir de scripts de règles, et d'autre part d'intégrer au modèle des
+annotations historiques. %
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

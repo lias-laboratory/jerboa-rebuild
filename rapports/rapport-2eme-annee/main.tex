@@ -1,0 +1,78 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage[french]{babel}
+\usepackage{csquotes}
+\usepackage[T1]{fontenc}
+%%%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyphsubst}
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+
+\addbibresource{references.bib}
+
+\title{Rapport de fin d'année pour la réinscription en troisième année de doctorat}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\vfill \noindent Au laboratoire LIAS sous l'encadrement de :
+
+\noindent
+\begin{center}
+  \begin{tabular}{ll}
+    Stéphane JEAN & \small Maître de Conférences HDR, Université de Poitiers, Poitiers, LIAS\\[0pt]
+    David MARCHEIX & \small Maître de Conférences, Université de Poitiers, Poitiers, LIAS\\[0pt]
+    Xavier SKAPIN & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
+  \end{tabular}
+\end{center}
+
+\vspace*{2em}
+\noindent et avec la collaboration de :
+
+\noindent
+\begin{center}
+  \begin{tabular}{ll}
+    Agnès ARNOULD & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
+    Hakim BELHAOUARI & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
+  \end{tabular}
+\end{center}
+
+\vspace{.15\textheight}
+
+\newpage
+
+\section{Sujet}
+\subfile{sections/sujet}
+
+\section{Contexte}
+\subfile{sections/contexte}
+
+\section{État de l'art}
+\subfile{sections/etat-art}
+
+\section{Originalité}
+\subfile{sections/originalite}
+
+\section{Stratégies de recherche}
+\subfile{sections/strategies-recherche}
+
+\section{Résultats à l'issue de la première année}
+\subfile{sections/resultat-premiere-annee}
+
+\section{Résultats à l'issue de la deuxième année}
+\subfile{sections/resultat-deuxieme-annee}
+
+\section{Perspectives pour la troisième année}
+\subfile{sections/perspective-troisieme-annee}
+
+\printbibliography
+
+\end{document}

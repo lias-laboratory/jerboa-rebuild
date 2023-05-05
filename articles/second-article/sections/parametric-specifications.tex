@@ -1,220 +1,210 @@
-\section{Parametric specifications}
+\section{Parametric specification}
 
-\input{../tables/parametric-specification-table}
+\begin{figure*}[ht!]
+  %\renewcommand\thesubfigure{\arabic{subfigure}}
+  \centering
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{1-evaluation-square}
+    \caption{\\1 square}
+    \label{fig:house-ground}
+    \label{fig:1-eval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{2-evaluation-extrusion}
+    \caption{\\2 extrude}
+    %\label{fig:house-walls}
+    \label{fig:2-eval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{3-evaluation-insert}
+    \caption{\\3 insert}
+    %\label{fig:house-reshape-flat-roof}
+    \label{fig:3-eval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{4-evaluation-extrusion}
+    \caption{\\4 extrude}
+    %\label{fig:house-higher-flat-roof}
+    \label{fig:4-eval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{5-evaluation-triangulation}
+    \caption{\\5 triangulate}
+    %\label{fig:house-triangulate-facade}
+    \label{fig:5-eval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{6-evaluation-collapse}
+    \caption{\\6 collapse}
+    %\label{fig:house-reshape-flat-to-sharp-roof}
+    \label{fig:6-eval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.119\textwidth}
+    \includegraphics[width=\textwidth]{7-evaluation-chamfer}
+    \caption{\\7 chamfer}
+    %\label{fig:house-flatten-sharp-roof}
+    \label{fig:7-eval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{8-evaluation-colour}
+    \caption{\\8 colour}
+    %\label{fig:house-color-facade}
+    \label{fig:8-eval}
+  \end{subfigure}
+  \caption{Evaluation}
+  %\label{house-color-facade}
+  \label{fig:evaluation}
+\end{figure*}
 
-The reevaluation of an object first requires the recording of its construction
-({\color{blue}/modelling}) process in the form of a parametric specification. %
-The production of such a record is a two-part task, namely the persistent
-identification of darts and the persistent naming of topological parameters. %
-Each record is made of a rule application ordering number
-(\emph{AppNumber}), a rule name (\emph{RuleName}), topological parameters {\color{blue}as
-  persistent names} (\emph{TopoParameters}) and geometric parameters
-(\emph{GeoParameters}) such as follow
-%
-\begin{equation*}
-  \begin{split}
-    [&AppNumber, RuleName, TopoParameters,\\ &GeoParameters]
-  \end{split}
-\end{equation*}
-%
+\begin{figure*}[ht!]
+B464  %\renewcommand\thesubfigure{\arabic{subfigure}}
+  \centering
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{1-reevaluation-square}
+    \caption{\\1 square}
+    \label{fig:1-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
+    \caption{\\ADD insert}
+    %\label{fig:house-reshape-flat-roof}
+    \label{fig:1add-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{2-reevaluation-extrusion}
+    \caption{\\2 extrude}
+    %\label{fig:house-walls}
+    \label{fig:2-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    %\includegraphics[width=\textwidth]{figures/3-evaluation-insert.pdf}
+      \caption{\\DELETE insert}
+    \label{fig:3delete-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{4-reevaluation-extrusion}
+    \caption{\\4 extrude}
+    %\label{fig:house-higher-flat-roof}
+    \label{fig:4-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{5-reevaluation-triangulation}
+    \caption{\\5 triangulate}
+    %\label{fig:house-triangulate-facade}
+    \label{fig:5-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{6-reevaluation-collapse}
+    \caption{\\6 collapse}
+    %\label{fig:house-reshape-flat-to-sharp-roof}
+    \label{fig:6-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{7-reevaluation-chamfer}
+    \caption{\\7 chamfer}
+    %\label{fig:house-flatten-sharp-roof}
+    \label{fig:7-reeval}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.1\textwidth}
+    \includegraphics[width=\textwidth]{8-reevaluation-colour}
+    \caption{\\8 colour}
+    %\label{fig:house-color-facade}
+    \label{fig:8-reeval}
+  \end{subfigure}
+  \caption{Reevaluation}
+  %\label{house-color-facade}
+  \label{fig:reevaluation}
+\end{figure*}
 
-\subsection{Persistent ID}
+During an object construction, a Parametric Specification records the rules applied and their parameters (both topological and geometric) in order to describe the modelling process. %
+When a Parametric Specification is edited, rules may be added, deleted, moved, and their parameters can be changed.%
+With such changes, the topological parameters may have different concrete names, be deleted and so on. %
+As a result, using the parameters' concrete names eventually lead to unexpected results (at best) or failure at runtime. %
 
-Persistent identifiers must allow the tracking of orbits evolution through rules
-application. %
-In order to find a given dart, it is possible to record the successive
-applications of rules paired with the matching nodes. %
+To this end, Persistent Names are required to robustly identify topological parameters across an object reevaluation. %
+The following Parametric Specification:
 
-For example, dart $9$ has the same Persistent ID than dart $b$ although they
-are given different fresh concrete names following the modification of the
-parametric specification. %
-At evaluation, the rule node $n_{3}$ from $create\_square$ creates dart $3$,
-then rule node $n_{6}$ from $extrude\_face$ copy creates dart $13$ from dart $3$
-and, finally, the $insert\_vertex$ rule does not match dart $13$. %
-At reevaluation, the rule node $n_{3}$ from $create\_square$ re-creates dart $3$
-as done in the initial evaluation, the rule node $n_{0}$ from the added
-$insert\_vertex$ matches dart $3$ without modifying it and, finally, the rule
-node $n_{6}$ copy creates dart $b$ from dart $3$. %
-Thus, dart $9$ Persistent Identifier provides a way to find dart $b$ new name
-(which is $11$). %
+\begin{verbatim}
+    1 - square(pos);
+    2 - extrude(3, vec);
+    3 - insert(41, vec);
+    4 - extrude(42, vec);
+    5 - triangulate(8);
+    6 - collapse(63);
+    7 - chamfer(55);
+    8 - colour(10);
+\end{verbatim}
 
-\maxime{Les deux paragraphes qui suivent tirent beaucoup des stratégies de
-  parameter matching} %
-
-Regarding dart $a$, things become more complexe since the
-dart $56$ does not exist anymore at reevaluation due to the third rule
-application $insert\_vertex$ not being reevaluated. %
-Therefore, the Persistent Identifier must provide a way to find another dart
-representing the face incident to $56$ which is the topological parameter to the
-rule $colour\_face$. %
-At evaluation, the rule node $n_{5}$ from $create\_square$ creates dart $5$,
-then rule node $n_{5}$ from the $extrude\_face$ copy creates dart $48$ from dart
-$5$ and, finally, the rule node $n_{1}$ from $insert\_vertex$ copy creates dart
-$56$ from dart $48$. %
-The latter application modifies the face incident to the dart $56$ which is also
-the face incident to the dart $48$. %
-At reevaluation, the rule node $n_{5}$ from $create\_square$ creates dart $5$ as
-done in the initial evaluation, $insert\_vertex$ does not match dart $5$, the
-rule node $n_{6}$ from $extrude\_face$ copy creates the dart $a$ from dart
-$5$. %
-As stated above, the dart $a$ ($48$) is incident the face to find. %
-
-Similarly, the edge split caused by the added $insert\_vertex$ rule gives a way
-to find that the edge incident to the dart $3$ is split into two edges incident
-to the darts $3$ and $4$, then the rule node $n_{2}$ copy creates darts $b$ ($11$) and
-$c$ ($53$) from darts $3$ and $4$ respectively. %
-
-In brief, a Persistent Identifier is a record of couples
-$[application, rule node]$. For example, the Persistent Identifier of dart $9$
-is $[1n_{3}; 2n_{5}]$. %
-
-Note that, by construction, a Persistent Identifier identifies a unique dart. %
-That is, darts all have different Persistent Identifiers. %
-
-% % What is a PI ?
-% A \emph{Persistent ID} (or \emph{PI}) is a data structure which is part of the
-% persistent naming scheme proposed in this contribution. %
-% This structure identifies a dart by recording all the rules that affected it
-% during a construction. %
-% A PI must also be unique in order to avoid ambiguity in a Persistent Name. %
-
-% % Why is a PI needed ?
-% As suggested in Section~\ref{ssec:g-maps}, a dart is the topological entity of
-% lowest dimension in a G-map and is part of several orbits. %
-% Since darts result from the application of rules, their usage in a persistent
-% naming scheme means they must be persistently identified.%
-% %
-% % How PIs are built ?
-% In order to describe the state of a dart at any time during a construction, a PI
-% records an \textit{AppNumber} and a node name (\emph{NodeName}). %
-% Upon the application of a rule, although a node matches one or more darts, a
-% dart is matched by at most one node. %
-% Thus, for each application that affected a dart $d$, a PI must record the name
-% of the node that matched $d$ such that
-% %
-% \begin{equation*}
-%   \begin{split}
-%     PI_{d} = [AppNumber &- NodeName;\\ AppNumber &- NodeName;\\ &\dots\\
-%     AppNumber &- NodeName]
-%   \end{split}
-% \end{equation*}
-% %
-% is a syntactic example of a PI associated to $d$. %
-
-% % How can a PI be unique ?
-% A PI, by construction, is unique. %
-% When a rule has an empty left member, each node creates exactly one dart and
-% each of the associated PI is unique. %
-% {\color{darkgreen}For example, the create-square rule listed in
-%   Table~\ref{tbl:param-spec-example} has no left member. %
-%   When the rule is applied, each of its nodes creates a dart such that each one
-%   has a unique PI (\textit{i.e.}, $PI_{d} = [1n_{0}]$, $PI_{d'} = [1n_{1}]$,
-%   $\dots$, $PI_{d''} = [1n_{7}]$). %
-% } %
-
-% From this point on, any future PI will either be an update or a creation derived
-% from the PI of an already existing dart. %
-% And because of the former PIs being unique, any subsequent PI is unique. %
-% {\color{darkgreen}For example, the extrude-face rule, also listed in
-%   Table~\ref{tbl:param-spec-example}, has one node in its left member and six in
-%   its right member. %
-%   With this rule, the darts matched by the left member (preserved by the node
-%   $n_{0}$ in the right member) are updated from $[1n_{0}]$, $[1n_{1}]$, $\dots$,
-%   $[1n_{7}]$ to $[1n_{0} - 2n_{0}]$, $[1n_{1} - 2n_{0}]$, $\dots$,
-%   $[1n_{7} - 2n_{0}]$ and each PI remains unique. %
-%   The same goes for the newly created darts, depending of the node that creates
-%   them. %
-% }
+represents the modelling process of an initial evaluation
+(Fig.~\ref{fig:evaluation}). %
+Its reevaluation (Fig~\ref{fig:reevaluation}) proposes a variant modelling
+process where a rule is added between applications 1 and 2, and where the
+application 3 is deleted. %
 
 
 \subsection{Persistent Name}
 
-% What is a PN?
-A \emph{Persistent Name} (or \emph{PN}), is a structure which identifies, with a
-collection of PIs, an orbit designated as a topological parameter. %
+With rules using darts as topological parameters, it ensues that these are the
+entities Persistent Names must robustly identify. %
 
-% Why is a PN needed ?
-Although PIs can persistently identify darts, a dart is only a part of an
-orbit. %
-When two operations affect two parts of an orbit which do not share any dart,
-some changes to the orbit may be lost in the record if only one PI is
-considered. %
+A dart is created through a unique sequence of rules' applications and their
+matching nodes. %
+Thus, a Persistent Name being a record of $\PN{application, rule\_node}$ pairs
+does robustly identify a dart. %
 
-% How a PN is built?
-In such a case, a PN will collect one or more PIs to precisely describe an orbit
-as a topological parameter such that
-%
-\begin{equation*}
-  PN_{a} = \{PI_{x} \dots PI_{z}\}
-\end{equation*}
-%
-is a syntactic example of a PN. %
+For example, following the initial evaluation, dart $10$'s
+(Fig.~\ref{fig:7-eval}) Persistent Name is $\PN{1n_{3}-2n_{1}-5n_{0}}$. However,
+due to an editing of the parametric specification, this same dart is given a
+different concrete name $c$ (Fig.~\ref{fig:7-reeval}) at reevaluation. %
+At evaluation, $square$'s (application 1) rule node $n_{3}$ creates the dart $3$
+''ex nihilo``. %
+Then, $extrusion$'s (application 2) rule node $n_{3}$ copy creates dart $10$
+from dart $3$. %
+And, finally, dart $10$ is matched by $triangulation$'s (application 5) rule
+node $n_0$. %
+At reevaluation, $squares$'s rule node $n_{3}$ recreates the dart $3$
+identically. %
+Now, the added $insertion$'s rule node $n_{0}$ matches the dart $3$ and, there
+is a shift in the concrete names attributions from now on. %
+Then, $extrusion$'s rule node $n_{3}$ copy creates the dart $12$ from the dart
+$3$. %
+And, finally, dart $12$ is matched by $extrusion$'s rule node $n_{0}$. %
+Thus, the Persistent Names makes it possible to find that dart $c$ concrete name
+is $12$. %
 
-\begin{figure*}[ht!]
-  \centering
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-ground}
-    \caption{}
-    \label{fig:house-ground}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-walls}
-    \caption{}
-    \label{fig:house-walls}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-reshape-flat-roof}
-    \caption{}
-    \label{fig:house-reshape-flat-roof}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-higher-flat-roof}
-    \caption{}
-    \label{fig:house-higher-flat-roof}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-triangulate-facade}
-    \caption{}
-    \label{fig:house-triangulate-facade}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-reshape-flat-to-sharp-roof}
-    \caption{}
-    \label{fig:house-reshape-flat-to-sharp-roof}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-flatten-sharp-roof}
-    \caption{}
-    \label{fig:house-flatten-sharp-roof}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.119\textwidth}
-    \includegraphics[width=\textwidth]{house-color-facade}
-    \caption{}
-    \label{fig:house-color-facade}
-  \end{subfigure}
-  \caption{House modelling process}
-  \label{house-color-facade}
-\end{figure*}
+By construction, a Persistent Name identifies a unique dart. %
+That is, darts all have a different Persistent Name. %
 
-% How much PIs are necessary to persistently describe an orbit?
-In order to precisely describe an orbit, a PN must gather a necessary and
-sufficient number of PIs. %
-Since the rules that affected an orbit may not all be recorded in a single PI,
-then a PN must collect PIs such that a maximum of rules are represented. %
-To avoid redundancy, and make a PN easier to read, it is possible to prune PIs
-such that a minimum of PIs remains, provided that there is always at least one
-occurrence of each rule related to the orbit. %
-{\color{darkgreen}For example, the Table~\ref{tbl:param-spec-example} eighth
-  entry identifies a face coloured in blue during the modelling process
-  (Fig.~\ref{fig:house-color-facade}). %
-  This face is the result of three rule applications namely the creation of a
-  face, the extrusion of this face and finally the insertion of a vertex. %
-  Therefore, its PN must gather PIs in order to describe the applications theses
-  three rules. %
-  Since the only PI within $PN_{7}$ holds an occurrence of AppNumbers one, two
-  and three in its record, no other PI is needed. %
-%
-}
+\subsection{Parametric Specification syntax}
+
+A number of fields are used to describe an application within a parametric
+specification, namely an application number \textit{AppNumber}, a \textit{Rule},
+the topological arameters \textit{TopoParameters} and the geometric paramaeters
+\textit{Geometric Parameters}. Additionnaly, a set of tags if an application was
+present at evaluation (\textit{INIT}), or if it either added (\textit{ADD}),
+deleted (\textit{DELETE}) or moved (\textit{MOVE}) at reevaluation. %
+
+%\begin{verbatim}
+%    [TAG, ApplicationNumber, Rule, TopologicalParameters, GeometricParameters]
+%\end{verbatim}
+
+Thus, the Parametric Specification of the initial modelling process
+(Fig.~\ref{fig:evaluation}), once edited to produce the reevaluation process
+(Fig.~\ref{fig:reevaluation}), takes the following form:
+
+\begin{verbatim}
+    INIT   1-square(pos);
+    ADD     -insert(3);
+    INIT   2-extrude(PN1={1n3}, vec);
+    DELETE 3-insert(PN2={1n5;2n4}, vec);
+    INIT   4-extrude(PN3={1n5;2n4;3n0}, vec);
+    INIT   5-triangulate(PN4={1n3;2n1});
+    INIT   6-collapse(PN5={1n4;2n5;4n6});
+    INIT   7-chamfer(PN6={1n5;2n5;3n0;4n4;6n2});
+    INIT   8-colour(PN7={1n3;2n3;5n0});
+\end{verbatim}
+
+%Note that the added application actually takes a dart's concrete name as a topological parameter. %
 
 %%% Local Variables:
 %%% mode: latex

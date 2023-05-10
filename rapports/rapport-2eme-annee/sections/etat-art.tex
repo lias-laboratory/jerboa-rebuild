@@ -1,20 +1,79 @@
-Un problème bien connu dans le domaine de la CAO et plus particulièrement dans
-la modélisation paramétrée est celui de la persistance de ces références
-topologiques. %
-En effet, lors du rejeu du processus de modélisation, la topologie peut être
-modifiée en fonction des modifications apportées à la spécification initiale.
-Les références topologique ne sont alors plus préservées.
+\begin{figure}[h!]
+  \begin{subfigure}[c]{1.0\linewidth}
+    \centering
+    \includegraphics[height=.08\textheight]{persistent-naming-pb-1}
+    \caption{}
+    \label{fig:persistent-naming-pb-1}
+  \end{subfigure}
+  \begin{subfigure}[c]{1.0\linewidth}
+    \centering
+    \includegraphics[height=.08\textheight]{persistent-naming-pb-2}
+    \caption{}
+    \label{fig:persistent-naming-pb-2}
+  \end{subfigure}
+  \caption{%
+    Spécification paramétrique. %
+    (a) Évaluation. %
+    (b) Réévaluation. %
+  }
+  \label{fig:persistent-naming-pb}
+\end{figure}
 
-Un système de nommage persistant des entités topologiques référencées doit alors
-être mis en œuvre pour garantir des résultats cohérents au rejeu. De tels
-systèmes ont déjà été présentés par \cite{kripac1995mechanism} et
-\cite{CAPOYLEAS199617}. Plusieurs approches de nommage persistant ont été
-explorées.
-La déclaration de caractéristiques de faces (ou feature faces) est
-proposée par Bidarra et al. dans \cite{bidarra2005feature}. Dans
-\cite{baba2009edge}, Baba-Ali et al. proposent un système basé sur l'appariement
+Un problème bien connu en CAO, et plus particulièrement dans la modélisation
+paramétrée, est celui de la persistance des références topologiques. %
+En effet, à l'issue d'un processus de modélisation, une spécification
+paramétrique ainsi que des références vers les entités topologiques impactés par
+les opérations successivement appliquées sont créées. %
+Ceci à pour objectif de rendre possible le rejeu d'un processus de
+modélisation. %
+Toutefois, lors du rejeu d'un processus de modélisation et lorsque la
+spécification initiale a été éditée, la topologie est elle-même susceptible
+d'être modifiée voire de ne plus exister et les références précédemment créées
+ne sont alors plus valides.
+
+La Figure~\ref{fig:persistent-naming-pb} illustre ce problème. %
+Au jeu initial (Figure~\ref{fig:persistent-naming-pb-1}), la première opération
+crée un cylindre et sa face du haut est nommée $f_{1}$. %
+L'opération suivante creuse une rainure dans $f_{1}$ qui est alors scindée. %
+Les deux faces issues de cette scission sont nommées $f_{2}$ et $f_{3}$ et
+$f_{1}$ n'est plus référençable. %
+Et enfin, un second cylindre est créé sur la face $f_{2}$. %
+Au rejeu (Figure~\ref{fig:persistent-naming-pb-2}), le seul changement apporté
+est la longueur de la rainure creusée dans $f_{1}$. %
+Néanmoins, ce changement fait que $f_{1}$ n'est pas scindée au rejeu et $f_{2}$
+n'existe pas. %
+La référence à $f_{2}$ n'est donc plus valide et l'application de l'opération
+créant le second cylindre ne produira pas le résultat attendu. %
+
+
+Pour répondre à cette problématique, un système de nommage persistant des
+entités topologiques référencées doit alors être mis en œuvre afin de garantir
+que des résultats cohérents seront produits à l'issu d'un rejeu. %
+Un tel système fonctionne en produisant, pour toute entité topologique
+référencée, un nom unique et de les redécouvrir au rejeu par appariement. %
+De tels systèmes ont déjà été présentés par \cite{kripac1995mechanism,
+  CAPOYLEAS199617, wu2001face}. %
+La déclaration de caractéristiques de faces (ou feature faces) est proposée par
+Bidarra et al. dans \cite{bidarra2005feature}. %
+Baba-Ali et al. \cite{baba2009edge} proposent un système basé sur l'appariement
 d'arêtes pour résoudre l'ambigüité du nommage des arêtes en cas intersections
-avec des faces non-planaires.
+avec des faces non-planaires. %
+
+
+% \begin{itemize}
+%   \item kripac
+%   \item capoyleas
+%   \item wu
+%   \item bidarra
+%   \item baba-ali
+%
+%   \item marcheix
+%   \item agbodan
+%   \item farjana
+%   \item cheon
+%   \item cardot
+% \end{itemize}
+
 
 %%% Local Variables:
 %%% mode: latex

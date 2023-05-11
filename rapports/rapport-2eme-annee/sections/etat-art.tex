@@ -24,12 +24,13 @@ paramétrée, est celui de la persistance des références topologiques. %
 En effet, à l'issue d'un processus de modélisation, une spécification
 paramétrique ainsi que des références vers les entités topologiques impactés par
 les opérations successivement appliquées sont créées. %
-Ceci à pour objectif de rendre possible le rejeu d'un processus de
-modélisation. %
-Toutefois, lors du rejeu d'un processus de modélisation et lorsque la
-spécification initiale a été éditée, la topologie est elle-même susceptible
-d'être modifiée voire de ne plus exister et les références précédemment créées
-ne sont alors plus valides.
+
+Ces références, qui servent alors de paramètres topologiques, doivent permettre
+le rejeu d'un processus de modélisation. %
+Toutefois, lors du rejeu d'une spécification paramétrique éditée, la topologie
+est susceptible d'évoluer de façon imprévue voire de disparaître. %
+Dans ces conditions, les références créées deviennent invalides et la
+réévaluation ne peut s'effectuer comme prévu. %
 
 La Figure~\ref{fig:persistent-naming-pb} illustre ce problème. %
 Au jeu initial (Figure~\ref{fig:persistent-naming-pb-1}), la première opération
@@ -45,12 +46,11 @@ n'existe pas. %
 La référence à $f_{2}$ n'est donc plus valide et l'application de l'opération
 créant le second cylindre ne produira pas le résultat attendu. %
 
-
 Pour répondre à cette problématique, un système de nommage persistant des
-entités topologiques référencées doit alors être mis en œuvre afin de garantir
-que des résultats cohérents seront produits à l'issu d'un rejeu. %
-Un tel système fonctionne en produisant, pour toute entité topologique
-référencée, un nom unique et de les redécouvrir au rejeu par appariement. %
+entités topologiques à référencer doit alors être mis en œuvre pour garantir la
+cohérence des résultats produits à l'issu d'un rejeu. %
+Un tel système fonctionne en produisant, pour toute entité topologique à
+référencer, un nom unique et de les redécouvrir au rejeu par appariement. %
 De tels systèmes ont déjà été présentés par \cite{kripac1995mechanism,
   CAPOYLEAS199617, wu2001face}. %
 La déclaration de caractéristiques de faces (ou feature faces) est proposée par

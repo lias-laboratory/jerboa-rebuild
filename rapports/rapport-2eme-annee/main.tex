@@ -1,4 +1,5 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass[a4paper,10pt]{article}
+% \documentclass[a4paper,twocolumn,11pt]{article}
 \usepackage[french]{babel}
 \usepackage{csquotes}
 \usepackage[T1]{fontenc}
@@ -9,44 +10,50 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{hyphsubst}
+\usepackage{multicol}
 \usepackage{subcaption}
 \usepackage{subfiles}
 \usepackage[normalem]{ulem}
 \usepackage{xcolor}
 
-\graphicspath{{./figures}{../../resources-figures-jerboa/concepts}{../../resources-figures-jerboa/rules}}
+\graphicspath{{./figures}{../../resources-figures-jerboa/concepts}{../../resources-figures-jerboa/rules}{../../resources-figures-jerboa/figures}}
 \addbibresource{references.bib}
 
-\title{Rapport de fin d'année pour la réinscription en troisième année de doctorat}
-\author{}
-\date{\today}
+\title{Rapport de fin d'année pour le Comité de Suivi Individuel (CSI)}
+\author{Maxime Gaide}
+% \date{\today}
 
 \begin{document}
 
-\maketitle
-\vfill \noindent Au laboratoire LIAS sous l'encadrement de :
+\begin{titlepage}
+  \clearpage\maketitle
+  \thispagestyle{empty}
 
-\noindent
-\begin{center}
-  \begin{tabular}{ll}
-    Stéphane JEAN & \small Maître de Conférences HDR, Université de Poitiers, Poitiers, LIAS\\[0pt]
-    David MARCHEIX & \small Maître de Conférences, Université de Poitiers, Poitiers, LIAS\\[0pt]
-    Xavier SKAPIN & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
-  \end{tabular}
-\end{center}
+  \vfill \noindent Au laboratoire LIAS sous l'encadrement de :
 
-\vspace*{2em}
-\noindent et avec la collaboration de :
+  \noindent
 
-\noindent
-\begin{center}
-  \begin{tabular}{ll}
-    Agnès ARNOULD & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
-    Hakim BELHAOUARI & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
-  \end{tabular}
-\end{center}
+  \begin{center}
+    \begin{tabular}{ll}
+      Stéphane JEAN & \small Maître de Conférences HDR, Université de Poitiers, Poitiers, LIAS\\[0pt]
+      David MARCHEIX & \small Maître de Conférences, Université de Poitiers, Poitiers, LIAS\\[0pt]
+      Xavier SKAPIN & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
+    \end{tabular}
+  \end{center}
 
-\vspace{.15\textheight}
+  \vspace*{2em}
+  \noindent et avec la collaboration de :
+
+  \noindent
+  \begin{center}
+    \begin{tabular}{ll}
+      Agnès ARNOULD & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
+      Hakim BELHAOUARI & \small Maître de Conférences, Université de Poitiers, Poitiers, XLIM\\[0pt]
+    \end{tabular}
+  \end{center}
+
+  \vspace{.15\textheight}
+\end{titlepage}
 
 \newpage
 
@@ -56,11 +63,14 @@
 \section{Contexte}
 \subfile{sections/contexte}
 
+\section{Originalité}
+\subfile{sections/originalite}
+
 \section{État de l'art}
 \subfile{sections/etat-art}
 
-\section{Originalité}
-\subfile{sections/originalite}
+\section{Définitions}
+\subfile{sections/definitions}
 
 \section{Stratégies de recherche}
 \subfile{sections/strategies-recherche}

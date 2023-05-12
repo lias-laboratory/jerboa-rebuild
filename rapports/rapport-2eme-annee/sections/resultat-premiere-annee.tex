@@ -1,47 +1,137 @@
-Au cours de la première année, nous avons tout d'abord étudié les évènements
-topologiques ayant lieu lors de l'application de règles. %
-Ces événements sont la création d'une entité topologique, sa suppression, son
-non-changement, sa modification, la scission de deux entités topologiques et
-leur fusion.\\%
+L'objectif de cette première année était le rejeu à l'identique d'une
+spécifications paramétrique comprenant uniquement des règles dites atomiques. %
 
-Cette étude a d'abord donné lieu à l'implémentation d'une méthode pour mettre en
-évidence les évènements ayant lieu lors de la construction d'un modèle 3D. %
-Pour cela nous avons donc analysé des exemples puis documenté et formalisé ce
-qui dans leur écriture provoque un évènement pour chaque entité impactée par la
-règle. %
-Ainsi, nous avons défini de manière générique et pour chaque entité topologique
-les conditions dans lesquelles une règle provoquera un évènement donné.\\ %
+Nous avons tout d'abord étudié les changements topologiques ayant lieu lors de
+l'application de règles, et en nous appuyant sur l'existant \cite{cardo2019},
+définit six changement topologiques (ou événement). %
+Ces derniers sont la création, la suppression, le non-changement, la scission la
+fusion et la modification .%
 
+Nous avons donc formalisé pour tout objet, uniquement à partir des règles, des
+conditions syntaxiques pour lesquelles une règle provoque un événement
+spécifique. %
 
-Après cela, nous avons pu travailler sur des structures de données, que l'on
-appelle journaux d'historiques. %
-Ceux-ci permettent, à partir d'un nom persistant, de tracer l'origine et
-l'évolution de l'entité désignée dans la spécification paramétrique. %
-L'étape suivante a consisté à enregistrer les règles utilisées et leurs
-paramètres dans une spécification paramétrique puis de développer des structures
-de données pour représenter ces journaux d'historiques. %
-Nous avons implémenté un algorithme permettant de construire ces journaux
-d'historiques.\\ %
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.7\columnwidth]{rule-face-triangulation-3D-boxed.pdf}
+  \caption{Règle de triangulation d'une face}
+  \label{fig:rule-triangulation}
+\end{figure}
 
-Par la suite, nous avons défini une structure de données pour représenter un
-arbre d'appariement. %
-Construit à partir d'un journal d'historique et d'une spécification
-paramétrique, ce dernier permet de retrouver dans le modèle réévalué,
-les entités correspondant aux entités désignées dans la spécification
-paramétrique initiale. %
-En l'état actuel, nous avons ensuite pu implémenter une méthode pour la
-reconstruction automatique d'un modèle à deux conditions : il doit
-s'agir d'une construction dont la spécification paramétrique n'a pas été
-éditée et ses règles ne doivent pas provoquer de fusion.\\ %
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}{.49\textwidth}
+  \centering
+    \includegraphics[width=.5\textwidth]{cube-article-view.pdf}
+    \caption{Graph G}
+    \label{fig:demo-cube}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{.49\textwidth}
+  \centering
+    \includegraphics[width=.5\textwidth]{triangulated-cube-article-view.pdf}
+    \caption{Graph H}
+    \label{fig:demo-cube-triangulated}
+  \end{subfigure}
+  \caption{Triangulation d'une face d'une cube}
+  \label{fig:demo-fig-triangulate-cube-face}
+\end{figure}
+
+Pour illustrer avec une règle qui triangule une face
+(Figure~\ref{fig:rule-triangulation}), le membre gauche filtre une face
+(Figure~\ref{fig:demo-cube}) et son membre droit la triangule (Figure~\ref{fig:demo-cube-triangulated}). %
+Dans cette règle, l'orbite sommet $\langle 1,2 \rangle$ incidente au nœud
+$n_{2}$ est composée du seul nœud $n_{2}$ qui est créé. %
+Cette règle crée donc un sommet sur la face à trianguler. %
+Si l'on observe l'orbite face $\langle 0, 1 \rangle$ incident au nœud $n_{0}$,
+celle-ci est composée d'un unique nœud dont la première liaison implicite est
+$0$ et la seconde liaison implicite est $1$ dans le membre gauche. %
+Dans le membre droit, aucun des nœuds $n_{0}$, $n_{1}$ et $n_{2}$ ne contient de
+seconde liaison implicite qui soit $0$ ou $1$. %
+Cette règle provoque donc la scission d'une face par ses sommets
+$\langle 1 \rangle$. %
+
+Nous avons donc défini, de manière générique et pour chaque entité topologique,
+les conditions dans lesquelles une règle provoquera un événement spécifique. %
+
+À partir de là, nous avons abordé la construction des spécifications
+paramétriques. %
+Pour cela il nous a fallu procéder à l'enregistrement des règles appliquées, de
+leur paramètres topologique et bien sûr implanter les différentes structures de
+données, à commencer par les Noms Persistants. %
+Comme énoncé plus tôt, les Noms Persistants, sont des structures dont le but est
+d'identifier de manière robuste une entité topologique. %
+Pour cela, nous avons d'abord procédé à la construction d'Identifiants
+Persistants. %
+Un nom persistant est un enregistrement, associé à un brin $b$, qui références
+toutes les applications ayant créé ou filtré $b$ ainsi que le nœud l'ayant
+filtré. %
+De cette façon, tout brin est identifié de manière unique. %
+Ces Identifiants Persistants sont ensuite collectés pour former des Noms
+Persistants et ainsi permettre une représentation exhaustive de l'ensemble des
+opérations ayant affecté une entité topologique. %
+Reprenons l'exemple du cube et de sa face triangulée
+(Figure~\ref{fig:demo-cube-triangulated}) et colorions l'une de ses faces. %
+La spécification paramétrique créée est la suivante :
+\begin{verbatim}
+1 CreateSquareFace()
+2 ExtrudeIndependentFace(PN1=[{1n3}])
+3 TriangulateFace(PN2[{1n4; 2n4}]>)
+4 MakeFaceBlue(PN3=[{1n3; 2n3; 3n2}])
+\end{verbatim}
+et le Nom Persistant désignant la face à colorier est
+$PN_{3}=\{1n_{3};2n_{3};3n_{2}\}$. %
+Dans l'ordre, cette face vient d'une face carrée qui a été extrudée pour former
+un cube, puis de la triangulation de l'une des faces du cube. %
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.3\textheight]{hr-rejeu-ajout-2-export.pdf}
+  \caption{DAG de jeu d'une face triangulée}
+  \label{fig:dag-triangulated-face}
+\end{figure}
+
+L'étape suivante a été d'enregistrer les règles utilisées et leurs paramètres
+dans une spécification paramétrique puis de développer une structure de données
+appelée DAG de jeu. %
+Ceux-ci sont construits à partir d'un Nom Persistant et retracent l'historique
+des évolutions de l'entité topologique désignée. %
+Dans ces DAGs, pour pouvoir retracer fidèlement l'histoire d'une entité
+topologique, nous définissons deux types d'évolutions : le suivi et l'origine. %
+Le suivi est une relation entre deux états d'une entité topologique et concerne
+les événements de non-modification et de modification. %
+L'origine est une relation de génération entre deux entités topologiques et
+concerne les événements de créations, de scission et de fusion. %
+Une orbite est une origine quand, dans une règle, elle est identifiable comme
+élément générateur du nouvel état d'une orbite suivie. %
+Reprenons le Nom Persistant $PN_{2}$ qui référence une face, issue d'une
+triangulation, à colorier. %
+Nous obtenons, le DAG figure~\ref{fig:dag-triangulated-face}. %
+Celui-ci se lit de bas en haut de la façon suivante : notre face dont le type
+d'orbite est $\langle 0, 1 \rangle$ et incidente au nœud $n_{3}$ de la troisième
+règle appliquée est le résultat de la scission d'une face. %
+Son orbite de suivi est la face incidente au nœud $n_{3}$ de la deuxième règle
+appliquée. %
+Son orbite d'origine, autrement dit celle à partir de laquelle elle est générée
+est l'arête $\langle 0 \rangle$ également incidente au nœud $n_{3}$ de la
+deuxième règle appliquée. %
+
+Toutefois, à ce moment là, il n'est pas possible de rejouer de spécification
+avec des événements de fusion. %
+
+Par la suite, nous avons défini une structure de données pour représenter un DAG
+de rejeu et procéder à l'appariement des paramètres topologiques lorsque la
+spécification paramétrique est éditée. %
+Construit à partir d'un DAG de jeu et d'une spécification paramétrique, ce
+dernier permet de retrouver dans le modèle réévalué, les entités correspondant
+aux entités désignées dans la spécification paramétrique initiale. %
 
 À l'issue de la première année, nous avons donc pu implémenter l'enregistrement
 de spécifications paramétriques, la construction de journaux d'historique,
 d'arbres d'appariement et le rejeu de modèles non-édités ne présentant pas
 d'évènement de fusion. %
-Nous maintenons également un document de travail dans lequel sont formalisés nos
-travaux. %
-Ce document servira pour la rédaction du manuscript de thèse et pour la
-rédaction de futures articles. %
+Un document de travail dans lequel nous formalisation nos concepts a été
+maintenu tout au long de l'année en vue de la rédaction d'un article. %
 
 
 %%% Local Variables:

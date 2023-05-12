@@ -1,3 +1,5 @@
+\subsection{Les G-cartes}
+
 \begin{figure*}[h!]
     \begin{subfigure}{.19\textwidth}
         \centering
@@ -113,29 +115,148 @@ Les orbites permettent également de représenter des entités topologiques de
 dimensions inférieures, par exemple l'arête de volume
 (Figure~\ref{fig:orbit-3D-edge-02}) de type $\langle 0,2 \rangle$. %
 
-Les G-cartes peuvent être modifiés à l'aide de règles de transformations de
-graphes qui pour un graphe quelconque en filtrent une partie et la remplace par
-le résultat de la transformation. %
-Ces règles sont paramétrées, entre autres, par des entités topologiques. %
+\subsection{Les règles de transformation de graphe}
+
+Les règles de transformations de graphe Jerboa permettent la formalisation des
+opérations sur des G-cartes. %
+
+En quelques mots, une règle $r: L \longrightarrow R$ et un filtrage $m: L \to G$
+vers une G-carte $G$, décrivent la transformation $t: G \longrightarrow^{r,m} H$
+de $G$ vers $H$. %
+Le filtrage $m$ permet de remplacer un sous-graphe de $G$, décrit par le membre
+gauche $L$ de la règle, par un autre sous-graphe décrit par le membre droit $R$
+et produire le graphe $H$. %
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=.8\columnwidth]{rule-sewA3}
-  \caption{Règle de coutures de deux faces par les $3$-liaisons}
-  \label{fig:rule-sew-A3}
+  \begin{subfigure}[t]{.32\linewidth}
+    \includegraphics[width=.8\textwidth]{demo-fig-extrusion-left-match}
+    \caption{G}
+    \label{fig:face-to-extrude}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.32\linewidth}
+    \includegraphics[width=.8\textwidth]{demo-fig-extrusion-right-match}
+    \caption{H}
+    \label{fig:extruded-cube}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.32\textwidth}
+  \centering
+    \includegraphics[width=.8\textwidth]{triangulated-cube-article-view.pdf}
+    \caption{I}
+    \label{fig:demo-cube-triangulated}
+  \end{subfigure}
+  \caption{Extrusion d'une face}
+  \label{fig:demo-sequence}
 \end{figure}
 
-Par exemple, la règle (Figure~\ref{fig:rule-sew-A3}) qui assemble deux volumes
-prend en paramètre les deux faces le long desquelles les volumes seront
-cousus. %
-Ce type de règle, dite atomique, est composée de nœuds étiquetés décrivant des orbites dans une G-carte. %
-Les étiquettes de nœud sont appelées liaisons implicites, car elles représentes
-l'ensemble des liaisons de l'orbite décrite, tandis que les liaisons entre les
-nœuds sont dites liaisons explicites car elles décrivent les liaisons entre tous
-les brins de deux orbites. %
+Présentons ces règles avec l'exemple de la séquence suivante : nous créons une
+face (Figure~\ref{fig:face-to-extrude}), cette face est extrudée pour produire
+un cube (Figure~\ref{fig:extruded-cube}) et enfin, nous triangulons la face avant gauche de ce cube (Figure~\ref{fig:demo-cube-triangulated}). %
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[height=.2\textheight]{rule-create-square-face}
+  \caption{Règle de création de face}
+  \label{fig:rule-create-square-face}
+\end{figure}
+
+La règle qui crée une face carrée (Figure~\ref{fig:rule-create-square-face}) a
+son membre gauche vide et son membre droit composé des nœuds $n_{0}$ à
+$n_{7}$. %
+Ces nœuds, reliés entre eux par des $0$-liaisons (en noir) et des $1$-liaisons
+représentent une face. %
+Puisque le membre gauche de la règle est vide, chaque nœud du membre droit est
+créé. %
+Et puisque tous ces nœuds ont une étiquette vide $\langle \rangle$, chacun
+d'entre eux crée un brin dans la G-carte, et par extension, une face ``ex
+nihilo''. %
+Les boucles de $2$-liaisons (bleu) et $3$-liaisons (verts) représentent le fait
+que ces nœuds ne sont connectés à aucun autre nœuds par les liaisons $2$ et
+$3$. %
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{rule-face-extrusion-std}
+  \caption{Règle d'extrusion de face}
+  \label{fig:rule-extrude-face}
+\end{figure}
+
+La règle d'extrusion de face (Figure~\ref{fig:rule-extrude-face}), elle,
+comprend un unique nœud $n_{0}$ étiqueté $\langle 0,1 \rangle$ dans son membre
+gauche et une $2$-liaison qui boucle sur $n_{0}$. %
+Par le filtrage $m : n_{0} \mapsto a_{0}$ de $L$ vers $G$
+(Figure~\ref{fig:face-to-extrude}), la face à extruder est entièrement
+filtrée. %
+Dans $H$ (Figure~\ref{fig:extruded-cube}), pour le membre droit, $n_{0}$
+préserve la face extrudée (orange), $n_{1}$ crée des brins (bleu) copiés à
+partir de ceux de $n_{0}$ (du membre gauche), $n_{2}$ crée des brins (magenta)
+également copiés à partir de ceux de $n_{0}$ et ainsi de suite jusqu'au nœud
+$n_{5}$. %
+Les brins crées par les nœuds d'une règle, lorsque celle-ci à un membre gauche
+non-vide, sont créés par copie des brins du nœud d'accroche. %
+Ici, $n_{0}$ est le nœud d'accroche car c'est à parti de celui-ci que $m$
+filtre un sous-graphe dans une G-carte. %
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.7\columnwidth]{rule-face-triangulation-3D-boxed-rapport.pdf}
+  \caption{Règle de triangulation d'une face}
+  \label{fig:rule-triangulation}
+\end{figure}
+
+La règle de triangulation de face (Figure~\ref{fig:rule-triangulation}) comporte
+dans son membre gauche un unique nœud $n_{0}$ qui filtre une face, et dans son
+membre droit, les nœuds $n_{0}$, $n_{1}$ et $n_{2}$. %
+Cette règle lorsqu'elle appliquée sur la face avant gauche de $H$, scinde cette
+face est produit le graphe $I$ (Figure~\ref{fig:demo-cube-triangulated}). %
+Dans le membre droit, $n_{0}$ a pour étiquette $\langle 0,\_ \rangle$, cela
+signifie les $1$-liaisons de la face sont supprimées lors de l'application de la
+règle. %
+Le nœud $n_{1}$, qui est donc créé par copie de $n_{0}$ est étiqueté
+$\langle \_,2 \rangle$, ce qui signifie que dans cette copie, les $0$-liaisons
+sont supprimées et les $1$-liaisons sont ré-étiquetés en $2$-liaisons. %
+De plus, les brins de $n_{0}$ sont reliés à ceux de $n_{1}$ par des $1$-liaisons
+et les brins de $n_{1}$ sont reliés à ceux de $n_{2}$ par des $0$-liaisons. %
+
+Nous définissons deux types de liaisons dans règle, d'une part les liaisons
+dites explicites qui sont les liaisons entre les nœuds et d'une autre part les
+liaisons dites implicites qui sont les liaisons représentées par les étiquettes
+de nœuds. %
+Notons que l'ordre des liaisons dans l'étiquette d'un nœud n'est pas anodins,
+changer cet ordre revient à changer les liaisons entre les brins du sous-graphe
+filtré. %
+
+Tout comme dans les G-cartes, nous pouvons représenter des orbites directement
+depuis les règles. %
+Par exemple, l'orbite arête $\langle 0, 1, 3 \rangle$ incidente au nœud $n_{0}$,
+dans le membre droit (encadrée en vert), comprend les nœuds $n_{0}$, $n_{1}$ et
+$n_{2}$ car ceux-ci sont atteignables par leurs $0$-liaisons et $1$-liaisons
+explicites. %
+l'orbite sommet $\langle 1, 2, 3 \rangle$ incidente au nœud $n_{2}$, dans le
+membre droit (encadrée en bleu), comprend uniquement le nœud $n_{2}$ car il n'y
+a pas de liaison explicite étiqueté $1$, $2$ ou $3$ sortant de ce nœud. %
 
 Jerboa permet également de définir des opérations plus complexes construites par
 des scripts, c'est-à-dire des enchaînements de règles. %
+
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=.8\columnwidth]{rule-sewA3}
+%   \caption{Règle de coutures de deux faces par les $3$-liaisons}
+%   \label{fig:rule-sew-A3}
+% \end{figure}
+
+% Par exemple, la règle (Figure~\ref{fig:rule-sew-A3}) qui assemble deux volumes
+% prend en paramètre les deux faces le long desquelles les volumes seront
+% cousus. %
+% Ce type de règle, dite atomique, est composée de nœuds étiquetés décrivant des orbites dans une G-carte. %
+% Les étiquettes de nœud sont appelées liaisons implicites, car elles représentes
+% l'ensemble des liaisons de l'orbite décrite, tandis que les liaisons entre les
+% nœuds sont dites liaisons explicites car elles décrivent les liaisons entre tous
+% les brins de deux orbites. %
+
 
 %%% Local Variables:
 %%% mode: latex

@@ -1,53 +1,51 @@
-Intitulée ``Rejeu et modélisation spatio-temporelle basée sur les règles
-d'éléments archéologiques'', cette thèse a pour objet la conception et le
+Intitulée «Rejeu et modélisation spatio-temporelle basée sur les règles
+d'éléments archéologiques», cette thèse a pour objet la conception et le
 développement d'un logiciel de modélisation 4D (3D+temps). %
 L'outil que nous concevons doit assister des archéologues dans la conception de
-restitutions virtuelles de bâtiments anciens et de visualiser leurs évolutions
-sur une échelle de temps. %
+restitutions virtuelles de bâtiments anciens et visualiser leurs évolutions sur
+une échelle de temps. %
 Cela requiert que le processus de modélisation soit enregistré puis réévalué
 automatiquement de sorte à générer plusieurs variants à partir d'un modèle de
 référence. %
 
-D'un point de vue technique, cela consiste en trois objectif : la réévaluation
-des processus de modélisation, l'animation des modèles sur une échelle temps et
-enfin leur annotation avec des données historiques. %
+D'un point de vue technique, cela consiste en trois objectifs : réévaluer des
+processus de modélisation, animer des modèles sur une échelle temps et enfin les
+annoter avec des données historiques. %
 
-Tout d'abord, l'enregistrement du processus de modélisation d'un
-modèle sous la forme d'une specification paramétrique. %
-Une spécification paramétrique est composée de l'ensemble des opérations
-appliquées successivement sur un modèle ainsi que de leur paramètres. %
+Tout d'abord, il est nécessaire de pouvoir enregistrer un processus de
+modélisation sous la forme d'une spécification paramétrique. %
+Cette dernière est composée de l'ensemble des opérations appliquées
+successivement sur un modèle ainsi que de leur paramètres. %
 Ces paramètres sont, classiquement, des paramètres géométriques ou topologiques,
 c'est-à-dire des références à des entités topologiques. %
 La construction d'une spécification paramétrique est une étape nécessaire à la
-réévaluation (ou rejeu) automatique d'un modèle %
-Cela conduit à l'étape suivante qui est le rejeu automatique d'une spécification
-paramétrique pour la reconstruction d'un modèle. %
-Une telle procédure permet de réappliquer toutes les opérations d'une
-spécification de sorte à générer un modèle à l'identique. %
-Vient ensuite le rejeu des spécifications paramétriques éditées en vue de
-générer des variants d'un modèle de référence. %
-Dans le cas où la spécification paramétrique est éditée, c'est-à-dire si des
-opération sont ajoutées, supprimées, déplacée et/ou que des paramètres sont
-modifiés, alors un variant du modèle pourra être généré. %
+réévaluation (ou rejeu) automatique d'un modèle. %
+L'étape suivante est donc le rejeu qui est une procédure au cours de laquelle
+les opérations d'une spécification paramétrique sont réappliquées afin de
+re-générer un modèle à l'identique ou de créer un variant. %
+Lorsqu'une spécification paramétrique est éditée, c'est-à-dire si des opérations
+sont ajoutées, supprimées, déplacée et/ou que des paramètres sont modifiés,
+alors un variant du modèle pourra être généré. %
 
-Ensuite, l'animation d'un modèle sur une échelle temps. %
-Cela consiste en la visualisation des évolutions d'un modèle au cours du
-temps. %
+Ensuite, l'animation d'un modèle sur une échelle temps consiste en la
+visualisation des évolutions d'un modèle au cours du temps. %
 Autrement dit, visualiser le résultat produit par le rejeu d'une spécification
 paramétrique avec, par exemple, des paramètres évoluant dans le temps ou encore
 des opérations supplémentaires à un instant T. %
 
-Et enfin, l'annotation des modèles à l'aide de données historiques. %
-Dans cette dernière partie, les modèles seront associés à une ou plusieurs
-données historiques pour donner un accès rapide à des notes de recherches. %
+Enfin, le troisième objectif est l'annotation des modèles à l'aide de données
+historiques. %
+À l'issue de cette dernière partie, il faut pouvoir associer un modèle à une ou
+plusieurs données historiques pour donner un accès rapide à des notes de
+recherches. %
 
-In fine, ces restitutions virtuelles pourront, par exemple, constituer des
-documents de travail pour des projets de restauration de vestiges \cite{haegler2009procedural}. %
+À terme, les restitutions virtuelles produites avec cet outil pourront, par
+exemple, constituer des documents de travail pour des projets de restauration de
+vestiges historiques ou encore de patrimoine \cite{haegler2009procedural}. %
 
-% Une spécification paramétrique est composée d'un ensemble d'opérations de
-% modélisation paramétrée appliquées successivement sur le modèle. %
-% Les paramètres de ces opérations sont classiquement des paramètres géométriques
-% ou topologiques, c'est-à-dire des références à des entités topologiques. %
+% Cette dernière est composée d'un ensemble d'opérations de modélisation
+% paramétrée appliquées successivement sur le
+% modèle. % Les paramètres de ces opérations sont classiquement des paramètres géométriques ou topologiques, c'est-à-dire des références à des entités topologiques. %
 
 
 %%% Local Variables:

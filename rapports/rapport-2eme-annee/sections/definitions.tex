@@ -104,9 +104,9 @@ Prenons l'exemple des orbites illustrées dans la
 Figure~\ref{fig:orbit-decomposition} et incidentes au brin $a$. %
 Le sommet (Figure~\ref{fig:orbit-3D-vertex-123}), de type
 $\langle 1,2,3 \rangle$, est composé des brins atteignables par les liaisons
-étiquetés $1$, $2$ et $3$. %
+étiquetées $1$, $2$ et $3$. %
 L'arête (Figure~\ref{fig:orbit-3D-edge-023}), de type $\langle 0,2,3 \rangle$
-est composée des brins atteignables par les liaisons étiquetés $0$, $2$ et
+est composée des brins atteignables par les liaisons étiquetées $0$, $2$ et
 $3$. %
 La face (Figure~\ref{fig:orbit-3D-face-013}), est de type
 $\langle 0,1,3 \rangle$ et le volume (Figure~\ref{fig:orbit-3D-volume-012}) de
@@ -136,7 +136,7 @@ et produire le graphe $H$. %
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{.32\linewidth}
-    \includegraphics[width=.8\textwidth]{demo-fig-extrusion-right-match}
+    \includegraphics[width=.8\textwidth]{demo-fig-extrusion-right-match2}
     \caption{H}
     \label{fig:extruded-cube}
   \end{subfigure}
@@ -169,9 +169,9 @@ Ces nœuds, reliés entre eux par des $0$-liaisons (en noir) et des $1$-liaisons
 représentent une face. %
 Puisque le membre gauche de la règle est vide, chaque nœud du membre droit est
 créé. %
-Et puisque tous ces nœuds ont une étiquette vide $\langle \rangle$, chacun
-d'entre eux crée un brin dans la G-carte, et par extension, une face ``ex
-nihilo''. %
+Puisque tous ces nœuds ont une étiquette vide $\langle \rangle$, chacun
+d'entre eux crée un brin dans la G-carte, et par extension, une face «ex
+nihilo». %
 Les boucles de $2$-liaisons (bleu) et $3$-liaisons (verts) représentent le fait
 que ces nœuds ne sont connectés à aucun autre nœuds par les liaisons $2$ et
 $3$. %
@@ -196,7 +196,7 @@ partir de ceux de $n_{0}$ (du membre gauche), $n_{2}$ crée des brins (magenta)
 $n_{5}$. %
 Les brins crées par les nœuds d'une règle, lorsque celle-ci à un membre gauche
 non-vide, sont créés par copie des brins du nœud d'accroche. %
-Ici, $n_{0}$ est le nœud d'accroche car c'est à parti de celui-ci que $m$
+Ici, $n_{0}$ est le nœud d'accroche car c'est à partir de celui-ci que $m$
 filtre un sous-graphe dans une G-carte. %
 
 \begin{figure}[h!]
@@ -209,18 +209,19 @@ filtre un sous-graphe dans une G-carte. %
 La règle de triangulation de face (Figure~\ref{fig:rule-triangulation}) comporte
 dans son membre gauche un unique nœud $n_{0}$ qui filtre une face, et dans son
 membre droit, les nœuds $n_{0}$, $n_{1}$ et $n_{2}$. %
-Cette règle lorsqu'elle appliquée sur la face avant gauche de $H$, scinde cette
-face est produit le graphe $I$ (Figure~\ref{fig:demo-cube-triangulated}). %
+Cette règle lorsqu'elle est appliquée sur la face avant gauche de $H$, scinde
+cette face est produit le graphe $I$
+(Figure~\ref{fig:demo-cube-triangulated}). %
 Dans le membre droit, $n_{0}$ a pour étiquette $\langle 0,\_ \rangle$, cela
-signifie les $1$-liaisons de la face sont supprimées lors de l'application de la
-règle. %
+signifie que les $1$-liaisons de la face sont supprimées lors de l'application
+de la règle. %
 Le nœud $n_{1}$, qui est donc créé par copie de $n_{0}$ est étiqueté
 $\langle \_,2 \rangle$, ce qui signifie que dans cette copie, les $0$-liaisons
-sont supprimées et les $1$-liaisons sont ré-étiquetés en $2$-liaisons. %
+sont supprimées et les $1$-liaisons sont ré-étiquetées en $2$-liaisons. %
 De plus, les brins de $n_{0}$ sont reliés à ceux de $n_{1}$ par des $1$-liaisons
 et les brins de $n_{1}$ sont reliés à ceux de $n_{2}$ par des $0$-liaisons. %
 
-Nous définissons deux types de liaisons dans règle, d'une part les liaisons
+Nous définissons deux types de liaisons dans une règle, d'une part les liaisons
 dites explicites qui sont les liaisons entre les nœuds et d'une autre part les
 liaisons dites implicites qui sont les liaisons représentées par les étiquettes
 de nœuds. %
@@ -234,12 +235,18 @@ Par exemple, l'orbite arête $\langle 0, 1, 3 \rangle$ incidente au nœud $n_{0}
 dans le membre droit (encadrée en vert), comprend les nœuds $n_{0}$, $n_{1}$ et
 $n_{2}$ car ceux-ci sont atteignables par leurs $0$-liaisons et $1$-liaisons
 explicites. %
-l'orbite sommet $\langle 1, 2, 3 \rangle$ incidente au nœud $n_{2}$, dans le
+L'orbite sommet $\langle 1, 2, 3 \rangle$ incidente au nœud $n_{2}$, dans le
 membre droit (encadrée en bleu), comprend uniquement le nœud $n_{2}$ car il n'y
-a pas de liaison explicite étiqueté $1$, $2$ ou $3$ sortant de ce nœud. %
+a pas de liaison explicite étiquetée $1$, $2$ ou $3$ sortant de ce nœud. %
 
-Jerboa permet également de définir des opérations plus complexes construites par
-des scripts, c'est-à-dire des enchaînements de règles. %
+Les règles présentées ici, qui sont composées uniquement de nœuds, sont dites
+«atomiques».%
+En effet, Jerboa permet également de construire des opérations plus complexes
+définies par des scripts, c'est-à-dire des enchaînements de règles. %
+
+Enfin, les règles Jerboa sont munies de propriétés syntaxiques garantissant la
+préservation de la cohérence des G-cartes, ainsi une G-carte de dimension 3 sera
+toujours de dimension 3 après sa transformation par une règle. %
 
 % \begin{figure}[h!]
 %   \centering
@@ -251,7 +258,7 @@ des scripts, c'est-à-dire des enchaînements de règles. %
 % Par exemple, la règle (Figure~\ref{fig:rule-sew-A3}) qui assemble deux volumes
 % prend en paramètre les deux faces le long desquelles les volumes seront
 % cousus. %
-% Ce type de règle, dite atomique, est composée de nœuds étiquetés décrivant des orbites dans une G-carte. %
+% Ce type de règle, dite atomique, est composée de nœuds étiquetées décrivant des orbites dans une G-carte. %
 % Les étiquettes de nœud sont appelées liaisons implicites, car elles représentes
 % l'ensemble des liaisons de l'orbite décrite, tandis que les liaisons entre les
 % nœuds sont dites liaisons explicites car elles décrivent les liaisons entre tous

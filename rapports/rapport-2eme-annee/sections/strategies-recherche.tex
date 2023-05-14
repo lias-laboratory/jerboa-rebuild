@@ -2,40 +2,42 @@ Pour la première partie de nos travaux, à savoir le rejeu d'une spécification
 paramétrique, nous avons plusieurs objectifs à atteindre. %
 
 Le premier est l'enregistrement d'un processus de modélisation. %
-Pour que cela soit possible, il faut construire un Nom Persistant pour chaque
-entité topologique du modèle et enregistrer dans la spécification paramétrique
-ceux qui doivent être passé en paramètre topologique des opérations. %
+Pour que cela soit possible, il faut construire un nom persistant (NP) pour
+chaque entité topologique du modèle et enregistrer dans la spécification
+paramétrique les entités qui doivent être passées en paramètres topologiques des
+opérations. %
 Le deuxième objectif est le suivi des changements topologiques. %
 Les opérations étant formalisées par des règles avec une syntaxe, celles-ci
-décrivent précisément et localement les changements topologique à l'issue de
+décrivent précisément et localement les changements topologiques à l'issue de
 leur application. %
-Le suivi de ces changements topologique est nécessaire pour la construction d'un
-journal de bord, une structure de donnée dont le but est d'enregistrer tous les
-changements topologiques, pour toutes les orbites, appliquées par toutes les
+Le suivi de ces changements topologiques est nécessaire pour la construction
+d'un journal de bord, une structure de donnée dont le but est d'enregistrer tous
+les changements topologiques, pour toutes les orbites, appliquées par toutes les
 opérations. %
 Le troisième objectif est le rejeu. %
-Cette étape nécessite, dans un premier temps, de construire dans un graph
+Cette étape nécessite, dans un premier temps, de construire dans un graphe
 orienté acyclique (ou DAG) de jeu, pour chaque paramètre topologique, son
 historique de changement topologique. %
-Et dans un second temps, de construire un DAG de rejeu pour effectuer
-l'appariement des entités topologique et les retrouver dans le nouveau modèle. %
+Dans un second temps, de construire un DAG de rejeu pour effectuer l'appariement
+des entités topologiques et les retrouver dans le nouveau modèle. %
 Le quatrième objectif, qui conclut cette partie, est le support des scripts de
 règle. %
 
 Pour la deuxième partie, l'objectif et d'animer l'évolution d'un modèle sur une
 échelle de temps. %
-Cet objectif peut comprendre, d'une part, l'intégration de paramètres temps dans les opérations pour simuler, par exemple, l'érosion sur une surface rocheuse. %
+Cet objectif peut comprendre, d'une part, l'intégration de paramètres temps dans
+les opérations pour simuler, par exemple, l'érosion sur une surface rocheuse. %
 D'une autre part, cela peut comprendre l'insertion d'opération à des temps
-données pour représenter de manière spontanée des événements historiques et leur
+donnés pour représenter de manière spontanée des événements historiques et leur
 impactes sur des bâtiments. %
 
 Enfin, pour la troisième partie, l'objectif est d'intégrer des données
 historiques dans les modèles. %
 Pour cela, l'outil final devra pouvoir stocker divers types de données et les
-présenter lorsque l'utilisateur sélectionnera tout ou partie d'un modèle. %
+présenter lorsque l'utilisateur sélectionnera tout ou une partie d'un modèle. %
 Par exemple, en sélectionnant un pan de mur, l'utilisateur pourra avoir accès à
 des informations telles que la date de construction du bâtiment, voire du mur
-s'il s'agit d'une extension, du matériaux utilisé, de sa rugosité ou encore de
+s'il s'agit d'une extension, du matériau utilisé, de sa rugosité ou encore de
 son niveau d'érosion. %
 
 

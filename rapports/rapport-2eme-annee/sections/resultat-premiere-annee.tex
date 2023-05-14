@@ -2,9 +2,9 @@ L'objectif de cette première année était le rejeu à l'identique d'une
 spécifications paramétrique comprenant uniquement des règles dites atomiques. %
 Nous avons tout d'abord étudié les changements topologiques ayant lieu lors de
 l'application de règles, et en nous appuyant sur l'existant \cite{cardo2019},
-définit six changement topologiques (ou événement). %
-Ces derniers sont la création, la suppression, le non-changement, la scission la
-fusion et la modification .%
+définit six changements topologiques (ou événements). %
+Ces derniers sont la création, la suppression, le non-changement, la scission,
+la fusion et la modification.%
 
 \subsection{Analyse syntaxique des règles}
 
@@ -36,18 +36,17 @@ les conditions dans lesquelles une règle provoquera un événement spécifique.
 paramétriques. %
 Pour cela il nous a fallu procéder à l'enregistrement des règles appliquées, de
 leur paramètres topologique et bien sûr implanter les différentes structures de
-données, à commencer par les Noms Persistants. %
-Comme énoncé plus tôt, les Noms Persistants, sont des structures dont le but est
-d'identifier de manière robuste une orbite. %
-Pour cela, nous avons d'abord procédé à la construction d'Identifiants
-Persistants. %
-Un nom persistant est un enregistrement, associé à un brin $b$, qui références
-toutes les applications ayant créé ou filtré $b$ ainsi que le nœud l'ayant
-filtré. %
+données, à commencer par les NPs. %
+Comme énoncé plus tôt, les NPs sont des structures dont le but est d'identifier
+de manière robuste une orbite. %
+Pour cela, nous avons d'abord procédé à la construction d'identifiants
+persistants (IPs). %
+Un IP est un enregistrement, associé à un brin $b$, qui référence toutes les
+applications ayant créé ou filtré $b$ ainsi que le nœud l'ayant filtré. %
 De cette façon, tout brin est identifié de manière unique. %
-Ces Identifiants Persistants sont ensuite collectés pour former des Noms
-Persistants et ainsi permettre une représentation exhaustive de l'ensemble des
-opérations ayant affecté une orbite. %
+Ces IPs sont ensuite collectés pour former des NPs et ainsi permettre une
+représentation exhaustive de l'ensemble des opérations ayant affecté une
+orbite. %
 Reprenons l'exemple du cube et de sa face triangulée
 (Figure~\ref{fig:demo-cube-triangulated}) et colorions l'une de ses faces. %
 La spécification paramétrique créée est la suivante :
@@ -57,7 +56,7 @@ La spécification paramétrique créée est la suivante :
 3 TriangulateFace(PN2[{1n4; 2n4}]>)
 4 MakeFaceBlue(PN3=[{1n3; 2n3; 3n2}])
 \end{verbatim}
-et le Nom Persistant désignant la face à colorier est
+et le NP désignant la face à colorier est
 $PN_{3}=\{1n_{3};2n_{3};3n_{2}\}$. %
 Dans l'ordre, cette face vient d'une face carrée qui a été extrudée pour former
 un cube, puis de la triangulation de l'une des faces du cube. %
@@ -70,7 +69,7 @@ un cube, puis de la triangulation de l'une des faces du cube. %
 \end{figure}
 
 La structure de données suivante a été celle des DAGS de jeu. %
-Ceux-ci sont construits à partir d'un Nom Persistant et retracent l'historique
+Ceux-ci sont construits à partir d'un NP et retracent l'historique
 des évolutions de l'orbite désignée. %
 Dans ces DAGs, pour pouvoir retracer fidèlement l'histoire d'une entité
 topologique, nous définissons deux types d'évolutions : le suivi et l'origine. %
@@ -80,7 +79,7 @@ L'origine est une relation de génération entre deux entités topologiques et
 concerne les événements de créations, de scission et de fusion. %
 Une orbite est une origine quand, dans une règle, elle est identifiable comme
 élément générateur du nouvel état d'une orbite suivie. %
-Reprenons le Nom Persistant $PN_{2}$ qui référence une face, issue d'une
+Reprenons le NP $PN_{2}$ qui référence une face, issue d'une
 triangulation, à colorier. %
 Nous obtenons, le DAG figure~\ref{fig:dag-triangulated-face}. %
 Celui-ci se lit de bas en haut de la façon suivante : notre face dont le type
@@ -92,7 +91,7 @@ Son orbite d'origine, autrement dit celle à partir de laquelle elle est génér
 est l'arête $\langle 0 \rangle$ également incidente au nœud $n_{3}$ de la
 deuxième règle appliquée. %
 
-Et enfin, nous avons défini les caractéristique de la structure de données à
+Enfin, nous avons défini les caractéristiques de la structure de données à
 utiliser pour les DAGs de rejeu et permettre l'appariement des paramètres
 topologiques lorsque la spécification paramétrique est éditée. %
 Construit à partir d'un DAG de jeu et d'une spécification paramétrique, un DAG

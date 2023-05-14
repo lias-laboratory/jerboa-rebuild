@@ -1,4 +1,4 @@
-L'objectif pour cette deuxième année est de terminer le rejeu avec des règle
+L'objectif pour cette deuxième année est de finaliser le rejeu avec des règles
 atomiques pour présenter nos travaux. %
 
 \subsection{Rejeu à l'identique avec événements de fusion}
@@ -19,7 +19,7 @@ la scission d'une orbite, ou au contraire être supprimés. %
 
 Dans le cas de la scission, éditons notre spécification paramétrique pour y
 insérer une deuxième fois la règle de triangulation. %
-Celle-ci se situe entre les application $3$ et $4$. %
+Celle-ci se situe entre les applications $3$ et $4$. %
 Le résultat attendu au rejeu est donc que la face qui doit être coloriée sera à
 nouveau scindée. %
 La problématique est la suivante : quelle face doit être coloriée ? %
@@ -27,20 +27,20 @@ Nous avons élaboré deux stratégies : une stratégie passive et une stratégie
 intuitive. %
 La première consiste à considérer que, puisque le paramètre topologique existe
 toujours, il n'y a pas de nécessité d'adopter un comportement particulier. %
-la seconde part du principe que l'utilisateur, en éditant la spécification de la
+La seconde part du principe que l'utilisateur, en éditant la spécification de la
 sorte, souhaitait trianguler la face à colorier et faire en sorte que toutes les
 faces issues de la scission soit coloriées également. %
 Cette stratégie consiste alors en la récupération d'autant de paramètres
-topologique qu'il y a d'orbites à l'issue d'une scission. %
+topologiques qu'il y a d'orbites à l'issue d'une scission. %
 Ainsi, le processus de rejeu ré-appliquera les règles qui en dépendent pour
 chacun de ces paramètres. %
 
-Dans le cas de la disparition d'un paramètre topologique, soit seul le paramètre
-topologique, soit une partie de l'orbite disparaît, soit toute l'orbite
-disparaît. %
+Dans le cas de la disparition d'un paramètre topologique, soit seulement le
+paramètre topologique, soit une partie de l'orbite disparaît, soit toute
+l'orbite disparaît. %
 Lorsque seule une partie de l'orbite disparaît, la stratégie est de trouver un
 autre paramètre topologique valide. %
-Lorsque c'est toute l'orbite qui disparaît, il faut alors interrompre toutes les
+Lorsque toute l'orbite disparaît, il faut alors interrompre toutes les
 opérations qui évoluent par dessus car celles-ci ne pourront pas être
 rejouées. %
 
@@ -60,7 +60,7 @@ Cette contribution a également été présentée lors des Journées du Groupe d
 Travail en Modélisation Géométrique (GTMG) du 15 et 16 mars 2023. %
 
 Nous rédigeons également un second article pour présenter nos travaux sur le
-rejeu d'une spécifications paramétriques pour les systèmes de modélisation
+rejeu d'une spécification paramétrique pour les systèmes de modélisation
 géométrique à base de règles de transformation de graphe. %
 Tout comme le premier article, nous souhaitons le soumettre à la conférence
 CGVC. %

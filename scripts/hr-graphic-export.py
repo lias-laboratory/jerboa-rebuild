@@ -24,10 +24,11 @@ def computeEvent(appNumber, event, eventsChild):
 
 def computeOrbit(appNumber, nodeName, path, orbit):
     """Create a name and id for an orbit node."""
-    return [
-        str(appNumber) + nodeName + str(orbit["dim"]),
-        str(path) + "·" + str(orbit["dim"]),
-    ]
+    pathStr = str(path)
+    orbitStr = str(orbit["dim"]).replace("[", "⟨").replace("]", "⟩")
+    if not path:
+        pathStr = ""
+    return [str(appNumber) + nodeName + str(orbit["dim"]), pathStr + orbitStr]
 
 
 def createEventNode(graph, appNumber, event, child):
@@ -61,7 +62,6 @@ def drawLevel(level, graph):
     with graph.subgraph(
         name="cluster_" + str(appNumber), node_attr={"style": "rounded, filled"}
     ) as eventCluster:
-
         eventCluster.attr(rank="same", style="rounded")
         eventCluster.node(str(appNumber), color="lightgrey")
 
@@ -83,7 +83,6 @@ def drawLevel(level, graph):
     with graph.subgraph(
         name="cluster_" + str(appNumber) + nodeName,
     ) as orbitCluster:
-
         orbitCluster.attr(rank="same")
         orbitCluster.node(
             str(appNumber) + nodeName, nodeName, style="filled", color="lightblue"

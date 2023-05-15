@@ -1,6 +1,40 @@
-\section{History Tree}
+\section{Evaluation DAG}
 
+After an object's construction, an \emph{Evaluation DAG} (or \emph{ED}) is
+issued for each PN in order to represent the construction history of all the
+topological parameters designated within a Parametric Specification. %
+By representing such a history, an ED makes the re-discovery of
+a topological parameter possible at reevaluation time. %
 
+\subsection{Evaluation}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.3\textwidth]{pn3}
+  \caption{Evaluation DAG of the Persistent Name $PN_{3}$}
+  \label{fig:history-tree-pn1}
+\end{figure}
+
+An Evaluation DAG is a datastructure which lays out the events that
+occured in the evolution of a topological parameter. %
+
+\subsection{Traces and origins}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.4\textwidth]{pn7}
+  \caption{Evaluation DAG of the Persistent Name $PN_{7}$}
+  \label{fig:history-tree-pn6}
+\end{figure}
+
+\subsection{Paths to origins}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=0.4\textwidth]{pn6}
+  \caption{Evaluation DAG of the Persistent Name $PN_{6}$}
+  \label{fig:history-tree-pn6}
+\end{figure}
 
 %%% Local Variables:
 %%% mode: latex

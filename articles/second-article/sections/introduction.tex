@@ -1,5 +1,62 @@
 \section{Introduction}
 
+Pouvoir générer de façon relativement automatiquement plusieurs variantes d’un même objet est un besoin aujourd’hui de plus en plus fréquent dans de nombreux domaines d’application.
+\maxime{The ability to generate, both easily and automatically, one or more variations of the same object is an increasing need for a number of fields of application. } %
+%
+Un exemple classique concerne le domaine de la CAO, qui utilise des systèmes paramétriques dit history-based.
+\maxime{The CAO field is a classical example which uses history-based parametric systems.} %
+%
+Ils permettent d’enregistrer un processus constructif souvent long et fastidieux au sein d’une spécification paramétrique qu’il est alors possible de rejouer de façon automatique en modifiant légèrement quelques paramètres pour générer différentes versions du même modèle []. %
+\maxime{They allow the recording of an often long and tedious \{construction,modelling\} process from a parametric specification which is, thus, possible to automatically reevaluate by modifying some of its parameters in order to generate different versions of the same \{object,model\} [].} %
+%
+De façon similaire, dans le domaine de l’archéologie, les fouilles ne permettent souvent de révéler que des données fragmentaires. %
+\maxime{Similarly, in the archaeology field, only a fraction of the data can often be revealed throughout \{searches,excavations\}.} %
+%
+Les archéologues avancent alors différentes hypothèses de restitution 3D qu’ils souhaitent pouvoir tester en étant capable de les construire et les visualiser de façon rapide []. %
+\maxime{Therefore, by means of 3D reproduction, archaeologists develop a number of hypothesis they expect to test while being able to quickly model and visualise them \cite{Quattrini_Baleani_2015}.} %
+%
+Dans le domaine de l’architecture, un processus couramment utilisé pour générer différentes variantes d’un même bâtiment est l’utilisation de grammaires de génération procédurale []. %
+\maxime{In the archaelogy field, grammar-based procedural generation is a commonly used process to generate variations of a building \cite{haegler2009procedural}.} %
+%
+Ces approches nécessitent de riches corpus d’information pour produire les grammaires et le même outil est souvent difficilement utilisable sur d’autres cas d’étude, qui bien souvent possède des caractéristiques très spécifiques. %
+\maxime{However, these approaches require a rich corpus of information in order to produce these grammars and such a tool is hardly useable in the context of other case studies with very specific characteristics.} %
+%
+Dans cet article, nous proposons d’utiliser le formalisme des règles de transformation de graphe, et en particulier la librairie Jerboa [] permettant de faciliter le développement de modeleurs dédiés à des applications spécifiques. %
+\maxime{In this paper, we \{suggest,propose\} the usage of a rule-based graph transformation formalism, and more specifically the Jerboa \cite{belhaouari2014jerboa} library, to make the development of dedicated modelers for specific applications easier.} %
+%
+Les langages à base de règles sont couramment utilisés dans différents domaines comme la modélisation de la croissance de plantes ou de feuilles avec les L-systems [], de la structure interne du bois [], de bâtiments architecturaux [] ou de virtual 3D models of cities [CityEngine, Duarte \& Beirao 2010]. %
+\maxime{Rule-based \{languages,syntaxes,formalisms\} are commonly used in a number of fields such as the modelling of the growth of plants or leaves with L-systems \cite{lindenmayer1974adding}, of wood's internal structure \cite{terraz20093gmap}, of \{architectural\} buildings \cite{muller2006procedural} or of virtual cities 3D models \cite{esri2023cityengine, beirao2010implementing}.} %
+%
+Contrairement à d’autres approches, Jerboa est indépendant d’un domaine d’application précis et ne nécessite pas le codage à la main d’opérations ad hoc. %
+\maxime{Contrary to other approaches, Jerboa is independent from any specific application field and does not require ad hoc operations to be manually coded.} %
+%
+Les opérations sont en fait formalisées au travers de règles construites via l’interface de Jerboa qui permet un développement rapide et surtout qui garantit la cohérence topologique du modèle géométrique sous-jacent, quelle que soit l’opération []. %
+\maxime{In fact, operations are formalised by the construction of rules within the Jerboa interface, thus enabling their quick development and especially guarantees topological constistency of the underlying geometric model regardless of the applied operations [].} %
+%
+Le modèle topologique sous-jacent à Jerboa est celui des Cartes Généralisées (ou "G-maps") [], qui correspond à une classe particulière de graphes étiquetés et qui permet de modéliser des objets géométriques de manière homogène en dimensions quelconques. %
+\maxime{Jerboa's underlying topological model is the Generalized Maps (or ``G-maps'') \cite{lienhardt1991topological, Damiand-Lienhardt14} which corresponds to a specific class of labelled graph and allows the homogeneous modelling of geometric objects in any dimension. } %
+%
+De nombreuses applications utilisent déjà Jerboa et/ou G-maps dans des domaines tels que l’architecture [], la géologie [] ou la Physics-based modeling []. %
+\maxime{Number of applications already make use of Jerboa and/or G-maps in fields like architecture [], geology [] or physics-based modelling [].} %
+%
+Bien que présentant de nombreux avantages, Jerboa n’intègre toutefois pas les mécanismes permettant de générer de façon rapide différentes versions d’un même modèle, et en particulier les mécanismes présents dans les systèmes paramétriques history-based utilisés en CAO. %
+\maxime{Although Jerboa provides \{numerous, a number of\} advantages, it does not comprise the mechanisms required to quickly generate variations from a base model and, particularly, the mechanisms present in CAO's history-based parametric systems.} %
+%
+Un tel système peut être considéré comme une structure duale, avec d’un côté le modèle géométrique correspondant à l’objet modélisé et de l’autre la spécification paramétrique enregistrant la succession des opérations (et leurs paramètres) ayant permis de modéliser cet objet. %
+\maxime{Such a system can be thought as a dual structure with, in one hand, the geometric model corresponding to the modelled object and, in the other hand, the successive operation (and their paramters) used for the object's modelling.} %
+%
+Les paramètres topologiques d’une opération sont des références à des entités topologiques (sommet, arête, face…) définies à une étape antérieure du processus de modélisation (par exemple une rainure sera appliquée sur une face définie précédemment). La spécification paramétrique peut alors être légèrement modifiée et rejouée pour générer une nouvelle version de l’objet, mais une telle approche nécessite de pouvoir garantir la persistance des références. This issue, known as persistent naming, is illustrated in Fig. 1. La spécification paramétrique initiale est composée de 3 opérations constructives (Fig 1.a) : (1) CreateCylinder(geo{\_}param1) ; (2) RoundedGroove(f1, geo{\_}param2) ; (3) CylindricalProtrusion(f2, geo{\_}param3).
+\begin{figure}[t]
+  \centering
+  \maxsizebox{\columnwidth}{.5\columnwidth}{\includegraphics{persistent-naming-pb.jpg}}
+  \label{fig:pesistent-naming-pb}
+\end{figure}
+Utiliser comme paramètres topologiques des opérations directement les IDs ou des pointeurs vers les entités du modèle géométrique (par exemple l’ID de la face f2 comme paramètre de l’opération CylindricalProtrusion) pose le problème de la persistance de ces références au rejeu. Par exemple, sur la Fig 1.b, la longueur du rounded groove est réduite. La face f n’étant plus scindée en 2, contrairement au jeu initial, les faces f1 et f2 ne sont plus créées, les ID ou les pointeurs vers les entités ne sont évidemment plus les mêmes et la cylindrical protrusion qui portait sur la face f2 ne peut donc plus être appliquée. Il est donc nécessaire d’utiliser comme paramètre des opérations, des identifiants persistants qui permettront de caractériser de façon non ambigüe les entités et de les retrouver leur correspondance au rejeu (sur la Fig 1, utiliser un nom persistant permettant de caractériser la face f2 du modèle initial afin de pouvoir trouver la face fx qui lui correspond dans le modèle réévalué).
+
+Le nommage persistant est un problème étudié depuis plusieurs années dans le domaine de la CAO [], mais aucune étude n’a été faite conjointement à l’utilisation de règles de transformation de graphes. Nous proposons donc d’une part d’étendre l’étude du problème de nommage aux systèmes de modélisation à base de règles de réécriture de graphe, et d’autre part d’intégrer au sein de Jerboa des mécanismes de rejeu des systèmes paramétriques.
+Pour cela nous proposons une méthode de nommage persistant qui tire parti de la formalisation des opérations via les règles et de leur capacité à décrire précisément l’histoire des entités topologiques pour caractériser ces entités de manière unique et homogène en toutes dimensions, et cela, quelle que soit la dimension du modèle. D’une manière ou d’une autre, la plupart des méthodes existantes nécessitent de suivre l’évolution de nombreuses entités topologiques et abordent le problème de ma persistance des noms uniquement dans le cadre de la modification des paramètres de la spec [Kripac, Chen, Wu, etc.]. Avec la méthode que nous proposons, seules entités utilisées dans la spécification paramétrique et les entités dont elles sont issues sont suivies. De plus, le problème du nommage est abordé non seulement dans le cadre de la modification de paramètres de la spec, mais de façon plus générale en prenant en compte l’ajout, la suppression ou le déplacement d’opérations dans la spec (i.e édition de la spec).
+Dans la section 2, nous présenterons les mains concepts nécessaires à la mise en œuvre de mécanismes de nommage persistants dans le cadre d’un système utilisant des règles de récriture de graphe. En particulier, nous présentons les g-maps, les règles et la manière dont il est possible de détecter automatiquement, lors de l’application d’une règle, les évènements (création, suppression, scission, fusion, modification) survenus sur les entités topologiques. Dans la section 3, nous présentons la structure de la spécification paramétrique et des noms persistants. La section 4 et 5, aborde ensuite la notion d’Arbres de jeu et de rejeu qui permettent d’une part de tracer l’évolution des entités topologiques désignées dans la spécification paramétrique et des entités dont elles sont issues et d’autre part de trouver les entités qui leur correspondent au rejeu.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "../main"

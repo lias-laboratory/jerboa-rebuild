@@ -24,7 +24,8 @@ def computeEvent(appNumber, event, eventsChild):
 
 def computeOrbit(appNumber, nodeName, path, orbit):
     """Create a name and id for an orbit node."""
-    pathStr = str(path)
+    pathStr = "".join("@" + str(l) + "." for l in path)
+    # pathStr = str(path)
     orbitStr = str(orbit["dim"]).replace("[", "⟨").replace("]", "⟩")
     if not path:
         pathStr = ""

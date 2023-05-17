@@ -94,7 +94,8 @@ dimensions quelconques. %
 De nombreuses applications utilisent déjà Jerboa et/ou G-maps dans des domaines
 tels que l’architecture [], la géologie [] ou la Physics-based modeling []. %
 \maxime{Number of applications already make use of Jerboa and/or G-maps in
-  fields like architecture [], geology [] or physics-based modelling [].} %
+  fields like architecture [], geology \cite{gauthier2016topological} or
+  physics-based modelling \cite{salah2017general}.} %
 %
 Bien que présentant de nombreux avantages, Jerboa n’intègre toutefois pas les
 mécanismes permettant de générer de façon rapide différentes versions d’un même
@@ -111,7 +112,7 @@ spécification paramétrique enregistrant la succession des opérations (et leur
 paramètres) ayant permis de modéliser cet objet. %
 \maxime{Such a system can be thought as a dual structure with, in one hand, the
   geometric model corresponding to the modelled object and, in the other hand,
-  the successive operation (and their paramters) used for the object's
+  the successive operation (and their parameters) used for the object's
   modelling.} %
 %
 Les paramètres topologiques d’une opération sont des références à des entités
@@ -203,37 +204,81 @@ Le nommage persistant est un problème étudié depuis plusieurs années dans le
 domaine de la CAO [], mais aucune étude n’a été faite conjointement à
 l’utilisation de règles de transformation de graphes. %
 \maxime{The persistent naming problem has been studied for decades in the CAO's
-  field, yet none has been written jointly with the use of graph transformation
-  rules.} %
+  field \cite{marcheix2002survey,farjana2018mechanisms}, yet none has been
+  written jointly with the use of graph transformation rules.} %
 %
 Nous proposons donc d’une part d’étendre l’étude du problème de nommage aux
 systèmes de modélisation à base de règles de réécriture de graphe, et d’autre
 part d’intégrer au sein de Jerboa des mécanismes de rejeu des systèmes
-paramétriques. Pour cela nous proposons une méthode de nommage persistant qui
-tire parti de la formalisation des opérations via les règles et de leur capacité
-à décrire précisément l’histoire des entités topologiques pour caractériser ces
-entités de manière unique et homogène en toutes dimensions, et cela, quelle que
-soit la dimension du modèle. D’une manière ou d’une autre, la plupart des
-méthodes existantes nécessitent de suivre l’évolution de nombreuses entités
-topologiques et abordent le problème de ma persistance des noms uniquement dans
-le cadre de la modification des paramètres de la spec [Kripac, Chen, Wu, etc.].
+paramétriques. %
+\maxime{We propose, in the first hand to widen the naming problem studies to the
+  rule-based graph transformation modelling systems and, in the second hand to
+  integrate the mechanisms of reevaluation for parametric system within
+  Jerboa.} %
+%
+Pour cela nous proposons une méthode de nommage persistant qui tire parti de la
+formalisation des opérations via les règles et de leur capacité à décrire
+précisément l’histoire des entités topologiques pour caractériser ces entités de
+manière unique et homogène en toutes dimensions, et cela, quelle que soit la
+dimension du modèle. %
+\maxime{To this end we propose a persistent naming method taking advantage of
+  the rules' formalisation of operations and their ability to precisely describe
+  the history of topological entities such that these entities are uniquely and
+  homogeneously characterised for all dimensions independently from a model's
+  dimension.} %
+%
+D’une manière ou d’une autre, la plupart des méthodes existantes nécessitent de
+suivre l’évolution de nombreuses entités topologiques et abordent le problème de
+ma persistance des noms uniquement dans le cadre de la modification des
+paramètres de la spec [Kripac, Chen, Wu, etc.]. %
+\maxime{In a way or another, most existing methods require the tracking of
+  numerous topological entities and approach the persistent naming problem only
+  from the parameters' modifications of a parametric specification
+  standpoint\cite{kripac1995mechanism, chen1995editability, wu2001face}.} %
+%
 Avec la méthode que nous proposons, seules entités utilisées dans la
-spécification paramétrique et les entités dont elles sont issues sont suivies.
+spécification paramétrique et les entités dont elles sont issues sont suivies. %
+\maxime{With the proposed method, the only entities being tracked are those used
+  in the parametric specification and the ones they originate from.} %
+%
 De plus, le problème du nommage est abordé non seulement dans le cadre de la
 modification de paramètres de la spec, mais de façon plus générale en prenant en
 compte l’ajout, la suppression ou le déplacement d’opérations dans la spec (i.e
-édition de la spec). Dans la section 2, nous présenterons les mains concepts
-nécessaires à la mise en œuvre de mécanismes de nommage persistants dans le
-cadre d’un système utilisant des règles de récriture de graphe. En particulier,
-nous présentons les g-maps, les règles et la manière dont il est possible de
-détecter automatiquement, lors de l’application d’une règle, les évènements
-(création, suppression, scission, fusion, modification) survenus sur les entités
-topologiques. Dans la section 3, nous présentons la structure de la
-spécification paramétrique et des noms persistants. La section 4 et 5, aborde
-ensuite la notion d’Arbres de jeu et de rejeu qui permettent d’une part de
-tracer l’évolution des entités topologiques désignées dans la spécification
-paramétrique et des entités dont elles sont issues et d’autre part de trouver
-les entités qui leur correspondent au rejeu.
+édition de la spec). %
+\maxime{Moreover, not only the naming problem is approached within the scope of
+  the specification's parameters edition but, in a broader way by taking into
+  account the addition, the deletion and the movement of operation within the
+  specification (\textit{i.e.} a specification editing).} %
+%
+Dans la section 2, nous présenterons les mains concepts nécessaires à la mise en
+œuvre de mécanismes de nommage persistants dans le cadre d’un système utilisant
+des règles de récriture de graphe. %
+\maxime{In section 2, we present the main concepts necessary to carry out the
+  persistent naming mechanisms within the framework of a system making use of
+  graph transformation rules.} %
+%
+En particulier, nous présentons les g-maps, les règles et la manière dont il est
+possible de détecter automatiquement, lors de l’application d’une règle, les
+évènements (création, suppression, scission, fusion, modification) survenus sur
+les entités topologiques. %
+\maxime{We will especially present the G-maps, Jerboa's rules and how to
+  automatically detect topological changes, or events, (creation, deletion,
+  split, merging, modification, \{non-modification,no-modification\}) that
+  occurred onto topological entities upon a rule's application} %
+%
+Dans la section 3, nous présentons la structure de la spécification paramétrique
+et des noms persistants. %
+\maxime{In section 3, we present the parametric specification's and persistent
+  names' structures \{``structures for ?''\}} %
+%
+La section 4 et 5, aborde ensuite la notion d’Arbres de jeu et de rejeu qui
+permettent d’une part de tracer l’évolution des entités topologiques désignées
+dans la spécification paramétrique et des entités dont elles sont issues et
+d’autre part de trouver les entités qui leur correspondent au rejeu. %
+\maxime{Then, Sections 4 and 5 tackle the concepts of evaluation and
+  reevaluation Direct Acyclic Graphs (or DAGs) enabling the tracking of the
+  topological entities' evolutions, the entities they originate from and their
+  matching with the corresponding entities at reevaluation.} %
 
 %%% Local Variables:
 %%% mode: latex

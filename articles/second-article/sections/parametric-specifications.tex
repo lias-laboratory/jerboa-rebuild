@@ -135,12 +135,12 @@
   \label{fig:reevaluation}
 \end{figure*}
 
-During an object construction, a Parametric Specification records the rules applied and their parameters (both topological and geometric) in order to describe the modelling process. %
+During an object's construction, a Parametric Specification records the rules applied and their parameters (both topological and geometric) in order to describe the modelling process. %
 When a Parametric Specification is edited, rules may be added, deleted, moved, and their parameters can be changed.%
 With such changes, the topological parameters may have different concrete names, be deleted and so on. %
 As a result, using the parameters' concrete names eventually lead to unexpected results (at best) or failure at runtime. %
 
-To this end, Persistent Names are required to robustly identify topological
+To this end, persistent names are required to robustly identify topological
 parameters across an object reevaluation. %
 
 This section will follow evaluation (Fig.~\ref{fig:evaluation}) of a modelling
@@ -151,20 +151,18 @@ process where a rule is added between applications 1 and 2, and where the
 application 3 is deleted. %
 
 
-\subsection{Persistent Name}
+\subsection{Persistent name}
 
 With rules using darts as topological parameters, it ensues that these are the
-entities Persistent Names must robustly identify. %
+entities persistent names must robustly identify. %
 
 A dart is created through a unique sequence of rules' applications and their
 matching nodes. %
-Thus, a Persistent Name being a record of $\PN{application, rule\_node}$ pairs
-does robustly identify a dart. %
 
 For example, following the initial evaluation, dart $10$'s
-(Fig.~\ref{fig:7-eval}) Persistent Name is $\PN{1n_{3}-2n_{4}-5n_{0}}$. However,
-due to an editing of the parametric specification, this same dart is given a
-different concrete name $c$ (Fig.~\ref{fig:7-reeval}) at reevaluation. %
+(Fig.~\ref{fig:7-eval}) persistent name is the $\PN_{7}$. %
+However, due to an editing of the parametric specification, this same dart is
+given a different concrete name $c$ (Fig.~\ref{fig:7-reeval}) at reevaluation. %
 At evaluation, $square$'s (application 1) rule node $n_{3}$ creates the dart $3$
 ''ex nihilo``. %
 Then, $extrusion$'s (application 2) rule node $n_{4}$ copy creates dart $10$
@@ -177,12 +175,15 @@ Now, the added $insertion$'s rule node $n_{0}$ matches the dart $3$ and, there
 is a shift in the concrete names attributions from now on. %
 Then, $extrusion$'s rule node $n_{4}$ copy creates the dart $12$ from the dart
 $3$. %
-And, finally, dart $12$ is matched by $extrusion$'s rule node $n_{0}$. %
-Thus, the Persistent Names makes it possible to find that dart $c$ concrete name
-is $12$. %
+Finally, dart $12$ is matched by $extrusion$'s rule node $n_{0}$. %
+The persistent name built from dart $10$ is $PN_{7}=[1n_{3};2n_{4};5n_{0}]$ and
+is able to find that dart $c$'s concrete name is $12$. %
 
-By construction, a Persistent Name identifies a unique dart. %
-That is, darts all have a different Persistent Name. %
+A persistent name being a record of $\PN{application, rule\_node}$ pairs
+does robustly identify a dart. %
+
+By construction, a persistent name identifies a unique dart. %
+That is, darts all have a different persistent name. %
 
 \subsection{Parametric Specification syntax}
 

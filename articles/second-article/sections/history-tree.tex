@@ -1,12 +1,12 @@
 \section{Evaluation DAG}
 
-After the modelling of an object time and once its parametric specification has
-been built, an Evaluation DAG is issued for each registered topological
-parameters. %
-An Evaluation DAG traces the history of a topological parameter back to the
-first created orbits it originates from. %
-Such a history is used in order to match the corresponding topological parameter
-at re-evaluation time. %
+Once the initial evaluation (Fig.~\ref{fig:evaluation}) is complete and its
+parametric specification \maxime{init-spec} built, an evaluation directed
+acyclic graph (or DAG) must be issued for each registered persistent name before
+a parametric specification can be re-evaluated. %
+An Evaluation DAG traces the history of each topological parameter back to the
+first created orbits it originates from, thus allowing the matching of the
+corresponding topological parameter at re-evaluation time. %
 
 \subsection{Evaluation}
 
@@ -14,11 +14,41 @@ at re-evaluation time. %
   \centering
   \includegraphics[width=0.3\textwidth]{pn3}
   \caption{Evaluation DAG of the Persistent Name $PN_{3}$}
-  \label{fig:history-tree-pn1}
+  \label{fig:eval-dag-pn3}
 \end{figure}
 
-An Evaluation DAG is a datastructure which lays out the events that
-occured in the evolution of a topological parameter. %
+An evaluation DAG is a data structure used to store the history of a topological
+parameter and is built with only the rules and nodes referenced in a persistent
+names. %
+
+Since a persistent name only references a topological parameter at the moment of
+the application of a rule, an history is built from state of an orbit at the
+moment of a rule application (bottom of a DAG) up to its origins (top of a
+DAG). %
+Moreover, there are two kind of layers in an evaluation DAG: First layer is an
+event layer, indexed by a rule's application number from the persistent name and
+showing a list of topological changes provoked by the rule; Second layer is an
+orbit level, indexed by a node (related to the application number) from the
+persistent name and showing a list of the orbits produced by the topological
+changes of event level above. %
+
+For example, $PN_{3}$'s evaluation DAG (Fig.~\ref{fig:eval-dag-pn3}) references
+an orbit which the extrude rule expects to be a face $\orbit{0,1}$. %
+Considering $PN_3=[1n_{5};2n_{6};3n_{0}]$, its evaluation DAG starts with the
+application $3$: The orbit level is indexed by $n_{0}$ and contains a face orbit
+$\orbit{0,1}$; The event level above is indexed with the application number
+$3$. %
+A query to a bulletin board with an orbit $\orbit{0,1}$ incident to the node
+$n_{0}$ will find that the orbit $\orbit{0,1}$ incident to $n_{0}$ was modified
+by the application $3$ so the event listed in the level event is
+$MODIFICATION$. %
+Continuing with application $2$: The orbit level is indexed with $n_{4}$ and
+since the face orbit was modified (\textit{i.e.} no creation nor split nor
+merging of the orbit), it can be traced up to this level; The event level, this
+time, is indexed by $2$ and a query will find that the face orbit was created by
+this application. %
+Finally, …
+
 
 \subsection{Traces and origins}
 
@@ -26,7 +56,7 @@ occured in the evolution of a topological parameter. %
   \centering
   \includegraphics[width=0.4\textwidth]{pn7}
   \caption{Evaluation DAG of the Persistent Name $PN_{7}$}
-  \label{fig:history-tree-pn6}
+  \label{fig:eval-dag-pn7}
 \end{figure}
 
 \subsection{Paths to origins}
@@ -35,7 +65,7 @@ occured in the evolution of a topological parameter. %
   \centering
   \includegraphics[width=0.4\textwidth]{pn6}
   \caption{Evaluation DAG of the Persistent Name $PN_{6}$}
-  \label{fig:history-tree-pn6}
+  \label{fig:eval-dag-pn6}
 \end{figure}
 
 %%% Local Variables:

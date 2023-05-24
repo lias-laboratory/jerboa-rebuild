@@ -7,35 +7,35 @@ In this section, we present the generalized maps, graph transformation rules and
 \begin{figure*}[ht]
     \begin{subfigure}{.19\textwidth}
         \centering
-        \includegraphics[height=.18\textheight]{decomposition-3D-no-decomp}
+        \includegraphics[height=.15\textheight]{decomposition-3D-no-decomp}
         \caption{}
         \label{fig:decomp-no-decomp}
     \end{subfigure}
     \hfill
     \begin{subfigure}{.19\textwidth}
         \centering
-        \includegraphics[height=.18\textheight]{decomposition-3D-3-cell}
+        \includegraphics[height=.15\textheight]{decomposition-3D-3-cell}
         \caption{}
         \label{fig:decomp-volume}
     \end{subfigure}
     \hfill
     \begin{subfigure}{.19\textwidth}
         \centering
-        \includegraphics[height=.18\textheight]{decomposition-3D-2-cell}
+        \includegraphics[height=.15\textheight]{decomposition-3D-2-cell}
         \caption{}
         \label{fig:decomp-face}
         \end{subfigure}
     \hfill
     \begin{subfigure}{.19\textwidth}
         \centering
-        \includegraphics[height=.18\textheight]{decomposition-3D-1-cell}
+        \includegraphics[height=.15\textheight]{decomposition-3D-1-cell}
         \caption{}
         \label{fig:decomp-edge}
     \end{subfigure}
     \hfill
     \begin{subfigure}{.19\textwidth}
         \centering
-        \includegraphics[height=.18\textheight]{decomposition-3D-0-cell}
+        \includegraphics[height=.15\textheight]{decomposition-3D-0-cell}
         \caption{}
         \label{fig:decomp-vertex}
     \end{subfigure}
@@ -73,35 +73,35 @@ are always linked along an edge.
 \begin{figure*}[ht]
   \begin{subfigure}{.19\textwidth}
     \centering
-    \includegraphics[height=.18\textheight]{orbit-3D-vertex-123.pdf}
+    \includegraphics[height=.15\textheight]{orbit-3D-vertex-123.pdf}
     \caption{}
     \label{fig:orbit-3D-vertex-123}
   \end{subfigure}
   \hfill
   \begin{subfigure}{.19\textwidth}
     \centering
-    \includegraphics[height=.18\textheight]{orbit-3D-edge-023.pdf}
+    \includegraphics[height=.15\textheight]{orbit-3D-edge-023.pdf}
     \caption{}
     \label{fig:orbit-3D-edge-023}
   \end{subfigure}
   \hfill
   \begin{subfigure}{.19\textwidth}
     \centering
-    \includegraphics[height=.18\textheight]{orbit-3D-face-013}
+    \includegraphics[height=.15\textheight]{orbit-3D-face-013}
     \caption{}
     \label{fig:orbit-3D-face-013}
   \end{subfigure}
   \hfill
   \begin{subfigure}{.19\textwidth}
     \centering
-    \includegraphics[height=.18\textheight]{orbit-3D-volume-012}
+    \includegraphics[height=.15\textheight]{orbit-3D-volume-012}
     \caption{}
     \label{fig:orbit-3D-volume-012}
   \end{subfigure}
   \hfill
   \begin{subfigure}{.19\textwidth}
     \centering
-    \includegraphics[height=.18\textheight]{orbit-3D-edge-02}
+    \includegraphics[height=.15\textheight]{orbit-3D-edge-02}
     \caption{}
     \label{fig:orbit-3D-edge-02}
   \end{subfigure}
@@ -150,9 +150,16 @@ is an $\orbit{0,2}$ orbit incident to $a$.
 Jerboas's \cite{belhaouari2014jerboa} graph transformation rules allow the
 formalisation of operations over G-maps. %
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[height=.25\textwidth]{rule-create-square-face}
+  \caption{Square creation rule}
+  \label{fig:rule-create-square}
+\end{figure}
+
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=0.9\textwidth]{rule-face-extrusion}
+  \includegraphics[height=50pt]{rule-face-extrusion}
   \caption{Extrusion rule}
   \label{fig:rule-face-extrusion}
 \end{figure*}
@@ -163,13 +170,14 @@ formalisation of operations over G-maps. %
     \centering
     \includegraphics[width=.65\textwidth]{demo-fig-extrusion-left-match.pdf}
     \caption{Graph $G$}
-    \label{fig:demo-fig-triangulation-left-match}
+    \label{fig:demo-fig-extrusion-left-match}
   \end{subfigure}
+  \hfill
   \begin{subfigure}[t]{.45\columnwidth}
     \centering
     \includegraphics[width=.8\textwidth]{demo-fig-extrusion-right-match.pdf}
     \caption{Graph $H$}
-    \label{fig:demo-fig-triangulation-right-match}
+    \label{fig:demo-fig-extrusion-right-match}
   \end{subfigure}
   \caption{Face's extrusion (rule Fig.~\ref{fig:rule-face-extrusion})}
   % \label{fig:before-after-triangulation}
@@ -262,7 +270,7 @@ preservation. %
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{rule-face-triangulation-3D-boxed.pdf}
+    \includegraphics[height=50pt]{rule-face-triangulation-3D-boxed.pdf}
     \caption{Face triangulation rule}
     \label{fig:rule-triangulation}
 \end{figure}
@@ -272,14 +280,14 @@ preservation. %
     \centering
     \includegraphics[width=.8\textwidth]{cube-article-view.pdf}
     \caption{Graph H}
-    \label{fig:demo-cube}
+    \label{fig:demo-fig-triangulation-left-match}
 \end{subfigure}
 \hfill
 \begin{subfigure}{.45\columnwidth}
     \centering
     \includegraphics[width=.8\textwidth]{triangulated-cube-article-view.pdf}
     \caption{Graph I}
-    \label{fig:demo-cube-triangulated}
+    \label{fig:demo-fig-triangulation-right-match}
 \end{subfigure}
 \caption{Front-left face's triangulation (rule
   Fig.~\ref{fig:rule-triangulation})}
@@ -293,8 +301,8 @@ the rules' syntactic analysis. %
 
 For example, the application of the face triangulation rule
 (Fig.~\ref{fig:rule-triangulation}) on the front left face of graph $H$
-(Fig.~\ref{fig:demo-cube}), produces graph $I$
-(Fig.~\ref{fig:demo-cube-triangulated}). %
+(Fig.~\ref{fig:demo-fig-triangulation-left-match}), produces graph $I$
+(Fig.~\ref{fig:demo-fig-triangulation-right-match}). %
 The syntactic analysis of the rule allows us to deduce that the vertex
 $\orbit{1,2,3}$ orbit (blue) incident to the node $n_2$ is \emph{created}
 because $n_2$ itself is a created node. %

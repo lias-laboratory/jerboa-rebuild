@@ -1,52 +1,52 @@
 \section{Parametric specification}
 
 \begin{figure*}[ht!]
-  %\renewcommand\thesubfigure{\arabic{subfigure}}
+  % \renewcommand\thesubfigure{.\arabic{subfigure}}
   \centering
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{1-evaluation-square}
     \caption{}
     \label{fig:house-ground}
     \label{fig:1-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{2-evaluation-extrusion}
     \caption{}
     \label{fig:2-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{3-evaluation-insert}
     \caption{}
     \label{fig:3-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{4-evaluation-extrusion}
     \caption{}
     \label{fig:4-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{5-evaluation-triangulation}
     \caption{}
     \label{fig:5-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{6-evaluation-collapse}
     \caption{}
     \label{fig:6-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{7-evaluation-chamfer}
     \caption{}
     \label{fig:7-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{8-evaluation-colour}
     \caption{}
     \label{fig:8-eval}
@@ -61,19 +61,19 @@
 \begin{figure*}[ht!]
   %\renewcommand\thesubfigure{\arabic{subfigure}}
   \centering
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{1-reevaluation-square}
     \caption{}
     \label{fig:1-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
     \caption{}
     \label{fig:1add-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{2-reevaluation-extrusion}
     \caption{}
     \label{fig:2-reeval}
@@ -84,36 +84,36 @@
     \label{fig:3delete-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{4-reevaluation-extrusion}
     \caption{}
     \label{fig:4-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{5-reevaluation-triangulation}
     \caption{}
     \label{fig:5-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{6-reevaluation-collapse}
     \caption{}
     \label{fig:6-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{7-reevaluation-chamfer}
     \caption{}
     \label{fig:7-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.112\textwidth}
+  \begin{subfigure}[t]{0.115\textwidth}
     \includegraphics[width=\textwidth]{8-reevaluation-colour}
     \caption{}
     \label{fig:8-reeval}
   \end{subfigure}
-  \caption{Reevaluation. (a) $1$-square(pos); (b) ADD $1$-insert(3,vec); (c)
+  \caption{Re-evaluation. (a) $1$-square(pos); (b) ADD $1$-insert(3,vec); (c)
     $2$-extrude($PN_{1}$,vec); (d) DELETE $3$-insert($PN_{2}$,vec); (e)
     $4$-extrude($PN_{3}$,vec); (f) $5$-triangulate($PN_{4}$); (g)
     $6$-collapse($PN_{5}$); (h) $7$-chamfer($PN_{6}$); (i) $8$-colour($PN_{7}$)}
@@ -131,7 +131,7 @@ As a result, using the parameters' concrete names eventually lead to unexpected
 results (at best) or failure at runtime. %
 
 To this end, persistent names are required to robustly identify topological
-parameters across an object reevaluation. %
+parameters across an object re-evaluation. %
 
 This section will follow evaluation (Fig.~\ref{fig:evaluation}) of a modelling
 process as an example in order to illustrate the creation of a parametric
@@ -143,34 +143,84 @@ application 3 is deleted. %
 
 \subsection{Persistent name}
 
+
 With rules using darts as topological parameters, it ensues that these are the
 entities persistent names must robustly identify. %
 
 A dart is created through a unique sequence of rules' applications and their
 matching nodes. %
+Let us work through the example of dart $12$
+(Fig.~\ref{fig:demo-fig-extrusion-right-match}). %
+First, the square rule (Fig.\ref{fig:rule-create-square}) explicitly creates
+dart $6$ (Fig.~\ref{fig:demo-fig-extrusion-left-match}) with its node $n_{6}$. %
+Then, the extrusion rule's (Fig.~\ref{fig:rule-face-extrusion}) application
+later on matches dart $6$ and creates dart $12$ with its node $n_{6}$. %
+Although dart $12$ is created alongside the other darts of the incident face (in
+green), each created dart is a copy of a specific matched dart, dart $12$ being
+a copy of dart $6$. %
+Since, dart $6$'s creation process is \textit{de facto} unique and dart $12$ is
+a copy of dart $6$, dart $12$'s creation process is also unique and its $PN$ is
+$[1n_{6};2n_{6}]$. %
 
-For example, following the initial evaluation, dart $10$'s
-(Fig.~\ref{fig:7-eval}) persistent name is the $PN_{7}$. %
-However, due to an editing of the parametric specification, this same dart is
-given a different concrete name $c$ (Fig.~\ref{fig:7-reeval}) at reevaluation. %
-At evaluation, $square$'s (application 1) rule node $n_{3}$ creates the dart $3$
-''ex nihilo``. %
-Then, $extrusion$'s (application 2) rule node $n_{4}$ copy creates dart $10$
-from dart $3$. %
-And, finally, dart $10$ is matched by $triangulation$'s (application 5) rule
-node $n_0$. %
-At reevaluation, $squares$'s rule node $n_{3}$ recreates the dart $3$
-identically. %
-Now, the added $insertion$'s rule node $n_{0}$ matches the dart $3$ and, there
-is a shift in the concrete names attributions from now on. %
-Then, $extrusion$'s rule node $n_{4}$ copy creates the dart $12$ from the dart
-$3$. %
-Finally, dart $12$ is matched by $extrusion$'s rule node $n_{0}$. %
-The persistent name built from dart $10$ is $PN_{7}=[1n_{3};2n_{4};5n_{0}]$ and
-is able to find that dart $c$'s concrete name is $12$. %
+% Although a node may create one or more node, the square rule's left-hand side is
+% empty and the right-hand side nodes' labels are empty which results in the
+% explicit creation of darts
 
-A persistent name being a record of $\PN{application, rule\_node}$ pairs
-does robustly identify a dart. %
+It follows that, in order to robustly identify a dart, a persistent name records
+its creation process. %
+For example, in the initial evaluation, $PN_{7}$ identifies dart $35$
+(Fig.~\ref{fig:7-eval}). %
+The first application, square rule (Fig.~\ref{fig:rule-create-square}), creates
+dart $3$ with the node $n_{3}$. %
+The second application, extrusion rule (Fig.~\ref{fig:rule-face-extrusion}),
+then matches dart $3$ and copy creates dart $35$ with the node $n_{4}$. %
+Finally, the fifth application, triangulate rule
+(Fig.~\ref{fig:rule-triangulation}), matches dart $35$ without modifying it.
+Therefore, the persistent naming reflecting this creation process is
+$PN_{7}=[1n_{3};2n_{4};5n_{0}]$. %
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[height=35pt]{rule-insert-vertex}
+  \caption{Insert vertex rule}
+  \label{fig:rule-insert-vertex}
+\end{figure}
+
+At re-evaluation, since the parametric specification is edited, dart $35$ is a
+different dart and $PN_{7}$ identifies dart $c$ (Fig.~\ref{fig:7-reeval}). %
+Following the persistent name, $c$ comes from the first application's node
+$n_{3}$ which creates dart $3$. %
+Dart $3$ is then matched by the added application (Fig.~\ref{fig:1add-reeval}),
+insert rule (Fig.~\ref{fig:rule-insert-vertex}), however it is not modified. %
+The second application matches dart $3$ and its node $n_{4}$ copy creates dart
+$37$. %
+Finally, the fifth application's node $n_{0}$ matches dart $37$ without
+modifying it. %
+Therefore, at re-evaluation, $PN_{7}$ identifies dart $37$. %
+% For example, following the initial evaluation, dart $10$'s
+% (Fig.~\ref{fig:7-eval}) persistent name is the $PN_{7}$. %
+% However, due to an editing of the parametric specification, this same dart is
+% given a different concrete name $c$ (Fig.~\ref{fig:7-reeval}) at re-evaluation. %
+% At evaluation, $square$'s (application 1) rule node $n_{3}$ creates the dart $3$
+% ''ex nihilo``. %
+% Then, $extrusion$'s (application 2) rule node $n_{4}$ copy creates dart $10$
+% from dart $3$. %
+% And, finally, dart $10$ is matched by $triangulation$'s (application 5) rule
+% node $n_0$. %
+% At re-evaluation, $squares$'s rule node $n_{3}$ recreates the dart $3$
+% identically. %
+% Now, the added $insertion$'s rule node $n_{0}$ matches the dart $3$ and, there
+% is a shift in the concrete names attributions from now on. %
+% Then, $extrusion$'s rule node $n_{4}$ copy creates the dart $12$ from the dart
+% $3$. %
+% Finally, dart $12$ is matched by $extrusion$'s rule node $n_{0}$. %
+% The persistent name built from dart $10$ is $PN_{7}=[1n_{3};2n_{4};5n_{0}]$ and
+% is able to find that dart $c$'s concrete name is $12$. %
+
+Since a persistent name is a record of a dart's construction process, its
+syntaxe is $PN_{a}=[OP1n_{x};OP2n_{y};\dots]$ where $OP$ is a rule's application
+number in the parametric specification and $n$ is a right-hand side's matching
+node from the corresponding rule. %
 
 By construction, a persistent name identifies a unique dart. %
 That is, darts all have a different persistent name. %
@@ -185,7 +235,7 @@ the topological parameters \textit{TopoParameters} and the geometric parameters
 %
 \begin{verbatim}
   1-square(pos)
-  2-extrude(PN1=[1n2], vec)
+  2-extrude(PN1=[1n6], vec)
   3-insert(PN2=[1n5;2n4], vec)
   4-extrude(PN3=[1n5;2n4;3n0], vec)
   5-triangulate(PN4=[1n3;2n2])

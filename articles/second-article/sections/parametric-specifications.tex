@@ -53,7 +53,7 @@
   \end{subfigure}
   \caption{Evaluation's applications. (a) $1$-square(pos); (b)
     $2$-extrude($PN_{1}$,vec); (c) $3$-insert($PN_{2}$,vec); (d)
-    $4$-extrude($PN_{3}$,vec); (e) $5$-triangulate($PN_{4}$); (f)
+    $4$-extrude($PN_{3}$,vec);\\ (e) $5$-triangulate($PN_{4}$); (f)
     $6$-collapse($PN_{5}$); (g) $7$-chamfer($PN_{6}$); (h) $8$-colour($PN_{7}$)}
   \label{fig:evaluation}
 \end{figure*}
@@ -113,17 +113,17 @@
     \caption{}
     \label{fig:8-reeval}
   \end{subfigure}
-  \caption{Re-evaluation. (a) $1$-square(pos); (b) ADD $1$-insert(3,vec); (c)
-    $2$-extrude($PN_{1}$,vec); (d) DELETE $3$-insert($PN_{2}$,vec); (e)
+  \caption{Re-evaluation. (a) $1$-square(pos); (b) ADD$1$-insert(3,vec); (c)
+    $2$-extrude($PN_{1}$,vec); (d) DELETE $3$-insert($PN_{2}$,vec);\\ (e)
     $4$-extrude($PN_{3}$,vec); (f) $5$-triangulate($PN_{4}$); (g)
     $6$-collapse($PN_{5}$); (h) $7$-chamfer($PN_{6}$); (i) $8$-colour($PN_{7}$)}
   \label{fig:reevaluation}
 \end{figure*}
 
-During an object's construction, a Parametric Specification records the rules
+During an object's construction, a parametric specification records the rules
 applied and their parameters (both topological and geometric) in order to
 describe the modelling process. %
-When a Parametric Specification is edited, rules may be added, deleted, moved,
+When a parametric specification is edited, rules may be added, deleted, moved,
 and their parameters can be changed.%
 With such changes, the topological parameters may have different concrete names,
 be deleted and so on. %
@@ -143,7 +143,6 @@ application 3 is deleted. %
 
 \subsection{Persistent name}
 
-
 With rules using darts as topological parameters, it ensues that these are the
 entities persistent names must robustly identify. %
 
@@ -162,9 +161,12 @@ Since, dart $6$'s creation process is \textit{de facto} unique and dart $12$ is
 a copy of dart $6$, dart $12$'s creation process is also unique and its $PN$ is
 $[1n_{6};2n_{6}]$. %
 
-% Although a node may create one or more node, the square rule's left-hand side is
-% empty and the right-hand side nodes' labels are empty which results in the
-% explicit creation of darts
+\begin{figure}[ht]
+  \centering
+  \includegraphics[height=.25\textwidth]{rule-create-square-face}
+  \caption{Square creation rule}
+  \label{fig:rule-create-square}
+\end{figure}
 
 It follows that, in order to robustly identify a dart, a persistent name records
 its creation process. %
@@ -225,7 +227,7 @@ node from the corresponding rule. %
 By construction, a persistent name identifies a unique dart. %
 That is, darts all have a different persistent name. %
 
-\subsection{Parametric Specification syntax}
+\subsection{parametric specification syntax}
 
 
 A number of fields are used to describe an application within a parametric

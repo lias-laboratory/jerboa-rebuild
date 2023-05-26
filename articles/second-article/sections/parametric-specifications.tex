@@ -143,23 +143,11 @@ application 3 is deleted. %
 
 \subsection{Persistent name}
 
-With rules using darts as topological parameters, it ensues that these are the
-entities persistent names must robustly identify. %
-
-A dart is created through a unique sequence of rules' applications and their
-matching nodes. %
-Let us work through the example of dart $12$
-(Fig.~\ref{fig:demo-fig-extrusion-right-match}). %
-First, the square rule (Fig.\ref{fig:rule-create-square}) explicitly creates
-dart $6$ (Fig.~\ref{fig:demo-fig-extrusion-left-match}) with its node $n_{6}$. %
-Then, the extrusion rule's (Fig.~\ref{fig:rule-face-extrusion}) application
-later on matches dart $6$ and creates dart $12$ with its node $n_{6}$. %
-Although dart $12$ is created alongside the other darts of the incident face (in
-green), each created dart is a copy of a specific matched dart, dart $12$ being
-a copy of dart $6$. %
-Since, dart $6$'s creation process is \textit{de facto} unique and dart $12$ is
-a copy of dart $6$, dart $12$'s creation process is also unique and its $PN$ is
-$[1n_{6};2n_{6}]$. %
+Since rules use darts as topological parameters, it follows that each persistent
+name must represent a unique dart's history so that it can be matched at
+re-evaluation. %
+Well, rules allow the identification of both matched and created darts and, more
+specifically, which node matches or create each dart. %
 
 \begin{figure}[ht]
   \centering
@@ -168,18 +156,31 @@ $[1n_{6};2n_{6}]$. %
   \label{fig:rule-create-square}
 \end{figure}
 
-It follows that, in order to robustly identify a dart, a persistent name records
-its creation process. %
-For example, in the initial evaluation, $PN_{7}$ identifies dart $35$
-(Fig.~\ref{fig:7-eval}). %
-The first application, square rule (Fig.~\ref{fig:rule-create-square}), creates
-dart $3$ with the node $n_{3}$. %
-The second application, extrusion rule (Fig.~\ref{fig:rule-face-extrusion}),
-then matches dart $3$ and copy creates dart $35$ with the node $n_{4}$. %
-Finally, the fifth application, triangulate rule
-(Fig.~\ref{fig:rule-triangulation}), matches dart $35$ without modifying it.
-Therefore, the persistent naming reflecting this creation process is
-$PN_{7}=[1n_{3};2n_{4};5n_{0}]$. %
+For example, the square rule (Fig.~\ref{fig:rule-create-square}), creates $8$
+darts ``ex nihilo'' (Fig.~\ref{fig:1-eval}) one per node. %
+Thus, dart $3$ is created by first application's node $n_{3}$ and its history is
+noted $[1n_{3}]$. %
+Similarly, since darts $5$ and $6$ are created by the square rule application
+$1$'s nodes $n_{5}$ and $n_{6}$ respectively, their histories are $[1n_{5}]$ and
+$[1n_{6}]$. %
+
+The second application (Fig.~\ref{fig:2-eval} and for more details
+Fig.~\ref{fig:before-after-extrusion}), being an extrusion produce by the
+extrude rule (Fig.~\ref{fig:rule-face-extrusion}), copy creates darts from the
+matched darts. %
+Thus, node $n_{1}$ (orange) matches the $8$ darts of the square
+(Fig~\ref{1-eval}), hence, nodes $n_{2}$ to $n_{6}$ create darts copied from the
+$8$ matched darts. %
+As a result, dart $6$'s history is now $[1n_{6};2n_{1}]$ and its copy $8$'s
+history is $[1n_{6};2n_{2}]$, its copy $9$'s history is $[1n_{6};2n_{3}]$, its
+copy $10$'s history is $[1n_{6};2n_{4}]$ and so on. %
+Similarly, darts $46$ and $47$ histories are $[1n_{5};2n_{5}]$ and
+$[1n_{5};2n_{6}]$ respectively since they are copy created by the extrude rule's
+  nodes $n_{5}$ and $n_{6}$ from dart $5$ which was created by square rule's node
+$n_{5}$. %
+For the same reasons, darts $33$ and $35$ histories are $[1n_{3};2n_{2}]$ and
+$[1n_{3};2n_{4}]$ respectively. %
+It occurs that the cube's 48 darts all have a different history.
 
 \begin{figure}[ht]
   \centering
@@ -188,44 +189,22 @@ $PN_{7}=[1n_{3};2n_{4};5n_{0}]$. %
   \label{fig:rule-insert-vertex}
 \end{figure}
 
-At re-evaluation, since the parametric specification is edited, dart $35$ is a
-different dart and $PN_{7}$ identifies dart $c$ (Fig.~\ref{fig:7-reeval}). %
-Following the persistent name, $c$ comes from the first application's node
-$n_{3}$ which creates dart $3$. %
-Dart $3$ is then matched by the added application (Fig.~\ref{fig:1add-reeval}),
-insert rule (Fig.~\ref{fig:rule-insert-vertex}), however it is not modified. %
-The second application matches dart $3$ and its node $n_{4}$ copy creates dart
-$37$. %
-Finally, the fifth application's node $n_{0}$ matches dart $37$ without
-modifying it. %
-Therefore, at re-evaluation, $PN_{7}$ identifies dart $37$. %
-% For example, following the initial evaluation, dart $10$'s
-% (Fig.~\ref{fig:7-eval}) persistent name is the $PN_{7}$. %
-% However, due to an editing of the parametric specification, this same dart is
-% given a different concrete name $c$ (Fig.~\ref{fig:7-reeval}) at re-evaluation. %
-% At evaluation, $square$'s (application 1) rule node $n_{3}$ creates the dart $3$
-% ''ex nihilo``. %
-% Then, $extrusion$'s (application 2) rule node $n_{4}$ copy creates dart $10$
-% from dart $3$. %
-% And, finally, dart $10$ is matched by $triangulation$'s (application 5) rule
-% node $n_0$. %
-% At re-evaluation, $squares$'s rule node $n_{3}$ recreates the dart $3$
-% identically. %
-% Now, the added $insertion$'s rule node $n_{0}$ matches the dart $3$ and, there
-% is a shift in the concrete names attributions from now on. %
-% Then, $extrusion$'s rule node $n_{4}$ copy creates the dart $12$ from the dart
-% $3$. %
-% Finally, dart $12$ is matched by $extrusion$'s rule node $n_{0}$. %
-% The persistent name built from dart $10$ is $PN_{7}=[1n_{3};2n_{4};5n_{0}]$ and
-% is able to find that dart $c$'s concrete name is $12$. %
+Continuing with the third application (Fig.~\ref{fig:3-eval}) being the
+insertion of a vertex on an edge with the insert rule
+(Fig.~\ref{fig:rule-insert-vertex}). %
+Darts $46$ and $47$ are matched by the insert rule's node $n_{0}$. %
+Their histories now are $[1n_{5};2n_{5};3n_{0}]$ and $[1n_{5};2n_{6};3n_{0}]$
+respectively. %
+Conversely, darts $33$ and $35$ are not matched during the vertex insertion and
+their histories remain $[1n_{3};2n_{2}]$ and $[1n_{3};2n_{4}]$ respectively. %
+The object's 52 darts, again, all have a different history. %
+The same goes for the next steps' darts in this or any other construction made
+with rules. %
 
-Since a persistent name is a record of a dart's construction process, its
-syntaxe is $PN_{a}=[OP1n_{x};OP2n_{y};\dots]$ where $OP$ is a rule's application
-number in the parametric specification and $n$ is a right-hand side's matching
-node from the corresponding rule. %
-
-By construction, a persistent name identifies a unique dart. %
-That is, darts all have a different persistent name. %
+Darts histories, thus, represent in a unique way any dart, hence, their usage as
+persistent names. %
+Therefore, $PN_{1}=[1n_{6}]$, $PN_{2}=[1n_{5};2n_{5}]$,
+$PN_{3}=[1n_{5};2n_{6};3n_{0}]$ and so on. %
 
 \subsection{parametric specification syntax}
 

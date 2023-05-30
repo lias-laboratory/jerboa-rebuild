@@ -42,6 +42,7 @@ public class HistoryRecord {
             ParametricSpecification parametricSpecification, int applicationIndex) {
 
         leaves = new LinkedHashMap<>();
+        boolean GETNOEFFS = false;
 
         List<NodeOrbit> nodeOrbitList = new ArrayList<>();
         nodeOrbitList.add(new NodeOrbit(orbitType));
@@ -71,7 +72,10 @@ public class HistoryRecord {
             }
 
             if (ISNOEFFECT) {
-                pie = new PersistentIdElement(currAppID, "ø");
+                if (GETNOEFFS) // non-elegant solution to generate records without NOEFF tags
+                    pie = new PersistentIdElement(currAppID, "ø");
+                else
+                    continue;
             }
 
             nodeOrbitList = addLevel(nodeOrbitList, pie, parametricSpecification, ISNOEFFECT);

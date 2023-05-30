@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
 	<openRules>ExtrudeVolumeFaceZAxis</openRules>
+	<openRules>SewA3</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -2193,11 +2194,11 @@ return res;</expr>
                     <node name="n1" x="270" y="90" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n2" x="390" y="90" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="510" y="90" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n4" x="510" y="240" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n4" x="510" y="210" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="pos">return n0.pos.addn(0,0,1);</expr>
                     </node>
-                    <node name="n5" x="390" y="240" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n6" x="270" y="240" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="390" y="210" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="270" y="210" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="11">
                     <arc dim="3" a="n0" b="n1" size="0">
@@ -2206,21 +2207,21 @@ return res;</expr>
                     </arc>
                     <arc dim="1" a="n2" b="n3" size="0">
                     </arc>
-                    <arcloop dim="3" node="n2" angle="8.57275402546316" >
+                    <arcloop dim="3" node="n2" angle="8.782193535702481" >
                     </arcloop>
-                    <arcloop dim="3" node="n3" angle="8.536862012839379" >
+                    <arcloop dim="3" node="n3" angle="8.85102127819836" >
                     </arcloop>
                     <arc dim="0" a="n3" b="n4" size="0">
                     </arc>
                     <arc dim="1" a="n4" b="n5" size="0">
                     </arc>
-                    <arcloop dim="3" node="n4" angle="-2.2251743937157724" >
+                    <arcloop dim="3" node="n4" angle="-2.4346139039550923" >
                     </arcloop>
                     <arc dim="2" a="n6" b="n5" size="0">
                     </arc>
-                    <arcloop dim="3" node="n6" angle="4.720570362415771" >
+                    <arcloop dim="3" node="n6" angle="3.882812321458494" >
                     </arcloop>
-                    <arcloop dim="3" node="n5" angle="4.043359510108402" >
+                    <arcloop dim="3" node="n5" angle="3.8339199998690825" >
                     </arcloop>
                 </arcs>
             </right>
@@ -2292,26 +2293,26 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="SewA3" module="Sew" category="Sew" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="SewA3" module="Sew" category="Sew" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
             <left>
                 <nodes count="2">
-                    <node name="n0" x="219" y="145" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="462" y="142" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="270" y="150" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="480" y="150" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="2">
-                    <arcloop dim="3" node="n0" angle="-0.9227036517867604" >
+                    <arcloop dim="3" node="n0" angle="0.019774144290177625" >
                     </arcloop>
-                    <arcloop dim="3" node="n1" angle="-2.1037103134816197" >
+                    <arcloop dim="3" node="n1" angle="-3.150907864678219" >
                     </arcloop>
                 </arcs>
             </left>
             <right>
                 <nodes count="2">
-                    <node name="n0" x="249" y="143" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="458" y="148" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="210" y="150" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="330" y="150" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">
                     <arc dim="3" a="n0" b="n1" size="0">

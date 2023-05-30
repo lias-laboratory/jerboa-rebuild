@@ -1,13 +1,5 @@
 package fr.ensma.lias.jerboa;
 
-import java.awt.Dimension;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
@@ -21,6 +13,14 @@ import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
+import java.awt.Dimension;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -36,302 +36,289 @@ import up.jerboa.exception.JerboaException;
  */
 public class DemoInstantRebuild {
 
-	private JerboaGMap gmap;
-	// private GMapViewer gmapviewer;
-	private ParametricSpecification parametricSpecification;
-	private List<Application> applications;
-	private List<HistoryRecord> historyRecords;
-	private List<MatchingTree> matchingTrees;
-	private List<Application> editedApplications;
-	// private JerboaRuleResult appResult;
+  private JerboaGMap gmap;
+  // private GMapViewer gmapviewer;
+  private ParametricSpecification parametricSpecification;
+  private List<Application> applications;
+  private List<HistoryRecord> historyRecords;
+  private List<MatchingTree> matchingTrees;
+  private List<Application> editedApplications;
+  // private JerboaRuleResult appResult;
 
+  public DemoInstantRebuild(JerboaRebuiltBridge bridge, String referenceDir, String referenceSpec,
+      String editedDir, String editedSpec, JFrame frame, GMapViewer gmapviewer)
+      throws IOException, JerboaException {
 
-	public DemoInstantRebuild(JerboaRebuiltBridge bridge, String referenceDir, String referenceSpec,
-			String editedDir, String editedSpec, JFrame frame, GMapViewer gmapviewer)
-			throws IOException, JerboaException {
+    this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
+    // this.gmapviewer = gmapviewer;
+    ModelerGenerated modeler = (ModelerGenerated) bridge.getModeler();
 
-		this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
-		// this.gmapviewer = gmapviewer;
-		ModelerGenerated modeler = (ModelerGenerated) bridge.getModeler();
+    parametricSpecification =
+        JSONPrinter.importParametricSpecification(referenceDir, referenceSpec, modeler);
+    applications = parametricSpecification.getParametricSpecification();
 
-		parametricSpecification =
-				JSONPrinter.importParametricSpecification(referenceDir, referenceSpec, modeler);
-		applications = parametricSpecification.getParametricSpecification();
+    historyRecords = new ArrayList<>();
+    matchingTrees = new ArrayList<>();
 
-		historyRecords = new ArrayList<>();
-		matchingTrees = new ArrayList<>();
+    initializeReevaluation();
 
-		initializeReevaluation();
+    editedApplications = JSONPrinter.importParametricSpecification(editedDir, editedSpec, modeler)
+        .getParametricSpecification();
 
-		editedApplications =
-				JSONPrinter.importParametricSpecification(editedDir, editedSpec, modeler)
-						.getParametricSpecification();
+    // reevaluateModel(editedApplications, historyRecords, matchingTrees,
+    // frame); exportMatchingTrees(matchingTrees);
+  }
 
-		// reevaluateModel(editedApplications, historyRecords, matchingTrees, frame);
-		// exportMatchingTrees(matchingTrees);
-	}
+  /**
+   * Organize the demo step by step.
+   *
+   * @param frame
+   * @param gmapviewer
+   * @throws InterruptedException
+   */
+  // private synchronized void stepByStep(JFrame frame, GMapViewer gmapviewer)
+  // {}
 
-	/**
-	 * Organize the demo step by step.
-	 *
-	 * @param frame
-	 * @param gmapviewer
-	 * @throws InterruptedException
-	 */
-	// private synchronized void stepByStep(JFrame frame, GMapViewer gmapviewer) {}
+  /**
+   *
+   * Export the matching trees created during the model's reevaluation
+   *
+   * @param matchingTrees
+   */
+  // private void exportMatchingTrees(List<MatchingTree> matchingTrees) {
+  private void exportMatchingTrees() {
 
-	/**
-	 *
-	 * Export the matching trees created during the model's reevaluation
-	 *
-	 * @param matchingTrees
-	 */
-	// private void exportMatchingTrees(List<MatchingTree> matchingTrees) {
-	private void exportMatchingTrees() {
+    int counter = 0;
+    for (MatchingTree mt : this.matchingTrees) {
+      mt.export("exports", "matchingtree-" + counter + ".json");
+      counter++;
+    }
+  }
 
-		int counter = 0;
-		for (MatchingTree mt : this.matchingTrees) {
-			mt.export("exports", "matchingtree-" + counter + ".json");
-			counter++;
-		}
+  /**
+   * Initialize the reevaluation process by computing history records and creating empty matching
+   * trees
+   *
+   * @param parametricSpecification
+   * @param applications
+   * @param historyRecords
+   * @param matchingTrees
+   */
+  // private void initializeReevaluation(ParametricSpecification
+  // parametricSpecification, List<Application> applications,
+  // List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees) {
+  private void initializeReevaluation() {
 
-	}
+    int counter = 0;
+    // compute and store all history records
+    for (var application : applications) {
+      var PNs = application.getPersistentNames();
 
-	/**
-	 * Initialize the reevaluation process by computing history records and creating empty matching
-	 * trees
-	 *
-	 * @param parametricSpecification
-	 * @param applications
-	 * @param historyRecords
-	 * @param matchingTrees
-	 */
-	// private void initializeReevaluation(ParametricSpecification parametricSpecification,
-	// List<Application> applications, List<HistoryRecord> historyRecords,
-	// List<MatchingTree> matchingTrees) {
-	private void initializeReevaluation() {
+      for (PersistentName PN : PNs) {
+        JerboaOrbit orbitType = PN.getOrbitType();
+        var PIs = PN.getPIs();
 
-		int counter = 0;
-		// compute and store all history records
-		for (var application : applications) {
-			var PNs = application.getPersistentNames();
+        for (PersistentID PI : PIs) {
+          // Compute and export HRs from current spec
+          HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification,
+              applications.indexOf(application));
+          hr.export("./exports", "hr-rejeu-ajout-" + counter++ + ".json");
+          historyRecords.add(hr);
+          MatchingTree mt = new MatchingTree();
+          matchingTrees.add(mt);
+        }
+      }
+    }
+  }
 
-			for (PersistentName PN : PNs) {
-				JerboaOrbit orbitType = PN.getOrbitType();
-				var PIs = PN.getPIs();
+  /**
+   * Reevaluate a model based on a parametric specification. This parametric specification may be
+   * edited or not but must concern the same object.
+   *
+   * @param swingWorker
+   *
+   * @param applications
+   * @param historyRecords
+   * @param matchingTrees
+   * @throws IOException
+   * @throws JerboaException
+   * @throws InterruptedException
+   * @throws InvocationTargetException
+   */
+  // private synchronized void reevaluateModel(List<Application> applications,
+  // List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
+  // JFrame frame) throws IOException, JerboaException {
+  private void reevaluateModel(GMapViewer gmapviewer) {
+    Integer counter = 0;
+    JerboaRuleResult appResult = null;
+    List<List<JerboaDart>> topoParameters = new ArrayList<>();
 
-				for (PersistentID PI : PIs) {
-					// Compute and export HRs from current spec
-					HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification,
-							applications.indexOf(application));
-					hr.export("./exports", "hr-rejeu-ajout-" + counter++ + ".json");
-					historyRecords.add(hr);
-					MatchingTree mt = new MatchingTree();
-					matchingTrees.add(mt);
+    for (int applicationIndex = 0; applicationIndex < editedApplications
+        .size(); applicationIndex++) {
 
-				}
-			}
-		}
+      Application application = editedApplications.get(applicationIndex);
+      int nbPNs = application.getPersistentNames().size();
+      JerboaDart controlDart = null;
 
-	}
+      topoParameters = new ArrayList<>();
 
-	/**
-	 * Reevaluate a model based on a parametric specification. This parametric specification may be
-	 * edited or not but must concern the same object.
-	 *
-	 * @param swingWorker
-	 *
-	 * @param applications
-	 * @param historyRecords
-	 * @param matchingTrees
-	 * @throws IOException
-	 * @throws JerboaException
-	 * @throws InterruptedException
-	 * @throws InvocationTargetException
-	 */
-	// private synchronized void reevaluateModel(List<Application> applications,
-	// List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees, JFrame frame)
-	// throws IOException, JerboaException {
-	private void reevaluateModel(GMapViewer gmapviewer) {
-		Integer counter = 0;
-		JerboaRuleResult appResult = null;
-		List<List<JerboaDart>> topoParameters = new ArrayList<>();
+      if (application.getApplicationType() != ApplicationType.ADD) {
+        counter = collectTopologicalParameters(topoParameters, matchingTrees, nbPNs, counter);
+      } else {
+        topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
 
-		for (int applicationIndex = 0; applicationIndex < editedApplications
-				.size(); applicationIndex++) {
+        // REVIEW: this is a workaround to get an effective distinction
+        // between NOEFFECT and MERGE with added rules
+        JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
+        JerboaRuleNode hook = rule.getHooks().get(0);
+        int controlNodeIndex = rule.findClosestPreservedNode(hook);
+        JerboaRuleNode controlNode = rule.getLeftRuleNode(controlNodeIndex);
 
-			Application application = editedApplications.get(applicationIndex);
-			int nbPNs = application.getPersistentNames().size();
-			JerboaDart controlDart = null;
+        List<Integer> pathFromRootToControl =
+            rule.collectLabelsFromSourceToClosestTarget(hook, Arrays.asList(controlNode), null);
 
-			topoParameters = new ArrayList<>();
+        for (Integer label : pathFromRootToControl) {
+          controlDart = topoParameters.get(0).get(0).alpha(label);
+        }
+      }
 
-			if (application.getApplicationType() != ApplicationType.ADD) {
-				counter =
-						collectTopologicalParameters(topoParameters, matchingTrees, nbPNs, counter);
-			} else {
-				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
+      try {
+        if (application.getApplicationType() != ApplicationType.DELETE) {
+          appResult = apply(application.getRule(), topoParameters);
+          gmapviewer.updateIHM();
+        }
+      } catch (JerboaException e) {
+        e.printStackTrace();
+      }
 
-				// REVIEW: this is a workaround to get an effective distinction
-				// between NOEFFECT and MERGE with added rules
-				JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
-				JerboaRuleNode hook = rule.getHooks().get(0);
-				int controlNodeIndex = rule.findClosestPreservedNode(hook);
-				JerboaRuleNode controlNode = rule.getLeftRuleNode(controlNodeIndex);
+      computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees, controlDart);
+    }
 
-				List<Integer> pathFromRootToControl = rule.collectLabelsFromSourceToClosestTarget(
-						hook, Arrays.asList(controlNode), null);
+    exportMatchingTrees();
+  }
 
-				for (Integer label : pathFromRootToControl) {
-					controlDart = topoParameters.get(0).get(0).alpha(label);
-				}
+  /**
+   *
+   * @param application
+   * @param appResult
+   * @param historyRecords
+   * @param matchingTrees
+   */
+  private void computeMatchingTreeLevel(Application application, JerboaRuleResult appResult,
+      List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
+      JerboaDart controlDart) {
 
-			}
+    for (int index = 0; index < historyRecords.size(); index++) {
 
-			try {
-				if (application.getApplicationType() != ApplicationType.DELETE) {
-					appResult = apply(application.getRule(), topoParameters);
-					gmapviewer.updateIHM();
-				}
-			} catch (JerboaException e) {
-				e.printStackTrace();
-			}
+      if (historyRecords.get(index).getLeaves().get(application.getApplicationID()) != null
+          || application.getApplicationType() == ApplicationType.ADD) {
 
-			computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees,
-					controlDart);
+        LevelEventHR levelEventHR = null;
 
-		}
+        List<LevelEventHR> levelEventHRs = historyRecords.get(index).getLeaves()
+            .getOrDefault(application.getApplicationID(), new ArrayList<>());
 
-		exportMatchingTrees();
+        if (!levelEventHRs.isEmpty()) {
+          levelEventHR = levelEventHRs.get(0);
+        }
 
-	}
+        MatchingTree mt = matchingTrees.get(index);
 
+        mt.addLevel(levelEventHR, application, appResult, controlDart);
+      }
+    }
+  }
 
-	/**
-	 *
-	 * @param application
-	 * @param appResult
-	 * @param historyRecords
-	 * @param matchingTrees
-	 */
-	private void computeMatchingTreeLevel(Application application, JerboaRuleResult appResult,
-			List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
-			JerboaDart controlDart) {
+  /**
+   *
+   * @param topoParameters
+   * @param matchingTrees
+   * @param nbPNs
+   * @param counter
+   * @return
+   */
+  private int collectTopologicalParameters(List<List<JerboaDart>> topoParameters,
+      List<MatchingTree> matchingTrees, int nbPNs, int counter) {
+    // for each pn add a topological parameters
+    for (int i = 0; i < nbPNs; i++) {
+      topoParameters.add(Arrays.asList(matchingTrees.get(counter).getTopoParameter()));
+      counter += 1;
+    }
+    return counter;
+  }
 
-		for (int index = 0; index < historyRecords.size(); index++) {
+  /**
+   *
+   * @param dartIDs
+   * @param topoParameters
+   * @return
+   */
+  private List<List<JerboaDart>> dartIDsToJerboaDarts(List<Integer> dartIDs,
+      List<List<JerboaDart>> topoParameters) {
+    for (Integer dartID : dartIDs) {
+      topoParameters.add(Arrays.asList(gmap.getNode(dartID)));
+    }
+    return topoParameters;
+  }
 
-			if (historyRecords.get(index).getLeaves().get(application.getApplicationID()) != null
-					|| application.getApplicationType() == ApplicationType.ADD) {
+  /**
+   *
+   * @param rule
+   * @param topoParameters
+   * @return
+   * @throws JerboaException
+   */
+  private JerboaRuleResult apply(JerboaRuleOperation rule, List<List<JerboaDart>> topoParameters)
+      throws JerboaException {
 
-				LevelEventHR levelEventHR = null;
+    // apply rule and save its result until next application
+    return rule.applyRule(gmap, new JerboaInputHooksGeneric(topoParameters));
+  }
 
-				List<LevelEventHR> levelEventHRs = historyRecords.get(index).getLeaves()
-						.getOrDefault(application.getApplicationID(), new ArrayList<>());
+  public static void main(String[] args)
+      throws JerboaException, IOException, InterruptedException, InvocationTargetException {
 
-				if (!levelEventHRs.isEmpty()) {
-					levelEventHR = levelEventHRs.get(0);
-				}
+    final JFrame frame = new JFrame();
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(1024, 768);
 
-				MatchingTree mt = matchingTrees.get(index);
+    ModelerGenerated modeler = new ModelerGenerated();
 
-				mt.addLevel(levelEventHR, application, appResult, controlDart);
-			}
-		}
-	}
+    JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
+    GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);
+    frame.getContentPane().add(gmapviewer);
+    frame.setSize(1024, 768);
+    frame.pack();
 
-	/**
-	 *
-	 * @param topoParameters
-	 * @param matchingTrees
-	 * @param nbPNs
-	 * @param counter
-	 * @return
-	 */
-	private int collectTopologicalParameters(List<List<JerboaDart>> topoParameters,
-			List<MatchingTree> matchingTrees, int nbPNs, int counter) {
-		// for each pn add a topological parameters
-		for (int i = 0; i < nbPNs; i++) {
-			topoParameters.add(Arrays.asList(matchingTrees.get(counter).getTopoParameter()));
-			counter += 1;
-		}
-		return counter;
-	}
+    frame.setPreferredSize(new Dimension(1024, 768));
 
-	/**
-	 *
-	 * @param dartIDs
-	 * @param topoParameters
-	 * @return
-	 */
-	private List<List<JerboaDart>> dartIDsToJerboaDarts(List<Integer> dartIDs,
-			List<List<JerboaDart>> topoParameters) {
-		for (Integer dartID : dartIDs) {
-			topoParameters.add(Arrays.asList(gmap.getNode(dartID)));
-		}
-		return topoParameters;
-	}
+    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    frame.setVisible(true);
 
-	/**
-	 *
-	 * @param rule
-	 * @param topoParameters
-	 * @return
-	 * @throws JerboaException
-	 */
-	private JerboaRuleResult apply(JerboaRuleOperation rule, List<List<JerboaDart>> topoParameters)
-			throws JerboaException {
+    DemoInstantRebuild demo = new DemoInstantRebuild(bridge,
+        // "./exports", //
+        // "pyramid.json", //
+        // "merge-exple-part1.json", //
+        // "./exports", //
+        // "pyramid.json", //
+        // "merge-exple-part2.json", //
+        "./examples", //
+        // "spec_penta-split-triangulate-two-deleteedge.json", //
+        "article-2-build.json", //
+        "./examples", //
+        // "spec_penta-split-triangulate-two-deleteedge.json", //
+        "article-2-build-reevaluation.json", //
+        frame, gmapviewer);
 
-		// apply rule and save its result until next application
-		return rule.applyRule(gmap, new JerboaInputHooksGeneric(topoParameters));
-	}
+    SwingUtilities.invokeLater(new Runnable() {
+      @Override
+      public void run() {
+        frame.invalidate();
+        frame.repaint(1000);
+        gmapviewer.updateIHM();
+      }
+    });
 
-	public static void main(String[] args)
-			throws JerboaException, IOException, InterruptedException, InvocationTargetException {
-
-		final JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1024, 768);
-
-		ModelerGenerated modeler = new ModelerGenerated();
-
-		JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
-		GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);
-		frame.getContentPane().add(gmapviewer);
-		frame.setSize(1024, 768);
-		frame.pack();
-
-		frame.setPreferredSize(new Dimension(1024, 768));
-
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setVisible(true);
-
-		DemoInstantRebuild demo = new DemoInstantRebuild(bridge, //
-				// "./exports", //
-				// "pyramid.json", //
-				// "merge-exple-part1.json", //
-				// "./exports", //
-				// "pyramid.json", //
-				// "merge-exple-part2.json", //
-				"./examples", //
-				// "spec_penta-split-triangulate-two-deleteedge.json", //
-				"article-2-build.json", //
-				"./examples", //
-				// "spec_penta-split-triangulate-two-deleteedge.json", //
-				"article-2-build-reevaluation.json", //
-				frame, gmapviewer);
-
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				frame.invalidate();
-				frame.repaint(1000);
-				gmapviewer.updateIHM();
-			}
-
-		});
-
-		demo.reevaluateModel(gmapviewer);
-
-	}
+    demo.reevaluateModel(gmapviewer);
+  }
 }

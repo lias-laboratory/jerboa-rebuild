@@ -46,7 +46,7 @@ public class MatchingTree {
 		ApplicationType appType = application.getApplicationType();
 
 		switch (appType) {
-			case DELETE:
+			// case DELETE:
 			case INIT:
 				int appNumber = levelEventHR.getAppNumber();
 				String nodeName = levelEventHR.getNextLevelOrbit().getNodeName();
@@ -193,6 +193,9 @@ public class MatchingTree {
 
 			if (newNodeEvent.getEvent() == Event.SPLIT) {
 				System.out.println(newNodeEvent.getEvent());
+				// TODO: add an index at each dag's level starting from the current
+				System.out.println(eventList);
+				// TODO: create an orbit for each sub-orbit of origin type
 			}
 
 			orbitList.add(newNodeEvent.getChild());

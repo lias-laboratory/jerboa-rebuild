@@ -180,7 +180,7 @@ $[1n_{5};2n_{6}]$ respectively since they are copy created by the extrude rule's
 $n_{5}$. %
 For the same reasons, darts $33$ and $35$ histories are $[1n_{3};2n_{2}]$ and
 $[1n_{3};2n_{4}]$ respectively. %
-It occurs that the cube's 48 darts all have a different history.
+It occurs that the cube's 48 darts all have a different history. %
 
 \begin{figure}[ht]
   \centering
@@ -214,22 +214,27 @@ specification, namely an application number \textit{AppNumber}, a \textit{Rule},
 the topological parameters \textit{TopoParameters} and the geometric parameters
 \textit{Geometric Parameters}. %
 %
-\begin{verbatim}
-  1-square(pos)
-  2-extrude(PN1=[1n6], vec)
-  3-insert(PN2=[1n5;2n4], vec)
-  4-extrude(PN3=[1n5;2n4;3n0], vec)
-  5-triangulate(PN4=[1n3;2n2])
-  6-collapse(PN5=[1n4;2n6;4n6])
-  7-chamfer(PN6=[1n5;2n5;3n0;4n4;6n2])
-  8-colour(PN7=[1n3;2n4;5n0])
-\end{verbatim}
+\begin{figure}[h!]
+  \centering
+    \begin{verbatim}
+      1-square(pos)
+      2-extrude(PN1=[1n6], vec)
+      3-insert(PN2=[1n5;2n4], vec)
+      4-extrude(PN3=[1n5;2n4;3n0], vec)
+      5-triangulate(PN4=[1n3;2n2])
+      6-collapse(PN5=[1n4;2n6;4n6])
+      7-chamfer(PN6=[1n5;2n5;3n0;4n4;6n2])
+      8-colour(PN7=[1n3;2n4;5n0])
+    \end{verbatim}
+  \caption{init-spec}
+  \label{fig:init-spec}
+\end{figure}
 %
 %
 The parametric specification above represents the modelling process of an
 initial evaluation (Fig.~\ref{fig:evaluation}). %
 
-Additionnaly, a set of tags are used to describe if an application is either
+Furthermore, a set of tags are used to describe if an application is either
 added (\textit{ADD}), deleted (\textit{DELETE}) or moved (\textit{MOVE}) at
 reevaluation. %
 

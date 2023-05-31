@@ -48,7 +48,7 @@ def createOrbitNode(graph, appNumber, nodeName, path, keyValue):
 
 def drawEdge(graph, nameA, nameB, linkType):
     """Wrapping method for `graph.edge()` to decide edge's color."""
-    if linkType == "ORIGIN" or linkType == "CREATION":
+    if linkType == "ORIGIN":  # or linkType == "CREATION":
         link = "red"
     else:
         link = "black"

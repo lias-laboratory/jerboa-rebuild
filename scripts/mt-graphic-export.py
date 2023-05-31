@@ -22,12 +22,22 @@ def computeEvent(appNumber, event, eventsChild):
     return [str(appNumber) + event["event"] + str(eventsChild["dim"]), event["event"]]
 
 
-def computeOrbit(appNumber, dartID, path, orbit):
+def computeOrbit(appNumber, nodeName, path, orbit):
     """Create a name and id for an orbit node."""
-    return [
-        str(appNumber) + str(dartID) + str(orbit["dim"]),
-        str(path) + "·" + str(orbit["dim"]),
-    ]
+    pathStr = "".join("@" + str(l) + "." for l in path)
+    # pathStr = str(path)
+    orbitStr = str(orbit["dim"]).replace("[", "⟨").replace("]", "⟩")
+    if not path:
+        pathStr = ""
+    return [str(appNumber) + nodeName + str(orbit["dim"]), pathStr + orbitStr]
+
+
+# def computeOrbit(appNumber, dartID, path, orbit):
+#     """Create a name and id for an orbit node."""
+#     return [
+#         str(appNumber) + str(dartID) + str(orbit["dim"]),
+#         str(path) + "·" + str(orbit["dim"]),
+#     ]
 
 
 def createEventNode(graph, appNumber, event, child):
@@ -46,7 +56,7 @@ def createOrbitNode(graph, appNumber, dartID, path, keyValue):
 
 def drawEdge(graph, nameA, nameB, linkType):
     """Wrapping method for `graph.edge()` to decide edge's color."""
-    if linkType == "ORIGIN" or linkType == "CREATION":
+    if linkType == "ORIGIN":  # or linkType == "CREATION":
         link = "red"
     else:
         link = "black"

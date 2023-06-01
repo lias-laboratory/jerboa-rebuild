@@ -224,7 +224,7 @@ public class DemoInstantRebuild {
 
         MatchingTree mt = matchingTrees.get(index);
 
-        mt.addLevel(levelEventHR, application, appResult, controlDart);
+        mt.addLevel(historyRecords.get(index), levelEventHR, application, appResult, controlDart);
       }
     }
   }

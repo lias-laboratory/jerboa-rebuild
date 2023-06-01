@@ -15,6 +15,7 @@ public class MatchingTree {
 
 	// LevelOrbitMT root;
 	JerboaDart topoParameter; // the last dartID computed at the end of the matching process
+	int depthClone = -1;
 	List<List<LevelEventMT>> leaves;
 
 	/**
@@ -38,8 +39,8 @@ public class MatchingTree {
 	 *
 	 * @param appResult
 	 */
-	public void addLevel(LevelEventHR levelEventHR, Application application,
-			JerboaRuleResult appResult, JerboaDart controlDart) {
+	public void addLevel(HistoryRecord historyRecord, LevelEventHR levelEventHR,
+			Application application, JerboaRuleResult appResult, JerboaDart controlDart) {
 
 		LevelEventMT newLevelEventMT = new LevelEventMT();
 		JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
@@ -60,7 +61,8 @@ public class MatchingTree {
 
 				matchLevel(levelEventHR, application, nodeName, rule, ISNOEFFECT);
 
-				registerLevel(appNumber, newLevelEventMT, levelEventHR.getEventList(),
+				registerLevel(historyRecord, appNumber, newLevelEventMT,
+						levelEventHR.getEventList(),
 						levelEventHR.getNextLevelOrbit().getOrbitList(), appType);
 				break;
 
@@ -84,9 +86,9 @@ public class MatchingTree {
 
 				// if the topological parameter is not filtered by any node
 				if (nodeIndex == -1) {
-					System.out.println("MATCHINGTREE: NOEFFECT");
-					System.out.println(
-							"MatchingTree: current topoparameter = " + topoParameter.getID());
+					// System.out.println("MATCHINGTREE: NOEFFECT");
+					// System.out.println(
+					// "MatchingTree: current topoparameter = " + topoParameter.getID());
 					// TODO: prepare support for deleted topological parameters
 					computeLevelLists(eventList, orbitList, getLastLevel().get(0));
 				} else {
@@ -114,8 +116,9 @@ public class MatchingTree {
 	 * @param orbitList
 	 * @param type
 	 */
-	private void registerLevel(int applicationID, LevelEventMT newLevelEventMT,
-			List<NodeEvent> eventList, List<NodeOrbit> orbitList, ApplicationType type) {
+	private void registerLevel(HistoryRecord historyRecord, int applicationID,
+			LevelEventMT newLevelEventMT, List<NodeEvent> eventList, List<NodeOrbit> orbitList,
+			ApplicationType type) {
 
 		LevelOrbitMT levelOrbitMT;
 
@@ -128,6 +131,7 @@ public class MatchingTree {
 					.setNextLevelEventMTList(Arrays.asList(newLevelEventMT));
 
 		leaves.add(Arrays.asList(newLevelEventMT));
+
 	}
 
 	/**
@@ -192,11 +196,9 @@ public class MatchingTree {
 			newNodeEvent.getChild().setChildren(nodeEventHR.getChild().getChildren());
 
 			if (newNodeEvent.getEvent() == Event.SPLIT) {
-				System.out.println(newNodeEvent.getEvent());
-				// TODO: add an index at each dag's level starting from the current
-				System.out.println(eventList);
-				// TODO: create an orbit for each sub-orbit of origin type
+				depthClone = 0
 			}
+
 
 			orbitList.add(newNodeEvent.getChild());
 			eventList.add(newNodeEvent);
@@ -204,7 +206,6 @@ public class MatchingTree {
 					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent)));
 
 			// }
-
 		}
 	}
 

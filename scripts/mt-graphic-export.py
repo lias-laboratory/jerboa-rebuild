@@ -22,14 +22,14 @@ def computeEvent(appNumber, event, eventsChild):
     return [str(appNumber) + event["event"] + str(eventsChild["dim"]), event["event"]]
 
 
-def computeOrbit(appNumber, nodeName, path, orbit):
+def computeOrbit(appNumber, dartID, path, orbit):
     """Create a name and id for an orbit node."""
     pathStr = "".join("@" + str(l) + "." for l in path)
     # pathStr = str(path)
     orbitStr = str(orbit["dim"]).replace("[", "⟨").replace("]", "⟩")
     if not path:
         pathStr = ""
-    return [str(appNumber) + nodeName + str(orbit["dim"]), pathStr + orbitStr]
+    return [str(appNumber) + str(dartID) + str(orbit["dim"]), pathStr + orbitStr]
 
 
 # def computeOrbit(appNumber, dartID, path, orbit):

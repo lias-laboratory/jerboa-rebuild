@@ -98,8 +98,8 @@ public class MatchingTree {
 
 					// }
 				}
-				registerLevel(application.getApplicationID(), newLevelEventMT, eventList, orbitList,
-						appType);
+				registerLevel(historyRecord, application.getApplicationID(), newLevelEventMT,
+						eventList, orbitList, appType);
 				break;
 			default:
 				break;
@@ -196,7 +196,7 @@ public class MatchingTree {
 			newNodeEvent.getChild().setChildren(nodeEventHR.getChild().getChildren());
 
 			if (newNodeEvent.getEvent() == Event.SPLIT) {
-				depthClone = 0
+				depthClone = 0;
 			}
 
 

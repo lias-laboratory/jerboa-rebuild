@@ -1,23 +1,104 @@
-\section{Reevaluation}
+\section{Re-evaluation}
 
-An evaluation DAG offer to represent the history of a topological entity. %
-However, when a parametric specification is edited for re-evaluation, the
-history may also be edited. %
-A matching mechanism must be implemented in order to match the expected
-topological entities despite the parametric specification editing. %
-Therefore, a re-evaluation DAG is built for each evaluation DAG, thus allowing
-the matching of the topological entities in the new construction. %
+Chaque DAG d'évaluation représente l'histoire de l'évolution d'une orbite dans
+le contexte d'une évaluation initiale. %
+Dans le cadre d'une réévaluation, l'édition de la spécification paramétrique
+fait que l'histoire d'un paramètre topologique est susceptible d'être changée. %
+Il est alors nécessaire d'adapter les DAGs d'évaluation à ce nouveau processus
+de modélisation et ainsi permettre l'appariement des paramètre topologique. %
+À l'issue de l'appariement, un DAG de réévaluation désignera alors un ou
+plusieurs paramètres topologiques sur lesquels appliquer les opérations de
+modélisation. %
 
-\subsection{Reevaluation DAG}
+\subsection{Re-evaluation DAG}
 
-\begin{itemize}
-    \item examples
-    \item editing types
-    \item strategies (quick look)
-\end{itemize}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[height=.3\textheight]{pn3-reval}
+    \caption{$PN_3$ re-evaluation DAG}
+    \label{fig:pn3-reval-dag}
+\end{figure}
+
+
+Dans un DAG de réévaluation, les noms de nœuds sont remplacés par des noms
+concrets de brins. %
+Cela s'explique par le fait qu'un DAG de réévaluation est construit tout au long
+du processus de réévaluation d'un objet représentant alors, concrètement,
+l'histoire d'une orbite au fur et à mesure que l'objet est transformé par les
+opérations appliquées successivement. %
+
+Considérons l'exemple du DAG représentant l'histoire réévaluée du $PN_{3}$
+(Fig.~\ref{fig:pn3-reval-dag}). %
+As a remainder (Pour rappel), une application \texttt{ADD1-insert} est ajoutée
+entre les application \texttt{1-square} et \texttt{2-extrusion} et l'application
+\texttt{3-insert} est supprimée dans la spécification paramétrique. %
+\begin{description}
+  \item[Level 1] The application \texttt{1-square} creates the volume face $\orbit{0,1}(5)$.
+  \item[Level 2] The added application \texttt{ADD1-insert} does not modify the volume face $\orbit{0,1}(5)$.
+  \item[Level 3] From this volume face, \texttt{2-extrusion} creates the volume face $\orbit{0,1}(47)$.
+  \item[Level 4] Finally, this latter volume face is actually not modified by \texttt{3-insert} application which is deleted in the re-evaluation.
+\end{description}
+
+Puisque l'ajout, la suppression ou encore le déplacement d'opération dans une
+spécification paramétrique éditée peuvent provoquer des changements topologiques
+dans le modèle réévalué. %
+Il apparaît logique que ces éditions impactent les paramètres topologiques de
+telle sorte qu'ils puissent être dupliqués voire supprimés. %
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{pn7-reval}
+    \caption{$PN_7$ re-evaluation DAG}
+    \label{fig:pn7-reval-dag}
+\end{figure}
+
+Dans le premier cas, un paramètre topologique peut être dupliqué par l'ajout
+d'une application provoquant la scission d'une entité topologique. %
+Une stratégie pourrait être, pour une opération référençant un tel paramètre
+topologique, sur chacun des paramètres dupliqués par la scission.
+Par exemple, dans le jeu initial (Fig.~\ref{fig:evaluation}), l'application
+\texttt{5-triangulation} ne triangule qu'une seule face de volume
+($\orbit{0,1}$-orbit) (Fig.~\ref{fig:5-eval}). %
+Or, l'ajout de l'application \texttt{ADD1-insert} dans la réévaluation
+(Fig.~\ref{fig:reevaluation}), scinde l'arête de face de volume
+($\orbit{0}$-orbit) et deux faces sont alors créées par l'application de
+\texttt{2-extrusion} au lieu d'une. %
+Le DAG de réévaluation du $PN_{7}$ illustre ce cas de figure, l'application
+\texttt{ADD1-insert} au niveau 2 ajoute une scission décrivant deux orbites
+faces issues de la même arête scindée mais incidentes à deux brins différents. %
+Ce DAG propose, comme stratégie, d'appliquer \texttt{5-triangulation} sur les
+faces incidentes aux brins 37 et 52. %
+
+Pour la suppression d'un paramètre topologique, il existe plusieurs cas de
+figures. %
+Si l'orbite incidente brin désigné comme paramètre topologique est supprimée, il
+nécessaire d'annuler l'application de toute opération référençant ce paramètre
+topologique car celles-ci échoueront. %
+Autrement, si l'orbite n'est pas entièrement supprimée, il est possible de
+désigner arbitrairement un autre brin de ses brins afin de poursuivre la
+réévaluation. %
 
 \subsection{Parameter Matching}
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{pn6-reval}
+    \caption{$PN_6$ re-evaluation DAG}
+    \label{fig:pn6-reval-dag}
+\end{figure}
+
+Un DAG de réévaluation se distingue d'un DAG d'évaluation par, entre autres,
+l'usage de noms concrets au lieu de noms de nœuds. %
+Les noms concrets sont obtenus par appariement des paramètres topologiques lors
+de l'étape de réévaluation d'une spécification paramétrique. %
+
+Reprenons les DAGs d'évaluation et de réévaluation du $PN_{3}$. %
+Au premier niveau du DAG d'évaluation, le niveau d'orbite désigne une orbite
+incidente au nœud $n_{5}$. %
+Lors de la construction du DAG de réévaluation, il faut désigner un brin parmi
+ceux filtrés par ce nœud. %
+Puisque $5$ est le seul brin créé par le nœud $n_{5}$ de \texttt{1-square},
+celui-ci est utilisé. %
 
 %%% Local Variables:
 %%% mode: latex

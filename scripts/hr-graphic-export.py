@@ -7,9 +7,9 @@ import os
 
 
 def usage(nbArgs):
-    if len(nbArgs) != 2:
+    if len(nbArgs) != 3:
         raise ValueError(
-            "Argument must be a path to a .json export of an history record!"
+            "Argument must be a path to a .json export of an history record! and an export type (either PDF or SVG)"
         )
 
 
@@ -112,11 +112,11 @@ def drawLevel(level, graph):
                 drawEdge(graph, gOrbitName, gEventName, event["type"])
 
 
-def drawGraph(HR, exportPath):
+def drawGraph(HR, exportPath, exportType):
     g = graphviz.Digraph("HistoryRecord", node_attr={"shape": "record"})
     for level in reversed(HR.items()):
         drawLevel(level, g)
-    g.render(exportPath)
+    g.render(exportPath, format=exportType)
 
 
 if __name__ == "__main__":
@@ -126,4 +126,5 @@ if __name__ == "__main__":
     exportPath = (
         "../exports/" + os.path.splitext(pathToHR)[0].split("/")[-1] + "-export"
     )
-    drawGraph(HR, exportPath)
+    exportType = sys.argv[2]
+    drawGraph(HR, exportPath, exportType)

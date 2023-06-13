@@ -76,8 +76,6 @@ nécessaire d'annuler l'application de toute opération référençant ce param�
 topologique car celles-ci échoueront. %
 Autrement, si l'orbite n'est pas entièrement supprimée, il est possible de
 désigner arbitrairement un autre brin de ses brins afin de poursuivre la
-réévaluation. %
-
 \subsection{Parameter Matching}
 
 \begin{figure}[ht]
@@ -87,18 +85,34 @@ réévaluation. %
     \label{fig:pn6-reval-dag}
 \end{figure}
 
-Un DAG de réévaluation se distingue d'un DAG d'évaluation par, entre autres,
-l'usage de noms concrets au lieu de noms de nœuds. %
-Les noms concrets sont obtenus par appariement des paramètres topologiques lors
-de l'étape de réévaluation d'une spécification paramétrique. %
+Un DAG de réévaluation est construit du haut vers le bas à partir d'un DAG
+d'évaluation. %
+Les noms de nœuds sont remplacés par des noms concrets obtenus par l'appariement
+des paramètres topologiques pour, à terme, désigner un brin dont l'histoire
+correspond au nom persistent. %
 
-Reprenons les DAGs d'évaluation et de réévaluation du $PN_{3}$. %
-Au premier niveau du DAG d'évaluation, le niveau d'orbite désigne une orbite
-incidente au nœud $n_{5}$. %
-Lors de la construction du DAG de réévaluation, il faut désigner un brin parmi
-ceux filtrés par ce nœud. %
-Puisque $5$ est le seul brin créé par le nœud $n_{5}$ de \texttt{1-square},
-celui-ci est utilisé. %
+Reprenons le DAG de réévaluation de $PN_{3}$. %
+Le niveau 1 du DAG de réévaluation contrôle que la face de volume
+$\orbit{0,1}(n_{5})$, décrite dans le niveau 1 du DAG d'évaluation, soit bien
+recréée par l'application de \texttt{1-square} à la réévaluation. %
+Cette orbite étant recréée, elle est ajoutée au DAG de réévaluation. %
+Puisque le seul brin créé par le nœud $n_{5}$ de \texttt{1-square} est le brin
+$5$, celui-ci est inséré dans le DAG. %
+Le niveau 2 décrit l'application ajoutée \texttt{ADD1-insert}. %
+Cette application filtre le brin $5$ sans modifier la face de volume
+$\orbit{0,1}(5)$. %
+Le niveau 3 contrôle que la face de volume $\orbit{0,1}(n_{6})$, décrite dans le
+niveau 2 du DAG d'évaluation, soit bien recréée par l'application de
+\texttt{2-extrusion}. %
+Cette orbite étant créée, elle est ajoutée dans le DAG de réévaluation. %
+Le nœud $n_{6}$ produisant 8 brins, celui désigné est le brin $47$ créé par
+copie du brin $5$. %
+Enfin, au niveau 4 du DAG, la suppression de \texttt{3-insert} ne modifie pas
+la face de volume $\orbit{0,1}(47)$. %
+Ce niveau décrit alors la non modification de cette orbite. %
+
+Le brin $47$ est donc, au rejeu, le paramètre topologique référencé pour
+désigner la face de volume sur laquelle appliquer \texttt{4-extrude}. %
 
 %%% Local Variables:
 %%% mode: latex

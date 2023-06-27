@@ -72,6 +72,11 @@ public class JerboaStaticDetection {
 		return hasRewrittenImplicitLink(ruleNodesOrbit, otype);
 	}
 
+	public boolean isNodeHook(JerboaRuleNode node) {
+		return !isNodeCreated(node) && //
+				this.rule.getHooks()
+						.contains(this.rule.getLeft().get(this.rule.reverseAssoc(node.getID())));
+	}
 
 	/**
 	 * Check if a Right node is created

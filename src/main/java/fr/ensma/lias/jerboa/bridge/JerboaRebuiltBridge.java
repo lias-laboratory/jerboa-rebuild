@@ -39,16 +39,17 @@ import up.jerboa.util.serialization.jba.JBAFormat;
 public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicateFactory {
 
 	private static final GMapViewerColor lightGRAY = new GMapViewerColor(Color.LIGHT_GRAY);
-	
-	
+
+
 	private ModelerGenerated modeler;
-	private JerboaEmbeddingInfo ebdColor;
+	// private JerboaEmbeddingInfo ebdColor;
 	private int ebdColorID;
+	private int ebdNormID;
 
 	public JerboaRebuiltBridge(ModelerGenerated modeler) {
 		this.modeler = modeler;
-		this.ebdColor = modeler.getColor();
-		this.ebdColorID = ebdColor.getID();
+		this.ebdColorID = modeler.getColor().getID();
+		this.ebdNormID = modeler.getNorm().getID();
 	}
 
 	@Override
@@ -72,18 +73,29 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 
 	@Override
 	public boolean manageEmbedding(JerboaEmbeddingInfo ebdinfo) {
-		if("point".equals(ebdinfo.getName()) || "pos".equals(ebdinfo.getName()) || "position".equals(ebdinfo.getName())) {
-			return true;
+		switch (ebdinfo.getName()) {
+			case "point":
+				return true;
+			case "pos":
+				return true;
+			case "position":
+				return true;
+			case "normal":
+				return true;
 		}
+		// if("point".equals(ebdinfo.getName()) || "pos".equals(ebdinfo.getName()) ||
+		// "position".equals(ebdinfo.getName())) {
+		// return true;
+		// }
 		return false;
 	}
 
 	@Override
 	public boolean canUndo() {
-		return false;
+		return true;
 	}
 
-	
+
 	@Override
 	public GMapViewerColor colors(JerboaDart arg0) {
 
@@ -140,7 +152,7 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 
 	@Override
 	public boolean hasNormal() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -158,11 +170,12 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 
 		if (filec.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File file = filec.getSelectedFile();
-			
+
 			JerboaSerializerMonitor monitor = new JerboaMonitorInfoBridgeSerializerMonitor(worker);
-			System.out.println("LOAD FILE: "+file);
-			JBAFormat formatJBA = new JBAFormat(modeler, monitor, new JerboaRebuiltEbdSerializer(modeler));
-			try(FileInputStream fis = new FileInputStream(file)) {
+			System.out.println("LOAD FILE: " + file);
+			JBAFormat formatJBA =
+					new JBAFormat(modeler, monitor, new JerboaRebuiltEbdSerializer(modeler));
+			try (FileInputStream fis = new FileInputStream(file)) {
 				formatJBA.load(fis);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -174,12 +187,17 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	@Override
-	public GMapViewerTuple normals(JerboaDart arg0) {
-		return null;
+	public GMapViewerTuple normals(JerboaDart dart) {
+		Vec3 n = dart.<Vec3>ebd(ebdNormID);
+		if (n == null) {
+			n = new Vec3();
+		}
+		GMapViewerPoint res = new GMapViewerPoint((float) n.x(), (float) n.y(), (float) n.z());
+		return res;
 	}
 
 	@Override

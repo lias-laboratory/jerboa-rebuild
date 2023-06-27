@@ -15,11 +15,13 @@ public class MatchingTree {
 
 	// LevelOrbitMT root;
 	JerboaDart topoParameter; // the last dartID computed at the end of the matching process
+	// List<JerboaDart> topoParameters; // the last dartIDs computed at the end of the matching
+	// process
 	int depthClone = -1;
 	List<List<LevelEventMT>> leaves;
 
 	/**
-	 * * Data structure to match a history record against a GMap and build a model from a history *
+	 * Data structure to match a history record against a GMap and build a model from a history
 	 * record.
 	 */
 	public MatchingTree() {
@@ -30,7 +32,7 @@ public class MatchingTree {
 		return topoParameter;
 	}
 
-	/*
+	/**
 	 * Add a LevelEventMT to this matching tree
 	 *
 	 * @param levelEventHR

@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.datastructures;
+package fr.ensma.lias.jerboa.core.utils;
 
 import java.util.ArrayList;
 import java.util.Stack;

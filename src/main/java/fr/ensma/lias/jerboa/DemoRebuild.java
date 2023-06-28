@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
+import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.datastructures.Application;
@@ -26,6 +27,7 @@ import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
 
 /**
@@ -167,8 +169,31 @@ public class DemoRebuild {
 			}
 			gmapviewer.clearDartSelection();
 
+			// Application application = editedApplications.get(applicationIndex);
+			// int nbPNs = application.getPersistentNames().size();
+
+			// topoParameters = new ArrayList<>();
+
+			// if (application.getApplicationType() != ApplicationType.ADD) {
+			// counter =
+			// collectTopologicalParameters(topoParameters, matchingTrees, nbPNs, counter);
+			// } else {
+			// topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
+			// }
+
+			// for (List<JerboaDart> parameter : topoParameters) {
+			// gmapviewer.switchDartSelection(parameter);
+			// }
+
+			// try {
+			// appResult = apply(application.getRule(), topoParameters);
+			// gmapviewer.updateIHM();
+			// } catch (JerboaException e) {
+			// e.printStackTrace();
+			// }
 			Application application = editedApplications.get(applicationIndex);
 			int nbPNs = application.getPersistentNames().size();
+			JerboaDart controlDart = null;
 
 			topoParameters = new ArrayList<>();
 
@@ -177,15 +202,27 @@ public class DemoRebuild {
 						collectTopologicalParameters(topoParameters, matchingTrees, nbPNs, counter);
 			} else {
 				topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
-			}
 
-			for (List<JerboaDart> parameter : topoParameters) {
-				gmapviewer.switchDartSelection(parameter);
+				// REVIEW: this is a workaround to get an effective distinction
+				// between NOEFFECT and MERGE with added rules
+				JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
+				JerboaRuleNode hook = rule.getHooks().get(0);
+				int controlNodeIndex = rule.findClosestPreservedNode(hook);
+				JerboaRuleNode controlNode = rule.getLeftRuleNode(controlNodeIndex);
+
+				List<Integer> pathFromRootToControl = rule.collectLabelsFromSourceToClosestTarget(
+						hook, Arrays.asList(controlNode), null);
+
+				for (Integer label : pathFromRootToControl) {
+					controlDart = topoParameters.get(0).get(0).alpha(label);
+				}
 			}
 
 			try {
-				appResult = apply(application.getRule(), topoParameters);
-				gmapviewer.updateIHM();
+				if (application.getApplicationType() != ApplicationType.DELETE) {
+					appResult = apply(application.getRule(), topoParameters);
+					gmapviewer.updateIHM();
+				}
 			} catch (JerboaException e) {
 				e.printStackTrace();
 			}
@@ -297,14 +334,10 @@ public class DemoRebuild {
 		frame.setVisible(true);
 
 		DemoRebuild demo = new DemoRebuild(bridge, //
-				// "./exports", //
-				// "pyramid.json", //
-				// "./exports", //
-				// "pyramid.json", //
 				"./examples", //
-				"spec_penta-split-triangulate-two-deleteedge.json", //
+				"article-2-build.json", //
 				"./examples", //
-				"spec_penta-split-triangulate-two-deleteedge.json", //
+				"article-2-build-reevaluation.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {

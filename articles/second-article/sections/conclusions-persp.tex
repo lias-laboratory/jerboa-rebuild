@@ -1,5 +1,39 @@
 \section{Conclusion}
 
+Modelling an object is a tiresome and time expensive process by nature. %
+Creating variants is all the more so, considering that it requires starting over
+the process as many times as necessary. %
+Reevaluation mechanisms are, nowadays, increasingly frequent in parametric
+systems and offer an easier way to generate variants of an object. %
+A long-standing issue in CAD's field, called persistent naming, is to make sure
+the operations' parameters are still valid despite their modification. %
+To our knowledge, there does not seem to be such a mechanism taking advantage of
+graph transformation rules available so we propose one here. %
+
+In this paper, we take advantage of both the graph transformation rule's and
+generalized map's formalisms to tackle the reevaluation mechanism task. %
+Generalized maps offers an homogeneous representation of an object in all
+dimensions while Jerboa's rules make possible the definition of geometric
+modelling operations on which it is actually possible to perform syntactical
+analysis. %
+We set up a persistent naming scheme taking advantage of the Jerboa's rule. %
+With this scheme, a persistent name represents a unique dart's history through
+the successive involved applications and their matching nodes. %
+Thus, it persistently identifies a topological parameter. %
+Then, after the initial evaluation, for each persistent name an evaluation DAG
+is built in order to trace an orbit's history from the bottom and up to the
+orbits it originates from. %
+Representing the complete history of an orbit in an evaluation DAG allows for an
+efficient persistent naming mechanism that takes into account the impact of both
+origins and traces modifications during reevaluation. %
+Finally, reevaluation DAGs are built from top to down with evaluation DAGs and
+allow matching one or more topological parameters depending on the added and/or
+deleted events induced by the editing of the parametric specification. %
+
+Jerboa proposes to define more complex rules, called scripted rules, where
+several rules come one after another. %
+Later works will revolve around making this reevaluation mechanism compatible
+with these scripted rules. %
 
 %%% Local Variables:
 %%% mode: latex

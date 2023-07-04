@@ -27,7 +27,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
     // public StringBuilder deletedLabels = new StringBuilder();
     // protected JerboaRebuiltModeler (JerboaRebuiltModeler) rebuiltModeler;
-    protected int appID; // operation index in spec
+    protected int appID; // operation index in spec - embedding parameter for persistent IDs
 
     public JerboaRebuiltRule(JerboaRebuiltModeler modeler, String name, String category)
             throws JerboaException {
@@ -38,11 +38,13 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
 
     @Override
     public int attachedNode(int arg0) {
+        // default return: method overriden by generated rules
         return 0;
     }
 
     @Override
     public int reverseAssoc(int arg0) {
+        // default return: method overriden by generated rules
         return 0;
     }
 
@@ -59,6 +61,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         }
     }
 
+    // TODO refactor: move to a suitable class (e.g: parametric specifaction)
     private ArrayList<PersistentID> collectPersistentIDs() {
         // TODO impl: collect persistent IDs to store in a PN
 
@@ -67,6 +70,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         return new ArrayList<>();
     }
 
+    // TODO refactor: move to a suitable class (e.g: parametric specifaction)
     /**
      * Compute topological parameters (persistent names) for the current rule being applied. This
      * method is very likely to change in order to aggregate PersistentIDs (at the moment only one

@@ -55,6 +55,8 @@ public class ParametricSpecification {
 	 *
 	 * @return full parametric specification.
 	 */
+	// TODO: remplacer les appels par GetApplications
+	@Deprecated
 	public List<Application> getParametricSpecification() {
 		return spec;
 	}

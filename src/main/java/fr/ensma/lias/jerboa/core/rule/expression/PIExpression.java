@@ -45,6 +45,7 @@ public class PIExpression implements JerboaRuleExpression {
                 int ref = rebuiltRule.findClosestPreservedNode(node);
                 /* if ref is not null then an oldPI is expected */
                 if (ref == -1) {
+                    // TODO: recupérer historique d'un hook
                     PI = new PersistentID();
                 } else {
                     dart = rowPattern.get(rule.getLeftRuleNode(ref).getID());

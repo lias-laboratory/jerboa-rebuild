@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>ExtrudeVolumeFaceZAxis</openRules>
+	<openRules>ExtrudeVolumeFaceYAxis</openRules>
 	<openRules>ExtrudeIndependentFace</openRules>
 	<openRules>CreateSquareFace</openRules>
 	<openRules>SewA3</openRules>
+	<openRules>ExtrudeVolumeFaceZAxis</openRules>
+	<openRules>ExtrudeVolumeFaceXAxis</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -644,50 +646,50 @@ return true;</midprocess>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="ExtrudeIndependentFace" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+        <rule name="ExtrudeIndependentFace" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
             <left>
                 <nodes count="1">
-                    <node name="n0" x="330" y="168" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="205" y="184" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">
-                    <arcloop dim="2" node="n0" angle="3.077277852935947" >
+                    <arcloop dim="2" node="n1" angle="3.077277852935947" >
                     </arcloop>
                 </arcs>
             </left>
             <right>
                 <nodes count="6">
-                    <node name="n0" x="160" y="84" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="340" y="84" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n2" x="490" y="84" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="490" y="234" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">return n0.pos.addn(0,1,0);</expr>
+                    <node name="n1" x="90" y="120" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="210" y="120" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="330" y="120" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="450" y="120" orbit="-1,2" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n1.pos.addn(0,1,0);</expr>
                     </node>
-                    <node name="n4" x="340" y="234" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n5" x="160" y="234" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="570" y="120" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="690" y="120" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="10">
-                    <arc dim="2" a="n0" b="n1" size="0">
+                    <arc dim="2" a="n1" b="n2" size="0">
                     </arc>
-                    <arc dim="2" a="n5" b="n4" size="0">
+                    <arc dim="2" a="n6" b="n5" size="0">
                     </arc>
-                    <arc dim="1" a="n1" b="n2" size="0">
+                    <arc dim="1" a="n2" b="n3" size="0">
                     </arc>
-                    <arc dim="1" a="n4" b="n3" size="0">
+                    <arc dim="1" a="n5" b="n4" size="0">
                     </arc>
-                    <arc dim="0" a="n2" b="n3" size="0">
+                    <arc dim="0" a="n3" b="n4" size="0">
                     </arc>
-                    <arcloop dim="3" node="n1" angle="-1.4940216850595909" >
+                    <arcloop dim="3" node="n2" angle="-1.4940216850595909" >
                     </arcloop>
-                    <arcloop dim="3" node="n4" angle="1.5040853807211514" >
+                    <arcloop dim="3" node="n5" angle="1.5040853807211514" >
                     </arcloop>
-                    <arcloop dim="3" node="n5" angle="1.905307870065184" >
+                    <arcloop dim="3" node="n6" angle="1.905307870065184" >
                     </arcloop>
-                    <arcloop dim="3" node="n3" angle="6.942373618296614" >
+                    <arcloop dim="3" node="n4" angle="6.942373618296614" >
                     </arcloop>
-                    <arcloop dim="3" node="n2" angle="-0.8294040455187381" >
+                    <arcloop dim="3" node="n3" angle="-0.8294040455187381" >
                     </arcloop>
                 </arcs>
             </right>
@@ -697,7 +699,7 @@ return true;</midprocess>
             <paramsebd>
             </paramsebd>
             <paramstopo>
-                <paramtopo name="n0" order="0" />
+                <paramtopo name="n1" order="0" />
             </paramstopo>
         </rule>
         <rule name="ExtrudeVolumeFaceXAxis" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >

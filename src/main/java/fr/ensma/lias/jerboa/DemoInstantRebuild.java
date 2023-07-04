@@ -149,12 +149,14 @@ public class DemoInstantRebuild {
   // List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
   // JFrame frame) throws IOException, JerboaException {
   private void reevaluateModel(GMapViewer gmapviewer) {
+
     Integer counter = 0;
     JerboaRuleResult appResult = null;
     List<List<JerboaDart>> topoParameters = new ArrayList<>();
 
     for (int applicationIndex = 0; applicationIndex < editedApplications
         .size(); applicationIndex++) {
+
 
       Application application = editedApplications.get(applicationIndex);
       int nbPNs = application.getPersistentNames().size();
@@ -182,6 +184,13 @@ public class DemoInstantRebuild {
         }
       }
 
+      // if (application.getApplicationType() != ApplicationType.DELETE)
+      // for (List<JerboaDart> parameter : topoParameters) {
+      // gmapviewer.switchDartSelection(parameter);
+      // }
+
+      // gmapviewer.updateIHM();
+
       try {
         if (application.getApplicationType() != ApplicationType.DELETE) {
           appResult = apply(application.getRule(), topoParameters);
@@ -192,6 +201,7 @@ public class DemoInstantRebuild {
       }
 
       computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees, controlDart);
+
     }
 
     exportMatchingTrees();

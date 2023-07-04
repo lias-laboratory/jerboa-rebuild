@@ -218,6 +218,10 @@ public class DemoRebuild {
 				}
 			}
 
+			for (List<JerboaDart> parameter : topoParameters) {
+				gmapviewer.switchDartSelection(parameter);
+			}
+
 			try {
 				if (application.getApplicationType() != ApplicationType.DELETE) {
 					appResult = apply(application.getRule(), topoParameters);

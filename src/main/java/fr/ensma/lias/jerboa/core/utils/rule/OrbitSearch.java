@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.utils;
+package fr.ensma.lias.jerboa.core.utils.rule;
 
 import java.util.ArrayList;
 import java.util.Stack;

@@ -56,8 +56,7 @@ public class ParametricSpecification {
 	 * @return full parametric specification.
 	 */
 	// TODO: remplacer les appels par GetApplications
-	@Deprecated
-	public List<Application> getParametricSpecification() {
+	public List<Application> getApplications() {
 		return spec;
 	}
 
@@ -76,9 +75,9 @@ public class ParametricSpecification {
 		return null;
 	}
 
-	public List<Application> getApplications() {
-		return this.spec;
-	}
+	// public List<Application> getApplications() {
+	// return this.spec;
+	// }
 
 	public int size() {
 		return this.spec.size();

@@ -56,16 +56,15 @@ public class DemoRebuild {
 
 		parametricSpecification =
 				JSONPrinter.importParametricSpecification(referenceDir, referenceSpec, modeler);
-		applications = parametricSpecification.getParametricSpecification();
+		applications = parametricSpecification.getApplications();
 
 		historyRecords = new ArrayList<>();
 		matchingTrees = new ArrayList<>();
 
 		initializeReevaluation();
 
-		editedApplications =
-				JSONPrinter.importParametricSpecification(editedDir, editedSpec, modeler)
-						.getParametricSpecification();
+		editedApplications = JSONPrinter
+				.importParametricSpecification(editedDir, editedSpec, modeler).getApplications();
 
 		// reevaluateModel(editedApplications, historyRecords, matchingTrees, frame);
 		// exportMatchingTrees(matchingTrees);

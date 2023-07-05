@@ -50,7 +50,7 @@ public class JSONPrinterTest {
 		ParametricSpecification spec = JSONPrinter.importParametricSpecification(
 				"ParametricSpecification_createface-insertvertex-triangulate-insertvertex_Test.json",
 				modeler);
-		assertEquals(4, spec.getParametricSpecification().size());
+		assertEquals(4, spec.getApplications().size());
 	}
 
 	@Test

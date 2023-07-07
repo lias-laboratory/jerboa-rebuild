@@ -149,8 +149,6 @@ public class DemoInstantRebuild {
   // List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
   // JFrame frame) throws IOException, JerboaException {
   private void reevaluateModel(GMapViewer gmapviewer) {
-    JerboaLongTaskWait longtask = new JerboaLongTaskWait();
-    boolean cont = true;
 
     Integer counter = 0;
     JerboaRuleResult appResult = null;
@@ -158,11 +156,6 @@ public class DemoInstantRebuild {
 
     for (int applicationIndex = 0; applicationIndex < editedApplications
         .size(); applicationIndex++) {
-
-      cont = longtask.waitUI();
-      if (!cont) {
-        break;
-      }
 
       Application application = editedApplications.get(applicationIndex);
       int nbPNs = application.getPersistentNames().size();
@@ -327,17 +320,6 @@ public class DemoInstantRebuild {
       }
     });
 
-		Thread worker = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				demo.reevaluateModel(gmapviewer);
-			}
-
-		});
-
-		worker.start();
-    // demo.reevaluateModel(gmapviewer);
+    demo.reevaluateModel(gmapviewer);
   }
 }

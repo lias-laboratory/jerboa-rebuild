@@ -166,7 +166,7 @@ public class DemoRebuild {
 			if (!cont) {
 				break;
 			}
-			gmapviewer.clearDartSelection();
+			// gmapviewer.clearDartSelection();
 
 			// Application application = editedApplications.get(applicationIndex);
 			// int nbPNs = application.getPersistentNames().size();
@@ -217,9 +217,9 @@ public class DemoRebuild {
 				}
 			}
 
-			for (List<JerboaDart> parameter : topoParameters) {
-				gmapviewer.switchDartSelection(parameter);
-			}
+			// for (List<JerboaDart> parameter : topoParameters) {
+			// gmapviewer.switchDartSelection(parameter);
+			// }
 
 			try {
 				if (application.getApplicationType() != ApplicationType.DELETE) {
@@ -338,9 +338,9 @@ public class DemoRebuild {
 
 		DemoRebuild demo = new DemoRebuild(bridge, //
 				"./examples", //
-				"article-2-build.json", //
+				"duplicata.json", //
 				"./examples", //
-				"article-2-build-reevaluation.json", //
+				"duplicata.json", //
 				frame, gmapviewer);
 
 		SwingUtilities.invokeLater(new Runnable() {
@@ -358,7 +358,6 @@ public class DemoRebuild {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				demo.reevaluateModel(gmapviewer);
 			}
 

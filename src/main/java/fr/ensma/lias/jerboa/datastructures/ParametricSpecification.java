@@ -2,9 +2,14 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
+import up.jerboa.core.JerboaDart;
+import up.jerboa.core.JerboaInputHooks;
 import up.jerboa.core.JerboaRuleOperation;
+import up.jerboa.core.rule.JerboaRuleNode;
 
 /**
  * A parametric specification holds the rules applied during the construction process of a model. It
@@ -55,7 +60,6 @@ public class ParametricSpecification {
 	 *
 	 * @return full parametric specification.
 	 */
-	// TODO: remplacer les appels par GetApplications
 	public List<Application> getApplications() {
 		return spec;
 	}
@@ -90,6 +94,40 @@ public class ParametricSpecification {
 			sb.append(e.toString() + "\n");
 		}
 		return sb.toString();
+	}
+
+	private ArrayList<PersistentID> collectPersistentIDs() {
+		// TODO impl: collect persistent IDs to store in a PN
+
+		// for all darts filtered by a hook node, collect a PI if it contains an
+		// appID not yet registered within the list to return;
+		return new ArrayList<>();
+	}
+
+	/**
+	 * Compute topological parameters (persistent names) for the current rule being applied. This
+	 * method is very likely to change in order to aggregate PersistentIDs (at the moment only one
+	 * is collected to at least match uml pattern)
+	 *
+	 * @param hooks JerboaInputHooks. Collection of JerboaDart used to retrieve PersistentID
+	 *
+	 * @return PNs. A LinkedList of PersistentName.
+	 */
+	public LinkedList<PersistentName> computePersistentNames(JerboaRuleOperation rule,
+			JerboaInputHooks inputHooks) {
+
+		LinkedList<PersistentName> PNs = new LinkedList<>();
+		Iterator<JerboaRuleNode> nodeIterator = rule.getHooks().iterator();
+		for (Iterator<JerboaDart> dartIterator = inputHooks.iterator(); dartIterator.hasNext();) {
+			JerboaDart dart = dartIterator.next();
+			JerboaRuleNode node = nodeIterator.next();
+			PersistentName PN = new PersistentName();
+			PN.add(new PersistentID(dart.<PersistentID>ebd("PersistentID")));
+			PN.setOrbitType(node.getOrbit());
+			PNs.add(PN);
+		}
+
+		return PNs;
 	}
 
 	/*

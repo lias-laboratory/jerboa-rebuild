@@ -61,40 +61,40 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
         }
     }
 
-    // TODO refactor: move to a suitable class (e.g: parametric specifaction)
-    private ArrayList<PersistentID> collectPersistentIDs() {
-        // TODO impl: collect persistent IDs to store in a PN
+    // // TODO refactor: move to a suitable class (e.g: parametric specifaction)
+    // private ArrayList<PersistentID> collectPersistentIDs() {
+    // // TODO impl: collect persistent IDs to store in a PN
 
-        // for all darts filtered by a hook node, collect a PI if it contains an
-        // appID not yet registered within the list to return;
-        return new ArrayList<>();
-    }
+    // // for all darts filtered by a hook node, collect a PI if it contains an
+    // // appID not yet registered within the list to return;
+    // return new ArrayList<>();
+    // }
 
-    // TODO refactor: move to a suitable class (e.g: parametric specifaction)
-    /**
-     * Compute topological parameters (persistent names) for the current rule being applied. This
-     * method is very likely to change in order to aggregate PersistentIDs (at the moment only one
-     * is collected to at least match uml pattern)
-     *
-     * @param hooks JerboaInputHooks. Collection of JerboaDart used to retrieve PersistentID
-     *
-     * @return PNs. A LinkedList of PersistentName.
-     */
-    private LinkedList<PersistentName> computePersistentNames(JerboaInputHooks inputHooks) {
+    // // TODO refactor: move to a suitable class (e.g: parametric specifaction)
+    // /**
+    // * Compute topological parameters (persistent names) for the current rule being applied. This
+    // * method is very likely to change in order to aggregate PersistentIDs (at the moment only one
+    // * is collected to at least match uml pattern)
+    // *
+    // * @param hooks JerboaInputHooks. Collection of JerboaDart used to retrieve PersistentID
+    // *
+    // * @return PNs. A LinkedList of PersistentName.
+    // */
+    // private LinkedList<PersistentName> computePersistentNames(JerboaInputHooks inputHooks) {
 
-        LinkedList<PersistentName> PNs = new LinkedList<>();
-        Iterator<JerboaRuleNode> nodeIterator = this.hooks.iterator();
-        for (Iterator<JerboaDart> dartIterator = inputHooks.iterator(); dartIterator.hasNext();) {
-            JerboaDart dart = dartIterator.next();
-            JerboaRuleNode node = nodeIterator.next();
-            PersistentName PN = new PersistentName();
-            PN.add(new PersistentID(dart.<PersistentID>ebd("PersistentID")));
-            PN.setOrbitType(node.getOrbit());
-            PNs.add(PN);
-        }
+    // LinkedList<PersistentName> PNs = new LinkedList<>();
+    // Iterator<JerboaRuleNode> nodeIterator = this.hooks.iterator();
+    // for (Iterator<JerboaDart> dartIterator = inputHooks.iterator(); dartIterator.hasNext();) {
+    // JerboaDart dart = dartIterator.next();
+    // JerboaRuleNode node = nodeIterator.next();
+    // PersistentName PN = new PersistentName();
+    // PN.add(new PersistentID(dart.<PersistentID>ebd("PersistentID")));
+    // PN.setOrbitType(node.getOrbit());
+    // PNs.add(PN);
+    // }
 
-        return PNs;
-    }
+    // return PNs;
+    // }
 
     /**
      * Override of the applyRule method from JerboaRuleGenerated. Retrieve hooks PIs and add an
@@ -105,7 +105,8 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
             throws JerboaException {
         JerboaRuleResult res;
 
-        LinkedList<PersistentName> PNs = computePersistentNames(hooks);
+        LinkedList<PersistentName> PNs =
+                ((JerboaRebuiltModeler) modeler).spec.computePersistentNames(this, hooks);
         // System.out.println("Check PNs to string : " + PNs.toString());
 
         try {

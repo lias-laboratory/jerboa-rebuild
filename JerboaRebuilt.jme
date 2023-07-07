@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
 	<openRules>ExtrudeVolumeFaceYAxis</openRules>
-	<openRules>ExtrudeIndependentFace</openRules>
-	<openRules>CreateSquareFace</openRules>
-	<openRules>SewA3</openRules>
-	<openRules>ExtrudeVolumeFaceZAxis</openRules>
-	<openRules>ExtrudeVolumeFaceXAxis</openRules>
+	<openRules>DuplicateAndTranslateCC</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -15,7 +11,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="49">
+    <rules count="50">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -2958,6 +2954,36 @@ return res;</expr>
                     </arcloop>
                     <arcloop dim="2" node="n1" angle="4.030461505340992" >
                     </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="DuplicateAndTranslateCC" module="Duplication" category="Duplication" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="428" y="93" orbit="0,1,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="275" y="89" orbit="0,1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="457" y="84" orbit="0,1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return n0.pos.addn(3,0,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="0">
                 </arcs>
             </right>
             <preprocess></preprocess>

@@ -1,8 +1,8 @@
 package fr.ensma.lias.jerboa.core.rule.expression;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+// import java.util.LinkedList;
+// import java.util.List;
+// import java.util.stream.Collectors;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentIdElement;
@@ -45,8 +45,15 @@ public class PIExpression implements JerboaRuleExpression {
                 int ref = rebuiltRule.findClosestPreservedNode(node);
                 /* if ref is not null then an oldPI is expected */
                 if (ref == -1) {
-                    // TODO: recupérer historique d'un hook
-                    PI = new PersistentID();
+                    if (!rule.getHooks().isEmpty()) {
+                        // HACK: that's an ugly way to arbitrary get a preserved
+                        // hooks' persistent name. Main use case : duplicating a
+                        // connected component.
+                        dart = rowPattern.get(rule.getHooks().get(0).getID());
+                        PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));
+                    } else {
+                        PI = new PersistentID();
+                    }
                 } else {
                     dart = rowPattern.get(rule.getLeftRuleNode(ref).getID());
                     PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));

@@ -86,7 +86,7 @@ public class JerboaTrackedOrbitPerfStudyMERGE {
 		
 		StopWatch sw = new StopWatch();
 		sw.display("====================================GMAP SIZE: "+gmap.size());
-		for(int i = 47; i < gmap.size(); i+=47) {
+		for(int i = 47; i < gmap.size(); i+=48) {
 			sw.start();
 			sw.display("=================================== ITERATION: "+i);
 			operation.apply(modtrack.getGMap(), JerboaInputHooksAtomic.wrap(gmap.getNode(i)));
@@ -94,6 +94,25 @@ public class JerboaTrackedOrbitPerfStudyMERGE {
 			sw.display("====================================GMAP SIZE: "+gmap.size());
 			
 		}
+		
+		String rep = getBaseName(inputfile);
+		Date now = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		File cur = new File(".");
+		File dir = new File(cur, rep +"_" + operation.getName() +"_" + args[0] + "_" + format.format(now));
+		
+		boolean res = dir.mkdir();
+		System.out.print("attempt create outputdir ("+rep+") " + res);
+		IntStream.range(0, modtrack.getTrackedOrbit().size()).sequential().forEach(oi -> {
+			JerboaOrbit orbit = modtrack.getTrackedOrbit().get(oi);
+			
+			String name = Arrays.stream(orbit.tab()).mapToObj(a -> "a"+a).collect(Collectors.joining());
+			
+			File fileout = new File(dir, rep+ "_"+name+".csv");
+			modtrack.exportTracking(fileout, oi);
+		});
+		
+		
 	}
 
 	

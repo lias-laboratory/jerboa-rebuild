@@ -98,7 +98,7 @@ public class JerboaTrackedOrbitPerfStudy {
 		Date now = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
 		File cur = new File(".");
-		File dir = new File(cur, rep +"_" + args[0] + "_" + format.format(now));
+		File dir = new File(cur, rep +"_" + operation.getName() +"_" + args[0] + "_" + format.format(now));
 		
 		boolean res = dir.mkdir();
 		System.out.print("attempt create outputdir ("+rep+") " + res);

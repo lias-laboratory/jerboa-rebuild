@@ -3,8 +3,10 @@ package fr.ensma.lias.jerboa.datastructures;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import up.jerboa.core.JerboaDart;
@@ -74,9 +76,9 @@ public class ReevaluationTree {
 					List<NodeEvent> newEventList = new ArrayList<>();
 					List<NodeOrbit> newOrbitList = new ArrayList<>();
 
-					System.out.println("BAR: " + getTreeLastLevel(treeIndex));
 					computeNewLevel(getTreeLastLevel(treeIndex), newOrbitList, newEventList,
-							application.getRule(), treeIndex, controlDartNodeIndex);
+							application.getRule(), treeIndex, controlDartNodeIndex,
+							applicationResult);
 					registerLevel(treeIndex, application.getApplicationID(), newEventList,
 							newOrbitList, applicationType);
 				}
@@ -143,14 +145,12 @@ public class ReevaluationTree {
 		}
 	}
 
-	private void addTree() {
-		// compute a new level
-		LevelEventMT newLevelEventMT = new LevelEventMT();
-		// register the new level as a new tree
-		trees.add(Arrays.asList(newLevelEventMT));
-		// find a new topological parameter to pair with the tree
-		JerboaDart topoParameter = null;
-		topoParameters.add(topoParameter);
+	private void addTree(LevelEvent oldLevelEvent, List<NodeEvent> newEventList,
+			List<NodeOrbit> newOrbitList, int treeIndex) {
+
+		// create new split-added levelEvent
+		// LevelEventMT newLevelEvent = new LevelEventMT(newEventList, null)
+		// for(NodeEvent)
 	}
 
 	private int getControlDartNodeID(JerboaDart controlDart, JerboaRuleResult applicationResult,
@@ -174,10 +174,6 @@ public class ReevaluationTree {
 	public void registerLevel(int treeIndex, int applicationNumber, List<NodeEvent> matchedEvents,
 			List<NodeOrbit> matchedOrbits, ApplicationType applicationType) {
 
-		// List<NodeEvent> matchedEvents = matchedLevelEvent.getEventList();
-		// List<NodeOrbit> matchedOrbits =
-		// ((LevelEventHR) matchedLevelEvent).getNextLevelOrbit().getOrbitList();
-
 		LevelEvent newLevelEvent =
 				new LevelEventMT(applicationNumber, matchedEvents, applicationType);
 		LevelOrbit newLevelOrbit =
@@ -196,9 +192,26 @@ public class ReevaluationTree {
 
 	}
 
+	/*
+	 * This method computes an additional level. If there is a split event, then as many trees as
+	 * subdivided orbits must be added to the ReevaluationTree structure.
+	 *
+	 * @param oldLevelEvent Last registered event after which the newly computed event must be
+	 * inserted
+	 *
+	 * @param newOrbitList List of node orbits to compute
+	 *
+	 * @param newEventList List of node events to compute
+	 *
+	 * @param jerboaRuleOperation Current application's rule
+	 *
+	 * @param treeIndex Index of the tree for which the level must be computed
+	 *
+	 * @param nodeIndex Rule node used to compute new events
+	 */
 	private void computeNewLevel(LevelEvent oldLevelEvent, List<NodeOrbit> newOrbitList,
-			List<NodeEvent> newEventList, JerboaRuleOperation jerboaRuleOperation, int treeIndex,
-			int nodeIndex) {
+			List<NodeEvent> newEventList, JerboaRuleOperation rule, int treeIndex, int nodeIndex,
+			JerboaRuleResult applicationResult) {
 
 		for (NodeEvent oldNodeEvent : oldLevelEvent.getEventList()) {
 
@@ -207,15 +220,12 @@ public class ReevaluationTree {
 
 			Event newEvent = Event.NOEFFECT;
 			if (nodeIndex != -1) {
-				JerboaRuleNode ruleNode = jerboaRuleOperation.getRightRuleNode(nodeIndex);
+				JerboaRuleNode ruleNode = rule.getRightRuleNode(nodeIndex);
 				JerboaStaticDetection detector =
-						new JerboaStaticDetection((JerboaRuleGenerated) jerboaRuleOperation);
+						new JerboaStaticDetection((JerboaRuleGenerated) rule);
 				newEvent = detector.getEventFromOrbit(ruleNode, orbitType);
 			}
 
-			if (newEvent == Event.SPLIT) {
-				System.out.println("ReevaluationTree: added split detected");
-			}
 
 			NodeEvent newNodeEvent = new NodeEvent(newEvent);
 			newNodeEvent.setChild(new NodeOrbit(orbitType));
@@ -227,14 +237,57 @@ public class ReevaluationTree {
 			oldNodeEvent.getChild()
 					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent)));
 
+			if (newEvent == Event.SPLIT) {
+				System.out.println("ReevaluationTree: added split detected ");
+				for (int i = 0; i < computeNbSplits(rule, orbitType, nodeIndex,
+						applicationResult); i++) {
+					addTree(oldLevelEvent, newEventList, newOrbitList, treeIndex);
+				}
+			}
+
 		}
 
 	}
 
+	private int computeNbSplits(JerboaRuleOperation rule, JerboaOrbit orbitType, int nodeIndex,
+			JerboaRuleResult applicationResult) {
+
+		List<Set<JerboaDart>> visitedSets = new ArrayList<>();
+
+		for (int dartIndex = 0; dartIndex < applicationResult.sizeRow(nodeIndex); dartIndex++) {
+
+			JerboaDart dart = applicationResult.get(nodeIndex, dartIndex);
+			Set<JerboaDart> set = new HashSet<>(Arrays.asList(dart));
+			int alphaIndex = 0;
+
+			while (!set.contains(dart.alpha(alphaIndex))) {
+				set.add(dart.alpha(alphaIndex));
+				alphaIndex = (alphaIndex + 1) % orbitType.size();
+			}
+			visitedSets.add(set);
+		}
+		return visitedSets.size() - 1;
+
+	}
+
+	/*
+	 * Get a tree
+	 *
+	 * @param treeIndex a tree's index
+	 *
+	 * @return a tree as List<LevelEventMT>
+	 */
 	private List<LevelEventMT> getTree(int treeIndex) {
 		return trees.get(treeIndex);
 	}
 
+	/**
+	 * Get a tree's last level
+	 *
+	 * @param treeIndex a tree's index
+	 *
+	 * @return a level {@link LevelEventMT}
+	 */
 	private LevelEventMT getTreeLastLevel(int treeIndex) {
 
 		/*
@@ -243,7 +296,12 @@ public class ReevaluationTree {
 		 * however, there should never be an empty tree
 		 */
 		List<LevelEventMT> tree = getTree(treeIndex);
-		return tree.get(tree.size() - 1);
+		try {
+			return tree.get(tree.size() - 1);
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Error: ReevaluationTree is empty — " + e.getMessage());
+		}
+		return null;
 
 		/*
 		 * casting a List to LinkedList to access getLast() method

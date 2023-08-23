@@ -3,12 +3,13 @@ package fr.ensma.lias.jerboa;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
+import fr.ensma.lias.jerboa.core.rule.rules.Color.MakeFaceBlue;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.datastructures.Application;
 import fr.ensma.lias.jerboa.datastructures.ApplicationType;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
-import fr.ensma.lias.jerboa.datastructures.MatchingTree;
+import fr.ensma.lias.jerboa.datastructures.ReevaluationTree;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
@@ -41,7 +42,7 @@ public class DemoInstantRebuild {
   private ParametricSpecification parametricSpecification;
   private List<Application> applications;
   private List<HistoryRecord> historyRecords;
-  private List<MatchingTree> matchingTrees;
+  private List<ReevaluationTree> reevaluationTrees;
   private List<Application> editedApplications;
   // private JerboaRuleResult appResult;
 
@@ -58,15 +59,15 @@ public class DemoInstantRebuild {
     applications = parametricSpecification.getApplications();
 
     historyRecords = new ArrayList<>();
-    matchingTrees = new ArrayList<>();
+    reevaluationTrees = new ArrayList<>();
 
     initializeReevaluation();
 
     editedApplications =
         JSONPrinter.importParametricSpecification(editedDir, editedSpec, modeler).getApplications();
 
-    // reevaluateModel(editedApplications, historyRecords, matchingTrees,
-    // frame); exportMatchingTrees(matchingTrees);
+    // reevaluateModel(editedApplications, historyRecords, reevaluationTrees,
+    // frame); exportReevaluationTrees(reevaluationTrees);
   }
 
   /**
@@ -83,14 +84,14 @@ public class DemoInstantRebuild {
    *
    * Export the matching trees created during the model's reevaluation
    *
-   * @param matchingTrees
+   * @param reevaluationTrees
    */
-  // private void exportMatchingTrees(List<MatchingTree> matchingTrees) {
-  private void exportMatchingTrees() {
+  // private void exportReevaluationTrees(List<ReevaluationTree> reevaluationTrees) {
+  private void exportReevaluationTrees() {
 
     int counter = 0;
-    for (MatchingTree mt : this.matchingTrees) {
-      mt.export("exports", "matchingtree-" + counter + ".json");
+    for (ReevaluationTree rt : this.reevaluationTrees) {
+      rt.export("exports", "matchingtree-" + counter + ".json");
       counter++;
     }
   }
@@ -102,11 +103,11 @@ public class DemoInstantRebuild {
    * @param parametricSpecification
    * @param applications
    * @param historyRecords
-   * @param matchingTrees
+   * @param reevaluationTrees
    */
   // private void initializeReevaluation(ParametricSpecification
   // parametricSpecification, List<Application> applications,
-  // List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees) {
+  // List<HistoryRecord> historyRecords, List<ReevaluationTree> reevaluationTrees) {
   private void initializeReevaluation() {
 
     int counter = 0;
@@ -124,8 +125,8 @@ public class DemoInstantRebuild {
               applications.indexOf(application));
           hr.export("./exports", "hr-rejeu-ajout-" + counter++ + ".json");
           historyRecords.add(hr);
-          MatchingTree mt = new MatchingTree();
-          matchingTrees.add(mt);
+          ReevaluationTree rt = new ReevaluationTree();
+          reevaluationTrees.add(rt);
         }
       }
     }
@@ -139,20 +140,17 @@ public class DemoInstantRebuild {
    *
    * @param applications
    * @param historyRecords
-   * @param matchingTrees
+   * @param reevaluationTrees
    * @throws IOException
    * @throws JerboaException
    * @throws InterruptedException
    * @throws InvocationTargetException
    */
-  // private synchronized void reevaluateModel(List<Application> applications,
-  // List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
-  // JFrame frame) throws IOException, JerboaException {
   private void reevaluateModel(GMapViewer gmapviewer) {
 
     Integer counter = 0;
     JerboaRuleResult appResult = null;
-    List<List<JerboaDart>> topoParameters = new ArrayList<>();
+    List<List<List<JerboaDart>>> topoParameters = new ArrayList<>();
 
     for (int applicationIndex = 0; applicationIndex < editedApplications
         .size(); applicationIndex++) {
@@ -160,50 +158,65 @@ public class DemoInstantRebuild {
       Application application = editedApplications.get(applicationIndex);
       int nbPNs = application.getPersistentNames().size();
       JerboaDart controlDart = null;
+      int nbParameters = reevaluationTrees.get(counter).getTopoParameters().size();
+
+      // System.out.println("nbParameters " + nbParameters);
 
       topoParameters = new ArrayList<>();
 
       if (application.getApplicationType() != ApplicationType.ADD) {
-        counter = collectTopologicalParameters(topoParameters, matchingTrees, nbPNs, counter);
+        counter = collectTopologicalParameters(topoParameters, reevaluationTrees, nbPNs, counter,
+            nbParameters);
       } else {
-        topoParameters = dartIDsToJerboaDarts(application.getDartIDs(), topoParameters);
-
-        // REVIEW: this is a workaround to get an effective distinction
-        // between NOEFFECT and MERGE with added rules
-        JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
-        JerboaRuleNode hook = rule.getHooks().get(0);
-        int controlNodeIndex = rule.findClosestPreservedNode(hook);
-        JerboaRuleNode controlNode = rule.getLeftRuleNode(controlNodeIndex);
-
-        List<Integer> pathFromRootToControl =
-            rule.collectLabelsFromSourceToClosestTarget(hook, Arrays.asList(controlNode), null);
-
-        for (Integer label : pathFromRootToControl) {
-          controlDart = topoParameters.get(0).get(0).alpha(label);
-        }
+        dartIDsToJerboaDarts(application.getDartIDs(), topoParameters, nbParameters);
+        controlDart = computeControlDart(application, topoParameters);
       }
-
-      // if (application.getApplicationType() != ApplicationType.DELETE)
-      // for (List<JerboaDart> parameter : topoParameters) {
-      // gmapviewer.switchDartSelection(parameter);
-      // }
-
-      // gmapviewer.updateIHM();
 
       try {
         if (application.getApplicationType() != ApplicationType.DELETE) {
-          appResult = apply(application.getRule(), topoParameters);
+          if (topoParameters.isEmpty()) {
+
+            appResult = apply(application.getRule(), Arrays.asList());
+          } else
+            for (int param = 0; param < topoParameters.size(); param++) {
+              appResult = apply(application.getRule(), topoParameters.get(param));
+            }
           gmapviewer.updateIHM();
         }
       } catch (JerboaException e) {
         e.printStackTrace();
       }
 
-      computeMatchingTreeLevel(application, appResult, historyRecords, matchingTrees, controlDart);
-
+      // if (application.getApplicationType() != ApplicationType.DELETE) // {
+      for (int param = 0; param < topoParameters.size(); param++) {
+        computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+            controlDart, param);
+      }
     }
 
-    exportMatchingTrees();
+    exportReevaluationTrees();
+
+  }
+
+  // REVIEW: this is a workaround to get an effective distinction
+  // between NOEFFECT and MERGE with added rules
+  private JerboaDart computeControlDart(Application application,
+      List<List<List<JerboaDart>>> topoParameters) {
+    JerboaDart controlDart = null;
+    JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
+    JerboaRuleNode hook = rule.getHooks().get(0);
+    int controlNodeIndex = rule.findClosestPreservedNode(hook);
+    JerboaRuleNode controlNode = rule.getLeftRuleNode(controlNodeIndex);
+
+    List<Integer> pathFromRootToControl =
+        rule.collectLabelsFromSourceToClosestTarget(hook, Arrays.asList(controlNode), null);
+
+    System.out.println("TOPOPARAMETERS: " + topoParameters);
+    controlDart = topoParameters.get(0).get(0).get(0);
+    for (Integer label : pathFromRootToControl) {
+      controlDart = controlDart.alpha(label);
+    }
+    return controlDart;
   }
 
   /**
@@ -211,11 +224,12 @@ public class DemoInstantRebuild {
    * @param application
    * @param appResult
    * @param historyRecords
-   * @param matchingTrees
+   * @param reevaluationTrees
+   * @param i
    */
-  private void computeMatchingTreeLevel(Application application, JerboaRuleResult appResult,
-      List<HistoryRecord> historyRecords, List<MatchingTree> matchingTrees,
-      JerboaDart controlDart) {
+  private void computeReevaluationTreeLevel(Application application, JerboaRuleResult appResult,
+      List<HistoryRecord> historyRecords, List<ReevaluationTree> reevaluationTrees,
+      JerboaDart controlDart, int appIndex) {
 
     for (int index = 0; index < historyRecords.size(); index++) {
 
@@ -231,9 +245,10 @@ public class DemoInstantRebuild {
           levelEventHR = levelEventHRs.get(0);
         }
 
-        MatchingTree mt = matchingTrees.get(index);
+        ReevaluationTree rt = reevaluationTrees.get(index);
 
-        mt.addLevel(historyRecords.get(index), levelEventHR, application, appResult, controlDart);
+        rt.addLevel(historyRecords.get(index), levelEventHR, application, appResult, controlDart,
+            appIndex);
       }
     }
   }
@@ -241,19 +256,29 @@ public class DemoInstantRebuild {
   /**
    *
    * @param topoParameters
-   * @param matchingTrees
+   * @param reevaluationTrees
    * @param nbPNs
    * @param counter
+   * @param nbParameters
    * @return
    */
-  private int collectTopologicalParameters(List<List<JerboaDart>> topoParameters,
-      List<MatchingTree> matchingTrees, int nbPNs, int counter) {
-    // for each pn add a topological parameters
+  private int collectTopologicalParameters(List<List<List<JerboaDart>>> topoParameters,
+      List<ReevaluationTree> reevaluationTrees, int nbPNs, int counter, int nbParameters) {
+
+    // for each pn add a topological parameter
     for (int i = 0; i < nbPNs; i++) {
-      topoParameters.add(Arrays.asList(matchingTrees.get(counter).getTopoParameter()));
+      for (int index = 0; index < nbParameters; index++) {
+        if (topoParameters.size() < index)
+          topoParameters.add(
+              Arrays.asList(Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index))));
+        else
+          topoParameters.set(index,
+              Arrays.asList(Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index))));
+      }
       counter += 1;
     }
     return counter;
+
   }
 
   /**
@@ -262,12 +287,12 @@ public class DemoInstantRebuild {
    * @param topoParameters
    * @return
    */
-  private List<List<JerboaDart>> dartIDsToJerboaDarts(List<Integer> dartIDs,
-      List<List<JerboaDart>> topoParameters) {
+  private void dartIDsToJerboaDarts(List<Integer> dartIDs,
+      List<List<List<JerboaDart>>> topoParameters, int nbParameters) {
+    System.out.println("COLLECT: ADD" + topoParameters);
     for (Integer dartID : dartIDs) {
-      topoParameters.add(Arrays.asList(gmap.getNode(dartID)));
+      topoParameters.add(Arrays.asList(Arrays.asList(gmap.getNode(dartID))));
     }
-    return topoParameters;
   }
 
   /**

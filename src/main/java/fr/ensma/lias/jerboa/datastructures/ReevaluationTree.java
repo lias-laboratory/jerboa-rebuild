@@ -11,6 +11,7 @@ import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.core.utils.rule.ToolKit;
 import up.jerboa.core.JerboaDart;
+import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.JerboaRuleResult;
@@ -48,13 +49,12 @@ public class ReevaluationTree {
 		JerboaRuleOperation rule = application.getRule();
 		ApplicationType applicationType = application.getApplicationType();
 
-		int nbTrees = trees.size(); // Fixing loop size prevents trees's expansion while
+		// int nbTrees = trees.size(); // Fixing loop size prevents trees's expansion while
 		// for-looping
 
 		switch (applicationType) {
 			case INIT:
 
-				// System.out.println("FOO: INIT");
 				// for (int treeIndex = 0; treeIndex < nbTrees; treeIndex++) {
 
 				String nodeName = levelEventEval.getNextLevelOrbit().getNodeName();
@@ -78,6 +78,7 @@ public class ReevaluationTree {
 				List<NodeEvent> newEventList = new ArrayList<>();
 				List<NodeOrbit> newOrbitList = new ArrayList<>();
 
+
 				computeNewLevel(getTreeLastLevel(treeIndex), newOrbitList, newEventList,
 						application, treeIndex, controlDartNodeIndex, applicationResult);
 				registerLevel(treeIndex, application.getApplicationID(), newEventList, newOrbitList,
@@ -95,35 +96,41 @@ public class ReevaluationTree {
 		}
 
 		return;
-
 	}
 
 	private void matchDartParameters(int treeIndex, String nodeName,
 			JerboaRuleResult applicationResult, JerboaRuleOperation rule, boolean NOEFFECT) {
 
+		// System.out.println("TOPOPARAMs: begin " + topoParameters);
 
 		if (NOEFFECT) {
 			// TODO: method - control wether or not the current application remains NOEFFECT
 			return;
 		}
 
-		int rowIndex = 0;
-		if (!topoParameters.isEmpty())
-			for (int i = 0; i < applicationResult.sizeCol(); i++) {
-				for (int j = 0; j < applicationResult.sizeRow(i); j++) {
-					if (applicationResult.get(i, j) == getTopoParameter(treeIndex)) {
-						rowIndex = j;
+		if (topoParameters.isEmpty()) {
+			int rowIndex = 0;
+			int colIndex = rule.getRightIndexRuleNode(nodeName);
+			JerboaDart dart = applicationResult.get(colIndex, rowIndex);
+			topoParameters.add(dart);
+		} else {
+			for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+				int colIndex = rule.getRightIndexRuleNode(nodeName);
+
+				int rowIndex = 0;
+				for (int i = 0; i < applicationResult.sizeCol(); i++) {
+					for (int j = 0; j < applicationResult.sizeRow(i); j++) {
+						if (applicationResult.get(i, j) == getTopoParameter(paramIndex)) {
+							rowIndex = j;
+						}
 					}
 				}
+				if (colIndex == 0 && rowIndex == 0)
+					return;
+				JerboaDart dart = applicationResult.get(colIndex, rowIndex);
+				topoParameters.set(paramIndex, dart);
 			}
-
-		int colIndex = rule.getRightIndexRuleNode(nodeName);
-		JerboaDart dart = applicationResult.get(colIndex, rowIndex);
-
-		if (treeIndex > topoParameters.size())
-			topoParameters.add(dart);
-		else
-			topoParameters.add(treeIndex, dart);
+		}
 	}
 
 
@@ -160,6 +167,7 @@ public class ReevaluationTree {
 
 	private int getControlDartNodeID(JerboaDart controlDart, JerboaRuleResult applicationResult,
 			int topoParameterIndex) {
+
 		int nodeIndex = -1;
 		for (int i = 0; !topoParameters.isEmpty() && i < applicationResult.sizeCol(); i++) {
 			if (applicationResult.get(i).contains(topoParameters.get(topoParameterIndex))
@@ -216,17 +224,17 @@ public class ReevaluationTree {
 			List<NodeEvent> newEventList, Application application, int treeIndex, int nodeIndex,
 			JerboaRuleResult applicationResult) {
 
+		JerboaRuleGenerated rule = (JerboaRuleGenerated) application.getRule();
+
 		for (NodeEvent oldNodeEvent : oldLevelEvent.getEventList()) {
 
-			// NO SPLIT
 			JerboaOrbit orbitType = oldNodeEvent.getChild().getOrbit();
 			int splitLink = -1;
 
 			Event newEvent = Event.NOEFFECT;
 			if (nodeIndex != -1) {
 				JerboaRuleNode ruleNode = application.getRule().getRightRuleNode(nodeIndex);
-				JerboaStaticDetection detector =
-						new JerboaStaticDetection((JerboaRuleGenerated) application.getRule());
+				JerboaStaticDetection detector = new JerboaStaticDetection(rule);
 				newEvent = detector.getEventFromOrbit(ruleNode, orbitType);
 				splitLink = detector.getSplitLink();
 			}
@@ -244,10 +252,16 @@ public class ReevaluationTree {
 
 			if (newEvent == Event.SPLIT) {
 				JerboaDart dart = getTopoParameter(treeIndex);
-				for (int i = 0; i < computeNbSplits(application.getRule(), orbitType, nodeIndex,
-						applicationResult); i++) {
-					dart = computeSplitaddedDart(dart, orbitType, splitLink);
-					addTree(newEventList, newOrbitList, application, treeIndex, dart);
+				List<Set<JerboaDart>> splits = computeSplits(application.getRule(), orbitType,
+						nodeIndex, applicationResult);
+				for (int i = 0; i < splits.size(); i++) {
+					if (splits.get(i).contains(dart)) {
+						continue;
+					}
+					JerboaDart splitDart = splits.get(i).stream().findFirst().get();
+					// dart = computeSplitaddedDart(dart, orbitType, splitLink, rule);
+					System.out.println("\t" + splitDart);
+					addTree(newEventList, newOrbitList, application, treeIndex, splitDart);
 				}
 			}
 
@@ -255,8 +269,8 @@ public class ReevaluationTree {
 
 	}
 
-	private JerboaDart computeSplitaddedDart(JerboaDart dart, JerboaOrbit orbitType,
-			int splitLink) {
+	private JerboaDart computeSplitaddedDart(JerboaDart dart, JerboaOrbit orbitType, int splitLink,
+			JerboaRuleGenerated rule) {
 		if (orbitType.size() > 0) {
 			for (int link : orbitType) {
 				dart = dart.alpha(link);
@@ -270,14 +284,16 @@ public class ReevaluationTree {
 		return dart;
 	}
 
-	private int computeNbSplits(JerboaRuleOperation rule, JerboaOrbit orbitType, int nodeIndex,
-			JerboaRuleResult applicationResult) {
+	private List<Set<JerboaDart>> computeSplits(JerboaRuleOperation rule, JerboaOrbit orbitType,
+			int nodeIndex, JerboaRuleResult applicationResult) {
 
 		List<Set<JerboaDart>> visitedSets = new ArrayList<>();
 
 		for (int dartIndex = 0; dartIndex < applicationResult.sizeRow(nodeIndex); dartIndex++) {
 
+
 			JerboaDart dart = applicationResult.get(nodeIndex, dartIndex);
+			System.out.println("\t" + dart);
 			Set<JerboaDart> set = new HashSet<>(Arrays.asList(dart));
 			int alphaIndex = 0;
 
@@ -287,7 +303,7 @@ public class ReevaluationTree {
 			}
 			visitedSets.add(set);
 		}
-		return visitedSets.size() - 1;
+		return visitedSets;
 
 	}
 

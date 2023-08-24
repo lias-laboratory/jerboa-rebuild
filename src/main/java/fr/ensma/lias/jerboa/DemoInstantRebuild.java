@@ -157,10 +157,8 @@ public class DemoInstantRebuild {
 
       Application application = editedApplications.get(applicationIndex);
       int nbPNs = application.getPersistentNames().size();
-      JerboaDart controlDart = null;
+      List<JerboaDart> controlDarts = new ArrayList<>();
       int nbParameters = reevaluationTrees.get(counter).getTopoParameters().size();
-
-      // System.out.println("nbParameters " + nbParameters);
 
       topoParameters = new ArrayList<>();
 
@@ -169,7 +167,7 @@ public class DemoInstantRebuild {
             nbParameters);
       } else {
         dartIDsToJerboaDarts(application.getDartIDs(), topoParameters, nbParameters);
-        controlDart = computeControlDart(application, topoParameters);
+        computeControlDart(controlDarts, application, topoParameters);
       }
 
       try {
@@ -178,8 +176,8 @@ public class DemoInstantRebuild {
 
             appResult = apply(application.getRule(), Arrays.asList());
           } else
-            for (int param = 0; param < topoParameters.size(); param++) {
-              appResult = apply(application.getRule(), topoParameters.get(param));
+            for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+              appResult = apply(application.getRule(), topoParameters.get(paramIndex));
             }
           gmapviewer.updateIHM();
         }
@@ -187,10 +185,20 @@ public class DemoInstantRebuild {
         e.printStackTrace();
       }
 
-      // if (application.getApplicationType() != ApplicationType.DELETE) // {
-      for (int param = 0; param < topoParameters.size(); param++) {
+      if (nbParameters == 0) {
         computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-            controlDart, param);
+            null, 0);
+      } else {
+        if (application.getApplicationType() == ApplicationType.ADD)
+          for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+            computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+                controlDarts.get(paramIndex), paramIndex);
+          }
+        else
+          for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+            computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+                null, paramIndex);
+          }
       }
     }
 
@@ -198,11 +206,11 @@ public class DemoInstantRebuild {
 
   }
 
-  // REVIEW: this is a workaround to get an effective distinction
+  // NOTE: this is a workaround to get an effective distinction
   // between NOEFFECT and MERGE with added rules
-  private JerboaDart computeControlDart(Application application,
+  private void computeControlDart(List<JerboaDart> controlDarts, Application application,
       List<List<List<JerboaDart>>> topoParameters) {
-    JerboaDart controlDart = null;
+
     JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
     JerboaRuleNode hook = rule.getHooks().get(0);
     int controlNodeIndex = rule.findClosestPreservedNode(hook);
@@ -211,12 +219,17 @@ public class DemoInstantRebuild {
     List<Integer> pathFromRootToControl =
         rule.collectLabelsFromSourceToClosestTarget(hook, Arrays.asList(controlNode), null);
 
-    System.out.println("TOPOPARAMETERS: " + topoParameters);
-    controlDart = topoParameters.get(0).get(0).get(0);
-    for (Integer label : pathFromRootToControl) {
-      controlDart = controlDart.alpha(label);
+    for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+      JerboaDart controlDart = topoParameters.get(paramIndex).get(0).get(0);
+      for (Integer label : pathFromRootToControl) {
+        controlDart = controlDart.alpha(label);
+      }
+      controlDarts.add(controlDart);
     }
-    return controlDart;
+    // for (Integer label : pathFromRootToControl) {
+    // controlDart = topoParameters.get(paramIndex).get(0).get(0).alpha(label);
+    // }
+    // return controlDart;
   }
 
   /**
@@ -268,12 +281,14 @@ public class DemoInstantRebuild {
     // for each pn add a topological parameter
     for (int i = 0; i < nbPNs; i++) {
       for (int index = 0; index < nbParameters; index++) {
-        if (topoParameters.size() < index)
-          topoParameters.add(
-              Arrays.asList(Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index))));
-        else
-          topoParameters.set(index,
-              Arrays.asList(Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index))));
+        if (topoParameters.size() <= index) {
+          // NOTE: new ArrayList<…>(Arrays.asList) keeps the list resizable thus permitting the
+          // addition of elements
+          topoParameters.add(new ArrayList<List<JerboaDart>>(Arrays
+              .asList(Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index)))));
+        } else
+          topoParameters.get(index).add(new ArrayList<JerboaDart>(
+              Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index))));
       }
       counter += 1;
     }
@@ -289,10 +304,11 @@ public class DemoInstantRebuild {
    */
   private void dartIDsToJerboaDarts(List<Integer> dartIDs,
       List<List<List<JerboaDart>>> topoParameters, int nbParameters) {
-    System.out.println("COLLECT: ADD" + topoParameters);
+    List<List<JerboaDart>> params = new ArrayList<>();
     for (Integer dartID : dartIDs) {
-      topoParameters.add(Arrays.asList(Arrays.asList(gmap.getNode(dartID))));
+      params.add(new ArrayList<JerboaDart>(Arrays.asList(gmap.getNode(dartID))));
     }
+    topoParameters.add(params);
   }
 
   /**
@@ -331,9 +347,11 @@ public class DemoInstantRebuild {
 
     DemoInstantRebuild demo = new DemoInstantRebuild(bridge, //
         "./examples", //
-        "article-2-build.json", //
+        "prop6.json", //
+        // "article-2-build.json", //
         "./examples", //
-        "article-2-build-reevaluation.json", //
+        "prop6-reval.json", //
+        // "article-2-build-reevaluation.json", //
         frame, gmapviewer);
 
     SwingUtilities.invokeLater(new Runnable() {

@@ -3,6 +3,7 @@ package fr.ensma.lias.jerboa.core.tracking;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import fr.ensma.lias.jerboa.datastructures.Event;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
@@ -13,9 +14,47 @@ import up.jerboa.core.util.JerboaRuleGenerated;
 public class JerboaStaticDetection {
 
 	private JerboaRuleGenerated rule;
+	private JerboaStaticDetection jerboaStaticDetection;
+	private int splitLink;
+
+
 
 	public JerboaStaticDetection(JerboaRuleGenerated rule) {
 		this.rule = rule;
+		splitLink = -1;
+	}
+
+	// HACK: temporary until a more adequate solution
+	public int getSplitLink() {
+		return splitLink;
+	}
+
+
+	/*
+	 * Compute the event related to a orbit
+	 *
+	 * @param ruleNode a rule node of the orbit to compute
+	 *
+	 * @param orbitType an orbit type
+	 *
+	 * @return an event
+	 */
+	public Event getEventFromOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+
+		if (createdOrbit(ruleNode, orbitType)) {
+			return Event.CREATION;
+		} else if (unchangedOrbit(ruleNode, orbitType)) {
+			return Event.NOMODIF;
+		} else if (splittedOrbit(ruleNode, orbitType)) {
+			return Event.SPLIT;
+		} else if (mergedOrbit(ruleNode, orbitType)) {
+			return Event.MERGE;
+		} else if (modifiedOrbit(ruleNode, orbitType)) {
+			return Event.MODIFICATION;
+		}
+		return Event.NOEFFECT;
+
+
 	}
 
 	/**
@@ -27,14 +66,14 @@ public class JerboaStaticDetection {
 	 *
 	 * @return true if all nodes ar created else false
 	 */
-	public boolean createdOrbit(JerboaRuleNode ruleNode, JerboaOrbit otype) {
-		List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, otype);
+	public boolean createdOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+		List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
 		// return true if all nodes are created else false
 		return nodeOrbit.stream().allMatch((node) -> isNodeCreated(node));
 	}
 
-	public boolean deletedOrbit(JerboaRuleNode leftRuleNode, JerboaOrbit otype) {
-		List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(leftRuleNode, otype);
+	public boolean deletedOrbit(JerboaRuleNode leftRuleNode, JerboaOrbit orbitType) {
+		List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(leftRuleNode, orbitType);
 		return nodeOrbit.stream().allMatch((node) -> isNodeDeleted(node));
 	}
 
@@ -45,31 +84,31 @@ public class JerboaStaticDetection {
 	 *
 	 * @return true if the orbit is preserved else false
 	 */
-	private boolean unchangedOrbit(JerboaRuleNode ruleNode, JerboaOrbit otype) {
-		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, otype);
+	private boolean unchangedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
 		// TODO: replace test 1 and 2 with areAllNodesPreserved
 		// TODO: all implicit links in <o> are preserved
 		// TODO: all explicit links are preserved
 		return !isThereAnyCreatedNode(ruleNodesOrbit) // No Created Node
-				&& isThereAnyMissingNode(ruleNodesOrbit, otype) // No Missing Node
-				&& areNodesUnchanged(ruleNodesOrbit, otype); // No Change in (between) nodes
+				&& isThereAnyMissingNode(ruleNodesOrbit, orbitType) // No Missing Node
+				&& areNodesUnchanged(ruleNodesOrbit, orbitType); // No Change in (between) nodes
 	}
 
-	public boolean splittedOrbit(JerboaRuleNode ruleNode, JerboaOrbit otype) {
-		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, otype);
-		return isRuleNodesOrbitExplicitlySplitted(ruleNodesOrbit, otype)
-				|| isRuleNodesOrbitImplicitlySplitted(ruleNodesOrbit, otype);
+	public boolean splittedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+		return isRuleNodesOrbitExplicitlySplitted(ruleNodesOrbit, orbitType)
+				|| isRuleNodesOrbitImplicitlySplitted(ruleNodesOrbit, orbitType);
 	}
 
-	public boolean mergedOrbit(JerboaRuleNode ruleNode, JerboaOrbit otype) {
-		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, otype);
-		return isRuleNodesOrbitExplicitlyMerged(ruleNodesOrbit, otype)
-				|| isRuleNodesOrbitImplicitlyMerged(ruleNodesOrbit, otype);
+	public boolean mergedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+		return isRuleNodesOrbitExplicitlyMerged(ruleNodesOrbit, orbitType)
+				|| isRuleNodesOrbitImplicitlyMerged(ruleNodesOrbit, orbitType);
 	}
 
-	public boolean modifiedOrbit(JerboaRuleNode ruleNode, JerboaOrbit otype) {
-		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, otype);
-		return hasRewrittenImplicitLink(ruleNodesOrbit, otype);
+	public boolean modifiedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+		List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+		return hasRewrittenImplicitLink(ruleNodesOrbit, orbitType);
 	}
 
 	public boolean isNodeHook(JerboaRuleNode node) {
@@ -110,16 +149,17 @@ public class JerboaStaticDetection {
 	 * Check rule nodes' orbit is missing some rule node.
 	 *
 	 * @param ruleNodesOrbit a given list of right rule nodes
-	 * @param otype a JerboaOrbit
+	 * @param orbitType a JerboaOrbit
 	 * @return true if left rule nodes' list's size is the same as right rule nodes' list's size
 	 *         else false
 	 */
-	private boolean isThereAnyMissingNode(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit otype) {
+	private boolean isThereAnyMissingNode(List<JerboaRuleNode> ruleNodesOrbit,
+			JerboaOrbit orbitType) {
 
 		JerboaRuleNode leftRuleNode =
 				// rule.getLeftRuleNode(rule.reverseAssoc(ruleNodesOrbit.get(0).getID()));
 				rule.getLeftRuleNode(rule.getLeftIndexRuleNode(ruleNodesOrbit.get(0).getName()));
-		List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, otype);
+		List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, orbitType);
 
 		return leftRuleNodesOrbit.size() == ruleNodesOrbit.size();
 	}
@@ -178,15 +218,15 @@ public class JerboaStaticDetection {
 	 *
 	 * @param ruleNodesOrbit a given list of rule nodes
 	 *
-	 * @param otype a given orbit type
+	 * @param orbitType a given orbit type
 	 *
 	 * @return true if all nodes within ruleNodesOrbit are unchanged else false
 	 */
-	private boolean areNodesUnchanged(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit otype) {
+	private boolean areNodesUnchanged(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType) {
 		for (JerboaRuleNode node : ruleNodesOrbit) {
 			// for each value in tracker's orbit test if a link changed between
 			// left and right
-			for (Integer aLink : otype) {
+			for (Integer aLink : orbitType) {
 				// Using reverseAssoc to match the actual node ID in left
 				JerboaRuleNode leftNode = rule.getLeft().get(rule.reverseAssoc(node.getID()));
 				if (!isImplicitLinkUnchanged(aLink, leftNode, node)
@@ -218,10 +258,10 @@ public class JerboaStaticDetection {
 	 * orbit in `left`
 	 *
 	 * @param ruleNodesOrbit an orbit in `right`
-	 * @param otype
+	 * @param orbitType
 	 */
 	private boolean isRuleNodesOrbitExplicitlySplitted(List<JerboaRuleNode> ruleNodesOrbit,
-			JerboaOrbit otype) {
+			JerboaOrbit orbitType) {
 
 		// if there is a preserved rule node that belongs to current rule node's
 		// orbit in left and not in right then the orbit is explicitly splitted
@@ -230,8 +270,8 @@ public class JerboaStaticDetection {
 			List<JerboaRuleNode> leftRuleNodesOrbit = new ArrayList<>();
 			for (JerboaRuleNode node : ruleNodesOrbit) {
 				if (!isNodeCreated(node)) {
-					leftRuleNodesOrbit = JerboaRuleNode
-							.orbit(rule.getLeftRuleNode(rule.reverseAssoc(node.getID())), otype);
+					leftRuleNodesOrbit = JerboaRuleNode.orbit(
+							rule.getLeftRuleNode(rule.reverseAssoc(node.getID())), orbitType);
 					break;
 				}
 			}
@@ -250,21 +290,21 @@ public class JerboaStaticDetection {
 	/**
 	 * Helper method for isRuleNodesOrbitImplicitlySplitted. Initialize an array of the same size as
 	 * a rule node's orbit. This array is a mask on implicit aLink indexes. If an aLink's index is
-	 * always set to -1 or not in otype the corresponding column in aLinksArray is set to -1.
+	 * always set to -1 or not in orbitType the corresponding column in aLinksArray is set to -1.
 	 *
 	 * @param leftRuleNodesOrbit a list of left rule nodes from which to compute aLinksArray
-	 * @param otype a JerboaOrbit
+	 * @param orbitType a JerboaOrbit
 	 * @param ruleNodesOrbitSize number of implicit aLinks within a rule node
 	 * @param aLinksArray an array of int working as a mask on implicit aLinks.
 	 */
 	private void initializeImplicitLinksArray(List<JerboaRuleNode> leftRuleNodesOrbit,
-			JerboaOrbit otype, int ruleNodesOrbitSize, int[] aLinksArray) {
+			JerboaOrbit orbitType, int ruleNodesOrbitSize, int[] aLinksArray) {
 
 		for (int iLinkIndex = 0; iLinkIndex < ruleNodesOrbitSize; iLinkIndex++) {
 			var counter = 0;
 			for (int lNodeIndex = 0; lNodeIndex < leftRuleNodesOrbit.size(); lNodeIndex++) {
 				var lNode = leftRuleNodesOrbit.get(lNodeIndex);
-				if (!otype.contains(lNode.getOrbit().get(iLinkIndex))) {
+				if (!orbitType.contains(lNode.getOrbit().get(iLinkIndex))) {
 					counter += 1;
 				}
 			}
@@ -276,15 +316,15 @@ public class JerboaStaticDetection {
 	/**
 	 * Helper method for isRuleNodesOrbitImplicitlySplitted. This method checks if for all right
 	 * rule nodes an ith aLink (which is not set to -1 in aLinksArray) never appears to belong to
-	 * otype.
+	 * orbitType.
 	 *
 	 * @param ruleNodesOrbit a list of right rule nodes from which to determine if there is a split
 	 *        or not
-	 * @param otype a JerboaOrbit
+	 * @param orbitType a JerboaOrbit
 	 * @param aLinksArray an array of int working as a mask on implicit aLinks.
 	 * @return true if an ith aLink is untracked else false
 	 */
-	private boolean hasUntrackedIthLink(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit otype,
+	private boolean hasUntrackedIthLink(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType,
 			int[] aLinksArray) {
 		// for each ruleNode
 		for (JerboaRuleNode ruleNode : ruleNodesOrbit) {
@@ -294,8 +334,11 @@ public class JerboaStaticDetection {
 				if (aLinksArray[index] == -1) {
 					continue;
 				}
-				// if implicit arc at index is not in otype increment array value at index
-				if (!otype.contains(ruleNode.getOrbit().get(index))) {
+				// if implicit arc at index is not in orbitType increment array value at index
+				if (!orbitType.contains(ruleNode.getOrbit().get(index))) {
+					// HACK: temporary until a more adequate solution
+					if (splitLink == -1)
+						splitLink = ruleNode.getOrbit().get(index);
 					aLinksArray[index] += 1;
 				}
 				if (aLinksArray[index] == ruleNodesOrbit.size()) {
@@ -306,16 +349,21 @@ public class JerboaStaticDetection {
 		return false;
 	}
 
+	// public List<Integer> computeAllSplitLinks(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+	// List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+	// return null;
+	// }
+
 	/***
 	 * This method checks if there is at least one i-th implicit aLink present in an orbit from
 	 * `left` that is never reachable in the corresponding orbit from `right`.
 	 *
 	 * @param ruleNodesOrbit a list of right rule nodes
-	 * @param otype a given JerboaOrbit
+	 * @param orbitType a given JerboaOrbit
 	 * @return true if there is an untracked ith aLink else false
 	 */
 	private boolean isRuleNodesOrbitImplicitlySplitted(List<JerboaRuleNode> ruleNodesOrbit,
-			JerboaOrbit otype) {
+			JerboaOrbit orbitType) {
 
 		// compute a collection of preserved rule nodes
 		List<JerboaRuleNode> preservedRuleNodes =
@@ -330,7 +378,7 @@ public class JerboaStaticDetection {
 
 		JerboaRuleNode leftRuleNode =
 				rule.getLeftRuleNode(rule.reverseAssoc(preservedRuleNodes.get(0).getID()));
-		List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, otype);
+		List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, orbitType);
 
 		int nbImplicitLinks = leftRuleNodesOrbit.get(0).getOrbit().size();
 
@@ -338,9 +386,9 @@ public class JerboaStaticDetection {
 		int[] iLinksArray = new int[nbImplicitLinks];
 
 		// compute untracked iLinks in leftOrbit
-		initializeImplicitLinksArray(leftRuleNodesOrbit, otype, nbImplicitLinks, iLinksArray);
+		initializeImplicitLinksArray(leftRuleNodesOrbit, orbitType, nbImplicitLinks, iLinksArray);
 
-		return hasUntrackedIthLink(ruleNodesOrbit, otype, iLinksArray);
+		return hasUntrackedIthLink(ruleNodesOrbit, orbitType, iLinksArray);
 	}
 
 
@@ -349,10 +397,10 @@ public class JerboaStaticDetection {
 	 * two separate orbits in `left`
 	 *
 	 * @param ruleNodesOrbit an orbit in `right`
-	 * @param otype
+	 * @param orbitType
 	 */
 	private boolean isRuleNodesOrbitExplicitlyMerged(List<JerboaRuleNode> ruleNodesOrbit,
-			JerboaOrbit otype) {
+			JerboaOrbit orbitType) {
 
 		// if there is a preserved rule node that belongs to current rule node's
 		// orbit in right and not in left then the orbit is explicitly merged
@@ -361,8 +409,8 @@ public class JerboaStaticDetection {
 			List<JerboaRuleNode> leftRuleNodesOrbit = new ArrayList<>();
 			for (JerboaRuleNode node : ruleNodesOrbit) {
 				if (!isNodeCreated(node)) {
-					leftRuleNodesOrbit = JerboaRuleNode
-							.orbit(rule.getLeftRuleNode(rule.reverseAssoc(node.getID())), otype);
+					leftRuleNodesOrbit = JerboaRuleNode.orbit(
+							rule.getLeftRuleNode(rule.reverseAssoc(node.getID())), orbitType);
 					break;
 				}
 			}
@@ -381,7 +429,7 @@ public class JerboaStaticDetection {
 	}
 
 	private boolean isRuleNodesOrbitImplicitlyMerged(List<JerboaRuleNode> ruleNodesOrbit,
-			JerboaOrbit otype) {
+			JerboaOrbit orbitType) {
 
 		// compute a collection of preserved rule nodes
 		List<JerboaRuleNode> preservedRuleNodes =
@@ -396,7 +444,7 @@ public class JerboaStaticDetection {
 
 		JerboaRuleNode leftRuleNode =
 				rule.getLeftRuleNode(rule.reverseAssoc(preservedRuleNodes.get(0).getID()));
-		List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, otype);
+		List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, orbitType);
 
 		int nbImplicitLinks = ruleNodesOrbit.get(0).getOrbit().size();
 
@@ -404,9 +452,9 @@ public class JerboaStaticDetection {
 		int[] iLinksArray = new int[nbImplicitLinks];
 
 		// compute untracked iLinks in leftOrbit
-		initializeImplicitLinksArray(ruleNodesOrbit, otype, nbImplicitLinks, iLinksArray);
+		initializeImplicitLinksArray(ruleNodesOrbit, orbitType, nbImplicitLinks, iLinksArray);
 
-		return hasUntrackedIthLink(leftRuleNodesOrbit, otype, iLinksArray);
+		return hasUntrackedIthLink(leftRuleNodesOrbit, orbitType, iLinksArray);
 	}
 
 	private boolean hasRewrittenImplicitLink(List<JerboaRuleNode> ruleNodesOrbit,

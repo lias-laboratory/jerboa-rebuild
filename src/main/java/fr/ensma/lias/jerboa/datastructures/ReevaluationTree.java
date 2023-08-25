@@ -3,13 +3,9 @@ package fr.ensma.lias.jerboa.datastructures;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
-import fr.ensma.lias.jerboa.core.utils.rule.ToolKit;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -17,6 +13,7 @@ import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
+import up.jerboa.exception.JerboaException;
 
 /**
  * ReevaluationTree
@@ -58,10 +55,11 @@ public class ReevaluationTree {
 				// for (int treeIndex = 0; treeIndex < nbTrees; treeIndex++) {
 
 				String nodeName = levelEventEval.getNextLevelOrbit().getNodeName();
-				boolean NOEFFECT = isApplicationNOEFFECT(nodeName);
+				boolean NOEFFECT = isApplicationNOEFFECT(nodeName, treeIndex, applicationResult);
 
 
-				matchDartParameters(treeIndex, nodeName, applicationResult, rule, NOEFFECT);
+				matchDartParameters(treeIndex, levelEventEval, nodeName, applicationResult, rule,
+						NOEFFECT);
 				matchLevel(levelEventEval, application, nodeName, rule, NOEFFECT);
 				registerLevel(treeIndex, levelEventEval.getAppNumber(),
 						levelEventEval.getEventList(),
@@ -98,10 +96,8 @@ public class ReevaluationTree {
 		return;
 	}
 
-	private void matchDartParameters(int treeIndex, String nodeName,
+	private void matchDartParameters(int treeIndex, LevelEventHR levelEventHR, String nodeName,
 			JerboaRuleResult applicationResult, JerboaRuleOperation rule, boolean NOEFFECT) {
-
-		// System.out.println("TOPOPARAMs: begin " + topoParameters);
 
 		if (NOEFFECT) {
 			// TODO: method - control wether or not the current application remains NOEFFECT
@@ -115,9 +111,10 @@ public class ReevaluationTree {
 			topoParameters.add(dart);
 		} else {
 			for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+
 				int colIndex = rule.getRightIndexRuleNode(nodeName);
 
-				int rowIndex = 0;
+				int rowIndex = -1;
 				for (int i = 0; i < applicationResult.sizeCol(); i++) {
 					for (int j = 0; j < applicationResult.sizeRow(i); j++) {
 						if (applicationResult.get(i, j) == getTopoParameter(paramIndex)) {
@@ -125,10 +122,10 @@ public class ReevaluationTree {
 						}
 					}
 				}
-				if (colIndex == 0 && rowIndex == 0)
-					return;
-				JerboaDart dart = applicationResult.get(colIndex, rowIndex);
-				topoParameters.set(paramIndex, dart);
+				if (rowIndex != -1) {
+					JerboaDart dart = applicationResult.get(colIndex, rowIndex);
+					topoParameters.set(paramIndex, dart);
+				}
 			}
 		}
 	}
@@ -180,8 +177,10 @@ public class ReevaluationTree {
 		return nodeIndex;
 	}
 
-	private boolean isApplicationNOEFFECT(String nodeName) {
+	private boolean isApplicationNOEFFECT(String nodeName, int treeIndex,
+			JerboaRuleResult applicationResult) {
 		return nodeName == "ø";
+
 	}
 
 	public void registerLevel(int treeIndex, int applicationNumber, List<NodeEvent> matchedEvents,
@@ -252,21 +251,21 @@ public class ReevaluationTree {
 
 			if (newEvent == Event.SPLIT) {
 				JerboaDart dart = getTopoParameter(treeIndex);
-				List<Set<JerboaDart>> splits = computeSplits(application.getRule(), orbitType,
+				List<List<JerboaDart>> splits = computeSplits(application.getRule(), orbitType,
 						nodeIndex, applicationResult);
-				for (int i = 0; i < splits.size(); i++) {
-					if (splits.get(i).contains(dart)) {
-						continue;
+
+				if (splits.stream().anyMatch(s -> s.contains(dart))) {
+					for (int i = 0; i < splits.size(); i++) {
+						if (!splits.get(i).contains(dart)) {
+							JerboaDart splitDart = splits.get(i).stream().findFirst().get();
+							// dart = computeSplitaddedDart(dart, orbitType, splitLink, rule);
+							addTree(newEventList, newOrbitList, application, treeIndex, splitDart);
+						}
 					}
-					JerboaDart splitDart = splits.get(i).stream().findFirst().get();
-					// dart = computeSplitaddedDart(dart, orbitType, splitLink, rule);
-					System.out.println("\t" + splitDart);
-					addTree(newEventList, newOrbitList, application, treeIndex, splitDart);
 				}
 			}
 
 		}
-
 	}
 
 	private JerboaDart computeSplitaddedDart(JerboaDart dart, JerboaOrbit orbitType, int splitLink,
@@ -284,26 +283,27 @@ public class ReevaluationTree {
 		return dart;
 	}
 
-	private List<Set<JerboaDart>> computeSplits(JerboaRuleOperation rule, JerboaOrbit orbitType,
+	private List<List<JerboaDart>> computeSplits(JerboaRuleOperation rule, JerboaOrbit orbitType,
 			int nodeIndex, JerboaRuleResult applicationResult) {
 
-		List<Set<JerboaDart>> visitedSets = new ArrayList<>();
+		JerboaGMap gmap = rule.getOwner().getGMap();
+		List<List<JerboaDart>> visitedOrbits = new ArrayList<>();
 
 		for (int dartIndex = 0; dartIndex < applicationResult.sizeRow(nodeIndex); dartIndex++) {
 
-
 			JerboaDart dart = applicationResult.get(nodeIndex, dartIndex);
-			System.out.println("\t" + dart);
-			Set<JerboaDart> set = new HashSet<>(Arrays.asList(dart));
-			int alphaIndex = 0;
 
-			while (!set.contains(dart.alpha(alphaIndex))) {
-				set.add(dart.alpha(alphaIndex));
-				alphaIndex = (alphaIndex + 1) % orbitType.size();
+			try {
+				List<JerboaDart> orbit = gmap.orbit(dart, orbitType);
+				if (visitedOrbits.stream().noneMatch(l -> l.containsAll(orbit))) {
+					visitedOrbits.add(orbit);
+				}
+			} catch (JerboaException e) {
+				e.printStackTrace();
 			}
-			visitedSets.add(set);
 		}
-		return visitedSets;
+		System.out.println(visitedOrbits);
+		return visitedOrbits;
 
 	}
 
@@ -356,7 +356,7 @@ public class ReevaluationTree {
 	 */
 	public void export(String directory, String fileName) {
 		try {
-			JSONPrinter.exportMatchingTree(trees, directory, fileName);
+			JSONPrinter.exportReevaluationTree(trees, directory, fileName);
 		} catch (IOException exception) {
 			System.out.println("Could not write to file");
 		}

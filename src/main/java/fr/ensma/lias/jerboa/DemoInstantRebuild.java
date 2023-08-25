@@ -175,10 +175,12 @@ public class DemoInstantRebuild {
           if (topoParameters.isEmpty()) {
 
             appResult = apply(application.getRule(), Arrays.asList());
-          } else
+          } else {
+
             for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
               appResult = apply(application.getRule(), topoParameters.get(paramIndex));
             }
+          }
           gmapviewer.updateIHM();
         }
       } catch (JerboaException e) {
@@ -347,11 +349,13 @@ public class DemoInstantRebuild {
 
     DemoInstantRebuild demo = new DemoInstantRebuild(bridge, //
         "./examples", //
-        "prop6.json", //
-        // "article-2-build.json", //
+        // "prop6.json", //
+        // "pentagon.json", //
+        "article-2-build.json", //
         "./examples", //
-        "prop6-reval.json", //
-        // "article-2-build-reevaluation.json", //
+        // "prop6-reval.json", //
+        // "pentagon-reevaluation.json", //
+        "article-2-build-reevaluation.json", //
         frame, gmapviewer);
 
     SwingUtilities.invokeLater(new Runnable() {

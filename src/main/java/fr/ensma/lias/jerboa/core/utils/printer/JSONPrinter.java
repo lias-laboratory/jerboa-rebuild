@@ -96,7 +96,7 @@ public class JSONPrinter {
 				StandardOpenOption.CREATE);
 	}
 
-	public static void exportMatchingTree(List<List<LevelEventMT>> leaves, String directory,
+	public static void exportReevaluationTree(List<List<LevelEventMT>> leaves, String directory,
 			String fileName) throws IOException {
 		//
 		GsonBuilder builder = new GsonBuilder().setPrettyPrinting();

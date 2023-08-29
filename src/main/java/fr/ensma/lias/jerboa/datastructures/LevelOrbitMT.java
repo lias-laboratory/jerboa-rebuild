@@ -41,6 +41,10 @@ public class LevelOrbitMT extends LevelOrbit {
     return nextLevelEvents;
   }
 
+  public void setDartID(int ID) {
+    dartID = ID;
+  }
+
   public int getDartID() {
     return dartID;
   }

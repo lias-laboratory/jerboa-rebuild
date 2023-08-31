@@ -1,0 +1,147 @@
+%%
+%% This is file `beamercolorthemelias.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthemelias}[2017/01/23 lias color theme]
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /lias/color/block/.cd,
+    .is choice,
+    transparent/.code=\lias@block@transparent,
+    fill/.code=\lias@block@fill,
+}
+\pgfkeys{
+  /lias/color/background/.cd,
+    .is choice,
+    dark/.code=\lias@colors@dark,
+    light/.code=\lias@colors@light,
+}
+\newcommand{\lias@color@setdefaults}{
+  \pgfkeys{/lias/color/.cd,
+    background=light,
+    block=transparent,
+  }
+}
+\definecolor{lDarkBlue}{HTML}{3184B4}
+\definecolor{lDarkTeal}{HTML}{5b7685}
+\definecolor{lLightBrown}{HTML}{d4912c}
+\definecolor{lLightGreen}{HTML}{14B03D}
+\newcommand{\lias@colors@dark}{
+  \setbeamercolor{normal text}{%
+    fg=black!2,
+    bg=lDarkTeal
+  }
+
+  \setbeamercolor{frametitle text}{%
+    fg=lDarkBlue,
+    bg=black!2
+  }
+
+  \usebeamercolor[fg]{normal text}
+}
+\newcommand{\lias@colors@light}{
+  \setbeamercolor{normal text}{%
+    fg=lDarkTeal,
+    bg=black!2
+  }
+
+  \setbeamercolor{frametitle text}{%
+    fg=black!2,
+    bg=lDarkBlue
+  }
+}
+
+
+\setbeamercolor{title text}{%
+    fg=lDarkBlue,
+    bg=black!2
+}
+
+\setbeamercolor{alerted text}{%
+  fg=lLightBrown
+}
+\setbeamercolor{example text}{%
+  fg=lLightGreen
+}
+\setbeamercolor{titlelike}{use=title text, parent=title text}
+\setbeamercolor{author}{use=normal text, parent=normal text}
+\setbeamercolor{date}{use=normal text, parent=normal text}
+\setbeamercolor{institute}{use=normal text, parent=normal text}
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+\setbeamercolor{palette primary}{%
+  use=normal text,
+  fg=normal text.bg,
+  bg=normal text.fg
+}
+
+\setbeamercolor{palette frametitle}{%
+    use=frametitle text,
+    fg= frametitle text.fg,
+    bg= frametitle text.bg
+}
+
+\setbeamercolor{frametitle}{%
+  use=palette frametitle,
+  parent=palette frametitle
+}
+\setbeamercolor{progress bar}{%
+  use=alerted text,
+  fg=alerted text.fg,
+  bg=alerted text.fg!50!black!30
+}
+\setbeamercolor{title separator}{
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in head/foot}{%
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in section page}{
+  use=progress bar,
+  parent=progress bar
+}
+\newcommand{\lias@block@transparent}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=
+  }
+  \setbeamercolor{block body}{
+    bg=
+  }
+}
+\newcommand{\lias@block@fill}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=normal text.bg!80!fg
+  }
+  \setbeamercolor{block body}{
+    use={block title, normal text},
+    bg=block title.bg!50!normal text.bg
+  }
+}
+\setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    bg=block title.bg,
+    fg=alerted text.fg
+}
+\setbeamercolor{block title example}{%
+    use={block title, example text},
+    bg=block title.bg,
+    fg=example text.fg
+}
+\setbeamercolor{block body alerted}{use=block body, parent=block body}
+\setbeamercolor{block body example}{use=block body, parent=block body}
+\setbeamercolor{footnote}{fg=normal text.fg!90}
+\setbeamercolor{footnote mark}{fg=.}
+\lias@color@setdefaults
+\ProcessPgfPackageOptions{/lias/color}
+\mode<all>
+\endinput
+%%
+%% End of file `beamercolorthemelias.sty'.

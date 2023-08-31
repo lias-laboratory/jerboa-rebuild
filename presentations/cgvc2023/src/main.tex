@@ -1,0 +1,412 @@
+\documentclass[presentation]{beamer}
+% \usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{subfiles}
+\usepackage{subcaption}
+\usetheme{Madrid}
+
+\setbeamersize{text margin left=15pt,text margin right=15pt}
+
+\graphicspath{{../figures}%
+  {../figures/animations}%
+  {../figures/concepts}%
+  {../figures/figures}%
+  {../../../logos}}
+
+\include{commands.tex}
+
+\author[M. Gaide et al.]{\underline{Maxime Gaide}$^{1}$, David Marcheix$^{2}$, Agnès
+  Arnould$^{3}$, Xavier Skapin$^{3}$, Hakim Belhaouari$^{3}$ \& Stéphane
+  Jean$^{2}$}
+
+
+\institute[]{$^1$ISAE-ENSMA Poitiers, University of Poitiers,
+    LIAS, Poitiers, France\\ $^2$University of Poitiers, ISAE-ENSMA Poitiers,
+    LIAS, Poitiers, France\\ $^3$University of Poitiers, Univ. Limoges, CNRS,
+    XLIM, Poitiers, France}
+
+\date{Computer Graphics and Visual Computing 14$^{th}$ September 2023}
+
+\title[Automatic detection of topological changes in modeling operations]{Automatic detection of topological changes in modeling operations}
+
+\setbeamertemplate{navigation symbols}{}
+\makeatother
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.75\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle\hspace*{3em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatletter
+
+\captionsetup[figure]{labelformat=empty}
+
+\titlegraphic{%
+  \begin{figure}
+    \includegraphics[height=25pt]{lias-logo.png}%
+    \hfill
+    \includegraphics[height=25pt]{Logo_ISAE-ENSMA.pdf}%
+    \hfill
+    \includegraphics[height=25pt]{Logo-up.pdf}%
+    \hfill
+    \includegraphics[height=25pt]{xlim-logo.png}%
+  \end{figure}
+}
+
+
+\begin{document}
+
+\begin{frame}[noframenumbering,plain]
+  \titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Introduction}
+  \begin{figure}
+    \centering \includegraphics<1-2>[height=.35\textheight]{icosahedron00}%
+    \includegraphics<3->[height=.35\textheight]{icosahedron00-coloriage}%
+    \hspace*{2em}
+    \includegraphics<2>[height=.35\textheight]{icosahedron-catmull-clark01}%
+    \includegraphics<3->[height=.35\textheight]{icosahedron-catmull-clark01-coloriage-2}%
+  \end{figure}
+  \begin{itemize}
+    \item Dynamic computing
+    \item Cost in relation to object's complexity
+  \end{itemize}
+  \onslide<4>{
+  Topological events tracked in:
+    \begin{itemize}
+      \item <4> Modelers' APIs
+      \item <4> Persistent naming in parametric systems
+      \item <4> Optimization of geometric operations
+    \end{itemize}
+    }
+\end{frame}
+
+\begin{frame}{Introduction}
+  \begin{itemize}
+    \item Goal :
+    \begin{itemize}
+      \item Automatic detection of topological events
+    \end{itemize}
+    \vspace*{1em}
+    \item Method :
+    \begin{itemize}
+      \item Formalizing the objects : generalized maps
+      \item Formalizing the operations : Jerboa's graph transformation rules
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Main concepts}
+
+\begin{frame}[noframenumbering, plain]
+  \frametitle{Outline}
+  \tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Generalized maps}
+
+\begin{frame}{Generalized maps}
+  \begin{figure}
+    \centering
+    \begin{columns}
+      \begin{column}{.49\textwidth}
+        \begin{figure}
+          \centering
+          \includegraphics<1>[height=.6\textheight]{decomposition-no-decomp}%
+          \includegraphics<2>[height=.6\textheight]{decomposition-2-cell}%
+          \includegraphics<3>[height=.6\textheight]{decomposition-1-cell}%
+          \includegraphics<4>[height=.6\textheight]{decomposition-0-cell}%
+        \end{figure}
+      \end{column}
+      \begin{column}{.49\textwidth}
+        \begin{block}<2->{Decomposition of an object in :}
+          \begin{itemize}
+            \item<2-> Faces separated with $2$-links ({\color{mediumblue} —})%
+            \item<3-> Edges separated with $1$-links ({\color{red} —})%
+            \item<4> Vertices separated with $0$-links ({\color{black} —})%
+          \end{itemize}
+        \end{block}
+      \end{column}
+    \end{columns}
+  \end{figure}
+  \begin{block}{A generalized map (G-map)}<4>
+    A graph whose vertices are called \emph{darts} and arcs are called \emph{links}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Orbits}
+  \begin{block}{An orbit}<1->
+    A G-map's sub-graph of type $\orbit{o}$ incident to a dart.
+  \end{block}
+  \begin{columns}
+    \begin{column}{.49\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics<1>[height=.6\textheight]{orbit-face-01-a}%
+        \includegraphics<2>[height=.6\textheight]{orbit-edge-02-a}%
+        \includegraphics<3>[height=.6\textheight]{orbit-edge-02-c}%
+        \includegraphics<4>[height=.6\textheight]{orbit-vertex-12-n}%
+        \includegraphics<5->[height=.6\textheight]{orbit-edge-0-a}%
+      \end{figure}
+    \end{column}
+    \begin{column}{.49\textwidth}
+      \begin{block}{Orbit of type}
+        \begin{itemize}
+          \item<1-> Face $\orbit{ 0,  1}(a)$%
+          \item<2-> Edge $\orbit{ 0,  2}(a)$%
+          \item<3-> Edge $\orbit{ 0,  2}(c)$%
+          \item<4-> Vertex $\orbit{ 1,  2}(a)$%
+          \item<5> Face edge  $\orbit{ 0}(a)$%
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\subsection{Jerboa's graph transformation rules}
+
+\begin{frame}{Jerboa's graph transformation rules : Application}
+  \begin{figure}
+    \centering
+    \includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view}%
+    \includegraphics<2>[height=.85\textheight]{application-1}%
+    \includegraphics<3>[height=.85\textheight]{application-2-left}%
+    % \includegraphics<3>[height=.85\textheight]{application-2-right}%
+    % \includegraphics<4>[height=.85\textheight]{application-3-darts}%
+    \includegraphics<4>[height=.85\textheight]{application-3-impl}%
+    % \includegraphics<4>[height=.85\textheight]{application-3-expl}%
+    % \includegraphics<5>[height=.85\textheight]{application-4-darts}%
+    \includegraphics<5>[height=.85\textheight]{application-4-impl}%
+    % \includegraphics<5>[height=.85\textheight]{application-4-expl}%
+    % \includegraphics<6>[height=.85\textheight]{application-5-darts}%
+    \includegraphics<6>[height=.85\textheight]{application-5-impl}%
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Jerboa's graph transformation rules : Orbit}
+  \begin{figure}
+    \centering
+    \includegraphics[height=.85\textheight]{application-complete}%
+  \end{figure}
+\end{frame}
+
+\section{Automatic detection of topological events}
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[currentsection]
+\end{frame}
+
+\subsection{Creation}
+
+\begin{frame}{Creation}
+  \begin{figure}
+    \centering
+    % \includegraphics<1>[height=.85\textheight]{evenement-creation-animation-grey}%
+    % \includegraphics<2>[height=.85\textheight]{evenement-creation-animation-target}%
+    % \includegraphics<3>[height=.85\textheight]{evenement-creation-animation-begin}%
+    \includegraphics<1>[height=.85\textheight]{evenement-creation-animation-end}%
+  \end{figure}
+\end{frame}
+
+\subsection{Split}
+
+\begin{frame}{Split of a face $\orbit{ 0,  1}$ through implicit links}
+  \begin{figure}
+    \centering
+    % \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-grey}%
+    % \includegraphics<2>[height=.85\textheight]{evenement-scission-impl-animation-target}%
+    % \includegraphics<3>[height=.85\textheight]{evenement-scission-impl-animation-begin}%
+    \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight}%
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Split of an edge $\orbit{ 0,  2}$ through explicit links: complete}
+  \begin{figure}
+    \centering
+    % \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-grey.pdf}%
+    % \includegraphics<2>[width=\textwidth]{evenement-scission-expl-animation-target.pdf}%
+    \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end.pdf}%
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Split of a vertex $\orbit{ 1,  2}$ through explicit links: incomplete}
+  \begin{figure}
+    \centering
+    % \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-unsewed}%
+    \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end}%
+  \end{figure}
+\end{frame}
+
+\subsection{Other events}
+
+\begin{frame}{Other events}
+  \begin{itemize}
+    \item Deletion
+    \item Merging
+    \item Modification
+    \item Non-modification
+  \end{itemize}
+\end{frame}
+
+
+% \subsection{Événement de fusion}
+
+% \begin{frame}{Événements de fusion : principes}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[width=.8\linewidth]{jerboa-merge-then-now}
+%     \caption{Fusion de deux sommets voisins d'un cube}
+%     \label{fig:jerboa-merge-then-now}
+%   \end{figure}
+% \end{frame}
+
+% \begin{frame}{Événements de fusion : analyse de la règle}
+%   \begin{itemize}
+%     \item Explicite
+%   \end{itemize}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[height=.15\textheight]{rule-sewA2-presentation.pdf}
+%     \caption{Couture de $n_{0}$ et $n_{1}$ par un $ 2$-liaison}
+%   \end{figure}
+% \end{frame}
+
+% \begin{frame}{Événements de fusion : application de la règle}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[height=.15\textheight]{rule-sewA2-presentation.pdf}
+%     \caption{Fusion des orbites $L\orbit{ 0,  2}(n_{0})$ et
+%       $L\orbit{ 0,  2}(n_{1})$}
+%   \end{figure}
+%   \vfill
+%   \begin{figure}
+%     \begin{subfigure}{.45\textwidth}
+%       \centering
+%       \includegraphics[height=.35\textheight]{square-plan-first-unsew.pdf}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}{.45\textwidth}
+%       \centering
+%       \includegraphics[height=.35\textheight]{square-plan.pdf}
+%     \end{subfigure}
+%     \caption{Fusion de deux arêtes}
+%   \end{figure}
+% \end{frame}
+
+% \begin{frame}{Événement de fusion : analyse de la règle}
+%   \begin{itemize}
+%     \item Implicite
+%   \end{itemize}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[height=.15\textheight]{rule-delete-edge-presentation.pdf}
+%     \caption{Suppression de $n_{0}$ et réécriture de $n_{1}$}
+%   \end{figure}
+% \end{frame}
+
+% \begin{frame}{Événements de fusion : application de la règle}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[height=.15\textheight]{rule-delete-edge-presentation.pdf}
+%     \caption{Fusion implicite des brins filtrés par l'orbite
+%       $L\orbit{ 1}(n_{1})$}
+%   \end{figure}
+%   \vfill
+%   \begin{figure}
+%     \begin{subfigure}{.45\textwidth}
+%       \centering
+%       \includegraphics[height=.45\textheight]{house-merge-left-match.pdf}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}{.45\textwidth}
+%       \centering
+%       \includegraphics[height=.45\textheight]{house-merge-right-match.pdf}
+%     \end{subfigure}
+%     \caption{Fusion de sommets de faces $\orbit{  1 }$ de part et
+%       d'autre d'une arête}
+%   \end{figure}
+% \end{frame}
+
+% \subsection{Résultats dynamique vs statique}
+
+% \begin{frame}{Etude comparative détection statique vs dynamique}
+%   \begin{center}
+%     \begin{tabular}{|l|l|l|l|l|l|}
+%       \hline
+%       & modèles & statistiques & dynamique & statique & sans suivi\\[0pt]
+%       \hline
+%       &  &  &  &  & \\[0pt]
+%       &  &  &  &  & \\[0pt]
+%       &  &  &  &  & \\[0pt]
+%       &  &  &  &  & \\[0pt]
+%       \hline
+%     \end{tabular}
+%   \end{center}
+% \end{frame}
+
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item<1-> Conclusions
+      \begin{itemize}
+        \item<1-> Entirely automatic orbit tracking
+        \begin{itemize}
+          \item<2-> No code addition within modeling operations
+        \end{itemize}
+        \item<2-> Pre-computed static or localized dynamic detection
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[noframenumbering,plain]
+  \frametitle{References}
+  % \begin{itemize}
+  % \end{itemize}
+\end{frame}
+
+\subsection*{Deletion}
+
+\begin{frame}[noframenumbering,plain]{Deletion of an edge $\orbit{ 0,  2}$}
+  \begin{figure}
+    \centering
+    \includegraphics[height=.85\textheight]{evenement-suppression}
+  \end{figure}
+\end{frame}
+
+\subsection*{Modification}
+
+\begin{frame}[noframenumbering,plain]{Modification of vertices $\orbit{1,2}$}
+  \begin{figure}
+    \centering
+    \includegraphics[height=.85\textheight]{evenement-modification}
+  \end{figure}
+\end{frame}
+
+\subsection*{Non-changement}
+
+\begin{frame}[noframenumbering,plain]{Non-modification of face edges $\orbit{0}$}
+  \begin{figure}
+    \centering
+    \includegraphics[height=.85\textheight]{evenement-no-change.pdf}
+  \end{figure}
+\end{frame}
+
+\end{document}

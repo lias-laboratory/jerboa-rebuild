@@ -1,0 +1,255 @@
+% Created 2023-08-30 mer. 17:15
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{Script présentation}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Script présentation},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.6.1)}, 
+ pdflang={English}}
+\usepackage{biblatex}
+\addbibresource{~/Documents/studies/phd/manuscript/references/references.bib}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Introduction}
+\label{sec:orgb00fbc9}
+
+\subsection{title}
+\label{sec:orgb421782}
+Today, I present a method to automatically detect the topological changes that
+modelling operations cause on objects.
+
+A topological change is an event creating, splitting or merging a topological
+cell (faces, edges, vertices) within an object.
+
+\subsection{slide 1}
+\label{sec:orgc4168e1}
+\subsubsection{animation 1}
+\label{sec:orga868f42}
+For example, take the following object
+
+\subsubsection{animation 2}
+\label{sec:orgd149171}
+and subdivide it.
+
+\subsubsection{animation 3}
+\label{sec:org6266d2f}
+Faces are splitted, vertices are created and so on.
+
+Typically, these changes are dynamically detected, that is, by going through the
+whole mesh.
+
+After the actual application of an operation.
+
+In addition, the more the object is complex the more the event detection costs.
+
+\subsubsection{animation 4}
+\label{sec:org8ff372e}
+Nowadays, topological events are tracked in every system, for example when
+maintaining the coherence of a model during its conception.
+
+\subsection{slide 2}
+\label{sec:org250aef5}
+To answer these issues, we propose to formalize the static detection of local
+events and automate this process based on an automatic analysis of operations.
+
+\section{Transition}
+\label{sec:org07e1415}
+
+First, we formalize the objects using generalized maps.
+
+Second, we formalize the operations with graph transformation rules.
+
+\section{Main concepts}
+\label{sec:org0ec7eeb}
+\subsection{Generalized maps}
+\label{sec:org767bc21}
+
+\subsubsection{animation 1}
+\label{sec:org5e72ff6}
+A generalized map, or gmap, gives the ability to successively decompose an
+object by its dimensions. Consider the following object: a triangle and a quad
+sharing an edge.
+\subsubsection{animation 2}
+\label{sec:org33478a2}
+Firstly, the object is decomposed into faces connected together with a 2-link
+(in blue). Where borders are not share, there are loops.
+\subsubsection{animation 3}
+\label{sec:org03ea3ee}
+Secondly, faces are decomposed into edges connected together with 1-links (in
+red).
+\subsubsection{animation 4}
+\label{sec:org90607b7}
+Finally, the edges are decomposed into vertices connected together with 0-links
+(in black).
+
+A G-map is a graph whose vertices are called darts and arcs are called links.
+
+\subsection{Transition}
+\label{sec:org5383b38}
+In a G-map, orbits can represent all sort of cells.
+
+\subsection{Orbits}
+\label{sec:org6ad5b67}
+In the end, given a set of dimensions o (also known as orbit type) an orbit is
+the sub-graph of a g-map incident to a dart b where all links belong to 'o'.
+
+\subsubsection{animation 1}
+\label{sec:orga6c18fd}
+For example, the  face incident to dart  ``a'' comprises these darts  (``a'' to ``h'')
+and the 0- and 1- links that connects them.
+\subsubsection{animation 2}
+\label{sec:org13d964f}
+The edge incident to dart a comprises these darts these 0- and 2-links.
+\subsubsection{animation 3}
+\label{sec:org42807fb}
+This orbit is a valid edge thanks to the loops.
+\subsubsection{animation 4}
+\label{sec:org67fae5d}
+Here is the vertex incident to a with the 1- and 2-links.
+\subsubsection{animation 5}
+\label{sec:orgac26509}
+Orbits also represent more fine-grained cells such as this face edge.
+
+\subsection{Transition}
+\label{sec:org5f989a3}
+Now that we have formalized the objects, we will formalize the operations with
+Jerboa's graph transformation rules.
+
+\subsection{Jerboa's graph transformation rules}
+\label{sec:org1b9638a}
+\subsubsection{animation 1}
+\label{sec:orgeb13211}
+I will now present the application of the triangulation operation as a rule.
+\subsubsection{animation 2}
+\label{sec:orgfca3484}
+A rule has two members. The left member matches a sub-graph out of a G-map. The
+right member transforms the former sub-graph into a new one.
+Each member contains nodes to match sub-graphs.
+\subsubsection{animation 3}
+\label{sec:org492aa11}
+Node n0, on the left, has labels 0 and 1. As a hook node, when mapped to a0, it
+matches the quad face.
+\subsubsection{animation 4}
+\label{sec:orgc1d7c9b}
+On the right, n0 is preserved and its only label is 0. Therefore the darts are
+preserved, the 0-links too, however, 1-links are deleted.
+\subsubsection{animation 5}
+\label{sec:orgbe338e5}
+For consistency purpose a created node is a copy of the hook node. Here, n1 is
+created and is a copy of n0. It creates as many darts as n0 matches.
+
+Due to a rewriting of its label, there is no 0-link between darts of index 1 and
+1-links are replaced by 2-links. These green links are implicit links.
+
+There is a 1-link between n0 and n1. It connects n0's darts to n1's darts with
+1-links. These magenta links are explicit links.
+\subsubsection{animation 6}
+\label{sec:orgef36dea}
+n2 is a created node, it matches the created darts and links in blue.
+\subsubsection{animation 7}
+\label{sec:orgb5c4690}
+We can define orbits in a rule as in G-maps. Here are the face orbits matched by
+the rule before and after its application.
+
+Moreover, an orbit is said to be complete when each of its node matches either
+implicitly or explicitly all the links of an orbit type.
+
+For example, on the left, the face orbit incident to n0 matches both 0 and 1
+links.
+
+Lastly, there are syntactic conditions guaranteeing a G-map remains a G-map
+after the application of a rule.
+
+\section{Transition}
+\label{sec:org6d264a5}
+Now we reach the heart of our method.
+I will start with an easy event : the creation.
+
+\section{Detecting topological events}
+\label{sec:org6a11843}
+
+\subsection{Creation}
+\label{sec:org5a64a17}
+Here, the edge orbit only contains created nodes therefore the orbit is created.
+
+By Jerboa's syntactic conditions a created node matches all the possible
+dimensions and a created orbit is necessarily complete.
+
+Therefore, since the edge orbit created in the rule is complete, the edges it
+matches in the gmap are created.
+
+When starting a modeler, all rules are pre-processed with such a syntactic
+analysis. This allows a static detection of all occurring events at the moment a
+rule is applied.
+
+\subsection{Transition}
+\label{sec:orgc25b7f6}
+Now we consider the split event.
+
+\subsection{Split}
+\label{sec:orgf6e73a6}
+There are two kind of split : implicit and explicit split.
+\subsubsection{implicit}
+\label{sec:org0641db1}
+
+In the right-hand side of the rule, the face orbit's second implicit links are
+either deleted or rewritten from 1 to 2. Therefore, the orbit is splitted
+through implicit 1-links in the rule.
+
+The right-hand side matches exactly four faces because there is no 0- or 1-links
+to connected them (otherwise there would be no split).
+
+\subsubsection{explicit}
+\label{sec:org9b6cd53}
+Now consider the rule that disconnects (or unsews) two face edges by cutting
+their 2-links and a new object being a patch of quads.
+
+Here we expect to split the edge incident to a0 by cutting its 2-links
+
+In the right-hand side, the explicit 2-link between n0 and n1 is replaced by
+2-loops for each of them. The orbit is split in two and, therefore, the matched
+edge in the gmap is also split in two.
+
+\subsubsection{false positive split}
+\label{sec:org320e444}
+Looking at this rule's application, but this time for the vertex orbit, we may
+expect two splits.
+
+In fact, there is a catch. only one 1,2 vertex orbit is splitted while the other
+is merely modified. Such case is the limit of the static part of the event
+detection. However, rules are precisely localized at the moment of their
+application and we only need to dynamically check whether or not darts a0 and a1
+still belong to the same orbit.
+
+\section{Other events}
+\label{sec:org3ff43be}
+\subsection{Deletion}
+\label{sec:org2e43473}
+\subsection{Merging}
+\label{sec:org571edf9}
+\subsection{Modification}
+\label{sec:org068640b}
+\subsection{Non-modification}
+\label{sec:orgae04121}
+\section{Conclusion}
+\label{sec:org4e2e255}
+\end{document}

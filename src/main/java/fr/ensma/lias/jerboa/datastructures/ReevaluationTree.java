@@ -21,17 +21,21 @@ import up.jerboa.exception.JerboaException;
 public class ReevaluationTree {
 
 	List<JerboaDart> topoParameters = new ArrayList<>();
-	int TreeClones;
+	// int TreeClones;
 	List<List<LevelEventMT>> trees = new ArrayList<>();
 
 	public ReevaluationTree() {
 		// topoParameters.add(null);
 		// trees.add(null);
-		TreeClones = 0;
+		// TreeClones = 0;
 	}
 
 	public List<JerboaDart> getTopoParameters() {
 		return topoParameters;
+	}
+
+	public int size() {
+		return trees.size();
 	}
 
 	public JerboaDart getTopoParameter(int index) {
@@ -61,6 +65,7 @@ public class ReevaluationTree {
 				matchDartParameters(treeIndex, levelEventEval, nodeName, applicationResult, rule,
 						NOEFFECT);
 				matchLevel(levelEventEval, application, nodeName, rule, NOEFFECT);
+				System.out.println("INIT: \t" + "tree: " + treeIndex);
 				registerLevel(treeIndex, levelEventEval.getAppNumber(),
 						levelEventEval.getEventList(),
 						levelEventEval.getNextLevelOrbit().getOrbitList(), applicationType);
@@ -75,7 +80,6 @@ public class ReevaluationTree {
 				int controlDartNodeIndex = getControlDartNodeID(controlDart, applicationResult, 0);
 				List<NodeEvent> newEventList = new ArrayList<>();
 				List<NodeOrbit> newOrbitList = new ArrayList<>();
-
 
 				computeNewLevel(getTreeLastLevel(treeIndex), newOrbitList, newEventList,
 						application, treeIndex, controlDartNodeIndex, applicationResult);
@@ -153,6 +157,7 @@ public class ReevaluationTree {
 	private void addTree(List<NodeEvent> newEventList, List<NodeOrbit> newOrbitList,
 			Application application, int treeIndex, JerboaDart newDart) {
 
+
 		LevelEventMT splitaddedLevelEvent = new LevelEventMT(application.getApplicationID(),
 				newEventList, application.getApplicationType());
 		LevelOrbitMT splitaddedLevelOrbit = new LevelOrbitMT(treeIndex, newOrbitList, null);
@@ -160,6 +165,7 @@ public class ReevaluationTree {
 		splitaddedLevelOrbit.setDartID(newDart.getID());
 		topoParameters.add(newDart);
 		trees.add(Arrays.asList(splitaddedLevelEvent));
+		// System.out.println("NBTREEs: " + trees.size());
 	}
 
 	private int getControlDartNodeID(JerboaDart controlDart, JerboaRuleResult applicationResult,
@@ -186,12 +192,17 @@ public class ReevaluationTree {
 	public void registerLevel(int treeIndex, int applicationNumber, List<NodeEvent> matchedEvents,
 			List<NodeOrbit> matchedOrbits, ApplicationType applicationType) {
 
+		System.out.println("REGISTER:\tnbTrees: " + size());
+
 		LevelEventMT newLevelEvent =
 				new LevelEventMT(applicationNumber, matchedEvents, applicationType);
 		LevelOrbitMT newLevelOrbit =
 				new LevelOrbitMT(getTopoParameter(treeIndex).getID(), matchedOrbits, null);
 
 		newLevelEvent.setNextLevelOrbit(newLevelOrbit);
+
+		System.out.println(
+				"REGISTER: \t" + "tree: " + treeIndex + " application: " + applicationNumber);
 
 		if (trees.isEmpty()) {
 			trees.add(Arrays.asList(newLevelEvent));
@@ -224,6 +235,11 @@ public class ReevaluationTree {
 			JerboaRuleResult applicationResult) {
 
 		JerboaRuleGenerated rule = (JerboaRuleGenerated) application.getRule();
+
+		System.out.println("CURRENT: " + application.getApplicationID());
+		System.out.println("\t" + newEventList);
+		System.out.println("PREVIOUS: " + oldLevelEvent.getAppNumber());
+		System.out.println("\t" + oldLevelEvent.getEventList());
 
 		for (NodeEvent oldNodeEvent : oldLevelEvent.getEventList()) {
 
@@ -302,7 +318,6 @@ public class ReevaluationTree {
 				e.printStackTrace();
 			}
 		}
-		System.out.println(visitedOrbits);
 		return visitedOrbits;
 
 	}
@@ -333,12 +348,10 @@ public class ReevaluationTree {
 		 * however, there should never be an empty tree
 		 */
 		List<LevelEventMT> tree = getTree(treeIndex);
-		try {
-			return tree.get(tree.size() - 1);
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("Error: ReevaluationTree is empty — " + e.getMessage());
-		}
-		return null;
+		LevelEventMT lastLevel = null;
+		for (int index = 0; index < tree.size(); index++)
+			lastLevel = tree.get(index);
+		return lastLevel;
 
 		/*
 		 * casting a List to LinkedList to access getLast() method

@@ -173,12 +173,18 @@ public class DemoInstantRebuild {
       try {
         if (application.getApplicationType() != ApplicationType.DELETE) {
           if (topoParameters.isEmpty()) {
-
             appResult = apply(application.getRule(), Arrays.asList());
+            computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+                null, 0);
           } else {
-
             for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
               appResult = apply(application.getRule(), topoParameters.get(paramIndex));
+              if (application.getApplicationType() == ApplicationType.ADD)
+                computeReevaluationTreeLevel(application, appResult, historyRecords,
+                    reevaluationTrees, controlDarts.get(paramIndex), paramIndex);
+              else
+                computeReevaluationTreeLevel(application, appResult, historyRecords,
+                    reevaluationTrees, null, paramIndex);
             }
           }
           gmapviewer.updateIHM();
@@ -187,21 +193,21 @@ public class DemoInstantRebuild {
         e.printStackTrace();
       }
 
-      if (nbParameters == 0) {
-        computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-            null, 0);
-      } else {
-        if (application.getApplicationType() == ApplicationType.ADD)
-          for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
-            computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-                controlDarts.get(paramIndex), paramIndex);
-          }
-        else
-          for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
-            computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-                null, paramIndex);
-          }
-      }
+      // if (nbParameters == 0) {
+      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+      // null, 0);
+      // } else {
+      // if (application.getApplicationType() == ApplicationType.ADD)
+      // for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+      // controlDarts.get(paramIndex), paramIndex);
+      // }
+      // else
+      // for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
+      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+      // null, paramIndex);
+      // }
+      // }
     }
 
     exportReevaluationTrees();
@@ -349,11 +355,11 @@ public class DemoInstantRebuild {
 
     DemoInstantRebuild demo = new DemoInstantRebuild(bridge, //
         "./examples", //
-        // "prop6.json", //
+        // "blueface.json", //
         // "pentagon.json", //
         "article-2-build.json", //
         "./examples", //
-        // "prop6-reval.json", //
+        // "blueface-reval.json", //
         // "pentagon-reevaluation.json", //
         "article-2-build-reevaluation.json", //
         frame, gmapviewer);

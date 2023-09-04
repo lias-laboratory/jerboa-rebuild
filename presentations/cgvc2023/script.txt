@@ -1,0 +1,412 @@
+                         _____________________
+
+                          SPEECH PRÉSENTATION
+                         _____________________
+
+
+Table of Contents
+_________________
+
+1. Introduction
+.. 1. title
+.. 2. slide 1
+..... 1. animation 1
+..... 2. animation 2
+..... 3. animation 3
+.. 3. slide 2
+2. Transition
+3. Main concepts
+.. 1. Generalized maps
+..... 1. animation 1
+..... 2. animation 2
+..... 3. animation 3
+..... 4. animation 4
+.. 2. Transition
+.. 3. Orbits
+..... 1. animation 1
+..... 2. animation 2
+..... 3. animation 3
+..... 4. animation 4
+..... 5. animation 5
+.. 4. Transition
+.. 5. Jerboa's graph transformation rules
+..... 1. animation 1
+..... 2. animation 2
+..... 3. animation 3
+..... 4. animation 4
+..... 5. animation 5
+..... 6. animation 6
+..... 7. animation 7
+4. Transition
+5. Detecting topological events
+.. 1. Creation
+.. 2. Transition
+.. 3. Split
+..... 1. implicit
+..... 2. explicit
+..... 3. false positive split
+6. Transition
+7. Other events
+.. 1. Deletion
+.. 2. Merging
+.. 3. Modification
+.. 4. Non-modification
+8. Conclusion
+
+
+
+
+
+1 Introduction
+==============
+
+1.1 title
+~~~~~~~~~
+
+  Today, I present a method to automatically detect the topological
+  changes caused by modelling operations on objects.
+
+  A topological change is an event which, for example, creates, splits,
+  merges, topological cells (faces, edges, vertices and so on) within an
+  object.
+
+
+1.2 slide 1
+~~~~~~~~~~~
+
+1.2.1 animation 1
+-----------------
+
+  For example, take the following object
+
+
+1.2.2 animation 2
+-----------------
+
+  and subdivide it.
+
+
+1.2.3 animation 3
+-----------------
+
+  Faces are split, vertices are created.
+
+  Detecting these changes is performed dynamically, in other words the
+  operations must first be applied to a given mesh, then this mesh is
+  analysed to list the events produced.
+
+  In addition, the more complex the object, the more expensive the event
+  detection.
+
+  Nowadays, all modelling APIs detect and track topological events.
+
+
+1.3 slide 2
+~~~~~~~~~~~
+
+  To answer these issues, we propose to formalize the static detection
+  of local events and automate this process based on an automatic
+  analysis of operations.
+
+
+2 Transition
+============
+
+  First, we need to formalize the objects using generalized maps.
+
+  Second, we need to formalize the operations with graph transformation
+  rules.
+
+
+3 Main concepts
+===============
+
+3.1 Generalized maps
+~~~~~~~~~~~~~~~~~~~~
+
+3.1.1 animation 1
+-----------------
+
+  A generalized map, or gmap, is a model allowing us to represent all
+  the cells composing an object. Consider the following object: a
+  triangle and a quad sharing an edge (the edge BC).
+
+
+3.1.2 animation 2
+-----------------
+
+  Firstly, the object is decomposed into faces connected together with a
+  2-link (in blue). Where borders are not shared, each link forms a
+  loop.
+
+
+3.1.3 animation 3
+-----------------
+
+  Secondly, faces are decomposed into edges connected together with
+  1-links (in red).
+
+
+3.1.4 animation 4
+-----------------
+
+  Finally, the edges are decomposed into vertices connected together
+  with 0-links (in black).
+
+  At last, A G-map is a graph whose vertices are called darts and arcs
+  are called links.
+
+
+3.2 Transition
+~~~~~~~~~~~~~~
+
+  In a G-map, orbits can represent all sort of cells and more.
+
+
+3.3 Orbits
+~~~~~~~~~~
+
+  Given a set "o" of dimensions (also known as orbit type), an orbit is
+  the sub-graph of a g-map incident to a dart for which all links belong
+  to "o".
+
+
+3.3.1 animation 1
+-----------------
+
+  For example, the face incident to dart "a" contains darts "a" to "h"
+  and the 0- and 1- links that connects them.
+
+
+3.3.2 animation 2
+-----------------
+
+  The edge incident to dart a contains these darts these 0- and 2-links.
+
+
+3.3.3 animation 3
+-----------------
+
+  This orbit is a valid edge thanks to the loops.
+
+
+3.3.4 animation 4
+-----------------
+
+  Here is the vertex incident to a with its 1- and 2-links.
+
+
+3.3.5 animation 5
+-----------------
+
+  Orbits also represent more specific topology such as this face edge.
+
+
+3.4 Transition
+~~~~~~~~~~~~~~
+
+  Now that we have formalized the objects, we formalize the operations
+  with Jerboa's graph transformation rules.
+
+  Jerboa is a rule-based modelling software we use.
+
+
+3.5 Jerboa's graph transformation rules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+3.5.1 animation 1
+-----------------
+
+  Let's work through the triangulation rule
+
+
+3.5.2 animation 2
+-----------------
+
+  Here is the rule. See, it has two members. The left side matches a
+  sub-graph out of a G-map. The right side transforms it into a new one.
+  Each member contains nodes to match sub-graphs.
+
+
+3.5.3 animation 3
+-----------------
+
+  Node n0, on the left, has labels 0 and 1. As a hook node, when mapped
+  to a0, it matches the quad face.
+
+
+3.5.4 animation 4
+-----------------
+
+  On the right, n0 is preserved and its only label is 0. Therefore the
+  darts are preserved, the 0-links too, however, 1-links are deleted.
+
+
+3.5.5 animation 5
+-----------------
+
+  For consistency purpose a created node is a copy of the hook node.
+  Here, n1 is created and is a copy of n0. It creates as many darts as
+  n0 matches.
+
+  Due to a rewriting of its labels, there is no 0-link between n1's
+  darts. Also, 1-links are replaced by 2-links. The green label matching
+  green links is called an implicit link.
+
+  The 1-link between n0 and n1 connects n0's darts to n1's darts with
+  1-links. This link matching the magenta ones in the sub-graph is
+  called an explicit link.
+
+
+3.5.6 animation 6
+-----------------
+
+  n2 is also a created node. Unlike n0, its implicit links are 1,2.
+  Therefore, its darts are connected with 1-links instead of 0-links and
+  2-links instead of 1-links.
+
+
+3.5.7 animation 7
+-----------------
+
+  While we can define orbits in a gmap, we can do so in rules. Here are
+  the face orbits incident to n0 and their matches before and after the
+  application.
+
+  Moreover, an orbit is said to be complete when each of its node
+  matches either implicitly or explicitly all the links described in an
+  orbit type.
+
+  For example, on the left, the face orbit matches both 0 and 1 links.
+
+  Lastly, there are syntactic conditions guaranteeing that a G-map
+  remains a G-map after the application of a rule.
+
+
+4 Transition
+============
+
+  Now we reach the heart of our method. I will start with a simple event
+  : the creation.
+
+
+5 Detecting topological events
+==============================
+
+5.1 Creation
+~~~~~~~~~~~~
+
+  Here, the edge orbit only contains created nodes therefore the orbit
+  is created.
+
+  By Jerboa's syntactic conditions a created node matches all the
+  possible dimensions and a created orbit is necessarily complete.
+
+  Therefore, since the edge orbit created in the rule is complete, the
+  edges it matches in the gmap are created.
+
+  When starting a modeler, all rules are pre-processed with such a
+  syntactic analysis. This allows a static detection of all occurring
+  events at the moment a rule is applied.
+
+
+5.2 Transition
+~~~~~~~~~~~~~~
+
+  Now a more complex event, the split.
+
+
+5.3 Split
+~~~~~~~~~
+
+  There are two kind of splits: implicit and explicit.
+
+
+5.3.1 implicit
+--------------
+
+  In the right-hand side of the rule, the face orbit's second implicit
+  links are either deleted or rewritten from 1 to 2. Therefore, the
+  orbit is split through implicit 1-links in the rule.
+
+  The right-hand side matches exactly four faces because there is
+  neither 0- nor 1-links to connect them (otherwise there wouldn't be
+  any split).
+
+  Additionally, each new face comes from an edge of the former (one).
+  This face has four edges, hence the four faces we see here.
+
+
+5.3.2 explicit
+--------------
+
+  Now consider the rule that disconnects two face edges by cutting their
+  2-links and a new object being a patch of quads.
+
+  Here we expect to split the edge incident to a0 by cutting its 2-links
+
+  In the right-hand side, the explicit 2-link between n0 and n1 is
+  replaced by one 2-loop for each of them. The orbit is split in two
+  and, therefore, the matched edge in the gmap is also split in two.
+
+  Since the edge orbit is complete in the rule, no further verification
+  is needed.
+
+
+5.3.3 false positive split
+--------------------------
+
+  Now, for a vertex orbit, we may expect two splits.
+
+  Yet, the orbit is incomplete, all of its nodes miss a 1-link.
+
+  See, even though the vertex on the right is split, the one at the
+  center is only modified.
+
+  Such situation requires a localized dynamic check to verify whether or
+  not two matched darts belong to the same orbit.
+
+
+6 Transition
+============
+
+  We have seen how to detect two topological events, namely the creation
+  and the split, from Jerboa's rules.
+
+
+7 Other events
+==============
+
+  We can do it for more even events.
+
+
+7.1 Deletion
+~~~~~~~~~~~~
+
+
+7.2 Merging
+~~~~~~~~~~~
+
+
+7.3 Modification
+~~~~~~~~~~~~~~~~
+
+
+7.4 Non-modification
+~~~~~~~~~~~~~~~~~~~~
+
+
+8 Conclusion
+============
+
+  In order to automatically detect topological changes, we take
+  advantage of generalized maps to model objects and graph
+  transformation rules to formalize modelling operations.
+
+  These formalisms allow us to syntactically analyse rules instead of
+  code. Furthermore, its prevents the need to add specific code
+  instruction within operations.
+
+  Another advantage is the possibility to pre-compute the rules for a
+  static detection and dynamically check a localized sub-graph when
+  needed.

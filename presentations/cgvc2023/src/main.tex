@@ -31,7 +31,7 @@
     LIAS, Poitiers, France\\ $^3$University of Poitiers, Univ. Limoges, CNRS,
     XLIM, Poitiers, France}
 
-\date{Computer Graphics and Visual Computing 14$^{th}$ September 2023}
+\date{Computer Graphics and Visual Computing, \today}
 
 \title[Automatic detection of topological changes in modeling operations]{Automatic detection of topological changes in modeling operations}
 
@@ -54,17 +54,21 @@
 
 \captionsetup[figure]{labelformat=empty}
 
-% \titlegraphic{%
-  % \begin{figure}
-  %   \includegraphics[height=25pt]{lias-logo.png}%
-  %   \hfill
-  %   \includegraphics[height=25pt]{Logo_ISAE-ENSMA.pdf}%
-  %   \hfill
-  %   \includegraphics[height=25pt]{Logo-up.pdf}%
-  %   \hfill
-  %   \includegraphics[height=25pt]{xlim-logo.png}%
-  % \end{figure}
-% }
+\titlegraphic{%
+  \begin{figure}
+    \includegraphics[height=20pt]{lias-logo.png}%
+    \hfill
+    \includegraphics[height=20pt]{Logo_ISAE-ENSMA.pdf}%
+    \hfill
+    \includegraphics[height=20pt]{cgvc-logo}%
+    \hfill
+    \includegraphics[height=20pt]{Logo-up.pdf}%
+    \hfill
+    \includegraphics[height=20pt]{xlim-logo.png}%
+  \end{figure}
+}
+
+% \logo{\includegraphics[height=10pt]{cgvc-logo.pdf}}
 
 
 \begin{document}
@@ -78,15 +82,18 @@
 \begin{frame}{Introduction}
   \begin{figure}
     \centering \includegraphics<1-2>[height=.35\textheight]{icosahedron00}%
-    \includegraphics<3->[height=.35\textheight]{icosahedron00-coloriage}%
+    \includegraphics<3>[height=.35\textheight]{icosahedron00-coloriage}%
     \hspace*{2em}
     \includegraphics<2>[height=.35\textheight]{icosahedron-catmull-clark01}%
-    \includegraphics<3->[height=.35\textheight]{icosahedron-catmull-clark01-coloriage-2}%
+    \includegraphics<3>[height=.35\textheight]{icosahedron-catmull-clark01-coloriage-2}%
   \end{figure}
+  \onslide<3>{
   \begin{itemize}
     \item Dynamic computing
     \item Cost in relation to object's complexity
   \end{itemize}
+  }
+
   % \onslide<4>% {
   % Topological events tracked in:
   %   \begin{itemize}
@@ -370,42 +377,36 @@
         \begin{itemize}
           \item<2-> No code addition within modeling operations
         \end{itemize}
-        \item<2-> Pre-computed static or localized dynamic detection
+        \item<3> Pre-computed static or localized dynamic detection
       \end{itemize}
   \end{itemize}
 \end{frame}
 
-\begin{frame}[noframenumbering,plain]
-  \frametitle{References}
-  % \begin{itemize}
-  % \end{itemize}
-\end{frame}
+% \subsection*{Deletion}
 
-\subsection*{Deletion}
+% \begin{frame}[noframenumbering,plain]{Deletion of an edge $\orbit{ 0,  2}$}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[height=.85\textheight]{evenement-suppression}
+%   \end{figure}
+% \end{frame}
 
-\begin{frame}[noframenumbering,plain]{Deletion of an edge $\orbit{ 0,  2}$}
-  \begin{figure}
-    \centering
-    \includegraphics[height=.85\textheight]{evenement-suppression}
-  \end{figure}
-\end{frame}
+% \subsection*{Modification}
 
-\subsection*{Modification}
+% \begin{frame}[noframenumbering,plain]{Modification of vertices $\orbit{1,2}$}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[height=.85\textheight]{evenement-modification}
+%   \end{figure}
+% \end{frame}
 
-\begin{frame}[noframenumbering,plain]{Modification of vertices $\orbit{1,2}$}
-  \begin{figure}
-    \centering
-    \includegraphics[height=.85\textheight]{evenement-modification}
-  \end{figure}
-\end{frame}
+% \subsection*{Non-changement}
 
-\subsection*{Non-changement}
-
-\begin{frame}[noframenumbering,plain]{Non-modification of face edges $\orbit{0}$}
-  \begin{figure}
-    \centering
-    \includegraphics[height=.85\textheight]{evenement-no-change.pdf}
-  \end{figure}
-\end{frame}
+% \begin{frame}[noframenumbering,plain]{Non-modification of face edges $\orbit{0}$}
+%   \begin{figure}
+%     \centering
+%     \includegraphics[height=.85\textheight]{evenement-no-change.pdf}
+%   \end{figure}
+% \end{frame}
 
 \end{document}

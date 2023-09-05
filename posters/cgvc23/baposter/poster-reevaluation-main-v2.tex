@@ -1,0 +1,212 @@
+\documentclass[portrait,a1paper,fontscale=0.45,]{baposter}
+
+\usepackage{capt-of}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{tikz}
+
+\graphicspath{{../../../logos}, {figures/article2},
+  {../../../articles/extended-abstract-article2/figures},{figures/rules}}
+
+\begin{document}
+\begin{poster}%
+  {%
+    grid=false,%
+    eyecatcher=true,%
+    columns=2,%
+    background=none,%
+    % headerborder=none,%
+    headerborder=none,%
+    headerfont=\LARGE\bfseries\sffamily,%
+    headerFontColor=white,%
+    headershade=plain,%
+    textborder=none,%
+    % borderColor=red,%
+    boxshade=none}%
+  {%
+    \begin{minipage}[c]{9em}
+      \center
+    \includegraphics[width=.6\textwidth]{branding_eguk.gif.png}\\
+    \vspace{1em}
+    \includegraphics[width=\textwidth]{cgvc-logo}
+    \vspace{1em}
+    2023
+    \end{minipage}
+  }%
+  {Model reevaluation based on graph transformation rules
+  \vspace{.2em}}%
+{M. Gaide, D. Marcheix, A. Arnould, X. Skapin, H. Belhaouari \& S. Jean\\
+  maxime.gaide@ensma.fr
+  }%
+  {%
+    \begin{minipage}[c]{14em}
+      \includegraphics[width=6em]{Logo_ISAE-ENSMA}
+      \hfill
+      \includegraphics[width=6em]{Logo_up}
+
+      \vspace{1em}
+
+      \includegraphics[width=6em]{lias-logo}
+      \hfill
+      \includegraphics[width=6em]{xlim-logo}
+    \end{minipage}
+  }
+
+  \begin{posterbox}[name=abstract,row=0,span=2]{Abstract}
+    % \begin{minipage}[c]{0.89\linewidth}
+    We extend the scope of naming problem studies to encompass
+    rule-based graph transformation modeling systems. We propose a novel
+    persistent naming method that capitalizes on the formalized operations of
+    generalized maps and graph transformation rules. It enables a unique and
+    homogeneous characterisation of entities across all dimensions
+    % \end{minipage}
+    % \hfill
+    % \begin{minipage}[c]{0.08\linewidth}
+    %  \center
+     % \includegraphics[width=\textwidth]{reevaluation-demo.png}
+     % Demo
+    % \end{minipage}
+  \end{posterbox}
+
+  \begin{posterbox}[name=context, below=abstract, span=2]{Context}
+    \begin{minipage}[c]{.49\linewidth}
+      \center
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-create-face-magnified}
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-extrude-face}
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-triangulate-face}
+      \includegraphics[width=.25\textwidth]{fil-rouge-short-color-face-magnified}
+
+      Evaluation: 1-create(pos); 2-extrude($PN_1$, vec); 3-triangulate($PN_2$);\\ 4-color($PN_3$)
+
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{.49\linewidth}
+      \center
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-create-face-magnified}
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-reeval-insert-vertex-magnified}
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-reeval-extrude-face}
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-reeval-triangulate-face}
+      \includegraphics[width=.19\textwidth]{fil-rouge-short-reeval-color-face-magnified}
+
+      Reevaluation: 1-create(pos); ADD-insert(3); 2-extrude($PN_1$, vec);\\ 3-triangulate($PN_2$); 4-color($PN_3$)
+    \end{minipage}
+  \end{posterbox}
+
+  \begin{posterbox}[name=rules, below=context, column=0]{Rules}
+    \begin{minipage}[c]{\linewidth}
+      \center
+      \includegraphics[width=.6\textwidth]{rule-create-square-face-poster-version}\\
+      Square creation rule
+    \end{minipage}
+
+  \end{posterbox}
+
+
+  \begin{posterbox}[name=persistent name, below=context, column=1]{Persistent naming scheme}
+    Taking advantage of Jerboa graph transformation rules on generalized map's formalism:
+    \begin{itemize}
+      \item Using darts to represent orbits (cells)
+      \item Persistent name: history of a darts' creation
+    \end{itemize}
+    Persistent name $PN_{3}=[1{\color{green}n_{3}};2{\color{green}n_{4}};3{\color{green}n_{0}}]$
+    \begin{itemize}
+      \item Rule \texttt{1-create}'s node {\color{green}$n_{0}$} creates dart {\color{red}3}
+      \item Rule \texttt{2-extrude}'s node {\color{green}$n_{1}$} matches dart
+            {\color{red}3}, node {\color{green}$n_{4}$} creates dart {\color{red}35}
+      \item Rule \texttt{3-triangulate}'s node {\color{green}$n_{0}$} matches dart {\color{red}35}
+    \end{itemize}
+  \end{posterbox}
+
+  \begin{posterbox}[name=rules two, headershade=shadelr,headerColorOne=white,headerColorTwo=white,below=persistent name, span=2]{}
+    \begin{minipage}[c]{.5\linewidth}
+      \center
+      \includegraphics[height=40pt]{rule-face-extrusion-poster-version}\\
+      Face extrusion rule
+    \end{minipage}
+    \begin{minipage}[c]{.5\linewidth}
+      \center
+      \includegraphics[height=35pt]{rule-face-triangulation-3D-poster-version}\\
+      Face triangulation rule
+    \end{minipage}
+  \end{posterbox}
+
+  \begin{posterbox}[name=evaluation, below=rules two, column=0]{Evaluation DAG}
+    \begin{itemize}
+      \item Represents a topological parameter's history
+      \item Built bottom up from a persistent name
+    \end{itemize}
+    \begin{center}
+      \includegraphics[height=25em]{pn7-short}
+
+      Evaluation DAG of persistent name $PN_{3}$
+    \end{center}
+  \end{posterbox}
+
+  \begin{posterbox}[name=reevaluation, below=rules two, column=1]{Reevaluation DAG}
+    \begin{itemize}
+      \item Represents the matched topological parameter's histories,
+      \item Built top down from an evaluation DAG.
+    \end{itemize}
+    \begin{center}
+    \includegraphics[height=25em]{pn7-reval-short}
+    Reevaluation DAG of persistent name $PN_{3}$
+    \end{center}
+  \end{posterbox}
+
+  \begin{posterbox}[name=conclusion, below=evaluation, span=2]{Conclusion}
+    \setlength{\columnseprule}{1pt}
+    \def\columnseprulecolor{\color{black}}
+    \begin{multicols}{3}
+      \begin{minipage}[c]{\linewidth}
+        Rule-based persistent naming scheme
+        \begin{itemize}
+          \item Persistent naming scheme based on rules
+          \item Unique identification of topological parameters through their histories
+        \end{itemize}
+      \end{minipage}
+
+      \columnbreak
+
+      \begin{minipage}[c]{\linewidth}
+        Add, Delete, Move operations to edit a model.
+        \center
+        \includegraphics[scale=0.05]{reevaluation-demo.png}\\
+        Demo
+      \end{minipage}
+
+      \columnbreak
+
+      \begin{minipage}[c]{\linewidth}
+        Method:
+        \begin{itemize}
+          \item record darts' histories
+          \item rebuild orbits histories (evaluation DAG)
+          \item build now orbit histories (reevaluation DAG) using strategies
+        \end{itemize}
+      \end{minipage}
+    \end{multicols}
+  \end{posterbox}
+
+  % \begin{posterbox}[name=link, below=evaluation, column=0]{Demo}
+  %   An overview of this work's implementation is available through this link
+  %   \includegraphics[width=.15\textwidth]{qr-code-reeval}\
+  % \end{posterbox}
+
+  % \begin{posterbox}[name=participants, below=link]{Participants}
+  %   \begin{tabular}{l l}
+  %     \textbf{Maxime Gaide} & \textbf{Xavier Skapin}\\
+  %     \small{maxime.gaide@ensma.fr} & \small{xavier.skapin@univ-poitiers.fr}\\
+  %     \textbf{David Marcheix} & \textbf{Hakim Belhaouari}\\
+  %     \small{david.marcheix@ensma.fr} & \small{hakim.ferrier-belhaouari@univ-poitiers.fr}\\
+  %     \textbf{Agnès Arnould} & \textbf{Stéphane Jean}\\
+  %     \small{agnes.arnould@univ-poitiers.fr} & {stephane.jean@ensma.fr}
+  %   \end{tabular}
+  % \end{posterbox}
+
+  % \begin{posterbox}[name=CGVC, above=bottom, span=2, textborder=none,
+  %   headerborder=none, textfont=\Large\bf\sffamily]{\centerline{Computer Graphics
+  %     and Visual Computing 2023}}
+  % \end{posterbox}
+
+\end{poster}
+\end{document}

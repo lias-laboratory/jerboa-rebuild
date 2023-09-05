@@ -1,0 +1,115 @@
+\documentclass[portrait,a1paper,fontscale=0.4]{baposter}
+
+\usepackage{graphicx}
+\usepackage{caption}
+
+\graphicspath{{../../../logos},{figures/article2},{../../../articles/Extended-abstract-article2/figures}}
+
+
+\begin{document}
+\begin{poster}%
+  {%
+    grid=false, columns=2, background=none, headershade=plain, textborder=none, headerborder=none, boxshade=none, eyecatcher=true }%
+  {%
+    \begin{minipage}{.15\textwidth}
+      \center
+      \includegraphics[scale=0.3]{branding_eguk.gif.png}
+      \vspace{3em}
+      \includegraphics[scale=0.3]{cgvc-logo.pdf}
+    \end{minipage}
+  }
+  {%
+    Model reevaluation based on graph transformation rules
+  }
+  {
+    \vspace{1em}
+    M.Gaide, D.Marcheix, A.Arnould, X.Skapin, H.Belhaouari \& S.Jean
+  }
+  % {}
+  {
+    \begin{minipage}{.2\textwidth}
+      \includegraphics[scale=0.35]{Logo_ISAE-ENSMA}
+      \hfill
+      \includegraphics[scale=0.11]{Logo-up}
+      \vspace{1em}
+      \includegraphics[scale=0.07]{lias-logo}
+      \hfill
+      \includegraphics[scale=0.12]{xlim-logo}
+    \end{minipage}
+  }
+
+  \begin{posterbox}[name=abstract,column=0,row=0, span=2]{Abstract}
+    In this paper, we extend the scope of naming problem studies to encompass
+    rule-based graph transformation modelling systems. We propose a novel
+    persistent naming method that capitalizes on the formalized operations of
+    generalized maps and graph transformation rules. It enables a unique and
+    homogeneous characterisation of entities across all dimensions.
+  \end{posterbox}
+
+  \begin{posterbox}[name=context, below=abstract,span=2]{Context}
+    \begin{minipage}[t]{.49\linewidth}
+      \center
+      \includegraphics[scale=0.5]{persistent-naming-pb-1}
+      \captionof{figure}{Initial Evaluation}
+      \includegraphics[scale=0.5]{persistent-naming-pb-2}
+      \captionof{figure}{Reevaluation}
+    \end{minipage}
+  \end{posterbox}
+
+  \begin{posterbox}[name=evaluation, below=context, row=3, column=0]{Evaluation}
+    \begin{center}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-create-face.pdf}
+      % \captionof{figure}{1-create(pos)}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-extrude-face.pdf}
+      % \captionof{figure}{2-extrude($PN_{1}$, vec)}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-triangulate-face.pdf}
+      % \captionof{figure}{3-triangulation($PN_{2}$)}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-color-face.pdf}
+      % \captionof{figure}{4-color($PN_{3}$)}
+
+      \captionof{figure}{Evaluation. 1-create(pos); 2-extrude($PN_1$, vec);
+        3-triangulate($PN_2$); 4-color($PN_3$)}
+
+      \vspace{1em}
+
+      \includegraphics[height=8.5cm]{pn7-short}
+
+      \captionof{figure}{Evaluation DAG of the persistent name $PN_{3}$}
+    \end{center}
+  \end{posterbox}
+
+  \begin{posterbox}[name=reevaluation, below=context, column=1]{Reevaluation}
+    \begin{center}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-create-face.pdf}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-reeval-insert-vertex.pdf}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-reeval-extrude-face.pdf}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-reeval-triangulate-face.pdf}
+      \includegraphics[width=0.19\textwidth]{fil-rouge-short-reeval-color-face.pdf}
+
+       \captionof{figure}{Reevaluation. 1-create(pos); ADD1-insert(3);
+         extrude($PN_1$, vec); triangulate($PN_2$); 4-color($PN_3$)}
+
+       \vspace{1em}
+
+      \includegraphics[height=8.5cm]{pn7-reval-short}
+      \captionof{figure}{Reevaluation DAG of persistent name $PN_{3}$. }
+    \end{center}
+  \end{posterbox}
+
+  \begin{posterbox}[name=conclusion,above=bottom]{Conclusion}
+    \begin{itemize}
+      \item Topology naming extension to rule based modelling systems
+      \item Implementation of persistent naming scheme
+      \begin{itemize}
+        \item Unique identification of any topological cell
+      \end{itemize}
+      \item Possibility to adapt modelling strategies
+      \begin{itemize}
+        \item Add topological parameters
+        \item Remove operations
+      \end{itemize}
+    \end{itemize}
+  \end{posterbox}
+  
+\end{poster}
+\end{document}

@@ -10,7 +10,7 @@ by modelling operations on objects.
 A topological change is an event which, for example, creates, splits, merges,
 topological cells (faces, edges, vertices and so on) within an object.
 
-** slide 1
+** slide 1 context
 *** animation 1
 For example, take the following object
 
@@ -21,34 +21,43 @@ and subdivide it.
 Faces are split, vertices are created. Nowadays, all modelling APIs detect and
 track topological events.
 
-Detecting these changes is performed dynamically, in other words the operations
-must first be applied to a given mesh, then this mesh is analysed to list the
-events produced.
+However, detecting these changes means performing either a dynamic check or dynamically.
 
-In addition, the more complex the object, the more expensive the event
-detection.
+In the dynamic method, the operations must first be applied to a given mesh, then this mesh is analyzed to list the events produced. Downside is, the more complex the object, the more expensive the event detection.
 
+In the static method, a piece of code must be added to the operations and
+exhaustively list all the events that will occur. Downside is, it makes more
+work and there can be missing or error event detection.
 
-** slide 2
-To answer these issues, we propose to formalize the static detection of local
-events and automate this process based on an automatic analysis of operations.
+Our approach does combine both static and dynamic detection in order to minimize
+detection costs.
+
+** slide 2 our approach
+We propose to formalize the static detection of local events and automate this
+process based on an automatic analysis of operations.
+
+Doing so, reduces the cost of event detection and prevents the addition of code
+to the operations.
 
 * Transition
 
-First, we need to formalize the objects using generalized maps.
+# First, we use the generalized map's formalism to represent objects.
 
-Second, we need to formalize the operations with graph transformation rules.
+# Second, we need to formalize the operations with graph transformation rules.
+
+I will start presenting the formal tools we use before continuing with our
+contribution.
 
 * Main concepts
 ** Generalized maps
 
 *** animation 1
-A generalized map, or gmap, is a model allowing us to represent all the cells
-composing an object. Consider the following object: a triangle and a quad sharing
-an edge (the edge BC).
+A generalized map is a model allowing us to represent all the cells composing an
+object. Consider the following object: a triangle and a quad sharing an edge
+(the edge BC).
 *** animation 2
 Firstly, the object is decomposed into faces connected together with a 2-link
-(in blue). Where borders are not shared, each link forms a loop.
+(in blue). On the boundaries, the links are forming loops.
 *** animation 3
 Secondly, faces are decomposed into edges connected together with 1-links (in
 red).
@@ -60,57 +69,71 @@ At last, A G-map is a graph whose vertices are called darts and arcs are called
 links.
 
 ** Transition
-In a G-map, orbits can represent all sort of cells and more.
+In generalized maps, sub-graphs represent cells.
 
 ** Orbits
-Given a set "o" of dimensions (also known as orbit type), an orbit is the
-sub-graph of a g-map incident to a dart for which all links belong to "o".
 
 *** animation 1
-For example, the face incident to dart "a" contains darts "a" to "h" and the 0-
-and 1- links that connects them.
+For example, the face incident to dart "a" contains all the reachable darts
+though 0- and 1- links as well as these links.
 *** animation 2
-The edge incident to dart a contains these darts these 0- and 2-links.
+Similarly, the edge incident to dart a contains these darts and these 0- and
+2-links.
 *** animation 3
-This orbit is a valid edge thanks to the loops.
+This orbit is a valid 0,2 edge thanks to the loops.
 *** animation 4
-Here is the vertex incident to a with its 1- and 2-links.
+Here is the vertex incident to a with its darts and 1- and 2-links.
 *** animation 5
-Orbits also represent more specific topology such as this face edge.
+Orbit also generalize the notion of cells. For example, this face edge of
+type 0.
+
+An orbit is parameterized with a type "o" that can correspond to any set of
+dimensions such as these.
 
 ** Transition
-Now that we have formalized the objects, we formalize the operations with
-Jerboa's graph transformation rules.
+We are done with the objects' formalism. I will now go on with the formalization
+of the operations.
 
-Jerboa is a rule-based modelling software we use.
-
-** Jerboa's graph transformation rules
+** Jerboa graph transformation rules
 *** animation 1
-Let's work through the triangulation rule
+Jerboa is the language we use to represent operations as graph transformation
+rules
+
+For example, we will work through the triangulation operation here which matches
+the quad face and replaces it with a several triangles.
 *** animation 2
-Here is the rule. See, it has two members. The left side matches a sub-graph out
-of a G-map. The right side transforms it into a new one. Each member contains
-nodes to match sub-graphs.
+Here is the triangulation rule.
+Its left side matches a sub-graph, the right side transforms it into a new one.
+
 *** animation 3
-Node n0, on the left, has labels 0 and 1. As a hook node, when mapped to a0, it
-matches the quad face.
+The left side matches a <0,1> face, when the node n0 is mapped to dart a0, the
+quad face is matched.
+
+For your information, the gray parts remain untouched throughout the
+transformation.
+
 *** animation 4
-On the right, n0 is preserved and its only label is 0. Therefore the darts are
-preserved, the 0-links too, however, 1-links are deleted.
+On the right, n0 is preserved and so are its darts. The node is rewritten from
+0,1 to 0 _. That is, the 0-links are preserved and the 1-links are deleted.
+
 *** animation 5
-For consistency purpose a created node is a copy of the hook node. Here, n1 is
-created and is a copy of n0. It creates as many darts as n0 matches.
 
-Due to a rewriting of its labels, there is no 0-link between n1's darts. Also,
-1-links are replaced by 2-links. The green label matching green links is called
-an implicit link.
+n1 is created and is a copy of the left hand side node n0.
 
-The 1-link between n0 and n1 connects n0's darts to n1's darts with 1-links.
-This link matching the magenta ones in the sub-graph is called an explicit link.
+n1 creates and matches as much darts as n0. However, in n1, 0 is rewritten into
+an underscore and 1 is rewritten into a 2. Subsequently, n1's darts are
+connected together with 2-links only.
+
+nodes n1 and n0 are connected 1-to-1 with a 1-link. Subsequently, their
+respective darts are connected 1-to-1 with 1-links.
+
 *** animation 6
-n2 is also a created node. Unlike n0, its implicit links are 1,2. Therefore, its
-darts are connected with 1-links instead of 0-links and 2-links instead of
-1-links.
+n2 is also a created node. Unlike n0, it is written as 1,2. Therefore, its darts
+are connected with 1-links instead of 0-links and 2-links instead of 1-links.
+
+The values written within nodes are called implicit links.
+
+These links, between nodes, are called explicit links
 *** animation 7
 While we can define orbits in a gmap, we can do so in rules. Here are the face
 orbits incident to n0 and their matches before and after the application.
@@ -132,7 +155,7 @@ creation.
 ** Creation
 Here, the edge orbit only contains created nodes therefore the orbit is created.
 
-By Jerboa's syntactic conditions a created node matches all the possible
+By Jerboa syntactic conditions a created node matches all the possible
 dimensions and a created orbit is necessarily complete.
 
 Therefore, since the edge orbit created in the rule is complete, the edges it
@@ -187,7 +210,7 @@ matched darts belong to the same orbit.
 * Transition
 
 We have seen how to detect two topological events, namely the creation and the
-split, from Jerboa's rules.
+split, from Jerboa rules.
 
 * Other events
 We can do it for more even events.

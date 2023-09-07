@@ -56,15 +56,15 @@
 
 \titlegraphic{%
   \begin{figure}
-    \includegraphics[height=20pt]{lias-logo.png}%
+    \includegraphics[height=20pt]{lias-logo}%
     \hfill
-    \includegraphics[height=20pt]{Logo_ISAE-ENSMA.pdf}%
+    \includegraphics[height=20pt]{Logo_ISAE-ENSMA}%
     \hfill
     \includegraphics[height=20pt]{cgvc-logo}%
     \hfill
-    \includegraphics[height=20pt]{Logo_up.pdf}%
+    \includegraphics[height=20pt]{Logo_up}%
     \hfill
-    \includegraphics[height=20pt]{xlim-logo.png}%
+    \includegraphics[height=20pt]{xlim-logo}%
   \end{figure}
 }
 
@@ -112,8 +112,7 @@
     \only<5>{%
       Our method
       \begin{itemize}
-        \item[+] Full automatic change detection
-        \item[-] Cost related to object's complexity
+        \item[+] Both static and dynamic
       \end{itemize}%
     }
   \end{minipage}
@@ -124,6 +123,7 @@
     \item Goal:
     \begin{itemize}
       \item Automatic detection of topological events
+      \item Localized dynamic computing
     \end{itemize}
     \item Tools:
     \begin{itemize}
@@ -191,17 +191,17 @@
     \begin{column}{.49\textwidth}
       \begin{block}{\onslide<5>{Orbit of type}}
         \begin{itemize}
-          \item<1-> Face $\orbit{ 0,  1}(a)$%
-          \item<2-> Edge $\orbit{ 0,  2}(a)$%
-          \item<3-> Edge $\orbit{ 0,  2}(c)$%
-          \item<4-> Vertex $\orbit{ 1,  2}(a)$%
-          \item<5> Face edge  $\orbit{ 0}(a)$%
+          \item<1-> Face \alt<5>{{\color{red}$\orbit{0,1}$}$(a)$}{$\orbit{0,1}(a)$}%
+          \item<2-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}$(a)$}{$\orbit{0,2}(a)$}%
+          \item<3-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}$(c)$}{$\orbit{0,2}(c)$}%
+          \item<4-> Vertex \alt<5>{{\color{red}$\orbit{1,2}$}$(a)$}{$\orbit{0,2}(a)$}%
+          \item<5-> Face edge {\color{red}$\orbit{0}$}$(a)$%
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
   \begin{block}{}<1->
-    Sub-graph of type $\orbit{o}$ incident to a dart.
+    Sub-graph of type \alt<5>{{\color{red}$\orbit{o}$}}{$\orbit{o}$} incident to a dart.
   \end{block}
 \end{frame}
 

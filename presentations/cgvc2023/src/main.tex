@@ -62,7 +62,7 @@
     \hfill
     \includegraphics[height=20pt]{cgvc-logo}%
     \hfill
-    \includegraphics[height=20pt]{Logo-up.pdf}%
+    \includegraphics[height=20pt]{Logo_up.pdf}%
     \hfill
     \includegraphics[height=20pt]{xlim-logo.png}%
   \end{figure}
@@ -80,45 +80,65 @@
 \section{Introduction}
 
 \begin{frame}{Introduction}
-  \begin{figure}
-    \centering \includegraphics<1-2>[height=.35\textheight]{icosahedron00}%
-    \includegraphics<3>[height=.35\textheight]{icosahedron00-coloriage}%
-    \hspace*{2em}
-    \includegraphics<2>[height=.35\textheight]{icosahedron-catmull-clark01}%
-    \includegraphics<3>[height=.35\textheight]{icosahedron-catmull-clark01-coloriage-2}%
-  \end{figure}
-  \onslide<3>{
-  \begin{itemize}
-    \item Dynamic computing
-    \item Cost in relation to object's complexity
-  \end{itemize}
-  }
-
-  % \onslide<4>% {
-  % Topological events tracked in:
-  %   \begin{itemize}
-  %     \item <4> Modelers' APIs
-  %     \item <4> Optimization of geometric operations
-  %   \end{itemize}
-  %   }
+  \begin{minipage}[b][.5\textheight][c]{1.0\linewidth}
+    \begin{figure}
+      \alt<-2>%
+      {\includegraphics[width=.24\textwidth]{icosahedron00}}%
+      {\includegraphics[width=.24\textwidth]{icosahedron00-coloriage}%
+      }%
+      \hspace{2em}
+      \uncover<2->{%
+        \alt<2>%
+        {\includegraphics[width=.24\textwidth]{icosahedron-catmull-clark01}}%
+        {\includegraphics[width=.24\textwidth]{icosahedron-catmull-clark01-coloriage-2}}%
+      }%
+    \end{figure}
+  \end{minipage}
+  \begin{minipage}[t][.5\textheight][t]{1.0\linewidth}
+    \only<3>{%
+      Dynamic computing
+      \begin{itemize}
+        \item[+] Full automatic change detection
+        \item[-] Cost related to object's complexity
+      \end{itemize}%
+    }
+    \only<4>{%
+      Static computing
+      \begin{itemize}
+        \item[+] Cost efficient
+        \item[-] Possible missing or error detection
+      \end{itemize}%
+    }%
+    \only<5>{%
+      Our method
+      \begin{itemize}
+        \item[+] Full automatic change detection
+        \item[-] Cost related to object's complexity
+      \end{itemize}%
+    }
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Introduction}
   \begin{itemize}
-    \item Goal :
+    \item Goal:
     \begin{itemize}
       \item Automatic detection of topological events
     \end{itemize}
-    \vspace*{1em}
-    \item Method :
+    \item Tools:
     \begin{itemize}
-      \item Formalizing the objects : generalized maps
-      \item Formalizing the operations : Jerboa's graph transformation rules
+      \item Object formalism: generalized maps
+      \item Operation formalism: Jerboa graph transformation rules
+    \end{itemize}
+    \item Approach:
+    \begin{itemize}
+      \item Rule analysis
+      \item Pre-computing and localization of events
     \end{itemize}
   \end{itemize}
 \end{frame}
 
-\section{Main concepts}
+\section{Formal tools}
 
 \begin{frame}[noframenumbering, plain]
   \frametitle{Outline}
@@ -127,7 +147,7 @@
 
 \subsection{Generalized maps}
 
-\begin{frame}{Generalized maps}
+\begin{frame}{Generalized maps (G-map)}
   \begin{figure}
     \centering
     \begin{columns}
@@ -151,15 +171,12 @@
       \end{column}
     \end{columns}
   \end{figure}
-  \begin{block}{A generalized map (G-map)}<4>
-    A graph whose vertices are called \emph{darts} and arcs are called \emph{links}.
+  \begin{block}{}<4>
+    A graph whose nodes are called \emph{darts} and arcs are called \emph{links}.
   \end{block}
 \end{frame}
 
 \begin{frame}{Orbits}
-  \begin{block}{An orbit}<1->
-    A G-map's sub-graph of type $\orbit{o}$ incident to a dart.
-  \end{block}
   \begin{columns}
     \begin{column}{.49\textwidth}
       \begin{figure}
@@ -172,7 +189,7 @@
       \end{figure}
     \end{column}
     \begin{column}{.49\textwidth}
-      \begin{block}{Orbit of type}
+      \begin{block}{\onslide<5>{Orbit of type}}
         \begin{itemize}
           \item<1-> Face $\orbit{ 0,  1}(a)$%
           \item<2-> Edge $\orbit{ 0,  2}(a)$%
@@ -183,12 +200,14 @@
       \end{block}
     \end{column}
   \end{columns}
-
+  \begin{block}{}<1->
+    Sub-graph of type $\orbit{o}$ incident to a dart.
+  \end{block}
 \end{frame}
 
-\subsection{Jerboa's graph transformation rules}
+\subsection{Jerboa graph transformation rules}
 
-\begin{frame}{Jerboa's graph transformation rules : Application}
+\begin{frame}{Jerboa graph transformation rules : Application}
   \begin{figure}
     \centering
     \includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view}%
@@ -206,7 +225,7 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Jerboa's graph transformation rules : Orbit}
+\begin{frame}{Jerboa graph transformation rules : Orbit}
   \begin{figure}
     \centering
     \includegraphics[height=.85\textheight]{application-complete}%
@@ -373,9 +392,11 @@
   \begin{itemize}
     \item<1-> Conclusions
       \begin{itemize}
-        \item<1-> Entirely automatic orbit tracking
+        \item<1-> Formalization of events detection
+        \item<2-> Full automatic orbit tracking
         \begin{itemize}
-          \item<2-> No code addition within modeling operations
+          \item<2-> No code addition within operations
+          \item<3-> Prevent missing or error event detection
         \end{itemize}
         \item<3> Pre-computed static or localized dynamic detection
       \end{itemize}

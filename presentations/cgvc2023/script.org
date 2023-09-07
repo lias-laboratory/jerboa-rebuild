@@ -18,7 +18,8 @@ For example, take the following object
 and subdivide it.
 
 *** animation 3
-Faces are split, vertices are created.
+Faces are split, vertices are created. Nowadays, all modelling APIs detect and
+track topological events.
 
 Detecting these changes is performed dynamically, in other words the operations
 must first be applied to a given mesh, then this mesh is analysed to list the
@@ -27,7 +28,6 @@ events produced.
 In addition, the more complex the object, the more expensive the event
 detection.
 
-Nowadays, all modelling APIs detect and track topological events.
 
 ** slide 2
 To answer these issues, we propose to formalize the static detection of local

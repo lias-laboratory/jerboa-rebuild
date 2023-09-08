@@ -1,5 +1,6 @@
 #+title: Speech présentation
 #+author:
+#+OPTIONS: toc:nil
 
 * Introduction
 
@@ -36,6 +37,9 @@ detection costs.
 We propose to formalize the static detection of local events and automate this
 process based on an automatic analysis of operations.
 
+To achieve this, we make use of formalism for objects being the generalized maps
+and a formalism for operations being jerboa graph transformation rules.
+
 Doing so, reduces the cost of event detection and prevents the addition of code
 to the operations.
 
@@ -46,7 +50,7 @@ to the operations.
 # Second, we need to formalize the operations with graph transformation rules.
 
 I will start presenting the formal tools we use before continuing with our
-contribution.
+contribution about the automatic detection of topological events.
 
 * Main concepts
 ** Generalized maps
@@ -88,7 +92,7 @@ Orbit also generalize the notion of cells. For example, this face edge of
 type 0.
 
 An orbit is parameterized with a type "o" that can correspond to any set of
-dimensions such as these.
+dimensions such as those (in red).
 
 ** Transition
 We are done with the objects' formalism. I will now go on with the formalization
@@ -136,15 +140,19 @@ The values written within nodes are called implicit links.
 These links, between nodes, are called explicit links
 *** animation 7
 While we can define orbits in a gmap, we can do so in rules. Here are the face
-orbits incident to n0 and their matches before and after the application.
+orbits incident to n0.
 
-Moreover, an orbit is said to be complete when each of its node matches either
-implicitly or explicitly all the links described in an orbit type.
+Notice that in this orbit, each node matches both 0- and 1-links, n0 matches 0
+implicitly, 1 explicitly, n1 matches 1 and 0 explicitly and n2 matches 0
+explicitly and 1 implicitly. Therefore the orbit is said to be complete.
 
-For example, on the left, the face orbit matches both 0 and 1 links.
+Subsequently, the orbit matches complete faces in the gmap
 
-Lastly, there are syntactic conditions guaranteeing that a G-map remains a G-map
-after the application of a rule.
+More generally, an orbit is said to be complete when each of its node matches
+either implicitly or explicitly all the links described in an orbit type.
+
+Lastly, syntactic conditions guarantee the consistency of a generalized map
+throughout the application of a rule.
 
 * Transition
 Now we reach the heart of our method. I will start with a simple event : the
@@ -153,56 +161,72 @@ creation.
 * Detecting topological events
 
 ** Creation
-Here, the edge orbit only contains created nodes therefore the orbit is created.
 
-By Jerboa syntactic conditions a created node matches all the possible
-dimensions and a created orbit is necessarily complete.
+We continue with the same object and the same rule but this time we study the
+creation of this <0,2> edge orbit incident to n1 and these edges.
 
-Therefore, since the edge orbit created in the rule is complete, the edges it
-matches in the gmap are created.
+This orbit only contains created nodes, that is the orbit is created.
 
-When starting a modeler, all rules are pre-processed with such a syntactic
-analysis. This allows a static detection of all occurring events at the moment a
-rule is applied.
+Jerboa rules' syntaxes imposes a created node matches all the possible
+dimensions.
+
+Thus this orbit is complete and entirely creates these edges.
+
+All rules are pre-processed with such a syntactic analysis. In practice no more
+computing is necessary for this orbit when applying this rule.
 
 ** Transition
 Now a more complex event, the split.
 
 ** Split
-There are two kind of splits: implicit and explicit.
+There are two kind of splits: through implicit and explicit link.
 *** implicit
 
-In the right-hand side of the rule, the face orbit's second implicit links are
-either deleted or rewritten from 1 to 2. Therefore, the orbit is split
-through implicit 1-links in the rule.
+Once again, same rule, same object and we go back with the <0,1> face orbit.
 
-The right-hand side matches exactly four faces because there is neither 0- nor
-1-links to connect them (otherwise there wouldn't be any split).
+In this example, we take interest into this (montrer) second implicit 1-link. On
+the right, each node's second implicit link is either deleted or rewritten into
+a 2-link.
+
+Those 1-links (montrer à gauche) are deleted and you can see (montrer) that no
+second implicit link connects darts with either 0- or 1-links in the object
+
+Thus, this orbit (montrer à droite) matches several faces
 
 Additionally, each new face comes from an edge of the former (one). This face has four
-edges, hence the four faces we see here.
+edges, hence the four faces we see here (montrer).
+
+*** transition
+
+Now we have seen an implicit split, we will see an explicit split.
 
 *** explicit
-Now consider the rule that disconnects two face edges by cutting their 2-links
-and a new object being a patch of quads.
+We now consider a new object: a patch of quads; and a new rule. The rule
+disconnects two face edges by cutting their explicit 2-link.
 
-Here we expect to split the edge incident to a0 by cutting its 2-links
+We take interest into this <0,2> edge orbit incident to n0.
+As in previous slide, the orbit is complete.
 
-In the right-hand side, the explicit 2-link between n0 and n1 is replaced by one
-2-loop for each of them. The orbit is split in two and, therefore, the matched
-edge in the gmap is also split in two.
+Cutting the explicit 2-link explicitly splits the orbit in two (montrer règle).
+Therefore, in the object, the edge is split and the 2-links have become loops
+(montrer).
 
-Since the edge orbit is complete in the rule, no further verification is needed.
 
 *** false positive split
-Now, for a vertex orbit, we may expect two splits.
+As a last example, we keep the same object, the same rule but we take interest
+into the <1,2> vertex orbits in the rule.
 
-# We have one orbit on the left and two on the right.
+To split an edge means to also split their vertices. Here, the rule matches two
+vertices, one incident to a0 (montrer) the other incident to b0 (montrer).
 
-Yet, the orbit is incomplete, all of its nodes miss a 1-link.
+However, we study of <1,2> vertex orbit and none of the node matches a 1-link
+(montrer), thus, the orbits are incomplete. As a result, the matched vertices
+are a0,a1 and b0,b1.
 
-See, even though the vertex on the right is split, the one at the center
-is only modified.
+(montrer l'objet de droite) This boundary vertex (montrer le sommet de bord) is
+actually split. This vertex at the center (montrer), however, is only
+modified. As you can see, there still exist a 1-2-path in the object between a0
+and a1.
 
 Such situation requires a localized dynamic check to verify whether or not two
 matched darts belong to the same orbit.
@@ -213,18 +237,27 @@ We have seen how to detect two topological events, namely the creation and the
 split, from Jerboa rules.
 
 * Other events
-We can do it for more even events.
+In the same way, we can compute any other event that can occur while modeling.
+Deletion and merging have the inverse properties as respectively the creation and the split.
+Non-modification is when a match orbit remains unchanged
+
 ** Deletion
 ** Merging
-** Modification
 ** Non-modification
+** Other Modifications
 
 * Conclusion
-In order to automatically detect topological changes, we take advantage of
-generalized maps to model objects and graph transformation rules to formalize
-modelling operations.
+In order to automatically detect topological changes, we take advantage of the
+graph transformation rule formalism on generalized maps to formalize event
+detection.
 
-These formalisms allow us to syntactically analyse rules instead of code. Furthermore, its prevents the need to add specific code instruction within operations.
+This guarantees all detected event are correctly identified
 
-Another advantage is the possibility to pre-compute the rules for a static
-detection and dynamically check a localized sub-graph when needed.
+Combining this formalization with a localization of events allows us to perform
+a fully automatic orbit tracking.
+
+Rule analysis do not require any code addition within operations.
+
+Another advantage is that most of the analysis is done when pre-computing the
+rules. The rest is done when needed at runtime by checking a localized
+sub-graph.

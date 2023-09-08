@@ -1,3 +1,4 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
 \documentclass[presentation]{beamer}
 % \usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
@@ -96,14 +97,14 @@
   \end{minipage}
   \begin{minipage}[t][.5\textheight][t]{1.0\linewidth}
     \only<3>{%
-      Dynamic computing
+      Mesh analysis
       \begin{itemize}
         \item[+] Full automatic change detection
         \item[-] Cost related to object's complexity
       \end{itemize}%
     }
     \only<4>{%
-      Static computing
+      In operation code
       \begin{itemize}
         \item[+] Cost efficient
         \item[-] Possible missing or error detection
@@ -112,7 +113,8 @@
     \only<5>{%
       Our method
       \begin{itemize}
-        \item[+] Both static and dynamic
+        \item[+] Full automatic change detection
+        \item[+] Cost efficient
       \end{itemize}%
     }
   \end{minipage}
@@ -125,11 +127,17 @@
       \item Automatic detection of topological events
       \item Localized dynamic computing
     \end{itemize}
+
+    \vspace{1em}
+
     \item Tools:
     \begin{itemize}
       \item Object formalism: generalized maps
       \item Operation formalism: Jerboa graph transformation rules
     \end{itemize}
+
+    \vspace{1em}
+
     \item Approach:
     \begin{itemize}
       \item Rule analysis
@@ -142,7 +150,7 @@
 
 \begin{frame}[noframenumbering, plain]
   \frametitle{Outline}
-  \tableofcontents[currentsection]
+  \tableofcontents
 \end{frame}
 
 \subsection{Generalized maps}
@@ -189,19 +197,19 @@
       \end{figure}
     \end{column}
     \begin{column}{.49\textwidth}
-      \begin{block}{\onslide<5>{Orbit of type}}
+      \begin{block}{\onslide<5>{Orbit}}
         \begin{itemize}
-          \item<1-> Face \alt<5>{{\color{red}$\orbit{0,1}$}$(a)$}{$\orbit{0,1}(a)$}%
-          \item<2-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}$(a)$}{$\orbit{0,2}(a)$}%
-          \item<3-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}$(c)$}{$\orbit{0,2}(c)$}%
-          \item<4-> Vertex \alt<5>{{\color{red}$\orbit{1,2}$}$(a)$}{$\orbit{0,2}(a)$}%
-          \item<5-> Face edge {\color{red}$\orbit{0}$}$(a)$%
+          \item<1-> Face \alt<5>{{\color{red}$\orbit{0,1}${\color{ForestGreen}$(a)$}}}{$\orbit{0,1}(a)$}%
+          \item<2-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}}{$\orbit{0,2}(a)$}%
+          \item<3-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(c)$}}{$\orbit{0,2}(c)$}%
+          \item<4-> Vertex \alt<5>{{\color{red}$\orbit{1,2}$}{\color{ForestGreen}$(a)$}}{$\orbit{1,2}(a)$}%
+          \item<5-> Face edge {\color{red}$\orbit{0}$}{\color{ForestGreen}$(a)$}%
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
   \begin{block}{}<1->
-    Sub-graph of type \alt<5>{{\color{red}$\orbit{o}$}}{$\orbit{o}$} incident to a dart.
+    Sub-graph of type \alt<5>{{\color{red}$\orbit{o}$}}{$\orbit{o}$} incident to a \alt<5>{{\color{ForestGreen}dart}}{dart}.
   \end{block}
 \end{frame}
 
@@ -219,16 +227,21 @@
     % \includegraphics<4>[height=.85\textheight]{application-3-expl}%
     % \includegraphics<5>[height=.85\textheight]{application-4-darts}%
     \includegraphics<5>[height=.85\textheight]{application-4-impl}%
+    \includegraphics<6>[height=.85\textheight]{application-4-expl}%
+    \includegraphics<7>[height=.85\textheight]{implicit-links}%
+    \includegraphics<8>[height=.85\textheight]{explicit-links}%
+
     % \includegraphics<5>[height=.85\textheight]{application-4-expl}%
     % \includegraphics<6>[height=.85\textheight]{application-5-darts}%
-    \includegraphics<6>[height=.85\textheight]{application-5-impl}%
+    \includegraphics<9>[height=.85\textheight]{application-5-impl}%
   \end{figure}
 \end{frame}
 
-\begin{frame}{Jerboa graph transformation rules : Orbit}
+\begin{frame}{Jerboa graph transformation rules : \alt<1>{Orbit}{Complete orbit}}
   \begin{figure}
     \centering
-    \includegraphics[height=.85\textheight]{application-complete}%
+    \includegraphics<1>[height=.85\textheight]{application-orbit}%
+    \includegraphics<2>[height=.85\textheight]{application-complete}%
   \end{figure}
 \end{frame}
 
@@ -284,9 +297,18 @@
 \begin{frame}{Other events}
   \begin{itemize}
     \item Deletion
+
+    \vspace{1em}
+
     \item Merging
-    \item Modification
+
+    \vspace{1em}
+
     \item Non-modification
+
+    \vspace{1em}
+
+    \item Other modifications
   \end{itemize}
 \end{frame}
 
@@ -390,16 +412,25 @@
 \section{Conclusion}
 \begin{frame}{Conclusion}
   \begin{itemize}
-    \item<1-> Conclusions
-      \begin{itemize}
-        \item<1-> Formalization of events detection
-        \item<2-> Full automatic orbit tracking
-        \begin{itemize}
-          \item<2-> No code addition within operations
-          \item<3-> Prevent missing or error event detection
-        \end{itemize}
-        \item<3> Pre-computed static or localized dynamic detection
-      \end{itemize}
+    \item<1-> Formalization of events detection
+    \begin{itemize}
+      \item<1->  Correct detection of all events
+    \end{itemize}
+
+    \vspace{1em}
+
+    \item<2-> Full automatic orbit tracking
+    \begin{itemize}
+      \item<2-> No code addition within operations
+    \end{itemize}
+
+    \vspace{1em}
+
+    \item<3-> Efficient detection
+    \begin{itemize}
+      \item<3-> Most analysis pre-computed on rules
+      \item<3> Localized verification at runtime on mesh
+    \end{itemize}
   \end{itemize}
 \end{frame}
 

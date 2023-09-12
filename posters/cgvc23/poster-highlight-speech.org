@@ -1,0 +1,48 @@
+#+title: Poster Highlight speech
+#+author:
+#+options: toc:nil
+
+
+Plan
+    Contexte
+        -> On veut générer des variations d'un objet (facilement)
+    Problème
+        -> Les autres font ça de telle manière dont voici les limites
+    Solution
+        exploiter :
+        -> la formalisation des objets et des opérations
+        -> la formalisation de détection d'événements topologiques
+
+* speech
+
+Reevaluation mechanisms are, nowadays, made available in most professional grade
+CAD softwares allowing users to generate variations of an object by editing 
+operations' parameters. 
+
+Nowadays, most existing methods require tracking numerous topological entities
+and also consider the persistent naming problem only from the parameters'
+ modifications of a parametric specification standpoint.
+
+Unlike these methods, our approach is to extend the persistent naming problem 
+to rule-based graph transformation modelling systems.
+
+By using a formalism for operations, it is easier syntactically analyse rules
+rather than symbolically analyse code.
+
+This take allows us to propose:
+	- a persistent naming scheme representing unique topological parameter
+	  histories
+	- a reevaluation mechanism where only essential cells are being tracked
+	- a support for both the edition of parameters and operations (that is,
+	  the addition, deletion or displacement of operations) within a
+	  parametric specification
+	
+In order to this, our method is able to represent the evolution of cells during
+the initial evaluation of an object using Directed Acyclic Graphs. 
+
+At reeavaluation, each directed acyclic graph is updated according to the changes
+in order to match the topological parameters in the new object.
+
+In addition, with such a mechanism reevaluation, we have the ability to 
+setup custom reevaluation strategies such as, applying the same operation onto
+each subdivisions of a cell.

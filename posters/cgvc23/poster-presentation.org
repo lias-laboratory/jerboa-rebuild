@@ -1,0 +1,65 @@
+#+title: Poster Presentation
+#+author:
+#+options: toc:nil
+
+Our works aim to reevaluate models within rule-based graph transformation
+modelling systems.
+
+Consider you want to create this object, a cube which front face is triangulated
+and one of the triangle is colored in blue.
+
+When your done with your model, you have a parametric specification as this one
+(montrer). Under the names PN something are topological parameters, that is,
+references to cells of the object onto which operations are applied.
+
+Say you need to try another design for your object: you actually need to
+triangulate 2 faces on the cube's front.
+
+In order to re-evaluate your model, you simply add an operation within the
+parametric specification.
+
+A well-known issues of model re-evaluation is the persistent naming problem. A
+topological parameter must be referenced with a robust enough naming scheme so
+that the cell can me matched again at re-evaluation.
+
+We design a persistent naming scheme based on the syntactic analysis of graph
+transformation rules. This allows us to uniquely identify a dart of a
+generalized map, based on its history.
+
+For example, the persistent name PN3, which identifies the blue face, is written
+as 1n3;2n4;3n0.
+
+That is, the first applied rule creates dart 3 with its node n3. The second
+applied rule matches dart 3 and creates its copy, 35, with node n4. Finally, the
+third application matches dart 35 with node n0. This history is unique within
+the object.
+
+When re-evaluating your model, each topological parameter history is represented
+using directed acyclic graphs. These graphs are built bottom-up from the
+persistent names.
+
+This evaluation DAG represents the history of the blue face at evaluation. The
+blue face, results from the split of another face and originates from of the
+edges of said face. The face is created from the extrusion of an edge. This edge
+is created from the extrusion of a dart.
+
+At re-evaluation, Re-evaluation DAGs are created from Evaluation DAGs in order
+to matched the topological parameters based on their updated histories.
+
+For example, the blue triangles come from the split of two different faces. Each
+face comes from the extrusion of an edge. This edge was split by the added
+operation. Lastly, this edge was created by the first rule application.
+
+In conclusion
+
+We propose rule-based persistent naming scheme allowing us to uniquely represent
+topological parameters through their histories
+
+Our re-evaluation mechanism supports the addition, deletion and displacement of
+operations within a parametric specification.
+
+Finally, our methods consist in recording the necessary dart histories, build
+evaluation DAGs from them and build new histories at re-evaluation.
+
+It also support the definition of custom strategies such as matching several
+orbits created by an additional split at re-evaluation.

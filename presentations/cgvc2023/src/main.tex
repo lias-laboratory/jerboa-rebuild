@@ -32,7 +32,7 @@
     LIAS, Poitiers, France\\ $^3$University of Poitiers, Univ. Limoges, CNRS,
     XLIM, Poitiers, France}
 
-\date{Computer Graphics and Visual Computing, \today}
+\date{Computer Graphics and Visual Computing, September 14, 2023}
 
 \title[Automatic detection of topological changes in modeling operations]{Automatic detection of topological changes in modeling operations}
 
@@ -57,15 +57,15 @@
 
 \titlegraphic{%
   \begin{figure}
-    \includegraphics[height=20pt]{lias-logo}%
+    \includegraphics[height=18pt]{lias-logo}%
     \hfill
-    \includegraphics[height=20pt]{Logo_ISAE-ENSMA}%
+    \includegraphics[height=22pt]{Logo_ISAE-ENSMA}%
     \hfill
     \includegraphics[height=20pt]{cgvc-logo}%
     \hfill
-    \includegraphics[height=20pt]{Logo_up}%
+    \includegraphics[height=23pt]{Logo_up}%
     \hfill
-    \includegraphics[height=20pt]{xlim-logo}%
+    \includegraphics[height=15pt]{xlim-logo}%
   \end{figure}
 }
 
@@ -110,12 +110,9 @@
         \item[-] Possible missing or error detection
       \end{itemize}%
     }%
-    \only<5>{%
-      Our method
-      \begin{itemize}
-        \item[+] Full automatic change detection
-        \item[+] Cost efficient
-      \end{itemize}%
+    \vspace{1em}
+    \only<4>{%
+      Our method: {\color{red}Full automatic change detection} and {\color{red}cost efficient}
     }
   \end{minipage}
 \end{frame}
@@ -148,7 +145,7 @@
 
 \section{Formal tools}
 
-\begin{frame}[noframenumbering, plain]
+\begin{frame}
   \frametitle{Outline}
   \tableofcontents
 \end{frame}
@@ -236,11 +233,14 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Jerboa graph transformation rules : \alt<1>{Orbit}{Complete orbit}}
+\begin{frame}{Jerboa graph transformation rules : \alt<1-2>{Orbit}{Complete orbit}}
   \begin{figure}
     \centering
     \includegraphics<1>[height=.85\textheight]{application-orbit}%
-    \includegraphics<2>[height=.85\textheight]{application-complete}%
+    \includegraphics<2>[height=.85\textheight]{application-orbit-2}%
+    % \includegraphics<3>[height=.85\textheight]{application-complete}%
+    \includegraphics<3>[height=.85\textheight]{application-complete-new}%
+    \includegraphics<4>[height=.85\textheight]{application-complete-2}%
   \end{figure}
 \end{frame}
 
@@ -259,6 +259,7 @@
     % \includegraphics<2>[height=.85\textheight]{evenement-creation-animation-target}%
     % \includegraphics<3>[height=.85\textheight]{evenement-creation-animation-begin}%
     \includegraphics<1>[height=.85\textheight]{evenement-creation-animation-end}%
+    \includegraphics<2>[height=.85\textheight]{evenement-creation-animation-end-2}%
   \end{figure}
 \end{frame}
 
@@ -270,7 +271,11 @@
     % \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-grey}%
     % \includegraphics<2>[height=.85\textheight]{evenement-scission-impl-animation-target}%
     % \includegraphics<3>[height=.85\textheight]{evenement-scission-impl-animation-begin}%
-    \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight}%
+    % \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight}%
+    \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-new}%
+    \includegraphics<2>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-2}%
+    \includegraphics<3>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-3}%
+    \includegraphics<4>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-4}%
   \end{figure}
 \end{frame}
 
@@ -279,7 +284,11 @@
     \centering
     % \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-grey.pdf}%
     % \includegraphics<2>[width=\textwidth]{evenement-scission-expl-animation-target.pdf}%
-    \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end.pdf}%
+    % \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end.pdf}%
+    \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end-new.pdf}%
+    \includegraphics<2>[width=\textwidth]{evenement-scission-expl-animation-end-2.pdf}%
+    \includegraphics<3>[width=\textwidth]{evenement-scission-expl-animation-end-3.pdf}%
+    \includegraphics<4>[width=\textwidth]{evenement-scission-expl-animation-end-4.pdf}%
   \end{figure}
 \end{frame}
 
@@ -287,7 +296,11 @@
   \begin{figure}
     \centering
     % \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-unsewed}%
-    \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end}%
+    % \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end}%
+    \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end-new}%
+    \includegraphics<2>[width=\textwidth]{false-positive-uncomplete-orbit-end-2}%
+    \includegraphics<3>[width=\textwidth]{false-positive-uncomplete-orbit-end-3}%
+    \includegraphics<4>[width=\textwidth]{false-positive-uncomplete-orbit-end-4}%
   \end{figure}
 \end{frame}
 
@@ -433,31 +446,51 @@
   \end{itemize}
 \end{frame}
 
-% \subsection*{Deletion}
+\subsection*{Deletion}
 
-% \begin{frame}[noframenumbering,plain]{Deletion of an edge $\orbit{ 0,  2}$}
-%   \begin{figure}
-%     \centering
-%     \includegraphics[height=.85\textheight]{evenement-suppression}
-%   \end{figure}
-% \end{frame}
+\begin{frame}[noframenumbering,plain]{Deletion of an edge $\orbit{ 0,  2}$}
+  \begin{figure}
+    \centering
+    \includegraphics[height=.85\textheight]{evenement-suppression}
+  \end{figure}
+\end{frame}
 
-% \subsection*{Modification}
+\subsection*{Merging}
 
-% \begin{frame}[noframenumbering,plain]{Modification of vertices $\orbit{1,2}$}
-%   \begin{figure}
-%     \centering
-%     \includegraphics[height=.85\textheight]{evenement-modification}
-%   \end{figure}
-% \end{frame}
+\begin{frame}[noframenumbering,plain]{Merging of a face $\orbit{0,1}(n0)$ orbit: implicit}
+  \begin{figure}
+    \centering
+    \includegraphics<1>[height=.85\textheight]{evenement-merging}%
+    \includegraphics<2>[height=.85\textheight]{evenement-merging-2}%
+  \end{figure}
+\end{frame}
 
-% \subsection*{Non-changement}
+\subsection*{Modification}
 
-% \begin{frame}[noframenumbering,plain]{Non-modification of face edges $\orbit{0}$}
-%   \begin{figure}
-%     \centering
-%     \includegraphics[height=.85\textheight]{evenement-no-change.pdf}
-%   \end{figure}
-% \end{frame}
+\begin{frame}[noframenumbering,plain]{Modification of vertices $\orbit{1,2}$}
+  \begin{figure}
+    \centering
+    \includegraphics<1>[height=.85\textheight]{evenement-modification}%
+    \includegraphics<2>[height=.85\textheight]{evenement-modification-2}%
+  \end{figure}
+\end{frame}
+
+\subsection*{Non-modification}
+
+\begin{frame}[noframenumbering,plain]{Non-modification of face edges $\orbit{0}$}
+  \begin{figure}
+    \centering
+    \includegraphics[height=.85\textheight]{evenement-no-change.pdf}
+  \end{figure}
+\end{frame}
+
+\subsection*{Special case}
+
+\begin{frame}[noframenumbering,plain]{An unexpected split of faces}
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{collapse-special-case}
+  \end{figure}
+\end{frame}
 
 \end{document}

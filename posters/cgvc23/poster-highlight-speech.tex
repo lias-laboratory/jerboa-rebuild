@@ -1,4 +1,4 @@
-% Created 2023-09-12 mar. 13:17
+% Created 2023-09-12 mar. 17:15
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -12,11 +12,11 @@
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
-\date{\today}
-\title{Poster Highlight speech}
+\date{}
+\title{}
 \hypersetup{
  pdfauthor={},
- pdftitle={Poster Highlight speech},
+ pdftitle={},
  pdfkeywords={},
  pdfsubject={},
  pdfcreator={Emacs 28.2 (Org mode 9.6.1)}, 
@@ -25,51 +25,48 @@
 \addbibresource{~/Documents/studies/phd/manuscript/references/references.bib}
 \begin{document}
 
-\maketitle
-Plan
-    Contexte
-        -> On veut générer des variations d'un objet (facilement)
-    Problème
-        -> Les autres font ça de telle manière dont voici les limites
-    Solution
-        exploiter :
-        -> la formalisation des objets et des opérations
-        -> la formalisation de détection d'événements topologiques
 
-\section{speech}
-\label{sec:org1e4df19}
+\section{Poster highlight speech}
+\label{sec:org1168440}
 
-Reevaluation mechanisms are, nowadays, made available in most professional grade
+Re-evaluation mechanisms are, nowadays, made available in most professional grade
 CAD softwares allowing users to generate variations of an object by editing 
 operations' parameters. 
 
-Nowadays, most existing methods require tracking numerous topological entities
-and also consider the persistent naming problem only from the parameters'
- modifications of a parametric specification standpoint.
+Nowadays, most existing methods require tracking numerous topological entities.
 
-Unlike these methods, our approach is to extend the persistent naming problem 
-to rule-based graph transformation modelling systems.
+Moreover, the re-evaluated operation sequence is not modified, only their
+parameters can be changed.
 
-By using a formalism for operations, it is easier syntactically analyse rules
-rather than symbolically analyse code.
+On the contrary, our method only tracks the topological entities used as
+parameters in operations.
 
-This take allows us to propose:
-\begin{itemize}
-\item a persistent naming scheme representing unique topological parameter
-histories
-\item a reevaluation mechanism where only essential cells are being tracked
-\item a support for both the edition of parameters and operations (that is,
-the addition, deletion or displacement of operations) within a
-parametric specification
-\end{itemize}
+It also allows the user to edit the operation sequence by adding, deleting or
+moving some operations. And operations' parameters can still be changed.
 
-In order to this, our method is able to represent the evolution of cells during
-the initial evaluation of an object using Directed Acyclic Graphs. 
+To achieve this, we use a formalisation of operations as graph transformation
+rules.
 
-At reeavaluation, each directed acyclic graph is updated according to the changes
-in order to match the topological parameters in the new object.
+During the initial evaluation, we only register the histories for the elementary
+entities of the object.
 
-In addition, with such a mechanism reevaluation, we have the ability to 
-setup custom reevaluation strategies such as, applying the same operation onto
-each subdivisions of a cell.
+Then we use the rule analysis I presented earlier today to detect topological events.
+Thanks to these detections we can re-compute the topological parameter histories.
+
+After editing the operation sequence, and during its execution, we update the
+topological parameter histories in order to take into account the new
+topological events.
+
+Finally, we can match the new topological parameters within the object.
+
+Topological parameter histories of both the initial evaluation and re-evaluation
+are represented using Directed Acyclic Graphs to model splits or merges of
+topological cells.
+
+In addition, we have different ways to exploit this Directed Acyclic Graph of
+topological cell evolution. Each way correspond to a specific strategy allowing
+matching new topological parameters.
+
+The nitty-gritty is quite complicated without the adequate figures but I will be
+pleased to explain you with help of my poster.
 \end{document}

@@ -1,0 +1,161 @@
+\section{Main Concepts}
+
+% \begin{itemize}
+%   \item GMaps
+%   \item Graph transformation rules
+%   \item Orbit tracking
+% \end{itemize}
+
+% In this section, we present the generalized maps, graph transformation rules and
+% their subsequent concepts. Which are necessary to the understanding of our
+% contribution.
+
+\subsection{Generalized maps}
+
+\emph{Generalized maps} (or G-maps) \cite{lienhardt1991topological,
+  Damiand-Lienhardt14} allow the representation of manifold geometric objects
+(with or without boundaries), based on a cellular $n$-dimensional topological
+structure. %
+The representation of an object as a G-map comes intuitively from its
+decomposition into topological cells (vertices, edges, faces, volumes, and so
+on). The lowest topological entity in a G-map is called a dart. In a G-map, such
+a topological cell is represented as a subgraph called an orbit. %
+
+\subsection{Graph transformation rules}
+
+% Jerboas's \cite{belhaouari2014jerboa} graph transformation rules allow the
+% formalization of operations over G-maps. %
+
+% In a few words, a \emph{rule} $r : L \longrightarrow R$ and a \emph{match}
+% $m : L \to G$ to a G-map $G$, describe the transformation
+% $G \longrightarrow^{r,m} H$ from $G$ to $H$. %
+% The match $m$ allows the replacement of a subgraph of $G$ described by the
+% left-hand side of the rule $L$ with another one described by the right-hand side
+% $R$, in order to produce $H$. %
+
+\subsection{Orbit tracking}
+
+% Rules contain the necessary information characterizing the topological changes
+% affecting an orbit throughout an application. %
+% Thus, the tracking of an orbit is automatically made without any addition other
+% than the rules' syntactic analysis. %
+
+\section{Parametric Specification }
+
+\begin{itemize}
+  \item persistent name
+%   \item parametric specification syntax
+\end{itemize}
+
+% During an object's construction, a \emph{parametric specification} records both
+% the rules representing the operations applied and their parameters (both
+% topological and geometric) in order to describe the modeling process. %
+% Editing a parametric specification means that rules may be added, deleted,
+% moved, and their parameters can be changed. %
+% With such changes, the topological parameters may have different concrete names,
+% be deleted and so on. %
+% As a result, using the parameters' concrete names eventually lead to unexpected
+% results (at best) or failure at runtime. %
+
+
+\subsection{Persistent name}
+
+While Jerboa's graph transformation rules use darts as topological parameters,
+it follows that each persistent name must represent a unique dart. As it
+happens, rules make it possible to determine unambiguously which node filters or
+creates any dart.
+
+% Since rules use darts as topological parameters, it follows that each persistent
+% name must represent a unique dart. %
+% As it happens, rules make it possible to determine unambiguously, which node
+% filters or creates any dart. %
+
+
+% \subsection{Parametric Specification syntax}
+
+% A number of fields are used to describe an application within a parametric
+% specification, namely an application number, a rule application with
+% the topological parameters and the geometric parameters. %
+
+\section{Evaluation }
+
+% Although a persistent name represents the history of a dart, an orbit is subject
+% to topological changes and, thus, requires the construction of its own
+% history in order to be accurately matched at reevaluation. %
+Once the initial evaluation is done and its parametric specification has been
+built, an evaluation's Directed Acyclic Graph (or DAG) must be issued for each
+persistent name before any parametric specification can be reevaluated. %
+An evaluation DAG traces the history of each topological parameter back to the
+first created orbits it originates from, thus allowing the matching of the
+corresponding topological parameter at reevaluation time. %
+
+
+\subsection{Evaluation DAG}
+
+An evaluation DAG is built by parsing the applications and nodes of a persistent
+name from end to start. It is sorted by levels representing the different
+applications inside a history. Each level is made of an orbit level and an event
+level. The orbit level contains a node’s name and some orbits. The event level
+contains a rule’s application number and some events.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\textwidth]{pn7}
+  \caption{$PN_{7}$'s evaluation DAG}
+  \label{fig:eval-dag-pn7}
+\end{figure}
+
+
+\subsection{Traces and origins}
+
+In order to accurately represent the history of an orbit, two types of arrows
+are used in an evaluation DAG (and later in the reevaluation DAG). A black arrow
+or trace arrows represents the evolution of an orbit throughout the modeling
+process. A red arrow, or origin arrow, represents the origin of traced orbit in
+the form of another orbit. In Fig.~\ref{fig:eval-dag-pn7}, the $\orbit{0,1}$ at
+orbit level 2 is related to two orbits at orbit level 2, the $\orbit{0,1}$ orbit
+with a trace arrow and the $\orbit{0}$ with an origin arrow. The trace arrow
+relation here means the orbit $\orbit{0,1}$ at orbit level 3 is an evolution of
+the orbit $\orbit{0,1}$ at orbit level 2. The origin arrow is added to reflected
+that since the orbit $\orbit{0,1}$ is split by the \texttt{3-triangulation} rule application, the orbit tracked in the DAG comes from the orbit $\orbit{0}$ at orbit level 2.
+
+
+\section{Reevaluation }
+
+Each evaluation DAG represents an orbit's history which is valid with regards to
+the initial evaluation. %
+When reevaluating, editing the parametric specification makes the topological
+parameters subject to changes. %
+Thus, it is necessary to build reevaluation DAGs from the evaluation DAGs in
+order to update topological parameters. %
+Once built, a reevaluation DAG can designate one, several, or no orbit depending
+on the editing of the parametric specification.
+
+\subsection{Reevaluation DAG}
+
+Contrary to the related evaluation DAG, a reevaluation DAG is built
+top-down throughout the reevaluation process. While an evaluation
+DAG represents the orbit’s history of a topological parameter, the
+reevaluation DAG represents the history of this very same orbit af-
+ter editing the parametric specification.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{pn7-reval}
+    \caption{$PN_7$ reevaluation DAG}
+    \label{fig:pn7-reval-dag}
+\end{figure}
+
+\subsection{Parameter matching strategies}
+
+The editing of the parametric specification leads to having a different DAG at
+reevaluation (with event levels and/or branches being added, deleted or both).
+For example, an orbit split present in the evaluation DAG may disappear during
+the reevaluation, a merging can be added and so on. Several matching strategies
+can then be considered depending on the application’s context such as in Fig.~\ref{fig:pn7-reval-dag}.
+
+
+% %%% Local Variables:
+% %%% mode: latex
+% %%% TeX-master: "../main"
+% %%% End:

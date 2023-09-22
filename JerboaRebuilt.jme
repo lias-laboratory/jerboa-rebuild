@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>Unsew012</openRules>
+	<openRules>DeleteEdge</openRules>
 	<openRules>ExtrudeVolumeFaceYAxis</openRules>
 	<openRules>DuplicateAndTranslateCC</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
@@ -11,7 +13,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="50">
+    <rules count="51">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -2984,6 +2986,35 @@ return res;</expr>
                     </node>
                 </nodes>
                 <arcs count="0">
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="Unsew012" module="" category="" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="390" y="169" orbit="0,1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n0" x="204" y="188" orbit="0,1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="2" node="n0" angle="5.7925829871366155" >
+                    </arcloop>
                 </arcs>
             </right>
             <preprocess></preprocess>

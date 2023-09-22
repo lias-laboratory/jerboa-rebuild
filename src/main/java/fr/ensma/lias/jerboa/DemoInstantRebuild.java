@@ -3,7 +3,6 @@ package fr.ensma.lias.jerboa;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
-import fr.ensma.lias.jerboa.core.rule.rules.Color.MakeFaceBlue;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.datastructures.Application;
 import fr.ensma.lias.jerboa.datastructures.ApplicationType;
@@ -38,20 +37,17 @@ import up.jerboa.exception.JerboaException;
 public class DemoInstantRebuild {
 
   private JerboaGMap gmap;
-  // private GMapViewer gmapviewer;
   private ParametricSpecification parametricSpecification;
   private List<Application> applications;
   private List<HistoryRecord> historyRecords;
   private List<ReevaluationTree> reevaluationTrees;
   private List<Application> editedApplications;
-  // private JerboaRuleResult appResult;
 
   public DemoInstantRebuild(JerboaRebuiltBridge bridge, String referenceDir, String referenceSpec,
       String editedDir, String editedSpec, JFrame frame, GMapViewer gmapviewer)
       throws IOException, JerboaException {
 
     this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
-    // this.gmapviewer = gmapviewer;
     ModelerGenerated modeler = (ModelerGenerated) bridge.getModeler();
 
     parametricSpecification =
@@ -65,20 +61,7 @@ public class DemoInstantRebuild {
 
     editedApplications =
         JSONPrinter.importParametricSpecification(editedDir, editedSpec, modeler).getApplications();
-
-    // reevaluateModel(editedApplications, historyRecords, reevaluationTrees,
-    // frame); exportReevaluationTrees(reevaluationTrees);
   }
-
-  /**
-   * Organize the demo step by step.
-   *
-   * @param frame
-   * @param gmapviewer
-   * @throws InterruptedException
-   */
-  // private synchronized void stepByStep(JFrame frame, GMapViewer gmapviewer)
-  // {}
 
   /**
    *
@@ -86,7 +69,6 @@ public class DemoInstantRebuild {
    *
    * @param reevaluationTrees
    */
-  // private void exportReevaluationTrees(List<ReevaluationTree> reevaluationTrees) {
   private void exportReevaluationTrees() {
 
     int counter = 0;
@@ -105,9 +87,6 @@ public class DemoInstantRebuild {
    * @param historyRecords
    * @param reevaluationTrees
    */
-  // private void initializeReevaluation(ParametricSpecification
-  // parametricSpecification, List<Application> applications,
-  // List<HistoryRecord> historyRecords, List<ReevaluationTree> reevaluationTrees) {
   private void initializeReevaluation() {
 
     int counter = 0;
@@ -194,17 +173,20 @@ public class DemoInstantRebuild {
       }
 
       // if (nbParameters == 0) {
-      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+      // computeReevaluationTreeLevel(application, appResult, historyRecords,
+      // reevaluationTrees,
       // null, 0);
       // } else {
       // if (application.getApplicationType() == ApplicationType.ADD)
       // for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
-      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+      // computeReevaluationTreeLevel(application, appResult, historyRecords,
+      // reevaluationTrees,
       // controlDarts.get(paramIndex), paramIndex);
       // }
       // else
       // for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
-      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
+      // computeReevaluationTreeLevel(application, appResult, historyRecords,
+      // reevaluationTrees,
       // null, paramIndex);
       // }
       // }
@@ -290,7 +272,8 @@ public class DemoInstantRebuild {
     for (int i = 0; i < nbPNs; i++) {
       for (int index = 0; index < nbParameters; index++) {
         if (topoParameters.size() <= index) {
-          // NOTE: new ArrayList<…>(Arrays.asList) keeps the list resizable thus permitting the
+          // NOTE: new ArrayList<…>(Arrays.asList) keeps the list resizable thus
+          // permitting the
           // addition of elements
           topoParameters.add(new ArrayList<List<JerboaDart>>(Arrays
               .asList(Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index)))));
@@ -355,12 +338,8 @@ public class DemoInstantRebuild {
 
     DemoInstantRebuild demo = new DemoInstantRebuild(bridge, //
         "./examples", //
-        // "blueface.json", //
-        // "pentagon.json", //
         "article-2-build.json", //
         "./examples", //
-        // "blueface-reval.json", //
-        // "pentagon-reevaluation.json", //
         "article-2-build-reevaluation.json", //
         frame, gmapviewer);
 

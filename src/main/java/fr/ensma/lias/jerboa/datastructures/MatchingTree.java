@@ -11,6 +11,7 @@ import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaRuleNode;
 
+@Deprecated
 public class MatchingTree {
 
 	// LevelOrbitMT root;
@@ -316,12 +317,13 @@ public class MatchingTree {
 	 * @param directory Path relative to the project
 	 * @param filaName name of the export file
 	 */
+	@Deprecated
 	public void export(String directory, String fileName) {
-		try {
-			JSONPrinter.exportMatchingTree(leaves, directory, fileName);
-		} catch (IOException exception) {
-			System.out.println("Could not write to file");
-		}
+		// try {
+		// 	JSONPrinter.exportMatchingTree(leaves, directory, fileName);
+		// } catch (IOException exception) {
+		// 	System.out.println("Could not write to file");
+		// }
 
 	}
 

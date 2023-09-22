@@ -38,20 +38,17 @@ import up.jerboa.exception.JerboaException;
 public class DemoRebuild {
 
   private JerboaGMap gmap;
-  // private GMapViewer gmapviewer;
   private ParametricSpecification parametricSpecification;
   private List<Application> applications;
   private List<HistoryRecord> historyRecords;
   private List<ReevaluationTree> reevaluationTrees;
   private List<Application> editedApplications;
-  // private JerboaRuleResult appResult;
 
   public DemoRebuild(JerboaRebuiltBridge bridge, String referenceDir, String referenceSpec,
       String editedDir, String editedSpec, JFrame frame, GMapViewer gmapviewer)
       throws IOException, JerboaException {
 
     this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
-    // this.gmapviewer = gmapviewer;
     ModelerGenerated modeler = (ModelerGenerated) bridge.getModeler();
 
     parametricSpecification =
@@ -65,9 +62,6 @@ public class DemoRebuild {
 
     editedApplications =
         JSONPrinter.importParametricSpecification(editedDir, editedSpec, modeler).getApplications();
-
-    // reevaluateModel(editedApplications, historyRecords, reevaluationTrees,
-    // frame); exportReevaluationTrees(reevaluationTrees);
   }
 
   /**
@@ -122,8 +116,6 @@ public class DemoRebuild {
   /**
    * Reevaluate a model based on a parametric specification. This parametric specification may be
    * edited or not but must concern the same object.
-   *
-   * @param swingWorker
    *
    * @param applications
    * @param historyRecords

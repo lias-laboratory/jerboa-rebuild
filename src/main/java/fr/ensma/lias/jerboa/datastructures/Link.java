@@ -36,6 +36,7 @@ public class Link {
 		return "[type: " + type.toString() + "; child: " + child.toString() + "]\n";
 	}
 
+	@Deprecated
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Link) {

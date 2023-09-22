@@ -11,7 +11,7 @@ import up.jerboa.core.util.Pair;
 /**
  * ToolKit
  */
-final class ToolKit {
+public final class ToolKit {
 
 	/**
 	 * BFS to get closest hook in `left` from a given node

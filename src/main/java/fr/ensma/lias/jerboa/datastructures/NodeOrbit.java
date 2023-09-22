@@ -62,6 +62,7 @@ public class NodeOrbit {
 	 *
 	 * @param extNodeOrbitHR a given node to merge this node with
 	 */
+	@Deprecated
 	private void mergeWithNode(NodeOrbit nodeOrbit) {
 		List<Link> childrenToAdd = nodeOrbit.children.stream()//
 				.filter((child) -> !children.contains(child))//
@@ -76,6 +77,7 @@ public class NodeOrbit {
 	 *
 	 * @param nodeOrbitList
 	 */
+	// TODO: search node and create only if orbit does not exist in nodeOrbitList
 	public static void addNodes(NodeOrbit nodeToMerge, List<NodeOrbit> nodeOrbitList) {
 		if (nodeOrbitList.isEmpty()) {
 			nodeOrbitList.add(nodeToMerge);
@@ -110,6 +112,8 @@ public class NodeOrbit {
 			levelEvent.addEvent(NOEFFECTEvent);
 			NodeOrbit previousOrbitHR = new NodeOrbit(orbitType, this.getAlphaPath());
 			previousOrbitHR.addChild(new Link(LinkType.TRACE, NOEFFECTEvent));
+			// TODO: look for previousObritHR's orbitType in nextSTepOrbitHRs
+			// before adding. Idem for all other addNodes calls.
 			addNodes(previousOrbitHR, nextStepOrbitHRs);
 			return nextStepOrbitHRs;
 		}
@@ -117,7 +121,7 @@ public class NodeOrbit {
 		int currentRuleNodeIndex = rule.getRightIndexRuleNode(nodeName);
 		JerboaRuleNode currentRuleNode = rule.getRightRuleNode(currentRuleNodeIndex);
 
-		System.out.println("BBBuildEntry: -> AlphaPath: " + this.getAlphaPath());
+		// System.out.println("BBBuildEntry: -> AlphaPath: " + this.getAlphaPath());
 		for (Integer alpha : this.getAlphaPath()) {
 			currentRuleNode = currentRuleNode.alpha(alpha);
 		}

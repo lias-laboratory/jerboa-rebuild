@@ -33,9 +33,14 @@ public class LevelOrbitMT extends LevelOrbit {
 
   public LevelOrbitMT() {}
 
-  protected void setNextLevelEventMTList(List<LevelEventMT> nexLevelEventMTList) {
-    this.nextLevelEvents = nexLevelEventMTList;
+  protected void setNextLevelEventMTList(List<LevelEventMT> nextLevelEventMTList) {
+    this.nextLevelEvents = nextLevelEventMTList;
   }
+
+  public void addNextLevelEventMT(LevelEventMT nextLevelEventMT)
+    {
+      this.nextLevelEvents.add(nextLevelEventMT);
+    }
 
   public List<LevelEventMT> getNextLevelEventMTList() {
     return nextLevelEvents;

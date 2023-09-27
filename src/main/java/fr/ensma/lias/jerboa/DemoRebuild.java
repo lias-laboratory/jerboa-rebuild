@@ -131,12 +131,12 @@ public class DemoRebuild {
     boolean cont = true;
 
     Integer counter = 0;
-    JerboaRuleResult appResult = null;
+    List<JerboaRuleResult> appResults = new ArrayList<>();
     List<List<List<JerboaDart>>> topoParameters = new ArrayList<>();
 
+    // For each application in edited parametric specification
     for (int applicationIndex = 0; applicationIndex < editedApplications
         .size(); applicationIndex++) {
-
 
       cont = longtask.waitUI();
       if (!cont) {
@@ -144,62 +144,43 @@ public class DemoRebuild {
       }
 
       Application application = editedApplications.get(applicationIndex);
-      int nbPNs = application.getPersistentNames().size();
       List<JerboaDart> controlDarts = new ArrayList<>();
       int nbParameters = reevaluationTrees.get(counter).getTopoParameters().size();
 
-      topoParameters = new ArrayList<>();
-
+      // compute topological parameters
       if (application.getApplicationType() != ApplicationType.ADD) {
-        counter = collectTopologicalParameters(topoParameters, reevaluationTrees, nbPNs, counter,
-            nbParameters);
+        counter = collectTopologicalParameters(topoParameters, reevaluationTrees,
+            application.getPersistentNames().size(), counter, nbParameters);
       } else {
         dartIDsToJerboaDarts(application.getDartIDs(), topoParameters, nbParameters);
         computeControlDart(controlDarts, application, topoParameters);
       }
 
+      // apply application's rule once for each computed topological parameter
       try {
         if (application.getApplicationType() != ApplicationType.DELETE) {
           if (topoParameters.isEmpty()) {
-            appResult = apply(application.getRule(), Arrays.asList());
-            computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-                null, 0);
+            appResults.add(apply(application.getRule(), Arrays.asList()));
           } else {
             for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
-              appResult = apply(application.getRule(), topoParameters.get(paramIndex));
-              if (application.getApplicationType() == ApplicationType.ADD)
-                computeReevaluationTreeLevel(application, appResult, historyRecords,
-                    reevaluationTrees, controlDarts.get(paramIndex), paramIndex);
-              else
-                computeReevaluationTreeLevel(application, appResult, historyRecords,
-                    reevaluationTrees, null, paramIndex);
+              appResults.add(apply(application.getRule(), topoParameters.get(paramIndex)));
             }
           }
+          computeReevaluationTreeLevel(application, appResults, historyRecords, reevaluationTrees,
+              controlDarts);
           gmapviewer.updateIHM();
         }
       } catch (JerboaException e) {
         e.printStackTrace();
       }
 
-      // if (nbParameters == 0) {
-      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-      // null, 0);
-      // } else {
-      // if (application.getApplicationType() == ApplicationType.ADD)
-      // for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
-      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-      // controlDarts.get(paramIndex), paramIndex);
-      // }
-      // else
-      // for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
-      // computeReevaluationTreeLevel(application, appResult, historyRecords, reevaluationTrees,
-      // null, paramIndex);
-      // }
-      // }
+      // renew lists for next application
+      topoParameters = new ArrayList<>();
+      appResults = new ArrayList<>();
+
     }
 
     exportReevaluationTrees();
-
   }
 
   // NOTE: this is a workaround to get an effective distinction
@@ -236,9 +217,9 @@ public class DemoRebuild {
    * @param reevaluationTrees
    * @param i
    */
-  private void computeReevaluationTreeLevel(Application application, JerboaRuleResult appResult,
+  private void computeReevaluationTreeLevel(Application application, List<JerboaRuleResult> appResults,
       List<HistoryRecord> historyRecords, List<ReevaluationTree> reevaluationTrees,
-      JerboaDart controlDart, int appIndex) {
+      List<JerboaDart> controlDarts) {
 
     for (int index = 0; index < historyRecords.size(); index++) {
 
@@ -256,8 +237,14 @@ public class DemoRebuild {
 
         ReevaluationTree rt = reevaluationTrees.get(index);
 
-        rt.addLevel(historyRecords.get(index), levelEventHR, application, appResult, controlDart,
-            appIndex);
+        // Update all rt's branches
+        if (application.getApplicationType() == ApplicationType.ADD) {
+            rt.addLevel(historyRecords.get(index), levelEventHR, application,
+                appResults, controlDarts);
+        } else {
+            rt.addLevel(historyRecords.get(index), levelEventHR, application,
+                appResults, null);
+        }
       }
     }
   }

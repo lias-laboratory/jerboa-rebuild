@@ -44,45 +44,53 @@ public class ReevaluationTree {
 
 	/* Add level to a reevaluation tree */
 	public void addLevel(HistoryRecord evaluationTree, LevelEventHR levelEventEval,
-			Application application, JerboaRuleResult applicationResult, JerboaDart controlDart,
-			int branchIndex) {
+			Application application, List<JerboaRuleResult> applicationResults,
+			List<JerboaDart> controlDarts) {
 
 		JerboaRuleOperation rule = application.getRule();
 		ApplicationType applicationType = application.getApplicationType();
 
-		switch (applicationType) {
-			case INIT:
+		int nbBranches = 1;
+		if (controlDarts != null)
+			nbBranches = controlDarts.size();
 
-				String nodeName = levelEventEval.getNextLevelOrbit().getNodeName();
-				boolean NOEFFECT = isApplicationNOEFFECT(nodeName, branchIndex, applicationResult);
-				matchDartParameters(branchIndex, levelEventEval, nodeName, applicationResult, rule,
-						NOEFFECT);
-				matchLevel(levelEventEval, application, nodeName, rule, NOEFFECT);
-				registerLevel(branchIndex, levelEventEval.getAppNumber(),
-						levelEventEval.getEventList(),
-						levelEventEval.getNextLevelOrbit().getOrbitList(), applicationType);
-				break;
+		for (int branchIndex = 0; branchIndex < nbBranches; branchIndex++) {
+			switch (applicationType) {
+				case INIT:
 
-			case ADD:
+					String nodeName = levelEventEval.getNextLevelOrbit().getNodeName();
+					boolean NOEFFECT = isApplicationNOEFFECT(nodeName, branchIndex,
+							applicationResults.get(branchIndex));
+					matchDartParameters(branchIndex, levelEventEval, nodeName,
+							applicationResults.get(branchIndex), rule, NOEFFECT);
+					matchLevel(levelEventEval, application, nodeName, rule, NOEFFECT);
+					registerLevel(branchIndex, levelEventEval.getAppNumber(),
+							levelEventEval.getEventList(),
+							levelEventEval.getNextLevelOrbit().getOrbitList(), applicationType);
+					break;
 
-				int controlDartNodeIndex = getControlDartNodeID(controlDart, applicationResult, 0);
-				List<NodeEvent> newEventList = new ArrayList<>();
-				List<NodeOrbit> newOrbitList = new ArrayList<>();
-				computeNewLevel(getTreeLastLevel(branchIndex), newOrbitList, newEventList,
-						application, branchIndex, controlDartNodeIndex, applicationResult);
-				registerLevel(branchIndex, application.getApplicationID(), newEventList,
-						newOrbitList, applicationType);
-				// System.out.println("REEVAL:\t\t" + "Number of branches : " + this.size());
-				break;
+				case ADD:
 
-			case DELETE:
-				// prevent application
-				return;
-			case MOVE:
-				// find a possible parameter if any exists
-				break;
-			default:
-				break;
+					int controlDartNodeIndex = getControlDartNodeID(controlDarts.get(branchIndex),
+							applicationResults.get(branchIndex), 0);
+					List<NodeEvent> newEventList = new ArrayList<>();
+					List<NodeOrbit> newOrbitList = new ArrayList<>();
+					computeNewLevel(getTreeLastLevel(branchIndex), newOrbitList, newEventList,
+							application, branchIndex, controlDartNodeIndex,
+							applicationResults.get(branchIndex));
+					registerLevel(branchIndex, application.getApplicationID(), newEventList,
+							newOrbitList, applicationType);
+					break;
+
+				case DELETE:
+					// prevent application
+					return;
+				case MOVE:
+					// find a possible parameter if any exists
+					break;
+				default:
+					break;
+			}
 		}
 
 		return;
@@ -205,8 +213,9 @@ public class ReevaluationTree {
 			commitNewBranches(lastRegisteredLevelEvent);
 			checkoutAddedBranches();
 			tree.get(branchIndex).add(newLevelEvent);
-		} else if (branchIndex >= tree.size())
+		} else if (branchIndex >= tree.size()) {
 			tree.add(new ArrayList<LevelEventMT>(Arrays.asList(newLevelEvent)));
+		}
 
 		// System.out.println("REGISTER:"+"\t\t\t" + "nb branches -> " + tree.size());
 

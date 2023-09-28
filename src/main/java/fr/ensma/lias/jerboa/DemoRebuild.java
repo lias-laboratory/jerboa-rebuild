@@ -237,13 +237,15 @@ public class DemoRebuild {
 
         ReevaluationTree rt = reevaluationTrees.get(index);
 
-        // Update all rt's branches
-        if (application.getApplicationType() == ApplicationType.ADD) {
-            rt.addLevel(historyRecords.get(index), levelEventHR, application,
-                appResults, controlDarts);
-        } else {
-            rt.addLevel(historyRecords.get(index), levelEventHR, application,
-                appResults, null);
+        // For each application result
+        for (int appIndex = 0; appIndex < appResults.size(); appIndex++) {
+        // Update current reevaluation tree
+          if (application.getApplicationType() == ApplicationType.ADD) {
+            rt.addLevel(historyRecords.get(index), levelEventHR, application, appResults.get(appIndex),
+                controlDarts.get(appIndex));
+          } else {
+            rt.addLevel(historyRecords.get(index), levelEventHR, application, appResults.get(appIndex), null);
+          }
         }
       }
     }

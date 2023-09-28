@@ -235,12 +235,13 @@ public class DemoInstantRebuild {
         ReevaluationTree rt = reevaluationTrees.get(index);
 
         // Update all rt's branches
-        if (application.getApplicationType() == ApplicationType.ADD) {
-            rt.addLevel(historyRecords.get(index), levelEventHR, application,
-                appResults, controlDarts);
-        } else {
-            rt.addLevel(historyRecords.get(index), levelEventHR, application,
-                appResults, null);
+        for (int appIndex = 0; appIndex < appResults.size(); appIndex++) {
+          if (application.getApplicationType() == ApplicationType.ADD) {
+            rt.addLevel(historyRecords.get(index), levelEventHR, application, appResults.get(appIndex),
+                controlDarts.get(appIndex));
+          } else {
+            rt.addLevel(historyRecords.get(index), levelEventHR, application, appResults.get(appIndex), null);
+          }
         }
       }
     }

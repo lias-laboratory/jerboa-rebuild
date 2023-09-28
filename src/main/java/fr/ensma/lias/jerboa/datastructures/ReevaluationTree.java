@@ -44,15 +44,15 @@ public class ReevaluationTree {
 
 	/* Add level to a reevaluation tree */
 	public void addLevel(HistoryRecord evaluationTree, LevelEventHR levelEventEval,
-			Application application, List<JerboaRuleResult> applicationResults,
-			List<JerboaDart> controlDarts) {
+			Application application, JerboaRuleResult applicationResult,
+			JerboaDart controlDart) {
 
 		JerboaRuleOperation rule = application.getRule();
 		ApplicationType applicationType = application.getApplicationType();
 
 		int nbBranches = 1;
-		if (controlDarts != null)
-			nbBranches = controlDarts.size();
+		if (!topoParameters.isEmpty())
+			nbBranches = topoParameters.size();
 
 		for (int branchIndex = 0; branchIndex < nbBranches; branchIndex++) {
 			switch (applicationType) {
@@ -60,9 +60,9 @@ public class ReevaluationTree {
 
 					String nodeName = levelEventEval.getNextLevelOrbit().getNodeName();
 					boolean NOEFFECT = isApplicationNOEFFECT(nodeName, branchIndex,
-							applicationResults.get(branchIndex));
+							applicationResult);
 					matchDartParameters(branchIndex, levelEventEval, nodeName,
-							applicationResults.get(branchIndex), rule, NOEFFECT);
+							applicationResult, rule, NOEFFECT);
 					matchLevel(levelEventEval, application, nodeName, rule, NOEFFECT);
 					registerLevel(branchIndex, levelEventEval.getAppNumber(),
 							levelEventEval.getEventList(),
@@ -71,13 +71,13 @@ public class ReevaluationTree {
 
 				case ADD:
 
-					int controlDartNodeIndex = getControlDartNodeID(controlDarts.get(branchIndex),
-							applicationResults.get(branchIndex), 0);
+					int controlDartNodeIndex = getControlDartNodeID(controlDart,
+							applicationResult, 0);
 					List<NodeEvent> newEventList = new ArrayList<>();
 					List<NodeOrbit> newOrbitList = new ArrayList<>();
 					computeNewLevel(getTreeLastLevel(branchIndex), newOrbitList, newEventList,
 							application, branchIndex, controlDartNodeIndex,
-							applicationResults.get(branchIndex));
+							applicationResult);
 					registerLevel(branchIndex, application.getApplicationID(), newEventList,
 							newOrbitList, applicationType);
 					break;
@@ -110,26 +110,23 @@ public class ReevaluationTree {
 			JerboaDart dart = applicationResult.get(colIndex, rowIndex);
 			topoParameters.add(dart);
 		} else {
-			for (int paramIndex = 0; paramIndex < topoParameters.size(); paramIndex++) {
 
-				int colIndex = rule.getRightIndexRuleNode(nodeName);
+			int colIndex = rule.getRightIndexRuleNode(nodeName);
 
-				int rowIndex = -1;
-				for (int i = 0; i < applicationResult.sizeCol(); i++) {
-					for (int j = 0; j < applicationResult.sizeRow(i); j++) {
-						if (applicationResult.get(i, j) == getTopoParameter(paramIndex)) {
-							rowIndex = j;
-						}
+			int rowIndex = -1;
+			for (int i = 0; i < applicationResult.sizeCol(); i++) {
+				for (int j = 0; j < applicationResult.sizeRow(i); j++) {
+					if (applicationResult.get(i, j) == getTopoParameter(branchIndex)) {
+						rowIndex = j;
 					}
 				}
-				if (rowIndex != -1) {
-					JerboaDart dart = applicationResult.get(colIndex, rowIndex);
-					topoParameters.set(paramIndex, dart);
-				}
+			}
+			if (rowIndex != -1) {
+				JerboaDart dart = applicationResult.get(colIndex, rowIndex);
+				topoParameters.set(branchIndex, dart);
 			}
 		}
 	}
-
 
 	private void matchLevel(LevelEvent levelEvent, Application application, String nodeName,
 			JerboaRuleOperation rule, boolean NOEFFECT) {
@@ -162,16 +159,11 @@ public class ReevaluationTree {
 		splitaddedLevelEvent.setNextLevelOrbit(splitaddedLevelOrbit);
 		splitaddedLevelOrbit.setDartID(newDart.getID());
 
-		// System.out.println("");
-		// System.out.println("\t\t\tAppNumber: " + splitaddedLevelEvent.getAppNumber());
-		// System.out.println("\t\t\tLevelEventMT: " + splitaddedLevelEvent.toString());
-		// System.out.println("\t\t\tLevelOrbitMT: " + splitaddedLevelOrbit.toString());
-		// System.out.println("\t\t\tTreeIndex: " + branchIndex);
-		// System.out.println("");
-
 		topoParameters.add(newDart);
 
 		addedBranches.add(splitaddedLevelEvent);
+
+		System.out.println("\tAddedBranch: " + splitaddedLevelEvent);
 	}
 
 	private int getControlDartNodeID(JerboaDart controlDart, JerboaRuleResult applicationResult,
@@ -217,6 +209,7 @@ public class ReevaluationTree {
 			tree.add(new ArrayList<LevelEventMT>(Arrays.asList(newLevelEvent)));
 		}
 
+
 		// System.out.println("REGISTER:"+"\t\t\t" + "nb branches -> " + tree.size());
 
 		// if (tree.isEmpty()) {
@@ -247,7 +240,6 @@ public class ReevaluationTree {
 	private void connectLevelToBranch(LevelEventMT parentLevelEvent,
 			LevelEventMT addedLevelEventMT) {
 
-
 		// For each parent node orbit
 		for (NodeOrbit parentNodeOrbit : parentLevelEvent.getNextLevelOrbit().getOrbitList()) {
 			Link newChild = null;
@@ -257,7 +249,7 @@ public class ReevaluationTree {
 				for (NodeEvent event : addedLevelEventMT.getEventList()) {
 					// create link with event of match node orbit and similar link type
 					if (child.getChild().getChild().getOrbit()
-							.equals(event.getChild().getOrbit())) {
+							 == event.getChild().getOrbit()) {
 						newChild = new Link(child.getType(), event);
 					}
 				}
@@ -289,35 +281,67 @@ public class ReevaluationTree {
 			List<NodeEvent> newEventList, Application application, int branchIndex, int nodeIndex,
 			JerboaRuleResult applicationResult) {
 
+		boolean ISAFFECTED = false;
+
+		// Afficher la branche courante
+		System.out.println("CurBranch: " + branchIndex);
+
+		// Afficher le paramètre topologique de la branche courante
+		System.out.println("CurTopoParameter: " + topoParameters.get(branchIndex));
+
+		// Est-ce le paramètre topologique est filtré par l'application courante ?
+		if (!isBranchMatched(topoParameters.get(branchIndex), applicationResult)
+				|| nodeIndex == -1) {
+			System.out.println("ADD: NOT affected by added operation");
+		} else {
+			ISAFFECTED = true;
+			System.out.println("ADD: is affected by added operation");
+		}
+
 		JerboaRuleGenerated rule = (JerboaRuleGenerated) application.getRule();
 
+		// Pour chaque événement du niveau courants
+		System.out.println("\t" + "Parent Event: ");
 		for (NodeEvent oldNodeEvent : oldLevelEvent.getEventList()) {
+			System.out.print("\t" + oldNodeEvent.getEvent());
 
+			// Default event type
+			Event newEvent = Event.NOEFFECT;
+
+			// Si la branch est affectée calculer les changements
 			JerboaOrbit orbitType = oldNodeEvent.getChild().getOrbit();
 			int splitLink = -1;
-
-			Event newEvent = Event.NOEFFECT;
-			if (nodeIndex != -1) {
+			if (ISAFFECTED) {
 				JerboaRuleNode ruleNode = application.getRule().getRightRuleNode(nodeIndex);
 				JerboaStaticDetection detector = new JerboaStaticDetection(rule);
 				newEvent = detector.getEventFromOrbit(ruleNode, orbitType);
 				splitLink = detector.getSplitLink();
 			}
 
+			System.out.println("\tComputed Event: " + newEvent);
 
+			// Construction des nœuds événement et orbite
 			NodeEvent newNodeEvent = new NodeEvent(newEvent);
-			newNodeEvent.setChild(new NodeOrbit(orbitType));
-			newNodeEvent.getChild().setChildren(oldNodeEvent.getChild().getChildren());
+			NodeOrbit newNodeOrbit = new NodeOrbit(orbitType);
+			// Enregistrement `newNodeOrbit` fils de `newNodeEvent`
+			newNodeEvent.setChild(newNodeOrbit);
+			// les enfants des orbites de l'ancien niveau deviennent enfant du
+			// nouveau niveau
+			newNodeOrbit.setChildren(oldNodeEvent.getChild().getChildren());
 
+			// Ajout des nœuds construits dans les listes adéquates
 			newOrbitList.add(newNodeEvent.getChild());
 			newEventList.add(newNodeEvent);
 
+			// Définir le nouvel événement comme enfant de l'orbite (lui-même
+			// fils de l'ancien événement)
 			oldNodeEvent.getChild()
 					.setChildren(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent)));
 
-
-			if (newEvent == Event.SPLIT) {
-				System.out.println("ReevalTree: Split -> " + application.getApplicationID() + " " + rule.getName() + " " + orbitType);
+			// S'il y a un nouvel événement SPLIT pour une branche affectée
+			// --> créer autant de nouvelles branches que nécessaires
+			// ----> Avec les paramètres topologiques adéquats
+			if (newEvent == Event.SPLIT && ISAFFECTED) {
 
 				JerboaDart dart = getTopoParameter(branchIndex);
 				List<List<JerboaDart>> splits = computeSplits(application.getRule(), orbitType,
@@ -329,16 +353,35 @@ public class ReevaluationTree {
 				if (splits.stream().anyMatch(s -> s.contains(dart))) {
 					for (int i = 0; i < splits.size(); i++) {
 						if (!splits.get(i).contains(dart)) {
-							JerboaDart splitDart = splits.get(i).stream().findFirst().get();
-							// dart = computeSplitaddedDart(dart, orbitType, splitLink, rule);
+							// JerboaDart splitDart = splits.get(i).stream().findFirst().get();
+							JerboaDart splitDart = computeSplitaddedDart(dart, orbitType,
+							splitLink, rule);
 							addBranch(newEventList, newOrbitList, application, branchIndex,
 									splitDart);
 						}
 					}
 				}
 			}
-
 		}
+		System.out.println("");
+
+
+
+		// if (newEvent == Event.SPLIT) {
+		// System.out.println("ReevalTree: Split -> " + application.getApplicationID() + " "
+		// + rule.getName() + " " + orbitType);
+
+		// }
+	}
+
+	private boolean isBranchMatched(JerboaDart jerboaDart, JerboaRuleResult applicationResult) {
+		for(int i = 0; i < applicationResult.sizeCol(); i++){
+			for(int j = 0; j <applicationResult.sizeRow(i); j++){
+				if(applicationResult.get(i, j) == jerboaDart)
+					return true;
+			}
+		}
+		return false;
 	}
 
 	private JerboaDart computeSplitaddedDart(JerboaDart dart, JerboaOrbit orbitType, int splitLink,

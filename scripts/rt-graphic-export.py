@@ -13,23 +13,29 @@ def usage(nbArgs):
         )
 
 
-def importHR(pathToHR):
-    return json.load(open(pathToHR, "r"))
+def importRT(pathToRT):
+    return json.load(open(pathToRT, "r"))
 
 
-def computeEvent(appNumber, event, eventsChild):
+def computeEvent(branchIndex, appNumber, event, eventsChild):
     """Create a name and id for an event node."""
-    return [str(appNumber) + event["event"] + str(eventsChild["dim"]), event["event"]]
+    return [
+        str(branchIndex) + str(appNumber) + event["event"] + str(eventsChild["dim"]),
+        event["event"],
+    ]
 
 
-def computeOrbit(appNumber, dartID, path, orbit):
+def computeOrbit(branchIndex, appNumber, dartID, path, orbit):
     """Create a name and id for an orbit node."""
     pathStr = "".join("@" + str(l) + "." for l in path)
     # pathStr = str(path)
     orbitStr = str(orbit["dim"]).replace("[", "⟨").replace("]", "⟩")
     if not path:
         pathStr = ""
-    return [str(appNumber) + str(dartID) + str(orbit["dim"]), pathStr + orbitStr]
+    return [
+        str(branchIndex) + str(appNumber) + str(dartID) + str(orbit["dim"]),
+        pathStr + orbitStr,
+    ]
 
 
 # def computeOrbit(appNumber, dartID, path, orbit):
@@ -40,16 +46,16 @@ def computeOrbit(appNumber, dartID, path, orbit):
 #     ]
 
 
-def createEventNode(graph, appNumber, event, child):
+def createEventNode(graph, branchIndex, appNumber, event, child):
     """Wrapping method for `graph.node()` to create an event node."""
-    gEventName, eventStr = computeEvent(appNumber, event, child)
+    gEventName, eventStr = computeEvent(branchIndex, appNumber, event, child)
     graph.node(gEventName, eventStr, style="rounded")
     return gEventName
 
 
-def createOrbitNode(graph, appNumber, dartID, path, keyValue):
+def createOrbitNode(graph, branchIndex, appNumber, dartID, path, keyValue):
     """Wrapping method for `graph.node()` to create an orbit node."""
-    gOrbitName, orbitStr = computeOrbit(appNumber, dartID, path, keyValue)
+    gOrbitName, orbitStr = computeOrbit(branchIndex, appNumber, dartID, path, keyValue)
     graph.node(gOrbitName, orbitStr)
     return gOrbitName
 
@@ -63,24 +69,25 @@ def drawEdge(graph, nameA, nameB, linkType):
     graph.edge(nameA, nameB, color=link)
 
 
-def drawLevel(level, graph):
-    currentLevel = level[0]
+def drawLevel(level, branchIndex, graph):
+    currentLevel = level
     appNumber = currentLevel["appNumber"]
     dartID = currentLevel["nextLevelOrbit"]["dartID"]
     # create a cluster for eventLevel
     with graph.subgraph(
-        name="cluster_" + str(appNumber), node_attr={"style": "rounded, filled"}
+        name="cluster_" + str(appNumber) + ":" + str(branchIndex),
+        node_attr={"style": "rounded, filled"},
     ) as eventCluster:
-
         eventCluster.attr(rank="same", style="rounded")
-        eventCluster.node(str(appNumber), color="lightgrey")
+        eventCluster.node(str(appNumber) + ":" + str(branchIndex), color="lightgrey")
 
         for event in currentLevel["eventList"]:
             gEventName = createEventNode(
-                graph, appNumber, event, event["child"]["orbit"]
+                graph, branchIndex, appNumber, event, event["child"]["orbit"]
             )
             gOrbitName = createOrbitNode(
                 graph,
+                branchIndex,
                 appNumber,
                 dartID,
                 event["child"]["alphaPath"],
@@ -93,21 +100,26 @@ def drawLevel(level, graph):
     with graph.subgraph(
         name="cluster_" + str(appNumber) + str(dartID),
     ) as orbitCluster:
-
         orbitCluster.attr(rank="same")
         orbitCluster.node(
             str(appNumber) + str(dartID), str(dartID), style="filled", color="lightblue"
         )
         for orbit in currentLevel["nextLevelOrbit"]["orbitList"]:
             gOrbitName = createOrbitNode(
-                graph, appNumber, dartID, orbit["alphaPath"], orbit["orbit"]
+                graph,
+                branchIndex,
+                appNumber,
+                dartID,
+                orbit["alphaPath"],
+                orbit["orbit"],
             )
             orbitCluster.node(gOrbitName)
             for event in orbit["children"]:
                 gEventName = createEventNode(
                     graph,
-                    # if we have an actual list of levelEventHRs then how to decide which appNumber should pass ?
-                    # next line provides a list of appNumber collected from next LevelEventHRs which gives its first
+                    branchIndex,
+                    # if we have an actual list of levelEventRTs then how to decide which appNumber should pass ?
+                    # next line provides a list of appNumber collected from next LevelEventRTs which gives its first
                     # index
                     [
                         levelEvent["appNumber"]
@@ -122,20 +134,22 @@ def drawLevel(level, graph):
                 drawEdge(graph, gOrbitName, gEventName, event["type"])
 
 
-def drawGraph(HR, exportPath):
-    g = graphviz.Digraph("MatchingTRee", node_attr={"shape": "record"})
-    # for level in reversed(HR.items()):
-    #     drawLevel(level, g)
-    for level in HR:
-        drawLevel(level, g)
+def drawGraph(RT, exportPath):
+    g = graphviz.Digraph("ReevaluationTree", node_attr={"shape": "record"})
+    branchIndex = 0
+    for branch in RT:
+        branchIndex += 1
+        for level in branch:
+            # print(level)
+            drawLevel(level, branchIndex, g)
     g.render(exportPath)
 
 
 if __name__ == "__main__":
     usage(sys.argv)
-    pathToHR = sys.argv[1]
-    HR = importHR(pathToHR)
+    pathToRT = sys.argv[1]
+    RT = importRT(pathToRT)
     exportPath = (
-        "../exports/" + os.path.splitext(pathToHR)[0].split("/")[-1] + "-export"
+        "../exports/" + os.path.splitext(pathToRT)[0].split("/")[-1] + "-export"
     )
-    drawGraph(HR, exportPath)
+    drawGraph(RT, exportPath)

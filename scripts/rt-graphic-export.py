@@ -20,7 +20,11 @@ def importRT(pathToRT):
 def computeEvent(branchIndex, appNumber, event, eventsChild):
     """Create a name and id for an event node."""
     return [
-        str(branchIndex) + str(appNumber) + event["event"] + str(eventsChild["dim"]),
+        str(appNumber)
+        + "|"
+        + str(branchIndex)
+        + event["event"]
+        + str(eventsChild["dim"]),
         event["event"],
     ]
 
@@ -33,7 +37,7 @@ def computeOrbit(branchIndex, appNumber, dartID, path, orbit):
     if not path:
         pathStr = ""
     return [
-        str(branchIndex) + str(appNumber) + str(dartID) + str(orbit["dim"]),
+        str(appNumber) + "|" + str(branchIndex) + str(dartID) + str(orbit["dim"]),
         pathStr + orbitStr,
     ]
 
@@ -69,11 +73,7 @@ def drawEdge(graph, nameA, nameB, linkType):
     graph.edge(nameA, nameB, color=link)
 
 
-def drawLevel(level, branchIndex, graph):
-    currentLevel = level
-    appNumber = currentLevel["appNumber"]
-    dartID = currentLevel["nextLevelOrbit"]["dartID"]
-    # create a cluster for eventLevel
+def drawEventLevel(graph, branchIndex, currentLevel, appNumber, dartID):
     with graph.subgraph(
         name="cluster_" + str(appNumber) + ":" + str(branchIndex),
         node_attr={"style": "rounded, filled"},
@@ -96,7 +96,8 @@ def drawLevel(level, branchIndex, graph):
             eventCluster.node(gEventName)
             drawEdge(graph, gEventName, gOrbitName, event["event"])
 
-    # create a cluster for orbitLevel
+
+def drawOrbitLevel(graph, branchIndex, currentLevel, appNumber, dartID):
     with graph.subgraph(
         name="cluster_" + str(appNumber) + str(dartID),
     ) as orbitCluster:
@@ -104,6 +105,7 @@ def drawLevel(level, branchIndex, graph):
         orbitCluster.node(
             str(appNumber) + str(dartID), str(dartID), style="filled", color="lightblue"
         )
+
         for orbit in currentLevel["nextLevelOrbit"]["orbitList"]:
             gOrbitName = createOrbitNode(
                 graph,
@@ -114,13 +116,14 @@ def drawLevel(level, branchIndex, graph):
                 orbit["orbit"],
             )
             orbitCluster.node(gOrbitName)
+
             for event in orbit["children"]:
                 gEventName = createEventNode(
                     graph,
                     branchIndex,
-                    # if we have an actual list of levelEventRTs then how to decide which appNumber should pass ?
-                    # next line provides a list of appNumber collected from next LevelEventRTs which gives its first
-                    # index
+                    ## if we have an actual list of levelEventRTs then how to decide which appNumber should pass ?
+                    ## next line provides a list of appNumber collected from next LevelEventRTs which gives its first
+                    ## index --> all these lists must share the same appNumber
                     [
                         levelEvent["appNumber"]
                         for levelEvent in currentLevel["nextLevelOrbit"][
@@ -131,7 +134,19 @@ def drawLevel(level, branchIndex, graph):
                     event["child"],
                     event["child"]["child"]["orbit"],
                 )
+                print(gEventName)
                 drawEdge(graph, gOrbitName, gEventName, event["type"])
+
+
+def drawLevel(level, branchIndex, graph):
+    currentLevel = level
+    appNumber = currentLevel["appNumber"]
+    dartID = currentLevel["nextLevelOrbit"]["dartID"]
+    # create a cluster for eventLevel
+    drawEventLevel(graph, branchIndex, currentLevel, appNumber, dartID)
+
+    # create a cluster for orbitLevel
+    drawOrbitLevel(graph, branchIndex, currentLevel, appNumber, dartID)
 
 
 def drawGraph(RT, exportPath):

@@ -1,5 +1,6 @@
 package fr.ensma.lias.jerboa.datastructures;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,13 +13,6 @@ public class LevelOrbitMT extends LevelOrbit {
   // private List<NodeOrbit> orbitList;
   private List<LevelEventMT> nextLevelEvents;
 
-  public LevelOrbitMT(int dartID, List<NodeOrbit> orbitList,
-      List<LevelEventMT> nextLevelEventList) {
-    this.dartID = dartID;
-    this.orbitList = orbitList;
-    this.nextLevelEvents = nextLevelEventList;
-  }
-
   /*
    * Constructor
    *
@@ -29,7 +23,16 @@ public class LevelOrbitMT extends LevelOrbit {
   public LevelOrbitMT(int dartID, List<NodeOrbit> orbitList) {
     this.dartID = dartID;
     this.orbitList = orbitList;
+    this.nextLevelEvents = new ArrayList<>();
   }
+
+  public LevelOrbitMT(int dartID, List<NodeOrbit> orbitList,
+      List<LevelEventMT> nextLevelEventList) {
+    this.dartID = dartID;
+    this.orbitList = orbitList;
+    this.nextLevelEvents = nextLevelEventList;
+  }
+
 
   public LevelOrbitMT() {}
 

@@ -9,7 +9,6 @@ import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 import up.jerboa.core.rule.JerboaRuleNode;
-import up.jerboa.core.util.Pair;
 
 /**
  * NodeOrbitHR
@@ -19,11 +18,13 @@ public class NodeOrbit {
 	private JerboaOrbit orbit;
 	private List<Integer> alphaPath;
 	private List<Link> children;
+	private int branchIndex;
 
 	public NodeOrbit(JerboaOrbit orbit) {
 		this.orbit = orbit;
 		alphaPath = new ArrayList<>();
 		children = new LinkedList<Link>();
+		this.branchIndex=0;
 	}
 
 	public NodeOrbit(JerboaOrbit orbit, List<Integer> alphaPath) {
@@ -42,6 +43,14 @@ public class NodeOrbit {
 
 	public List<Integer> getAlphaPath() {
 		return alphaPath;
+	}
+
+	public void setBranchIndex(int branchIndex){
+		this.branchIndex = branchIndex;
+	}
+
+	public int getBranchIndex() {
+		return branchIndex;
 	}
 
 	public void setChildren(List<Link> children) {

@@ -5,8 +5,8 @@ package fr.ensma.lias.jerboa.datastructures;
  */
 public class Link {
 
-	LinkType type;
-	NodeEvent child;
+	private LinkType type;
+	private NodeEvent child;
 
 	public Link(LinkType type, NodeEvent child) {
 		this.type = type;

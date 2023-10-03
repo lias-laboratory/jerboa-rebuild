@@ -7,14 +7,24 @@ public class NodeEvent {
 
 	private Event event;
 	private NodeOrbit child;
+	private int branchIndex;
 
 	public NodeEvent(Event event) {
 		this.event = event;
+		this.branchIndex=0;
 	}
 
 	public NodeEvent(Event event, NodeOrbit child) {
 		this.event = event;
 		this.child = child;
+	}
+
+	public int getBranchIndex(){
+		return this.branchIndex;
+	}
+
+	public void setBranchIndex(int branchIndex) {
+		this.branchIndex = branchIndex;
 	}
 
 	public Event getEvent() {

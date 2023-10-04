@@ -1,7 +1,9 @@
 package fr.ensma.lias.jerboa.core.tracking;
 
+import fr.ensma.lias.jerboa.core.utils.rule.ToolKit;
 import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import up.jerboa.core.JerboaOrbit;
@@ -46,6 +48,77 @@ public class JerboaStaticDetection {
       return Event.MODIFICATION;
     }
     return Event.NOEFFECT;
+  }
+
+  /**
+   * Compute origin (orbit type) for a traced node and an orbit type in current rule. Assuming that
+   * all hooks holds the same orbit label.
+   *
+   * @param nodeOrbitList A list of {@link JerboaRuleNode} (traced orbit) from which to compute
+   *     origin
+   * @param orbitType A (traced) {@link JerboaOrbit} type
+   * @return An (origin) {@link JerboaOrbit} type
+   */
+  public JerboaOrbit computeOrigin(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+
+    List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+
+    if (rule.getLeft().isEmpty()) {
+      return JerboaOrbit.orbit();
+    }
+
+    JerboaRuleNode hookNode;
+
+    if (rule.getHooks().size() == 1) {
+      hookNode = rule.getHooks().get(0);
+    } else {
+      int nodeOfInterest = ToolKit.findClosestPreservedNode(rule, ruleNode);
+      if (nodeOfInterest != -1) {
+        int leftNodeOfInterest = rule.reverseAssoc(nodeOfInterest);
+
+        JerboaRuleNode lNode = rule.getLeftRuleNode(leftNodeOfInterest);
+        hookNode = ToolKit.findClosestHook(rule, lNode, rule.getHooks());
+      }
+      hookNode = rule.getHooks().get(0);
+    }
+
+    // List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(hookNode, orbitType);
+    HashSet<Integer> aLinkSet = new HashSet<>();
+    // collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
+    // NOTE: this method's call is for collecting aLinks only in `hook` node
+    collectRewrittenImplicitALinks(aLinkSet, hookNode, nodeOrbit, orbitType);
+    // TODO: consider these methods in non-creation events only
+    // collectUnfilteredALinks(aLinkSet, ruleNodesOrbit, orbitType);
+    // collectPreservedExplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
+    return JerboaOrbit.orbit(aLinkSet);
+  }
+
+  private void collectRewrittenImplicitALinks(
+      HashSet<Integer> aLinkSet,
+      JerboaRuleNode hookNode,
+      List<JerboaRuleNode> rightRuleNodesOrbit,
+      JerboaOrbit orbitType) {
+
+    for (JerboaRuleNode rightRuleNode : rightRuleNodesOrbit) {
+
+      // int controlRuleNodeIndex = attachedNode(rightRuleNode.getID());
+      // JerboaRuleNode controlRuleNode = getLeftRuleNode(controlRuleNodeIndex);
+      // if (!isNodeCreated(rightRuleNode)) {
+      // var leftNodeIndex = reverseAssoc(rightRuleNode.getID());
+      // controlRuleNode = getLeftRuleNode(leftNodeIndex);
+
+      // }
+      JerboaOrbit leftOrbit = hookNode.getOrbit();
+      JerboaOrbit rightOrbit = rightRuleNode.getOrbit();
+
+      for (int aLinkIndex = 0; aLinkIndex < leftOrbit.size(); aLinkIndex++) {
+        int leftALink = leftOrbit.get(aLinkIndex);
+        int rightALink = rightOrbit.get(aLinkIndex);
+        if (orbitType.contains(rightALink)) {
+          aLinkSet.add(leftALink);
+        }
+      }
+    }
   }
 
   /**

@@ -17,122 +17,121 @@ import up.jerboa.exception.JerboaException;
 
 public class PIExpression implements JerboaRuleExpression {
 
-    private int embeddingID;
-    private String embeddingName;
+  private int embeddingID;
+  private String embeddingName;
 
-    public PIExpression(JerboaEmbeddingInfo ebdPI) {
-        embeddingID = ebdPI.getID();
-        embeddingName = ebdPI.getName();
-    }
+  public PIExpression(JerboaEmbeddingInfo ebdPI) {
+    embeddingID = ebdPI.getID();
+    embeddingName = ebdPI.getName();
+  }
 
-    @Override
-    public Object compute(JerboaGMap gmap, JerboaRuleOperation rule, JerboaRowPattern rowPattern,
-            JerboaRuleNode node) throws JerboaException {
+  @Override
+  public Object compute(
+      JerboaGMap gmap, JerboaRuleOperation rule, JerboaRowPattern rowPattern, JerboaRuleNode node)
+      throws JerboaException {
 
-        PersistentID PI = new PersistentID();
-        JerboaRebuiltRule rebuiltRule = (JerboaRebuiltRule) rule;
+    PersistentID PI = new PersistentID();
+    JerboaRebuiltRule rebuiltRule = (JerboaRebuiltRule) rule;
 
-        if (rowPattern != null) {
-            /* find node in leftGraph */
-            int nodeReverseID = rebuiltRule.reverseAssoc(node.getID());
-            JerboaDart dart = null;
+    if (rowPattern != null) {
+      /* find node in leftGraph */
+      int nodeReverseID = rebuiltRule.reverseAssoc(node.getID());
+      JerboaDart dart = null;
 
-            /*
-             * if node is created then find a node in left to compute PI else use pi from same node
-             */
-            if (nodeReverseID == -1) {
-                /* ref is a hook IF hook still exists */
-                int ref = rebuiltRule.findClosestPreservedNode(node);
-                /* if ref is not null then an oldPI is expected */
-                if (ref == -1) {
-                    if (!rule.getHooks().isEmpty()) {
-                        // HACK: that's an ugly way to arbitrary get a preserved
-                        // hooks' persistent name. Main use case : duplicating a
-                        // connected component.
-                        dart = rowPattern.get(rule.getHooks().get(0).getID());
-                        PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));
-                    } else {
-                        PI = new PersistentID();
-                    }
-                } else {
-                    dart = rowPattern.get(rule.getLeftRuleNode(ref).getID());
-                    PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));
-                }
-            } else {
-                PI = new PersistentID(rowPattern.get(nodeReverseID).<PersistentID>ebd(embeddingID));
-            }
-
+      /*
+       * if node is created then find a node in left to compute PI else use pi from same node
+       */
+      if (nodeReverseID == -1) {
+        /* ref is a hook IF hook still exists */
+        int ref = rebuiltRule.findClosestPreservedNode(node);
+        /* if ref is not null then an oldPI is expected */
+        if (ref == -1) {
+          if (!rule.getHooks().isEmpty()) {
+            // HACK: that's an ugly way to arbitrary get a preserved
+            // hooks' persistent name. Main use case : duplicating a
+            // connected component.
+            dart = rowPattern.get(rule.getHooks().get(0).getID());
+            PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));
+          } else {
+            PI = new PersistentID();
+          }
+        } else {
+          dart = rowPattern.get(rule.getLeftRuleNode(ref).getID());
+          PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));
         }
-
-        PI.add(new PersistentIdElement(rebuiltRule.getAppID(), node.getName()));
-        return PI;
-
+      } else {
+        PI = new PersistentID(rowPattern.get(nodeReverseID).<PersistentID>ebd(embeddingID));
+      }
     }
 
-    @Override
-    public int getEmbedding() {
-        return embeddingID;
-    }
+    PI.add(new PersistentIdElement(rebuiltRule.getAppID(), node.getName()));
+    return PI;
+  }
 
-    @Override
-    public String getName() {
-        return embeddingName;
-    }
+  @Override
+  public int getEmbedding() {
+    return embeddingID;
+  }
 
-    /*
-     * Breadth first search, find a closest target neighbor
-     *
-     * @param rule JerboaOperationRule -> current rule
-     *
-     * @param node added (in Right) node to which we research the reference node's PI
-     *
-     * @return (Left) ID of closest preserved neighbor node or attached hook else -1 (pure creation
-     * rule)
-     */
-    // public int findClosestPreservedNode(JerboaRebuiltRule rule, JerboaRuleNode node) {
-    // int dimension = rule.getOwner().getDimension();
-    // LinkedList<JerboaRuleNode> queue = new LinkedList<>();
-    // queue.push(node);
+  @Override
+  public String getName() {
+    return embeddingName;
+  }
 
-    // while (!queue.isEmpty()) {
-    // JerboaRuleNode v = queue.pollFirst();
+  /*
+   * Breadth first search, find a closest target neighbor
+   *
+   * @param rule JerboaOperationRule -> current rule
+   *
+   * @param node added (in Right) node to which we research the reference node's PI
+   *
+   * @return (Left) ID of closest preserved neighbor node or attached hook else -1 (pure creation
+   * rule)
+   */
+  // public int findClosestPreservedNode(JerboaRebuiltRule rule, JerboaRuleNode node) {
+  // int dimension = rule.getOwner().getDimension();
+  // LinkedList<JerboaRuleNode> queue = new LinkedList<>();
+  // queue.push(node);
 
-    // if (rule.reverseAssoc(v.getID()) != -1) {
-    // return rule.reverseAssoc(v.getID());
-    // }
+  // while (!queue.isEmpty()) {
+  // JerboaRuleNode v = queue.pollFirst();
 
-    // for (int index = 0; index <= dimension; index++) {
+  // if (rule.reverseAssoc(v.getID()) != -1) {
+  // return rule.reverseAssoc(v.getID());
+  // }
 
-    // if (v.alpha(index) != null) {
-    // JerboaRuleNode w = v.alpha(index);
-    // if (w.isNotMarked()) {
-    // w.setMark(true);
-    // queue.push(w);
-    // }
-    // }
-    // }
-    // }
+  // for (int index = 0; index <= dimension; index++) {
 
-    // for (JerboaRuleNode n : rule.getRight()) {
-    // if (!n.isNotMarked())
-    // n.setMark(false);;
-    // }
-    // return rule.attachedNode(node.getID());
-    // }
+  // if (v.alpha(index) != null) {
+  // JerboaRuleNode w = v.alpha(index);
+  // if (w.isNotMarked()) {
+  // w.setMark(true);
+  // queue.push(w);
+  // }
+  // }
+  // }
+  // }
 
-    /*
-     * Replace nodes from rule's Right member with those from Left member if they do exist
-     *
-     * @param nodes from Right to replace with nodes from Left
-     *
-     * @param rule current given rule
-     *
-     * @return nodes from Left member of a given rule
-     */
-    // private void makeRightNodesLeftNodes(List<JerboaRuleNode> nodes, JerboaRebuiltRule rule) {
-    // nodes.stream().filter(node -> rule.reverseAssoc(node.getID()) != -1)
-    // .map((node) -> rule.getLeftRuleNode(rule.reverseAssoc(node.getID())))
-    // .collect(Collectors.toList());
-    // }
+  // for (JerboaRuleNode n : rule.getRight()) {
+  // if (!n.isNotMarked())
+  // n.setMark(false);;
+  // }
+  // return rule.attachedNode(node.getID());
+  // }
+
+  /*
+   * Replace nodes from rule's Right member with those from Left member if they do exist
+   *
+   * @param nodes from Right to replace with nodes from Left
+   *
+   * @param rule current given rule
+   *
+   * @return nodes from Left member of a given rule
+   */
+  // private void makeRightNodesLeftNodes(List<JerboaRuleNode> nodes, JerboaRebuiltRule rule) {
+  // nodes.stream().filter(node -> rule.reverseAssoc(node.getID()) != -1)
+  // .map((node) -> rule.getLeftRuleNode(rule.reverseAssoc(node.getID())))
+  // .collect(Collectors.toList());
+  // }
 
 }

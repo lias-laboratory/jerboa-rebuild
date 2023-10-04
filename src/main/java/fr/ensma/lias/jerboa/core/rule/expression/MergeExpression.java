@@ -11,39 +11,36 @@ import up.jerboa.exception.JerboaException;
 
 public class MergeExpression implements JerboaRuleExpression {
 
-    private JerboaEmbeddingInfo info;
+  private JerboaEmbeddingInfo info;
 
-    public MergeExpression(JerboaEmbeddingInfo info) {
-        this.info = info;
-    }
+  public MergeExpression(JerboaEmbeddingInfo info) {
+    this.info = info;
+  }
 
+  /** Deprecated */
+  @Override
+  public Object compute(
+      JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2, JerboaRuleNode arg3)
+      throws JerboaException {
+    OrbitLabel label = new OrbitLabel();
+    OrbitLabel oldLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
 
-    /**
-     * Deprecated
-     */
+    System.out.println(
+        getOrbitType() + " merge label from " + oldLabel.toString() + " to " + label.toString());
+    return label;
+  }
 
-    @Override
-    public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
-            JerboaRuleNode arg3) throws JerboaException {
-        OrbitLabel label = new OrbitLabel();
-        OrbitLabel oldLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
+  @Override
+  public int getEmbedding() {
+    return info.getID();
+  }
 
-        System.out.println(getOrbitType() + " merge label from " + oldLabel.toString() + " to "
-                + label.toString());
-        return label;
-    }
+  @Override
+  public String getName() {
+    return info.getName();
+  }
 
-    @Override
-    public int getEmbedding() {
-        return info.getID();
-    }
-
-    @Override
-    public String getName() {
-        return info.getName();
-    }
-
-    private String getOrbitType() {
-        return info.getName().substring(0, info.getName().length() - 7);
-    }
+  private String getOrbitType() {
+    return info.getName().substring(0, info.getName().length() - 7);
+  }
 }

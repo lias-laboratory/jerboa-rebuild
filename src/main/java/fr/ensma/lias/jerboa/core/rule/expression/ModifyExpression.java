@@ -11,35 +11,36 @@ import up.jerboa.exception.JerboaException;
 
 public class ModifyExpression implements JerboaRuleExpression {
 
-    private JerboaEmbeddingInfo info;
+  private JerboaEmbeddingInfo info;
 
-    public ModifyExpression(JerboaEmbeddingInfo info) {
-        this.info = info;
-    }
+  public ModifyExpression(JerboaEmbeddingInfo info) {
+    this.info = info;
+  }
 
-    @Override
-    public Object compute(JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2,
-            JerboaRuleNode arg3) throws JerboaException {
+  @Override
+  public Object compute(
+      JerboaGMap arg0, JerboaRuleOperation arg1, JerboaRowPattern arg2, JerboaRuleNode arg3)
+      throws JerboaException {
 
-        OrbitLabel label = new OrbitLabel();
-        OrbitLabel oldLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
+    OrbitLabel label = new OrbitLabel();
+    OrbitLabel oldLabel = arg2.get(arg3.getID()).<OrbitLabel>ebd(getEmbedding());
 
-        System.out.println(
-                getOrbitType() + " modify label from " + oldLabel + " to " + label.toString());
-        return label;
-    }
+    System.out.println(
+        getOrbitType() + " modify label from " + oldLabel + " to " + label.toString());
+    return label;
+  }
 
-    @Override
-    public int getEmbedding() {
-        return info.getID();
-    }
+  @Override
+  public int getEmbedding() {
+    return info.getID();
+  }
 
-    @Override
-    public String getName() {
-        return info.getName();
-    }
+  @Override
+  public String getName() {
+    return info.getName();
+  }
 
-    private String getOrbitType() {
-        return info.getName().substring(0, info.getName().length() - 7);
-    }
+  private String getOrbitType() {
+    return info.getName().substring(0, info.getName().length() - 7);
+  }
 }

@@ -93,7 +93,15 @@ public class ReevaluationTree2 {
           boolean NOEFFECT = isApplicationNOEFFECT(nodeName, branchIndex, applicationResult);
           matchDartParameters(
               branchIndex, levelEventEvaluation, nodeName, applicationResult, rule, NOEFFECT);
-          matchLevel(branchIndex, levelEventEvaluation, application, nodeName, rule, NOEFFECT);
+          matchLevel(
+              branchIndex,
+              levelEventEvaluation,
+              newEventList,
+              newOrbitList,
+              application,
+              nodeName,
+              rule,
+              NOEFFECT);
           registerLevel(
               branchIndex,
               levelEventEvaluation.getAppNumber(),
@@ -104,7 +112,7 @@ public class ReevaluationTree2 {
         case ADD:
           int controlDartNodeIndex =
               getControlDartNodeID(controlDart, applicationResult, branchIndex);
-          // List<NodeEvent> newEventList = new ArrayList<>();
+          // List<EventNode> newEventList = new ArrayList<>();
           // List<NodeOrbit> newOrbitList = new ArrayList<>();
           computeAddedLevel(
               getBranchLastLevel(branchIndex),
@@ -155,10 +163,10 @@ public class ReevaluationTree2 {
     List<Integer> splitLinks = new ArrayList<>();
 
     // For each event in branch last registered level
-    for (NodeEvent oldNodeEvent : branchLastLevel.getEventList()) {
+    for (NodeEvent oldEventNode : branchLastLevel.getEventList()) {
 
       // Get node orbit child from old node event
-      NodeOrbit oldNodeOrbit = oldNodeEvent.getChild();
+      NodeOrbit oldNodeOrbit = oldEventNode.getChild();
 
       // Create new Event with value NOEFFECT by default
       Event newEvent = Event.NOEFFECT;
@@ -177,41 +185,41 @@ public class ReevaluationTree2 {
       }
 
       // Create new node events and node orbits
-      NodeEvent newNodeEvent = new NodeEvent(newEvent);
+      NodeEvent newEventNode = new NodeEvent(newEvent);
       NodeOrbit newNodeOrbit = new NodeOrbit(orbitType);
       // Take care of setting their branch index
-      newNodeEvent.setBranchIndex(branchIndex);
+      newEventNode.setBranchIndex(branchIndex);
       newNodeOrbit.setBranchIndex(branchIndex);
 
-      // Make newNodeOrbit as child of newNodeEvent
-      newNodeEvent.setChild(newNodeOrbit);
+      // Make newNodeOrbit as child of newEventNode
+      newEventNode.setChild(newNodeOrbit);
 
       List<Link> newNodeOrbitChildren = new ArrayList<>();
 
       // Recompute children of last registered level as children of currently computed level.
       // This is an attempt to avoid manipulating several times the same nodes.
       // for (Link link : oldNodeOrbit.getChildren()) {
-      // NodeEvent redirectedEvent =
-      // new NodeEvent(link.getChild().getEvent(), link.getChild().getChild());
+      // EventNode redirectedEvent =
+      // new EventNode(link.getChild().getEvent(), link.getChild().getChild());
       // newNodeOrbitChildren.add(new Link(link.getType(), redirectedEvent));
       // }
 
       newNodeOrbit.setChildren(oldNodeOrbit.getChildren());
       newNodeOrbit.setChildren(newNodeOrbitChildren);
 
-      newEventList.add(newNodeEvent);
+      newEventList.add(newEventNode);
       newOrbitList.add(newNodeOrbit);
 
       oldNodeOrbit.setChildren(
-          new ArrayList<Link>(Arrays.asList(new Link(LinkType.TRACE, newNodeEvent))));
+          new ArrayList<Link>(Arrays.asList(new Link(LinkType.TRACE, newEventNode))));
     }
 
     for (int index = 0; index < newEventList.size(); index++) {
-      NodeEvent addedNodeEvent = newEventList.get(index);
-      if (addedNodeEvent.getEvent() == Event.SPLIT && controlDartNodeIndex != -1) {
+      NodeEvent addedEventNode = newEventList.get(index);
+      if (addedEventNode.getEvent() == Event.SPLIT && controlDartNodeIndex != -1) {
         int splitLink = splitLinks.get(index);
 
-        JerboaOrbit orbitType = addedNodeEvent.getChild().getOrbit();
+        JerboaOrbit orbitType = addedEventNode.getChild().getOrbit();
         JerboaDart dart = getTopologicalParameter(branchIndex);
         List<List<JerboaDart>> splits =
             computeSplits(
@@ -330,6 +338,8 @@ public class ReevaluationTree2 {
   private void matchLevel(
       int branchIndex,
       LevelEventHR levelEventEvaluation,
+      List<NodeEvent> newEventList,
+      List<NodeOrbit> newOrbitList,
       Application application,
       String nodeName,
       JerboaRuleOperation rule,
@@ -343,14 +353,41 @@ public class ReevaluationTree2 {
 
     for (NodeEvent nodeEvent : levelEventEvaluation.getEventList()) {
 
-      JerboaOrbit orbitType = nodeEvent.getChild().getOrbit();
+      NodeEvent newEventNode = new NodeEvent(nodeEvent.getEvent());
+      NodeOrbit newOrbitNode = new NodeOrbit(nodeEvent.getChild().getOrbit());
 
-      JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRuleGenerated) rule);
+      newEventNode.setChild(newOrbitNode);
 
-      nodeEvent.setEvent(detector.getEventFromOrbit(levelRuleNode, orbitType));
-      nodeEvent.setBranchIndex(branchIndex);
-      nodeEvent.getChild().setBranchIndex(branchIndex);
+      if (!tree.isEmpty()) {
+        JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRuleGenerated) rule);
+
+        LevelEventMT parentEventList = getBranchLastLevel(branchIndex);
+
+        for (NodeOrbit parentNodeOrbit : parentEventList.getNextLevelOrbit().getOrbitList()) {
+          if (newEventNode.getEvent() == Event.CREATION || newEventNode.getEvent() == Event.SPLIT) {
+            if (parentNodeOrbit.getOrbit()
+                == detector.computeOrigin(
+                    rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName)),
+                    newOrbitNode.getOrbit())) {
+              parentNodeOrbit.addChild(new Link(LinkType.ORIGIN, newEventNode));
+            }
+          }
+          if (newEventNode.getEvent() == Event.SPLIT) {
+            if (parentNodeOrbit.getOrbit() == newOrbitNode.getOrbit()) {
+              parentNodeOrbit.addChild(new Link(LinkType.TRACE, newEventNode));
+            }
+          }
+        }
+      }
+
+      newEventList.add(newEventNode);
+      newOrbitList.add(newOrbitNode);
     }
+    // JerboaOrbit orbitType = nodeEvent.getChild().getOrbit();
+
+    // nodeEvent.setEvent(detector.getEventFromOrbit(levelRuleNode, orbitType));
+    // nodeEvent.setBranchIndex(branchIndex);
+    // nodeEvent.getChild().setBranchIndex(branchIndex);
   }
 
   //// Helpers////////////////////////////////////////////////////////////////

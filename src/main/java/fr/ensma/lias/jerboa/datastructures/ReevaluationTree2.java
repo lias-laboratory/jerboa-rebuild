@@ -5,7 +5,9 @@ import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -50,8 +52,9 @@ public class ReevaluationTree2 {
 
   public LevelEventMT getBranchLastLevel(int branchIndex) {
     List<LevelEventMT> branch = getBranch(branchIndex);
-    if (branch.isEmpty()) return null;
-    else {
+    if (branch.isEmpty()) {
+      return null;
+    } else {
       return branch.get(branch.size() - 1);
     }
   }
@@ -182,11 +185,16 @@ public class ReevaluationTree2 {
         newEvent = detector.getEventFromOrbit(ruleNode, orbitType);
         // ~> register splitLink
         splitLinks.add(detector.getSplitLink());
+      } else {
+        // Probably useless because splitLinks should not be consulted when
+        // ISAFFECT is `True` but add it just in case so that there is as much events as splitLinks
+        splitLinks.add(-1);
       }
 
       // Create new node events and node orbits
       NodeEvent newEventNode = new NodeEvent(newEvent);
-      NodeOrbit newNodeOrbit = new NodeOrbit(orbitType);
+      NodeOrbit newNodeOrbit =
+          new NodeOrbit(orbitType, new ArrayList<>(oldNodeOrbit.getAlphaPath()));
       // Take care of setting their branch index
       newEventNode.setBranchIndex(branchIndex);
       newNodeOrbit.setBranchIndex(branchIndex);
@@ -206,7 +214,6 @@ public class ReevaluationTree2 {
 
       newNodeOrbit.setChildren(oldNodeOrbit.getChildren());
       newNodeOrbit.setChildren(newNodeOrbitChildren);
-
       newEventList.add(newEventNode);
       newOrbitList.add(newNodeOrbit);
 
@@ -214,26 +221,82 @@ public class ReevaluationTree2 {
           new ArrayList<Link>(Arrays.asList(new Link(LinkType.TRACE, newEventNode))));
     }
 
+    // For each index until size of newEventList
     for (int index = 0; index < newEventList.size(); index++) {
+      // get index-th added event node
       NodeEvent addedEventNode = newEventList.get(index);
+      // if event is both split AND branch is affected
       if (addedEventNode.getEvent() == Event.SPLIT && controlDartNodeIndex != -1) {
-        int splitLink = splitLinks.get(index);
 
+        // get link being splitted in rule
+        int splitLink = splitLinks.get(index);
         JerboaOrbit orbitType = addedEventNode.getChild().getOrbit();
-        JerboaDart dart = getTopologicalParameter(branchIndex);
+        final JerboaDart topoParam = getTopologicalParameter(branchIndex);
+
+        // compute split orbits from application result
         List<List<JerboaDart>> splits =
             computeSplits(
-                application.getRule(), orbitType, controlDartNodeIndex, applicationResult);
+                branchIndex,
+                application.getRule(),
+                orbitType,
+                controlDartNodeIndex,
+                applicationResult);
 
-        if (splits.stream().anyMatch(s -> s.contains(dart))) {
-          for (int i = 0; i < splits.size(); i++) {
-            if (!splits.get(i).contains(dart)) {
-              // JerboaDart splitDart = splits.get(i).stream().findFirst().get();
-              JerboaDart splitDart = computeSplitaddedDart(dart, orbitType, splitLink, addedRule);
-              addBranch(newEventList, newOrbitList, application, branchIndex, splitDart);
+        splits.forEach(l -> System.out.println(l));
+
+        List<JerboaDart> splitDarts = new ArrayList<>();
+        List<JerboaDart> visits = new ArrayList<>();
+
+        JerboaOrbit hookOrbitType = application.getRule().getHooks().get(0).getOrbit();
+
+        Set<Integer> customOrbitTypeSet = new HashSet<>();
+
+        /***********************************************************************/
+        // This bit of code computes the largest common sub-orbit between an DAG
+        // orbit node's type and a rule hook node's type. This HACK limits the
+        // possible branches
+        /***********************************************************************/
+        for (var hookLink : hookOrbitType) {
+          for (var nodeLink : orbitType) {
+            if (hookLink == nodeLink) {
+              customOrbitTypeSet.add(hookLink);
             }
           }
         }
+
+        JerboaOrbit customOrbitType = new JerboaOrbit(customOrbitTypeSet);
+        /***********************************************************************/
+
+        JerboaDart dart = computeSplitAddedDart(topoParam, customOrbitType, splitLink, addedRule);
+        while (!visits.contains(dart)) {
+          visits.add(dart);
+          dart = computeSplitAddedDart(dart, customOrbitType, splitLink, addedRule);
+        }
+
+        for (int i = 0; i < visits.size(); i++) {
+          for (var split : splits) {
+            System.out.println(split);
+            System.out.println(visits.get(i));
+            if (split.contains(visits.get(i))) {
+              addBranch(newEventList, newOrbitList, application, branchIndex, split.get(0));
+            }
+          }
+        }
+
+        // for (int i = 0; i < splits.size(); i++) {
+        // final int j = i;
+        // dart = computeSplitAddedDart(dart, orbitType, splitLink, addedRule);
+        // // dart =
+        // // computeSplitAddedDart(
+        // // dart, application.getRule().getHooks().get(0).getOrbit(), splitLink,
+        // // addedRule);
+        // splitDarts.add(dart);
+        // if (splits.stream().anyMatch(l -> l.contains(splitDarts.get(j)))) {
+        // System.out.println(dart);
+        // addBranch(newEventList, newOrbitList, application, branchIndex,
+        // splits.get(i).get(0));
+        // }
+        // }
       }
     }
   }
@@ -354,7 +417,10 @@ public class ReevaluationTree2 {
     for (NodeEvent nodeEvent : levelEventEvaluation.getEventList()) {
 
       NodeEvent newEventNode = new NodeEvent(nodeEvent.getEvent());
-      NodeOrbit newOrbitNode = new NodeOrbit(nodeEvent.getChild().getOrbit());
+      NodeOrbit newOrbitNode =
+          new NodeOrbit(
+              nodeEvent.getChild().getOrbit(),
+              new ArrayList<>(nodeEvent.getChild().getAlphaPath()));
 
       newEventNode.setChild(newOrbitNode);
 
@@ -420,21 +486,40 @@ public class ReevaluationTree2 {
     return false;
   }
 
-  private JerboaDart computeSplitaddedDart(
+  private JerboaDart computeSplitAddedDart(
       JerboaDart dart, JerboaOrbit orbitType, int splitLink, JerboaRuleGenerated rule) {
+
+    System.out.println("START: " + dart);
+
     if (orbitType.size() > 0) {
-      for (int link : orbitType) {
+      for (int linkIndex = 0; linkIndex < orbitType.size(); linkIndex++) {
+        int link = orbitType.get(linkIndex);
         dart = dart.alpha(link);
-      }
-      dart = dart.alpha(splitLink);
-      for (int link = orbitType.size() - 1; link >= 0; link--) {
-        dart = dart.alpha(link);
+        System.out.println("\t" + link);
+        if (link == splitLink) {
+          dart = dart.alpha(link + 1);
+          System.out.println("\t" + (link + 1));
+          dart = dart.alpha(link);
+          System.out.println("\t" + link);
+        }
       }
     } else dart = dart.alpha(splitLink);
+
+    System.out.println("END: " + dart);
     return dart;
   }
 
+  /**
+   * Compute all orbits of type orbitType within a {@link JerboaRuleResult} array and return them
+   *
+   * @param rule A {@link JerboaRuleOperation}
+   * @param orbitType A {@link JerboaOrbit} type
+   * @param controlDartNodeIndex An Integer
+   * @param applicationResult A {@link JerboaRuleResult}
+   * @return A list of list of {@link JerboaDart} (A list of orbits of type orbitType)
+   */
   private List<List<JerboaDart>> computeSplits(
+      int branchIndex,
       JerboaRuleOperation rule,
       JerboaOrbit orbitType,
       int controlDartNodeIndex,
@@ -448,9 +533,14 @@ public class ReevaluationTree2 {
 
       JerboaDart dart = applicationResult.get(controlDartNodeIndex, dartIndex);
 
+      if (topologicalParameters.contains(dart)) {
+        continue;
+      }
+
       try {
         List<JerboaDart> orbit = gmap.orbit(dart, orbitType);
-        if (visitedOrbits.stream().noneMatch(l -> l.containsAll(orbit))) {
+        if (!orbit.contains(topologicalParameters.get(branchIndex))
+            && visitedOrbits.stream().noneMatch(l -> l.containsAll(orbit))) {
           visitedOrbits.add(orbit);
         }
       } catch (JerboaException e) {

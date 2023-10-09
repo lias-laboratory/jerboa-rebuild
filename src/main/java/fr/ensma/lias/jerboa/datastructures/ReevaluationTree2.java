@@ -390,7 +390,7 @@ public class ReevaluationTree2 {
       return;
     }
 
-    JerboaRuleNode levelRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    // JerboaRuleNode levelRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
 
     for (NodeEvent nodeEvent : levelEventEvaluation.getEventList()) {
 
@@ -403,20 +403,32 @@ public class ReevaluationTree2 {
       newEventNode.setChild(newOrbitNode);
 
       if (!tree.isEmpty()) {
-        JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRuleGenerated) rule);
 
+        JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRuleGenerated) rule);
         LevelEventMT parentEventList = getBranchLastLevel(branchIndex);
 
         for (NodeOrbit parentNodeOrbit : parentEventList.getNextLevelOrbit().getOrbitList()) {
-          if (newEventNode.getEvent() == Event.CREATION || newEventNode.getEvent() == Event.SPLIT) {
-            if (parentNodeOrbit.getOrbit()
-                == detector.computeOrigin(
-                    rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName)),
-                    newOrbitNode.getOrbit())) {
+          if (newEventNode.getEvent() == Event.CREATION
+              || newEventNode.getEvent() == Event.SPLIT
+              || newEventNode.getEvent() == Event.MERGE) {
+
+            JerboaRuleNode originRuleNode =
+                rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+
+            for (int link : newOrbitNode.getAlphaPath()) {
+              originRuleNode = originRuleNode.alpha(link);
+            }
+
+            JerboaOrbit detectedOrigin =
+                detector.computeOrigin(originRuleNode, newOrbitNode.getOrbit());
+
+            // If current parent orbit equals origin of new orbit
+            if (parentNodeOrbit.getOrbit() == detectedOrigin) {
+
               parentNodeOrbit.addChild(new Link(LinkType.ORIGIN, newEventNode));
             }
           }
-          if (newEventNode.getEvent() == Event.SPLIT) {
+          if (newEventNode.getEvent() != Event.CREATION) {
             if (parentNodeOrbit.getOrbit() == newOrbitNode.getOrbit()) {
               parentNodeOrbit.addChild(new Link(LinkType.TRACE, newEventNode));
             }

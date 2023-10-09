@@ -372,6 +372,18 @@ public class ReevaluationTree2 {
     }
   }
 
+  /**
+   * Compute a pre-existing event level from an evaluation DAG to register in this reevaluation DAG
+   *
+   * @param branchIndex An Integer
+   * @param levelEventEvaluation A {@link LevelEventHR}
+   * @param newEventList An empty list of {@link NodeEvent}
+   * @param newOrbitList An empty list of {@link NodeOrbit}
+   * @param application An {@link Application}
+   * @param nodeName A String
+   * @param rule A {@link JerboaRuleOperation}
+   * @param NOEFFECT A boolean
+   */
   private void matchLevel(
       int branchIndex,
       LevelEventHR levelEventEvaluation,

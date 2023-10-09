@@ -470,6 +470,16 @@ public class ReevaluationTree2 {
     return nodeIndex;
   }
 
+  /**
+   * Compute the path between a {@link JerboaDart} and get the dart through this path. Collected
+   * dart is elligible for a new branch's topological parameter.
+   *
+   * @param dart A {@link JerboaDart}
+   * @param orbitType A {@link JerboaOrbit} orbit type
+   * @param splitLink An Integer
+   * @param rule A {@link JerboaRuleOperation}
+   * @return the collected {@link JerboaDart}
+   */
   private JerboaDart computeSplitAddedDart(
       JerboaDart dart, JerboaOrbit orbitType, int splitLink, JerboaRuleGenerated rule) {
 

@@ -186,8 +186,9 @@ public class ReevaluationTree2 {
         // ~> register splitLink
         splitLinks.add(detector.getSplitLink());
       } else {
-        // Probably useless because splitLinks should not be consulted when
-        // ISAFFECT is `True` but add it just in case so that there is as much events as splitLinks
+        // Probably useless because splitLinks should be consulted only when
+        // ISAFFECTED is `True` but add it just in case so that there is as much events as
+        // splitLinks
         splitLinks.add(-1);
       }
 
@@ -203,14 +204,6 @@ public class ReevaluationTree2 {
       newEventNode.setChild(newNodeOrbit);
 
       List<Link> newNodeOrbitChildren = new ArrayList<>();
-
-      // Recompute children of last registered level as children of currently computed level.
-      // This is an attempt to avoid manipulating several times the same nodes.
-      // for (Link link : oldNodeOrbit.getChildren()) {
-      // EventNode redirectedEvent =
-      // new EventNode(link.getChild().getEvent(), link.getChild().getChild());
-      // newNodeOrbitChildren.add(new Link(link.getType(), redirectedEvent));
-      // }
 
       newNodeOrbit.setChildren(oldNodeOrbit.getChildren());
       newNodeOrbit.setChildren(newNodeOrbitChildren);
@@ -282,21 +275,6 @@ public class ReevaluationTree2 {
             }
           }
         }
-
-        // for (int i = 0; i < splits.size(); i++) {
-        // final int j = i;
-        // dart = computeSplitAddedDart(dart, orbitType, splitLink, addedRule);
-        // // dart =
-        // // computeSplitAddedDart(
-        // // dart, application.getRule().getHooks().get(0).getOrbit(), splitLink,
-        // // addedRule);
-        // splitDarts.add(dart);
-        // if (splits.stream().anyMatch(l -> l.contains(splitDarts.get(j)))) {
-        // System.out.println(dart);
-        // addBranch(newEventList, newOrbitList, application, branchIndex,
-        // splits.get(i).get(0));
-        // }
-        // }
       }
     }
   }

@@ -90,6 +90,7 @@ public class ReevaluationTree2 {
 
       List<NodeEvent> newEventList = new ArrayList<>();
       List<NodeOrbit> newOrbitList = new ArrayList<>();
+
       switch (applicationType) {
         case INIT:
           String nodeName = levelEventEvaluation.getNextLevelOrbit().getNodeName();
@@ -115,8 +116,6 @@ public class ReevaluationTree2 {
         case ADD:
           int controlDartNodeIndex =
               getControlDartNodeID(controlDart, applicationResult, branchIndex);
-          // List<EventNode> newEventList = new ArrayList<>();
-          // List<NodeOrbit> newOrbitList = new ArrayList<>();
           computeAddedLevel(
               getBranchLastLevel(branchIndex),
               newOrbitList,
@@ -439,11 +438,6 @@ public class ReevaluationTree2 {
       newEventList.add(newEventNode);
       newOrbitList.add(newOrbitNode);
     }
-    // JerboaOrbit orbitType = nodeEvent.getChild().getOrbit();
-
-    // nodeEvent.setEvent(detector.getEventFromOrbit(levelRuleNode, orbitType));
-    // nodeEvent.setBranchIndex(branchIndex);
-    // nodeEvent.getChild().setBranchIndex(branchIndex);
   }
 
   //// Helpers////////////////////////////////////////////////////////////////

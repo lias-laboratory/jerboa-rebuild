@@ -1,13 +1,5 @@
 package fr.ensma.lias.jerboa;
 
-import java.awt.Dimension;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import fr.ensma.lias.jerboa.bridge.JerboaRebuiltBridge;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
@@ -16,11 +8,19 @@ import fr.ensma.lias.jerboa.datastructures.Application;
 import fr.ensma.lias.jerboa.datastructures.ApplicationType;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
-import fr.ensma.lias.jerboa.datastructures.ReevaluationTree;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
+import fr.ensma.lias.jerboa.datastructures.ReevaluationTree2;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
+import java.awt.Dimension;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -29,7 +29,6 @@ import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
-
 
 /**
  * This class' purpose is to demonstrate the reevaluation without change of a model built with
@@ -41,11 +40,17 @@ public class DemoRebuild {
   private ParametricSpecification parametricSpecification;
   private List<Application> applications;
   private List<HistoryRecord> historyRecords;
-  private List<ReevaluationTree> reevaluationTrees;
+  private List<ReevaluationTree2> reevaluationTrees;
   private List<Application> editedApplications;
 
-  public DemoRebuild(JerboaRebuiltBridge bridge, String referenceDir, String referenceSpec,
-      String editedDir, String editedSpec, JFrame frame, GMapViewer gmapviewer)
+  public DemoRebuild(
+      JerboaRebuiltBridge bridge,
+      String referenceDir,
+      String referenceSpec,
+      String editedDir,
+      String editedSpec,
+      JFrame frame,
+      GMapViewer gmapviewer)
       throws IOException, JerboaException {
 
     this.gmap = bridge.getGMap(); // gmap in which we rebuild the model
@@ -65,16 +70,15 @@ public class DemoRebuild {
   }
 
   /**
-   *
    * Export the matching trees created during the model's reevaluation
    *
    * @param reevaluationTrees
    */
-  // private void exportReevaluationTrees(List<ReevaluationTree> reevaluationTrees) {
-  private void exportReevaluationTrees() {
+  // private void exportReevaluationTree2s(List<ReevaluationTree2> reevaluationTrees) {
+  private void exportReevaluationTree2s() {
 
     int counter = 0;
-    for (ReevaluationTree rt : this.reevaluationTrees) {
+    for (ReevaluationTree2 rt : this.reevaluationTrees) {
       rt.export("exports", "matchingtree-" + counter + ".json");
       counter++;
     }
@@ -102,11 +106,12 @@ public class DemoRebuild {
 
         for (PersistentID PI : PIs) {
           // Compute and export HRs from current spec
-          HistoryRecord hr = new HistoryRecord(PI, orbitType, parametricSpecification,
-              applications.indexOf(application));
+          HistoryRecord hr =
+              new HistoryRecord(
+                  PI, orbitType, parametricSpecification, applications.indexOf(application));
           hr.export("./exports", "hr-rejeu-ajout-" + counter++ + ".json");
           historyRecords.add(hr);
-          ReevaluationTree rt = new ReevaluationTree();
+          ReevaluationTree2 rt = new ReevaluationTree2();
           reevaluationTrees.add(rt);
         }
       }
@@ -135,8 +140,9 @@ public class DemoRebuild {
     List<List<List<JerboaDart>>> topoParameters = new ArrayList<>();
 
     // For each application in edited parametric specification
-    for (int applicationIndex = 0; applicationIndex < editedApplications
-        .size(); applicationIndex++) {
+    for (int applicationIndex = 0;
+        applicationIndex < editedApplications.size();
+        applicationIndex++) {
 
       cont = longtask.waitUI();
       if (!cont) {
@@ -145,12 +151,17 @@ public class DemoRebuild {
 
       Application application = editedApplications.get(applicationIndex);
       List<JerboaDart> controlDarts = new ArrayList<>();
-      int nbParameters = reevaluationTrees.get(counter).getTopoParameters().size();
+      int nbParameters = reevaluationTrees.get(counter).getTopologicalParameters().size();
 
       // compute topological parameters
       if (application.getApplicationType() != ApplicationType.ADD) {
-        counter = collectTopologicalParameters(topoParameters, reevaluationTrees,
-            application.getPersistentNames().size(), counter, nbParameters);
+        counter =
+            collectTopologicalParameters(
+                topoParameters,
+                reevaluationTrees,
+                application.getPersistentNames().size(),
+                counter,
+                nbParameters);
       } else {
         dartIDsToJerboaDarts(application.getDartIDs(), topoParameters, nbParameters);
         computeControlDart(controlDarts, application, topoParameters);
@@ -166,8 +177,8 @@ public class DemoRebuild {
               appResults.add(apply(application.getRule(), topoParameters.get(paramIndex)));
             }
           }
-          computeReevaluationTreeLevel(application, appResults, historyRecords, reevaluationTrees,
-              controlDarts);
+          computeReevaluationTree2Level(
+              application, appResults, historyRecords, reevaluationTrees, controlDarts);
           gmapviewer.updateIHM();
         }
       } catch (JerboaException e) {
@@ -177,15 +188,16 @@ public class DemoRebuild {
       // renew lists for next application
       topoParameters = new ArrayList<>();
       appResults = new ArrayList<>();
-
     }
 
-    exportReevaluationTrees();
+    exportReevaluationTree2s();
   }
 
   // NOTE: this is a workaround to get an effective distinction
   // between NOEFFECT and MERGE with added rules
-  private void computeControlDart(List<JerboaDart> controlDarts, Application application,
+  private void computeControlDart(
+      List<JerboaDart> controlDarts,
+      Application application,
       List<List<List<JerboaDart>>> topoParameters) {
 
     JerboaRebuiltRule rule = (JerboaRebuiltRule) application.getRule();
@@ -210,15 +222,17 @@ public class DemoRebuild {
   }
 
   /**
-   *
    * @param application
    * @param appResult
    * @param historyRecords
    * @param reevaluationTrees
    * @param i
    */
-  private void computeReevaluationTreeLevel(Application application, List<JerboaRuleResult> appResults,
-      List<HistoryRecord> historyRecords, List<ReevaluationTree> reevaluationTrees,
+  private void computeReevaluationTree2Level(
+      Application application,
+      List<JerboaRuleResult> appResults,
+      List<HistoryRecord> historyRecords,
+      List<ReevaluationTree2> reevaluationTrees,
       List<JerboaDart> controlDarts) {
 
     for (int index = 0; index < historyRecords.size(); index++) {
@@ -228,23 +242,35 @@ public class DemoRebuild {
 
         LevelEventHR levelEventHR = null;
 
-        List<LevelEventHR> levelEventHRs = historyRecords.get(index).getLeaves()
-            .getOrDefault(application.getApplicationID(), new ArrayList<>());
+        List<LevelEventHR> levelEventHRs =
+            historyRecords
+                .get(index)
+                .getLeaves()
+                .getOrDefault(application.getApplicationID(), new ArrayList<>());
 
         if (!levelEventHRs.isEmpty()) {
           levelEventHR = levelEventHRs.get(0);
         }
 
-        ReevaluationTree rt = reevaluationTrees.get(index);
+        ReevaluationTree2 rt = reevaluationTrees.get(index);
 
         // For each application result
         for (int appIndex = 0; appIndex < appResults.size(); appIndex++) {
-        // Update current reevaluation tree
+          // Update current reevaluation tree
           if (application.getApplicationType() == ApplicationType.ADD) {
-            rt.addLevel(historyRecords.get(index), levelEventHR, application, appResults.get(appIndex),
+            rt.addLevel(
+                historyRecords.get(index),
+                levelEventHR,
+                application,
+                appResults.get(appIndex),
                 controlDarts.get(appIndex));
           } else {
-            rt.addLevel(historyRecords.get(index), levelEventHR, application, appResults.get(appIndex), null);
+            rt.addLevel(
+                historyRecords.get(index),
+                levelEventHR,
+                application,
+                appResults.get(appIndex),
+                null);
           }
         }
       }
@@ -252,7 +278,6 @@ public class DemoRebuild {
   }
 
   /**
-   *
    * @param topoParameters
    * @param reevaluationTrees
    * @param nbPNs
@@ -260,8 +285,12 @@ public class DemoRebuild {
    * @param nbParameters
    * @return
    */
-  private int collectTopologicalParameters(List<List<List<JerboaDart>>> topoParameters,
-      List<ReevaluationTree> reevaluationTrees, int nbPNs, int counter, int nbParameters) {
+  private int collectTopologicalParameters(
+      List<List<List<JerboaDart>>> topoParameters,
+      List<ReevaluationTree2> reevaluationTrees,
+      int nbPNs,
+      int counter,
+      int nbParameters) {
 
     // for each pn add a topological parameter
     for (int i = 0; i < nbPNs; i++) {
@@ -269,26 +298,31 @@ public class DemoRebuild {
         if (topoParameters.size() <= index) {
           // NOTE: new ArrayList<…>(Arrays.asList) keeps the list resizable thus permitting the
           // addition of elements
-          topoParameters.add(new ArrayList<List<JerboaDart>>(Arrays
-              .asList(Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index)))));
+          topoParameters.add(
+              new ArrayList<List<JerboaDart>>(
+                  Arrays.asList(
+                      Arrays.asList(
+                          reevaluationTrees.get(counter).getTopologicalParameter(index)))));
         } else
-          topoParameters.get(index).add(new ArrayList<JerboaDart>(
-              Arrays.asList(reevaluationTrees.get(counter).getTopoParameter(index))));
+          topoParameters
+              .get(index)
+              .add(
+                  new ArrayList<JerboaDart>(
+                      Arrays.asList(
+                          reevaluationTrees.get(counter).getTopologicalParameter(index))));
       }
       counter += 1;
     }
     return counter;
-
   }
 
   /**
-   *
    * @param dartIDs
    * @param topoParameters
    * @return
    */
-  private void dartIDsToJerboaDarts(List<Integer> dartIDs,
-      List<List<List<JerboaDart>>> topoParameters, int nbParameters) {
+  private void dartIDsToJerboaDarts(
+      List<Integer> dartIDs, List<List<List<JerboaDart>>> topoParameters, int nbParameters) {
     List<List<JerboaDart>> params = new ArrayList<>();
     for (Integer dartID : dartIDs) {
       params.add(new ArrayList<JerboaDart>(Arrays.asList(gmap.getNode(dartID))));
@@ -297,7 +331,6 @@ public class DemoRebuild {
   }
 
   /**
-   *
    * @param rule
    * @param topoParameters
    * @return
@@ -330,34 +363,37 @@ public class DemoRebuild {
     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setVisible(true);
 
-    DemoRebuild demo = new DemoRebuild(bridge, //
-        "./examples", //
-        "article-2-build.json", //
-        "./examples", //
-        "article-2-build-reevaluation.json", //
-        frame, gmapviewer);
+    DemoRebuild demo =
+        new DemoRebuild(
+            bridge, //
+            "./examples", //
+            "article-2-build.json", //
+            "./examples", //
+            "article-2-build-reevaluation.json", //
+            frame,
+            gmapviewer);
 
-    SwingUtilities.invokeLater(new Runnable() {
+    SwingUtilities.invokeLater(
+        new Runnable() {
 
-      @Override
-      public void run() {
-        frame.invalidate();
-        frame.repaint(1000);
-        gmapviewer.updateIHM();
-      }
+          @Override
+          public void run() {
+            frame.invalidate();
+            frame.repaint(1000);
+            gmapviewer.updateIHM();
+          }
+        });
 
-    });
+    Thread worker =
+        new Thread(
+            new Runnable() {
 
-    Thread worker = new Thread(new Runnable() {
-
-      @Override
-      public void run() {
-        demo.reevaluateModel(gmapviewer);
-      }
-
-    });
+              @Override
+              public void run() {
+                demo.reevaluateModel(gmapviewer);
+              }
+            });
 
     worker.start();
-
   }
 }

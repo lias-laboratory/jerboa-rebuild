@@ -234,10 +234,8 @@ public class ReevaluationTree2 {
                 controlDartNodeIndex,
                 applicationResult);
 
-        splits.forEach(l -> System.out.println(l));
-
+        // List<JerboaDart> splitDarts = new ArrayList<>();
         List<JerboaDart> splitDarts = new ArrayList<>();
-        List<JerboaDart> visits = new ArrayList<>();
 
         JerboaOrbit hookOrbitType = application.getRule().getHooks().get(0).getOrbit();
 
@@ -260,16 +258,14 @@ public class ReevaluationTree2 {
         /***********************************************************************/
 
         JerboaDart dart = computeSplitAddedDart(topoParam, customOrbitType, splitLink, addedRule);
-        while (!visits.contains(dart)) {
-          visits.add(dart);
+        while (!splitDarts.contains(dart)) {
+          splitDarts.add(dart);
           dart = computeSplitAddedDart(dart, customOrbitType, splitLink, addedRule);
         }
 
-        for (int i = 0; i < visits.size(); i++) {
+        for (int i = 0; i < splitDarts.size(); i++) {
           for (var split : splits) {
-            System.out.println(split);
-            System.out.println(visits.get(i));
-            if (split.contains(visits.get(i))) {
+            if (split.contains(splitDarts.get(i))) {
               addBranch(newEventList, newOrbitList, application, branchIndex, split.get(0));
             }
           }
@@ -473,23 +469,17 @@ public class ReevaluationTree2 {
   private JerboaDart computeSplitAddedDart(
       JerboaDart dart, JerboaOrbit orbitType, int splitLink, JerboaRuleGenerated rule) {
 
-    System.out.println("START: " + dart);
-
     if (orbitType.size() > 0) {
       for (int linkIndex = 0; linkIndex < orbitType.size(); linkIndex++) {
         int link = orbitType.get(linkIndex);
         dart = dart.alpha(link);
-        System.out.println("\t" + link);
         if (link == splitLink) {
           dart = dart.alpha(link + 1);
-          System.out.println("\t" + (link + 1));
           dart = dart.alpha(link);
-          System.out.println("\t" + link);
         }
       }
     } else dart = dart.alpha(splitLink);
 
-    System.out.println("END: " + dart);
     return dart;
   }
 
@@ -552,9 +542,8 @@ public class ReevaluationTree2 {
     topologicalParameters.add(newDart);
 
     addedBranches.add(splitaddedLevelEvent);
-
-    System.out.println("\tAddedBranch: " + splitaddedLevelEvent);
   }
+
   //// Outputs////////////////////////////////////////////////////////////////
   ////
 

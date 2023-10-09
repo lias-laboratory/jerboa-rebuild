@@ -154,10 +154,11 @@ public class ReevaluationTree2 {
       int controlDartNodeIndex,
       JerboaRuleResult applicationResult) {
 
-    // Check if current branch is affected by added rule application
-    boolean ISAFFECTED =
-        isBranchMatched(topologicalParameters.get(branchIndex), applicationResult)
-            && controlDartNodeIndex != -1;
+    // If controlDartNodeIndex >= 0 for this branch, then it is affected by the application
+    boolean ISAFFECTED = controlDartNodeIndex >= 0;
+
+    // isBranchMatched(topologicalParameters.get(branchIndex), applicationResult)
+    //     && controlDartNodeIndex != -1;
 
     JerboaRuleGenerated addedRule = (JerboaRuleGenerated) application.getRule();
 
@@ -444,26 +445,29 @@ public class ReevaluationTree2 {
     return nodeName == "ø";
   }
 
+  /**
+   * Compute a node ID associated to a given control dart by returning its column index from a
+   * {@link JerboaRuleResult}
+   *
+   * @param controlDart a {@link JerboaDart}
+   * @param applicationResult a {@link JerboaRuleResult}
+   * @param topologicalParameterIndex an Integer
+   * @return an Integer >= 0 if applicationResult contains the control dart else -1
+   */
   private int getControlDartNodeID(
       JerboaDart controlDart, JerboaRuleResult applicationResult, int topologicalParameterIndex) {
     int nodeIndex = -1;
-    for (int i = 0; !topologicalParameters.isEmpty() && i < applicationResult.sizeCol(); i++) {
-      if (applicationResult.get(i).contains(topologicalParameters.get(topologicalParameterIndex))
-          || (controlDart != null && applicationResult.get(i).contains(controlDart))) {
-        nodeIndex = i;
-        break;
+    if (!topologicalParameters.isEmpty()) {
+      for (int i = 0; i < applicationResult.sizeCol(); i++) {
+        if (applicationResult.get(i).contains(topologicalParameters.get(topologicalParameterIndex))
+            || (controlDart != null && applicationResult.get(i).contains(controlDart))) {
+          nodeIndex = i;
+          break;
+        }
       }
     }
-    return nodeIndex;
-  }
 
-  private boolean isBranchMatched(JerboaDart jerboaDart, JerboaRuleResult applicationResult) {
-    for (int i = 0; i < applicationResult.sizeCol(); i++) {
-      for (int j = 0; j < applicationResult.sizeRow(i); j++) {
-        if (applicationResult.get(i, j) == jerboaDart) return true;
-      }
-    }
-    return false;
+    return nodeIndex;
   }
 
   private JerboaDart computeSplitAddedDart(

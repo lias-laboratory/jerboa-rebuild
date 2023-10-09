@@ -2,6 +2,7 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import java.util.ArrayList;
 import java.util.List;
+import up.jerboa.core.JerboaOrbit;
 
 /**
  * LevelOrbitMT a structure that registers orbits of interests when reconstructing a model in
@@ -22,17 +23,16 @@ public class LevelOrbitMT extends LevelOrbit {
    */
   public LevelOrbitMT(int dartID, List<NodeOrbit> orbitList) {
     this.dartID = dartID;
-    this.orbitList = orbitList;
     this.nextLevelEvents = new ArrayList<>();
-  }
-
-  public LevelOrbitMT(int dartID, List<NodeOrbit> orbitList,
-      List<LevelEventMT> nextLevelEventList) {
-    this.dartID = dartID;
     this.orbitList = orbitList;
-    this.nextLevelEvents = nextLevelEventList;
   }
 
+  public LevelOrbitMT(
+      int dartID, List<NodeOrbit> orbitList, List<LevelEventMT> nextLevelEventList) {
+    this.dartID = dartID;
+    this.nextLevelEvents = nextLevelEventList;
+    this.orbitList = orbitList;
+  }
 
   public LevelOrbitMT() {}
 
@@ -40,10 +40,9 @@ public class LevelOrbitMT extends LevelOrbit {
     this.nextLevelEvents = nextLevelEventMTList;
   }
 
-  public void addNextLevelEventMT(LevelEventMT nextLevelEventMT)
-    {
-      this.nextLevelEvents.add(nextLevelEventMT);
-    }
+  public void addNextLevelEventMT(LevelEventMT nextLevelEventMT) {
+    this.nextLevelEvents.add(nextLevelEventMT);
+  }
 
   public List<LevelEventMT> getNextLevelEventMTList() {
     return nextLevelEvents;
@@ -59,6 +58,15 @@ public class LevelOrbitMT extends LevelOrbit {
 
   public List<NodeOrbit> getOrbitList() {
     return orbitList;
+  }
+
+  public void setOrbitList(List<NodeOrbit> orbitList) {
+    for (NodeOrbit newOrbitNode : orbitList) {
+      this.orbitList.add(
+          new NodeOrbit(
+              new JerboaOrbit(newOrbitNode.getOrbit()),
+              new ArrayList<>(newOrbitNode.getAlphaPath())));
+    }
   }
 
   @Override

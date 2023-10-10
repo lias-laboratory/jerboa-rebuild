@@ -74,6 +74,7 @@ def drawEdge(graph, nameA, nameB, linkType):
 
 
 def drawEventLevel(graph, branchIndex, currentLevel, appNumber, dartID):
+    """Gather data to create an event level and its nodes"""
     with graph.subgraph(
         name="cluster_" + str(appNumber) + ":" + str(branchIndex),
         node_attr={"style": "rounded, filled"},
@@ -102,6 +103,7 @@ def drawEventLevel(graph, branchIndex, currentLevel, appNumber, dartID):
 
 
 def drawOrbitLevel(graph, branchIndex, currentLevel, appNumber, dartID):
+    """Gather data to create an orbit level and its nodes and create the links to the next level's events"""
     with graph.subgraph(
         name="cluster_" + str(appNumber) + str(dartID),
     ) as orbitCluster:
@@ -122,7 +124,6 @@ def drawOrbitLevel(graph, branchIndex, currentLevel, appNumber, dartID):
             orbitCluster.node(gOrbitName)
 
             for link in orbit["children"]:
-                print(link.keys())
                 gEventName = createEventNode(
                     graph,
                     link["child"]["branchIndex"] + 1,
@@ -159,6 +160,11 @@ def drawGraph(RT, exportPath):
     g = graphviz.Digraph("ReevaluationTree", node_attr={"shape": "record"})
     branchIndex = 0
     for branch in RT:
+        # print(
+        #     "number of levels for branch {} is {}".format(
+        #         branchIndex, len(RT[branchIndex])
+        #     )
+        # )
         branchIndex += 1
         print("Level's appNumber is {}".format(branch[0]["appNumber"]))
         for level in branch:

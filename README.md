@@ -31,7 +31,7 @@ the project structure.
 First time run this command:
 
 ``` sh
-$ mvn clean install
+$ mvn -B clean install
 ```
 
 then run your main class (for example `JerboaLauncher.java`):

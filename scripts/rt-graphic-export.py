@@ -7,9 +7,9 @@ import os
 
 
 def usage(nbArgs):
-    if len(nbArgs) != 2:
+    if len(nbArgs) != 3:
         raise ValueError(
-            "Argument must be a path to a .json export of an history record!"
+            "Argument must be a path to a .json export of an reevaluation tree! and an export type (either PDF or SVG)"
         )
 
 
@@ -156,7 +156,7 @@ def drawLevel(level, branchIndex, graph):
     drawOrbitLevel(graph, branchIndex, currentLevel, appNumber, dartID)
 
 
-def drawGraph(RT, exportPath):
+def drawGraph(RT, exportPath, exportType):
     g = graphviz.Digraph("ReevaluationTree", node_attr={"shape": "record"})
     branchIndex = 0
     for branch in RT:
@@ -169,7 +169,7 @@ def drawGraph(RT, exportPath):
         print("Level's appNumber is {}".format(branch[0]["appNumber"]))
         for level in branch:
             drawLevel(level, branchIndex, g)
-    g.render(exportPath)
+    g.render(exportPath, format=exportType)
 
 
 if __name__ == "__main__":
@@ -179,4 +179,5 @@ if __name__ == "__main__":
     exportPath = (
         "../exports/" + os.path.splitext(pathToRT)[0].split("/")[-1] + "-export"
     )
-    drawGraph(RT, exportPath)
+    exportType = sys.argv[2]
+    drawGraph(RT, exportPath, exportType)

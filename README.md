@@ -52,7 +52,7 @@ $ mvn exec:java -Dexec.mainClass="fr.ensma.lias.jerboa.JerboaLauncher"
 <!-- We suppose the files related to the Jerboa Jar dependencies are available on -->
 <!-- your file system. -->
 
-### Manually 
+### Manually installing jerboa dependencies
 
 **This procedure should not be needed anymore!**
 

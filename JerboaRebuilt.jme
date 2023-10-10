@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
 	<openRules>Unsew012</openRules>
-	<openRules>DeleteEdge</openRules>
-	<openRules>ExtrudeVolumeFaceYAxis</openRules>
+	<openRules>FilRouge</openRules>
 	<openRules>DuplicateAndTranslateCC</openRules>
+	<openRules>ExtrudeVolumeFaceYAxis</openRules>
+	<openRules>DeleteEdge</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -13,7 +14,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="51">
+    <rules count="52">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -3026,6 +3027,39 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
+        <script name="FilRouge" module="" category=""  shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <content>JerboaRuleResult resSquare = @rule&lt;CreateSquareFace&gt;();
+JerboaRuleResult resCube1 = @rule&lt;ExtrudeIndependentFace&gt;(resSquare#6);
+JerboaRuleResult resVertex = @rule&lt;InsertVertexFolded&gt;(resCube1#4#7);
+JerboaRuleResult resCube2 = @rule&lt;ExtrudeVolumeFaceYAxis&gt;(resCube1#5#7);
+JerboaRuleResult resTriangulation = @rule&lt;TriangulateFace&gt;(resCube1#1#5);
+JerboaRuleResult resCollapse = @rule&lt;FaceCollapse&gt;(resCube2#6#1);
+JerboaRuleResult resChamfer = @rule&lt;ChamferCorner&gt;(resCollapse#0#1);
+@rule&lt;MakeFaceBlue&gt;(resTriangulation#0#2);
+return null;</content>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </script>
     </rules>
     <inferrules count="0">
     </inferrules>

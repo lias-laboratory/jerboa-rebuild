@@ -7,9 +7,7 @@ specification.
 
 ## Notice
 
-In order to be able to run the project you will need to export the modeler
-through the Jerboa Modeler Editor interface which is not found within this
-project and update it using a script as follow:
+In order to be able to run the project you will need to export the Jerboa Operations using the editor which is not found within this project and run the following script:
 
 From within `$PROJECT_ROOT/scripts/`
 ``` sh
@@ -20,29 +18,43 @@ This script updates the generated files (modeler and rules) in order to match
 the project structure.
 
 
-## Jerboa dependencies
+<!-- ## Jerboa dependencies -->
 
-Jar dependencies from the Jerboa project (no available from Maven Repositories)
+<!-- Jar dependencies from the Jerboa project (no available from Maven Repositories) -->
 
-* Jerboa
-* JerboaModelerViewer
-* JerboaModelerTransmitter
+<!-- * Jerboa -->
+<!-- * JerboaModelerViewer -->
+<!-- * JerboaModelerTransmitter -->
 
-## Configure the Maven project
+## Configure the Maven project (command line or your best friend IDE)
 
-Since the Jerboa Jar dependencies are not available on any Maven Repositories,
-you need to configure your Java development environment based on Maven build
-tool.
+First time run this command:
 
-Two approches to add Jerboa Jar dependencies:
+``` sh
+$ mvn clean install
+```
 
-* into your local repository in manual way
-* from the LIAS repository manager
+then run your main class (for example `JerboaLauncher.java`):
 
-We suppose the files related to the Jerboa Jar dependencies are available on
-your file system.
+``` sh
+$ mvn exec:java -Dexec.mainClass="fr.ensma.lias.jerboa.JerboaLauncher"
+```
 
-### Manually
+<!-- Since the Jerboa Jar dependencies are not available on any Maven Repositories, -->
+<!-- you need to configure your Java development environment based on Maven build -->
+<!-- tool. -->
+
+<!-- Two approches to add Jerboa Jar dependencies: -->
+
+<!-- * into your local repository in manual way -->
+<!-- * from the LIAS repository manager -->
+
+<!-- We suppose the files related to the Jerboa Jar dependencies are available on -->
+<!-- your file system. -->
+
+### Manually 
+
+**This procedure should not be needed anymore!**
 
 * From command line, execute the following instructions.
 
@@ -52,77 +64,79 @@ $ mvn install:install-file -Dfile=JerboaModelerViewer_20032023.jar -DgroupId=fr.
 $ mvn install:install-file -Dfile=JeMoTransmitter_20032023.jar -DgroupId=fr.up.xlim.sic.ig -DartifactId=jerboamodelertransmitter -Dversion=1.2 -Dpackaging=jar -DgeneratePom=true
 ```
 
-### LIAS repository manager
+<!-- ### LIAS repository manager -->
 
-**Note: this approach requires the computer to be connected to the ISAE-ENSMA LAN network.**
+<!-- **This procedures should not be needed anymore!** -->
 
-* Edit the _settings.xml_ file (located to Maven installation directory) and
-  replace by this content
+<!-- **Note: this approach requires the computer to be connected to the ISAE-ENSMA LAN network.** -->
 
-``` xml
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- * Edit the _settings.xml_ file (located to Maven installation directory) and -->
+<!--   replace by this content -->
 
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-    <localRepository>${user.home}/.m2/repository</localRepository>
-    <proxies></proxies>
-    <servers>
-        <server>
-            <id>Release</id>
-            <username>deployment</username>
-            <password>deployment123</password>
-        </server>
-        <server>
-            <id>snapshots</id>
-            <username>deployment</username>
-            <password>deployment</password>
-        </server>
-    </servers>
+<!-- ``` xml -->
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
 
-    <mirrors>
-        <mirror>
-            <id>Nexus</id>
-            <name >Nexus Public Mirror</name>
-            <mirrorOf>central</mirrorOf>
-            <url>http://s-nexus-lias.ensma.fr/content/groups/public/</url>
-        </mirror>
-    </mirrors>
-    <profiles>
-        <profile>
-            <id>nexus</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>http://central/</url>
-                    <releases><enabled>true</enabled></releases>
-                    <snapshots><enabled>true</enabled></snapshots>
-                </repository>
-            </repositories>
-        </profile>
-    </profiles>
+<!-- <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" -->
+<!--           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" -->
+<!-- 	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"> -->
+<!--     <localRepository>${user.home}/.m2/repository</localRepository> -->
+<!--     <proxies></proxies> -->
+<!--     <servers> -->
+<!--         <server> -->
+<!--             <id>Release</id> -->
+<!--             <username>deployment</username> -->
+<!--             <password>deployment123</password> -->
+<!--         </server> -->
+<!--         <server> -->
+<!--             <id>snapshots</id> -->
+<!--             <username>deployment</username> -->
+<!--             <password>deployment</password> -->
+<!--         </server> -->
+<!--     </servers> -->
 
-    <activeProfiles>
-        <activeProfile>nexus</activeProfile>
-    </activeProfiles>
-</settings>
-```
+<!--     <mirrors> -->
+<!--         <mirror> -->
+<!--             <id>Nexus</id> -->
+<!--             <name >Nexus Public Mirror</name> -->
+<!--             <mirrorOf>central</mirrorOf> -->
+<!--             <url>http://s-nexus-lias.ensma.fr/content/groups/public/</url> -->
+<!--         </mirror> -->
+<!--     </mirrors> -->
+<!--     <profiles> -->
+<!--         <profile> -->
+<!--             <id>nexus</id> -->
+<!--             <activation> -->
+<!--                 <activeByDefault>true</activeByDefault> -->
+<!--             </activation> -->
+<!--             <repositories> -->
+<!--                 <repository> -->
+<!--                     <id>central</id> -->
+<!--                     <url>http://central/</url> -->
+<!--                     <releases><enabled>true</enabled></releases> -->
+<!--                     <snapshots><enabled>true</enabled></snapshots> -->
+<!--                 </repository> -->
+<!--             </repositories> -->
+<!--         </profile> -->
+<!--     </profiles> -->
+
+<!--     <activeProfiles> -->
+<!--         <activeProfile>nexus</activeProfile> -->
+<!--     </activeProfiles> -->
+<!-- </settings> -->
+<!-- ``` -->
 
 ## Directories
 
 ### Examples
-This directory should contain examples of models to reevaluate.
+This directory should contain examples of models to reevaluate we want keeping track of.
 
 ### Exports
 This directory should contain any file exported by the user such as:
 - parametric specifications,
-- history records, 
-- matching trees (coming soon),
-- graphviz dots and pdfs.
+- json exports, 
+- graphviz dots, pdf or svg.
 
 ### Scripts
 - update-rules.sh updates files generated with the Jerboa Modeler Editor.
 - hr-graphic-export generates graphviz exports from history record json exports.
+- rt-graphic-export generates graphviz exports from reevaluation trees json exports.

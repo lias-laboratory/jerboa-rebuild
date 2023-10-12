@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>Unsew012</openRules>
-	<openRules>TriOrColor</openRules>
-	<openRules>DuplicateAndTranslateCC</openRules>
-	<openRules>FilRouge</openRules>
 	<openRules>DeleteEdge</openRules>
+	<openRules>UnsewFace</openRules>
+	<openRules>Unsew012</openRules>
+	<openRules>FilRouge</openRules>
 	<openRules>ExtrudeVolumeFaceYAxis</openRules>
+	<openRules>DuplicateAndTranslateCC</openRules>
+	<openRules>TriOrColor</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -15,7 +16,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="53">
+    <rules count="54">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -3095,6 +3096,37 @@ return null;</content>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </script>
+        <script name="UnsewFace" module="" category=""  shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="279" y="114" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <content>for(JerboaDart arete : &lt;0,1&gt;_&lt;0&gt;(n0)){
+    try{
+        @rule&lt;UnSewA2&gt;(arete);
+    }catch(JerboaException e){}
+}
+return null;</content>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
             </paramstopo>
         </script>
     </rules>

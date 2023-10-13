@@ -163,6 +163,7 @@ public class ReevaluationTree2 {
 
     // Register splitLinks -> may be useful
     List<Integer> splitLinks = new ArrayList<>();
+    List<Integer> splitLinkRewrites = new ArrayList<>();
 
     // For each event in branch last registered level
     for (NodeEvent oldEventNode : branchLastLevel.getEventList()) {
@@ -184,11 +185,13 @@ public class ReevaluationTree2 {
         newEvent = detector.getEventFromOrbit(ruleNode, orbitType);
         // ~> register splitLink
         splitLinks.add(detector.getSplitLink());
+        splitLinkRewrites.add(detector.getSplitLinkRewrites());
       } else {
         // Probably useless because splitLinks should be consulted only when
         // ISAFFECTED is `True` but add it just in case so that there is as much events as
         // splitLinks
         splitLinks.add(-1);
+        splitLinkRewrites.add(-1);
       }
 
       // Create new node events and node orbits
@@ -222,6 +225,7 @@ public class ReevaluationTree2 {
 
         // get link being splitted in rule
         int splitLink = splitLinks.get(index);
+        int splitLinkRewrite = splitLinkRewrites.get(index);
         JerboaOrbit orbitType = addedEventNode.getChild().getOrbit();
         final JerboaDart topoParam = getTopologicalParameter(branchIndex);
 
@@ -257,10 +261,13 @@ public class ReevaluationTree2 {
         JerboaOrbit customOrbitType = new JerboaOrbit(customOrbitTypeSet);
         /***********************************************************************/
 
-        JerboaDart dart = computeSplitAddedDart(topoParam, customOrbitType, splitLink, addedRule);
+        JerboaDart dart =
+            computeSplitAddedDart(
+                topoParam, customOrbitType, splitLink, splitLinkRewrite, addedRule);
         while (!splitDarts.contains(dart)) {
           splitDarts.add(dart);
-          dart = computeSplitAddedDart(dart, customOrbitType, splitLink, addedRule);
+          dart =
+              computeSplitAddedDart(dart, customOrbitType, splitLink, splitLinkRewrite, addedRule);
         }
 
         for (int i = 0; i < splitDarts.size(); i++) {
@@ -521,18 +528,25 @@ public class ReevaluationTree2 {
    * @param dart A {@link JerboaDart}
    * @param orbitType A {@link JerboaOrbit} orbit type
    * @param splitLink An Integer
+   * @param splitLinkRewrite
    * @param rule A {@link JerboaRuleOperation}
    * @return the collected {@link JerboaDart}
    */
   private JerboaDart computeSplitAddedDart(
-      JerboaDart dart, JerboaOrbit orbitType, int splitLink, JerboaRuleGenerated rule) {
+      JerboaDart dart,
+      JerboaOrbit orbitType,
+      int splitLink,
+      int splitLinkRewrite,
+      JerboaRuleGenerated rule) {
+
+    System.out.println("splitlink: " + splitLink + "\tsplit rewrite: " + splitLinkRewrite);
 
     if (orbitType.size() > 0) {
       for (int linkIndex = 0; linkIndex < orbitType.size(); linkIndex++) {
         int link = orbitType.get(linkIndex);
         dart = dart.alpha(link);
         if (link == splitLink) {
-          dart = dart.alpha(link + 1);
+          dart = dart.alpha(splitLinkRewrite);
           dart = dart.alpha(link);
         }
       }

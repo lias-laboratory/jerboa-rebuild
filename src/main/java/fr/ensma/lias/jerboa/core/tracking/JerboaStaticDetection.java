@@ -14,17 +14,22 @@ import up.jerboa.core.util.JerboaRuleGenerated;
 public class JerboaStaticDetection {
 
   private JerboaRuleGenerated rule;
-  private JerboaStaticDetection jerboaStaticDetection;
   private int splitLink;
+  private int splitLinkRewrite;
 
   public JerboaStaticDetection(JerboaRuleGenerated rule) {
     this.rule = rule;
     splitLink = -1;
+    splitLinkRewrite = -1;
   }
 
   // HACK: temporary until a more adequate solution
   public int getSplitLink() {
     return splitLink;
+  }
+
+  public Integer getSplitLinkRewrites() {
+    return splitLinkRewrite;
   }
 
   /**
@@ -389,6 +394,10 @@ public class JerboaStaticDetection {
           if (splitLink == -1) {
             splitLink = rule.getHooks().get(0).getOrbit().get(index);
           }
+          if (splitLinkRewrite == -1) {
+            splitLinkRewrite = ruleNode.getOrbit().get(index);
+          }
+
           aLinksArray[index] += 1;
         }
         if (aLinksArray[index] == ruleNodesOrbit.size()) {

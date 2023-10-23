@@ -59,6 +59,10 @@ public class ReevaluationTree2 {
     }
   }
 
+  public int getNbBranches() {
+    return this.tree.size();
+  }
+
   //// Reevaluation Methods///////////////////////////////////////////////////
   ////
 

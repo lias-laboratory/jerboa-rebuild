@@ -323,8 +323,8 @@ public class RebuildEngine {
   public void exportTrees() {
 
     for (int index = 0; index < evaluationTrees.size(); index++) {
-      this.evaluationTrees.get(index).export("./export", "evaluationTree-" + index + ".json");
-      this.reevaluationTrees.get(index).export("./export", "reevaluationTree-" + index + ".json");
+      this.evaluationTrees.get(index).export("./exports", "evaluationTree-" + index + ".json");
+      this.reevaluationTrees.get(index).export("./exports", "reevaluationTree-" + index + ".json");
     }
   }
 }

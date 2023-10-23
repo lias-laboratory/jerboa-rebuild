@@ -98,9 +98,9 @@ public class ReevaluationTree2 {
       switch (applicationType) {
         case INIT:
           String nodeName = levelEventEvaluation.getNextLevelOrbit().getNodeName();
-          boolean NOEFFECT = isApplicationNOEFFECT(nodeName, branchIndex, applicationResult);
+          boolean NO_EFFECT = isApplicationNOEFFECT(nodeName, branchIndex, applicationResult);
           matchDartParameters(
-              branchIndex, levelEventEvaluation, nodeName, applicationResult, rule, NOEFFECT);
+              branchIndex, levelEventEvaluation, nodeName, applicationResult, rule, NO_EFFECT);
           matchLevel(
               branchIndex,
               levelEventEvaluation,
@@ -109,7 +109,7 @@ public class ReevaluationTree2 {
               application,
               nodeName,
               rule,
-              NOEFFECT);
+              NO_EFFECT);
           registerLevel(
               branchIndex,
               levelEventEvaluation.getAppNumber(),
@@ -149,6 +149,18 @@ public class ReevaluationTree2 {
     return;
   }
 
+  /**
+   * Compute an added level and, eventually, the new branches resulting from a split within this new
+   * level
+   *
+   * @param branchLastLevel
+   * @param newOrbitList
+   * @param newEventList
+   * @param application
+   * @param branchIndex
+   * @param controlDartNodeIndex
+   * @param applicationResult
+   */
   private void computeAddedLevel(
       LevelEventMT branchLastLevel,
       List<NodeOrbit> newOrbitList,
@@ -175,7 +187,7 @@ public class ReevaluationTree2 {
       // Get node orbit child from old node event
       NodeOrbit oldNodeOrbit = oldEventNode.getChild();
 
-      // Create new Event with value NOEFFECT by default
+      // Create new Event with value NO_EFFECT by default
       Event newEvent = Event.NOEFFECT;
 
       // Get orbit type from old node orbit
@@ -249,10 +261,14 @@ public class ReevaluationTree2 {
 
         Set<Integer> customOrbitTypeSet = new HashSet<>();
 
+        // FIXME: Use the incomming controlOrbit (that will replace controlDarts)
+        // to compute the splits based on the orbit's state before application.
+        // This will enable the computation of non-connected sub-orbits.
         /***********************************************************************/
         // This bit of code computes the largest common sub-orbit between an DAG
         // orbit node's type and a rule hook node's type. This HACK limits the
-        // possible branches
+        // possible branches /!\ IT IS RESTRAINED TO ORBITS CONNECTED TO THE
+        // SOURCE OBJECT
         /***********************************************************************/
         for (var hookLink : hookOrbitType) {
           for (var nodeLink : orbitType) {
@@ -355,9 +371,9 @@ public class ReevaluationTree2 {
       String nodeName,
       JerboaRuleResult applicationResult,
       JerboaRuleOperation rule,
-      boolean NOEFFECT) {
-    if (NOEFFECT) {
-      // TODO: method - control wether or not the current application remains NOEFFECT
+      boolean NO_EFFECT) {
+    if (NO_EFFECT) {
+      // TODO: method - control wether or not the current application remains NO_EFFECT
       return;
     }
 
@@ -395,7 +411,7 @@ public class ReevaluationTree2 {
    * @param application An {@link Application}
    * @param nodeName A String
    * @param rule A {@link JerboaRuleOperation}
-   * @param NOEFFECT A boolean
+   * @param NO_EFFECT A boolean
    */
   private void matchLevel(
       int branchIndex,
@@ -405,9 +421,12 @@ public class ReevaluationTree2 {
       Application application,
       String nodeName,
       JerboaRuleOperation rule,
-      boolean NOEFFECT) {
+      boolean NO_EFFECT) {
 
-    if (NOEFFECT) {
+    // FIXME: Default behaviour when an application is NO_EFFECT must NOT be
+    // ignoring the event but rather to forward it down the same way as the
+    // rest. Recreating the level anew and avoid reference spaghettis.
+    if (NO_EFFECT) {
       return;
     }
 

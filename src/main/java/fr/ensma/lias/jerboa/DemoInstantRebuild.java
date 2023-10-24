@@ -11,7 +11,7 @@ import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.ensma.lias.jerboa.datastructures.ReevaluationTree2;
+import fr.ensma.lias.jerboa.datastructures.ReevaluationTree;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class DemoInstantRebuild {
   private ParametricSpecification parametricSpecification;
   private List<Application> applications;
   private List<HistoryRecord> historyRecords;
-  private List<ReevaluationTree2> reevaluationTrees;
+  private List<ReevaluationTree> reevaluationTrees;
   private List<Application> editedApplications;
 
   public DemoInstantRebuild(
@@ -77,7 +77,7 @@ public class DemoInstantRebuild {
   private void exportReevaluationTree2s() {
 
     int counter = 0;
-    for (ReevaluationTree2 rt : this.reevaluationTrees) {
+    for (ReevaluationTree rt : this.reevaluationTrees) {
       rt.export("exports", "matchingtree-" + counter + ".json");
       counter++;
     }
@@ -110,7 +110,7 @@ public class DemoInstantRebuild {
                   PI, orbitType, parametricSpecification, applications.indexOf(application));
           hr.export("./exports", "hr-rejeu-ajout-" + counter++ + ".json");
           historyRecords.add(hr);
-          ReevaluationTree2 rt = new ReevaluationTree2();
+          ReevaluationTree rt = new ReevaluationTree();
           reevaluationTrees.add(rt);
         }
       }
@@ -225,7 +225,7 @@ public class DemoInstantRebuild {
       Application application,
       List<JerboaRuleResult> appResults,
       List<HistoryRecord> historyRecords,
-      List<ReevaluationTree2> reevaluationTrees,
+      List<ReevaluationTree> reevaluationTrees,
       List<JerboaDart> controlDarts) {
 
     for (int index = 0; index < historyRecords.size(); index++) {
@@ -247,7 +247,7 @@ public class DemoInstantRebuild {
         }
 
         // get matching reevaluation tree
-        ReevaluationTree2 rt = reevaluationTrees.get(index);
+        ReevaluationTree rt = reevaluationTrees.get(index);
 
         // Update all rt's branches
         for (int appIndex = 0; appIndex < appResults.size(); appIndex++) {
@@ -281,7 +281,7 @@ public class DemoInstantRebuild {
    */
   private int collectTopologicalParameters(
       List<List<List<JerboaDart>>> topoParameters,
-      List<ReevaluationTree2> reevaluationTrees,
+      List<ReevaluationTree> reevaluationTrees,
       int nbPNs,
       int counter,
       int nbParameters) {

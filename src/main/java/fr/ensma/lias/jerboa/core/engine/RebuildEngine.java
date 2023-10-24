@@ -10,7 +10,7 @@ import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-import fr.ensma.lias.jerboa.datastructures.ReevaluationTree2;
+import fr.ensma.lias.jerboa.datastructures.ReevaluationTree;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class RebuildEngine {
   private ParametricSpecification initialSpecification;
   private ParametricSpecification editedSpecification;
   private ArrayList<HistoryRecord> evaluationTrees;
-  private ArrayList<ReevaluationTree2> reevaluationTrees;
+  private ArrayList<ReevaluationTree> reevaluationTrees;
 
   public RebuildEngine(
       ModelerGenerated modeler,
@@ -40,7 +40,7 @@ public class RebuildEngine {
       throws IOException, JerboaException {
 
     this.evaluationTrees = new ArrayList<HistoryRecord>();
-    this.reevaluationTrees = new ArrayList<ReevaluationTree2>();
+    this.reevaluationTrees = new ArrayList<ReevaluationTree>();
 
     this.initialSpecification =
         JSONPrinter.importParametricSpecification(pathToDirectory, pathToSpecification, modeler);
@@ -76,7 +76,7 @@ public class RebuildEngine {
           // register it within a list
           this.evaluationTrees.add(evaluationTree);
           // create and register the associated reevaluation tree
-          this.reevaluationTrees.add(new ReevaluationTree2());
+          this.reevaluationTrees.add(new ReevaluationTree());
         }
       }
     }
@@ -153,7 +153,7 @@ public class RebuildEngine {
   }
 
   /**
-   * Update all the {@link ReevaluationTree2} that need to be updated by adding a level to them. A
+   * Update all the {@link ReevaluationTree} that need to be updated by adding a level to them. A
    * tree is updated when an {@link HistoryRecord} match the current application or when the
    * application is added.
    *
@@ -187,7 +187,7 @@ public class RebuildEngine {
           levelEventEval = levelEventEvals.get(0);
         }
 
-        ReevaluationTree2 rt = reevaluationTrees.get(treeIndex);
+        ReevaluationTree rt = reevaluationTrees.get(treeIndex);
 
         // For each application, update the reevaluation trees' branches
         for (int resultIndex = 0; resultIndex < applicationResults.size(); resultIndex++) {
@@ -268,7 +268,7 @@ public class RebuildEngine {
    */
   private int getDartsFromTrees(
       Application application,
-      ArrayList<ReevaluationTree2> reevaluationTrees2,
+      ArrayList<ReevaluationTree> reevaluationTrees2,
       int treeIndex,
       List<List<List<JerboaDart>>> topologicalParameters) {
 
@@ -277,7 +277,7 @@ public class RebuildEngine {
     // Get as many parameters as required by the current application
     for (int i = 0; i < nbParameters; i++) {
 
-      ReevaluationTree2 rt = reevaluationTrees.get(treeIndex + i);
+      ReevaluationTree rt = reevaluationTrees.get(treeIndex + i);
 
       // Get parameters for each branch of the current reevaluation tree
       for (int j = 0; j < rt.getNbBranches(); j++) {

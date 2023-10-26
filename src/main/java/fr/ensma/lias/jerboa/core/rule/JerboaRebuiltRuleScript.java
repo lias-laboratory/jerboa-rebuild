@@ -11,7 +11,6 @@ public class JerboaRebuiltRuleScript extends JerboaRuleScript {
 
   protected JerboaRebuiltRuleScript(ModelerGenerated modeler, String name, String category) {
     super(modeler, name, category);
-    // TODO Auto-generated constructor stub
     System.out.println("SCRIPT: Ctor is called");
   }
 
@@ -26,7 +25,6 @@ public class JerboaRebuiltRuleScript extends JerboaRuleScript {
 
   @Override
   public JerboaRuleResult apply(JerboaGMap gmap, JerboaInputHooks hooks) throws JerboaException {
-    // TODO Auto-generated method stub
     return null;
   }
 }

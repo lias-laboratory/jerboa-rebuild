@@ -322,6 +322,8 @@ public class RebuildEngine {
   /* export both evaluation and reevaluation trees */
   public void exportTrees() {
 
+    System.out.println("exporting trees!");
+
     for (int index = 0; index < evaluationTrees.size(); index++) {
       this.evaluationTrees.get(index).export("./exports", "evaluationTree-" + index + ".json");
       this.reevaluationTrees.get(index).export("./exports", "reevaluationTree-" + index + ".json");

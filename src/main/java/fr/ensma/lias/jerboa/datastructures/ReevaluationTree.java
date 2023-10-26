@@ -137,7 +137,10 @@ public class ReevaluationTree {
           break;
         case DELETE:
           // TODO: prevent application
+          // NOTE: Detect if the deletion prevents the creation of an orbit in its whole
           // TODO: manage fully deleted orbit
+          // NOTE:orbit cannot be crea If an orbit cannot be created, add a level that must prevent
+          // any further update
           break;
         case MOVE:
           // TODO: manage side effects such as an orbit created (deleted) sooner or later

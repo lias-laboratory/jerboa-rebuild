@@ -57,16 +57,16 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     }
   }
 
-  // // TODO refactor: move to a suitable class (e.g: parametric specifaction)
+  // // todo refactor: move to a suitable class (e.g: parametric specifaction)
   // private ArrayList<PersistentID> collectPersistentIDs() {
-  // // TODO impl: collect persistent IDs to store in a PN
+  // // todo impl: collect persistent IDs to store in a PN
 
   // // for all darts filtered by a hook node, collect a PI if it contains an
   // // appID not yet registered within the list to return;
   // return new ArrayList<>();
   // }
 
-  // // TODO refactor: move to a suitable class (e.g: parametric specifaction)
+  // // todo refactor: move to a suitable class (e.g: parametric specifaction)
   // /**
   // * Compute topological parameters (persistent names) for the current rule being applied. This
   // * method is very likely to change in order to aggregate PersistentIDs (at the moment only one
@@ -781,8 +781,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     return getRightRuleNode(rightIndex);
   }
 
-  // TODO split absorbs merge when there is both split and merge for same
-  // parameters in rule --> to fix
+  // TODO: Consider a mixed event SPLITMERGE when they both happen
   /**
    * Compute a topological change in an orbit depending on a specific orbit type
    *
@@ -903,7 +902,6 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     // collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
     // NOTE: this method's call is for collecting aLinks only in `hook` node
     collectRewrittenImplicitALinks(aLinkSet, hookNode, ruleNodesOrbit, orbitType);
-    // TODO: consider these methods in non-creation events only
     // collectUnfilteredALinks(aLinkSet, ruleNodesOrbit, orbitType);
     // collectPreservedExplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
     return JerboaOrbit.orbit(aLinkSet);

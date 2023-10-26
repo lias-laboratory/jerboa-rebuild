@@ -144,6 +144,29 @@ public class JerboaStaticDetection {
     return nodeOrbit.stream().allMatch((node) -> isNodeDeleted(node));
   }
 
+  private boolean areAllNodesPreserved(List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType) {
+
+    // Find a preserved node and get its left orbit
+    List<JerboaRuleNode> leftRuleNodes = new ArrayList<>();
+    for (JerboaRuleNode rNode : ruleNodesOrbit) {
+      if (rule.getLeftIndexRuleNode(rNode.getName()) != -1) {
+        JerboaRuleNode lNode = rule.getLeftRuleNode(rule.getLeftIndexRuleNode(rNode.getName()));
+        leftRuleNodes = new ArrayList<>(JerboaRuleNode.orbit(lNode, orbitType));
+        break;
+      }
+    }
+
+    // Find if all left nodes are preservedin right
+    for (JerboaRuleNode lNode : leftRuleNodes) {
+      // If not
+      if (rule.getRightIndexRuleNode(lNode.getName()) == -1) {
+        return false;
+      }
+    }
+
+    return leftRuleNodes.size() == ruleNodesOrbit.size();
+  }
+
   /**
    * Check if a rule node's orbit is preserved or not
    *
@@ -152,12 +175,12 @@ public class JerboaStaticDetection {
    */
   private boolean unchangedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
     List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
-    // TODO: replace test 1 and 2 with areAllNodesPreserved
-    // TODO: all implicit links in <o> are preserved
-    // TODO: all explicit links are preserved
-    return !isThereAnyCreatedNode(ruleNodesOrbit) // No Created Node
-        && isThereAnyMissingNode(ruleNodesOrbit, orbitType) // No Missing Node
-        && areNodesUnchanged(ruleNodesOrbit, orbitType); // No Change in (between) nodes
+    // REVIEW: get through here to check for both implicit and explicit links preservation in <o>
+    return areAllNodesPreserved(ruleNodesOrbit, orbitType)
+        && areNodesUnchanged(ruleNodesOrbit, orbitType);
+    // return !isThereAnyCreatedNode(ruleNodesOrbit) // No Created Node
+    //     && isThereAnyMissingNode(ruleNodesOrbit, orbitType) // No Missing Node
+    //     && areNodesUnchanged(ruleNodesOrbit, orbitType); // No Change in (between) nodes
   }
 
   public boolean splittedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {

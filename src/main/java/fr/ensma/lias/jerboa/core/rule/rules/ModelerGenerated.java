@@ -57,6 +57,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.TriangulateFaceFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.CatmullClark;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.DooSabin;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuad;
+import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTri;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;

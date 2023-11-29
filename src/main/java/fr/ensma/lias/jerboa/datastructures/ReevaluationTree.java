@@ -24,7 +24,6 @@ public class ReevaluationTree {
   private List<LevelEventMT> addedBranches;
 
   //// Constructor////////////////////////////////////////////////////////////
-  ////
 
   public ReevaluationTree() {
     this.tree = new ArrayList<>();
@@ -264,14 +263,13 @@ public class ReevaluationTree {
 
         Set<Integer> customOrbitTypeSet = new HashSet<>();
 
-        // FIXME: Use the incomming controlOrbit (that will replace controlDarts)
-        // to compute the splits based on the orbit's state before application.
-        // This will enable the computation of non-connected sub-orbits.
+        // FIXME: Devise a way around the rule to gather the topological parameters
+        // in disconnected component
         /***********************************************************************/
         // This bit of code computes the largest common sub-orbit between an DAG
         // orbit node's type and a rule hook node's type. This HACK limits the
-        // possible branches /!\ IT IS RESTRAINED TO ORBITS CONNECTED TO THE
-        // SOURCE OBJECT
+        // possible branches /!\ IT IS RESTRAINED TO ORBITS BELONGING TO THE
+        // CONNECTED COMPONENT
         /***********************************************************************/
         for (var hookLink : hookOrbitType) {
           for (var nodeLink : orbitType) {
@@ -426,16 +424,12 @@ public class ReevaluationTree {
       JerboaRuleOperation rule,
       boolean NO_EFFECT) {
 
-    // FIXME: Default behaviour when an application is NO_EFFECT must NOT be
-    // ignoring the event but rather to forward it down the same way as the
-    // rest. Recreating the level anew and avoid reference spaghettis.
-    if (NO_EFFECT) {
-      return;
-    }
-
+    // Pour chaque évènement du niveau issu de l'arbre d'évaluation
     for (NodeEvent nodeEvent : levelEventEvaluation.getEventList()) {
 
+      // Re-créer les évènements
       NodeEvent newEventNode = new NodeEvent(nodeEvent.getEvent());
+      // Re-créer les orbites
       NodeOrbit newOrbitNode =
           new NodeOrbit(
               nodeEvent.getChild().getOrbit(),
@@ -443,34 +437,46 @@ public class ReevaluationTree {
 
       newEventNode.setBranchIndex(branchIndex);
       newOrbitNode.setBranchIndex(branchIndex);
+      // On renseigne le nœud d'orbite comme enfant du nœud d'évènement
       newEventNode.setChild(newOrbitNode);
 
+      // Si l'arbre n'est pas vide (i.e. l'appariement est déjà entamé)
       if (!tree.isEmpty()) {
 
         JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRuleGenerated) rule);
         LevelEventMT parentEventList = getBranchLastLevel(branchIndex);
 
+        // Pour chaque nœud d'orbite du dernier niveau enregistré
         for (NodeOrbit parentNodeOrbit : parentEventList.getNextLevelOrbit().getOrbitList()) {
+          // Si le nouveau nœud d'évènement courant est CRÉÉ, SCINDÉ ou FUSIONNÉ
           if (newEventNode.getEvent() == Event.CREATION
               || newEventNode.getEvent() == Event.SPLIT
               || newEventNode.getEvent() == Event.MERGE) {
 
+            // On récupère le nœud de référence pour notre orbite
             JerboaRuleNode originRuleNode =
                 rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
 
+            // Si un chemin est associé à l'orbite on l'utilise pour récupérer le bon nœud
             for (int link : newOrbitNode.getAlphaPath()) {
               originRuleNode = originRuleNode.alpha(link);
             }
 
+            // On calcul l'origine de notre orbite
             JerboaOrbit detectedOrigin =
                 detector.computeOrigin(originRuleNode, newOrbitNode.getOrbit());
 
             // If current parent orbit equals origin of new orbit
+            // Si le nœud d'orbite courant à le même type que notre origine, créer une relation
+            // d'origine de l'orbite courante vers notre nouvel évènement
             if (parentNodeOrbit.getOrbit().equals(detectedOrigin)) {
               parentNodeOrbit.addChild(new Link(LinkType.ORIGIN, newEventNode));
             }
           }
+          // Si l'évènement est différent de la création
           if (newEventNode.getEvent() != Event.CREATION) {
+            // Et que l'orbite courante est du même type que l'enfant de notre évènement, alors
+            // créer une relation de suivi
             if (parentNodeOrbit.getOrbit().equals(newOrbitNode.getOrbit())) {
               parentNodeOrbit.addChild(new Link(LinkType.TRACE, newEventNode));
             }

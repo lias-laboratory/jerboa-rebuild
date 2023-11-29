@@ -71,7 +71,7 @@ public class TriOrColor extends JerboaRuleScript {
     public JerboaRuleResult apply(final JerboaGMap gmap, final JerboaInputHooks hooks) throws JerboaException {
 // BEGIN SCRIPT GENERATION
         int compteur = 0;
-		for(JerboaDart arete : gmap.collect(hooks.dart(0),JerboaOrbit.orbit(0,1),JerboaOrbit.orbit(0))){
+		for(JerboaDart arete : gmap.collect(hooks.dart(0, 0),JerboaOrbit.orbit(0,1),JerboaOrbit.orbit(0))){
 		   compteur ++ ;
 		}
 		

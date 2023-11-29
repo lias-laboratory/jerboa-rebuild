@@ -5,11 +5,10 @@ import fr.ensma.lias.jerboa.core.rule.rules.Carving.PierceFaceCoverDiamond;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.PierceFaceAndCoverFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.PierceFaceCoverDiamondFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuad;
-import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTri;
+import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
-import java.util.ArrayList;
 import java.util.List;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaInputHooks;
@@ -21,8 +20,8 @@ import up.jerboa.exception.JerboaException;
 /** MesScriptsRejeu */
 public class MesScriptsRejeu {
 
-  public static JerboaRuleResult exe1(JerboaModeler modeler, JerboaGMap gmap,
-      JerboaInputHooks hooks) {
+  public static JerboaRuleResult exe1(
+      JerboaModeler modeler, JerboaGMap gmap, JerboaInputHooks hooks) {
     System.out.println("HELLO");
     int res = Vec3.askInt("0 faux, autre vrai", "0");
     SubdivQuadFake sqf = (SubdivQuadFake) modeler.getRule("SubdivQuadFake");
@@ -66,8 +65,8 @@ public class MesScriptsRejeu {
     return null;
   }
 
-  public static JerboaRuleResult exe2(JerboaModeler modeler, JerboaGMap gmap,
-      JerboaInputHooks hooks) {
+  public static JerboaRuleResult exe2(
+      JerboaModeler modeler, JerboaGMap gmap, JerboaInputHooks hooks) {
     System.out.println("Triangulation To PierceFaceAndCover");
     int res = Vec3.askInt("0 faux, autre vrai", "0");
     PierceFaceAndCoverFake pfcf =

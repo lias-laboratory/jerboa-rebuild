@@ -22,21 +22,22 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class SubdivQuad extends JerboaRebuiltRule {
+public class SubdivQuadFake extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 
 
 	// BEGIN PARAMETERS Transformed 
 
+	protected Object fakeLeft; 
 
 	// END PARAMETERS 
 
 
 
-    public SubdivQuad(ModelerGenerated modeler) throws JerboaException {
+    public SubdivQuadFake(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "SubdivQuad", "Subdivision");
+        super(modeler, "SubdivQuadFake", "Subdivision");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1,2,3), 3);
@@ -45,8 +46,8 @@ public class SubdivQuad extends JerboaRebuiltRule {
 
         // -------- RIGHT GRAPH
         JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(-1,1,2,3), 3);
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,-1,2,3), 3, new SubdivQuadExprRn1pos());
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 2, JerboaOrbit.orbit(2,1,-1,3), 3, new SubdivQuadExprRn3pos());
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,-1,2,3), 3, new SubdivQuadFakeExprRn1pos());
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 2, JerboaOrbit.orbit(2,1,-1,3), 3, new SubdivQuadFakeExprRn3pos());
         JerboaRuleNode rn2 = new JerboaRuleNode("n2", 3, JerboaOrbit.orbit(2,-1,-1,3), 3);
         right.add(rn0);
         right.add(rn1);
@@ -60,7 +61,7 @@ public class SubdivQuad extends JerboaRebuiltRule {
         computeEfficientTopoStructure();
         computeSpreadOperation();
         // ------- USER DECLARATION 
-    }
+        fakeLeft = null;    }
 
     public int reverseAssoc(int i) {
         switch(i) {
@@ -82,13 +83,14 @@ public class SubdivQuad extends JerboaRebuiltRule {
         return -1;
     }
 
-    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0) throws JerboaException {
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0, Object fakeLeft) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         ____jme_hooks.addCol(n0);
+        setFakeLeft(fakeLeft);
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class SubdivQuadExprRn1pos implements JerboaRuleExpression {
+    private class SubdivQuadFakeExprRn1pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
@@ -110,7 +112,7 @@ return new Vec3(Vec3.segmentABByWeight(curleftPattern.getNode(0).<fr.ensma.lias.
         }
     }
 
-    private class SubdivQuadExprRn3pos implements JerboaRuleExpression {
+    private class SubdivQuadFakeExprRn3pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
@@ -134,9 +136,25 @@ return res;
         }
     }
 
+    @Override
+    public boolean hasPrecondition() { return true; }
+    public boolean evalPrecondition(final JerboaGMap gmap, final List<JerboaRowPattern> leftPattern) throws JerboaException {
+
+            // BEGIN PRECONDITION CODE
+fakeLeft = new ArrayList<JerboaRowPattern>(leftPattern);
+return false;
+            // END PRECONDITION CODE
+}
+
     // Facility for accessing to the dart
     private JerboaDart n0() {
         return curleftPattern.getNode(0);
     }
 
+	public Object getFakeLeft(){
+		return fakeLeft;
+	}
+	public void setFakeLeft(Object _fakeLeft){
+		this.fakeLeft = _fakeLeft;
+	}
 } // end rule Class

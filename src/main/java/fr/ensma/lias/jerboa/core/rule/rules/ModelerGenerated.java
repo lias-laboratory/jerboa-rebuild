@@ -61,12 +61,15 @@ import fr.ensma.lias.jerboa.core.rule.rules.Duplication.DuplicateAndTranslateCC;
 import fr.ensma.lias.jerboa.core.rule.rules.Unsew012;
 import fr.ensma.lias.jerboa.core.rule.rules.FilRouge;
 import fr.ensma.lias.jerboa.core.rule.rules.TriOrColor;
+import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuadFake;
+import fr.ensma.lias.jerboa.core.rule.rules.XpRejeuScript;
+import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTriFake;
+import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.CatmullClark;
 import fr.ensma.lias.jerboa.core.rule.rules.InsertBorderEdge;
-import fr.ensma.lias.jerboa.core.rule.rules.TriangulatePlusVertices;
+import fr.ensma.lias.jerboa.core.rule.rules.PierceFaceCoverDiamond;
+import fr.ensma.lias.jerboa.core.rule.rules.Unsew012BIS;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.QuadrangulateFace;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.SplitVertex;
-import fr.ensma.lias.jerboa.core.rule.rules.PierceFaceCoverDiamond;
-import fr.ensma.lias.jerboa.core.rule.rules.UnSew.UnsewA2Folded;
 
 
 
@@ -151,12 +154,15 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new Unsew012(this));
         this.registerRule(new FilRouge(this));
         this.registerRule(new TriOrColor(this));
+        this.registerRule(new SubdivQuadFake(this));
+        this.registerRule(new XpRejeuScript(this));
+        this.registerRule(new SubdivTriFake(this));
+        this.registerRule(new CatmullClark(this));
         this.registerRule(new InsertBorderEdge(this));
-        this.registerRule(new TriangulatePlusVertices(this));
+        this.registerRule(new PierceFaceCoverDiamond(this));
+        this.registerRule(new Unsew012BIS(this));
         this.registerRule(new QuadrangulateFace(this));
         this.registerRule(new SplitVertex(this));
-        this.registerRule(new PierceFaceCoverDiamond(this));
-        this.registerRule(new UnsewA2Folded(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

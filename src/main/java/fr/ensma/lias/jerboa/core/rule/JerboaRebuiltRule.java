@@ -781,7 +781,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     return getRightRuleNode(rightIndex);
   }
 
-  // TODO: Consider a mixed event SPLITMERGE when they both happen
+  // NOTE: Consider a mixed event SPLITMERGE when they both happen
   /**
    * Compute a topological change in an orbit depending on a specific orbit type
    *

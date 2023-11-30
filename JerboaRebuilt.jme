@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>XpRejeuScript2</openRules>
+	<openRules>SubdivQuadFake</openRules>
+	<openRules>QuadrangulateFaceFake</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -3733,7 +3734,8 @@ return bary;</expr>
         </rule>
         <rule name="TriPlusVertsFake" module="SplitFake" category="SplitFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
             <header></header>
-            <precondition></precondition>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
             <comment></comment>
             <left>
                 <nodes count="1">
@@ -3819,7 +3821,8 @@ return res;</expr>
         </rule>
         <rule name="QuadrangulateFaceFake" module="SplitFake" category="SplitFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
             <header></header>
-            <precondition></precondition>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
             <comment></comment>
             <left>
                 <nodes count="1">
@@ -3868,7 +3871,8 @@ return bary;</expr>
         </rule>
         <rule name="InsertBorderEdgeFake" module="CreationFake" category="CreationFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
             <header></header>
-            <precondition></precondition>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
             <comment></comment>
             <left>
                 <nodes count="1">
@@ -3929,7 +3933,8 @@ return bary;</expr>
         </script>
         <rule name="PierceFaceAndCoverFake" module="CarvingFake" category="CarvingFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
             <header></header>
-            <precondition></precondition>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
             <comment></comment>
             <left>
                 <nodes count="1">
@@ -3973,7 +3978,8 @@ return new Vec3(Vec3.segmentABByWeight(n0.pos, center, 0.4f));</expr>
         </rule>
         <rule name="PierceFaceCoverDiamondFake" module="CarvingFake" category="CarvingFake" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
-            <precondition></precondition>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
             <comment></comment>
             <left>
                 <nodes count="1">

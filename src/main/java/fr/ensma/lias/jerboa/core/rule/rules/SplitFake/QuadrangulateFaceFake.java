@@ -139,6 +139,16 @@ return bary;
         }
     }
 
+    @Override
+    public boolean hasPrecondition() { return true; }
+    public boolean evalPrecondition(final JerboaGMap gmap, final List<JerboaRowPattern> leftPattern) throws JerboaException {
+
+            // BEGIN PRECONDITION CODE
+fakeLeft = new ArrayList<JerboaRowPattern>(leftPattern);
+return false;
+            // END PRECONDITION CODE
+}
+
     // Facility for accessing to the dart
     private JerboaDart n0() {
         return curleftPattern.getNode(0);

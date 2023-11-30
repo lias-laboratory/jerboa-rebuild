@@ -9,6 +9,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTri;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
+import java.util.ArrayList;
 import java.util.List;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaInputHooks;
@@ -90,24 +91,26 @@ public class MesScriptsRejeu {
         System.out.println(row);
       }
       try {
-        pfcd.apply(gmap, hooks);
+        pfc.apply(gmap, hooks);
       } catch (JerboaException e) {
         e.printStackTrace();
       }
     } else {
       try {
-        pfcdf.apply(gmap, hooks);
+        pfcf.apply(gmap, hooks);
       } catch (JerboaException e) {
         e.printStackTrace();
       }
-      leftPattern = (List<JerboaRowPattern>) pfcdf.getFakeLeft();
+      leftPattern = (List<JerboaRowPattern>) pfcf.getFakeLeft();
       for (JerboaRowPattern row : leftPattern) {
         System.out.println(row);
       }
-
-
+      try {
+        pfcd.apply(gmap, hooks);
+      } catch (JerboaException e) {
+        e.printStackTrace();
+      }
     }
-
     return null;
   }
 }

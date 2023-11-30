@@ -29,6 +29,7 @@ public class QuadrangulateFaceFake extends JerboaRebuiltRule {
 
 	// BEGIN PARAMETERS Transformed 
 
+	protected Object fakeLeft; 
 
 	// END PARAMETERS 
 
@@ -63,7 +64,7 @@ public class QuadrangulateFaceFake extends JerboaRebuiltRule {
         computeEfficientTopoStructure();
         computeSpreadOperation();
         // ------- USER DECLARATION 
-    }
+        fakeLeft = null;    }
 
     public int reverseAssoc(int i) {
         switch(i) {
@@ -85,9 +86,10 @@ public class QuadrangulateFaceFake extends JerboaRebuiltRule {
         return -1;
     }
 
-    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0) throws JerboaException {
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0, Object fakeLeft) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         ____jme_hooks.addCol(n0);
+        setFakeLeft(fakeLeft);
         return applyRule(gmap, ____jme_hooks);
 	}
 
@@ -142,4 +144,10 @@ return bary;
         return curleftPattern.getNode(0);
     }
 
+	public Object getFakeLeft(){
+		return fakeLeft;
+	}
+	public void setFakeLeft(Object _fakeLeft){
+		this.fakeLeft = _fakeLeft;
+	}
 } // end rule Class

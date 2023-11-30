@@ -65,7 +65,7 @@ public class XpRejeuScript2 extends JerboaRuleScript {
 @Override
     public JerboaRuleResult apply(final JerboaGMap gmap, final JerboaInputHooks hooks) throws JerboaException {
 // BEGIN SCRIPT GENERATION
-        return MesScriptsRejeu.exe1(modeler,gmap,hooks);
+        return MesScriptsRejeu.exe2(modeler,gmap,hooks);
 		// END SCRIPT GENERATION
 
 	}

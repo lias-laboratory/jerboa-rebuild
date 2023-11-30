@@ -4082,6 +4082,173 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
+        <rule name="TriPlusVertsFake" module="SplitFake" category="SplitFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="249" y="156" orbit="0,1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="5">
+                    <node name="n0" x="60" y="120" orbit="0,-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="180" y="120" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="300" y="120" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">Vec3 res = new Vec3();
+res.barycenter(&lt;0,1&gt;_pos(n0));
+return new Vec3(Vec3.segmentABByWeight(n0.pos, res, 0.5f));</expr>
+                    </node>
+                    <node name="n3" x="420" y="120" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="540" y="120" orbit="1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">Vec3 res = new Vec3();
+res.barycenter(&lt;0,1&gt;_pos(n0));
+return res;</expr>
+                    </node>
+                </nodes>
+                <arcs count="4">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n4" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="TriangulateFaceFake" module="SplitFake" category="SplitFake" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="360" y="120" orbit="0,1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="3">
+                    <node name="n0" x="120" y="120" orbit="0,-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="240" y="120" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="360" y="120" orbit="1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">Vec3 res = new Vec3();
+res.barycenter(&lt;0,1&gt;_pos(n0));
+return res;</expr>
+                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="QuadrangulateFaceFake" module="SplitFake" category="SplitFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="220" y="147" orbit="0,1,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arcloop dim="2" node="n0" angle="5.134219303180302" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="4">
+                    <node name="n0" x="120" y="150" orbit="-1,1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="240" y="150" orbit="-1,-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(Vec3.segmentABByWeight(n0.pos,n0@0.pos , 0.5f));</expr>
+                    </node>
+                    <node name="n2" x="360" y="150" orbit="2,-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="480" y="150" orbit="2,1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">Vec3 bary = new Vec3();
+bary.barycenter(&lt;0,1&gt;_pos(n0));
+return bary;</expr>
+                    </node>
+                </nodes>
+                <arcs count="5">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n1" angle="5.293387767394764" >
+                    </arcloop>
+                    <arcloop dim="2" node="n0" angle="5.123576321488216" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="InsertBorderEdgeFake" module="CreationFake" category="CreationFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="148" y="102" orbit="0,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="3">
+                    <node name="n0" x="120" y="90" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="360" y="90" orbit="0,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(Vec3.segmentABByWeight(n0.pos, n0@0.pos, 0.3f));</expr>
+                    </node>
+                    <node name="n2" x="240" y="90" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arc dim="0" a="n0" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
     </rules>
     <inferrules count="0">
     </inferrules>

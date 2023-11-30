@@ -77,6 +77,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.InsertBorderEdgeFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Experiments.XpRejeuScript2;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.PierceFaceAndCoverFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.PierceFaceCoverDiamondFake;
+import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.DooSabin;
 
 
 
@@ -177,6 +178,7 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new XpRejeuScript2(this));
         this.registerRule(new PierceFaceAndCoverFake(this));
         this.registerRule(new PierceFaceCoverDiamondFake(this));
+        this.registerRule(new DooSabin(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

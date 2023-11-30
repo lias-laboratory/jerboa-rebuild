@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
+	<openRules>DooSabin</openRules>
 	<openRules>SubdivQuadFake</openRules>
 	<openRules>QuadrangulateFaceFake</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
@@ -11,7 +12,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="74">
+    <rules count="75">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -4017,6 +4018,48 @@ return false;</precondition>
             <midprocess></midprocess>
             <paramsebd>
                 <paramebd name="fakeLeft" type="Object" order="0">null</paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="DooSabin" module="Subdivision" category="Subdivision" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="426" y="126" orbit="0,1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="4">
+                    <node name="n0" x="95" y="151" orbit="0,1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="238" y="151" orbit="0,-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="380" y="149" orbit="-1,-1,0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="537" y="149" orbit="-1,1,0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="6">
+                    <arc dim="2" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n1" angle="1.6302142453998432" >
+                    </arcloop>
+                    <arc dim="2" a="n2" b="n3" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n2" angle="2.4630696674198678" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="5.573352174343373" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />

@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules.Experiments;
+package fr.ensma.lias.jerboa.core.rule.rules.Split;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
@@ -36,7 +36,7 @@ public class TriangulateVolume extends JerboaRebuiltRule {
 
     public TriangulateVolume(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "TriangulateVolume", "Experiments");
+        super(modeler, "TriangulateVolume", "Split");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1,2), 3);

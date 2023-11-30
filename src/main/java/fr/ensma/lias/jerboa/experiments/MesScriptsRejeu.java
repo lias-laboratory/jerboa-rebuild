@@ -1,9 +1,9 @@
 package fr.ensma.lias.jerboa.experiments;
 
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuad;
-import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuadFake;
+import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTri;
-import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTriFake;
+import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import java.util.List;
 import up.jerboa.core.JerboaGMap;

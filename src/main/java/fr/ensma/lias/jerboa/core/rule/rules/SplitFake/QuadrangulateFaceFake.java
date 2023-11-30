@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules;
+package fr.ensma.lias.jerboa.core.rule.rules.SplitFake;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
@@ -22,7 +22,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class PierceAndCoverDiamond extends JerboaRebuiltRule {
+public class QuadrangulateFaceFake extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -34,37 +34,30 @@ public class PierceAndCoverDiamond extends JerboaRebuiltRule {
 
 
 
-    public PierceAndCoverDiamond(ModelerGenerated modeler) throws JerboaException {
+    public QuadrangulateFaceFake(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "PierceAndCoverDiamond", "");
+        super(modeler, "QuadrangulateFaceFake", "SplitFake");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1,3), 3);
-        JerboaRuleNode ln4 = new JerboaRuleNode("n4", 1, JerboaOrbit.orbit(0,-1,3), 3);
         left.add(ln0);
-        left.add(ln4);
         hooks.add(ln0);
-        ln0.setAlpha(2, ln4);
+        ln0.setAlpha(2, ln0);
 
         // -------- RIGHT GRAPH
         JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(-1,1,3), 3);
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,-1,3), 3, new PierceAndCoverDiamondExprRn1pos());
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(-1,0,3), 3);
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(1,0,3), 3);
-        JerboaRuleNode rn4 = new JerboaRuleNode("n4", 4, JerboaOrbit.orbit(-1,-1,3), 3);
-        JerboaRuleNode rn5 = new JerboaRuleNode("n5", 5, JerboaOrbit.orbit(-1,1,3), 3);
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,-1,3), 3, new QuadrangulateFaceFakeExprRn1pos());
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(2,-1,3), 3);
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 3, JerboaOrbit.orbit(2,1,3), 3, new QuadrangulateFaceFakeExprRn3pos());
         right.add(rn0);
         right.add(rn1);
         right.add(rn2);
         right.add(rn3);
-        right.add(rn4);
-        right.add(rn5);
         rn0.setAlpha(0, rn1);
         rn1.setAlpha(1, rn2);
-        rn2.setAlpha(2, rn3);
-        rn4.setAlpha(2, rn0);
-        rn4.setAlpha(0, rn5);
-        rn5.setAlpha(2, rn1);
+        rn2.setAlpha(0, rn3);
+        rn1.setAlpha(2, rn1);
+        rn0.setAlpha(2, rn0);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
@@ -78,8 +71,6 @@ public class PierceAndCoverDiamond extends JerboaRebuiltRule {
         case 1: return -1;
         case 2: return -1;
         case 3: return -1;
-        case 4: return 1;
-        case 5: return -1;
         }
         return -1;
     }
@@ -90,8 +81,6 @@ public class PierceAndCoverDiamond extends JerboaRebuiltRule {
         case 1: return 0;
         case 2: return 0;
         case 3: return 0;
-        case 4: return 0;
-        case 5: return 0;
         }
         return -1;
     }
@@ -102,7 +91,7 @@ public class PierceAndCoverDiamond extends JerboaRebuiltRule {
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class PierceAndCoverDiamondExprRn1pos implements JerboaRuleExpression {
+    private class QuadrangulateFaceFakeExprRn1pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
@@ -124,13 +113,33 @@ return new Vec3(Vec3.segmentABByWeight(curleftPattern.getNode(0).<fr.ensma.lias.
         }
     }
 
+    private class QuadrangulateFaceFakeExprRn3pos implements JerboaRuleExpression {
+
+        @Override
+        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
+            curleftPattern = leftPattern;
+// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
+            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
+Vec3 bary = new Vec3();
+bary.barycenter(gmap.<fr.ensma.lias.jerboa.embeddings.Vec3>collect(curleftPattern.getNode(0),JerboaOrbit.orbit(0,1),0));
+return bary;
+// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
+        }
+
+        @Override
+        public String getName() {
+            return "pos";
+        }
+
+        @Override
+        public int getEmbedding() {
+            return ((ModelerGenerated)modeler).getPos().getID();
+        }
+    }
+
     // Facility for accessing to the dart
     private JerboaDart n0() {
         return curleftPattern.getNode(0);
-    }
-
-    private JerboaDart n4() {
-        return curleftPattern.getNode(1);
     }
 
 } // end rule Class

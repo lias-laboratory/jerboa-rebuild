@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules.Subdivision;
+package fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
@@ -37,7 +37,7 @@ public class SubdivQuadFake extends JerboaRebuiltRule {
 
     public SubdivQuadFake(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "SubdivQuadFake", "Subdivision");
+        super(modeler, "SubdivQuadFake", "SubdivisionFake");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1,2,3), 3);

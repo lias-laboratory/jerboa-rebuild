@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules;
+package fr.ensma.lias.jerboa.core.rule.rules.UnSew;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
@@ -36,7 +36,7 @@ public class Unsew012 extends JerboaRebuiltRule {
 
     public Unsew012(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "Unsew012", "");
+        super(modeler, "Unsew012", "UnSew");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1,2), 3);

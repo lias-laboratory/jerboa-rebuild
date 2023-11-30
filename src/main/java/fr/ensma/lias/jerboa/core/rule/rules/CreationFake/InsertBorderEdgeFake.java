@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules;
+package fr.ensma.lias.jerboa.core.rule.rules.CreationFake;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
@@ -22,7 +22,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class InsertBorderEdge extends JerboaRebuiltRule {
+public class InsertBorderEdgeFake extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -34,9 +34,9 @@ public class InsertBorderEdge extends JerboaRebuiltRule {
 
 
 
-    public InsertBorderEdge(ModelerGenerated modeler) throws JerboaException {
+    public InsertBorderEdgeFake(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "InsertBorderEdge", "");
+        super(modeler, "InsertBorderEdgeFake", "CreationFake");
 
         // -------- LEFT GRAPH
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,2,3), 3);
@@ -45,7 +45,7 @@ public class InsertBorderEdge extends JerboaRebuiltRule {
 
         // -------- RIGHT GRAPH
         JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(-1,2,3), 3);
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,2,3), 3, new InsertBorderEdgeExprRn1pos());
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0,2,3), 3, new InsertBorderEdgeFakeExprRn1pos());
         JerboaRuleNode rn2 = new JerboaRuleNode("n2", 2, JerboaOrbit.orbit(-1,2,3), 3);
         right.add(rn0);
         right.add(rn1);
@@ -83,7 +83,7 @@ public class InsertBorderEdge extends JerboaRebuiltRule {
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class InsertBorderEdgeExprRn1pos implements JerboaRuleExpression {
+    private class InsertBorderEdgeFakeExprRn1pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {

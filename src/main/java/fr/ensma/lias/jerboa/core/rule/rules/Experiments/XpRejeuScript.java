@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules;
+package fr.ensma.lias.jerboa.core.rule.rules.Experiments;
 
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class XpRejeuScript extends JerboaRuleScript {
 
     public XpRejeuScript(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "XpRejeuScript", "");
+        super(modeler, "XpRejeuScript", "Experiments");
 
         // -------- LEFT GRAPH
 

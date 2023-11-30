@@ -45,10 +45,10 @@ import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeVolumeFaceYAxis;
 import fr.ensma.lias.jerboa.core.rule.rules.Sew.SewA3;
 import fr.ensma.lias.jerboa.core.rule.rules.UnSew.UnSewA3;
 import fr.ensma.lias.jerboa.core.rule.rules.Merge.MergeHFaces;
-import fr.ensma.lias.jerboa.core.rule.rules.Experiments.TriangulateVolume;
-import fr.ensma.lias.jerboa.core.rule.rules.Experiments.MergeVolumesAroundVertex;
-import fr.ensma.lias.jerboa.core.rule.rules.Experiments.PierceFaceAndCover;
-import fr.ensma.lias.jerboa.core.rule.rules.Experiments.PierceFace;
+import fr.ensma.lias.jerboa.core.rule.rules.Split.TriangulateVolume;
+import fr.ensma.lias.jerboa.core.rule.rules.Merge.MergeVolumesAroundVertex;
+import fr.ensma.lias.jerboa.core.rule.rules.Carving.PierceFaceAndCover;
+import fr.ensma.lias.jerboa.core.rule.rules.Carving.PierceFace;
 import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreatePentagon;
 import fr.ensma.lias.jerboa.core.rule.rules.Creation.InsertVertexUnfoldedV2;
 import fr.ensma.lias.jerboa.core.rule.rules.Color.MakeFaceBlue;
@@ -58,18 +58,23 @@ import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTri;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuad;
 import fr.ensma.lias.jerboa.core.rule.rules.UnSew.UnSewA2;
 import fr.ensma.lias.jerboa.core.rule.rules.Duplication.DuplicateAndTranslateCC;
-import fr.ensma.lias.jerboa.core.rule.rules.Unsew012;
+import fr.ensma.lias.jerboa.core.rule.rules.UnSew.Unsew012;
 import fr.ensma.lias.jerboa.core.rule.rules.FilRouge;
 import fr.ensma.lias.jerboa.core.rule.rules.TriOrColor;
-import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivQuadFake;
-import fr.ensma.lias.jerboa.core.rule.rules.XpRejeuScript;
-import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.SubdivTriFake;
+import fr.ensma.lias.jerboa.core.rule.rules.Split.TriPlusVerts;
+import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
+import fr.ensma.lias.jerboa.core.rule.rules.Experiments.XpRejeuScript;
+import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.CatmullClark;
-import fr.ensma.lias.jerboa.core.rule.rules.InsertBorderEdge;
-import fr.ensma.lias.jerboa.core.rule.rules.PierceFaceCoverDiamond;
-import fr.ensma.lias.jerboa.core.rule.rules.Unsew012BIS;
+import fr.ensma.lias.jerboa.core.rule.rules.Creation.InsertBorderEdge;
+import fr.ensma.lias.jerboa.core.rule.rules.Carving.PierceFaceCoverDiamond;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.QuadrangulateFace;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.SplitVertex;
+import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.TriPlusVertsFake;
+import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.TriangulateFaceFake;
+import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.QuadrangulateFaceFake;
+import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.InsertBorderEdgeFake;
+import fr.ensma.lias.jerboa.core.rule.rules.Experiments.XpRejeuScript2;
 
 
 
@@ -154,15 +159,20 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new Unsew012(this));
         this.registerRule(new FilRouge(this));
         this.registerRule(new TriOrColor(this));
+        this.registerRule(new TriPlusVerts(this));
         this.registerRule(new SubdivQuadFake(this));
         this.registerRule(new XpRejeuScript(this));
         this.registerRule(new SubdivTriFake(this));
         this.registerRule(new CatmullClark(this));
         this.registerRule(new InsertBorderEdge(this));
         this.registerRule(new PierceFaceCoverDiamond(this));
-        this.registerRule(new Unsew012BIS(this));
         this.registerRule(new QuadrangulateFace(this));
         this.registerRule(new SplitVertex(this));
+        this.registerRule(new TriPlusVertsFake(this));
+        this.registerRule(new TriangulateFaceFake(this));
+        this.registerRule(new QuadrangulateFaceFake(this));
+        this.registerRule(new InsertBorderEdgeFake(this));
+        this.registerRule(new XpRejeuScript2(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

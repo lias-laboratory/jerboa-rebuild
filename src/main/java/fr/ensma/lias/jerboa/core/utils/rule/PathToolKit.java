@@ -21,55 +21,46 @@ public class PathToolKit {
 
     while (!queue.isEmpty()) {
       Pair<JerboaRuleNode, List<Integer>> p = queue.pollFirst();
-      System.out.println("cur node " + p.l());
 
-      // if match
-      if (p.l().equals(node) && !p.r().isEmpty()) {
+      if (!REVERSE && p.l().isNotMarked()) {
+        p.l().setMark(true);
+      }
+
+      if (p.l().equals(node) && REVERSE) {
         pathToCompute = p.r();
         break;
       }
 
-      for (int index = 0; index <= dimension; index++) {
+      // Collect splitlink so that the computed path can actually travel from a
+      // suborbit to another in a split
+      if (p.l().getOrbit().contains(splitLink) && !REVERSE) {
+        REVERSE = true;
+        p.r().add(splitLink);
+      }
 
-        if (p.l().alpha(index) == null) {
-          if (orbitType.contains(index)) {
-
-            if (index == splitLink) {
-              // SplitLink might be ignored because a previous index might
-              // actually hit a non-null link
-              System.out.println("REVERSE: " + REVERSE);
-              REVERSE = true;
-            }
-            if (!REVERSE && p.l().isNotMarked()) {
-              p.r().add(index);
-            } else if (REVERSE && !p.l().equals(node) && !p.l().isNotMarked()) {
-              p.r().add(index);
-            }
-          }
+      // Collect all implicit links from orbit type while not in REVERSE mode
+      for (Integer index : orbitType) {
+        if (p.l().getOrbit().contains(index) && !REVERSE) {
+          p.r().add(index);
         }
+      }
 
-        // if index equals splitLink and p.l through index equals p.l
-        if (p.l().alpha(index) != null) {
+      for (Integer index : orbitType) {
+
+        if (p.l().alpha(index) != null && !p.l().alpha(index).equals(p.l())) {
+
           JerboaRuleNode w = p.l().alpha(index);
-          System.out.println("w(r): " + p.r());
 
-          if (p.l().alpha(index).equals(p.l())) {}
-          if (orbitType.contains(index)) {
-            //
-            List<Integer> path = new ArrayList<Integer>(p.r());
-            path.add(index);
+          List<Integer> path = new ArrayList<Integer>(p.r());
+          path.add(index);
 
-            Pair<JerboaRuleNode, List<Integer>> q =
-                new Pair<JerboaRuleNode, List<Integer>>(w, path);
-            if (!REVERSE && w.isNotMarked()) {
-              w.setMark(true);
-              // neighbors.push(w);
-              queue.push(q);
-            } else if (REVERSE && !w.isNotMarked()) {
-              w.setMark(false);
-              // neighbors.push(w);
-              queue.push(q);
-            }
+          Pair<JerboaRuleNode, List<Integer>> q = new Pair<JerboaRuleNode, List<Integer>>(w, path);
+          if (!REVERSE && q.l().isNotMarked()) {
+            q.l().setMark(true);
+            queue.push(q);
+          } else if (REVERSE && !q.l().isNotMarked()) {
+            q.l().setMark(false);
+            queue.push(q);
           }
         }
       }

@@ -83,7 +83,6 @@ public class PathToolKit {
 
     for (JerboaRuleNode n : rule.getRight()) {
       if (!n.isNotMarked()) n.setMark(false);
-      ;
     }
     return pathToCompute;
   }

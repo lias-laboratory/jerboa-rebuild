@@ -10,12 +10,27 @@ import up.jerboa.core.util.Pair;
 
 public class PathToolKit {
 
+  /**
+   * Compute a path between two darts from different sub-instances of an orbit post-split. Cycling
+   * this path is expected to bring back to the starting dart.
+   *
+   * <p>This method travels from a node until it reaches the split rewrite link and then goes back
+   * to the starting node.
+   *
+   * @param rule The rule from which computing the path
+   * @param node A starting jerboa rule node from the rule (most likely a hook)
+   * @param splitRewriteLink The rewritten value of a split link
+   * @param orbitType a JerboaOrbit
+   * @return A path in the form a a list of alpha-links (Integers)
+   */
   public static List<Integer> getNextInstancePath(
-      JerboaRuleGenerated rule, JerboaRuleNode node, Integer splitLink, JerboaOrbit orbitType) {
+      JerboaRuleGenerated rule,
+      JerboaRuleNode node,
+      Integer splitRewriteLink,
+      JerboaOrbit orbitType) {
 
     boolean REVERSE = false;
     List<Integer> pathToCompute = new ArrayList<>();
-    int dimension = rule.getOwner().getDimension();
     LinkedList<Pair<JerboaRuleNode, List<Integer>>> queue = new LinkedList<>();
     queue.push(new Pair<JerboaRuleNode, List<Integer>>(node, new LinkedList<Integer>()));
 
@@ -33,9 +48,9 @@ public class PathToolKit {
 
       // Collect splitlink so that the computed path can actually travel from a
       // suborbit to another in a split
-      if (p.l().getOrbit().contains(splitLink) && !REVERSE) {
+      if (p.l().getOrbit().contains(splitRewriteLink) && !REVERSE) {
         REVERSE = true;
-        p.r().add(splitLink);
+        p.r().add(splitRewriteLink);
       }
 
       // Collect all implicit links from orbit type while not in REVERSE mode

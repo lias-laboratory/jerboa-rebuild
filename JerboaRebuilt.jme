@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>DooSabin</openRules>
 	<openRules>SubdivQuadFake</openRules>
+	<openRules>DooSabin</openRules>
 	<openRules>QuadrangulateFaceFake</openRules>
+	<openRules>TriangulateFace</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -4036,23 +4037,35 @@ return false;</precondition>
             </left>
             <right>
                 <nodes count="4">
-                    <node name="n0" x="95" y="151" orbit="0,1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="238" y="151" orbit="0,-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="95" y="151" orbit="0,1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">JerboaList&lt;@ebd&lt;pos&gt;&gt; l;
+Vec3 centerFace = new Vec3(); centerFace.barycenter(&lt;0,1&gt;_pos(n0));
+l.add(centerFace);
+Vec3 midEdge1 = new Vec3(); midEdge1.barycenter(&lt;0&gt;_pos(n0));
+l.add(midEdge1);
+Vec3 midEdge2 = new Vec3(); midEdge2.barycenter(&lt;0&gt;_pos(n0@1));
+l.add(midEdge2);
+l.add(n0.pos);
+Vec3 res = new Vec3();
+res.barycenter(l);
+return res;</expr>
+                    </node>
                     <node name="n2" x="380" y="149" orbit="-1,-1,0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="537" y="149" orbit="-1,1,0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="238" y="151" orbit="0,-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="6">
+                    <arc dim="2" a="n2" b="n3" size="0">
+                    </arc>
                     <arc dim="2" a="n0" b="n1" size="0">
                     </arc>
                     <arc dim="1" a="n1" b="n2" size="0">
                     </arc>
-                    <arcloop dim="3" node="n1" angle="1.6302142453998432" >
+                    <arcloop dim="3" node="n1" angle="1.460802531352817" >
                     </arcloop>
-                    <arc dim="2" a="n2" b="n3" size="0">
-                    </arc>
-                    <arcloop dim="3" node="n2" angle="2.4630696674198678" >
+                    <arcloop dim="3" node="n2" angle="4.7769261274107" >
                     </arcloop>
-                    <arcloop dim="3" node="n3" angle="5.573352174343373" >
+                    <arcloop dim="3" node="n3" angle="2.4192389389995004" >
                     </arcloop>
                 </arcs>
             </right>

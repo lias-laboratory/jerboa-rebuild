@@ -77,10 +77,10 @@ public class InsertEdge extends JerboaRebuiltRule {
 
     public int attachedNode(int i) {
         switch(i) {
-        case 0: return 1;
-        case 1: return 1;
-        case 2: return 1;
-        case 3: return 1;
+        case 0: return 0;
+        case 1: return 0;
+        case 2: return 0;
+        case 3: return 0;
         }
         return -1;
     }

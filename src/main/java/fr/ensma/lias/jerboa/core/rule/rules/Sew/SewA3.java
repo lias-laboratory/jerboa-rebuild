@@ -71,8 +71,8 @@ public class SewA3 extends JerboaRebuiltRule {
 
     public int attachedNode(int i) {
         switch(i) {
-        case 0: return 0;
-        case 1: return 0;
+        case 0: return 1;
+        case 1: return 1;
         }
         return -1;
     }

@@ -9,10 +9,9 @@ import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
 
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
-import fr.ensma.lias.jerboa.embeddings.Vec3;
 import fr.ensma.lias.jerboa.experiments.MesScriptsRejeu;
-import java.awt.Color;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
+import java.awt.Color;
 
 /* Raw Imports : */
 

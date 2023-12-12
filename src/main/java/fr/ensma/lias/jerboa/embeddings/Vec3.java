@@ -1,6 +1,8 @@
 package fr.ensma.lias.jerboa.embeddings;
 
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Vec3 {
 
@@ -112,5 +114,19 @@ public class Vec3 {
   public static Vec3 segmentABByWeight(Vec3 a, Vec3 b, float weight) {
     return new Vec3(
         a.x + ((b.x - a.x) * weight), a.y + ((b.y - a.y) * weight), a.z + ((b.z - a.z) * weight));
+  }
+
+  public static Vec3 askForCoords() {
+    JFrame floatFrame = new JFrame();
+    floatFrame.setLocationRelativeTo(null);
+    float a = Float.parseFloat(JOptionPane.showInputDialog(floatFrame, "X coordinate", "0"));
+    float b = Float.parseFloat(JOptionPane.showInputDialog(floatFrame, "Y coordinate", "0"));
+    float c = Float.parseFloat(JOptionPane.showInputDialog(floatFrame, "Z coordinate", "0"));
+    Vec3 res = new Vec3(a, b, c);
+    return res;
+  }
+
+  public static int askInt(String message, String defaut) {
+    return Integer.parseInt(JOptionPane.showInputDialog(null, message, defaut));
   }
 }

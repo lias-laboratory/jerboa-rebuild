@@ -2,12 +2,11 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
+import fr.ensma.lias.jerboa.core.utils.rule.PathToolKit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -256,39 +255,41 @@ public class ReevaluationTree {
                 controlDartNodeIndex,
                 applicationResult);
 
-        // List<JerboaDart> splitDarts = new ArrayList<>();
         List<JerboaDart> splitDarts = new ArrayList<>();
 
-        JerboaOrbit hookOrbitType = application.getRule().getHooks().get(0).getOrbit();
+        // JerboaOrbit hookOrbitType = application.getRule().getHooks().get(0).getOrbit();
 
-        Set<Integer> customOrbitTypeSet = new HashSet<>();
+        // Set<Integer> customOrbitTypeSet = new HashSet<>();
 
-        // FIXME: Devise a way around the rule to gather the topological parameters
-        // in disconnected component
-        /***********************************************************************/
-        // This bit of code computes the largest common sub-orbit between an DAG
-        // orbit node's type and a rule hook node's type. This HACK limits the
-        // possible branches /!\ IT IS RESTRAINED TO ORBITS BELONGING TO THE
-        // CONNECTED COMPONENT
-        /***********************************************************************/
-        for (var hookLink : hookOrbitType) {
-          for (var nodeLink : orbitType) {
-            if (hookLink == nodeLink) {
-              customOrbitTypeSet.add(hookLink);
-            }
-          }
-        }
+        // // FIXME: Devise a way around the rule to gather the topological parameters
+        // // in disconnected component
 
-        JerboaOrbit customOrbitType = new JerboaOrbit(customOrbitTypeSet);
-        /***********************************************************************/
+        // TODO: remove this once sure using event's child node's orbit and not
+        // event's parent node's orbit is the way to go => they actually should
+        // remain strictly identical though
+
+        // for (var hookLink :
+        // hookOrbitType) { for (var nodeLink : orbitType) { if (hookLink ==
+        // nodeLink) { customOrbitTypeSet.add(hookLink); } } }
+
+        // JerboaOrbit customOrbitType = new JerboaOrbit(customOrbitTypeSet);
 
         JerboaDart dart =
             computeSplitAddedDart(
-                topoParam, customOrbitType, splitLink, splitLinkRewrite, addedRule);
+                topoParam,
+                addedEventNode.getChild().getOrbit(),
+                splitLink,
+                splitLinkRewrite,
+                addedRule);
         while (!splitDarts.contains(dart)) {
           splitDarts.add(dart);
           dart =
-              computeSplitAddedDart(dart, customOrbitType, splitLink, splitLinkRewrite, addedRule);
+              computeSplitAddedDart(
+                  dart,
+                  addedEventNode.getChild().getOrbit(),
+                  splitLink,
+                  splitLinkRewrite,
+                  addedRule);
         }
 
         for (int i = 0; i < splitDarts.size(); i++) {
@@ -571,18 +572,33 @@ public class ReevaluationTree {
       int splitLinkRewrite,
       JerboaRuleGenerated rule) {
 
-    System.out.println("splitlink: " + splitLink + "\tsplit rewrite: " + splitLinkRewrite);
+    // System.out.println("rule: " + rule.getFullname());
 
-    if (orbitType.size() > 0) {
-      for (int linkIndex = 0; linkIndex < orbitType.size(); linkIndex++) {
-        int link = orbitType.get(linkIndex);
-        dart = dart.alpha(link);
-        if (link == splitLink) {
-          dart = dart.alpha(splitLinkRewrite);
-          dart = dart.alpha(link);
-        }
-      }
-    } else dart = dart.alpha(splitLink);
+    // System.out.println("splitlink: " + splitLink + "\tsplit rewrite: " + splitLinkRewrite);
+
+    // System.out.println("OLD: ");
+    // if (orbitType.size() > 0) {
+    //   for (int linkIndex = 0; linkIndex < orbitType.size(); linkIndex++) {
+    //     int link = orbitType.get(linkIndex);
+    //     System.out.println(link);
+    //     dart = dart.alpha(link);
+    //     if (link == splitLink) {
+    //       dart = dart.alpha(splitLinkRewrite);
+    //       System.out.println(splitLinkRewrite);
+    //       dart = dart.alpha(link);
+    //       System.out.println(link);
+    //     }
+    //   }
+    // } else dart = dart.alpha(splitLink);
+
+    JerboaRuleNode node =
+        rule.getRightRuleNode(rule.getRightIndexRuleNode(rule.getHooks().get(0).getName()));
+
+    List<Integer> list = PathToolKit.getNextInstancePath(rule, node, splitLinkRewrite, orbitType);
+
+    for (int index : list) {
+      dart = dart.alpha(index);
+    }
 
     return dart;
   }

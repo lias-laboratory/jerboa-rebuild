@@ -1,14 +1,32 @@
 package fr.ensma.lias.jerboa.experiments;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.rule.JerboaRowPattern;
 import up.jerboa.core.util.JerboaRuleGenerated;
-import up.jerboa.core.util.Pair;
 
 class ScriptConditionalReevaluation {
+
+  private JerboaDart getDartFromEntry(
+      List<JerboaRowPattern> leftRowPattern, int nodeIndex, int instance, List<Integer> path) {
+    JerboaDart dart = leftRowPattern.get(nodeIndex).get(instance);
+    for (int link : path) {
+      dart = dart.alpha(link);
+    }
+    return dart;
+  }
+
+  private int getDartInstance(JerboaDart dart, List<JerboaRowPattern> leftRowPattern) {
+    for (int i = 0; i < leftRowPattern.size(); i++) {
+      for (int j = 0; j < leftRowPattern.get(i).size(); j++) {
+        if (leftRowPattern.get(i).get(j).equals(dart)) {
+          return j;
+        }
+      }
+    }
+
+    return -1;
+  }
 
   /**
    * @param scriptEntry The dart used as parameter for the script
@@ -25,30 +43,10 @@ class ScriptConditionalReevaluation {
       JerboaRuleGenerated ruleA,
       JerboaRuleGenerated ruleB) {
 
-    // get ruleA left row pattern from ruleA
-    List<JerboaRowPattern> leftRowPatternA = new ArrayList<>();
-    // get ruleB left row pattern from ruleB
-    List<JerboaRowPattern> leftRowPatternB = new ArrayList<>();
-
-    // TODO get Dart from ruleAEntryPath
-    JerboaDart dartA = null;
-    // coords for dart A in row pattern A
-    Pair<Integer, Integer> coordA1 = new Pair<Integer, Integer>(-1, -1);
-    // coords for dart A in row pattern B
-    Pair<Integer, Integer> coordA2 = new Pair<Integer, Integer>(-1, -1);
-    // TODO get Dart from ruleBEntryPath
-    // coords for dart B in row pattern A
-    Pair<Integer, Integer> coordB1 = new Pair<Integer, Integer>(-1, -1);
-    // coords for dart B in row pattern B
-    Pair<Integer, Integer> coordB2 = new Pair<Integer, Integer>(-1, -1);
-    JerboaDart dartB = null;
-
-    for (int i = 0; i < leftRowPatternA.size(); i++) {
-      for (int j = 0; j < leftRowPatternA.get(i).size(); j++) {
-        if (leftRowPatternA.get(i).get(j).equals(dartA)) {}
-        // TODO assign coords to coordA…
-        break;
-      }
+    JerboaDart dartA = getDartFromEntry(null, ruleA.getHooks().get(0).getID(), 0, ruleBEntryPath);
+    int instance = getDartInstance(dartA, null);
+    if (instance != -1) {
+      System.out.println("Found instance: " + instance);
     }
   }
 

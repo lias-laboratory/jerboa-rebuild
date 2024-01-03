@@ -1,0 +1,121 @@
+% \makeatletter
+% \def\input@path{{eg-template}}
+% \makeatother
+
+\documentclass[twocolumn,a4paper]{article}
+% \documentclass{egpubl}
+
+% \usepackage{EGUKCGVC2023}
+% \WsSubmission
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% \usepackage{dfadobe}
+
+% \biberVersion
+% \BibtexOrBiblatex
+\usepackage[backend=biber,citestyle=alphabetic,backref=true]{biblatex}
+\addbibresource{references.bib}
+% \electronicVersion
+% \PrintedOrElectronic
+
+% \ifpdf \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
+% \else \usepackage[dvips]{graphicx} \fi
+% \usepackage{egweblnk}
+\usepackage{hyperref}
+
+%%%
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage[backend=biber,bibstyle=EG,citestyle=alphabetic]{biblatex}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage{tabularx}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+\usepackage{xurl}
+
+\graphicspath{{./figures}}
+\include{commands.tex}
+
+\title{Model reevaluation based on graph transformation rules}
+\author{Anonymous}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+   % The ABSTRACT is to be in fully-justified italicized text,
+   % between two horizontal lines,
+   % in one-column format,
+   % below the author and affiliation information.
+   % Use the word ``Abstract'' as the title, in 9-point Times, boldface type,
+   % left-aligned to the text, initially capitalized.
+   % The abstract is to be in 9-point, single-spaced type.
+   % The abstract may be up to 3 inches (7.62 cm) long. \\
+   % Leave one blank line after the abstract,
+   % then add the subject categories according to the ACM Classification Index
+In this paper, we widen the naming problem studies to the rule-based graph transformation modeling systems. 
+We propose a persistent naming method taking advantage of the generalized maps' and graph transformation rules’ formalization of operations.
+It enables a unique and homogeneous characterisation of entities in all dimensions.
+Most existing methods require tracking numerous topological entities and consider the persistent naming problem only from the parameters' modifications of a parametric specification standpoint. 
+%In 
+With 
+our solution, not only the naming problem is tackled within the usual framework of parameters edition, but we also take the specification edition into account %(operations addition, deletion, move).
+(addition, deletion and displacement of operations).
+Moreover, our solution makes use of directed acyclic graphs %(DAGs) 
+to represent the histories of 
+topological entities%' histories 
+and to track only the entities used in the parametric specification and the ones they originate from. 
+Representing 
+the
+history of a topological entity 
+%both in an evaluation DAG and after editing the parametric specification in a reevaluation DAG 
+allows for an efficient persistent naming mechanism that takes into account the impact
+%of both origins and traces
+of the modifications during reevaluation.
+%-------------------------------------------------------------------------
+%  ACM CCS 1998
+%  (see http://www.acm.org/about/class/1998)
+% \begin{classification} % according to http:http://www.acm.org/about/class/1998
+% \CCScat{Computer Graphics}{I.3.3}{Picture/Image Generation}{Line and curve generation}
+% \end{classification}
+%-------------------------------------------------------------------------
+%  ACM CCS 2012
+%  (see http://www.acm.org/about/class/class/2012)
+%The tool at \url{http://dl.acm.org/ccs.cfm} can be used to generate
+% CCS codes.
+%Example:
+% \begin{CCSXML}
+% <ccs2012>
+%    <concept>
+%        <concept_id>10010147.10010371.10010396</concept_id>
+%        <concept_desc>Computing methodologies~Shape modeling</concept_desc>
+%        <concept_significance>500</concept_significance>
+%        </concept>
+%  </ccs2012>
+% \end{CCSXML}
+
+% \ccsdesc[500]{Computing methodologies~Shape modeling}
+% \printccsdesc
+
+\textbf{Keywords}: Topology-based modeling; Graph transformation rules; Persistent Naming; Reevaluation; Generalized maps;
+\end{abstract}
+
+\subfile{sections/introduction.tex}
+\subfile{sections/main-concepts.tex}
+\subfile{sections/parametric-specifications.tex}
+\subfile{sections/evaluation.tex}
+\subfile{sections/reevaluation.tex}
+%\subfile{sections/implementation.tex}
+\subfile{sections/conclusions-persp.tex}
+
+\printbibliography
+
+
+\end{document}

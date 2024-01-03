@@ -1,33 +1,14 @@
-% \makeatletter
-% \def\input@path{{eg-template}}
-% \makeatother
-
 \documentclass[twocolumn,a4paper]{article}
-% \documentclass{egpubl}
-
-% \usepackage{EGUKCGVC2023}
-% \WsSubmission
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-% \usepackage{dfadobe}
-
-% \biberVersion
-% \BibtexOrBiblatex
-\usepackage[backend=biber,citestyle=alphabetic,backref=true]{biblatex}
+\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
 \addbibresource{references.bib}
-% \electronicVersion
-% \PrintedOrElectronic
-
-% \ifpdf \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
-% \else \usepackage[dvips]{graphicx} \fi
-% \usepackage{egweblnk}
 \usepackage{hyperref}
 
 %%%
 \usepackage{adjustbox}
 \usepackage{amsmath}
 \usepackage{amssymb}
-% \usepackage[backend=biber,bibstyle=EG,citestyle=alphabetic]{biblatex}
 \usepackage{float}
 \usepackage{lipsum}
 \usepackage{subcaption}
@@ -38,7 +19,7 @@
 \usepackage{xurl}
 
 \graphicspath{{./figures}}
-\include{commands.tex}
+\input{commands.tex}
 
 \title{Model reevaluation based on graph transformation rules}
 \author{Anonymous}

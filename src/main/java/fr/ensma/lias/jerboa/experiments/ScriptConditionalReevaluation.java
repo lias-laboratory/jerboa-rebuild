@@ -1,10 +1,15 @@
 package fr.ensma.lias.jerboa.experiments;
 
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
+import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
+import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.List;
 import up.jerboa.core.JerboaDart;
+import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.rule.JerboaRowPattern;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
+import up.jerboa.core.util.Pair;
 
 class ScriptConditionalReevaluation {
 
@@ -58,6 +63,28 @@ class ScriptConditionalReevaluation {
       }
       // if()
     }
+  }
+
+  // NOTE: A little more theory + testings are necessary before putting if/else script matching
+  // altogether
+  public static Pair<JerboaRuleNode, JerboaOrbit> findRHSOrbit(
+      JerboaRuleGenerated rule,
+      String nodeName,
+      JerboaOrbit orbitType,
+      JerboaOrbit origin,
+      Event event) {
+
+    JerboaStaticDetection detector = new JerboaStaticDetection(rule);
+
+    for (JerboaRuleNode rightNode : rule.getRight()) {
+      Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType);
+      JerboaOrbit computedOrigin = detector.computeOrigin(rightNode, orbitType);
+      if (computedEvent.equals(event) && computedOrigin.equals(origin)) {
+        return new Pair<JerboaRuleNode, JerboaOrbit>(rightNode, orbitType);
+      }
+    }
+    System.out.println("findRHSOrbit: no match found");
+    return null;
   }
 
   /**

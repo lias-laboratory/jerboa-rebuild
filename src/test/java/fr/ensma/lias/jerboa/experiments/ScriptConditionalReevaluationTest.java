@@ -2,21 +2,27 @@ package fr.ensma.lias.jerboa.experiments;
 
 import static org.junit.Assert.*;
 
+import fr.ensma.lias.jerboa.core.rule.rules.Carving.PierceFaceAndCover;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDivise2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.Retrecissement2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreateSquareFace;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
+import fr.ensma.lias.jerboa.core.rule.rules.Split.TriangulateFace;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;
+import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
+import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
 import up.jerboa.core.rule.JerboaRowPattern;
+import up.jerboa.core.rule.JerboaRuleNode;
+import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaException;
 
 public class ScriptConditionalReevaluationTest {
@@ -84,5 +90,36 @@ public class ScriptConditionalReevaluationTest {
     assertEquals(0, rowRDF);
     int rowRDF2 = ScriptConditionalReevaluation.getDartInstance(dart2, leftPattern);
     assertEquals(1, rowRDF2);
+  }
+
+  @Test
+  public void test_matchRHS_triangulation_pierce_NoMatchFound() throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    TriangulateFace triangulateRule = (TriangulateFace) modeler.getRule("TriangulateFace");
+    PierceFaceAndCover pierceRule = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
+
+    Pair<JerboaRuleNode, JerboaOrbit> p =
+        ScriptConditionalReevaluation.findRHSOrbit(
+            pierceRule,
+            "n2",
+            JerboaOrbit.orbit(1, 2, 3),
+            JerboaOrbit.orbit(0, 1, 3),
+            Event.CREATION);
+    assertEquals(null, p);
+  }
+
+  @Test
+  public void test_matchRHS_triangulation_pierce() throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    TriangulateFace triangulateRule = (TriangulateFace) modeler.getRule("TriangulateFace");
+    PierceFaceAndCover pierceRule = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
+
+    Pair<JerboaRuleNode, JerboaOrbit> p =
+        ScriptConditionalReevaluation.findRHSOrbit(
+            pierceRule, "n2", JerboaOrbit.orbit(1, 2, 3), JerboaOrbit.orbit(1, 3), Event.CREATION);
+    System.out.println("matchRHS: left = " + p.l());
+    assertNotEquals(null, p);
   }
 }

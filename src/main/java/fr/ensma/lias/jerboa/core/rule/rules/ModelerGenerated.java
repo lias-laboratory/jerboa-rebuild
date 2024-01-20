@@ -62,6 +62,8 @@ import fr.ensma.lias.jerboa.core.rule.rules.UnSew.Unsew012;
 import fr.ensma.lias.jerboa.core.rule.rules.FilRouge;
 import fr.ensma.lias.jerboa.core.rule.rules.TriOrColor;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.TriPlusVerts;
+import fr.ensma.lias.jerboa.core.rule.rules.Rainure2D;
+import fr.ensma.lias.jerboa.core.rule.rules.RainureDouble2D;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.RainureDivise2D;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.Retrecissement2D;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
@@ -167,6 +169,8 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new FilRouge(this));
         this.registerRule(new TriOrColor(this));
         this.registerRule(new TriPlusVerts(this));
+        this.registerRule(new Rainure2D(this));
+        this.registerRule(new RainureDouble2D(this));
         this.registerRule(new RainureDivise2D(this));
         this.registerRule(new Retrecissement2D(this));
         this.registerRule(new SubdivQuadFake(this));

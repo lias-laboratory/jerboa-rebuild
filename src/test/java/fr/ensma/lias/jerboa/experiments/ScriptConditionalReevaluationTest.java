@@ -2,27 +2,21 @@ package fr.ensma.lias.jerboa.experiments;
 
 import static org.junit.Assert.*;
 
-import fr.ensma.lias.jerboa.core.rule.rules.Carving.PierceFaceAndCover;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDivise2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.Retrecissement2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreateSquareFace;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
-import fr.ensma.lias.jerboa.core.rule.rules.Split.TriangulateFace;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;
-import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
-import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
 import up.jerboa.core.rule.JerboaRowPattern;
-import up.jerboa.core.rule.JerboaRuleNode;
-import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaException;
 
 public class ScriptConditionalReevaluationTest {
@@ -92,34 +86,53 @@ public class ScriptConditionalReevaluationTest {
     assertEquals(1, rowRDF2);
   }
 
-  @Test
-  public void test_matchRHS_triangulation_pierce_NoMatchFound() throws JerboaException {
-    ModelerGenerated modeler = new ModelerGenerated();
+  // @Test
+  // public void test_matchRHS_triangulation_pierce() throws JerboaException {
+  //   ModelerGenerated modeler = new ModelerGenerated();
 
-    TriangulateFace triangulateRule = (TriangulateFace) modeler.getRule("TriangulateFace");
-    PierceFaceAndCover pierceRule = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
+  //   TriangulateFace triangulateRule = (TriangulateFace) modeler.getRule("TriangulateFace");
+  //   PierceFaceAndCover pierceRule = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
 
-    Pair<JerboaRuleNode, JerboaOrbit> p =
-        ScriptConditionalReevaluation.findRHSOrbit(
-            pierceRule,
-            "n2",
-            JerboaOrbit.orbit(1, 2, 3),
-            JerboaOrbit.orbit(0, 1, 3),
-            Event.CREATION);
-    assertEquals(null, p);
-  }
+  //   JerboaStaticDetection detectorTriangulate = new JerboaStaticDetection(triangulateRule);
+  //   JerboaStaticDetection detectorPierce = new JerboaStaticDetection(pierceRule);
 
-  @Test
-  public void test_matchRHS_triangulation_pierce() throws JerboaException {
-    ModelerGenerated modeler = new ModelerGenerated();
+  //   List<List<JerboaRuleNode>> foundOrbitsTriangulate =
+  //       ScriptConditionalReevaluation.findRHSOrbits(
+  //           triangulateRule, detectorTriangulate, "n2", JerboaOrbit.orbit(1, 2, 3),
+  // Event.CREATION);
+  //   System.out.println("Triangulation orbit found are : " + foundOrbitsTriangulate);
 
-    TriangulateFace triangulateRule = (TriangulateFace) modeler.getRule("TriangulateFace");
-    PierceFaceAndCover pierceRule = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
+  //   List<List<JerboaRuleNode>> foundOrbitsPierce =
+  //       ScriptConditionalReevaluation.findRHSOrbits(
+  //           pierceRule, detectorPierce, null, JerboaOrbit.orbit(1, 2, 3), Event.CREATION);
+  //   System.out.println("Pierce orbit found are : " + foundOrbitsPierce);
 
-    Pair<JerboaRuleNode, JerboaOrbit> p =
-        ScriptConditionalReevaluation.findRHSOrbit(
-            pierceRule, "n2", JerboaOrbit.orbit(1, 2, 3), JerboaOrbit.orbit(1, 3), Event.CREATION);
-    System.out.println("matchRHS: left = " + p.l());
-    assertNotEquals(null, p);
-  }
+  //   assertEquals(foundOrbitsTriangulate.size(), foundOrbitsPierce.size());
+  // }
+
+  // @Test
+  // public void test_matchRHS_rainure_rainureDouble() throws JerboaException {
+  //   ModelerGenerated modeler = new ModelerGenerated();
+
+  //   Rainure2D rainureRule = (Rainure2D) modeler.getRule("Rainure2D");
+  //   RainureDouble2D rainureDoubleRule = (RainureDouble2D) modeler.getRule("RainureDouble2D");
+
+  //   JerboaStaticDetection detectorRainure = new JerboaStaticDetection(rainureRule);
+  //   JerboaStaticDetection detectorRainureDouble = new JerboaStaticDetection(rainureDoubleRule);
+
+  //   List<List<JerboaRuleNode>> foundOrbitsRainure =
+  //       ScriptConditionalReevaluation.findRHSOrbits(
+  //           rainureRule, detectorRainure, "n4", JerboaOrbit.orbit(0), Event.CREATION);
+  //   System.out.println("Rainure orbit found are : " + foundOrbitsRainure);
+
+  //   List<List<JerboaRuleNode>> foundOrbitsRainureDouble =
+  //       ScriptConditionalReevaluation.findRHSOrbits(
+  //           rainureDoubleRule, detectorRainureDouble, null, JerboaOrbit.orbit(0),
+  // Event.CREATION);
+  //   System.out.println("RainureDouble orbit found are : " + foundOrbitsRainureDouble);
+
+  //   assertEquals(1, foundOrbitsRainure.size());
+  //   assertEquals(4, foundOrbitsRainureDouble.size());
+  // }
+
 }

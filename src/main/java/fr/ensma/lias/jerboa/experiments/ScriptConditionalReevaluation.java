@@ -3,7 +3,11 @@ package fr.ensma.lias.jerboa.experiments;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.datastructures.Event;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.rule.JerboaRowPattern;
@@ -29,7 +33,6 @@ class ScriptConditionalReevaluation {
         }
       }
     }
-
     return -1;
   }
 
@@ -65,43 +68,107 @@ class ScriptConditionalReevaluation {
     }
   }
 
-  // NOTE: A little more theory + testings are necessary before putting if/else script matching
-  // altogether
-  public static Pair<JerboaRuleNode, JerboaOrbit> findRHSOrbit(
-      JerboaRuleGenerated rule,
-      String nodeName,
+  /**
+   * 0
+   *
+   * @param matchingDarts
+   * @param orbitType
+   * @param instancePath
+   */
+  // TODO: Documentation
+  // TODO: populate a hashmap with origin darts from the first rule
+  public static void findOriginDarts(
+      Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> matchingDarts,
       JerboaOrbit orbitType,
-      JerboaOrbit origin,
-      Event event) {
-
-    JerboaStaticDetection detector = new JerboaStaticDetection(rule);
-
-    for (JerboaRuleNode rightNode : rule.getRight()) {
-      Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType);
-      JerboaOrbit computedOrigin = detector.computeOrigin(rightNode, orbitType);
-      if (computedEvent.equals(event) && computedOrigin.equals(origin)) {
-        return new Pair<JerboaRuleNode, JerboaOrbit>(rightNode, orbitType);
-      }
-    }
-    System.out.println("findRHSOrbit: no match found");
-    return null;
+      List<Integer> instancePath) {
+    //
   }
 
   /**
-   * @param matchInstance An index of leftRowPattern from ruleB
-   * @param ruleA A rule called during the initial Evaluation
-   * @param ruleB A rule called during Reevaluation instead of ruleA
-   * @return //TODO matchOrbits specify return
+   * 0
+   *
+   * @param matchingDarts
    */
-  private void matchOrbits(
-      int matchInstance, JerboaRuleGenerated ruleA, JerboaRuleGenerated ruleB) {
-    // TODO: match orbits from ruleA onto ruleB
-    // TODO: orbits must be matched by grouping: creation => Generative; split,
-    // merge, modification
-    // => Modification; deletion => Deletion
+  // TODO: Documentation
+  // TODO: populate a hashmap with the nodes and indexes darts from a second rule
+  public static void matchLHSDarts(
+      Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> matchingDarts) {
+    //
   }
 
-  public JerboaDart conditionalReevaluation() {
+  /**
+   * 0
+   *
+   * @param rule
+   * @param detector
+   * @param nodeName
+   * @param orbitType
+   * @param event
+   * @return
+   */
+  // TODO: Documentation
+  public static List<List<JerboaRuleNode>> findRHSOrbits(
+      JerboaRuleGenerated rule,
+      JerboaStaticDetection detector,
+      String nodeName,
+      JerboaOrbit orbitType,
+      Event event) {
+
+    List<List<JerboaRuleNode>> foundOrbits = new ArrayList<>();
+
+    if (nodeName != null) {
+      return Arrays.asList(
+          JerboaRuleNode.orbit(
+              rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName)), orbitType));
+    }
+
+    for (JerboaRuleNode rightNode : rule.getRight()) {
+      if (rightNode.isNotMarked()) {
+        Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType);
+        if (computedEvent.getCategory().equals(event.getCategory())) {
+          List<JerboaRuleNode> matchingOrbit = JerboaRuleNode.orbit(rightNode, orbitType);
+          for (JerboaRuleNode n : matchingOrbit) {
+            n.setMark(true);
+          }
+          foundOrbits.add(matchingOrbit);
+        }
+      }
+    }
+
+    for (List<JerboaRuleNode> o : foundOrbits) {
+      for (JerboaRuleNode n : o) {
+        n.setMark(false);
+      }
+    }
+
+    return foundOrbits;
+  }
+
+  public JerboaDart conditionalReevaluation(
+      JerboaRuleGenerated ruleA,
+      JerboaRuleGenerated ruleB,
+      List<JerboaRowPattern> ruleALHSPattern,
+      List<JerboaRowPattern> ruleBLHSPattern,
+      JerboaRuleNode node,
+      JerboaOrbit orbitType,
+      Event event) {
+
+    // 1/ match an orbit of root n in RHSA
+    JerboaStaticDetection detectorRuleA = new JerboaStaticDetection(ruleA);
+    List<List<JerboaRuleNode>> RHSAOrbits =
+        findRHSOrbits(ruleA, detectorRuleA, node.getName(), orbitType, event);
+    // List<JerboaRuleNode> RHSAOrbit = JerboaRuleNode.orbit(node, orbitType);
+
+    // 1.5/ initialize memoization list for origin darts from LHSA
+    Map<Integer, Pair<Pair<JerboaRuleNode, Integer>, Pair<JerboaRuleNode, Integer>>> dartsMapping =
+        new HashMap<>();
+
+    // 2/ memoize darts -> dart : ("LHSA" (node, index), "LHSB" (node, index))
+
+    // 3/ match all eligible orbits in RHSB
+
+    // 4/ select default orbit from RHSB orbits
+
     return null;
   }
 }

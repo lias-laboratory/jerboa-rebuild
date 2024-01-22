@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.rule.JerboaRowPattern;
@@ -34,6 +35,18 @@ class ScriptConditionalReevaluation {
       }
     }
     return -1;
+  }
+
+  public static Pair<Integer, Integer> getDartsCoord(
+      JerboaDart dart, List<JerboaRowPattern> leftRowPattern) {
+    for (int i = 0; i < leftRowPattern.size(); i++) {
+      for (int j = 0; j < leftRowPattern.get(i).size(); j++) {
+        if (leftRowPattern.get(i).get(j).equals(dart)) {
+          return new Pair<>(i, j);
+        }
+      }
+    }
+    return null;
   }
 
   /**
@@ -77,11 +90,36 @@ class ScriptConditionalReevaluation {
    */
   // TODO: Documentation
   // TODO: populate a hashmap with origin darts from the first rule
-  public static void findOriginDarts(
-      Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> matchingDarts,
-      JerboaOrbit orbitType,
-      List<Integer> instancePath) {
+  public static Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> findOriginDarts(
+      JerboaOrbit originType, List<JerboaRowPattern> ruleALHSPattern, List<Integer> instancePath) {
+
+    Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> originDarts = new HashMap<>();
+
+    JerboaDart root = ruleALHSPattern.get(0).get(0);
+
+    // shift origin's root /!\ no safeguard when instance path is out the LHSPattern
+    for (Integer a : instancePath) {
+      root = root.alpha(a);
+    }
+
+    // gather darts within origin orbit
+    Stack<JerboaDart> queue = new Stack<>();
+    List<JerboaDart> visited = new ArrayList<>();
+    queue.push(root);
+    while (!queue.isEmpty()) {
+      JerboaDart d = queue.pop();
+      if (!visited.contains(d)) {
+        originDarts.put(d, new ArrayList<Pair<JerboaRuleNode, Integer>>());
+        visited.add(d);
+        for (Integer a : originType) {
+          JerboaDart next = d.alpha(a);
+          if (next != null) queue.push(next);
+        }
+      }
+    }
+
     //
+    return originDarts;
   }
 
   /**
@@ -92,8 +130,31 @@ class ScriptConditionalReevaluation {
   // TODO: Documentation
   // TODO: populate a hashmap with the nodes and indexes darts from a second rule
   public static void matchLHSDarts(
+      JerboaRuleGenerated ruleA,
+      JerboaRuleGenerated ruleB,
+      List<JerboaRowPattern> ruleALHSPattern,
+      List<JerboaRowPattern> ruleBLHSPattern,
       Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> matchingDarts) {
-    //
+
+    // referencing for ruleA
+    for (JerboaDart dart : matchingDarts.keySet()) {
+      Pair<Integer, Integer> coord = getDartsCoord(dart, ruleALHSPattern);
+      JerboaRuleNode n = ruleA.getLeftRuleNode(coord.l());
+      List<Pair<JerboaRuleNode, Integer>> l = matchingDarts.get(dart);
+      l.add(new Pair<>(n, coord.r()));
+      matchingDarts.put(dart, l);
+    }
+
+    // referencing for ruleB
+    // for (JerboaDart dart : matchingDarts.keySet()) {
+    //   Pair<Integer, Integer> coord = getDartsCoord(dart, ruleBLHSPattern);
+    //   if (coord != null) {
+    //     JerboaRuleNode n = ruleB.getLeftRuleNode(coord.l());
+    //     List<Pair<JerboaRuleNode, Integer>> l = matchingDarts.get(dart);
+    //     l.add(new Pair<>(n, coord.r()));
+    //     matchingDarts.put(dart, l);
+    //   }
+    // }
   }
 
   /**
@@ -149,19 +210,22 @@ class ScriptConditionalReevaluation {
       JerboaRuleGenerated ruleB,
       List<JerboaRowPattern> ruleALHSPattern,
       List<JerboaRowPattern> ruleBLHSPattern,
+      List<Integer> instancePath,
       JerboaRuleNode node,
       JerboaOrbit orbitType,
       Event event) {
 
-    // 1/ match an orbit of root n in RHSA
     JerboaStaticDetection detectorRuleA = new JerboaStaticDetection(ruleA);
+    JerboaOrbit originA = detectorRuleA.computeOrigin(node, orbitType);
+
+    // 1/ match an orbit of root n in RHSA
     List<List<JerboaRuleNode>> RHSAOrbits =
         findRHSOrbits(ruleA, detectorRuleA, node.getName(), orbitType, event);
     // List<JerboaRuleNode> RHSAOrbit = JerboaRuleNode.orbit(node, orbitType);
 
     // 1.5/ initialize memoization list for origin darts from LHSA
-    Map<Integer, Pair<Pair<JerboaRuleNode, Integer>, Pair<JerboaRuleNode, Integer>>> dartsMapping =
-        new HashMap<>();
+    Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> dartsMapping =
+        findOriginDarts(orbitType, ruleALHSPattern, instancePath);
 
     // 2/ memoize darts -> dart : ("LHSA" (node, index), "LHSB" (node, index))
 

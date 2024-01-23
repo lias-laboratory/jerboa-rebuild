@@ -1,6 +1,5 @@
 package fr.ensma.lias.jerboa.experiments;
 
-import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
@@ -22,20 +21,20 @@ class ScriptConditionalReevaluation {
    * @param leftRowPattern
    * @return a Jerboadart if leftRowPattern not empty else null
    */
-  public static JerboaDart getEntryDart(List<JerboaRowPattern> leftRowPattern) {
-    return !leftRowPattern.isEmpty() ? leftRowPattern.get(0).get(0) : null;
-  }
+  // public static JerboaDart getEntryDart(List<JerboaRowPattern> leftRowPattern) {
+  //   return !leftRowPattern.isEmpty() ? leftRowPattern.get(0).get(0) : null;
+  // }
 
-  public static int getDartInstance(JerboaDart dart, List<JerboaRowPattern> leftRowPattern) {
-    for (int i = 0; i < leftRowPattern.size(); i++) {
-      for (int j = 0; j < leftRowPattern.get(i).size(); j++) {
-        if (leftRowPattern.get(i).get(j).equals(dart)) {
-          return j;
-        }
-      }
-    }
-    return -1;
-  }
+  // public static int getDartInstance(JerboaDart dart, List<JerboaRowPattern> leftRowPattern) {
+  //   for (int i = 0; i < leftRowPattern.size(); i++) {
+  //     for (int j = 0; j < leftRowPattern.get(i).size(); j++) {
+  //       if (leftRowPattern.get(i).get(j).equals(dart)) {
+  //         return j;
+  //       }
+  //     }
+  //   }
+  //   return -1;
+  // }
 
   public static Pair<Integer, Integer> getDartsCoord(
       JerboaDart dart, List<JerboaRowPattern> leftRowPattern) {
@@ -60,26 +59,26 @@ class ScriptConditionalReevaluation {
    *
    * <p>If dartA has same instance -> check it must be preserved throughout ruleB application
    */
-  private void LHSMatching(
-      ModelerGenerated modeler,
-      JerboaDart dartA,
-      JerboaDart dartB,
-      // JerboaRuleGenerated ruleA,
-      // JerboaRuleGenerated ruleB,
-      List<JerboaRowPattern> leftPatternB) {
+  // private void LHSMatching(
+  //     ModelerGenerated modeler,
+  //     JerboaDart dartA,
+  //     JerboaDart dartB,
+  //     // JerboaRuleGenerated ruleA,
+  //     // JerboaRuleGenerated ruleB,
+  //     List<JerboaRowPattern> leftPatternB) {
 
-    int instanceA = getDartInstance(dartA, leftPatternB);
-    int instanceB = getDartInstance(dartB, leftPatternB);
+  //   int instanceA = getDartInstance(dartA, leftPatternB);
+  //   int instanceB = getDartInstance(dartB, leftPatternB);
 
-    if (dartA.equals(dartB)) {
-      System.out.println("The same dart is re-evaluated");
-    } else {
-      if (instanceA == -1) {
-        return;
-      }
-      // if()
-    }
-  }
+  //   if (dartA.equals(dartB)) {
+  //     System.out.println("The same dart is re-evaluated");
+  //   } else {
+  //     if (instanceA == -1) {
+  //       return;
+  //     }
+  //     // if()
+  //   }
+  // }
 
   /**
    * 0

@@ -1,4 +1,5 @@
 package fr.ensma.lias.jerboa.core.rule.rules;
+import fr.ensma.lias.jerboa.core.JerboaRebuiltModeler;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDouble2DFake;
  * 
  */
 
-public class ModelerGenerated extends JerboaModelerGeneric {
+public class ModelerGenerated extends JerboaRebuiltModeler {
 
     // BEGIN LIST OF EMBEDDINGS
     protected JerboaEmbeddingInfo pos;

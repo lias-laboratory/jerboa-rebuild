@@ -1,4 +1,5 @@
 package fr.ensma.lias.jerboa.core.rule.rules.CarvingFake;
+import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
 import java.util.List;
@@ -21,7 +22,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class Rainure2DFake extends JerboaRuleGenerated {
+public class Rainure2DFake extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 

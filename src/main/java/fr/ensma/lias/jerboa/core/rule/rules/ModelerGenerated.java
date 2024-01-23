@@ -62,8 +62,8 @@ import fr.ensma.lias.jerboa.core.rule.rules.UnSew.Unsew012;
 import fr.ensma.lias.jerboa.core.rule.rules.FilRouge;
 import fr.ensma.lias.jerboa.core.rule.rules.TriOrColor;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.TriPlusVerts;
-import fr.ensma.lias.jerboa.core.rule.rules.Rainure2D;
-import fr.ensma.lias.jerboa.core.rule.rules.RainureDouble2D;
+import fr.ensma.lias.jerboa.core.rule.rules.Carving.Rainure2D;
+import fr.ensma.lias.jerboa.core.rule.rules.Carving.RainureDouble2D;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.RainureDivise2D;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.Retrecissement2D;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
@@ -84,6 +84,8 @@ import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.PierceFaceCoverDiamondFa
 import fr.ensma.lias.jerboa.core.rule.rules.Subdivision.DooSabin;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDivise2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.Retrecissement2DFake;
+import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.Rainure2DFake;
+import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDouble2DFake;
 
 
 
@@ -191,6 +193,8 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new DooSabin(this));
         this.registerRule(new RainureDivise2DFake(this));
         this.registerRule(new Retrecissement2DFake(this));
+        this.registerRule(new Rainure2DFake(this));
+        this.registerRule(new RainureDouble2DFake(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

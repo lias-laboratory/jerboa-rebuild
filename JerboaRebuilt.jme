@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>Rainure2D</openRules>
-	<openRules>RainureDouble2D</openRules>
-	<openRules>RainureDouble2DFake</openRules>
-	<openRules>Rainure2DFake</openRules>
+	<openRules>CreatePentagonFake</openRules>
+	<openRules>CreateSquareFaceFake</openRules>
+	<openRules>ChamferCorner2DFake</openRules>
+	<openRules>InsertVertexFoldedFake</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -13,7 +13,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="79">
+    <rules count="84">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -383,7 +383,7 @@
             <comment></comment>
             <left>
                 <nodes count="1">
-                    <node name="n0" x="390" y="150" orbit="1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="210" y="120" orbit="1,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="1">
                     <arcloop dim="3" node="n0" angle="5.110185375202241" >
@@ -4563,6 +4563,331 @@ return false;</precondition>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="ChamferCorner2D" module="Split" category="Split" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="338" y="113" orbit="1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="6.160264821233" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="2.305715021903918" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="125" y="96" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="281" y="95" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(Vec3.segmentABByWeight(n0.pos, n0@0.pos, weight));</expr>
+                    </node>
+                </nodes>
+                <arcs count="5">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="2.9795179705343533" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="3.458147828411331" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="1.9336789724282841" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.6218150045529882" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="weight" type="float" order="0">0.3f</paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="ChamferCorner2DFake" module="SplitFake" category="SplitFake" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="338" y="113" orbit="1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="6.160264821233" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="2.305715021903918" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="125" y="96" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="281" y="95" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(Vec3.segmentABByWeight(n0.pos, n0@0.pos, weight));</expr>
+                    </node>
+                </nodes>
+                <arcs count="5">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="2.9795179705343533" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="3.458147828411331" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="1.9336789724282841" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.6218150045529882" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="weight" type="float" order="0">0.3f</paramebd>
+                <paramebd name="fakeLeft" type="Object" order="1"></paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="InsertVertexFoldedFake" module="CreationFake" category="CreationFake" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="334" y="141" orbit="0,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="227" y="144" orbit="-1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="386" y="144" orbit="1,2,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">Vec3 res = new Vec3();
+res.barycenter(&lt;0,2&gt;_pos(n0));
+return res;</expr>
+                    </node>
+                </nodes>
+                <arcs count="1">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="fakeLeft" type="Object" order="0">null</paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="CreateSquareFaceFake" module="CreationFake" category="CreationFake" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="8">
+                    <node name="n0" x="166" y="153" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="256" y="63" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,0,0);</expr>
+                    </node>
+                    <node name="n2" x="376" y="63" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="466" y="153" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,0,1);</expr>
+                    </node>
+                    <node name="n4" x="466" y="273" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="376" y="363" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,0,1);</expr>
+                    </node>
+                    <node name="n6" x="256" y="363" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n7" x="166" y="273" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,0,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="24">
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="1" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="0" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="1" a="n6" b="n7" size="0">
+                    </arc>
+                    <arc dim="0" a="n7" b="n0" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n1" angle="7.2875145172294" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="1.7358193977509542" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="2.1647225688714538" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="2.523943609115308" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="3.019293755875408" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="3.3142395172188106" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="-2.505569048150171" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="10.375307337286092" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="-1.658583263540411" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="4.812837694379386" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="-0.9601634723912845" >
+                    </arcloop>
+                    <arcloop dim="2" node="n7" angle="5.624132168858731" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="-0.14086196804296214" >
+                    </arcloop>
+                    <arcloop dim="2" node="n0" angle="12.671069000907034" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="0.5538100460832873" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.426666769342073" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="size" type="Integer" order="0">1</paramebd>
+                <paramebd name="fakeLeft" type="Object" order="1"></paramebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <rule name="CreatePentagonFake" module="CreationFake" category="CreationFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="10">
+                    <node name="n0" x="540" y="0" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0.5,1.5,0);</expr>
+                    </node>
+                    <node name="n1" x="690" y="0" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="900" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="990" y="150" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,1,0);</expr>
+                    </node>
+                    <node name="n4" x="990" y="390" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(1,0,0);</expr>
+                    </node>
+                    <node name="n5" x="870" y="480" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="390" y="480" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,0,0);</expr>
+                    </node>
+                    <node name="n7" x="270" y="390" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n8" x="270" y="120" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n9" x="360" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(0,1,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="30">
+                    <arc dim="0" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="0" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="0" a="n7" b="n8" size="0">
+                    </arc>
+                    <arc dim="0" a="n9" b="n0" size="0">
+                    </arc>
+                    <arc dim="1" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="1" a="n6" b="n7" size="0">
+                    </arc>
+                    <arc dim="1" a="n8" b="n9" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="3.9361927798090512" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="5.491290228730065" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="0.9998673043461777" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="0.2454697016314089" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="0.6575552031912064" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="0.5790288951773199" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="1.7125222327207466" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="2.7050269677581564" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="5.139558458417424" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="5.750905737862283" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="5.325184870079976" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="5.086273603520567" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="2.656568051965765" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="1.6373253800093623" >
+                    </arcloop>
+                    <arcloop dim="2" node="n7" angle="4.288045223330654" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="5.96652492536894" >
+                    </arcloop>
+                    <arcloop dim="2" node="n8" angle="3.3185629989850636" >
+                    </arcloop>
+                    <arcloop dim="3" node="n8" angle="6.030854965665251" >
+                    </arcloop>
+                    <arcloop dim="2" node="n9" angle="2.1654911817902978" >
+                    </arcloop>
+                    <arcloop dim="3" node="n9" angle="5.440224633807717" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="fakeLeft" type="Object" order="0">null</paramebd>
+            </paramsebd>
+            <paramstopo>
             </paramstopo>
         </rule>
     </rules>

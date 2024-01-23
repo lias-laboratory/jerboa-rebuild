@@ -86,6 +86,11 @@ import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDivise2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.Retrecissement2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.Rainure2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDouble2DFake;
+import fr.ensma.lias.jerboa.core.rule.rules.Split.ChamferCorner2D;
+import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.ChamferCorner2DFake;
+import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.InsertVertexFoldedFake;
+import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.CreateSquareFaceFake;
+import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.CreatePentagonFake;
 
 
 
@@ -195,6 +200,11 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new Retrecissement2DFake(this));
         this.registerRule(new Rainure2DFake(this));
         this.registerRule(new RainureDouble2DFake(this));
+        this.registerRule(new ChamferCorner2D(this));
+        this.registerRule(new ChamferCorner2DFake(this));
+        this.registerRule(new InsertVertexFoldedFake(this));
+        this.registerRule(new CreateSquareFaceFake(this));
+        this.registerRule(new CreatePentagonFake(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

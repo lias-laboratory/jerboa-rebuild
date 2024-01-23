@@ -1,5 +1,4 @@
 package fr.ensma.lias.jerboa.core.rule.rules.CarvingFake;
-import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
 import java.util.List;
@@ -22,7 +21,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class RainureDouble2DFake extends JerboaRebuiltRule {
+public class RainureDouble2DFake extends JerboaRuleGenerated {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -43,7 +42,6 @@ public class RainureDouble2DFake extends JerboaRebuiltRule {
         JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0), 3);
         left.add(ln0);
         hooks.add(ln0);
-        ln0.setAlpha(1, ln0);
         ln0.setAlpha(2, ln0);
         ln0.setAlpha(3, ln0);
 
@@ -74,7 +72,6 @@ public class RainureDouble2DFake extends JerboaRebuiltRule {
         rn5.setAlpha(1, rn6);
         rn6.setAlpha(0, rn7);
         rn7.setAlpha(1, rn8);
-        rn0.setAlpha(1, rn0);
         rn0.setAlpha(2, rn0);
         rn0.setAlpha(3, rn0);
         rn1.setAlpha(2, rn1);
@@ -98,7 +95,7 @@ public class RainureDouble2DFake extends JerboaRebuiltRule {
         computeEfficientTopoStructure();
         computeSpreadOperation();
         // ------- USER DECLARATION 
-        fakeLeft = null;    }
+    }
 
     public int reverseAssoc(int i) {
         switch(i) {

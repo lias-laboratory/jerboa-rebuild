@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>RainureDouble2D</openRules>
 	<openRules>Rainure2D</openRules>
+	<openRules>RainureDouble2D</openRules>
+	<openRules>RainureDouble2DFake</openRules>
+	<openRules>Rainure2DFake</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -11,7 +13,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="77">
+    <rules count="79">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -3138,7 +3140,7 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="Rainure2D" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+        <rule name="Rainure2D" module="Carving" category="Carving" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -3146,9 +3148,7 @@ return res;</expr>
                 <nodes count="1">
                     <node name="n0" x="263" y="82" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="3">
-                    <arcloop dim="1" node="n0" angle="4.196154050764173" >
-                    </arcloop>
+                <arcs count="2">
                     <arcloop dim="2" node="n0" angle="3.0336277815021067" >
                     </arcloop>
                     <arcloop dim="3" node="n0" angle="5.499397770914008" >
@@ -3163,7 +3163,7 @@ return res;</expr>
                     <node name="n3" x="420" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n4" x="540" y="120" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="15">
+                <arcs count="14">
                     <arc dim="0" a="n0" b="n1" size="0">
                     </arc>
                     <arc dim="1" a="n1" b="n2" size="0">
@@ -3172,8 +3172,6 @@ return res;</expr>
                     </arc>
                     <arc dim="1" a="n3" b="n4" size="0">
                     </arc>
-                    <arcloop dim="1" node="n0" angle="4.235230149013936" >
-                    </arcloop>
                     <arcloop dim="2" node="n0" angle="3.842044909797562" >
                     </arcloop>
                     <arcloop dim="3" node="n0" angle="4.523387799513891" >
@@ -3205,7 +3203,7 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="RainureDouble2D" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+        <rule name="RainureDouble2D" module="Carving" category="Carving" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
@@ -3213,9 +3211,7 @@ return res;</expr>
                 <nodes count="1">
                     <node name="n0" x="342" y="129" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="3">
-                    <arcloop dim="1" node="n0" angle="2.056627910753466" >
-                    </arcloop>
+                <arcs count="2">
                     <arcloop dim="2" node="n0" angle="6.023138108328231" >
                     </arcloop>
                     <arcloop dim="3" node="n0" angle="2.4659635318699014" >
@@ -3224,9 +3220,9 @@ return res;</expr>
             </left>
             <right>
                 <nodes count="9">
-                    <node name="n0" x="60" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="150" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n2" x="240" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="90" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="180" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="270" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n3" x="330" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n4" x="420" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n5" x="510" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
@@ -3234,7 +3230,7 @@ return res;</expr>
                     <node name="n7" x="690" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                     <node name="n8" x="780" y="120" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="27">
+                <arcs count="26">
                     <arc dim="0" a="n0" b="n1" size="0">
                     </arc>
                     <arc dim="1" a="n1" b="n2" size="0">
@@ -3251,8 +3247,6 @@ return res;</expr>
                     </arc>
                     <arc dim="1" a="n7" b="n8" size="0">
                     </arc>
-                    <arcloop dim="1" node="n0" angle="0.22654790203157302" >
-                    </arcloop>
                     <arcloop dim="2" node="n0" angle="2.3719301764706646" >
                     </arcloop>
                     <arcloop dim="3" node="n0" angle="4.239859594137503" >
@@ -4411,6 +4405,164 @@ return false;</precondition>
             </paramsebd>
             <paramstopo>
                 <paramtopo name="n6" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="Rainure2DFake" module="CarvingFake" category="CarvingFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="263" y="82" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="3.0336277815021067" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="5.499397770914008" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="5">
+                    <node name="n0" x="60" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="180" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="300" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="420" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="540" y="120" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="14">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n4" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="3.842044909797562" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="4.523387799513891" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="5.146140371060543" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="4.478000094004061" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="4.372724599394442" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="5.1234406532540815" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="4.8833739934018965" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="4.375464934757618" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="-1.1116735169287406" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="-1.827076324156808" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="fakeLeft" type="Object" order="0">null</paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="RainureDouble2DFake" module="CarvingFake" category="CarvingFake" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="342" y="129" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="2" node="n0" angle="6.023138108328231" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="2.4659635318699014" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="9">
+                    <node name="n0" x="90" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="180" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="270" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n3" x="330" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="420" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n5" x="510" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="600" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n7" x="690" y="120" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n8" x="780" y="120" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="26">
+                    <arc dim="0" a="n0" b="n1" size="0">
+                    </arc>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="0" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="1" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="0" a="n6" b="n7" size="0">
+                    </arc>
+                    <arc dim="1" a="n7" b="n8" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n0" angle="2.3719301764706646" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="4.239859594137503" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="4.48203460376073" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="1.0390056357395174" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="4.445271576504382" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="3.8359725399676536" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="1.9231148261464805" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="5.6239303572775485" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="4.368283427282588" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="4.561441534125471" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="3.5123915166616566" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="5.055969887275363" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="4.896319444953095" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="1.5723309963120764" >
+                    </arcloop>
+                    <arcloop dim="2" node="n7" angle="0.8574467102558874" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="5.669339213272348" >
+                    </arcloop>
+                    <arcloop dim="2" node="n8" angle="0.7438107557056153" >
+                    </arcloop>
+                    <arcloop dim="3" node="n8" angle="2.319280112812116" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="fakeLeft" type="Object" order="0"></paramebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
     </rules>

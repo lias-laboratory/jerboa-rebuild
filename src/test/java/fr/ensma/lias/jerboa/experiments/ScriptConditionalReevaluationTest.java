@@ -7,14 +7,15 @@ import fr.ensma.lias.jerboa.core.rule.rules.Carving.Rainure2D;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.RainureDouble2D;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDouble2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreateSquareFace;
+import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.InsertVertexFoldedFake;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.TriangulateFace;
+import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.ChamferCorner2DFake;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.junit.Test;
 import up.jerboa.core.JerboaDart;
@@ -24,7 +25,6 @@ import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
 import up.jerboa.core.rule.JerboaRowPattern;
 import up.jerboa.core.rule.JerboaRuleNode;
-import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaException;
 
 public class ScriptConditionalReevaluationTest {
@@ -121,7 +121,7 @@ public class ScriptConditionalReevaluationTest {
   }
 
   @Test
-  public void test_getOriginDarts_rainure() throws JerboaException {
+  public void test_getOriginDarts_rainure_created_edge() throws JerboaException {
     ModelerGenerated modeler = new ModelerGenerated();
 
     // Create a square face
@@ -141,13 +141,72 @@ public class ScriptConditionalReevaluationTest {
 
     leftPattern = (List<JerboaRowPattern>) rdf.getFakeLeft();
 
-    Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> m =
-        ScriptConditionalReevaluation.findOriginDarts(
+    // Get darts for an origin type <0>
+    List<JerboaDart> l =
+        ScriptConditionalReevaluation.getLHSDarts(
             JerboaOrbit.orbit(0), leftPattern, Arrays.asList());
 
-    System.out.println("Found darts are : " + m.keySet());
+    System.out.println("Found darts are : " + l);
   }
 
+  @Test
+  public void test_getOriginDarts_insertvertexfolded_split_edge() throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    // Create a square face
+    JerboaRuleResult squareRuleResult = createSquare(modeler);
+    // This dart will be used as a topological parameter for the rainure
+    JerboaDart dart = squareRuleResult.get(0, 0);
+    List<List<JerboaDart>> topoParameter =
+        new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
+
+    InsertVertexFoldedFake ivff =
+        (InsertVertexFoldedFake) modeler.getRule("InsertVertexFoldedFake");
+    List<JerboaRowPattern> leftPattern;
+
+    try {
+      ivff.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    leftPattern = (List<JerboaRowPattern>) ivff.getFakeLeft();
+
+    // Get darts for an origin type <>
+    List<JerboaDart> l =
+        ScriptConditionalReevaluation.getLHSDarts(
+            JerboaOrbit.orbit(), leftPattern, Arrays.asList());
+
+    System.out.println("Found darts are : " + l);
+  }
+
+  @Test
+  public void test_getOriginDarts_chamfercorner2D_unchanged_vertex() throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    // Create a square face
+    JerboaRuleResult squareRuleResult = createSquare(modeler);
+    // This dart will be used as a topological parameter for the rainure
+    JerboaDart dart = squareRuleResult.get(0, 0);
+    List<List<JerboaDart>> topoParameter =
+        new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
+
+    ChamferCorner2DFake ccf = (ChamferCorner2DFake) modeler.getRule("ChamferCorner2DFake");
+    List<JerboaRowPattern> leftPattern;
+
+    try {
+      ccf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    leftPattern = (List<JerboaRowPattern>) ccf.getFakeLeft();
+
+    // Get darts for an origin type <>
+    List<JerboaDart> l =
+        ScriptConditionalReevaluation.getLHSDarts(
+            JerboaOrbit.orbit(), leftPattern, Arrays.asList());
+
+    System.out.println("Found darts are : " + l);
+  }
   // @Test
   // public void test_getDartInstance_subdiv() throws JerboaException {
 

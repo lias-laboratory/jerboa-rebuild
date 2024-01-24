@@ -34,12 +34,11 @@ class ScriptConditionalReevaluation {
   //   return -1;
   // }
 
-  public static Pair<Integer, Integer> getDartsCoord(
-      JerboaDart dart, List<JerboaRowPattern> leftRowPattern) {
+  public static Integer getDartsCoord(JerboaDart dart, List<JerboaRowPattern> leftRowPattern) {
     for (int i = 0; i < leftRowPattern.size(); i++) {
       for (int j = 0; j < leftRowPattern.get(i).size(); j++) {
         if (leftRowPattern.get(i).get(j).equals(dart)) {
-          return new Pair<>(i, j);
+          return j;
         }
       }
     }
@@ -167,7 +166,7 @@ class ScriptConditionalReevaluation {
     return foundOrbits;
   }
 
-  public JerboaDart conditionalReevaluation(
+  public static Pair<List<Integer>, List<JerboaRuleNode>> conditionalReevaluation(
       JerboaRuleGenerated ruleA,
       JerboaRuleGenerated ruleB,
       List<JerboaRowPattern> ruleALHSPattern,
@@ -180,7 +179,7 @@ class ScriptConditionalReevaluation {
     JerboaStaticDetection detectorRuleA = new JerboaStaticDetection(ruleA);
     List<JerboaDart> traceDarts = new ArrayList<>();
     List<JerboaDart> originDarts = new ArrayList<>();
-    JerboaOrbit originA = null;
+    JerboaOrbit originTypeA = null;
 
     // 1/ match an orbit of root n in RHSA
     // List<List<JerboaRuleNode>> RHSAOrbits =
@@ -189,13 +188,17 @@ class ScriptConditionalReevaluation {
     // 1.5 compute trace and then origin darts' lists from LHSA
     switch (event.getCategory()) {
       case GENERATION:
-        originA = detectorRuleA.computeOrigin(node, orbitType);
-        originDarts = getLHSDarts(originA, ruleALHSPattern, instancePath);
+        originTypeA = detectorRuleA.computeOrigin(node, orbitType);
+        originTypeA.forEach(v -> System.out.println(v));
+        originDarts = getLHSDarts(originTypeA, ruleALHSPattern, instancePath);
+        originDarts.forEach(v -> System.out.println(v));
         break;
       case MODIFICATION:
         if (event.equals(Event.SPLIT) || event.equals(Event.MERGE)) {
-          originA = detectorRuleA.computeOrigin(node, orbitType);
-          originDarts = getLHSDarts(originA, ruleALHSPattern, instancePath);
+          originTypeA = detectorRuleA.computeOrigin(node, orbitType);
+          originTypeA.forEach(v -> System.out.println(v));
+          originDarts = getLHSDarts(originTypeA, ruleALHSPattern, instancePath);
+          originDarts.forEach(v -> System.out.println(v));
         }
         break;
       case DESTRUCTION:
@@ -209,11 +212,15 @@ class ScriptConditionalReevaluation {
     List<List<JerboaRuleNode>> RHSBOrbits =
         findRHSOrbits(ruleB, detectorRuleB, null, orbitType, event);
 
-    // TODO: computeLHSB origin
+    // 4/ select LHSB instances onto which reevaluation may operate
+    // TODO: look for intersections between origin/trace orbit and LHSB origin : 1/orbite
+    List<Integer> intersections = new ArrayList<>();
+    originDarts.forEach(d -> intersections.add(getDartsCoord(d, ruleBLHSPattern)));
+    System.out.println(intersections);
 
-    // 4/ select default orbit from RHSB orbits
-    // TODO: look for intersection between origin/trace orbit and LHSB origin
-    //
+    // TODO: gather the root node for each RHSB matched orbit
+
+    // TODO: return a list of instances + the root nodes for each matched orbit in RHSB
     return null;
   }
 }

@@ -5,12 +5,15 @@ import static org.junit.Assert.*;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.PierceFaceAndCover;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.Rainure2D;
 import fr.ensma.lias.jerboa.core.rule.rules.Carving.RainureDouble2D;
+import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.PierceFaceAndCoverFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CarvingFake.RainureDouble2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreateSquareFace;
 import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.InsertVertexFoldedFake;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
+import fr.ensma.lias.jerboa.core.rule.rules.Split.ChamferCorner2D;
 import fr.ensma.lias.jerboa.core.rule.rules.Split.TriangulateFace;
 import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.ChamferCorner2DFake;
+import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.TriangulateFaceFake;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
@@ -207,79 +210,200 @@ public class ScriptConditionalReevaluationTest {
 
     System.out.println("Found darts are : " + l);
   }
-  // @Test
-  // public void test_getDartInstance_subdiv() throws JerboaException {
 
-  //   ModelerGenerated modeler = new ModelerGenerated();
+  @Test
+  public void test_match_rainure_rainuredouble() throws JerboaException {
+    //
 
-  //   JerboaRuleResult squareRuleResult = createSquare(modeler);
-  //   JerboaDart dart = squareRuleResult.get(0, 0);
-  //   List<List<JerboaDart>> topoParameter =
-  //       new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
+    ModelerGenerated modeler = new ModelerGenerated();
 
-  //   SubdivQuadFake sqf = (SubdivQuadFake) modeler.getRule("SubdivQuadFake");
-  //   SubdivTriFake stf = (SubdivTriFake) modeler.getRule("SubdivTriFake");
-  //   List<JerboaRowPattern> leftPattern;
+    // Create a square face
+    JerboaRuleResult squareRuleResult = createSquare(modeler);
+    // This dart will be used as a topological parameter for the rainure
+    JerboaDart dart = squareRuleResult.get(0, 0);
+    List<List<JerboaDart>> topoParameter =
+        new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
 
-  //   try {
-  //     stf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
-  //   } catch (Exception e) {
-  //     //
-  //   }
+    RainureDouble2DFake rf = (RainureDouble2DFake) modeler.getRule("RainureDouble2DFake");
+    List<JerboaRowPattern> leftPatternA;
 
-  //   leftPattern = (List<JerboaRowPattern>) stf.getFakeLeft();
+    try {
+      rf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
 
-  //   Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> darts =
-  //       ScriptConditionalReevaluation.findOriginDarts(
-  //           JerboaOrbit.orbit(0), leftPattern, Arrays.asList());
+    leftPatternA = (List<JerboaRowPattern>) rf.getFakeLeft();
 
-  //   System.out.println(darts.keySet());
-  //   // ScriptConditionalReevaluation.matchLHSDarts(stf, null, leftPattern, null, darts);
-  //   // System.out.println(darts.values());
+    RainureDouble2DFake rdf = (RainureDouble2DFake) modeler.getRule("RainureDouble2DFake");
+    List<JerboaRowPattern> leftPatternB;
 
-  //   // int rowSTF = ScriptConditionalReevaluation.getDartInstance(dart, leftPattern);
-  //   // int rowSQF = ScriptConditionalReevaluation.getDartInstance(dart, leftPattern);
-  //   // assertEquals(rowSTF, rowSQF);
-  // }
+    try {
+      rdf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
 
-  // @Test
-  // public void test_getDartInstance_rainureDivise() throws JerboaException {
+    leftPatternB = (List<JerboaRowPattern>) rdf.getFakeLeft();
 
-  //   ModelerGenerated modeler = new ModelerGenerated();
+    RainureDouble2D rd = (RainureDouble2D) modeler.getRule("RainureDouble2D");
+    JerboaRuleResult rightPatternB;
 
-  //   JerboaRuleResult squareRuleResult = createSquare(modeler);
-  //   JerboaDart dart1 = squareRuleResult.get(3, 0);
-  //   JerboaDart dart2 = squareRuleResult.get(0, 0);
-  //   System.out.println("DART: " + dart1);
-  //   List<List<JerboaDart>> topoParameters =
-  //       new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart1),
-  // Arrays.asList(dart2)));
+    try {
+      rightPatternB = rdf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
 
-  //   RainureDivise2DFake rdf = (RainureDivise2DFake) modeler.getRule("RainureDivise2DFake");
-  //   Retrecissement2DFake r2D = (Retrecissement2DFake) modeler.getRule("Retrecissement2DFake");
-  //   List<JerboaRowPattern> leftPattern;
+    JerboaRuleNode n = rf.getRightRuleNode(rf.getRightIndexRuleNode("n4"));
 
-  //   try {
-  //     rdf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameters));
-  //   } catch (Exception e) {
-  //   }
+    ScriptConditionalReevaluation.conditionalReevaluation(
+        rf,
+        rdf,
+        leftPatternA,
+        leftPatternB,
+        Arrays.asList(),
+        n,
+        JerboaOrbit.orbit(0),
+        Event.CREATION);
 
-  //   leftPattern = (List<JerboaRowPattern>) rdf.getFakeLeft();
-  //   for (var i : leftPattern) System.out.println(i);
+    // TODO : check the darts at coords (instance, node)
 
-  //   Map<JerboaDart, List<Pair<JerboaRuleNode, Integer>>> darts =
-  //       ScriptConditionalReevaluation.findOriginDarts(
-  //           JerboaOrbit.orbit(), leftPattern, Arrays.asList());
+  }
 
-  //   System.out.println(darts.keySet());
+  @Test
+  public void test_match_insertVertexFolded_chamferCorner2D() throws JerboaException {
+    //
 
-  //   ScriptConditionalReevaluation.matchLHSDarts(rdf, null, leftPattern, null, darts);
+    ModelerGenerated modeler = new ModelerGenerated();
 
-  //   System.out.println(darts.values());
+    // Create a square face
+    JerboaRuleResult squareRuleResult = createSquare(modeler);
+    // This dart will be used as a topological parameter for the rainure
+    JerboaDart dart = squareRuleResult.get(0, 0);
+    List<List<JerboaDart>> topoParameter =
+        new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
 
-  //   // int rowRDF = ScriptConditionalReevaluation.getDartInstance(dart1, leftPattern);
-  //   // assertEquals(0, rowRDF);
-  //   // int rowRDF2 = ScriptConditionalReevaluation.getDartInstance(dart2, leftPattern);
-  //   // assertEquals(1, rowRDF2);
-  // }
+    InsertVertexFoldedFake ivff =
+        (InsertVertexFoldedFake) modeler.getRule("InsertVertexFoldedFake");
+    List<JerboaRowPattern> leftPatternA;
+
+    try {
+      ivff.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    leftPatternA = (List<JerboaRowPattern>) ivff.getFakeLeft();
+
+    ChamferCorner2DFake ccf = (ChamferCorner2DFake) modeler.getRule("ChamferCorner2DFake");
+    List<JerboaRowPattern> leftPatternB;
+
+    try {
+      ccf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    leftPatternB = (List<JerboaRowPattern>) ccf.getFakeLeft();
+
+    ChamferCorner2D cc = (ChamferCorner2D) modeler.getRule("ChamferCorner2D");
+    JerboaRuleResult rightPatternB;
+
+    try {
+      rightPatternB = ccf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    JerboaRuleNode n = ivff.getRightRuleNode(ivff.getRightIndexRuleNode("n0"));
+
+    ScriptConditionalReevaluation.conditionalReevaluation(
+        ivff,
+        ccf,
+        leftPatternA,
+        leftPatternB,
+        Arrays.asList(0),
+        n,
+        JerboaOrbit.orbit(0),
+        Event.CREATION);
+  }
+
+  @Test
+  public void test_match_triangulation_pierce() throws JerboaException {
+    //
+
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    // Create a square face
+    JerboaRuleResult squareRuleResult = createSquare(modeler);
+    // This dart will be used as a topological parameter for the rainure
+    JerboaDart dart = squareRuleResult.get(0, 0);
+    List<List<JerboaDart>> topoParameter =
+        new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
+
+    TriangulateFaceFake tf = (TriangulateFaceFake) modeler.getRule("TriangulateFaceFake");
+    List<JerboaRowPattern> leftPatternA;
+
+    try {
+      tf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    leftPatternA = (List<JerboaRowPattern>) tf.getFakeLeft();
+
+    PierceFaceAndCoverFake pfcf =
+        (PierceFaceAndCoverFake) modeler.getRule("PierceFaceAndCoverFake");
+    List<JerboaRowPattern> leftPatternB;
+
+    try {
+      pfcf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    leftPatternB = (List<JerboaRowPattern>) pfcf.getFakeLeft();
+
+    PierceFaceAndCover pfc = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
+    JerboaRuleResult rightPatternB;
+
+    try {
+      rightPatternB = pfcf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    JerboaRuleNode n = tf.getRightRuleNode(tf.getRightIndexRuleNode("n2"));
+
+    ScriptConditionalReevaluation.conditionalReevaluation(
+        tf,
+        pfcf,
+        leftPatternA,
+        leftPatternB,
+        Arrays.asList(0),
+        n,
+        JerboaOrbit.orbit(0),
+        Event.CREATION);
+  }
+
+  @Test
+  public void test_getLHSDarts_triangulateFace() throws JerboaException {
+
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    // Create a square face
+    JerboaRuleResult squareRuleResult = createSquare(modeler);
+    // This dart will be used as a topological parameter for the rainure
+    JerboaDart dart = squareRuleResult.get(0, 0);
+    List<List<JerboaDart>> topoParameter =
+        new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
+
+    TriangulateFaceFake tf = (TriangulateFaceFake) modeler.getRule("TriangulateFaceFake");
+    List<JerboaRowPattern> leftPatternA;
+
+    try {
+      tf.apply(modeler.getGMap(), new JerboaInputHooksGeneric(topoParameter));
+    } catch (Exception e) {
+    }
+
+    leftPatternA = (List<JerboaRowPattern>) tf.getFakeLeft();
+
+    JerboaRuleNode n = tf.getRightRuleNode(tf.getRightIndexRuleNode("n2"));
+
+    ScriptConditionalReevaluation.getLHSDarts(JerboaOrbit.orbit(0), leftPatternA, Arrays.asList())
+        .forEach(d -> System.out.println(d));
+    ;
+  }
 }

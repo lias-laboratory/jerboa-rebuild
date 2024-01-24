@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>CreatePentagonFake</openRules>
-	<openRules>CreateSquareFaceFake</openRules>
-	<openRules>ChamferCorner2DFake</openRules>
+	<openRules>TriangulateFaceFake</openRules>
 	<openRules>InsertVertexFoldedFake</openRules>
+	<openRules>CreatePentagonFake</openRules>
+	<openRules>ChamferCorner2DFake</openRules>
+	<openRules>CreateSquareFaceFake</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -3929,7 +3930,8 @@ return res;</expr>
         </rule>
         <rule name="TriangulateFaceFake" module="SplitFake" category="SplitFake" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
             <header></header>
-            <precondition></precondition>
+            <precondition>fakeLeft = new ArrayList&lt;JerboaRowPattern&gt;(leftPattern);
+return false;</precondition>
             <comment></comment>
             <left>
                 <nodes count="1">

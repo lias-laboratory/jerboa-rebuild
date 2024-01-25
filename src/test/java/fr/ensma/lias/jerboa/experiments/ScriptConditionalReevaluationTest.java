@@ -308,7 +308,7 @@ public class ScriptConditionalReevaluationTest {
     JerboaRuleResult squareRuleResult = createSquare(modeler);
     // This dart will be used as a topological parameter for the rainure
     JerboaDart dart = squareRuleResult.get(0, 0);
-    JerboaDart dart2 = squareRuleResult.get(7, 0);
+    JerboaDart dart2 = squareRuleResult.get(1, 0);
 
     List<List<JerboaDart>> topoParameterIVFF =
         new ArrayList<List<JerboaDart>>(Arrays.asList(Arrays.asList(dart)));
@@ -348,7 +348,7 @@ public class ScriptConditionalReevaluationTest {
             Arrays.asList(),
             n,
             JerboaOrbit.orbit(0),
-            Event.CREATION);
+            Event.SPLIT);
 
     for (Integer i : p.l()) {
       for (JerboaRuleNode r : p.r()) {

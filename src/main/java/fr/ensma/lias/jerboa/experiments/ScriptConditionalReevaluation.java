@@ -194,6 +194,7 @@ class ScriptConditionalReevaluation {
       case MODIFICATION:
         traceDarts = getLHSDarts(orbitType, ruleALHSPattern, instancePath);
         if (event.equals(Event.SPLIT) || event.equals(Event.MERGE)) {
+          System.out.println("foo" + traceDarts);
           originTypeA = detectorRuleA.computeOrigin(node, orbitType);
           // System.out.println("origin in A");
           // originTypeA.forEach(v -> System.out.println(v));

@@ -32,6 +32,7 @@ import up.jerboa.core.JerboaRuleResult;
 import up.jerboa.core.rule.JerboaInputHooksGeneric;
 import up.jerboa.core.rule.JerboaRowPattern;
 import up.jerboa.core.rule.JerboaRuleNode;
+import up.jerboa.core.util.Pair;
 import up.jerboa.exception.JerboaException;
 
 public class ScriptConditionalReevaluationTest {
@@ -279,7 +280,7 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = rf.getRightRuleNode(rf.getRightIndexRuleNode("n4"));
 
-    var p =
+    Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
             rf,
             rdf,
@@ -290,12 +291,23 @@ public class ScriptConditionalReevaluationTest {
             JerboaOrbit.orbit(0),
             Event.CREATION);
 
-    for (Integer i : p.l()) {
-      for (JerboaRuleNode r : p.r()) {
-        System.out.println(i + "," + r.getName() + " ");
-      }
-      System.out.println("");
-    }
+    // for (Integer i : p.l()) {
+    //   for (JerboaRuleNode r : p.r()) {
+    //     System.out.println(i + "," + r.getName() + " ");
+    //   }
+    //   System.out.println("");
+    // }
+
+    List<Integer> expectedInstanceMatch = Arrays.asList(0);
+    JerboaRuleNode n2 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n2"));
+    JerboaRuleNode n4 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n4"));
+    JerboaRuleNode n6 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n6"));
+    JerboaRuleNode n8 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n8"));
+    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n2, n4, n6, n8);
+    assertTrue(
+        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
+    assertTrue(
+        expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
   }
 
   @Test
@@ -308,6 +320,7 @@ public class ScriptConditionalReevaluationTest {
     JerboaRuleResult squareRuleResult = createSquare(modeler);
     // This dart will be used as a topological parameter for the rainure
     JerboaDart dart = squareRuleResult.get(0, 0);
+    // JerboaDart dart2 = squareRuleResult.get(0, 0);
     JerboaDart dart2 = squareRuleResult.get(1, 0);
 
     List<List<JerboaDart>> topoParameterIVFF =
@@ -339,7 +352,7 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = ivff.getRightRuleNode(ivff.getRightIndexRuleNode("n0"));
 
-    var p =
+    Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
             ivff,
             ccf,
@@ -350,12 +363,16 @@ public class ScriptConditionalReevaluationTest {
             JerboaOrbit.orbit(0),
             Event.SPLIT);
 
-    for (Integer i : p.l()) {
-      for (JerboaRuleNode r : p.r()) {
-        System.out.println(i + "," + r.getName() + " ");
-      }
-      System.out.println("");
-    }
+    // for (Integer i : p.l()) {
+    //   for (JerboaRuleNode r : p.r()) {
+    //     System.out.println(i + "," + r.getName() + " ");
+    //   }
+    //   System.out.println("");
+    // }
+
+    List<Integer> expectedInstanceMatch = Arrays.asList(1);
+    assertTrue(
+        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
   }
 
   @Test
@@ -402,7 +419,7 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = tf.getRightRuleNode(tf.getRightIndexRuleNode("n2"));
 
-    var p =
+    Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
             tf,
             pfcf,
@@ -413,12 +430,20 @@ public class ScriptConditionalReevaluationTest {
             JerboaOrbit.orbit(1, 2),
             Event.CREATION);
 
-    for (Integer i : p.l()) {
-      for (JerboaRuleNode r : p.r()) {
-        System.out.println(i + "," + r.getName() + " ");
-      }
-      System.out.println("");
-    }
+    // for (Integer i : p.l()) {
+    //   for (JerboaRuleNode r : p.r()) {
+    //     System.out.println(i + "," + r.getName() + " ");
+    //   }
+    //   System.out.println("");
+    // }
+
+    List<Integer> expectedInstanceMatch = Arrays.asList(0);
+    JerboaRuleNode n2 = pfcf.getRightRuleNode(pfcf.getRightIndexRuleNode("n2"));
+    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n2);
+    assertTrue(
+        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
+    assertTrue(
+        expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
   }
 
   @Test
@@ -468,7 +493,7 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n3"));
 
-    var p =
+    Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
             rdf,
             rf,
@@ -479,11 +504,19 @@ public class ScriptConditionalReevaluationTest {
             JerboaOrbit.orbit(0),
             Event.CREATION);
 
-    for (Integer i : p.l()) {
-      for (JerboaRuleNode node : p.r()) {
-        System.out.println(i + "," + node.getName() + " ");
-      }
-      System.out.println("");
-    }
+    // for (Integer i : p.l()) {
+    //   for (JerboaRuleNode node : p.r()) {
+    //     System.out.println(i + "," + node.getName() + " ");
+    //   }
+    //   System.out.println("");
+    // }
+
+    List<Integer> expectedInstanceMatch = Arrays.asList(0);
+    JerboaRuleNode n11 = rf.getRightRuleNode(rf.getRightIndexRuleNode("n11"));
+    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n11);
+    assertTrue(
+        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
+    assertTrue(
+        expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
   }
 }

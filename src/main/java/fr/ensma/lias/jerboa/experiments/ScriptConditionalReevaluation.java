@@ -37,7 +37,14 @@ class ScriptConditionalReevaluation {
     return null;
   }
 
-  public static List<List<JerboaDart>> findSOrbitsInOrbit() {
+  /**
+   * When matching sub-/super-orbit, we must recompute as many orbits as necessary from the first
+   * computed origin orbit
+   *
+   * @param baesOrigin a List of {@link JerboaDart} being the base origin orbit
+   * @return a List of orbits (or a List of List of {@link JerboaDart})
+   */
+  public static List<List<JerboaDart>> findSOrbitsInOrbit(List<JerboaDart> baseOrigin) {
     // TODO: look for suborbits within an orbit
     return null;
   }

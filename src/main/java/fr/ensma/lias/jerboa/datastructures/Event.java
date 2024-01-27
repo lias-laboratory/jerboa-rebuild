@@ -1,5 +1,21 @@
 package fr.ensma.lias.jerboa.datastructures;
 
 public enum Event {
-	CREATION, SUPPRESSION, NOMODIF, SPLIT, MERGE, MODIFICATION, NOEFFECT
+  CREATION(EventCategories.GENERATION),
+  SUPPRESSION(EventCategories.DESTRUCTION),
+  NOMODIF(EventCategories.MODIFICATION),
+  SPLIT(EventCategories.MODIFICATION),
+  MERGE(EventCategories.MODIFICATION),
+  MODIFICATION(EventCategories.MODIFICATION),
+  NOEFFECT(EventCategories.MODIFICATION);
+
+  public final EventCategories category;
+
+  private Event(EventCategories category) {
+    this.category = category;
+  }
+
+  public EventCategories getCategory() {
+    return this.category;
+  }
 }

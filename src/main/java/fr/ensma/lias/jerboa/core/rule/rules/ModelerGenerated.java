@@ -91,6 +91,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.SplitFake.ChamferCorner2DFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.InsertVertexFoldedFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.CreateSquareFaceFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.CreatePentagonFake;
+import fr.ensma.lias.jerboa.core.rule.rules.Experiments.XpRejeuScriptIfElse;
 
 
 
@@ -205,6 +206,7 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new InsertVertexFoldedFake(this));
         this.registerRule(new CreateSquareFaceFake(this));
         this.registerRule(new CreatePentagonFake(this));
+        this.registerRule(new XpRejeuScriptIfElse(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

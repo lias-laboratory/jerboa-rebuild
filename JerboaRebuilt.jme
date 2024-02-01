@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>TriangulateFaceFake</openRules>
-	<openRules>InsertVertexFoldedFake</openRules>
-	<openRules>CreatePentagonFake</openRules>
 	<openRules>ChamferCorner2DFake</openRules>
+	<openRules>XpRejeuScript</openRules>
+	<openRules>CreatePentagonFake</openRules>
+	<openRules>XpRejeuScriptIfElse</openRules>
+	<openRules>InsertVertexFoldedFake</openRules>
+	<openRules>TriangulateFaceFake</openRules>
 	<openRules>CreateSquareFaceFake</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
@@ -14,7 +16,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="84">
+    <rules count="85">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -4892,6 +4894,31 @@ return false;</precondition>
             <paramstopo>
             </paramstopo>
         </rule>
+        <script name="XpRejeuScriptIfElse" module="Experiments" category="Experiments"  shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <content>return MesScriptsRejeu.exe3(modeler, gmap, hooks,3);</content>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </script>
     </rules>
     <inferrules count="0">
     </inferrules>

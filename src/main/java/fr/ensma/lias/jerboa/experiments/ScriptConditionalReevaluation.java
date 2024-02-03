@@ -88,37 +88,43 @@ class ScriptConditionalReevaluation {
       JerboaRuleGenerated rule,
       JerboaStaticDetection detector,
       String nodeName,
+      JerboaOrbit matchType,
       JerboaOrbit orbitType,
       Event event) {
 
-    List<List<JerboaRuleNode>> foundOrbits = new ArrayList<>();
+    List<List<JerboaRuleNode>> orbits = new ArrayList<>();
 
-    if (nodeName != null) {
+    if (nodeName == null) {
+      for (JerboaRuleNode rightNode : rule.getRight()) {
+        if (rightNode.isNotMarked()) {
+
+          Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType);
+
+          // TODO: Make this readable
+          if (computedEvent.getCategory().equals(event.getCategory())
+              && (matchType == null
+                  || matchType.equals(detector.computeOrigin(rightNode, orbitType)))) {
+            List<JerboaRuleNode> matchingOrbit = JerboaRuleNode.orbit(rightNode, orbitType);
+            for (JerboaRuleNode n : matchingOrbit) {
+              n.setMark(true);
+            }
+            orbits.add(matchingOrbit);
+          }
+        }
+      }
+      for (List<JerboaRuleNode> o : orbits) {
+        for (JerboaRuleNode n : o) {
+          n.setMark(false);
+        }
+      }
+    } else {
+
       return Arrays.asList(
           JerboaRuleNode.orbit(
               rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName)), orbitType));
     }
 
-    for (JerboaRuleNode rightNode : rule.getRight()) {
-      if (rightNode.isNotMarked()) {
-        Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType);
-        if (computedEvent.getCategory().equals(event.getCategory())) {
-          List<JerboaRuleNode> matchingOrbit = JerboaRuleNode.orbit(rightNode, orbitType);
-          for (JerboaRuleNode n : matchingOrbit) {
-            n.setMark(true);
-          }
-          foundOrbits.add(matchingOrbit);
-        }
-      }
-    }
-
-    for (List<JerboaRuleNode> o : foundOrbits) {
-      for (JerboaRuleNode n : o) {
-        n.setMark(false);
-      }
-    }
-
-    return foundOrbits;
+    return orbits;
   }
 
   /**
@@ -182,7 +188,7 @@ class ScriptConditionalReevaluation {
     // 3/ match all eligible orbits in RHSB
     JerboaStaticDetection detectorRuleB = new JerboaStaticDetection(ruleB);
     List<List<JerboaRuleNode>> RHSBOrbits =
-        findRHSOrbits(ruleB, detectorRuleB, null, orbitType, event);
+        findRHSOrbits(ruleB, detectorRuleB, null, originTypeA, orbitType, event);
 
     // 4/ select LHSB instances onto which reevaluation may operate
     List<Integer> intersections = new ArrayList<>();
@@ -207,7 +213,7 @@ class ScriptConditionalReevaluation {
     }
 
     List<JerboaRuleNode> roots =
-        findRHSOrbits(ruleB, detectorRuleB, null, orbitType, event).stream()
+        findRHSOrbits(ruleB, detectorRuleB, null, originTypeA, orbitType, event).stream()
             .map(o -> o.get(0))
             .collect(Collectors.toList());
 

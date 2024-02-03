@@ -151,8 +151,7 @@ public class ScriptConditionalReevaluationTest {
 
     // Get darts for an origin type <0>
     List<JerboaDart> l =
-        ScriptConditionalReevaluation.getLHSDarts(
-            JerboaOrbit.orbit(0), leftPattern, Arrays.asList());
+        ScriptConditionalReevaluation.getLHSDarts(JerboaOrbit.orbit(0), leftPattern);
 
     System.out.println("Found darts are : " + l);
   }
@@ -181,8 +180,7 @@ public class ScriptConditionalReevaluationTest {
 
     // Get darts for an origin type <>
     List<JerboaDart> l =
-        ScriptConditionalReevaluation.getLHSDarts(
-            JerboaOrbit.orbit(), leftPattern, Arrays.asList());
+        ScriptConditionalReevaluation.getLHSDarts(JerboaOrbit.orbit(), leftPattern);
 
     System.out.println("Found darts are : " + l);
   }
@@ -211,7 +209,7 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = tf.getRightRuleNode(tf.getRightIndexRuleNode("n2"));
 
-    ScriptConditionalReevaluation.getLHSDarts(JerboaOrbit.orbit(0), leftPatternA, Arrays.asList())
+    ScriptConditionalReevaluation.getLHSDarts(JerboaOrbit.orbit(0), leftPatternA)
         .forEach(d -> System.out.println(d));
     ;
   }
@@ -239,8 +237,7 @@ public class ScriptConditionalReevaluationTest {
 
     // Get darts for an origin type <>
     List<JerboaDart> l =
-        ScriptConditionalReevaluation.getLHSDarts(
-            JerboaOrbit.orbit(), leftPattern, Arrays.asList());
+        ScriptConditionalReevaluation.getLHSDarts(JerboaOrbit.orbit(), leftPattern);
 
     System.out.println("Found darts are : " + l);
   }
@@ -282,14 +279,7 @@ public class ScriptConditionalReevaluationTest {
 
     Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            rf,
-            rdf,
-            leftPatternA,
-            leftPatternB,
-            Arrays.asList(),
-            n,
-            JerboaOrbit.orbit(0),
-            Event.CREATION);
+            rf, rdf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(0), Event.CREATION);
 
     // for (Integer i : p.l()) {
     //   for (JerboaRuleNode r : p.r()) {
@@ -354,14 +344,7 @@ public class ScriptConditionalReevaluationTest {
 
     Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            ivff,
-            ccf,
-            leftPatternA,
-            leftPatternB,
-            Arrays.asList(),
-            n,
-            JerboaOrbit.orbit(0),
-            Event.SPLIT);
+            ivff, ccf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(0), Event.SPLIT);
 
     // for (Integer i : p.l()) {
     //   for (JerboaRuleNode r : p.r()) {
@@ -421,14 +404,7 @@ public class ScriptConditionalReevaluationTest {
 
     Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            tf,
-            pfcf,
-            leftPatternA,
-            leftPatternB,
-            Arrays.asList(),
-            n,
-            JerboaOrbit.orbit(1, 2),
-            Event.CREATION);
+            tf, pfcf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(1, 2), Event.CREATION);
 
     // for (Integer i : p.l()) {
     //   for (JerboaRuleNode r : p.r()) {
@@ -495,14 +471,7 @@ public class ScriptConditionalReevaluationTest {
 
     Pair<List<Integer>, List<JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            rdf,
-            rf,
-            leftPatternA,
-            leftPatternB,
-            Arrays.asList(),
-            n,
-            JerboaOrbit.orbit(0),
-            Event.CREATION);
+            rdf, rf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(0), Event.CREATION);
 
     // for (Integer i : p.l()) {
     //   for (JerboaRuleNode node : p.r()) {

@@ -10,7 +10,6 @@ import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivQuadFake;
 import fr.ensma.lias.jerboa.core.rule.rules.SubdivisionFake.SubdivTriFake;
 import fr.ensma.lias.jerboa.datastructures.Event;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
-import java.util.Arrays;
 import java.util.List;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaInputHooks;
@@ -160,7 +159,6 @@ public class MesScriptsRejeu {
                 (JerboaRuleGenerated) sqf,
                 leftPattern1,
                 leftPattern2,
-                Arrays.asList(),
                 st.getRightRuleNode(st.getRightIndexRuleNode("n2")),
                 JerboaOrbit.orbit(1, 2),
                 Event.CREATION));
@@ -189,7 +187,6 @@ public class MesScriptsRejeu {
                 (JerboaRuleGenerated) stf,
                 leftPattern1,
                 leftPattern2,
-                Arrays.asList(),
                 sq.getRightRuleNode(sq.getRightIndexRuleNode("n3")),
                 JerboaOrbit.orbit(1, 2),
                 Event.CREATION));

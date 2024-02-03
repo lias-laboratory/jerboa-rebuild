@@ -56,20 +56,13 @@ class ScriptConditionalReevaluation {
    * @param originType a {@link JerboaOrbit}
    * @param leftPattern a List of {@link JerboaRowPattern} with the darts matched by a rule's left
    *     side
-   * @param instancePath a List of Integers used as a path to designate the root dart of the orbit
    * @return a List of JerboaDart
    */
   public static List<JerboaDart> getLHSDarts(
-      JerboaOrbit originType, List<JerboaRowPattern> leftPattern, List<Integer> instancePath) {
+      JerboaOrbit originType, List<JerboaRowPattern> leftPattern) {
 
     List<JerboaDart> darts = new ArrayList<>();
-
     JerboaDart root = leftPattern.get(0).get(0);
-
-    // shift origin's root /!\ no safeguard when instance path is out the LHSPattern
-    for (Integer a : instancePath) {
-      root = root.alpha(a);
-    }
 
     try {
       darts = root.getOwner().orbit(root, originType);
@@ -138,7 +131,6 @@ class ScriptConditionalReevaluation {
    * @param ruleB A {@link JerboaRuleGenerated} to be applied at reevaluation
    * @param ruleALHSPattern The left {@link JerboaRowPattern} of ruleA
    * @param ruleBLHSPattern The left {@link JerboaRowPattern} of ruleB
-   * @param instancePath A path, registered at evaluation, designating a specific instance
    * @param node A reference {@link JerboaRuleNode} from the evaluation DAG (thus from ruleA)
    * @param orbitType A reference {@link JerboaOrbit} type from the evaluation DAG (thus from ruleA)
    * @param event A reference Event from the evaluation DAG (thus from ruleA)
@@ -150,7 +142,6 @@ class ScriptConditionalReevaluation {
       JerboaRuleGenerated ruleB,
       List<JerboaRowPattern> ruleALHSPattern,
       List<JerboaRowPattern> ruleBLHSPattern,
-      List<Integer> instancePath,
       JerboaRuleNode node,
       JerboaOrbit orbitType,
       Event event) {
@@ -166,18 +157,18 @@ class ScriptConditionalReevaluation {
         System.out.println("origin type A: " + originTypeA);
         // System.out.println("origin in A");
         // originTypeA.forEach(v -> System.out.println("'" + v + "'"));
-        originDarts = getLHSDarts(originTypeA, ruleALHSPattern, instancePath);
+        originDarts = getLHSDarts(originTypeA, ruleALHSPattern);
         // System.out.println("origin darts");
         // originDarts.forEach(v -> System.out.println(v));
         break;
       case MODIFICATION:
-        traceDarts = getLHSDarts(orbitType, ruleALHSPattern, instancePath);
+        traceDarts = getLHSDarts(orbitType, ruleALHSPattern);
         if (event.equals(Event.SPLIT) || event.equals(Event.MERGE)) {
           originTypeA = detectorRuleA.computeOrigin(node, orbitType);
           System.out.println("origin type A: " + originTypeA);
           // System.out.println("origin in A");
           // originTypeA.forEach(v -> System.out.println(v));
-          originDarts = getLHSDarts(originTypeA, ruleALHSPattern, instancePath);
+          originDarts = getLHSDarts(originTypeA, ruleALHSPattern);
           // System.out.println("origin darts");
           // originDarts.forEach(v -> System.out.println(v));
         }

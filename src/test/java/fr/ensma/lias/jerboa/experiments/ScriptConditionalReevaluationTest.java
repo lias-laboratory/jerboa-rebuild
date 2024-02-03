@@ -70,7 +70,12 @@ public class ScriptConditionalReevaluationTest {
 
     List<List<JerboaRuleNode>> foundOrbits =
         ScriptConditionalReevaluation.findRHSOrbits(
-            triangulateRule, detector, "n2", JerboaOrbit.orbit(1, 2, 3), Event.CREATION);
+            triangulateRule,
+            detector,
+            "n2",
+            JerboaOrbit.orbit(0, 1, 3),
+            JerboaOrbit.orbit(1, 2, 3),
+            Event.CREATION);
 
     printOrbits(foundOrbits);
 
@@ -87,11 +92,16 @@ public class ScriptConditionalReevaluationTest {
 
     List<List<JerboaRuleNode>> foundOrbits =
         ScriptConditionalReevaluation.findRHSOrbits(
-            pierceRule, detector, null, JerboaOrbit.orbit(1, 2, 3), Event.CREATION);
+            pierceRule,
+            detector,
+            null,
+            JerboaOrbit.orbit(0, 1, 3),
+            JerboaOrbit.orbit(1, 2, 3),
+            Event.CREATION);
 
     printOrbits(foundOrbits);
 
-    assertEquals(1, foundOrbits.size());
+    assertEquals(0, foundOrbits.size());
   }
 
   @Test
@@ -104,7 +114,12 @@ public class ScriptConditionalReevaluationTest {
 
     List<List<JerboaRuleNode>> foundOrbits =
         ScriptConditionalReevaluation.findRHSOrbits(
-            rainureRule, detector, "n4", JerboaOrbit.orbit(0), Event.CREATION);
+            rainureRule,
+            detector,
+            "n4",
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(0),
+            Event.CREATION);
 
     printOrbits(foundOrbits);
 
@@ -121,11 +136,16 @@ public class ScriptConditionalReevaluationTest {
 
     List<List<JerboaRuleNode>> foundOrbits =
         ScriptConditionalReevaluation.findRHSOrbits(
-            rainureDoubleRule, detector, null, JerboaOrbit.orbit(0), Event.CREATION);
+            rainureDoubleRule,
+            detector,
+            null,
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(0),
+            Event.CREATION);
 
     printOrbits(foundOrbits);
 
-    assertEquals(4, foundOrbits.size());
+    assertEquals(1, foundOrbits.size());
   }
 
   @Test
@@ -289,11 +309,8 @@ public class ScriptConditionalReevaluationTest {
     // }
 
     List<Integer> expectedInstanceMatch = Arrays.asList(0);
-    JerboaRuleNode n2 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n2"));
-    JerboaRuleNode n4 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n4"));
-    JerboaRuleNode n6 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n6"));
     JerboaRuleNode n8 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n8"));
-    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n2, n4, n6, n8);
+    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n8);
     assertTrue(
         expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
     assertTrue(
@@ -415,7 +432,7 @@ public class ScriptConditionalReevaluationTest {
 
     List<Integer> expectedInstanceMatch = Arrays.asList(0);
     JerboaRuleNode n2 = pfcf.getRightRuleNode(pfcf.getRightIndexRuleNode("n2"));
-    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n2);
+    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList();
     assertTrue(
         expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
     assertTrue(

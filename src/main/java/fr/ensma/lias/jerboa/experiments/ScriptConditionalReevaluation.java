@@ -5,7 +5,6 @@ import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import java.util.stream.Collectors;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaOrbit;
@@ -13,6 +12,7 @@ import up.jerboa.core.rule.JerboaRowPattern;
 import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.core.util.JerboaRuleGenerated;
 import up.jerboa.core.util.Pair;
+import up.jerboa.exception.JerboaException;
 
 class ScriptConditionalReevaluation {
 
@@ -71,20 +71,9 @@ class ScriptConditionalReevaluation {
       root = root.alpha(a);
     }
 
-    // gather darts within rule's LHS
-    Stack<JerboaDart> queue = new Stack<>();
-    List<JerboaDart> visited = new ArrayList<>();
-    queue.push(root);
-    while (!queue.isEmpty()) {
-      JerboaDart d = queue.pop();
-      if (!visited.contains(d)) {
-        darts.add(d);
-        visited.add(d);
-        for (Integer a : originType) {
-          JerboaDart next = d.alpha(a);
-          if (next != null) queue.push(next);
-        }
-      }
+    try {
+      darts = root.getOwner().orbit(root, originType);
+    } catch (JerboaException e) {
     }
 
     //

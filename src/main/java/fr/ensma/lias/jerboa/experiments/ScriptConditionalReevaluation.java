@@ -212,10 +212,9 @@ class ScriptConditionalReevaluation {
       intersections.add(getDartsInstance(traceDarts.get(0), ruleBLHSPattern));
     }
 
+    // get only first nodes in each orbit
     List<JerboaRuleNode> roots =
-        findRHSOrbits(ruleB, detectorRuleB, null, originTypeA, orbitType, event).stream()
-            .map(o -> o.get(0))
-            .collect(Collectors.toList());
+        RHSBOrbits.stream().map(l -> l.get(0)).collect(Collectors.toList());
 
     return new Pair<>(intersections, roots);
   }

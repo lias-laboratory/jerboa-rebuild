@@ -44,9 +44,20 @@ class ScriptConditionalReevaluation {
    * @param baesOrigin a List of {@link JerboaDart} being the base origin orbit
    * @return a List of orbits (or a List of List of {@link JerboaDart})
    */
-  public static List<List<JerboaDart>> findSOrbitsInOrbit(List<JerboaDart> baseOrigin) {
-    // TODO: look for suborbits within an orbit
-    return null;
+  public static List<List<JerboaDart>> findSOrbitsInOrbit(
+      List<JerboaDart> baseOrbit, JerboaOrbit orbitType) {
+
+    List<List<JerboaDart>> dartsLists = new ArrayList<>();
+    for (var d : baseOrbit) {
+      try {
+        final List<JerboaDart> darts = d.getOwner().orbit(d, orbitType);
+        if (dartsLists.stream().noneMatch(l -> l.containsAll(darts))) {
+          dartsLists.add(darts);
+        }
+      } catch (JerboaException e) {
+      }
+    }
+    return dartsLists;
   }
 
   /**
@@ -202,7 +213,9 @@ class ScriptConditionalReevaluation {
     System.out.println("ruleB LHS: " + ruleBLHSPattern);
     System.out.println("origin darts: " + originDarts);
     System.out.println("trace darts: " + traceDarts);
-
+    if (ruleA.getName().equals("TriangulateFaceFake")) {
+      System.out.println(findSOrbitsInOrbit(originDarts, JerboaOrbit.orbit(1)));
+    }
     if (intersections.isEmpty()) {
       // traceDarts.forEach(
       //     d -> {

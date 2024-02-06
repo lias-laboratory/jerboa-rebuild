@@ -55,7 +55,7 @@ public class ScriptConditionalReevaluationTest {
         .collect(Collectors.joining(";", "[", "]"));
   }
 
-  private String printCombination(Pair<List<Integer>, List<JerboaRuleNode>> p) {
+  private String formatCombination(Pair<List<Integer>, List<JerboaRuleNode>> p) {
     StringBuilder sb = new StringBuilder();
     for (Integer i : p.l()) {
       for (JerboaRuleNode r : p.r()) {
@@ -532,7 +532,7 @@ public class ScriptConditionalReevaluationTest {
         ScriptConditionalReevaluation.conditionalReevaluation(
             rdf, rf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(0), Event.CREATION);
 
-    printCombination(p);
+    // System.out.println(formatCombination(p));
 
     List<Integer> expectedInstanceMatch = Arrays.asList(0);
     JerboaRuleNode n11 = rf.getRightRuleNode(rf.getRightIndexRuleNode("n11"));

@@ -33,7 +33,7 @@ class ScriptConditionalReevaluation {
         }
       }
     }
-    return null;
+    return -1;
   }
 
   /**
@@ -86,6 +86,18 @@ class ScriptConditionalReevaluation {
     orbit.forEach(node -> node.setMark(flag));
   }
 
+  /**
+   * Iterate through a rule's right side nodes and compute orbits. For each visited orbit, nodes are
+   * marked to true (visited). If
+   *
+   * @param rule
+   * @param detector
+   * @param matchType
+   * @param orbitType
+   * @param event
+   * @param strategyLevel
+   * @return
+   */
   static List<JerboaRuleNode> collectOrbitsRoots(
       JerboaRuleGenerated rule,
       JerboaStaticDetection detector,
@@ -101,22 +113,114 @@ class ScriptConditionalReevaluation {
 
       if (rightNode.isNotMarked()) {
 
+        // TODO: goto JerboaStaticDetection and avoid computing the same orbit three time in a
+        // row!!!
+
+        // 1!
         Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType);
+        // 2!!
         JerboaOrbit RHSBOriginType = detector.computeOrigin(rightNode, orbitType);
+        // 3!!!
+        List<JerboaRuleNode> matchingOrbit = JerboaRuleNode.orbit(rightNode, orbitType);
+
+        // mark orbits to avoid compute orbits more than once
+        markOrbit(matchingOrbit, true);
 
         if (computedEvent.equalsCategory(event)
             && (matchType == null || strategy.test(matchType, RHSBOriginType))) {
-
-          List<JerboaRuleNode> matchingOrbit = JerboaRuleNode.orbit(rightNode, orbitType);
-          // mark orbits to avoid compute orbits more than once
-          markOrbit(matchingOrbit, true);
           orbits.add(matchingOrbit);
         }
       }
     }
-    // process done -> unmark orbits
-    orbits.forEach(o -> markOrbit(o, false));
+    // process done -> unmark right nodes
+    markOrbit(rule.getRight(), false);
     return orbits.stream().map(o -> o.get(0)).collect(Collectors.toList());
+  }
+
+  /* Compute the trace and origin dart lists depending on the originType and event values.
+   * OriginType must *be* set when event belongs to GENERATION or is either of SPLIT or MERGE.
+   *
+   * @param originTypeA
+   * @param orbitType
+   * @param ruleALHSPattern
+   * @param detectorRuleA
+   * @param node
+   * @param event
+   * @return
+   */
+  static Pair<List<JerboaDart>, List<JerboaDart>> computeTraceAndOrTrace(
+      JerboaOrbit originType,
+      JerboaOrbit orbitType,
+      List<JerboaRowPattern> ruleALHSPattern,
+      JerboaStaticDetection detectorRuleA,
+      JerboaRuleNode node,
+      Event event) {
+    //
+    List<JerboaDart> originDarts = new ArrayList<>();
+    List<JerboaDart> traceDarts = new ArrayList<>();
+
+    switch (event.getCategory()) {
+      case GENERATION:
+        originDarts = getLHSDarts(originType, ruleALHSPattern);
+        break;
+      case MODIFICATION:
+        traceDarts = getLHSDarts(orbitType, ruleALHSPattern);
+        if (event.equals(Event.SPLIT) || event.equals(Event.MERGE)) {
+          originDarts = getLHSDarts(originType, ruleALHSPattern);
+        }
+        break;
+      case DESTRUCTION:
+        break;
+      default:
+        break;
+    }
+    return new Pair<>(traceDarts, originDarts);
+  }
+
+  /**
+   * Compute origin/trace intersection with LHSB for each root's (from RHSBOrbitRoots) originType
+   *
+   * @param detectorRuleB
+   * @param RHSBOrbitRoots
+   * @param orbitType
+   * @param pairTraceOrigin
+   * @param ruleBLHSPattern
+   * @return
+   */
+  static List<Pair<Integer, JerboaRuleNode>> computeMatchDartCoordinates(
+      JerboaStaticDetection detectorRuleB,
+      List<JerboaRuleNode> RHSBOrbitRoots,
+      JerboaOrbit orbitType,
+      Pair<List<JerboaDart>, List<JerboaDart>> pairTraceOrigin,
+      List<JerboaRowPattern> ruleBLHSPattern) {
+
+    List<Pair<Integer, JerboaRuleNode>> coordinates =
+        new ArrayList<Pair<Integer, JerboaRuleNode>>();
+
+    // If no origin is expected then origin is empty
+    if (pairTraceOrigin.r().isEmpty()) {
+      // NOTE: Expect no more than one intersection for each orbit when there is only a trace
+      // matching
+      for (JerboaRuleNode root : RHSBOrbitRoots) {
+        int instance = getDartsInstance(pairTraceOrigin.l().get(0), ruleBLHSPattern);
+        if (instance >= 0) {
+          coordinates.add(new Pair<>(instance, root));
+        }
+      }
+    } else {
+      // TODO: couple origins with roots to NOT RECOMPUTE EVERYTHING EVERY HECKIN' TIME
+      for (JerboaRuleNode root : RHSBOrbitRoots) {
+        JerboaOrbit origin = detectorRuleB.computeOrigin(root, orbitType);
+        List<List<JerboaDart>> sDartOrbits = findSOrbitsInOrbit(pairTraceOrigin.r(), origin);
+        for (List<JerboaDart> sDartOrbit : sDartOrbits) {
+          int instance = getDartsInstance(sDartOrbit.get(0), ruleBLHSPattern);
+          if (instance >= 0) {
+            coordinates.add(new Pair<>(instance, root));
+          }
+        }
+      }
+    }
+    return coordinates;
   }
 
   /**
@@ -135,63 +239,28 @@ class ScriptConditionalReevaluation {
    * @return A {@link Pair} containing two Lists : A Integer List for the matching instances and
    *     List for the roots of matching orbits
    */
-  public static Pair<List<Integer>, List<JerboaRuleNode>> conditionalReevaluation(
+  public static List<Pair<Integer, JerboaRuleNode>> conditionalReevaluation(
       JerboaRuleGenerated ruleA,
       JerboaRuleGenerated ruleB,
       List<JerboaRowPattern> ruleALHSPattern,
       List<JerboaRowPattern> ruleBLHSPattern,
       JerboaRuleNode node,
       JerboaOrbit orbitType,
+      JerboaOrbit originType,
       Event event) {
 
     JerboaStaticDetection detectorRuleA = new JerboaStaticDetection(ruleA);
-    List<JerboaDart> traceDarts = new ArrayList<>();
-    List<JerboaDart> originDarts = new ArrayList<>();
-    JerboaOrbit originTypeA = null;
 
-    switch (event.getCategory()) {
-      case GENERATION:
-        originTypeA = detectorRuleA.computeOrigin(node, orbitType);
-        originDarts = getLHSDarts(originTypeA, ruleALHSPattern);
-        break;
-      case MODIFICATION:
-        traceDarts = getLHSDarts(orbitType, ruleALHSPattern);
-        if (event.equals(Event.SPLIT) || event.equals(Event.MERGE)) {
-          originTypeA = detectorRuleA.computeOrigin(node, orbitType);
-          originDarts = getLHSDarts(originTypeA, ruleALHSPattern);
-        }
-        break;
-      case DESTRUCTION:
-        break;
-      default:
-        break;
-    }
+    // left: trace / right: origin
+    Pair<List<JerboaDart>, List<JerboaDart>> pairTraceOrigin =
+        computeTraceAndOrTrace(orbitType, orbitType, ruleALHSPattern, detectorRuleA, node, event);
 
-    // 3/ match all eligible orbits in RHSB
+    // match all eligible orbits in RHSB
     JerboaStaticDetection detectorRuleB = new JerboaStaticDetection(ruleB);
     List<JerboaRuleNode> RHSBOrbitRoots =
-        collectOrbitsRoots(ruleB, detectorRuleB, originTypeA, orbitType, event, 0);
+        collectOrbitsRoots(ruleB, detectorRuleB, originType, orbitType, event, 1);
 
-    // 4/ select LHSB instances onto which reevaluation may operate
-    List<Integer> intersections = new ArrayList<>();
-    // originDarts.forEach(
-    //     d -> {
-    //       Integer i = getDartsInstance(d, ruleBLHSPattern);
-    //       if (!intersections.contains(i)) intersections.add(i);
-    //     });
-    intersections.add(getDartsInstance(originDarts.get(0), ruleBLHSPattern));
-
-    if (intersections.isEmpty()) {
-      // traceDarts.forEach(
-      //     d -> {
-      //       Integer i = getDartsInstance(d, ruleBLHSPattern);
-      //       if (!intersections.contains(i)) intersections.add(i);
-      //     });
-      intersections.add(getDartsInstance(traceDarts.get(0), ruleBLHSPattern));
-    }
-
-    // get only first nodes in each orbit
-
-    return new Pair<>(intersections, RHSBOrbitRoots);
+    return computeMatchDartCoordinates(
+        detectorRuleB, RHSBOrbitRoots, originType, pairTraceOrigin, ruleBLHSPattern);
   }
 }

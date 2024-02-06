@@ -9,6 +9,8 @@ public class FactoryScriptReevaluationStrategy {
         return createBaseTester();
       case 1:
         return createSubSupStrategy();
+      case 2:
+        return createSubSupStrictStrategy();
       default:
         System.out.println("Warning: unrecognized strategy ID. Falling back to 0 (base)");
         return createBaseTester();
@@ -21,5 +23,9 @@ public class FactoryScriptReevaluationStrategy {
 
   public static ScriptIfElseSubSupOrbitsStrategy createSubSupStrategy() {
     return new ScriptIfElseSubSupOrbitsStrategy();
+  }
+
+  public static ScriptIfElseSubSubOrbitsStrictStrategy createSubSupStrictStrategy() {
+    return new ScriptIfElseSubSubOrbitsStrictStrategy();
   }
 }

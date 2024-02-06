@@ -201,6 +201,29 @@ public class ScriptConditionalReevaluationTest {
   }
 
   @Test
+  public void test_matchRHS_rainureDouble_edgeCreation_WhenSubSupOrbitStrictStrategy()
+      throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    RainureDouble2D rainureDoubleRule = (RainureDouble2D) modeler.getRule("RainureDouble2D");
+
+    JerboaStaticDetection detector = new JerboaStaticDetection(rainureDoubleRule);
+
+    List<List<JerboaRuleNode>> foundOrbits =
+        ScriptConditionalReevaluation.findRHSOrbits(
+            rainureDoubleRule,
+            detector,
+            null,
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(0),
+            Event.CREATION,
+            1);
+
+    assertEquals(3, foundOrbits.size());
+    assertEquals("[n2;n4;n6]", printOrbits(foundOrbits));
+  }
+
+  @Test
   public void test_getOriginDarts_rainure_created_edge() throws JerboaException {
     ModelerGenerated modeler = new ModelerGenerated();
 

@@ -5,11 +5,11 @@ import up.jerboa.core.JerboaOrbit;
 /** ScriptIfElseSubOverOrbitsStrategy */
 public class ScriptIfElseSubSupOrbitsStrategy extends ScriptReevaluationStrategy {
 
-  private boolean isSubOrbit(JerboaOrbit match, JerboaOrbit orbit) {
+  boolean isSubOrbit(JerboaOrbit match, JerboaOrbit orbit) {
     return orbit.contains(match) && !match.contains(orbit);
   }
 
-  private boolean isSupOrbit(JerboaOrbit match, JerboaOrbit orbit) {
+  boolean isSupOrbit(JerboaOrbit match, JerboaOrbit orbit) {
     return match.contains(orbit) && !orbit.contains(match);
   }
 

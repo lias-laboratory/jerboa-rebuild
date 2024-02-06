@@ -113,15 +113,10 @@ class ScriptConditionalReevaluation {
 
       if (rightNode.isNotMarked()) {
 
-        // TODO: goto JerboaStaticDetection and avoid computing the same orbit three time in a
-        // row!!!
-
-        // 1!
-        Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType);
-        // 2!!
-        JerboaOrbit RHSBOriginType = detector.computeOrigin(rightNode, orbitType);
-        // 3!!!
+        // REVIEW: computing matchingOrbit only once (check needed)
         List<JerboaRuleNode> matchingOrbit = JerboaRuleNode.orbit(rightNode, orbitType);
+        Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType, matchingOrbit);
+        JerboaOrbit RHSBOriginType = detector.computeOrigin(rightNode, orbitType);
 
         // mark orbits to avoid compute orbits more than once
         markOrbit(matchingOrbit, true);

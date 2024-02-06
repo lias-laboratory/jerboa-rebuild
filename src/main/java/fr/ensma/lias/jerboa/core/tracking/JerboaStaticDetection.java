@@ -14,11 +14,13 @@ import up.jerboa.core.util.JerboaRuleGenerated;
 public class JerboaStaticDetection {
 
   private JerboaRuleGenerated rule;
+  private List<JerboaRuleNode> orbit;
   private int splitLink;
   private int splitLinkRewrite;
 
   public JerboaStaticDetection(JerboaRuleGenerated rule) {
     this.rule = rule;
+    this.orbit = new ArrayList<>();
     splitLink = -1;
     splitLinkRewrite = -1;
   }
@@ -30,6 +32,12 @@ public class JerboaStaticDetection {
 
   public Integer getSplitLinkRewrites() {
     return splitLinkRewrite;
+  }
+
+  public Event getEventFromOrbit(
+      JerboaRuleNode ruleNode, JerboaOrbit orbitType, List<JerboaRuleNode> orbit) {
+    this.orbit = orbit;
+    return getEventFromOrbit(ruleNode, orbitType);
   }
 
   /**
@@ -55,6 +63,12 @@ public class JerboaStaticDetection {
     return Event.NOEFFECT;
   }
 
+  public JerboaOrbit computeOrigin(
+      JerboaRuleNode ruleNode, JerboaOrbit orbitType, List<JerboaRuleNode> orbit) {
+    this.orbit = orbit;
+    return computeOrigin(ruleNode, orbitType);
+  }
+
   /**
    * Compute origin (orbit type) for a traced node and an orbit type in current rule. Assuming that
    * all hooks holds the same orbit label.
@@ -65,8 +79,11 @@ public class JerboaStaticDetection {
    * @return An (origin) {@link JerboaOrbit} type
    */
   public JerboaOrbit computeOrigin(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
+    if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
+      this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    }
 
-    List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    // List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
 
     if (rule.getLeft().isEmpty()) {
       return JerboaOrbit.orbit();
@@ -91,7 +108,7 @@ public class JerboaStaticDetection {
     HashSet<Integer> aLinkSet = new HashSet<>();
     // collectRewrittenImplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
     // NOTE: this method's call is for collecting aLinks only in `hook` node
-    collectRewrittenImplicitALinks(aLinkSet, hookNode, nodeOrbit, orbitType);
+    collectRewrittenImplicitALinks(aLinkSet, hookNode, this.orbit, orbitType);
     // TODO: consider these methods in non-creation events only
     // collectUnfilteredALinks(aLinkSet, ruleNodesOrbit, orbitType);
     // collectPreservedExplicitALinks(aLinkSet, leftRuleNodesOrbit, ruleNodesOrbit, orbitType);
@@ -134,9 +151,12 @@ public class JerboaStaticDetection {
    * @return true if all nodes ar created else false
    */
   public boolean createdOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
-    List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
+      this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    }
+    // List<JerboaRuleNode> nodeOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
     // return true if all nodes are created else false
-    return nodeOrbit.stream().allMatch((node) -> isNodeCreated(node));
+    return this.orbit.stream().allMatch((node) -> isNodeCreated(node));
   }
 
   public boolean deletedOrbit(JerboaRuleNode leftRuleNode, JerboaOrbit orbitType) {
@@ -174,30 +194,41 @@ public class JerboaStaticDetection {
    * @return true if the orbit is preserved else false
    */
   private boolean unchangedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
-    List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
+      this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    }
+    // List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
     // REVIEW: get through here to check for both implicit and explicit links preservation in <o>
-    return areAllNodesPreserved(ruleNodesOrbit, orbitType)
-        && areNodesUnchanged(ruleNodesOrbit, orbitType);
+    return areAllNodesPreserved(this.orbit, orbitType) && areNodesUnchanged(this.orbit, orbitType);
     // return !isThereAnyCreatedNode(ruleNodesOrbit) // No Created Node
     //     && isThereAnyMissingNode(ruleNodesOrbit, orbitType) // No Missing Node
     //     && areNodesUnchanged(ruleNodesOrbit, orbitType); // No Change in (between) nodes
   }
 
   public boolean splittedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
-    List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
-    return isRuleNodesOrbitExplicitlySplitted(ruleNodesOrbit, orbitType)
-        || isRuleNodesOrbitImplicitlySplitted(ruleNodesOrbit, orbitType);
+    if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
+      this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    }
+    // List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    return isRuleNodesOrbitExplicitlySplitted(this.orbit, orbitType)
+        || isRuleNodesOrbitImplicitlySplitted(this.orbit, orbitType);
   }
 
   public boolean mergedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
-    List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
-    return isRuleNodesOrbitExplicitlyMerged(ruleNodesOrbit, orbitType)
-        || isRuleNodesOrbitImplicitlyMerged(ruleNodesOrbit, orbitType);
+    if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
+      this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    }
+    // List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    return isRuleNodesOrbitExplicitlyMerged(this.orbit, orbitType)
+        || isRuleNodesOrbitImplicitlyMerged(this.orbit, orbitType);
   }
 
   public boolean modifiedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
-    List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
-    return hasRewrittenImplicitLink(ruleNodesOrbit, orbitType);
+    if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
+      this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    }
+    // List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
+    return hasRewrittenImplicitLink(this.orbit, orbitType);
   }
 
   public boolean isNodeHook(JerboaRuleNode node) {

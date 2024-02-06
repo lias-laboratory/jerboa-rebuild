@@ -48,10 +48,10 @@ public class ScriptConditionalReevaluationTest {
     return null;
   }
 
-  private String printOrbits(List<List<JerboaRuleNode>> foundOrbits) {
+  private String printOrbits(List<JerboaRuleNode> foundOrbits) {
 
     return foundOrbits.stream()
-        .map(orbit -> orbit.get(0).getName())
+        .map(node -> node.getName())
         .collect(Collectors.joining(";", "[", "]"));
   }
 
@@ -73,11 +73,10 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaStaticDetection detector = new JerboaStaticDetection(triangulateRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             triangulateRule,
             detector,
-            "n2",
             JerboaOrbit.orbit(0, 1, 3),
             JerboaOrbit.orbit(1, 2, 3),
             Event.CREATION,
@@ -97,11 +96,10 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaStaticDetection detector = new JerboaStaticDetection(pierceRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             pierceRule,
             detector,
-            null,
             JerboaOrbit.orbit(0, 1, 3),
             JerboaOrbit.orbit(1, 2, 3),
             Event.CREATION,
@@ -120,11 +118,10 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaStaticDetection detector = new JerboaStaticDetection(pierceRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             pierceRule,
             detector,
-            null,
             JerboaOrbit.orbit(0, 1, 3),
             JerboaOrbit.orbit(1, 2, 3),
             Event.CREATION,
@@ -141,15 +138,9 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaStaticDetection detector = new JerboaStaticDetection(rainureRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
-            rainureRule,
-            detector,
-            "n4",
-            JerboaOrbit.orbit(0),
-            JerboaOrbit.orbit(0),
-            Event.CREATION,
-            2);
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
+            rainureRule, detector, JerboaOrbit.orbit(0), JerboaOrbit.orbit(0), Event.CREATION, 0);
 
     assertEquals(1, foundOrbits.size());
     assertEquals("[n4]", printOrbits(foundOrbits));
@@ -163,11 +154,10 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaStaticDetection detector = new JerboaStaticDetection(rainureDoubleRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             rainureDoubleRule,
             detector,
-            null,
             JerboaOrbit.orbit(0),
             JerboaOrbit.orbit(0),
             Event.CREATION,
@@ -186,11 +176,10 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaStaticDetection detector = new JerboaStaticDetection(rainureDoubleRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             rainureDoubleRule,
             detector,
-            null,
             JerboaOrbit.orbit(0),
             JerboaOrbit.orbit(0),
             Event.CREATION,
@@ -209,15 +198,14 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaStaticDetection detector = new JerboaStaticDetection(rainureDoubleRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             rainureDoubleRule,
             detector,
-            null,
             JerboaOrbit.orbit(0),
             JerboaOrbit.orbit(0),
             Event.CREATION,
-            1);
+            2);
 
     assertEquals(3, foundOrbits.size());
     assertEquals("[n2;n4;n6]", printOrbits(foundOrbits));

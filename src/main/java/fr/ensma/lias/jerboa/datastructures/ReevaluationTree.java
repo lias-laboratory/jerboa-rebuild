@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -96,9 +97,19 @@ public class ReevaluationTree {
       switch (applicationType) {
         case INIT:
           String nodeName = levelEventEvaluation.getNextLevelOrbit().getNodeName();
-          boolean NO_EFFECT = isApplicationNOEFFECT(nodeName, branchIndex, applicationResult);
+          AtomicBoolean NO_EFFECT =
+              new AtomicBoolean(isApplicationNOEFFECT(nodeName, branchIndex, applicationResult));
+          System.out.println("SWITCH: is boolean edited ? " + NO_EFFECT);
           matchDartParameters(
               branchIndex, levelEventEvaluation, nodeName, applicationResult, rule, NO_EFFECT);
+          System.out.println("SWITCH: is boolean edited ? " + NO_EFFECT);
+          if (!NO_EFFECT.get() && nodeName.equals("ø")) {
+            for (int i = 0; i < applicationResult.sizeCol(); i++) {
+              if (applicationResult.get(i).contains(getTopologicalParameter(branchIndex))) {
+                nodeName = rule.getRightNameRuleNode(i);
+              }
+            }
+          }
           matchLevel(
               branchIndex,
               levelEventEvaluation,
@@ -107,7 +118,7 @@ public class ReevaluationTree {
               application,
               nodeName,
               rule,
-              NO_EFFECT);
+              NO_EFFECT.get());
           registerLevel(
               branchIndex,
               levelEventEvaluation.getAppNumber(),
@@ -373,9 +384,23 @@ public class ReevaluationTree {
       String nodeName,
       JerboaRuleResult applicationResult,
       JerboaRuleOperation rule,
-      boolean NO_EFFECT) {
-    if (NO_EFFECT) {
+      AtomicBoolean NO_EFFECT) {
+
+    if (NO_EFFECT.get()) {
       // TODO: method - control wether or not the current application remains NO_EFFECT
+      if (!getTopologicalParameters().isEmpty())
+        for (int i = 0; i < applicationResult.sizeCol(); i++) {
+          for (int j = 0; j < applicationResult.sizeRow(i); j++) {
+            if (applicationResult.get(i, j) == getTopologicalParameter(branchIndex)) {
+              System.out.println("MATCHDARTPARAMETERS: NOT NOEFFECT ANYMORE!");
+              System.out.println("\t dart matched at " + i + " " + j);
+              JerboaDart dart = applicationResult.get(i, j);
+              topologicalParameters.set(branchIndex, dart);
+              NO_EFFECT.set(false);
+              ;
+            }
+          }
+        }
       return;
     }
 
@@ -428,10 +453,14 @@ public class ReevaluationTree {
     // Pour chaque évènement du niveau issu de l'arbre d'évaluation
     for (NodeEvent nodeEvent : levelEventEvaluation.getEventList()) {
 
+      System.out.println("\t" + nodeEvent.getEvent());
+      NodeEvent newEventNode;
+      NodeOrbit newOrbitNode;
+
       // Re-créer les évènements
-      NodeEvent newEventNode = new NodeEvent(nodeEvent.getEvent());
+      newEventNode = new NodeEvent(nodeEvent.getEvent());
       // Re-créer les orbites
-      NodeOrbit newOrbitNode =
+      newOrbitNode =
           new NodeOrbit(
               nodeEvent.getChild().getOrbit(),
               new ArrayList<>(nodeEvent.getChild().getAlphaPath()));
@@ -447,7 +476,16 @@ public class ReevaluationTree {
         JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRuleGenerated) rule);
         LevelEventMT parentEventList = getBranchLastLevel(branchIndex);
 
+        // HACK: overwrite newEventNode.event to fit the fact it is not NOEFFECT anymore
+        if (!NO_EFFECT && nodeEvent.getEvent() == Event.NOEFFECT) {
+          // On récupère le nœud qui match le paramètre topologique auparavant non-filtré
+          JerboaRuleNode n = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+          // On reécrit la valeur Event du nœud avec celle nouvellement calculée
+          newEventNode.setEvent(detector.getEventFromOrbit(n, newOrbitNode.getOrbit()));
+        }
+
         // Pour chaque nœud d'orbite du dernier niveau enregistré
+
         for (NodeOrbit parentNodeOrbit : parentEventList.getNextLevelOrbit().getOrbitList()) {
           // Si le nouveau nœud d'évènement courant est CRÉÉ, SCINDÉ ou FUSIONNÉ
           if (newEventNode.getEvent() == Event.CREATION

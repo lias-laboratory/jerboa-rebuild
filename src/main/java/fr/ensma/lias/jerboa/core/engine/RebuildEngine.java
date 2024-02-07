@@ -72,7 +72,8 @@ public class RebuildEngine {
                   persistentID,
                   orbitType,
                   initialSpecification,
-                  initialApplications.indexOf(application));
+                  initialApplications.indexOf(application),
+                  true);
           // register it within a list
           this.evaluationTrees.add(evaluationTree);
           // create and register the associated reevaluation tree

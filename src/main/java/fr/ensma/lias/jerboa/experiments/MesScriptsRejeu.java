@@ -161,6 +161,7 @@ public class MesScriptsRejeu {
                 leftPattern2,
                 st.getRightRuleNode(st.getRightIndexRuleNode("n2")),
                 JerboaOrbit.orbit(1, 2),
+                JerboaOrbit.orbit(0, 1),
                 Event.CREATION));
         try {
           sq.apply(gmap, hooks);
@@ -189,6 +190,7 @@ public class MesScriptsRejeu {
                 leftPattern2,
                 sq.getRightRuleNode(sq.getRightIndexRuleNode("n3")),
                 JerboaOrbit.orbit(1, 2),
+                JerboaOrbit.orbit(0, 1),
                 Event.CREATION));
         try {
           st.apply(gmap, hooks);

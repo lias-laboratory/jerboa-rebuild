@@ -18,4 +18,8 @@ public enum Event {
   public EventCategories getCategory() {
     return this.category;
   }
+
+  public Boolean equalsCategory(Event other) {
+    return this.getCategory().equals(other.getCategory());
+  }
 }

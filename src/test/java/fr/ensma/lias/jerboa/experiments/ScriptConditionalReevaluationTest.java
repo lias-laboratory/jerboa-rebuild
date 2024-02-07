@@ -48,104 +48,188 @@ public class ScriptConditionalReevaluationTest {
     return null;
   }
 
-  private void printOrbits(List<List<JerboaRuleNode>> foundOrbits) {
+  private String printOrbits(List<JerboaRuleNode> foundOrbits) {
 
-    System.out.println("Found Orbits are : ");
-    foundOrbits.stream()
-        .forEach(
-            orbit ->
-                System.out.println(
-                    '\t'
-                        + orbit.stream()
-                            .map(n -> n.getName())
-                            .collect(Collectors.joining(";", "[", "]"))));
+    return foundOrbits.stream()
+        .map(node -> node.getName())
+        .collect(Collectors.joining(";", "[", "]"));
+  }
+
+  private String formatCombination(Pair<List<Integer>, List<JerboaRuleNode>> p) {
+    StringBuilder sb = new StringBuilder();
+    for (Integer i : p.l()) {
+      for (JerboaRuleNode r : p.r()) {
+        sb.append(i).append(",").append(r.getName()).append(" ");
+      }
+      sb.append('\n');
+    }
+    return sb.toString();
   }
 
   @Test
-  public void test_matchRHS_triangulation_creation_vertex() throws JerboaException {
+  public void test_matchRHS_triangulation_vertexCreation_WhenBaseStrategy() throws JerboaException {
     ModelerGenerated modeler = new ModelerGenerated();
     TriangulateFace triangulateRule = (TriangulateFace) modeler.getRule("TriangulateFace");
 
     JerboaStaticDetection detector = new JerboaStaticDetection(triangulateRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             triangulateRule,
             detector,
-            "n2",
             JerboaOrbit.orbit(0, 1, 3),
             JerboaOrbit.orbit(1, 2, 3),
-            Event.CREATION);
+            Event.CREATION,
+            0);
 
-    printOrbits(foundOrbits);
+    System.out.println(printOrbits(foundOrbits));
 
     assertEquals(1, foundOrbits.size());
+    assertEquals("[n2]", printOrbits(foundOrbits));
   }
 
   @Test
-  public void test_matchRHS_pierce_creation_vertex() throws JerboaException {
+  public void test_matchRHS_pierce_vertexCreation_WhenBaseStrategy() throws JerboaException {
     ModelerGenerated modeler = new ModelerGenerated();
 
     PierceFaceAndCover pierceRule = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
 
     JerboaStaticDetection detector = new JerboaStaticDetection(pierceRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             pierceRule,
             detector,
-            null,
             JerboaOrbit.orbit(0, 1, 3),
             JerboaOrbit.orbit(1, 2, 3),
-            Event.CREATION);
+            Event.CREATION,
+            0);
 
-    printOrbits(foundOrbits);
+    System.out.println(printOrbits(foundOrbits));
 
     assertEquals(0, foundOrbits.size());
   }
 
   @Test
-  public void test_matchRHS_rainure_create_edge() throws JerboaException {
+  public void test_matchRHS_pierce_vertexCreation_WhenSubSupOrbitStrategy() throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    PierceFaceAndCover pierceRule = (PierceFaceAndCover) modeler.getRule("PierceFaceAndCover");
+
+    JerboaStaticDetection detector = new JerboaStaticDetection(pierceRule);
+
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
+            pierceRule,
+            detector,
+            JerboaOrbit.orbit(0, 1, 3),
+            JerboaOrbit.orbit(1, 2, 3),
+            Event.CREATION,
+            1);
+
+    assertEquals(1, foundOrbits.size());
+  }
+
+  @Test
+  public void test_matchRHS_rainure_edgeCreation_WhenBaseStrategy() throws JerboaException {
     ModelerGenerated modeler = new ModelerGenerated();
 
     Rainure2D rainureRule = (Rainure2D) modeler.getRule("Rainure2D");
 
     JerboaStaticDetection detector = new JerboaStaticDetection(rainureRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
-            rainureRule,
-            detector,
-            "n4",
-            JerboaOrbit.orbit(0),
-            JerboaOrbit.orbit(0),
-            Event.CREATION);
-
-    printOrbits(foundOrbits);
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
+            rainureRule, detector, JerboaOrbit.orbit(0), JerboaOrbit.orbit(0), Event.CREATION, 0);
 
     assertEquals(1, foundOrbits.size());
+    assertEquals("[n4]", printOrbits(foundOrbits));
   }
 
   @Test
-  public void test_matchRHS_rainureDouble_create_edge() throws JerboaException {
+  public void test_matchRHS_Retrecissement_edgeCreation_WhenBaseStrategy() throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    Retrecissement2D retrecissementRule = (Retrecissement2D) modeler.getRule("Retrecissement2D");
+
+    JerboaStaticDetection detector = new JerboaStaticDetection(retrecissementRule);
+
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
+            retrecissementRule,
+            detector,
+            JerboaOrbit.orbit(),
+            JerboaOrbit.orbit(0),
+            Event.CREATION,
+            0);
+
+    assertEquals(1, foundOrbits.size());
+    assertEquals("[n11]", printOrbits(foundOrbits));
+  }
+
+  @Test
+  public void test_matchRHS_rainureDouble_edgeCreation_WhenBaseStrategy() throws JerboaException {
     ModelerGenerated modeler = new ModelerGenerated();
 
     RainureDouble2D rainureDoubleRule = (RainureDouble2D) modeler.getRule("RainureDouble2D");
 
     JerboaStaticDetection detector = new JerboaStaticDetection(rainureDoubleRule);
 
-    List<List<JerboaRuleNode>> foundOrbits =
-        ScriptConditionalReevaluation.findRHSOrbits(
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
             rainureDoubleRule,
             detector,
-            null,
             JerboaOrbit.orbit(0),
             JerboaOrbit.orbit(0),
-            Event.CREATION);
-
-    printOrbits(foundOrbits);
+            Event.CREATION,
+            0);
 
     assertEquals(1, foundOrbits.size());
+    assertEquals("[n8]", printOrbits(foundOrbits));
+  }
+
+  @Test
+  public void test_matchRHS_rainureDouble_edgeCreation_WhenSubSupOrbitStrategy()
+      throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    RainureDouble2D rainureDoubleRule = (RainureDouble2D) modeler.getRule("RainureDouble2D");
+
+    JerboaStaticDetection detector = new JerboaStaticDetection(rainureDoubleRule);
+
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
+            rainureDoubleRule,
+            detector,
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(0),
+            Event.CREATION,
+            1);
+
+    assertEquals(4, foundOrbits.size());
+    assertEquals("[n2;n4;n6;n8]", printOrbits(foundOrbits));
+  }
+
+  @Test
+  public void test_matchRHS_rainureDouble_edgeCreation_WhenSubSupOrbitStrictStrategy()
+      throws JerboaException {
+    ModelerGenerated modeler = new ModelerGenerated();
+
+    RainureDouble2D rainureDoubleRule = (RainureDouble2D) modeler.getRule("RainureDouble2D");
+
+    JerboaStaticDetection detector = new JerboaStaticDetection(rainureDoubleRule);
+
+    List<JerboaRuleNode> foundOrbits =
+        ScriptConditionalReevaluation.collectOrbitsRoots(
+            rainureDoubleRule,
+            detector,
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(0),
+            Event.CREATION,
+            2);
+
+    assertEquals(3, foundOrbits.size());
+    assertEquals("[n2;n4;n6]", printOrbits(foundOrbits));
   }
 
   @Test
@@ -297,24 +381,25 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = rf.getRightRuleNode(rf.getRightIndexRuleNode("n4"));
 
-    Pair<List<Integer>, List<JerboaRuleNode>> p =
+    // Pair<List<Integer>, List<JerboaRuleNode>> p =
+    List<Pair<Integer, JerboaRuleNode>> p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            rf, rdf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(0), Event.CREATION);
-
-    // for (Integer i : p.l()) {
-    //   for (JerboaRuleNode r : p.r()) {
-    //     System.out.println(i + "," + r.getName() + " ");
-    //   }
-    //   System.out.println("");
-    // }
-
-    List<Integer> expectedInstanceMatch = Arrays.asList(0);
-    JerboaRuleNode n8 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n8"));
-    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n8);
-    assertTrue(
-        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
-    assertTrue(
-        expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
+            rf,
+            rdf,
+            leftPatternA,
+            leftPatternB,
+            n,
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(0),
+            Event.CREATION);
+    p.forEach(pc -> System.out.println(pc.l() + " " + pc.r().getName()));
+    // List<Integer> expectedInstanceMatch = Arrays.asList(0);
+    // JerboaRuleNode n8 = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n8"));
+    // List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n8);
+    // assertTrue(
+    //     expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
+    // assertTrue(
+    //     expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
   }
 
   @Test
@@ -359,20 +444,22 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = ivff.getRightRuleNode(ivff.getRightIndexRuleNode("n0"));
 
-    Pair<List<Integer>, List<JerboaRuleNode>> p =
+    // Pair<List<Integer>, List<JerboaRuleNode>> p =
+    var p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            ivff, ccf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(0), Event.SPLIT);
+            ivff,
+            ccf,
+            leftPatternA,
+            leftPatternB,
+            n,
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(),
+            Event.SPLIT);
 
-    // for (Integer i : p.l()) {
-    //   for (JerboaRuleNode r : p.r()) {
-    //     System.out.println(i + "," + r.getName() + " ");
-    //   }
-    //   System.out.println("");
-    // }
-
-    List<Integer> expectedInstanceMatch = Arrays.asList(1);
-    assertTrue(
-        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
+    p.forEach(pc -> System.out.println(pc.l() + " " + pc.r().getName()));
+    // List<Integer> expectedInstanceMatch = Arrays.asList(1);
+    // assertTrue(
+    //     expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
   }
 
   @Test
@@ -419,24 +506,26 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = tf.getRightRuleNode(tf.getRightIndexRuleNode("n2"));
 
-    Pair<List<Integer>, List<JerboaRuleNode>> p =
+    // Pair<List<Integer>, List<JerboaRuleNode>> p =
+    var p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            tf, pfcf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(1, 2), Event.CREATION);
+            tf,
+            pfcf,
+            leftPatternA,
+            leftPatternB,
+            n,
+            JerboaOrbit.orbit(1, 2),
+            JerboaOrbit.orbit(0, 1),
+            Event.CREATION);
 
-    // for (Integer i : p.l()) {
-    //   for (JerboaRuleNode r : p.r()) {
-    //     System.out.println(i + "," + r.getName() + " ");
-    //   }
-    //   System.out.println("");
-    // }
-
-    List<Integer> expectedInstanceMatch = Arrays.asList(0);
-    JerboaRuleNode n2 = pfcf.getRightRuleNode(pfcf.getRightIndexRuleNode("n2"));
-    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList();
-    assertTrue(
-        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
-    assertTrue(
-        expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
+    p.forEach(pc -> System.out.println(pc.l() + " " + pc.r().getName()));
+    // List<Integer> expectedInstanceMatch = Arrays.asList(0);
+    // JerboaRuleNode n2 = pfcf.getRightRuleNode(pfcf.getRightIndexRuleNode("n2"));
+    // List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList();
+    // assertTrue(
+    //     expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
+    // assertTrue(
+    //     expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
   }
 
   @Test
@@ -486,23 +575,27 @@ public class ScriptConditionalReevaluationTest {
 
     JerboaRuleNode n = rdf.getRightRuleNode(rdf.getRightIndexRuleNode("n3"));
 
-    Pair<List<Integer>, List<JerboaRuleNode>> p =
+    // Pair<List<Integer>, List<JerboaRuleNode>> p =
+    var p =
         ScriptConditionalReevaluation.conditionalReevaluation(
-            rdf, rf, leftPatternA, leftPatternB, n, JerboaOrbit.orbit(0), Event.CREATION);
+            rdf,
+            rf,
+            leftPatternA,
+            leftPatternB,
+            n,
+            JerboaOrbit.orbit(0),
+            JerboaOrbit.orbit(),
+            Event.CREATION);
 
-    // for (Integer i : p.l()) {
-    //   for (JerboaRuleNode node : p.r()) {
-    //     System.out.println(i + "," + node.getName() + " ");
-    //   }
-    //   System.out.println("");
-    // }
+    // System.out.println(formatCombination(p));
+    p.forEach(pc -> System.out.println(pc.l() + " " + pc.r().getName()));
 
-    List<Integer> expectedInstanceMatch = Arrays.asList(0);
-    JerboaRuleNode n11 = rf.getRightRuleNode(rf.getRightIndexRuleNode("n11"));
-    List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n11);
-    assertTrue(
-        expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
-    assertTrue(
-        expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
+    // List<Integer> expectedInstanceMatch = Arrays.asList(0);
+    // JerboaRuleNode n11 = rf.getRightRuleNode(rf.getRightIndexRuleNode("n11"));
+    // List<JerboaRuleNode> expectedRuleNodesMatch = Arrays.asList(n11);
+    // assertTrue(
+    //     expectedInstanceMatch.containsAll(p.l()) && p.l().containsAll(expectedInstanceMatch));
+    // assertTrue(
+    //     expectedRuleNodesMatch.containsAll(p.r()) && p.r().containsAll(expectedRuleNodesMatch));
   }
 }

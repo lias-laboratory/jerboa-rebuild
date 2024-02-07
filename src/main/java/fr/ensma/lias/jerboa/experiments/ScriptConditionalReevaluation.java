@@ -4,6 +4,8 @@ import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.datastructures.Event;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaOrbit;
@@ -243,6 +245,10 @@ class ScriptConditionalReevaluation {
       JerboaOrbit orbitType,
       JerboaOrbit originType,
       Event event) {
+
+    Logger logger = Logger.getLogger(ScriptConditionalReevaluation.class.getName());
+    logger.setLevel(Level.WARNING);
+    logger.warning("This method may yield unexpected results with parallelization!");
 
     JerboaStaticDetection detectorRuleA = new JerboaStaticDetection(ruleA);
 

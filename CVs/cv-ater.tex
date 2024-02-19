@@ -96,7 +96,7 @@ l'analyse et au traitement de la géométrie. %
 Ce parcours de Master étant indifférent vis-à-vis d'un parcours recherche ou
 professionnel propose également un module autour réalisation d'un projet typé
 industriel avec un cahier des charges et sa documentation. %
-Le semestre 4 est quant à lui partagé entre un projet de recherche en groupe au sein du Laboratoire d'Informatique et Système (LIS) de Marseille et d'un stage (recherche ou industriel).
+Le semestre 4 est quant à lui partagé entre un projet de recherche en groupe au sein du Laboratoire d'Informatique et Système (LIS) de Marseille et d'un stage (recherche ou professionnel).
 
 \subsubsection{Doctorat en Informatique - Rejeu et modélisation spatio-temporelle à base de règles d'éléments archéologiques  (2021-en cours)}
 Directeur de thèse : Stéphane Jean\\
@@ -125,13 +125,15 @@ Les objectifs sont:
 
 \subsubsection{Stage recherche - Détection de cratères dans les maillages surfaciques de corps célestes - Aix-Marseille Université (2019, 2 mois)}
 
-Ce stage de recherche a eu lieu au Laboratoire d'Informatique et Système
-d'Aix-Marseille Université. %
-L'objectif était double : Dans un premier temps, concevoir et développer une
-méthode permettant de détecter des cratères; Dans un second temps, extraire des
-caractéristique à partir des cratères détectés. %
+Ce stage de recherche a eu lieu entre le Laboratoire d'Informatique et Système
+d'Aix-Marseille Université et le Laboratoire d'Astrophysique de Marseille. %
+L'objectif était, dans un premier temps, de concevoir et développer un outil
+permettant de détecter des cratères~; et dans un second temps, d'extraire des
+caractéristiques à partir des cratères détectés. %
 Ces caractéristiques comprennent entre autre le diamètre du cratère, sa
 profondeur et son type. %
+Au cours cette première expérience de recherche, j'ai assisté un autre étudiant
+pour développer un outil répondant aux problématique du sujet. %
 
 \subsubsection{Stage recherche - Compression de pipeline 3D pour le streaming d'application - Nothing2Install, Marseille, 2020, 6 mois)}
 
@@ -140,9 +142,17 @@ d'applications sans la nécessiter de les installer. %
 Cette solution s'appuie sur le streaming d'un pipeline graphique afin que
 l'application soit rendue nativement par le processeur graphique de l'appareil
 client. %
+La problématique de ces travaux est la suivante : le streaming d'un pipeline de
+rendu est significativement plus élevé que le streaming d'une vidéo et est
+susceptible de saturer la bande passante. %
+Au cours de ce stage, j'ai travaillé sur une preuve de concept pour déterminer
+s'il était viable ou non de compresser de l'information géométrique entre deux
+phases de rendu (deux frames). %
+La rétro-ingénierie des transformations géométriques dans un pipeline a permis de réduire ces données à des opérations et leur paramètres, ce qui réduit le coût en bande passante. %
 
 \subsubsection{Encadrement EUR - Conception d'une interface pour le rejeu et animation spatio-temporelle de modèle (en cours)}
 
+%% TODO
 
 
 \section{Enseignements}
@@ -159,7 +169,7 @@ ainsi qu'en TD. %
 J'ai également pu surveiller des sessions de contrôle continu. %
 
 \subsection{Base de la Conception Logicielle; 1ère année ENSMA; 42h TP}
-Dans ce module, les étudiants apprennent à concevoir des programme respectant
+Dans ce module, les étudiants apprennent à concevoir des programmes respectant
 différents concepts tels que la ré-utilisabilité et la maintenabilité du code. %
 Ils apprennent également à développer des programmes en utilisant les concepts
 de généricité et de polymorphisme.
@@ -171,105 +181,104 @@ notebooks. %
 L'objectif de cet enseignement est de donner les clés pour s'approprier des
 connaissances grâce à l'étude de jeux de données. %
 Les étudiants apprennent à utiliser différents outils tels que pandas, numpy,
-sql pour exploiter des jeux de données et, entre autre, les visualisé. %
+sql pour exploiter des jeux de données et, entre autre, les visualiser. %
 Pour ce module, j'ai pu encadrer des séances de TP.
 
 \subsection{Apprentissage Automatique appliqué; 2ème année ENSMA; 3h TP}
 Ce module est enseigné avec le langage Python et s'appuie sur l'utilisation de
 notebooks. %
 L'objectif de cet enseignement est de proposer une introduction à
-l'apprentissage. %
-Les étudiants acquièrent des connaissances sur les différentes catégorie
+l'apprentissage automatique. %
+Les étudiants acquièrent des connaissances sur les différentes catégories
+d'apprentissages, leurs avantages et inconvénients. %
+Ils sont également confrontés aux problématiques liés à la validation des
+modèles. %
+Pour ce module, j'ai encadré une séance de TP. %
 
-% d'apprentissages, leurs avantages et inconvénients. %
-% Ils sont également confrontés aux problématiques liés à la validation des
-% modèles. %
-% Pour ce module, j'ai encadré une séance de TP. %
+\subsection{récapitulatif}
 
-% \subsection{Récapitulatif}
+Tableau récapitulatif des enseignements, des niveaux d'études et des heures :
+\begin{center}
+	\begin{tabular}{|l|l|l|l|l|l|}
+		\hline
+		établissement                                     & matières enseignées                     & niveaux d'études & \multicolumn{3}{l|}{nombre d'heures}                \\
+		\hline
+		                                                  &                                         &                  & td                                   & tp  & projet \\
+		\hline
+		ensma                                             & algorithmique et systèmes numériques    & a1 ingénieur     & 3h45                                 & 27h & 45h    \\
+		\hline
+		ensma                                             & base de la conception logicielle        & a1 ingénieur     &                                      & 42h &        \\
+		\hline
+		ensma                                             & utilisation et exploitation des données & a1 ingénieur     &                                      & 6h  &        \\
+		\hline
+		ensma                                             & apprentissage automatique appliqué      & a2 ingénieur     &                                      & 3h  &        \\
+		\hline
+		\multicolumn{3}{|l|}{total:}                      & \multicolumn{3}{l|}{126h45}                                                                                      \\
+		\hline
+		\multicolumn{3}{|l|}{total heures équivalent td:} & \multicolumn{3}{l|}{126h45}                                                                                      \\
+		\hline
+	\end{tabular}
+\end{center}
 
-% Tableau récapitulatif des enseignements, des niveaux d'études et des heures :
-% \begin{center}
-% 	\begin{tabular}{|l|l|l|l|l|l|}
-% 		\hline
-% 		Établissement                                     & Matières Enseignées                     & Niveaux d'études & \multicolumn{3}{l|}{Nombre d'heures}                \\
-% 		\hline
-% 		                                                  &                                         &                  & TD                                   & TP  & Projet \\
-% 		\hline
-% 		ENSMA                                             & Algorithmique et Systèmes Numériques    & A1 ingénieur     & 3h45                                 & 27h & 45h    \\
-% 		\hline
-% 		ENSMA                                             & Base de la Conception Logicielle        & A1 ingénieur     &                                      & 42h &        \\
-% 		\hline
-% 		ENSMA                                             & Utilisation et Exploitation des Données & A1 ingénieur     &                                      & 6h  &        \\
-% 		\hline
-% 		ENSMA                                             & Apprentissage automatique appliqué      & A2 ingénieur     &                                      & 3h  &        \\
-% 		\hline
-% 		\multicolumn{3}{|l|}{Total:}                      & \multicolumn{3}{l|}{126h45}                                                                                      \\
-% 		\hline
-% 		\multicolumn{3}{|l|}{Total heures équivalent TD:} & \multicolumn{3}{l|}{126h45}                                                                                      \\
-% 		\hline
-% 	\end{tabular}
-% \end{center}
+\section{recherche}
 
-% \section{Recherche}
+\subsection{Analyses syntaxiques de règles de transformations de graphe}
+La plupart des logiciels de modélisation géométrique disposent d'opérations
+développées sous forme de code. %
+Ceci rend leurs analyses particulièrement complexes. %
+Savoir quelle partie d'un modèle a été impactée par une opération et la nature
+de cet impact nécessite un compromis, que ce soit en temps (analyse du modèle
+complet) ou en fiabilité (ajout d'information directement dans le code). %
+Les règles de transformation de graphes, elles, suivent une syntaxe. %
+Une analyse de cette syntaxe permet de déduire à partir d'une règle quelle
+partie d'un objet et impactée et dans quelle mesure. %
+Nous distinguons six types d'évènements topologiques : la création, la
+suppression, la modification, le non-changement, la scission ou encore la fusion
+de tout type de cellule topologique (sommet, face, arête, etc.). %
+Cette analyse est hybride. %
+Il est possible, d'une part, de déduire statiquement l'ensemble des évènements
+provoqués par l'application d'une règle, peu import le modèle. %
+D'autre part, lorsque la règle est conçue de telle sorte qu'il y a une
+incertitude, une vérification localisée permet de confirmer ou non ses
+potentielles conséquences. %
+Ces travaux ont donné lieu à une publication dans une conférence
+internationale. %
 
-% \subsection{Analyses syntaxiques de règles de transformations de graphe}
-% La plupart des logiciels de modélisation géométrique disposent d'opérations
-% développées sous forme de code. %
-% Ceci rend leurs analyses particulièrement complexes. %
-% Savoir quelle partie d'un modèle à été impactée par une opération et la nature
-% de cet impacte nécessite un compromis, que ce soit en temps (analyse du modèle
-% complet) ou en fiabilité (ajout d'information directement dans le code). %
-% Les règles de transformation de graphes, elles, suivent une syntaxe. %
-% Une analyse de cette syntaxe permet de déduire à partir d'une règle quelle
-% partie d'un objet et impactée et dans quelle mesure. %
-% Nous distinguons six types d'évènements topologiques : la création, la
-% suppression, la modification, le non-changement, la scission ou encore la fusion
-% de tout type de cellule topologique (sommet, face, arête, etc.). %
-% Cette analyse est hybride. %
-% Il est possible, d'une part, de déduire statiquement l'ensemble des évènements
-% provoqués par l'application d'une règle, peu import le modèle. %
-% D'autre part, lorsque la règle est conçue de telle sorte qu'il y a une
-% incertitude, une vérification localisée permet de confirmer ou non ses
-% potentiels conséquences. %
-% Ces travaux ont donné lieu à une publication dans une conférence
-% internationale. %
-
-% \subsection{Réévaluation de modèle à partir de règles de transformation de graphe}
-% La réévaluation d'un modèle est une fonctionnalité essentielle dans le domaine
-% de la CAO. %
-% Cette fonctionnalité est attachée à un problème classique qui est
-% l'identification persistante des cellules topologiques d'un modèle au cours de
-% sa réévaluation. %
-% Ce problème est celui du nommage persistant. %
-% Afin de procéder à la réévaluation de modèles, nous avons conçu un système de
-% nommage persistant à partir des règles de transformations Jerboa. %
-% Ce mécanisme de nommage persistant s'appuie un historique, généré à partir des
-% règles, et se propage dans le modèle au fur et à mesure de sa construction. %
-% Une fois le modèle construit et sa spécification paramétrique enregistré,
-% chacune des entités topologique étant désigné comme lieu d'application d'une
-% règle est désigné par un nom persistant. %
-% Puisque un nom persistant est une sorte d'historique, il est alors possible de
-% décrire l'histoire d'une entité topologique, ses différents états et ses
-% origines. %
-Au cours de la réévaluation, nous pouvons alors reconstruire l'objet pas à pas en mettant à jour l'histoire de chaque entité topologique en fonction de l'édition de la spécification paramétrique. %
-ces travaux sont actuellement en cours de soumission. %
+\subsection{Réévaluation de modèle à partir de règles de transformation de graphe}
+La réévaluation d'un modèle est une fonctionnalité essentielle dans le domaine
+de la CAO. %
+Cette fonctionnalité est attachée à un problème classique qui est
+l'identification persistante des cellules topologiques d'un modèle au cours de
+sa réévaluation. %
+Ce problème est celui du nommage persistant. %
+Afin de procéder à la réévaluation de modèles, nous avons conçu un système de
+nommage persistant à partir des règles de transformations Jerboa. %
+Ce mécanisme de nommage persistant s'appuie un historique, généré à partir des
+règles, et se propage dans le modèle au fur et à mesure de sa construction. %
+Une fois le modèle construit et sa spécification paramétrique enregistrée,
+chacune des entités topologiques étant désigné comme lieu d'application d'une
+règle est désigné par un nom persistant. %
+Puisqu'un nom persistant est une sorte d'historique, il est alors possible de
+décrire l'histoire d'une entité topologique, ses différents états et ses
+origines. %
+Au cours de la réévaluation, nous pouvons ainsi reconstruire l'objet pas à pas en mettant à jour l'histoire de chaque entité topologique en fonction de l'édition de la spécification paramétrique. %
+Ces travaux sont actuellement en cours de soumission. %
 
 \subsection{Exploitation des scripts de règles pour la réévaluation de modèles}
 Bien que les règles de transformations de graphe s'avèrent êtres des outils
 puissants. %
-Cependant, celles-ci peuvent s'avérer limitante de part la complexité de
+Cependant, celles-ci peuvent s'avérer limitante par la complexité de
 conception lorsque l'on monte en dimension ou encore parce que la conception
-d'opérations complexes et difficile voire impossible. %
+d'opérations complexes et difficiles, voire impossible. %
 Jerboa permet de créer des scripts de règle au sein desquelles il est possible
 d'appeler des règles, voire d'autres scripts et de faire usage de structures de
 contrôle. %
-Dans le cadre de ces scripts, nous étudions trois type de structures :
+Dans le cadre de ces scripts, nous étudions trois types de structures :
 \begin{itemize}
 	\item les structures conditionnelles pouvant faire varier un modèle selon son
 	      évaluation,
-	\item les structures itérative de type « pour chaque sous-cellule d'une
-	      cellule » dont le nombre d'itération peut varier et faire varier les
+	\item les structures itératives de type «~pour chaque sous-cellule d'une
+	      cellule~» dont le nombre d'itérations peut varier et faire varier les
 	      noms persistants au rejeu et
 	\item les séquences d'applications.
 \end{itemize}

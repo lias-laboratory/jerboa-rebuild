@@ -6,8 +6,13 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-\usepackage[backend=biber]{biblatex}
-\addbibresource{publications}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{../manuscript/references/references.bib}
 
 \begin{document}
 
@@ -275,7 +280,7 @@ Il est possible, d'une part, de détecter de manière statique l'ensemble des
 D'autre part, lorsque la règle est conçue de telle sorte qu'il y a une
 incertitude, une vérification localisée permet de confirmer ou non ses
 potentielles conséquences. %
-Ces travaux ont été publié dans \cite{gaide2023automatic}. %
+Ces travaux ont été publiés dans \cite{gaide2023automatic}. %
 
 \subsection{Réévaluation de modèle à partir de règles de transformation de graphe}
 La réévaluation d'un modèle est une fonctionnalité essentielle dans le domaine
@@ -318,8 +323,6 @@ Dans le cadre de ces scripts, nous étudions trois types de structures :
 \end{itemize}
 À ce jour, ces travaux sont en cours d'étude.
 
-\printbibliography
-
 \section{Motivations pour un poste d'ATER à l'Université de Poitiers}
 
 Au cours de mon doctorat, j'ai pu encadrer des étudiants apprenant les bases de
@@ -332,5 +335,6 @@ Côté recherche, prévoyant de soutenir avant décembre 2024, un poste d'ATER m
 permettrait de disposer du temps nécessaire pour finaliser et publier les
 travaux en cours. %
 
+\printbibliography
 
 \end{document}

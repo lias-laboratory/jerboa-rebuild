@@ -5,7 +5,7 @@
 \usepackage[french]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-
+\usepackage{standalone}
 
 \usepackage[
 backend=biber,
@@ -13,6 +13,8 @@ style=alphabetic,
 sorting=ynt
 ]{biblatex}
 \addbibresource{../manuscript/references/references.bib}
+
+% \input{CV-short/structure.tex} % Include the file specifying document layout and packages
 
 \begin{document}
 
@@ -47,8 +49,6 @@ sorting=ynt
 	% \noindent 2024
 \end{titlepage}
 
-
-
 \newpage
 
 \section{Informations générales}
@@ -77,6 +77,8 @@ sorting=ynt
 \begin{itemize}
 	\item français : langue maternelle
 	\item anglais : professionnel scientifique écrit et oral
+	\item suédois : débutant
+	\item allemand : débutant
 \end{itemize}
 
 \section{Formation Initiale}
@@ -85,22 +87,37 @@ sorting=ynt
 
 La première année de licence permet d'acquérir les fondamentaux de
 l'informatique avec des bases en mathématiques. %
-Les modules d'introduction à la programmation sont enseignés en \textbf{langage C}. %
+Les modules d'introduction à la programmation sont enseignés en \textbf{langage
+	C}. %
 Les deux années suivantes forment, entre autres, à l'algorithmique, la théorie
-des graphes, la programmation orienté objet (\textbf{Java}) ou encore à la compréhension
-des systèmes informatiques. %
+des graphes, la programmation orienté objet (\textbf{Java}) ou encore à la
+compréhension des systèmes informatiques. %
 Cette formation offre également la possibilité de personnaliser ses compétences
-via des modules optionnels (programmation fonctionnelle, connaissance de la
-recherche en informatique). %
+via des modules optionnels (programmation fonctionnelle \textbf{OCaml},
+connaissance de la recherche en informatique). %
 
 \subsection{Master 1 Informatique - Université d'Uppsala, Suède, (2018-2019)}
 
 Cette année a été réalisée en Suède via une mobilité Erasmus+ comprenant un test
 d'anglais au début ainsi qu'à la fin. %
-Pour cette année, j'ai suivi des modules d'introduction à la programmation
-parallèle, interaction Homme-Machine, base de données, gestion de projet (avec
-offre d’intégration de fonctionnalité auprès d'autres groupes d'étudiants) et une
-introduction à l'informatique graphique. %
+Pour cette année, j'ai suivi un cours intensif de suédois (niveau A1), des
+modules d'introduction à la programmation parallèle (\textbf{pthread},
+\textbf{OpenMP} et \textbf{OpenMPI}), d'interaction Homme-Machine, de base de
+données, gestion de projet et d'introduction à l'informatique graphique. %
+
+\subsection{Stage recherche - Détection de cratères dans les maillages
+	surfaciques de corps célestes - Aix-Marseille Université (M1, 2019, 2 mois)}
+
+Ce stage de recherche a eu lieu entre le Laboratoire d'Informatique et Système
+(LIS) d'Aix-Marseille Université et le Laboratoire d'Astrophysique de
+Marseille. %
+L'objectif était, dans un premier temps, de concevoir et développer un outil
+permettant de détecter des cratères~; et dans un second temps, d'extraire des
+caractéristiques à partir des cratères détectés. %
+Ces caractéristiques comprennent entre autre le diamètre du cratère, sa
+profondeur et son type. %
+Au cours cette première expérience de recherche, j'ai assisté un autre étudiant
+(en M2) pour développer un outil répondant aux problématiques du sujet. %
 
 \subsection{Master 2 Géométrie et Informatique Graphique - Aix-Marseille Université (2019-2020)}
 
@@ -108,53 +125,27 @@ La deuxième année se spécialise dans la modélisation 3D, l'informatique
 graphique et la géométrie appliquée. %
 Le semestre 3 forme aux fondamentaux de la géométrie discrète, de l'animation, à
 l'analyse et au traitement de la géométrie. %
-Ce parcours de Master étant indifférent vis-à-vis d'un parcours recherche ou
-professionnel propose également un module autour réalisation d'un projet typé
-industriel avec un cahier des charges et sa documentation. %
-Le semestre 4 est quant à lui partagé entre un projet de recherche en groupe au sein du Laboratoire d'Informatique et Système (LIS) de Marseille et d'un stage (recherche ou professionnel).
+Ce parcours de Master étant indifférencié vis-à-vis d'un parcours recherche ou
+professionnel propose également un module autour de la réalisation d'un projet
+de type industriel avec un cahier des charges et sa documentation. %
+Le semestre 4 comporte un projet de fin d'étude ainsi qu'un stage de 6 mois. %
+Mon projet de fin d'étude concernait la squelettisation duale-primale à partir
+de maillages simpliciaux 3-dimensionnels (utilisation de \textbf{VTK}). Mon
+stage était un stage recherche sur la compression d'information géométrique pour
+la diffusion d'un flux de rendu graphique. %
 
-\subsection{Doctorat en Informatique - Rejeu et modélisation spatio-temporelle à base de règles d'éléments archéologiques  (2021-en cours)}
+\subsection{Projet de fin d'études - Squelettisation duale-primale à partir de
+	maillages simpliciaux 3-dimensionels (M2, 2020, 2 mois)}
 
-\noindent Directeur de thèse~: Stéphane Jean
+Ce projet, orienté recherche, a eu lieu sous la supervision de Jean-Luc Mari et Ricardo
+Uribe-Lobello membres de l'équipe Géométrie et Modélisation du LIS. %
+L'objet de ce projet était de vérifier si les critères de squelettisation
+duale-primale proposés dans \cite{URI2019Dual} étaient suffisamment robustes
+pour être généralisées en toute dimension. %
+Pour cela, avec mon groupe, nous avons procédé à la réimplantation des méthodes
+proposées en utilisant les outils de la suite \textbf{VTK}.
 
-\noindent Encadrants~: David Marcheix, Xavier Skapin
-
-\noindent Employeur~: ISAE-ENSMA avec financement Ministère
-
-Cette thèse sous contrat doctorale est liée au domaine de la CAO et plus
-particulièrement à la reconstruction automatique de modèles 3D. %
-La spécificité de ces travaux est de s'appuyer sur des opérations de
-modélisation définies à partir de règles de transformation de graphes. %
-L'objectif final étant de permettre la génération rapide de variations à partir
-d'un modèle initial. %
-
-Les objectifs sont~:
-\begin{itemize}
-	\item l'enregistrement du processus constructif (spécification paramétrique)
-	      d'un objet initial,
-	\item l'implantation d'un mécanisme pour la réévaluation d'une spécification
-	      paramétrique,
-	\item l'édition d'une spécification paramétrique (ajout, retrait, déplacement
-	      d'opération) et l'automatisation de sa réévaluation,
-	\item l'animation de l'évolution d'un modèle au cours du temps,
-	\item l'annotation de modèles à partir de données historiques hétérogènes.
-\end{itemize}
-
-\section{Stages et expériences}
-
-\subsection{Stage recherche - Détection de cratères dans les maillages surfaciques de corps célestes - Aix-Marseille Université (2019, 2 mois)}
-
-Ce stage de recherche a eu lieu entre le Laboratoire d'Informatique et Système
-d'Aix-Marseille Université et le Laboratoire d'Astrophysique de Marseille. %
-L'objectif était, dans un premier temps, de concevoir et développer un outil
-permettant de détecter des cratères~; et dans un second temps, d'extraire des
-caractéristiques à partir des cratères détectés. %
-Ces caractéristiques comprennent entre autre le diamètre du cratère, sa
-profondeur et son type. %
-Au cours cette première expérience de recherche, j'ai assisté un autre étudiant
-pour développer un outil répondant aux problématiques du sujet. %
-
-\subsection{Stage recherche - Compression de pipeline 3D pour le streaming d'application - Nothing2Install, Marseille, 2020, 6 mois)}
+\subsection{Stage recherche - Compression de pipeline 3D pour le streaming d'application - Nothing2Install, Marseille, (M2, 2020, 6 mois)}
 
 Nothing2Install est une Start-Up proposant une solution permettant l'utilisation
 d'applications sans la contrainte de les installer. %
@@ -164,113 +155,101 @@ Cependant, un flux de rendu graphique contient, entre autre de la géométrie, d
 la texture, etc. %
 Toutes ces données accumulées sont susceptibles de saturer la bande passante et
 impacter négativement le réseau. %
-Au cours de ce stage, j'ai travaillé la compression d'information géométrique
-entre deux cycles de rendu. %
-Mon objectif était de compresser des informations géométriques et voir si elle
-était suffisamment intéressante pour alléger la charge de diffusion sur un
-réseau. %
+Au cours de ce stage, j'ai travaillé sur la compression d'information
+géométrique entre deux cycles de rendu. %
+Mon objectif était de compresser des informations géométriques et comparer avec
+des outils de compression plus généralistes (Zstandard, GZip, …) voire de
+composer avec. %
+L'objectif étant d'alléger la charge de diffusion sur un réseau. %
 
+\subsection{Doctorat en Informatique - Rejeu et modélisation spatio-temporelle à base de règles d'éléments archéologiques  (2021-en cours)}
 
-\subsection{Encadrement EUR - Conception d'une interface pour le rejeu et animation spatio-temporelle de modèle (en cours)}
-L'Université de Poitiers propose un parcours EUR pour son master informatique. %
-Ce parcours a deux objectifs : premièrement, offrir aux étudiants du master une
-expérience à la recherche au sein d'une équipe sur un véritable sujet de
-recherche~; deuxièmement, offrir à des doctorants une expérience
-d'encadrement. %
-Dans ce contexte, j'encadre un étudiant travaillant sur une problématique issue
-de mes travaux de thèse. %
-À l'issue de cet encadrement, l'étudiant doit rédiger un rapport, concevoir un
-poster et présenter son travail. %
+\noindent Directeur de thèse~: Stéphane Jean
 
+\noindent Encadrants~: \tabto{2.26cm} David Marcheix, Xavier Skapin, Agnès Arnould et Hakim Belhaouari
 
-\section{Enseignements}
+\noindent Employeur~: ISAE-ENSMA avec financement Ministère
 
-Les enseignements suivants ont été faits dans le cadre d'un Contrat Doctoral avec
-Enseignement à l'ISAE-ENSMA et valorisés en équivalent Heure TD.
+Cette thèse sous contrat doctorale est liée au domaine de la CAO et plus
+particulièrement à la reconstruction automatique de modèles 3D. %
+La spécificité de ces travaux est de s'appuyer sur des opérations de
+modélisation définies à partir de règles de transformation de graphes Jerboa \cite{belhaouari2014jerboa}. %
+L'objectif final étant de permettre la génération rapide de variations à partir
+d'un modèle initial. %
 
-\subsection{Algorithmique et Structures Numériques; 1ère année ISAE-ENSMA; 27h TP, 45h Projet, 3h TD}
-Ce module est enseigné avec le langage \textbf{Ada}. %
-L'objectif de cet enseignement est d'acquérir les bases de la programmation. %
-Les étudiants apprennent à utiliser les différentes structures de contrôle, à
-choisir des structures de données selon leurs besoins et à les manipuler. %
-La spécification du langage \textbf{Ada} imposant un typage fort, l'accent est mis sur la
-fiabilité des programmes développés. %
-Pour ce module, j'ai encadré des séances de TP, Projet (étalé sur 3 séances)
-ainsi qu'en TD. %
-J'ai également pu surveiller des sessions de contrôle continu. %
+Les objectifs atteints sont~:
+\begin{itemize}
+	\item l'enregistrement du processus constructif (spécification paramétrique)
+	      d'un objet initial,
+	\item l'implantation d'un mécanisme pour la réévaluation d'une spécification
+	      paramétrique,
+	\item l'édition d'une spécification paramétrique (ajout, retrait, déplacement
+	      d'opération) et l'automatisation de sa réévaluation pour des règles de transformation de graphe,
+\end{itemize}
+Les objectifs en cours et à venir sont~:
+\begin{itemize}
+	\item l'adaptation d'une spécification paramétrique et l'automatisation de sa
+	      réévaluation prenant en compte les scripts de règles,
+	\item l'animation de l'évolution d'un modèle au cours du temps,
+	\item l'annotation de modèles à partir de données historiques hétérogènes.
+\end{itemize}
 
-\subsection{Base de la Conception Logicielle; 1ère année ISAE-ENSMA; 42h TP}
-Dans ce module, les étudiants apprennent à concevoir des programmes respectant
-différents concepts tels que la ré-utilisabilité et la maintenabilité du code. %
-Ils apprennent également à développer des programmes en utilisant les concepts
-de généricité et de polymorphisme.
-Pour ce module, j'ai encadré des séances de TP.
+\subsection{Récapitulatif des compétences acquises}
 
-\subsection{Utilisation et Exploitation des Données; 1ère année ISAE-ENSMA; 6h TP}
-Ce module est enseigné avec le langage \textbf{Python} et s'appuie sur l'utilisation de
-notebooks. %
-L'objectif de cet enseignement est de donner les clés pour s'approprier des
-connaissances grâce à l'étude de jeux de données. %
-Les étudiants apprennent à utiliser différents outils tels que pandas, numpy,
-sql pour exploiter des jeux de données et, entre autre, les visualiser. %
-Pour ce module, j'ai pu encadrer des séances de TP.
-
-\subsection{Apprentissage Automatique appliqué; 2ème année ISAE-ENSMA; 3h TP}
-Ce module est enseigné avec le langage \textbf{Python} et s'appuie sur l'utilisation de
-notebooks. %
-L'objectif de cet enseignement est de proposer une introduction à
-l'apprentissage automatique. %
-Les étudiants acquièrent des connaissances sur les différentes catégories
-d'apprentissages, leurs avantages et inconvénients. %
-Ils sont également confrontés aux problématiques liés à la validation des
-modèles. %
-Pour ce module, j'ai encadré une séance de TP. %
-
-\subsection{Récapitulatif quantitatif des enseignements}
-
-Tableau récapitulatif des enseignements, des niveaux d'études et des heures :
+Tableau récapitulatif compétences acquises :
 \begin{center}
-	\begin{tabular}{|l|l|l|l|l|l|}
+	\begin{tabular}{|l|l|l|}
 		\hline
-		Établissement                                      & Matières enseignées                     & Niveaux      & \multicolumn{3}{l|}{Nombre d'heures}                \\
+		Langages          & outils            & Compétences                                 \\
 		\hline
-		                                                   &                                         &              & TD                                   & tp  & projet \\
+		C/C++             &                   & Algorithmique, structure de données,        \\
+		–                 &                   & gestion mémoire, programmation graphique    \\
+		–                 & OpenMP, OpenMPI   & Paraléllisation de tâche,                   \\
+		–                 & OpenMesh, OpenGL, & Analyse et traitement de maillage,          \\
+		–                 & OpenCV            & visualisation, animation et rendu d'objet,  \\
+		–                 & –                 & traitement d'image                          \\
 		\hline
-		ISAE-ENSMA                                         & Algorithmique et Systèmes Numériques    & A1 ingénieur & 3h                                   & 27h & 45h    \\
+		Java              &                   & Conception et gestion de projet             \\
+		–                 &                   & tests unitaires                             \\
+		–                 & JavaFX            & Interface utilisateur                       \\
+		-                 & Jerboa            & Conception et développement de règles       \\
+		                  &                   & de transformations de graphes               \\
+		                  &                   & modélisation géométrique à base topologique \\
 		\hline
-		ISAE-ENSMA                                         & Base de la Conception Logicielle        & A1 ingénieur &                                      & 42h &        \\
+		OCaml et Poly/SML &                   & Bases de la programmation fonctionnelle     \\
 		\hline
-		ISAE-ENSMA                                         & Utilisation et Exploitation des Données & A1 ingénieur &                                      & 6h  &        \\
+		Python            & Pandas, Numpy     & Prototypage, développement outil, scripts   \\
+		–                 & Graphviz          & visualisation de structure                  \\
 		\hline
-		ISAE-ENSMA                                         & Apprentissage Automatique Appliqué      & A2 ingénieur &                                      & 3h  &        \\
+		                  & Bash              & Scripts et outils systèmes                  \\
 		\hline
-		\multicolumn{3}{|l|}{Total~:}                      & \multicolumn{3}{l|}{126~h}                                                                                   \\
+		                  & LaTeX             & Rédaction de documents et présentations     \\
 		\hline
-		\multicolumn{3}{|l|}{Total heures équivalent TD~:} & \multicolumn{3}{l|}{126~h}                                                                                   \\
+		                  & Git               & Contrôle de version de projet               \\
 		\hline
 	\end{tabular}
 \end{center}
-
-\subsection{Récapitulatif des compétences enseignées}
-
-Liste récapitulative des compétences enseignées.
-\begin{itemize}
-	\item Langages de programmation~: Ada, Python.
-	\item Concepts de programmation~: Algorithmique, conception logicielle, outils pour l'analyse de données.
-\end{itemize}
-
 \section{Recherche}
 
 \subsection{Analyses syntaxiques de règles de transformations de graphe}
 La plupart des logiciels de modélisation géométrique disposent d'opérations
 développées sous forme de code. %
 Ceci rend leurs analyses particulièrement complexes. %
-Savoir quelle partie d'un modèle a été impactée par une opération et la nature
-de cet impact nécessite un compromis, que ce soit en temps (analyse du modèle
-complet) ou en fiabilité (ajout d'information directement dans le code). %
-Les règles de transformation de graphes, elles, suivent une syntaxe. %
-Une analyse de cette syntaxe permet de déduire à partir d'une règle quelle
-partie d'un objet et impactée et dans quelle mesure. %
+Ainsi, déterminer quelle est la partie modifiée d'une modèle à partir d'une
+opération est difficile voire impossible. %
+Deux méthodes sont généralement utilisées pour déterminer l'impacte d'une
+opération sur un modèle. %
+La première consiste à parcourir entièrement le modèle et à enregistrer les
+changements. %
+Dans ce cas, la méthode est efficace mais le coût en temps dépend de la taille
+du modèle. %
+La seconde consiste à ajouter des instructions directement dans l'opération. %
+Le coût en temps est négligeable mais le risque et d'introduire des informations
+erronées sans pour autant délimiter précisément le périmètre d'application de
+l'opération sur le modèle. %
+Les règles de transformation de graphes, elles, suivent une méthode formelle. %
+L'analyse de leur syntaxe permet de déduire quelle partie d'un objet et impactée
+et dans quelle mesure. %
 Nous distinguons six types d'évènements topologiques : la création, la
 suppression, la modification, le non-changement, la scission ou encore la fusion
 de tout type de cellule topologique (sommet, face, arête, etc.). %
@@ -289,9 +268,11 @@ Cette fonctionnalité est liée à un problème de longue date qui est
 l'identification persistante des cellules topologiques dans un modèle
 géométrique. %
 Afin de procéder à la réévaluation de modèles, nous avons conçu un système de
-nommage persistant à partir des règles de transformations Jerboa. %
-Ce mécanisme de nommage persistant s'appuie un historique, généré à partir des
-règles, et se propage dans le modèle au fur et à mesure de sa construction. %
+nommage persistant à partir des règles de transformations Jerboa
+\cite{belhaouari2014jerboa}. %
+Ce mécanisme de nommage persistant s'appuie un historique des éléments du
+modèle, généré à partir des règles, et se propage dans le modèle au fur et à
+mesure de sa construction. %
 Une fois le modèle construit et sa spécification paramétrique enregistrée,
 chacune des entités topologiques étant désigné comme lieu d'application d'une
 règle est désigné par un nom persistant. %
@@ -306,22 +287,133 @@ Un article est en cours de soumission. %
 
 \subsection{Exploitation des scripts de règles pour la réévaluation de modèles}
 Bien que les règles de transformations de graphe s'avèrent êtres des outils
-puissants, celles-ci peuvent s'avérer limitantes. %
-Ne pouvant utiliser ni boucle ni condition, une règle est appliquée uniquement
-sur la topologie décrite par sa syntaxe et si ses conditions le permettent. %
-Jerboa permet de créer des scripts de règle au sein desquelles il est possible
-d'appeler des règles, voire d'autres scripts et de faire usage de structures de
-contrôle. %
+puissants, celles-ci doivent être composées pour définir des opérations
+complexes. %
+Jerboa \cite{belhaouari2014jerboa} permet de créer des scripts de règle au sein
+desquelles il est possible d'appeler des règles, voire d'autres scripts et de
+faire usage de structures de contrôle. %
 Dans le cadre de ces scripts, nous étudions trois types de structures :
 \begin{itemize}
 	\item les structures conditionnelles pouvant faire varier un modèle selon son
 	      évaluation,
 	\item les structures itératives de type «~pour chaque sous-cellule d'une
 	      cellule~» dont le nombre d'itérations peut varier et faire varier les
-	      noms persistants au rejeu et
+	      noms persistants au rejeu,
 	\item les séquences d'applications.
 \end{itemize}
 À ce jour, ces travaux sont en cours d'étude.
+
+\section{Enseignements et encadrements}
+
+Les enseignements suivants ont été faits dans le cadre d'un Contrat Doctoral avec
+Enseignement à l'ISAE-ENSMA et valorisés en équivalent Heure TD.
+
+\subsection{Algorithmique et Structures Numériques; 1ère année ISAE-ENSMA; 27h~TP, 45h~Projet, 3h~TD}
+Ce module est enseigné avec le langage \textbf{Ada}. %
+L'objectif de cet enseignement est d'acquérir les bases de la programmation. %
+Les étudiants apprennent à utiliser les différentes structures de contrôle, à
+choisir des structures de données selon leurs besoins et à les manipuler. %
+Le langage \textbf{Ada} imposant un typage fort, l'accent est mis sur la
+fiabilité des programmes développés. %
+Pour ce module, j'ai encadré des séances de TP, Projet (étalé sur 3 séances) et quelques TDs. %
+J'ai également pu surveiller des sessions de contrôle continu. %
+
+\subsection{Base de la Conception Logicielle; 1ère année ISAE-ENSMA; 42h~TP}
+Dans ce module, les étudiants apprennent à concevoir des programmes respectant
+différents concepts tels que la ré-utilisabilité et la maintenabilité du code. %
+Ils apprennent également à développer des programmes en utilisant les concepts
+de généricité et de polymorphisme.
+Pour ce module, j'ai encadré des séances de TP.
+
+\subsection{Utilisation et Exploitation des Données; 1ère année ISAE-ENSMA; 6h~TP}
+Ce module est enseigné avec le langage \textbf{Python} et s'appuie sur
+l'utilisation de notebooks. %
+L'objectif de cet enseignement est de donner les clés pour s'approprier des
+connaissances grâce à l'étude de jeux de données. %
+Les étudiants apprennent à utiliser différents outils tels que \textbf{pandas},
+\textbf{numpy}, \textbf{SQL} pour exploiter des jeux de données et, entre autre,
+les visualiser. %
+Pour ce module, j'ai pu encadrer des séances de TP.
+
+\subsection{Apprentissage Automatique appliqué; 2ème année ISAE-ENSMA; 3h~TP}
+Ce module est enseigné avec le langage \textbf{Python} et s'appuie sur
+l'utilisation de notebooks Jupyter. %
+L'objectif de cet enseignement est de proposer une introduction à
+l'apprentissage automatique. %
+Les étudiants acquièrent des connaissances sur les différentes catégories
+d'apprentissages, leurs avantages et inconvénients. %
+Ils sont également confrontés aux problématiques liés à la validation des
+modèles. %
+Pour ce module, j'ai encadré une séance de TP. %
+
+\subsection{Encadrement EUR - Conception d'une interface pour le rejeu et
+	animation spatio-temporelle de modèle (en cours)}
+L'Université de Poitiers propose un parcours EUR pour son master informatique. %
+Ce parcours a deux objectifs : premièrement, offrir aux étudiants du master une
+expérience à la recherche au sein d'une équipe sur un véritable sujet de
+recherche~; deuxièmement, offrir à des doctorants une expérience
+d'encadrement. %
+Dans ce contexte, j'encadre un étudiant travaillant sur une problématique issue
+de mes travaux de thèse. %
+À l'issue de cet encadrement, l'étudiant doit rédiger un rapport, concevoir un
+poster et présenter son travail. %
+
+\subsection{Récapitulatif des enseignements}
+
+Tableau récapitulatif des enseignements, des niveaux d'études et des heures :
+\begin{center}
+	\begin{tabular}{|l|l|l|l|l|l|}
+		\hline
+		Établissement                      & Matières enseignées                     & Niveaux      & \multicolumn{3}{l|}{Nombre d'heures}                \\
+		\hline
+		                                   &                                         &              & TD                                   & tp  & projet \\
+		\hline
+		ISAE-ENSMA                         & Algorithmique et Systèmes Numériques    & A1 ingénieur & 3h                                   & 27h & 45h    \\
+		\hline
+		ISAE-ENSMA                         & Base de la Conception Logicielle        & A1 ingénieur &                                      & 42h &        \\
+		\hline
+		ISAE-ENSMA                         & Utilisation et Exploitation des Données & A1 ingénieur &                                      & 6h  &        \\
+		\hline
+		ISAE-ENSMA                         & Apprentissage Automatique Appliqué      & A2 ingénieur &                                      & 3h  &        \\
+		\hline
+		\multicolumn{3}{|l|}{Total HETD~:} & \multicolumn{3}{l|}{126~h}                                                                                   \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\subsection{Récapitulatif des compétences enseignées}
+
+Tableau récapitulatif compétences enseignées par langage et par niveau :
+\begin{center}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Langages  et outils  & Compétences                                 & Niveaux      \\
+		\hline
+		Ada                  & Algorithmique, structures de données,       & A1 ingénieur \\
+		                     & structures de contrôle, fiabilité du code   &              \\
+		                     & conception logicielle, encapsulation        &              \\
+		                     & réutilisabilité, généricité, multitâche     &              \\
+		\hline
+		Python~: Pandas, SQL & Lecture et traitement des données           & A1 ingénieur \\
+		- Numpy              & Calcul et statistiques sur les données      &              \\
+		- Seaborn            & Visualisation des données                   &              \\
+		\hline
+		Python~:Scikit-Learn & Apprentissage Automatique, supervisé        & A2 ingénieur \\
+		                     & et non supervisé, pré-traitement de donnés, &              \\
+		                     & validation de modèle                        &              \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{Responsabilités collectives}
+
+\subsection{Étudiant Élu au Conseil du Département Informatique et Interaction, Aix-Marseille Université (L2-L3, 2016-2018) }
+J'ai été élu par les autres étudiants d'Aix-Marseille Université pour les
+représenter aux conseils du Département Informatique et Interaction.
+
+\subsection{Doctorant Élu au conseil de l'École Doctorale MIMME, Poitiers (2022-2024)}
+J'ai été élu par les autres doctorants inscrits auprès de l'ED MIMME pour les
+représenter aux conseils de l'ED.
 
 \section{Motivations pour un poste d'ATER à l'Université de Poitiers}
 

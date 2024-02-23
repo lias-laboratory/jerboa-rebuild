@@ -1,0 +1,249 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wenneker Resume/CV
+% LaTeX Template
+% Version 1.1 (19/6/2016)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper]{memoir} % Font and paper size
+\usepackage[french]{babel}
+\usepackage{multicol}
+\usepackage{docmute}
+\usepackage{tabularx}
+
+\setlength{\columnsep}{1cm}
+
+\include{structure.tex} % Include the file specifying document layout and packages
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\userinformation{ % Set the content that goes into the sidebar of each page
+\begin{flushleft}
+% \small % Smaller font size
+\vspace*{40pt}
+\textbf{Laboratoire}~: \\
+LIAS \\
+\Sep
+\textbf{Établissement}~: \\
+ISAE-ENSMA \\
+\Sep
+\textbf{e-mail}~: \\
+\url{maxime.gaide@ensma.fr} \\
+\Sep
+\textbf{Téléphone}~: \\
++33786269524 \\
+\Sep
+\textbf{Adresse}~: \\
+4 IMP DE LA HAUTE PAYRE  \\
+86130 Jaunay-Marigny \\
+\Sep \aboutme{À propos}{Ma thématique de recherche est l'analyse et la
+  reconstruction de forme. Je travaille actuellement sur une fonctionnalité CAO
+  à base de règle de transformation de graphe permettant de réévaluer la
+  construction de modèles 3D et ainsi générer automatiquement des variantes. }
+
+\vspace*{4em}
+{\normalsize
+\textbf{Langues}~: \\
+\bluebullet français natif \\
+\bluebullet anglais B1 \\
+\bluebullet allemand A2 \\
+\bluebullet suédois A2 \\
+}
+
+\vfill % Whitespace under this block to push it up under the photo
+
+\end{flushleft}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\userinformation % Print your information in the left column
+
+\framebreak % End of the first column
+
+%----------------------------------------------------------------------------------------
+%	HEADING
+%----------------------------------------------------------------------------------------
+
+\cvheading{Maxime Gaide} % Large heading - your name
+
+\cvsubheading{Doctorant} % Subheading - your occupation/specialization
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+
+\CVSection{Formation Initiale}
+
+\CVItem{2021 - , ISAE-ENSMA, Chasseneuil-du-Poitou}{Doctorat Informatique Graphique}
+
+%------------------------------------------------
+
+\CVItem{2019 - 2020, Aix-Marseille Université}{Master 2 Géométrie et Informatique Graphique}
+
+%------------------------------------------------
+
+\CVItem{2018 - 2019, Université d'Uppsala, Suède}{Master 1 Informatique}
+
+%------------------------------------------------
+
+\CVItem{2014 - 2018, Aix-Marseille Université}{Licence Informatique}
+
+%------------------------------------------------
+%
+\CVItem{2014, Lycée Dumont d'Urville, Toulon}{Baccalauréat}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\CVSection{Experience}
+
+\CVItem{2022 - 2024, \textit{Représentant des doctorants} ED MIMME}{Doctorant
+	élu au Conseil de l'École Doctorale MIMME}
+
+%------------------------------------------------
+
+\CVItem{Juin 2021, \textit{Surveillant d'examen}, Toulon}{Surveillance d'examens
+	pour une entreprise de formation}
+
+%------------------------------------------------
+
+\CVItem{2020-2021, Recherche de doctorat}{}
+
+%------------------------------------------------
+
+\CVItem{2020 (6 mois), \textit{Stage recherche}, Nothing2Install, Marseille}{
+	Recherche et conception d'une méthode pour compresser l'information
+	géométrique contenu dans un flux pour le rendu distant d'applications mobiles.
+}
+
+%------------------------------------------------
+
+\CVItem{2019 (2 mois), \textit{Stage recherche}, LIS, Marseille}{
+	Conception d'une méthode basée sur la géométrie pour la détection de cratères sur des maillages surfaciques.
+	Extraction d'informations relative aux cratères (diamètre, profondeur, type, …).
+}
+
+%------------------------------------------------
+
+\CVItem{2016 - 2018, \textit{Représentant des étudiants}, Aix-Marseille
+	Université}{Étudiant élu au Conseil du Département Informatique et
+	Interaction}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+%	COMMUNICATION SKILLS
+%----------------------------------------------------------------------------------------
+
+\CVSection{Communications}
+
+%------------------------------------------------
+
+\CVItem{2023, \textit{Présentation article}, Computer Graphics and Visual Computing}{
+}
+
+%------------------------------------------------
+
+\CVItem{2023, \textit{Présentation poster}, Computer Graphics and Visual
+	Computing}{}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+\CVSection{Publications}
+
+%------------------------------------------------
+
+\CVItem{2023, Article, \textit{Automatic detection of topological Events in
+		modeling operations}, CGVC 2023, M. Gaide, D. Marcheix, A. Arnould, X.
+	Skapin, H. Belhaouari et S. Jean}{}
+
+%------------------------------------------------
+
+\CVItem{2023, Résumé étendu, \textit{Model reevaluation based on graph transformation rules}, CGVC 2023, M. Gaide, D. Marcheix, A. Arnould, X.
+	Skapin, H. Belhaouari et S. Jean}{}
+
+%------------------------------------------------
+
+\CVItem{2023, Article, \textit{Reevaluation in Rule-Based Graph Transformation
+		Modeling Systems}, M. Gaide, D. Marcheix, A. Arnould, X. Skapin, H.
+	Belhaouari et S. Jean}{En cours de soumission}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+
+%----------------------------------------------------------------------------------------
+%	SKILLS
+%----------------------------------------------------------------------------------------
+
+\CVSection{Développement et outils}
+
+%------------------------------------------------
+
+\begin{multicols}{2}
+	\CVItem{Langages}
+	{\begin{tabularx}{.4\textwidth}{X X X}
+			\bluebullet C/C++ & \bluebullet Bash  & \bluebullet Java     \\
+			\bluebullet Ada   & \bluebullet OCaml  \\
+		\end{tabularx}
+	}
+
+	\CVItem{Bibliothèques et Outils}
+	{\begin{tabularx}{.4\textwidth}{X X X}
+			\bluebullet LaTeX    & \bluebullet Git    & \bluebullet OpenGL \\
+			\bluebullet OpenMesh & \bluebullet OpenCV                      \\
+		\end{tabularx}}
+\end{multicols}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+%	INTERESTS
+%----------------------------------------------------------------------------------------
+
+\CVSection{Intérêts}
+
+%------------------------------------------------
+
+
+\CVItem{}{Photographie; Kendo; Jeux de rôles; Administration et découvete de
+	systèmes Unix et Linux; Musique}
+
+%------------------------------------------------
+
+\Sep % Extra whitespace after the end of a major section
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

@@ -1,0 +1,91 @@
+\documentclass[twoside,twocolumn,10pt]{article}
+
+\usepackage{wscg}           % includes a number of other packages (e.g., myalgorithm)
+\RequirePackage{ifpdf}
+\ifpdf
+ \RequirePackage[pdftex]{graphicx}
+ \RequirePackage[pdftex]{color}
+\else
+ \RequirePackage[dvips,draft]{graphicx}
+ \RequirePackage[dvips]{color}
+\fi
+
+\usepackage[english]{babel}
+
+
+\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+
+\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{hyperref}
+
+%%%
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage[backend=biber,bibstyle=EG,citestyle=alphabetic]{biblatex}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage{tabularx}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+\usepackage{xurl}
+% \usepackage{nopageno} pour la version finale uniquement
+\usepackage[switch,columnwise]{lineno}
+
+\usepackage{url}
+\urlstyle{tt}
+
+\makeatletter
+\def\Uslash{\mathbin{\mathchar`\/}\@ifnextchar{/}{\kern-.15em}{}}
+\g@addto@macro\UrlSpecials{\do \/ {\Uslash}}
+\def\Ucolon{\mathbin{\mathchar`:}\@ifnextchar{/}{\kern-.1em}{}}
+\g@addto@macro\UrlSpecials{\do : {\Ucolon}}
+\makeatother
+
+\graphicspath{{./figures}}
+\input{commands.tex}
+
+\title{Reevaluation in Rule-Based Graph Transformation Modeling Systems}
+\author{}
+\date{\today}
+
+\begin{document}
+\linenumbers
+\twocolumn[{\csname @twowcolumnfalse\endcsname
+
+\maketitle
+
+\begin{abstract}
+\noindent
+In this paper, we widen the naming problem studies to the rule-based graph transformation modeling systems. 
+We propose a persistent naming method taking advantage of the generalized maps' and graph transformation rules' formalization of operations.
+It enables a unique and homogeneous characterisation of entities in all dimensions.
+Most existing methods require tracking numerous topological entities and consider the persistent naming problem only from the parameters' modifications of a parametric specification standpoint. 
+With our solution, not only the naming problem is tackled within the usual framework of parameters edition, but we also take the specification edition into account (addition, deletion and displacement of operations).
+Moreover, our solution makes use of directed acyclic graphs to represent the histories of topological entities and to track only the entities used in the parametric specification and the ones they originate from. 
+Representing the history of a topological entity allows for an efficient persistent naming mechanism that takes into account the impact of the modifications during reevaluation.
+\end{abstract}
+
+\subsection*{Keywords}
+Topology-based modeling; Graph transformation rules; Persistent Naming; Reevaluation; Generalized maps;
+
+\vspace*{1.0\baselineskip}}]
+
+
+\subfile{sections/introduction.tex}
+\subfile{sections/main-concepts.tex}
+\subfile{sections/parametric-specifications.tex}
+\subfile{sections/evaluation.tex}
+\subfile{sections/reevaluation.tex}
+%\subfile{sections/implementation.tex}
+\subfile{sections/conclusions-persp.tex}
+
+\printbibliography
+
+
+\end{document}

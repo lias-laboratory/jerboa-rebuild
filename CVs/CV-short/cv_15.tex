@@ -24,6 +24,12 @@
 \usepackage{multicol}
 \usepackage{docmute}
 \usepackage{tabularx}
+\usepackage[
+	backend=biber,
+	style=alphabetic,
+	sorting=ynt
+]{biblatex}
+\addbibresource{../../manuscript/references/references.bib}
 
 \setlength{\columnsep}{1cm}
 
@@ -149,8 +155,11 @@
 \CVSection {Enseignements}
 
 \CVItem{Algorithmique et programmation, ISAE-ENSMA, A1 — 75h~HETD}{}
+
 \CVItem{Conception logicielle, ISAE-ENSMA, A1 — 42h~HETD}{}
+
 \CVItem{Analyse de données, ISAE-ENSMA, A1 — 6h~HETD}{}
+
 \CVItem{Apprentissage automatique, ISAE-ENSMA, A2 — 3h~HETD}{}
 
 \Sep
@@ -161,7 +170,7 @@
 \CVItem{2016 - 2018, \textit{Représentant des étudiants}, Aix-Marseille
 	Université}{}
 
-\CVItem{Juin 2021, \textit{Surveillant d'examen}, Toulon}{}
+\CVItem{Juin 2021, \textit{Surveillant d'examen}, IFASUD, Toulon}{}
 
 \CVItem{2022 - 2024, \textit{Représentant des doctorants} ED MIMME}{}
 
@@ -208,19 +217,14 @@
 
 \CVSubSection{Publications}
 
-\CVItem{2023, Article, \textit{Automatic detection of topological events in
-		modeling operations}, CGVC, M. Gaide, D. Marcheix, A. Arnould, X.
-	Skapin, H. Belhaouari et S. Jean}{}
+\CVItem{2023, Article, Computer Graphics and Visual
+  Computing}{\citeauthor{gaide2023automatic} \citetitle*{gaide2023automatic}}
 
+\CVItem{2023, Résumé étendu, Computer Graphics and Visual
+  Computing}{\citeauthor{gaide2023model} \citetitle*{gaide2023model}}
 
-\CVItem{2023, Résumé étendu, \textit{Model reevaluation based on graph
-		transformation rules}, CGVC, M. Gaide, D. Marcheix, A. Arnould, X.
-	Skapin, H. Belhaouari et S. Jean}{}
-
-
-\CVItem{2024, Article, \textit{Reevaluation in Rule-Based Graph Transformation
-		Modeling Systems}, M. Gaide, D. Marcheix, A. Arnould, X. Skapin, H.
-	Belhaouari et S. Jean}{En cours de soumission}
+\CVItem{2024, Article en cours de soumission}{\citeauthor{gaide2024reevaluation}
+  \citetitle*{gaide2024reevaluation}}
 
 %----------------------------------------------------------------------------------------
 \clearpage

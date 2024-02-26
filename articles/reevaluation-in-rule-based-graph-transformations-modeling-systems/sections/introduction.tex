@@ -1,0 +1,136 @@
+\section{Introduction}
+\copyrightspace
+
+The ability to generate multiple variants of an object during a construction process is  becoming increasingly frequent in many application areas. Most of the time, tools and operations used to create those variants are dedicated to specific fields and the construction process is often both tedious and time-consuming.
+
+For example, in the field of Archaeology, remaining data found on the working field often represent only vestiges of ancients buildings. By means of 3D
+reproduction, archaeologists painstakingly develop a number of hypotheses
+they expect to test while being able to quickly model and
+visualize them \cite{Quattrini_Baleani_2015}. CAD uses parametric history-based systems; such systems can be thought as dual structures with,  on the one hand, the geometric model corresponding to the modelled
+object and,  on the other hand, the successive operations (and their parameters) recorded during the construction process. This process can then be reevaluated after some slight modifications upon the operations, without starting all over again from the beginning. Nevertheless, creating complex objects always requires a substantial amount of time.
+Modeling buildings is also of interests for architects. Grammar-based procedural methods are commonly used
+to generate variations of constructions \cite{haegler2009procedural, muller2006procedural}. But those grammars are based on a specific corpus of information which is difficult to transpose to other case studies.
+
+In this paper, we propose to use  a rule-based graph transformation formalism, and more specifically the Jerboa software \cite{belhaouari2014jerboa}, to make the development of dedicated modelers for
+specific applications easier. Rule-based languages for modeling 
+are commonly used in a number of fields such as plant growth with L-systems \cite{lindenmayer1974adding, bohl2015modeling}, wood's internal structure \cite{terraz20093gmap}, or virtual cities 3D models
+\cite{esri2023cityengine, beirao2010implementing}. Contrary to other approaches, Jerboa is independent from any specific
+application field and does not require \textit{ad hoc} operations to
+be manually coded. Operations are formally defined as rules within the Jerboa interface, thereby facilitating their rapid development. Furthermore, it guarantees the topological %coherence 
+consistency of the underlying geometric model, 
+ regardless of the applied operations \cite{arnould2022preserving}.
+
+Jerboa is based on the generalized maps
+(or G-maps) topological model \cite{lienhardt1991topological, Damiand-Lienhardt14}. This model
+represents a specific class of labelled graph and allows the
+homogeneous modeling of quasi-manifolds in any dimension. Number of
+applications already make use of Jerboa and/or G-maps in
+fields such as plant growth \cite{bohl2015modeling}, architecture \cite{horna2009consistency, arroyo2015dimension}, geology \cite{halbwachs2000generalized}  or
+physics-based modeling  \cite{salah2017general}. 
+
+Despite its advantages, Jerboa does not provide the mechanisms required to quickly reevaluate variations from a base model. Conversely,  history-based parametric systems take advantage of the construction process recording to make reevaluations as fast and accurate as possible. Thus, our objective is
+to extend the capabilities of Jerboa by incorporating the mechanisms inherent in parametric systems.
+
+Any reevaluation of the parametric specification entails modifying the parameters of the operations. Those parameters are either geometric (such as the length of a groove) or references %to 
+topological entities (vertices, edges, faces and so on) defined at an earlier stage of the modeling process. 
+
+Modifying some operation parameters requires ensuring that the subsequent operations are still valid, even if their own parameters have been updated. This issue, known as \textit{persistent naming}, is illustrated in Fig.~1. 
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[t]{\linewidth}
+    \centering
+    \includegraphics[width=.8\textwidth]{persistent-naming-pb-1}
+    \caption{Initial evaluation}
+    \label{fig:persistent-naming-pb-eval}
+  \end{subfigure}
+
+  ~
+
+  ~
+
+  \begin{subfigure}[t]{\linewidth}
+    \centering
+    \includegraphics[width=.8\textwidth]{persistent-naming-pb-2}
+    \caption{Reevaluation}
+    \label{fig:persistent-naming-pb-reval}
+  \end{subfigure}
+  \caption{Parametric specification}
+  \label{fig:persistent-naming-pb}
+\end{figure}
+
+The initial parametric specification consists of three constructive operations (Fig.~\ref{fig:persistent-naming-pb-eval}):
+{\small
+\texttt{1-Create\-Cylinder(geo\_param1)}; %
+\texttt{2-Rounded\-Groove(f1, geo\_param2)}; %
+\texttt{3-Cylindrical\-Protrusion(f2, geo\_param3)}}.
+When identifiers or pointers (\textit{i.e.} concrete names) to the topological
+parameters of a geometric model (\textit{e.g.} the identifier of the face
+\verb+f2+ as a parameter of the \verb+CylindricalProtrusion+ operation) are used
+as topological parameters, the issue of the persistence of these references at
+reevaluation comes up. For example, in
+Fig.~\ref{fig:persistent-naming-pb-reval}, the rounded groove's length is
+reduced. The face \verb+f1+ is not split anymore, unlike during the initial
+evaluation. Thus, neither face \verb+f2+ nor face \verb+f3+ are created:
+identifiers and pointers to the entities are obviously different and, therefore,
+the cylindrical protrusion can no longer be re-applied onto \verb+f2+. Hence the
+necessity to use persistent identifiers as operations parameters, which make
+possible to unambiguously characterize entities and find their match at
+reevaluation. In Fig.~\ref{fig:persistent-naming-pb}, using a persistent name to
+characterize \verb+f2+ %from
+during the initial evaluation allows matching it with the face \verb+fx+ at
+reevaluation.
+
+Although persistent naming has been studied for decades in the CAD's field
+\cite{KRIPAC1997,CAPOYLEAS199617,wu2001face,wang2005geometry,bidarra2005feature,mun05,mar06,baba10,xue16,farjana2018mechanisms},
+to our knowledge two preliminary approaches have attempted to use graph
+transformation rules to tackle this issue
+\cite{cardot2019persistent,gaide2023model}. In \cite{cardot2019persistent}, the
+authors propose to use \emph{History Records} (HRs) to represent the history of
+any topological entity designated in parametric specification and \emph{Matching
+  Trees} (MT) to match this entity during reevaluation. %
+This is an interesting initial theoretical approach based on graph
+transformation, but the history represented in HR is limited. %
+In particular, no distinction is made between the entities at the origin of the
+designated entity and the evolution of the designated entity itself. %
+Furthermore, some elements are omitted in HRs (such as the history of entities
+at the origin of the designated entity), which can lead to mismatches during
+reevaluation. In the concise poster paper \cite{gaide2023model}, the authors
+propose a full persistent naming mechanism based on graph transformation
+rules. %
+They also propose to complete the histories of topological entities by taking
+their origins into account and integrate them in a reevaluation mechanism. %
+In this paper, we base our work on \cite{gaide2023model} to integrate the
+complete history of topological entities. %
+Our contribution is twofold. First, we widen the naming problem studies to the
+rule-based graph transformation modeling systems. Second, we integrate the
+mechanisms of reevaluation for parametric systems into Jerboa.
+
+We propose a persistent naming method taking advantage of the rule-based
+formalization of operations and their ability to precisely describe the history
+of topological entities, such that these entities are uniquely and
+homogeneously characterized for all dimensions.  Most existing methods require 
+tracking numerous topological entities and consider the persistent naming problem only
+through the prism of parameters modifications from a parametric specification standpoint
+\cite{KRIPAC1997, chen1995editability, wu2001face}. Our solution tracks
+only the entities used in the parametric specification and the
+ones they originate from. Moreover, not only the naming problem is tackled within the usual framework of  parameter edition, but we also take the specification edition (\textit{i.e.} adding, deleting and changing the order of operations) into account.
+
+In section~2, we present the
+main concepts necessary to carry out the persistent naming
+mechanisms within the framework of a system, making use of
+graph transformation rules. We 
+focus on G-maps, Jerboa's rules, and how to
+automatically detect topological
+changes (creation, deletion, split, merging, modification) that
+may occur upon any rule application. Section~3 is dedicated to the data structures
+used by parametric specifications and persistent naming. Section~4 describes how 
+a parametric specification is evaluated or reevaluated through directed acyclic graphs which track the evolutions of topological entities and the %entities 
+ones
+they originate from. Section~5 presents the matching process between evaluated and reevaluated entities. We conclude in section~6 and present the main directions of our future works.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

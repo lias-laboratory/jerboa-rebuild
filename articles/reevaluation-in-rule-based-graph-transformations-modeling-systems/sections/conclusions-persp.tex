@@ -1,0 +1,43 @@
+\section{Conclusion}
+
+In this paper, we widen the naming problem studies to the rule-based graph
+transformation modeling systems. %
+Using the formalism of both generalized maps and graph transformation rules, we
+tackle the reevaluation mechanism task. %
+While generalized maps homogeneously represent objects in all dimensions,
+Jerboa's rules define geometric modeling operations we can easily syntactically
+analyse. %
+% We implement: a persistent name scheme where each persistent name represents a
+% unique dart's history through the successive applications of rules and their
+% matching nodes. %
+First, we implement a persistent naming scheme. %
+Each persistent name represents a unique dart's history through the successive
+applications of rules and their matching nodes. %
+% Then, for each persistent name, an evaluation DAG is built in order to trace an
+% orbit's history from the bottom and up to the orbits it originates from. %
+Then, for each persistent name, we build an evaluation DAG which traces an
+orbit's history from the bottom and up to the orbits it originates from. %
+To our knowledge, unlike other methods, our solution tracks only the entities
+used in the parametric specification and the ones they originate from. %
+Representing the complete history of an orbit in an evaluation DAG allows for an
+efficient persistent naming mechanism that takes into account the impact of both
+origins and traces modifications during reevaluation. %
+Finally, reevaluation DAGs are built from a top-down traversal of evaluation
+DAGs and allow matching each topological parameter on one or more, sometimes
+none, values depending on the editing of the parametric specification. %
+Thanks to our method, not only the naming problem is tackled within the usual
+framework of parameters edition, but we also take the specification edition into
+account (operation addition, deletion or move). Moreover, this approach provides
+all the possible updated values of the parameters and, thus, enables
+implementing different strategies. %
+
+More complex operations can make use of several rules 
+brought together
+in a script. %
+Later works will revolve around widening this reevaluation mechanism
+to scripts. %
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

@@ -1,0 +1,178 @@
+\section{Reevaluation}
+
+Each evaluation DAG represents an orbit's history which is valid with regards to
+the initial evaluation. %
+When reevaluating, editing the parametric specification makes the topological
+parameters subject to changes. %
+Thus, it is necessary to build reevaluation DAGs from the evaluation DAGs in
+order to update topological parameters. %
+Once built, a reevaluation DAG can designate one, several, or no orbit depending
+on the editing of the parametric specification. %
+
+In this section, we keep using the previous example (Fig.~\ref{fig:evaluation}
+and \ref{fig:reevaluation}) and its edited parametric specification
+(Fig.~\ref{fig:init-spec} and \ref{fig:reval-spec}), containing an added vertex
+insertion on the square's edge right after its creation and the deletion of the
+vertex insertion on the cube's edge. %
+
+\subsection{Reevaluation DAG}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[height=.32\textheight]{pn3-reval}
+    \caption{$PN_3$'s reevaluation DAG}
+    \label{fig:pn3-reval-dag}
+\end{figure}
+
+Contrary to the related evaluation DAG, a reevaluation DAG is built top-down
+throughout the reevaluation process. %
+While an evaluation DAG represents the orbit's history of a topological
+parameter, the reevaluation DAG represents the history of this very same orbit
+after editing the parametric specification.
+
+For example, consider $PN_{3}$ the topological parameter of \texttt{4-extrusion}
+which extrudes the cube's top face into a second cube. %
+The reevaluation process builds $PN_{3}$'s reevaluation DAG step-by-step from
+its evaluation DAG %
+% The $PN_3$ reevaluation DAG (Fig.~\ref{fig:pn3-reval-dag}) is built step-by-step
+% during the reevaluation process from its evaluation DAG
+(Fig.~\ref{fig:eval-dag-pn3}). %
+
+% \begin{description}
+% \item[Level 1]
+\textbf{Level 1} The application \texttt{1-square} has no topological parameter
+and, thus, is identically reevaluated. Once again, its node $n5$ creates a
+single dart $5$ and the volume face $\orbit{0,1}(5)$ is identically reevaluated.
+This is why the orbit level 1 of the reevaluation DAG references dart $5$.
+
+        % \item[Level 2]
+\textbf{Level 2} The second application is an added one. \texttt{ADD1-insert}
+does match an edge of the tracked volume face $\orbit{0,1}(5)$ and modifies it,
+as deduced from the rule. Therefore, the event level 2 contains
+\texttt{MODIFICATION} and the orbit level 2 contains the same dart $5$ and orbit
+$\orbit{0,1}$.
+
+        % \item[Level 3]
+\textbf{Level 3} The third application is the extrusion of the square face into a
+cube. During its application, dart $5$ is matched by the hook $n_1$
+(Fig.~\ref{fig:rule-face-extrusion}). From the evaluation DAG, the tracked dart
+is the copy of dart $5$ created by node $n_6$. Applying the rule allows finding
+out this dart, numbered $59$.
+
+  % \item[Level 4]
+\textbf{Level 4} Finally, the last application of $PN_3$ is deleted.
+Consequently, the modification that occurred during the initial evaluation does
+not occur at reevaluation. Therefore, the event level 4 contains
+\texttt{NOMODIF} and the orbit level 4 contains the same dart~$59$.
+% \end{description}
+
+The reevaluation DAG identifies the concrete name using its persistent name. %
+$PN_3$'s concrete name is $59$ (cf. Fig.~\ref{fig:2-reeval} and
+\ref{fig:4-reeval}). %
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[height=.45\textheight]{pn6-reval}
+    \caption{$PN_6$ reevaluation DAG}
+    \label{fig:pn6-reval-dag}
+\end{figure}
+
+We now study a more complex example with the reevaluation DAG of $PN_{6}$
+(Fig.~\ref{fig:pn6-reval-dag}), which represents the pyramid's top vertex
+(Fig.~\ref{fig:6-eval}). %
+
+% \begin{description}
+% \item[Level 1 to 4]
+\textbf{Level 1 to 4} These three levels are similar to $PN_3$'s reevaluation
+DAG (Fig.~\ref{fig:pn3-reval-dag}), with the tracking of the volume face vertex
+$\orbit{1}$-orbit in addition to the $\orbit{0,1}$-orbit one. %
+The $\orbit{1}(5)$-orbit is created by the \texttt{1-square} application. %
+\texttt{ADD1-insert} matches and preserves one dart of this orbit with the node
+$n_{0}$ of the insertion rule (Fig.~\ref{fig:rule-insert-vertex}). Thus, the
+event level 2 contains \texttt{NOMODIF}. Then, this orbit is copied to create a
+new volume face vertex by \texttt{2-extrusion}. Again,
+\texttt{DELETE 3-insert} does not modify the orbits.
+
+% \item[Level 5]
+\textbf{Level 5} The fifth application \texttt{4-extrusion} of the extrusion
+rule (Fig.~\ref{fig:rule-face-extrusion}) matches the volume face $\orbit{0,1}$
+with its hook $n1$ and creates a copy of dart $59$ dart $63$. As in the initial
+evaluation, it creates a volume vertex and a face. Then, the event level
+contains two \texttt{CREATION}. The orbit level references dart $63$ and
+contains both orbits $\orbit{1,2}$ and $@1.@2.\orbit{0,1}$.
+
+% \item[Level 6]
+\textbf{Level 6} Finally, while the tracking of \texttt{5-collapse} shows that
+the application keeps merging the volume vertices incident to the matched face,
+it preserves dart $63$ which is matched by node $n2$. Therefore, the event level
+contains one \texttt{MERGE} and the orbit level references dart $63$ and
+contains the volume vertex $\orbit{1,2}$.
+% \end{description}
+
+At last, $PN_6$'s concrete name is dart $63$ (cf Fig.~\ref{fig:6-reeval}). %
+
+These two examples here are quite straightforward as there was only one possible
+candidate dart each time. %
+However, in some complex specifications, there can be more than a single dart to
+choose between. %
+
+\subsection{Parameter matching strategies}
+
+The editing of the parametric specification leads to having a different DAG at
+reevaluation (with event levels and/or branches being added, deleted or both). %
+For example, an orbit split present in the evaluation DAG may disappear during
+the reevaluation, a merging can be added and so on. %
+Several matching strategies can then be considered depending on the
+application's context. %
+This can be illustrated with $PN_7$'s example which designates the face that
+must be coloured (Fig.~\ref{fig:8-eval}). %
+The addition of \texttt{ADD1-insert} application at reevaluation splits the
+origin of designated face, resulting in the addition of a branch in the
+reevaluation DAG. %
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{pn7-reval}
+    \caption{$PN_7$ reevaluation DAG}
+    \label{fig:pn7-reval-dag}
+\end{figure}
+
+Let's work through $PN_7$'s reevaluation DAG shown in Fig.~\ref{fig:pn7-reval-dag}. %
+
+% \begin{description}
+% \item[Level 1]
+\textbf{Level 1} As seen previously, \texttt{1-square} creates the tracked
+orbits traced in the evaluation DAG.
+
+% \item[Level 2] \textbf{Level 2} The added application
+\textbf{Level 2} \texttt{ADD1-insert} matches dart $3$. Since the vertex insertion rule
+(Fig.~\ref{fig:rule-insert-vertex}) splits the volume face edge $\orbit{0}(3)$,
+its history is also split and there are two concrete names to consider. It
+follows that the event level contains two \texttt{SPLIT}, one for each volume
+face edge suborbit, and two \texttt{NOMODIF}, one for each dart $3$ and $4$.
+
+% \item[Level 3] \textbf{Level 3} The third application
+\textbf{Level 3} \texttt{2-extrusion} extrudes the square face into a cube. The extrusion rule
+(Fig.~\ref{fig:rule-face-extrusion}) matches dart $3$ with its hook $n_1$. It
+extrudes the face edge $\orbit{0}(3)$ into a volume face, the dart $\orbit{}(3)$
+into a face edge and its node $n_2$ creates the dart $37$ as a copy of dart $3$.
+The same goes for the history on the right. The rule matches dart $4$, it
+creates the same two orbits and a dart $52$ as a copy of dart $4$. % Therefore,
+both event levels contain two \texttt{CREATION}. Both orbit levels contain
+orbits $\orbit{0,1}$ and $\orbit{0}$. %
+
+% \item[Level 4] \textbf{Level 4} The last application,
+\textbf{Level 4} \texttt{5-triangulation} triangulates the faces designated by the level above.
+Both darts $37$ and $52$ are matched and preserved by the rule.
+% \end{description}
+
+Upon reevaluation, $PN_7$'s DAG matches to different darts. An option would be to colour only one face (either $\orbit{0,1}(37)$ or $\orbit{0,1}(52)$). %
+Another option would be to apply \texttt{8-colour} two times, one for dart $37$ and one for dart $52$ (as shown in Fig.~\ref{fig:8-reeval} which represent our default strategy). %
+In case the reevaluation DAG has two or more leaves, it shows all the possible entities that can be matched for a specific persistent name and to set a strategy up. %
+Either way, such a strategy allows users to have a choice and best fit their modeling intents, depending on the application's context. %
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

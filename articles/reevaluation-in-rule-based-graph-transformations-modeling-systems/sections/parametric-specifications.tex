@@ -3,49 +3,49 @@
 \begin{figure*}[ht!]
   %\renewcommand\thesubfigure{\arabic{subfigure}}
   \centering
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{1-evaluation-square}
     \caption{}
     \label{fig:1-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{2-evaluation-extrusion}
     \caption{}
     \label{fig:2-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{3-evaluation-insert}
     \caption{}
     \label{fig:3-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{4-evaluation-extrusion}
     \caption{}
     \label{fig:4-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{5-evaluation-triangulation}
     \caption{}
     \label{fig:5-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{6-evaluation-collapse}
     \caption{}
     \label{fig:6-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{7-evaluation-chamfer}
     \caption{}
     \label{fig:7-eval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{8-evaluation-colour}
     \caption{}
     \label{fig:8-eval}
@@ -61,19 +61,19 @@
 \begin{figure*}[ht!]
   %\renewcommand\thesubfigure{\arabic{subfigure}}
   \centering
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{1-reevaluation-square}
     \caption{}
     \label{fig:1-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
     \caption{}
     \label{fig:1add-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{2-reevaluation-extrusion}
     \caption{}
     \label{fig:2-reeval}
@@ -84,31 +84,31 @@
     \label{fig:3delete-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{4-reevaluation-extrusion}
     \caption{}
     \label{fig:4-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{5-reevaluation-triangulation}
     \caption{}
     \label{fig:5-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{6-reevaluation-collapse}
     \caption{}
     \label{fig:6-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{7-reevaluation-chamfer}
     \caption{}
     \label{fig:7-reeval}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[t]{0.115\textwidth}
+  \begin{subfigure}[t]{0.11\textwidth}
     \includegraphics[width=\textwidth]{8-reevaluation-colour}
     \caption{}
     \label{fig:8-reeval}
@@ -133,7 +133,6 @@ With such changes, the topological parameters may have different concrete names,
 be deleted and so on. %
 As a result, using the parameters' concrete names eventually lead to unexpected
 results (at best) or failure at runtime. %
-
 To this end, persistent names are required to robustly identify topological
 parameters across an object re-evaluation. %
 
@@ -185,7 +184,7 @@ It follows that the cube's 48 darts all have a different history. %
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=35pt]{rule-insert-vertex}
+  \includegraphics[height=30pt]{rule-insert-vertex}
   \caption{Rule defining the insertion of a vertex on an edge}
   \label{fig:rule-insert-vertex}
 \end{figure}
@@ -205,13 +204,12 @@ $PN_{3}=[1n_{5};2n_{6};3n_{0}]$ and so on. %
 
 \subsection{Parametric Specification syntax}
 
-
 A number of fields are used to describe an application within a parametric
 specification, namely an application number, a rule ap\-pli\-ca\-tion with 
 the topological pa\-ra\-me\-ters and the geometric parameters. %
-%
 \begin{figure}
     \centering
+\small
 \begin{verbatim}
 1-square(pos)
 2-extrude(PN1=[1n6], vec)
@@ -225,13 +223,11 @@ the topological pa\-ra\-me\-ters and the geometric parameters. %
     \caption{Initial parametric specification}
     \label{fig:init-spec}
 \end{figure}
-%
 The parametric specification above represents the modeling process of an
 initial evaluation (Fig.~\ref{fig:evaluation}) where each persistent name 
 uses the history of the dart's number displayed in the previous construction
 step (dart $6$ for $PN_1$, $46$ for $PN_2$, $47$ for $PN_3$, $33$ for $PN_4$
 and so on.). %
-%\david{Pour la compréhension, il manque quelque part l'info claire reliant chaque PN au brin désigné pour faire le jeu initial. Ajouter ici ou dans la légende de la Fig.~\ref{fig:evaluation} un truc du genre : "where each $PN$ uses the history of the numbered dart highlighted in the previous construction step (dart $6$ for $PN_1$, dart $46$ for $PN_2$, dart $47$ for $PN_3$, dart $33$ for $PN_4$, and so on.}
 
 Furthermore, a set of tags are used to describe an application whenever it is either
 added (\texttt{ADD}), deleted (\texttt{DELETE}) or moved (\texttt{MOVE}) at
@@ -241,14 +237,13 @@ shown in Fig.~\ref{fig:reval-spec}
 produces the
 reevaluation process 
 shown in Fig.~\ref{fig:reevaluation}.
-%, takes the following form:
-%
 \begin{figure}
     \centering
+    \small
 \begin{verbatim}
 1-square(pos)
 ADD1-insert(3)
-2-extrude(PN1=[1n3], vec)
+2-extrude(PN1=[1n6], vec)
 DELETE 3-insert(PN2=[1n5;2n4])
 ...
 8-colour(PN7=[1n3;2n3;5n0])

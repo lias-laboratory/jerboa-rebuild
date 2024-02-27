@@ -1,5 +1,8 @@
 \documentclass[twoside,twocolumn,10pt]{article}
 
+\newif\ifsubmission
+\submissionfalse
+
 \usepackage{wscg}           % includes a number of other packages (e.g., myalgorithm)
 \RequirePackage{ifpdf}
 \ifpdf
@@ -10,8 +13,9 @@
  \RequirePackage[dvips]{color}
 \fi
 
-\usepackage[english]{babel}
+\def\showauthors{true}
 
+\usepackage[english]{babel}
 
 \usepackage[T1]{fontenc}
 %\usepackage[utf8]{inputenc}
@@ -34,7 +38,10 @@
 \usepackage[normalem]{ulem}
 \usepackage{xcolor}
 \usepackage{xurl}
-% \usepackage{nopageno} pour la version finale uniquement
+\ifsubmission
+\else
+\usepackage{nopageno} % pour la version finale uniquement
+\fi
 \usepackage[switch,columnwise]{lineno}
 
 \usepackage{url}
@@ -51,11 +58,46 @@
 \input{commands.tex}
 
 \title{Reevaluation in Rule-Based Graph Transformation Modeling Systems}
-\author{}
-\date{\today}
+
+\ifsubmission
+  \author{}
+\else
+  \author{
+    \parbox{\textwidth}{\centering
+      \parbox{0.31\textwidth}{\centering
+        Maxime Gaide$^{1}$
+      }
+      \parbox{0.31\textwidth}{\centering
+        David Marcheix$^{2}$
+      }
+      \parbox{0.31\textwidth}{\centering
+        Agnès Arnould$^{3}$
+      } \\
+      \vspace{0.5em}
+      \parbox{0.31\textwidth}{\centering
+        Xavier Skapin$^{3}$
+      }
+      \parbox{0.31\textwidth}{\centering
+        Hakim Belhaouari$^{3}$
+      }
+      \parbox{0.31\textwidth}{\centering
+        Stéphane Jean$^{2}$
+      }\\[1mm]
+      \parbox{\textwidth}{\centering
+        $^1$ISAE-ENSMA Poitiers, Université de Poitiers, LIAS, Poitiers, France\\
+        $^2$Université de Poitiers, ISAE-ENSMA Poitiers, LIAS, Poitiers, France\\
+        $^3$Université de Poitiers, Univ. Limoges, CNRS, XLIM, Poitiers, France
+      }\\[1mm]
+      firstname.lastname@\{$^{1,2}$ensma.fr, $^{3}$univ-poitiers.fr\}
+    }
+    \vspace{-1em}
+  }
+\fi
 
 \begin{document}
+\ifsubmission
 \linenumbers
+\fi
 \twocolumn[{\csname @twowcolumnfalse\endcsname
 
 \maketitle

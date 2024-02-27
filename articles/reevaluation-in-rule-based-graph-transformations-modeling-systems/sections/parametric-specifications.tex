@@ -50,7 +50,7 @@
     \caption{}
     \label{fig:8-eval}
   \end{subfigure}
-  \caption{Evaluation. %'s applications. 
+  \caption{Evaluation %'s applications. 
   (a) $1$-square(pos); (b)
     $2$-extrude($PN_{1}$,vec); (c) $3$-insert($PN_{2}$); (d)
     $4$-extrude($PN_{3}$,vec); (e) $5$-triangulate($PN_{4}$); (f)
@@ -113,7 +113,7 @@
     \caption{}
     \label{fig:8-reeval}
   \end{subfigure}
-  \caption{Re-evaluation. (a) $1$-square(pos); (b) ADD$1$-insert(3); (c)
+  \caption{Reevaluation (a) $1$-square(pos); (b) ADD$1$-insert(3); (c)
     $2$-extrude($PN_{1}$,vec); (d) DELETE $3$-insert($PN_{2}$); (e)
     $4$-extrude($PN_{3}$,vec); (f) $5$-triangulate($PN_{4}$); (g)
     $6$-collapse($PN_{5}$); (h) $7$-chamfer($PN_{6}$); (i) $8$-colour($PN_{7}$)}
@@ -134,18 +134,19 @@ be deleted and so on. %
 As a result, using the parameters' concrete names eventually lead to unexpected
 results (at best) or failure at runtime. %
 To this end, persistent names are required to robustly identify topological
-parameters across an object re-evaluation. %
+parameters across an object reevaluation. %
 
 This section will follow the evaluation (Fig.~\ref{fig:evaluation}) of a modeling
 process as an example in order to illustrate the creation of a parametric
 specification and its persistent names. %
-Its re-evaluation (Fig.~\ref{fig:reevaluation}) illustrates a variant modeling
+Its reevaluation (Fig.~\ref{fig:reevaluation}) illustrates a variant modeling
 process where a rule is added between applications 1 and 2, and where the
 application 3 is deleted. %
 
 %All the figures in this section and the next ones were generated using Jerboa and the development presented in this paper. %
 
-In this paper, all the figures were generated using Jerboa and the software overlay developed to implement the concepts presented in this section and the following ones. An overview of the results can be found here: \url{http://xlim-sic.labo.univ-poitiers.fr/jerboa/doc/model-reevaluation-based-on-graph-transformation-rules/}
+In this paper, all the figures were generated using Jerboa and the software overlay developed to implement the concepts presented in this section and the following ones. An overview of the results can be found here:
+{\small\url{http://xlim-sic.labo.univ-poitiers.fr/jerboa/doc/model-reevaluation-based-on-graph-transformation-rules/}}
 
 \subsection{Persistent name}
 
@@ -204,12 +205,14 @@ $PN_{3}=[1n_{5};2n_{6};3n_{0}]$ and so on. %
 
 \subsection{Parametric Specification syntax}
 
+
 A number of fields are used to describe an application within a parametric
 specification, namely an application number, a rule ap\-pli\-ca\-tion with 
 the topological pa\-ra\-me\-ters and the geometric parameters. %
+%
 \begin{figure}
     \centering
-\small
+    \small
 \begin{verbatim}
 1-square(pos)
 2-extrude(PN1=[1n6], vec)
@@ -223,11 +226,13 @@ the topological pa\-ra\-me\-ters and the geometric parameters. %
     \caption{Initial parametric specification}
     \label{fig:init-spec}
 \end{figure}
+%
 The parametric specification above represents the modeling process of an
 initial evaluation (Fig.~\ref{fig:evaluation}) where each persistent name 
 uses the history of the dart's number displayed in the previous construction
 step (dart $6$ for $PN_1$, $46$ for $PN_2$, $47$ for $PN_3$, $33$ for $PN_4$
 and so on.). %
+%\david{Pour la compréhension, il manque quelque part l'info claire reliant chaque PN au brin désigné pour faire le jeu initial. Ajouter ici ou dans la légende de la Fig.~\ref{fig:evaluation} un truc du genre : "where each $PN$ uses the history of the numbered dart highlighted in the previous construction step (dart $6$ for $PN_1$, dart $46$ for $PN_2$, dart $47$ for $PN_3$, dart $33$ for $PN_4$, and so on.}
 
 Furthermore, a set of tags are used to describe an application whenever it is either
 added (\texttt{ADD}), deleted (\texttt{DELETE}) or moved (\texttt{MOVE}) at
@@ -237,6 +242,8 @@ shown in Fig.~\ref{fig:reval-spec}
 produces the
 reevaluation process 
 shown in Fig.~\ref{fig:reevaluation}.
+%, takes the following form:
+%
 \begin{figure}
     \centering
     \small
@@ -251,8 +258,3 @@ DELETE 3-insert(PN2=[1n5;2n4])
     \caption{Edited parametric specification}
     \label{fig:reval-spec}
 \end{figure}
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "../main"
-%%% End:

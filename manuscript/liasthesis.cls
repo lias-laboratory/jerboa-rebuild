@@ -3,6 +3,11 @@
 %% Classe d'origine
 \LoadClass[a4paper,12pt]{memoir}
 
+%% memoir specific command manage margin and blocks
+\setulmarginsandblock{1.5cm}{2cm}{*}
+\setlrmarginsandblock{2.5cm}{2.5cm}{*}
+\checkandfixthelayout
+
 %% Packages requis pour le fonctionnement de LiasThesis
 \RequirePackage[utf8]{inputenc} %% On veut tous les caractères et diactriques
 \RequirePackage[T1]{fontenc} %% T1 est suffisament complet pour avoir textbf + textsc
@@ -49,21 +54,21 @@
 \newif\ifpublish % This if macro prints defence/viva date
 \newif\ifjury % This if macro prints jury
 \newif\ifdev
- % \devtrue
+% \devtrue
 
-\RequirePackage{ifpdf}
-\ifpdf
-	\usepackage[pdftex,verbose]{geometry}
-\else
-	\usepackage[dvips,verbose]{geometry}
+\ifdev
+	\usepackage{showframe}
 \fi
 
-%% Dev macro
-\ifdev % if devtrue then show frame
-	\geometry{lmargin=25mm,rmargin=25mm,tmargin=15mm,bmargin=20mm,showframe}
-\else
-	\geometry{lmargin=25mm,rmargin=25mm,tmargin=15mm,bmargin=20mm}
-\fi
+% \ifpdftex
+%   % Maybe issue pdftex logs
+% \fi
+% \ifluatex
+%   % Maybe issue luatex logs
+% \fi
+% \ifxetex
+%   % Maybe issue xetex logs
+% \fi
 
 %% Définitions des couleurs
 
@@ -85,13 +90,13 @@
 
 			\vspace{1em}
 
-			{\footnotesize École Doctorale : \@phdschool}
+			{\footnotesize École Doctorale~: \@phdschool}
 
-			{\footnotesize Secteur de Recherche : \@researchfield}
+			{\footnotesize Secteur de Recherche~: \@researchfield}
 
 			\vspace{1em}
 
-			{\footnotesize\textit{Présentée par} :}
+			{\footnotesize\textit{Présentée par}~:}
 
 			\vspace{1mm}
 
@@ -127,7 +132,7 @@
 
 			\ifpublish
 
-			{\footnotesize Soutenue le {\@date\space} devant la Commission d'Examen}
+			{\footnotesize Soutenue le {\@date\space} devant la Commission d'Examen} %% Keeping \@date between brackets prevents font/colour bleeding
 
 			\fi
 
@@ -139,7 +144,7 @@
 
 			\vfill
 
-			{\raggedright{\bfseries\normalsize \@jury}}
+			{\raggedright{\bfseries\normalsize {\@jury}}}
 			\fi
 			\vspace*{0.05\paperheight}
 

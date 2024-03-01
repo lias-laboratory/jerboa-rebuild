@@ -1,19 +1,12 @@
-\documentclass{LiasThesis}
+\documentclass[x11names]{LiasThesis}
 
 \usepackage[french]{babel}
-\usepackage{hyperref}
-\usepackage{adjustbox}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{float}
-\usepackage{lipsum}
-\usepackage{subcaption}
 \usepackage{subfiles}
-\usepackage{tabularx}
-\usepackage[normalem]{ulem}
-\usepackage{graphicx}
-
-\chapterstyle{veelo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage[switch*,pagewise]{lineno}
+\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic]{biblatex}
+\addbibresource{references/references.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
@@ -39,8 +32,8 @@
 	Informatique et Applications}
 %
 \supervisor{%
-	David MARCHEIX,
-	Xavier SKAPIN {\mdseries \footnotesize{et}}
+  David MARCHEIX,
+	Xavier SKAPIN {\normalfont\footnotesize et}
 	Stéphane JEAN}
 %
 \laboratory{%
@@ -66,19 +59,31 @@
 	\color{red}
 	DD décembre 202A}
 
-% \epigraphfontsize{\small\itshape}
-% \setlength\epigraphwidth{8cm}
-% \setlength\epigraphrule{0pt}
-
 \begin{document}
 
 \maketitle
-
+\frontmatter
 \tableofcontents
+\mainmatter
+\ifpublish
+\else
+\linenumbers
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Style options : take a look at LaTeX memoir manual if you want %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapterstyle{gaide}
+% \chapterstyle{default}
+\pagestyle{Ruled}
 
+\subfile{chapitres/introduction}
 \subfile{chapitres/etat-art}
 \subfile{chapitres/detection-evenements}
 \subfile{chapitres/reevaluation-regles}
 \subfile{chapitres/reevaluation-scripts}
+% \subfile{chapitres/animation-modeles}
+\subfile{chapitres/conclusions-persp}
+
+\printbibliography
 
 \end{document}

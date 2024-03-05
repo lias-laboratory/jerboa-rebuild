@@ -28,7 +28,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% CUSTOM COLORS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\definecolor{Frost10}{RGB}{94,129,172}
+\definecolor{nord0}{HTML}{2e3440}
+\definecolor{nord1}{HTML}{3b4252}
+\definecolor{nord2}{HTML}{434c5e}
+\definecolor{nord3}{HTML}{4c566a}
+\definecolor{nord4}{HTML}{d8dee9}
+\definecolor{nord5}{HTML}{e5e9f0}
+\definecolor{nord6}{HTML}{eceff4}
+\definecolor{nord7}{HTML}{8fbcbb}
+\definecolor{nord8}{HTML}{88c0d0}
+\definecolor{nord9}{HTML}{81a1c1}
+\definecolor{nord10}{HTML}{5e81ac}
+\definecolor{nord11}{HTML}{bf616a}
+\definecolor{nord12}{HTML}{d08770}
+\definecolor{nord13}{HTML}{ebcb8b}
+\definecolor{nord14}{HTML}{a3be8c}
+\definecolor{nord15}{HTML}{b48ead}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% MARGINS %%%%%%%%%%
@@ -39,6 +54,9 @@
 \newlength{\bmargin} \setlength{\bmargin}{2cm}
 \newlength{\lmargin} \setlength{\lmargin}{2.5cm}
 \newlength{\rmargin} \setlength{\rmargin}{2.5cm}
+\addtolength{\tmargin}{\headheight}
+\addtolength{\tmargin}{\headsep}
+\addtolength{\bmargin}{\footskip}
 %% memoir specific commands to set margins and blocks
 \setulmarginsandblock{\tmargin}{\bmargin}{*}
 \setlrmarginsandblock{\lmargin}{\rmargin}{*}
@@ -115,7 +133,9 @@
 	\usepackage{showframe}
 \fi
 
-%%%%%%%%%% Thesis title page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% THESIS TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand{\maketitle}{%
 	\begin{titlingpage}
@@ -189,7 +209,8 @@
 
 			\vfill
 
-			{\raggedright{\bfseries\normalsize {\@jury}}}
+			% {\raggedright{\bfseries\normalsize {\@jury}}}
+			\bfseries\normalsize {\@jury}
 			\fi
 			\vspace*{0.05\paperheight}
 
@@ -209,10 +230,10 @@
   \renewcommand*{\chapterheadstart}{\vspace*{0pt}}
 	\renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
 	\renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
-	\renewcommand*{\chapnumfont}{\normalfont\bfseries\HUGE\color{Frost10}}
+	\renewcommand*{\chapnumfont}{\normalfont\bfseries\HUGE\color{nord10}}
 	\renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushright}
 	\renewcommand*{\printchaptername}{%
-		\chapnamefont\MakeUppercase{\@chapapp}}
+	  \chapnamefont\MakeUppercase{\@chapapp}}
 	\renewcommand*{\chapternamenum}{}
 	\setlength{\beforechapskip}{18mm}
 	\setlength{\midchapskip}{\paperwidth}
@@ -225,5 +246,8 @@
 			\rule{\barlength}{\numberheight}%
 		}
 	}%
+	% \renewcommand*{\printchaptertitle}{%
+	  %   \color{nord0}
+	%   \chaptitlefont}
 	\renewcommand*{\afterchaptertitle}{\clearpage}
 }

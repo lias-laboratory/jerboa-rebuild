@@ -1,0 +1,224 @@
+% Created 2024-03-05 mar. 19:20
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{Plan détaillé du manuscript}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Plan détaillé du manuscript},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 29.2 (Org mode 9.7)}, 
+ pdflang={French}}
+\usepackage{biblatex}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Conception d'un système de réévaluation basé sur les règles de transformation de graphe}
+\label{sec:org1e59fea}
+\subsection{Un état de l'art}
+\label{sec:orge3ad40d}
+\subsection{Définitions nécessaires}
+\label{sec:orgefe84e3}
+\begin{itemize}
+\item G-carte
+\item Orbite
+\item Règles de transformation de graphe
+\item Règles Jerboa de transformation de graphe
+\item Chemin (?)
+\item Lexique pour les G-cartes
+\begin{itemize}
+\item brin, liaisons, orbites
+\end{itemize}
+\item Lexique pour les règles
+\begin{itemize}
+\item nœud, arcs, orbites
+\end{itemize}
+\end{itemize}
+\subsection{Formalisation des évènements liés à l'application des opérations de modélisation}
+\label{sec:orgdfe5c59}
+\subsubsection{Que sont les évènements, en quoi sont-ils liés aux opérations de modélisation ?}
+\label{sec:org860a76a}
+\subsubsection{Un état des lieux de la détection d'évènement}
+\label{sec:orgdba02a4}
+\subsubsection{Les évènements dans un graphe/une G-carte}
+\label{sec:orgb45791a}
+\begin{enumerate}
+\item Formaliser la création
+\label{sec:org4e56539}
+\item Formaliser la suppression
+\label{sec:orga19beda}
+\item Formaliser le non-changement
+\label{sec:org9b09422}
+\item Formaliser la modification
+\label{sec:org316a2f5}
+\item Formaliser la scission
+\label{sec:orgcd768d9}
+\item Formaliser la fusion
+\label{sec:org9217af6}
+\item (Formaliser le sans effet ?)
+\label{sec:orge7c8c02}
+\end{enumerate}
+\subsubsection{Les évènements dans les règles de transformation de graphe}
+\label{sec:org43481a4}
+\begin{enumerate}
+\item Formaliser la création
+\label{sec:orgeba294c}
+\item Formaliser la suppression
+\label{sec:org1156919}
+\item Formaliser le non-changement
+\label{sec:orgb7ad31a}
+\item Formaliser la modification
+\label{sec:orgecf5087}
+\item Formaliser la scission
+\label{sec:org433090c}
+\item Formaliser la fusion
+\label{sec:org198142c}
+\item (Formaliser le sans effet ?)
+\label{sec:org089728f}
+\end{enumerate}
+\subsubsection{Les évènements dans les règles Jerboa}
+\label{sec:orgfc747e2}
+\begin{enumerate}
+\item Formaliser la création
+\label{sec:org805f918}
+\item Formaliser la suppression
+\label{sec:orgfde06e0}
+\item Formaliser le non-changement
+\label{sec:org590f1a4}
+\item Formaliser la modification
+\label{sec:org152aa89}
+\item Formaliser la scission
+\label{sec:orga80ca29}
+\item Formaliser la fusion
+\label{sec:org59fe7f7}
+\item (Formaliser le sans effet ?)
+\label{sec:org4d7ba7b}
+\end{enumerate}
+\subsubsection{Type (d'orbite) d'origine d'un évènement}
+\label{sec:org01473a9}
+\begin{enumerate}
+\item Formaliser l'origine d'un évènement créé par une règle de transformation de graphe
+\label{sec:org2371e67}
+\item Formaliser l'origine d'un évènement créé par une règle Jerboa
+\label{sec:org3664813}
+\end{enumerate}
+\subsection{Conception d'un système de spécification paramétrique}
+\label{sec:orgfdec919}
+\subsubsection{La spécification paramétrique : un enregistrement du processus de construction d'un modèle}
+\label{sec:orgaae2ecf}
+\begin{enumerate}
+\item Une identification des opérations
+\label{sec:orgc095be8}
+\item Des paramètres géométriques
+\label{sec:org0b7ee09}
+\item Des paramètres topologiques
+\label{sec:org3746e7e}
+\end{enumerate}
+\subsubsection{Le nommage persistant : un problème historique de la modélisation paramétrique}
+\label{sec:orgfd9f5f0}
+\begin{enumerate}
+\item Les systèmes de nommage existants
+\label{sec:org36c0aaa}
+\item Les usages du nommage persistant
+\label{sec:org89a2c85}
+\end{enumerate}
+\subsubsection{Un système de nommage persistant basé sur les règles Jerboa}
+\label{sec:org872bf84}
+Les règles, mises bout-à-bout, nous permettent de tracer l'historique des
+évènements impliqué dans la création d'un brin
+\subsection{Des DAGs pour représenter l'histoire d'une cellule topologique}
+\label{sec:orgfaa65e8}
+\subsubsection{Les origines pour un historique complet des cellules topologiques}
+\label{sec:org5e4bda0}
+Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
+complète d'un évènement entre deux applications de règles
+\subsubsection{Des chemins pour plus de précision}
+\label{sec:org4c80a1a}
+Formalisation de l'usage de chemins pour préciser une origine lorsque celle-ci
+n'est pas directement liée à un nœud d'accroche dans une règle
+\subsection{Des DAGs pour retrouver les paramètres topologiques lors de la réévaluation}
+\label{sec:org48ce517}
+\subsubsection{Un contexte différent}
+\label{sec:org43f614c}
+Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
+topologiques, ceux-ci ne contiennent non pas des nœuds de règles mais des brins
+issus de l'objet en cours de reconstruction.
+\subsubsection{Un mécanisme extensible via des stratégies de réévaluation}
+\label{sec:org5fcf79b}
+Des stratégies par défaut
+\begin{itemize}
+\item Scission d'un paramètre topologique : évaluation de tous les paramètres éligibles
+\item Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètres (potentiellement de l'objet)
+\end{itemize}
+\subsection{Réévaluer des scripts de règles pour générer des modèles complexes}
+\label{sec:orgb94020c}
+\subsubsection{Les « limites » des règles Jerboa}
+\label{sec:org8448792}
+\subsubsection{Les scripts Jerboa}
+\label{sec:orgfd9a62d}
+\subsubsection{support des scripts}
+\label{sec:orgeb1803e}
+\begin{enumerate}
+\item Les séquences de règles
+\label{sec:org435be55}
+\begin{itemize}
+\item Extension de la spécification paramétrique : des blocs « séquence » de règles contenues dans un script
+\item Extension des DAGs : une boîte englobante contenant les règles jouées dans le contexte d'un script
+\end{itemize}
+\item Les boucles de sous-orbites
+\label{sec:orgb4cc224}
+\begin{itemize}
+\item Extension de la spécification paramétrique : des blocs « boucle » de règles contenues dans une boucle de script
+\item Extension des DAGs : Ajout de branches pour identifier les paramètres topologiques itérés dans une boucle
+\end{itemize}
+\item Les conditions Si-Sinon-Alors
+\label{sec:org5967640}
+\begin{itemize}
+\item Extension de la spécification paramétrique : des blocs « condition » de règles contenues dans une condition de script
+\item Extension des DAGs : Ajout d'un paramètre associé à boîte permettant d'identifier une instance de cellule topologique (spécifique aux règles Jerboa)
+\end{itemize}
+\end{enumerate}
+\subsection{Implantation d'un système de modélisation à base de règles de transformation de graphe}
+\label{sec:org8050893}
+\subsubsection{Structure et implantation d'une spécification paramétrique}
+\label{sec:org0dc78c7}
+\subsubsection{Structure et implantation du nommage persistant}
+\label{sec:org6a02129}
+\subsubsection{Structure et implantation des DAGs de jeu et de rejeu}
+\label{sec:org6bc16c7}
+\subsubsection{Implantation d'un outil pour visualiser les DAGs}
+\label{sec:org6370418}
+\subsubsection{Implantation d'une Interface Utilisateur pour éditer et générer des spécifications paramétriques (À boucler absolument)}
+\label{sec:orgab8faf9}
+\section{Animation spatio-temporelle (Actuellement, totalement de la perspective)}
+\label{sec:org84f41fa}
+\subsection{Un état de l'art}
+\label{sec:org7ab094f}
+\subsection{Extension de la spécification paramétrique pour annoter avec des données temporelles}
+\label{sec:org382a065}
+\subsubsection{Annotation des opérations avec des données temporelles}
+\label{sec:org5fe6048}
+\subsubsection{Modulation de la vitesse d'animation en fonction des deltas temporels entre deux opérations}
+\label{sec:org5818c9b}
+\subsection{Processus d'animation de modèle générés automatiquement}
+\label{sec:org9221a01}
+\subsubsection{Génération à la volée des modèles ?}
+\label{sec:orgd371b55}
+\subsubsection{Pré-génération des modèles avant phase d'animation ?}
+\label{sec:org744dec9}
+\end{document}

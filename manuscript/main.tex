@@ -8,12 +8,13 @@
 \usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic]{biblatex}
 \addbibresource{references/references.bib}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \publishtrue %% Keep it commented until you have defended
+\publishtrue %% Keep it commented until you have defended
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \jurytrue %% Keep it commented until you have a jury
+\jurytrue %% Keep it commented until you have a jury
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{%
@@ -38,25 +39,27 @@
 %
 \laboratory{%
 	Laboratoire d'Informatique et d'Automatique pour les Systèmes}
+
 %
 \jury{%
-	\color{red}
-	\underline{Président(e) :}\\[1mm]
-	Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\   %
-	\vspace{2em}
-	\underline{Rapporteurs :}\\[1mm]
-	Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\   %
-	Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\   %
-	\vspace{2em}
-	\underline{Membres du jury :}\\[1mm]
-	Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\   %
-	Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\   %
-	Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\   %
-	Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\   %
+		\raggedright
+		\color{red}
+		\underline{Président(e) :}\\[1mm]
+		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
+		\vspace{2em}%
+		\underline{Rapporteurs :}\\[1mm]
+		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
+		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
+		\vspace{2em}%
+		\underline{Membres du jury :}\\[1mm]
+		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
+		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
+		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
+		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
 }
 %
 \date{%
-	\color{red}
+  \color{red}
 	DD décembre 202A}
 
 \begin{document}
@@ -67,23 +70,25 @@
 \mainmatter
 \ifpublish
 \else
-\linenumbers
+	\linenumbers
 \fi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Style options : take a look at LaTeX memoir manual if you want %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapterstyle{gaide}
-% \chapterstyle{default}
-\pagestyle{Ruled}
+\pagestyle{ruled}
+
 
 \subfile{chapitres/introduction}
-\subfile{chapitres/etat-art}
+% \subfile{chapitres/etat-art}
 \subfile{chapitres/detection-evenements}
 \subfile{chapitres/reevaluation-regles}
 \subfile{chapitres/reevaluation-scripts}
 % \subfile{chapitres/animation-modeles}
-\subfile{chapitres/conclusions-persp}
-
+% \subfile{chapitres/conclusions-persp}
+\backmatter
+\chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
+\nocite{*}
 \printbibliography
 
 \end{document}

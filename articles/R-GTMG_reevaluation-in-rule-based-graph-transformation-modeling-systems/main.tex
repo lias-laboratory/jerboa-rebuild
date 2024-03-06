@@ -1,0 +1,104 @@
+\documentclass{rgtmg} % style de\usepackage{savesym}
+\usepackage[utf8]{inputenc}
+\usepackage{t1enc}
+\usepackage{dfadobe}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{subfiles}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage[normalem]{ulem}
+\usepackage{babel}
+
+\newif\ifsubmission
+% \submissionfalse
+
+
+%%%
+% \usepackage{adjustbox}
+% \usepackage{amsmath}
+% \usepackage{amssymb}
+% \usepackage{float}
+% \usepackage{lipsum}
+% \usepackage{tabularx}
+% \usepackage{xurl}
+
+\ifsubmission
+\else
+% \usepackage{nopageno} % pour la version finale uniquement
+\fi
+\usepackage[switch,columnwise]{lineno}
+
+% \usepackage{url}
+% \urlstyle{tt}
+
+% \makeatletter
+% \def\Uslash{\mathbin{\mathchar`\/}\@ifnextchar{/}{\kern-.15em}{}}
+% \g@addto@macro\UrlSpecials{\do \/ {\Uslash}}
+% \def\Ucolon{\mathbin{\mathchar`:}\@ifnextchar{/}{\kern-.1em}{}}
+% \g@addto@macro\UrlSpecials{\do : {\Ucolon}}
+% \makeatother
+
+\graphicspath{{./figures}}
+\input{commands.tex}
+
+\title{Reevaluation in Rule-Based Graph Transformation Modeling Systems}
+
+
+\ifsubmission
+  \author{}
+\else
+\author[Maxime Gaide et al.]{
+        Maxime Gaide$^{1}$,
+        David Marcheix$^{2}$,
+        Agnès Arnould$^{3}$,
+        Xavier Skapin$^{3}$,
+        Hakim Belhaouari$^{3}$ and
+        Stéphane Jean$^{2}$ \\
+      \parbox{\textwidth}{\centering
+        $^1$ISAE-ENSMA Poitiers, Université de Poitiers, LIAS, Poitiers, France\\
+        $^2$Université de Poitiers, ISAE-ENSMA Poitiers, LIAS, Poitiers, France\\
+        $^3$Université de Poitiers, Univ. Limoges, CNRS, XLIM, Poitiers, France\\
+        \vspace*{1mm}
+      firstname.lastname@\{ensma$^{1,2}$, univ-poitiers$^{3}$\}.fr
+      }%
+      % \vspace*{-1em}
+  }
+\fi
+
+
+\begin{document}
+\ifsubmission
+	\linenumbers
+\fi
+% \twocolumn[{\csname @twowcolumnfalse\endcsname
+
+\maketitle
+
+\begin{abstract}
+	\noindent
+	In this paper, we widen the naming problem studies to the rule-based graph transformation modeling systems.
+	We propose a persistent naming method taking advantage of the generalized maps' and graph transformation rules' formalization of operations.
+	It enables a unique and homogeneous characterisation of entities in all dimensions.
+	Most existing methods require tracking numerous topological entities and consider the persistent naming problem only from the parameters' modifications of a parametric specification standpoint.
+	With our solution, not only the naming problem is tackled within the usual framework of parameters edition, but we also take the specification edition into account (addition, deletion and displacement of operations).
+	Moreover, our solution makes use of directed acyclic graphs to represent the histories of topological entities and to track only the entities used in the parametric specification and the ones they originate from.
+	Representing the history of a topological entity allows for an efficient persistent naming mechanism that takes into account the impact of the modifications during reevaluation.
+\end{abstract}
+
+\keywords{Topology-based modeling; Graph transformation rules; Persistent Naming; Reevaluation; Generalized maps;}
+
+
+\subfile{sections/introduction.tex}
+\subfile{sections/main-concepts.tex}
+\subfile{sections/parametric-specifications.tex}
+\subfile{sections/evaluation.tex}
+\subfile{sections/reevaluation.tex}
+%\subfile{sections/implementation.tex}
+\subfile{sections/conclusions-persp.tex}
+
+\bibliographystyle{gtmg-alpha}
+\bibliography{references}
+
+\end{document}

@@ -2,11 +2,17 @@
 #+author:
 #+language: fr
 
+** Intro
 * Conception d'un système de réévaluation basé sur les règles de transformation de graphe
 ** Un état de l'art
-** Définitions nécessaires
+*** rejeu
+**** modélisation paramétrique
+**** réévaluation (nommage persistant entre autre) : kripac, capoyleas, chen, mun…
+*** modélisation à base de règles
+**** G-carte
 - G-carte
 - Orbite
+**** Jerboa
 - Règles de transformation de graphe
 - Règles Jerboa de transformation de graphe
 - Chemin (?)
@@ -14,6 +20,7 @@
   + brin, liaisons, orbites
 - Lexique pour les règles
   + nœud, arcs, orbites
+**** Rejeu à base de règle (Anaïs)
 ** Formalisation des évènements liés à l'application des opérations de modélisation
 *** Que sont les évènements, en quoi sont-ils liés aux opérations de modélisation ?
 *** Un état des lieux de la détection d'évènement
@@ -44,34 +51,36 @@
 *** Type (d'orbite) d'origine d'un évènement
 **** Formaliser l'origine d'un évènement créé par une règle de transformation de graphe
 **** Formaliser l'origine d'un évènement créé par une règle Jerboa
-** Conception d'un système de spécification paramétrique
-*** La spécification paramétrique : un enregistrement du processus de construction d'un modèle
-**** Une identification des opérations
-**** Des paramètres géométriques
-**** Des paramètres topologiques
-*** Le nommage persistant : un problème historique de la modélisation paramétrique
-**** Les systèmes de nommage existants
-**** Les usages du nommage persistant
-*** Un système de nommage persistant basé sur les règles Jerboa
+** Rejeu dans les systèmes de modélisation à base de règles de transformation de graphe
+*** Conception d'un système de spécification paramétrique
+**** La spécification paramétrique : un enregistrement du processus de construction d'un modèle
+***** Une identification des opérations
+***** Des paramètres géométriques
+***** Des paramètres topologiques
+**** Le nommage persistant : un problème historique de la modélisation paramétrique
+***** Les systèmes de nommage existants
+***** Les usages du nommage persistant
+**** Un système de nommage persistant basé sur les règles Jerboa
 Les règles, mises bout-à-bout, nous permettent de tracer l'historique des
 évènements impliqué dans la création d'un brin
-** Des DAGs pour représenter l'histoire d'une cellule topologique
-*** Les origines pour un historique complet des cellules topologiques
+*** DAGs évaluation
+**** Les origines pour un historique complet des cellules topologiques
 Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
 complète d'un évènement entre deux applications de règles
-*** Des chemins pour plus de précision
+**** Des chemins pour plus de précision
 Formalisation de l'usage de chemins pour préciser une origine lorsque celle-ci
 n'est pas directement liée à un nœud d'accroche dans une règle
-*** La réévaluation, un contexte différent
+*** DAGs réévaluation
+**** La réévaluation, un contexte différent
 Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
 topologiques, ceux-ci ne contiennent non pas des nœuds de règles mais des brins
 issus de l'objet en cours de reconstruction.
-*** Un mécanisme extensible via des stratégies de réévaluation
+**** Un mécanisme extensible via des stratégies de réévaluation
 Des stratégies par défaut
 - Scission d'un paramètre topologique : évaluation de tous les paramètres éligibles
 - Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètres (potentiellement de l'objet)
 ** Réévaluer des scripts de règles pour générer des modèles complexes (En cours)
-*** Les « limites » des règles Jerboa
+# *** Les « limites » des règles Jerboa
 *** Les scripts Jerboa
 *** support des scripts
 **** Les séquences de règles

@@ -1,9 +1,9 @@
 \section{Introduction}
 
-The ability to generate multiple variants of an object during a construction process is  becoming increasingly frequent in many application areas. Most of the time, tools and operations used to create those variants are dedicated to specific fields and the construction process is often both tedious and time-consuming \cite{Quattrini_Baleani_2015,haegler2009procedural, muller2006procedural}. For many years, the field of CAD uses parametric history-based systems; such systems records the successive operations used during the construction process. This process can then be reevaluated after some slight modifications upon the operations, without starting all over again from the beginning.
-The use of such an approach requires addressing the well-known issue of \textit{persistent naming} \cite{KRIPAC1997}.
+The ability to generate multiple variants of an object during a construction process has become increasingly prevalent across various application domains. Most of the time, tools and operations used to create those variants are dedicated to specific fields and the construction process is often both tedious and time-consuming \cite{Quattrini_Baleani_2015,haegler2009procedural, muller2006procedural}.  In the realm of computer-aided design (CAD), parametric history-based systems have long been utilized, recording the successive operations used during the construction process. This latter can then be reevaluated after performing some slight modifications upon the operations, obviating the need to restart from scratch.
+Such an approach requires addressing the well-known issue of \textit{persistent naming} \cite{KRIPAC1997}.
 %Indeed, any reevaluation of the parametric specification entails modifying the parameters of the operations. Those parameters are either geometric (such as the length of a groove) or references to topological entities (vertices, edges, faces and so on) defined at an earlier stage of the modeling process.
-Indeed, adding, deleting, moving operations in the parametric specification or modifying some operation parameters requires ensuring that the subsequent operations are still valid even if their own parameters have been affected. This requires the use of persistent identifiers as operations parameters, which make possible to
+Indeed, adding, deleting, moving operations in the parametric specification or modifying some operation parameters require ensuring that the subsequent operations are still valid even if their own parameters have been affected. This entails using \emph{persistent identifiers} as operations parameters, which make possible to
 unambiguously characterize entities and find their match at
 reevaluation.
 Persistent naming has been studied for decades in the CAD's
@@ -24,8 +24,8 @@ fields such as plant growth \cite{bohl2015modeling}, architecture \cite{horna200
 
 
 %Although persistent naming has been studied for decades in the CAD's field \cite{KRIPAC1997,CAPOYLEAS199617,wu2001face,wang2005geometry,bidarra2005feature,mun05,mar06,baba10,xue16,farjana2018mechanisms}, to our knowledge none of the existing approaches have ever used graph transformation rules to tackle this issue. %
-Our contribution is two-fold. First, we widen the naming
-problem studies to the rule-based graph transformation modeling systems. Second, we integrate the mechanisms of reevaluation for parametric systems into
+Our contribution is two-fold. First, we extend the scope of naming
+problem studies to encompass rule-based graph transformation modeling systems. Second, we integrate the mechanisms of reevaluation for parametric systems into
 Jerboa.
 The persistent naming method proposed takes advantage of the 
 rule-based formalization of operations and their ability to precisely describe the history of topological entities, such that these entities are uniquely and homogeneously characterized for all dimensions.  Most existing methods require  tracking numerous topological entities and consider the persistent naming problem only through the prism of parameters modifications from a parametric specification standpoint \cite{KRIPAC1997, chen1995editability, wu2001face}. Our solution tracks
@@ -33,5 +33,4 @@ only the entities used in the parametric specification and the
 ones they originate from. Moreover, not only the naming problem is tackled within the usual framework of  parameter edition, but we also take the specification edition (\textit{i.e.} adding, deleting and changing the order of operations) into account.
 
 
-Section~2, presents the main concepts necessary to carry out the persistent naming mechanisms within the framework of a system, making use of graph transformation rules.
-Following sections, describe our persistent naming system and how a parametric specification is evaluated or reevaluated through directed acyclic graphs. 
+This paper is organized as follows. Section~2 presents the main concepts necessary to carry out the persistent naming mechanisms within the framework of a system, making use of graph transformation rules. The following sections describe our persistent naming system and how a parametric specification is evaluated or reevaluated through directed acyclic graphs. 

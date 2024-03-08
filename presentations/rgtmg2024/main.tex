@@ -219,8 +219,40 @@
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Spécification paramétrique : principe}
+\begin{frame}[fragile]{Spécification paramétrique : principe}
+	\begin{columns}
+		\begin{column}{.49\textwidth}
+			\centering
+			\begin{figure}[t]
+				\footnotesize
+				\begin{verbatim}
+1-square(pos)
+2-extrude(PN1=[1n6], vec)
+3-insert(PN2=[1n5;2n5])
+4-extrude(PN3=[1n5;2n6;3n0], vec)
+5-triangulate(PN4=[1n3;2n2])
+6-collapse(PN5=[1n4;2n6;4n6])
+7-chamfer(PN6=[1n5;2n6;3n0;4n4;6n2])
+8-colour(PN7=[1n3;2n4;5n0])
+\end{verbatim}
+			\end{figure}
+		\end{column}
+		\begin{column}{.49\textwidth}
+			\centering
+			\begin{figure}
+				\footnotesize
+				\begin{verbatim}
+1-square(pos)
+ADD1-insert(3)
+2-extrude(PN1=[1n6], vec)
+DELETE 3-insert(PN2=[1n5;2n4])
+...
+8-colour(PN7=[1n3;2n3;5n0])
+\end{verbatim}
+			\end{figure}
 
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Spécification paramétrique : construction}

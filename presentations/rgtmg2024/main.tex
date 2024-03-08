@@ -1,5 +1,6 @@
 \PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass[presentation]{beamer}
+\documentclass{beamer}
+% \documentclass[aspectratio=169]{beamer}
 % \usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{biblatex}
@@ -10,7 +11,8 @@
 \usepackage{hyperref}
 \usepackage{subfiles}
 \usepackage{subcaption}
-\usetheme{Madrid}
+\usetheme{lias}
+% \usecolortheme{wolverine}
 
 \setbeamertemplate{navigation symbols}{}
 % \setbeamertemplate{footline}[frame number]
@@ -18,25 +20,54 @@
 \input{commands.tex}
 
 \def\gbasepath{../../resources-figures-jerboa}
+\def\glogopath{../../logos}
 \graphicspath{{\gbasepath/article2/}%
 		{\gbasepath/figures/}%
 		{\gbasepath/concepts/}%
-		{\gbasepath/rules/}}
+		{\gbasepath/rules/}%
+		{\glogopath}}
 
 \author[M. Gaide et al.]{\underline{Maxime Gaide}$^{1}$, David Marcheix$^{2}$, Agnès
 	Arnould$^{3}$, Xavier Skapin$^{3}$, Hakim Belhaouari$^{3}$, Stéphane
 	Jean$^{2}$}
 
-\institute[]{\parbox{\textwidth}{\centering
+\institute[]{\parbox{\textwidth}{\centering\small
 		$^1$ISAE-ENSMA Poitiers, Université de Poitiers, LIAS, Poitiers, France\\
 		$^2$Université de Poitiers, ISAE-ENSMA Poitiers, LIAS, Poitiers, France\\
 		$^3$Université de Poitiers, Univ. Limoges, CNRS, XLIM, Poitiers, France
-	}\\[1mm]
-	firstname.lastname@\{$^{1,2}$ensma.fr, $^{3}$univ-poitiers.fr\}}
+	}\\[1mm]}
 
+\date{}
 % \date{\today}
 
 \title[Réévaluation de modèle]{Réévaluation de modèle basée sur les règles de transformation de graphe}
+
+\BeforeBeginEnvironment{document}{%
+  \titlegraphic{
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.south west) [above right]{
+        \includegraphics[width=5em]{logo_lias.png}
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.north west) [below right]{
+        \includegraphics[width=5em]{Logo_ISAE-ENSMA}
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.south east) [above left]{
+        \includegraphics[width=5em]{xlim-logo.png}
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.north east) [below left]{
+        \includegraphics[width=5em]{Logo_up.png}
+      };
+    \end{tikzpicture}
+  }
+}
+
+\noframetitlelogo
 
 \begin{document}
 
@@ -84,7 +115,7 @@
 	\end{block}
 \end{frame}
 
-\begin{frame}{Orbits}
+\begin{frame}{Orbites}
 	\begin{columns}
 		\begin{column}{.49\textwidth}
 			\begin{figure}
@@ -116,6 +147,7 @@
 \end{frame}
 
 \begin{frame}{Règle Jerboa~: extrusion d'une face}
+	\color{red}Animer \(\to\) application de la règle + arcs explicites et implicites + orbites + origines
 	\begin{figure}
 		\centering
 		\includegraphics[width=\textwidth]{rule-face-extrusion}
@@ -124,7 +156,6 @@
 		\hfill
 		\includegraphics[width=.3\textwidth]{demo-fig-extrusion-right-match.pdf}
 	\end{figure}
-	\vfill
 \end{frame}
 
 \section[Spécification paramétrique]{Spécification paramétrique}
@@ -134,129 +165,98 @@
 	\tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}{Fil rouge de l'exposé}
-	\begin{figure}[ht!]
-		%\renewcommand\thesubfigure{\arabic{subfigure}}
-		\centering
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{1-evaluation-square}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{2-evaluation-extrusion}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{3-evaluation-insert}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{4-evaluation-extrusion}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{5-evaluation-triangulation}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{6-evaluation-collapse}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{7-evaluation-chamfer}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{8-evaluation-colour}
-		\end{subfigure}
-		% \caption{Evaluation %'s applications.
-		% (a) $1$-square(pos); (b)
-		%   $2$-extrude($PN_{1}$,vec); (c) $3$-insert($PN_{2}$); (d)
-		%   $4$-extrude($PN_{3}$,vec); (e) $5$-triangulate($PN_{4}$); (f)
-		%   $6$-collapse($PN_{5}$); (g) $7$-chamfer($PN_{6}$); (h) $8$-colour($PN_{7}$)}
-	\end{figure}
-	\vfill
-	\begin{figure}[ht!]
-		\centering
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{1-reevaluation-square}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{2-reevaluation-extrusion}
-		\end{subfigure}
-		\begin{subfigure}[t]{0\textwidth}
-			\includegraphics[width=\textwidth]{3-reevaluation-insert}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{4-reevaluation-extrusion}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{5-reevaluation-triangulation}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{6-reevaluation-collapse}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{7-reevaluation-chamfer}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[t]{0.11\textwidth}
-			\includegraphics[width=\textwidth]{8-reevaluation-colour}
-		\end{subfigure}
-		% \caption{Reevaluation (a) $1$-square(pos); (b) ADD$1$-insert(3); (c)
-		% 	$2$-extrude($PN_{1}$,vec); (d) DELETE $3$-insert($PN_{2}$); (e)
-		% 	$4$-extrude($PN_{3}$,vec); (f) $5$-triangulate($PN_{4}$); (g)
-		% 	$6$-collapse($PN_{5}$); (h) $7$-chamfer($PN_{6}$); (i) $8$-colour($PN_{7}$)}
-	\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Spécification paramétrique : principe}
+\begin{frame}[c,fragile]{Spécification paramétrique : principe et exemple}
 	\begin{columns}
 		\begin{column}{.49\textwidth}
-			\centering
-			\begin{figure}[t]
-				\footnotesize
-				\begin{verbatim}
-1-square(pos)
-2-extrude(PN1=[1n6], vec)
-3-insert(PN2=[1n5;2n5])
-4-extrude(PN3=[1n5;2n6;3n0], vec)
-5-triangulate(PN4=[1n3;2n2])
-6-collapse(PN5=[1n4;2n6;4n6])
-7-chamfer(PN6=[1n5;2n6;3n0;4n4;6n2])
-8-colour(PN7=[1n3;2n4;5n0])
-\end{verbatim}
-			\end{figure}
+			\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
+				\centering
+				\includegraphics<1>[width=.6\textwidth]{1-evaluation-square}%
+				\includegraphics<2>[width=.6\textwidth]{2-evaluation-extrusion}%
+				\includegraphics<3>[width=.6\textwidth]{3-evaluation-insert}%
+				\includegraphics<4>[width=.6\textwidth]{4-evaluation-extrusion}%
+				\includegraphics<5>[width=.6\textwidth]{5-evaluation-triangulation}%
+				\includegraphics<6>[width=.6\textwidth]{6-evaluation-collapse}%
+				\includegraphics<7>[width=.6\textwidth]{7-evaluation-chamfer}%
+				\includegraphics<8>[width=.6\textwidth]{8-evaluation-colour}%
+				\includegraphics<9>[width=.6\textwidth]{8-reevaluation-colour}%
+			\end{minipage}
+
 		\end{column}
 		\begin{column}{.49\textwidth}
-			\centering
-			\begin{figure}
-				\footnotesize
-				\begin{verbatim}
-1-square(pos)
-ADD1-insert(3)
-2-extrude(PN1=[1n6], vec)
-DELETE 3-insert(PN2=[1n5;2n4])
-...
-8-colour(PN7=[1n3;2n3;5n0])
-\end{verbatim}
-			\end{figure}
+			\begin{minipage}[t][.6\textheight][c]{1.0\linewidth}
+				\begin{block}{
+						\alt<9>{Réévaluation}{Évaluation}
+					}
+					\footnotesize
+					\begin{semiverbatim}
+						\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
+						\only<9>{{\color{red}ADD1-insert(3)}}
+						\only<2->{2-{\color{ForestGreen}extrude}({\color{mediumblue}PN1=[1n6]}, {\color{orange}vec})}
+						\temporal<3-8>{}{3-{\color{ForestGreen}insert}({\color{mediumblue}PN2=[1n5;2n5]})}{{\color{red}DELETE 3-insert(PN2=[1n5;2n4])}}
+						\only<4->{4-{\color{ForestGreen}extrude}({\color{mediumblue}PN3=[1n5;2n6;3n0]}, {\color{orange}vec})}
+						\only<5->{5-{\color{ForestGreen}triangulate}({\color{mediumblue}PN4=[1n3;2n2]})}
+						\only<6->{6-{\color{ForestGreen}collapse}({\color{mediumblue}PN5=[1n4;2n6;4n6]})}
+						\only<7->{7-{\color{ForestGreen}chamfer}({\color{mediumblue}PN6=[1n5;2n6;3n0;4n4;6n2]})}
+						\only<8->{8-{\color{ForestGreen}colour}({\color{mediumblue}PN7=[1n3;2n4;5n0]})}
+					\end{semiverbatim}
+				\end{block}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+	\vfill
+	\begin{block}{}
+		Une \emph{application} contient une {\color{ForestGreen}opération}, des
+		paramètres {\color{mediumblue}topologiques} et
+			{\color{orange}géométriques}.
+	\end{block}
+\end{frame}
 
+\begin{frame}{Noms Persistants : \(PN_{1} = [1n_{6}]\)}
+	\begin{columns}
+		\begin{column}{.49\textheight}
+			\includegraphics[width=\textwidth]{rule-create-square-face-poster-version}
+		\end{column}
+		\begin{column}{.49\textheight}
+			\begin{figure}
+				\includegraphics[width=.8\textwidth]{demo-fig-extrusion-left-match.pdf}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Spécification paramétrique : construction}
+\begin{frame}{Noms Persistants : \(PN_{2} = [1n_{5};2n_{5}]\)}
+	\begin{columns}
+		\begin{column}{.49\textheight}
+			\includegraphics<1>[width=\textwidth]{rule-create-square-face-poster-version}%
+			\vspace{2em}
+			\includegraphics<2>[width=\textwidth]{rule-face-extrusion-compact}%
+		\end{column}
+		\begin{column}{.49\textheight}
+			\includegraphics<1>[width=.8\textwidth]{demo-fig-extrusion-left-match.pdf}%
+			\vspace{2em}
+			\includegraphics<2>[width=.8\textwidth]{demo-fig-extrusion-right-match.pdf}%
+		\end{column}
+	\end{columns}
+\end{frame}
 
+\begin{frame}{Noms Persistants : \(PN_{7} = [1n_{3};2n_{4};5n_{0}]\)}
+	\color{red}Animer \(\to\) uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
+	\begin{columns}[c]
+		\begin{column}{.49\textheight}
+			\includegraphics<1>[width=\textwidth]{rule-create-square-face-poster-version}%
+			\vspace{2em}
+			\includegraphics<2>[width=\textwidth]{rule-face-extrusion-compact}%
+			\vspace{2em}
+			\includegraphics<3>[height=20pt]{rule-face-triangulation-3D-poster-version}%
+		\end{column}
+		\begin{column}{.49\textheight}
+			\includegraphics<1>[width=.8\textwidth]{demo-fig-extrusion-left-match.pdf}%
+			\vspace{2em}
+			\includegraphics<2>[width=.8\textwidth]{demo-fig-extrusion-right-match.pdf}%
+			\vspace{2em}
+			\includegraphics<3>[width=.6\textwidth]{triangulated-cube-article-view.pdf}%
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \section[Évaluation de modèle]{Evaluation de modèle}
@@ -268,10 +268,31 @@ DELETE 3-insert(PN2=[1n5;2n4])
 
 \begin{frame}
 	\frametitle{Évaluation de modèle}
+	\color{red}Uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
+	\begin{figure}
+		\only<1>{\vspace*{-2em}}
+		\includegraphics<1>[height=.3\textheight]{rule-create-square-face-poster-version}%
+		\only<1>{\vspace*{-3.3em}}
+		\includegraphics<2>[height=20pt]{rule-face-extrusion}%
+		\includegraphics<3>[height=20pt]{rule-face-triangulation-3D-poster-version}%
+	\end{figure}
+	\begin{columns}[b]
+		\begin{column}{.49\textheight}
+			\begin{minipage}[b][.6\textheight][b]{\textwidth}
+				\includegraphics<1>[width=.6\textwidth]{5-evaluation-triangulation}%
+				\includegraphics<2>[width=.6\textwidth]{2-evaluation-extrusion}%
+				\includegraphics<3>[width=.6\textwidth]{1-evaluation-square}%
+			\end{minipage}
+		\end{column}
+		\begin{column}{.49\textheight}
+			\begin{minipage}[b][.6\textheight][b]{\textwidth}
+				\includegraphics[width=.3\framewidth]{pn7}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \section[Réévaluation de modèle]{Réévaluation de modèle}
-\label{sec:reevaluation-de-modele}
 \begin{frame}
 	\frametitle{Plan}
 	\tableofcontents[currentsection]
@@ -279,7 +300,44 @@ DELETE 3-insert(PN2=[1n5;2n4])
 
 \begin{frame}
 	\frametitle{Réévaluation de modèle}
+	\color{red}Uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
+	\begin{figure}
+		\only<1>{\vspace*{-2em}\raggedright}
+		\includegraphics<1>[height=.3\textheight]{rule-create-square-face-poster-version}%
+		\only<1>{\vspace*{-3.3em}}
+		\includegraphics<2>[height=20pt]{rule-insert-vertex}%
+		\includegraphics<3>[height=20pt]{rule-face-extrusion}%
+		\includegraphics<4->[height=20pt]{rule-face-triangulation-3D-poster-version}%
+	\end{figure}
+	\begin{columns}
+		\begin{column}{.29\textheight}
+			\begin{minipage}[b][.6\textheight][b]{1.0\linewidth}
+				\includegraphics<1>[width=\textwidth]{1-evaluation-square}%
+				\includegraphics<2>[width=\textwidth]{1ADD-reevaluation-insert}%
+				\includegraphics<3>[width=\textwidth]{2-reevaluation-extrusion}%
+				\includegraphics<4>[width=\textwidth]{5-reevaluation-triangulation}%
+				\includegraphics<5>[width=\textwidth]{6-reevaluation-collapse}%
+				\includegraphics<6>[width=\textwidth]{7-reevaluation-chamfer}%
+				\includegraphics<7>[width=\textwidth]{8-reevaluation-colour}%
+			\end{minipage}
+		\end{column}
+		\begin{column}{.69\textheight}
+			\begin{minipage}[b][.6\textheight][b]{\textwidth}
+				\includegraphics[width=\textwidth]{pn7-reval}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 \end{frame}
 
+\section{Conclusion}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+		\item Nommage persistant à base de règle
+		\item Suivi des entités topologiques nécessaire seulement
+		\item Stratégies d'appariement cohérentes avec l'édition de spécification paramétrique
+	\end{itemize}
+\end{frame}
 
 \end{document}

@@ -1,7 +1,7 @@
 \PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass{beamer}
+\documentclass[]{beamer}
 % \documentclass[aspectratio=169]{beamer}
-% \usepackage[french]{babel}
+\usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{biblatex}
 \usepackage{graphicx}
@@ -11,21 +11,17 @@
 \usepackage{hyperref}
 \usepackage{subfiles}
 \usepackage{subcaption}
-\usetheme{lias}
-% \usecolortheme{wolverine}
-
-\setbeamertemplate{navigation symbols}{}
-% \setbeamertemplate{footline}[frame number]
+\usetheme[sectionpage=none]{lias}
 
 \input{commands.tex}
 
-\def\gbasepath{../../resources-figures-jerboa}
-\def\glogopath{../../logos}
-\graphicspath{{\gbasepath/article2/}%
-		{\gbasepath/figures/}%
-		{\gbasepath/concepts/}%
-		{\gbasepath/rules/}%
-		{\glogopath}}
+\def\dbasepath{../../resources-figures-jerboa}
+\def\dlogopath{../../logos}
+\graphicspath{{\dbasepath/article2/}%
+		{\dbasepath/figures/}%
+		{\dbasepath/concepts/}%
+		{\dbasepath/rules/}%
+		{\dlogopath}}
 
 \author[M. Gaide et al.]{\underline{Maxime Gaide}$^{1}$, David Marcheix$^{2}$, Agnès
 	Arnould$^{3}$, Xavier Skapin$^{3}$, Hakim Belhaouari$^{3}$, Stéphane
@@ -76,11 +72,54 @@
 \end{frame}
 
 \section[Introduction]{Introduction}
-\label{sec:introduction}
 
-\begin{frame}
-	\frametitle{Introduction}
+\begin{frame}[c,fragile]{Spécification paramétrique : principe et exemple}
+	\begin{columns}
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
+				\centering
+				\includegraphics<1>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+				\includegraphics<2>[width=.7\textwidth]{\dbasepath/classic-figures/2-face-extrusion}%
+				\includegraphics<3>[width=.7\textwidth]{\dbasepath/classic-figures/4-face-triangulation}%
+				\includegraphics<4>[width=.7\textwidth]{\dbasepath/classic-figures/5-colour-face}%
+				\includegraphics<5>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+				\includegraphics<6>[width=.7\textwidth]{\dbasepath/classic-figures/2-reeval-insert-vertex}%
+				\includegraphics<7>[width=.7\textwidth]{\dbasepath/classic-figures/3-reeval-face-extrusion}%
+				% \includegraphics<9>[width=.6\textwidth]{\dbasepath/classic-figures/4-reeval-face-triangulation}%
+				% \includegraphics<10>[width=.6\textwidth]{\dbasepath/classic-figures/5-reeval-colour-face}%
+			\end{minipage}
+
+		\end{column}
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[c]{1.0\linewidth}
+				\begin{block}{
+						\alt<6->{Réévaluation}{Évaluation}
+					}
+					\begin{semiverbatim}
+						\onslide<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
+						\onslide<6->{{\color{red}ADD1-insert(3)}}
+						\onslide<2->{2-{\color{ForestGreen}extrude}({\color{mediumblue}f1}, {\color{orange}vec})}
+						\temporal<3-6>{\hfill}{4-{\color{ForestGreen}triangulate}({\color{mediumblue}f2})}{4-{\color{ForestGreen}triangulate}({\color{red}??})}
+						\temporal<4-6>{\hfill}{5-{\color{ForestGreen}colour}({\color{mediumblue}f7})}{5-{\color{ForestGreen}colour}({\color{red}??})}
+					\end{semiverbatim}
+				\end{block}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+	\vfill
+	\begin{block}{}
+		Une \emph{application} contient une {\color{ForestGreen}opération}, des
+		paramètres {\color{mediumblue}topologiques} et
+			{\color{orange}géométriques}.
+	\end{block}
 \end{frame}
+
+\section{Concepts}
+\begin{frame}[noframenumbering,plain]
+	\frametitle{Plan}
+	\tableofcontents[currentsection]
+\end{frame}
+
 
 \begin{frame}{Cartes généralisées (G-cartes)}
 	\begin{figure}
@@ -110,8 +149,8 @@
 			\end{column}
 		\end{columns}
 	\end{figure}
-	\begin{block}{}<4>
-		Un graphe dont les nœuds sont appelés des \emph{brins} et les arcs des \emph{liaisons}.
+	\begin{block}{}<5>
+		Graphe dont les nœuds des \emph{brins} et les arcs des \emph{liaisons}.
 	\end{block}
 \end{frame}
 
@@ -131,10 +170,10 @@
 		\begin{column}{.49\textwidth}
 			\begin{block}{\onslide<5>{Orbit}}
 				\begin{itemize}
-					\item<1-> Sommet \alt<5>{{\color{red}$\orbit{1,2,3}${\color{ForestGreen}$(a)$}}}{$\orbit{1,2,3}(a)$}%
-					\item<2-> Arête \alt<5>{{\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}}{$\orbit{0,2,3}(a)$}%
-					\item<3-> Face \alt<5>{{\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}}{$\orbit{0,1,3}(a)$}%
-					\item<4-> Volume \alt<5>{{\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}}{$\orbit{0,1,2}(a)$}%
+					\item<1-> Sommet {\color{red}$\orbit{1,2,3}$}{\color{ForestGreen}$(a)$}%
+					\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}%
+					\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}%
+					\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}%
 					\item<5-> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}%
 				\end{itemize}
 			\end{block}
@@ -142,25 +181,30 @@
 		\end{column}
 	\end{columns}
 	\begin{block}{}<1->
-		Sous-graphe de type \alt<5>{{\color{red}$\orbit{o}$}}{$\orbit{o}$} incident à un \alt<5>{{\color{ForestGreen}brin}}{brin}.
+		% \vspace*{-1em}
+		Sous-graphe de type {\color{red}$\orbit{o}$} incident à un
+			{\color{ForestGreen}brin}.
 	\end{block}
 \end{frame}
 
-\begin{frame}{Règle Jerboa~: extrusion d'une face}
-	\color{red}Animer \(\to\) application de la règle + arcs explicites et implicites + orbites + origines
+\begin{frame}{Jerboa graph transformation rules : Application}
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth]{rule-face-extrusion}
-		\vfill
-		\includegraphics[width=.3\textwidth]{demo-fig-extrusion-left-match.pdf}
-		\hfill
-		\includegraphics[width=.3\textwidth]{demo-fig-extrusion-right-match.pdf}
+		\includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view-3D}%
+		\includegraphics<2>[height=.8\textheight]{triangulation-application-1-3D}%
+		\includegraphics<3>[height=.8\textheight]{triangulation-application-2-left-3D}%
+		\includegraphics<4>[height=.8\textheight]{triangulation-application-3-impl-3D}%
+		\includegraphics<5>[height=.8\textheight]{triangulation-application-4-impl-3D}%
+		\includegraphics<6>[height=.8\textheight]{triangulation-application-4-expl-3D}%
+		\includegraphics<7>[height=.8\textheight]{triangulation-application-5-impl-3D}%
+		\includegraphics<8>[height=.8\textheight]{triangulation-application-3D-implicit-links}%
+		\includegraphics<9>[height=.8\textheight]{triangulation-application-3D-explicit-links}%
 	\end{figure}
 \end{frame}
 
 \section[Spécification paramétrique]{Spécification paramétrique}
 
-\begin{frame}
+\begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
 	\tableofcontents[currentsection]
 \end{frame}
@@ -172,96 +216,32 @@
 				\centering
 				\includegraphics<1>[width=.6\textwidth]{1-evaluation-square}%
 				\includegraphics<2>[width=.6\textwidth]{2-evaluation-extrusion}%
-				\includegraphics<3>[width=.6\textwidth]{3-evaluation-insert}%
-				\includegraphics<4>[width=.6\textwidth]{4-evaluation-extrusion}%
-				\includegraphics<5>[width=.6\textwidth]{5-evaluation-triangulation}%
-				\includegraphics<6>[width=.6\textwidth]{6-evaluation-collapse}%
-				\includegraphics<7>[width=.6\textwidth]{7-evaluation-chamfer}%
-				\includegraphics<8>[width=.6\textwidth]{8-evaluation-colour}%
-				\includegraphics<9>[width=.6\textwidth]{8-reevaluation-colour}%
+				\includegraphics<3>[width=.6\textwidth]{5-evaluation-triangulation}%
+				\includegraphics<4>[width=.6\textwidth]{8-evaluation-colour}%
 			\end{minipage}
 
 		\end{column}
 		\begin{column}{.49\textwidth}
 			\begin{minipage}[t][.6\textheight][c]{1.0\linewidth}
 				\begin{block}{
-						\alt<9>{Réévaluation}{Évaluation}
+						Spécification paramétrique
 					}
 					\footnotesize
 					\begin{semiverbatim}
-						\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
-						\only<9>{{\color{red}ADD1-insert(3)}}
-						\only<2->{2-{\color{ForestGreen}extrude}({\color{mediumblue}PN1=[1n6]}, {\color{orange}vec})}
-						\temporal<3-8>{}{3-{\color{ForestGreen}insert}({\color{mediumblue}PN2=[1n5;2n5]})}{{\color{red}DELETE 3-insert(PN2=[1n5;2n4])}}
-						\only<4->{4-{\color{ForestGreen}extrude}({\color{mediumblue}PN3=[1n5;2n6;3n0]}, {\color{orange}vec})}
-						\only<5->{5-{\color{ForestGreen}triangulate}({\color{mediumblue}PN4=[1n3;2n2]})}
-						\only<6->{6-{\color{ForestGreen}collapse}({\color{mediumblue}PN5=[1n4;2n6;4n6]})}
-						\only<7->{7-{\color{ForestGreen}chamfer}({\color{mediumblue}PN6=[1n5;2n6;3n0;4n4;6n2]})}
-						\only<8->{8-{\color{ForestGreen}colour}({\color{mediumblue}PN7=[1n3;2n4;5n0]})}
+						\only<1->{1-{\color{ForestGreen}square}(pos)}
+						\only<2->{2-{\color{ForestGreen}extrude}(PN1=[1n6], vec)}
+						\only<3->{5-{\color{ForestGreen}triangulate}(PN2=[1n3;2n2])}
+						\only<4->{8-{\color{ForestGreen}colour}(PN3=[1n3;2n4;3n0])}
 					\end{semiverbatim}
 				\end{block}
 			\end{minipage}
 		\end{column}
 	\end{columns}
-	\vfill
-	\begin{block}{}
-		Une \emph{application} contient une {\color{ForestGreen}opération}, des
-		paramètres {\color{mediumblue}topologiques} et
-			{\color{orange}géométriques}.
-	\end{block}
-\end{frame}
-
-\begin{frame}{Noms Persistants : \(PN_{1} = [1n_{6}]\)}
-	\begin{columns}
-		\begin{column}{.49\textheight}
-			\includegraphics[width=\textwidth]{rule-create-square-face-poster-version}
-		\end{column}
-		\begin{column}{.49\textheight}
-			\begin{figure}
-				\includegraphics[width=.8\textwidth]{demo-fig-extrusion-left-match.pdf}
-			\end{figure}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Noms Persistants : \(PN_{2} = [1n_{5};2n_{5}]\)}
-	\begin{columns}
-		\begin{column}{.49\textheight}
-			\includegraphics<1>[width=\textwidth]{rule-create-square-face-poster-version}%
-			\vspace{2em}
-			\includegraphics<2>[width=\textwidth]{rule-face-extrusion-compact}%
-		\end{column}
-		\begin{column}{.49\textheight}
-			\includegraphics<1>[width=.8\textwidth]{demo-fig-extrusion-left-match.pdf}%
-			\vspace{2em}
-			\includegraphics<2>[width=.8\textwidth]{demo-fig-extrusion-right-match.pdf}%
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Noms Persistants : \(PN_{7} = [1n_{3};2n_{4};5n_{0}]\)}
-	\color{red}Animer \(\to\) uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
-	\begin{columns}[c]
-		\begin{column}{.49\textheight}
-			\includegraphics<1>[width=\textwidth]{rule-create-square-face-poster-version}%
-			\vspace{2em}
-			\includegraphics<2>[width=\textwidth]{rule-face-extrusion-compact}%
-			\vspace{2em}
-			\includegraphics<3>[height=20pt]{rule-face-triangulation-3D-poster-version}%
-		\end{column}
-		\begin{column}{.49\textheight}
-			\includegraphics<1>[width=.8\textwidth]{demo-fig-extrusion-left-match.pdf}%
-			\vspace{2em}
-			\includegraphics<2>[width=.8\textwidth]{demo-fig-extrusion-right-match.pdf}%
-			\vspace{2em}
-			\includegraphics<3>[width=.6\textwidth]{triangulated-cube-article-view.pdf}%
-		\end{column}
-	\end{columns}
 \end{frame}
 
 \section[Évaluation de modèle]{Evaluation de modèle}
-\label{sec:evaluation-de-modele}
-\begin{frame}
+
+\begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
 	\tableofcontents[currentsection]
 \end{frame}
@@ -293,7 +273,8 @@
 \end{frame}
 
 \section[Réévaluation de modèle]{Réévaluation de modèle}
-\begin{frame}
+
+\begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
 	\tableofcontents[currentsection]
 \end{frame}

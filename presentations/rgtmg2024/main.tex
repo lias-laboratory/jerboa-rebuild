@@ -15,12 +15,15 @@
 
 \input{commands.tex}
 
+\noframetitlelogo
+
 \def\dbasepath{../../resources-figures-jerboa}
 \def\dlogopath{../../logos}
 \graphicspath{{\dbasepath/article2/}%
 		{\dbasepath/figures/}%
 		{\dbasepath/concepts/}%
 		{\dbasepath/rules/}%
+		{\dbasepath/persistent-naming/}%
 		{\dlogopath}}
 
 \author[M. Gaide et al.]{\underline{Maxime Gaide}$^{1}$, David Marcheix$^{2}$, Agnès
@@ -152,72 +155,82 @@
 
 
 \begin{frame}{Cartes généralisées (G-cartes)}
-	\begin{figure}
-		\centering
-		\begin{columns}
+	\begin{minipage}[t][.6\textheight][t]{\textwidth}
+		\begin{columns}[t]
 			\begin{column}{.49\textwidth}
-				\begin{figure}
-					\centering
-					\includegraphics<1>[height=.6\textheight]{decomposition-3D-no-decomp}%
-					\includegraphics<2>[height=.6\textheight]{decomposition-3D-3-cell}%
-					\includegraphics<3>[height=.6\textheight]{decomposition-3D-2-cell}%
-					\includegraphics<4>[height=.6\textheight]{decomposition-3D-1-cell}%
-					\includegraphics<5>[height=.6\textheight]{decomposition-3D-0-cell}%
-				\end{figure}
-				\vfill
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{figure}
+						\centering
+						\includegraphics<1>[height=.6\textheight]{decomposition-3D-no-decomp}%
+						\includegraphics<2>[height=.6\textheight]{decomposition-3D-3-cell}%
+						\includegraphics<3>[height=.6\textheight]{decomposition-3D-2-cell}%
+						\includegraphics<4>[height=.6\textheight]{decomposition-3D-1-cell}%
+						\includegraphics<5>[height=.6\textheight]{decomposition-3D-0-cell}%
+					\end{figure}
+				\end{overlayarea}
 			\end{column}
+			\hfill
 			\begin{column}{.49\textwidth}
-				\begin{block}<2->{Décomposition d'un objet en :}
-					\begin{itemize}
-						\item<2-> Volumes connectés par des $3$-liaisons ({\color{ForestGreen} —})%
-						\item<3-> Faces connectées par des $2$-liaisons ({\color{mediumblue} —})%
-						\item<4-> Arêtes connectées par des $1$-liaisons ({\color{red} —})%
-						\item<5> Sommets connectés par des $0$-liaisons ({\color{black} —})%
-					\end{itemize}
-				\end{block}
-				\vfill
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{block}<2->{Décomposition d'un objet en :}
+						\begin{itemize}
+							\item<2-> Volumes connectés par des $3$-liaisons ({\color{ForestGreen} —})%
+							\item<3-> Faces connectées par des $2$-liaisons ({\color{mediumblue} —})%
+							\item<4-> Arêtes connectées par des $1$-liaisons ({\color{red} —})%
+							\item<5> Sommets connectés par des $0$-liaisons ({\color{black} —})%
+						\end{itemize}
+					\end{block}
+				\end{overlayarea}
 			\end{column}
 		\end{columns}
-	\end{figure}
-	\begin{block}{}<5>
-		Graphe dont les nœuds des \emph{brins} et les arcs des \emph{liaisons}.
-	\end{block}
+	\end{minipage}
+	\begin{overlayarea}{\textwidth}{.4\textheight}
+		\begin{block}{}<5>
+			Graphe dont les nœuds des \emph{brins} et les arcs des \emph{liaisons}.
+		\end{block}
+	\end{overlayarea}
 \end{frame}
 
 \begin{frame}{Orbites}
-	\begin{columns}
-		\begin{column}{.49\textwidth}
-			\begin{figure}
-				\centering
-				\includegraphics<1>[height=.6\textheight]{orbit-3D-vertex-123}%
-				\includegraphics<2>[height=.6\textheight]{orbit-3D-edge-023}%
-				\includegraphics<3>[height=.6\textheight]{orbit-3D-face-013}%
-				\includegraphics<4>[height=.6\textheight]{orbit-3D-volume-012}%
-				\includegraphics<5->[height=.6\textheight]{orbit-3D-edge-02}%
-			\end{figure}
-			\vfill
-		\end{column}
-		\begin{column}{.49\textwidth}
-			\begin{block}{\onslide<5>{Orbit}}
-				\begin{itemize}
-					\item<1-> Sommet {\color{red}$\orbit{1,2,3}$}{\color{ForestGreen}$(a)$}%
-					\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}%
-					\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}%
-					\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}%
-					\item<5-> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}%
-				\end{itemize}
-			\end{block}
-			\vfill
-		\end{column}
-	\end{columns}
-	\begin{block}{}<1->
-		% \vspace*{-1em}
-		Sous-graphe de type {\color{red}$\orbit{o}$} incident à un
-			{\color{ForestGreen}brin}.
-	\end{block}
+	\begin{minipage}[t][.6\textheight][t]{\textwidth}
+		\begin{columns}
+			\begin{column}{.49\textwidth}
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{figure}
+						\centering
+						\includegraphics<1>[height=.6\textheight]{orbit-3D-vertex-123}%
+						\includegraphics<2>[height=.6\textheight]{orbit-3D-edge-023}%
+						\includegraphics<3>[height=.6\textheight]{orbit-3D-face-013}%
+						\includegraphics<4>[height=.6\textheight]{orbit-3D-volume-012}%
+						\includegraphics<5>[height=.6\textheight]{orbit-3D-edge-02}%
+					\end{figure}
+				\end{overlayarea}
+			\end{column}
+			\hfill
+			\begin{column}{.49\textwidth}
+				\begin{block}{Orbites~:}
+					\begin{overlayarea}{\textwidth}{.6\textheight}
+						\begin{itemize}
+							\item<1-> Sommet {\color{red}$\orbit{1,2,3}$}{\color{ForestGreen}$(a)$}%
+							\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}%
+							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}%
+							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}%
+							\item<5-> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}%
+						\end{itemize}
+					\end{overlayarea}
+				\end{block}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{overlayarea}{\textwidth}{.4\textheight}
+		\begin{block}{}<1->
+			Sous-graphe de type {\color{red}$\orbit{o}$} incident à un
+				{\color{ForestGreen}brin}.
+		\end{block}
+	\end{overlayarea}
 \end{frame}
 
-\begin{frame}{Jerboa graph transformation rules : Application}
+\begin{frame}{Règles de transformation Jerboa~: Application}
 	\begin{figure}
 		\centering
 		\includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view-3D}%
@@ -232,22 +245,30 @@
 	\end{figure}
 \end{frame}
 
-\section[Spécification paramétrique]{Spécification paramétrique}
+\begin{frame}
+	\frametitle{Règles de transformation Jerboa~: Origines}
+	\begin{figure}
+		\includegraphics<1>[height=.8\textheight]{triangulation-application-3D-origines}%
+		\includegraphics<2>[height=.8\textheight]{triangulation-application-3D-origines-2}%
+	\end{figure}
+\end{frame}
+
+\section[Nommage Persistant]{Nommage Persistant}
 
 \begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
 	\tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[c,fragile]{Spécification paramétrique : principe et exemple}
+\begin{frame}[c,fragile]{Nommage Persistant}
 	\begin{columns}
 		\begin{column}{.49\textwidth}
 			\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
 				\centering
-				\includegraphics<1>[width=.6\textwidth]{short-1-evaluation-create-face}%
-				\includegraphics<2>[width=.6\textwidth]{short-2-evaluation-extrude-face}%
-				\includegraphics<3>[width=.6\textwidth]{short-3-evaluation-triangulate-face}%
-				\includegraphics<4>[width=.6\textwidth]{short-4-evaluation-color-face}%
+				\includegraphics<1>[width=.45\textheight]{persistent-naming-step-1}%
+				\includegraphics<2>[width=.45\textheight]{persistent-naming-step-2}%
+				\includegraphics<3>[width=.45\textheight]{persistent-naming-step-3}%
+				\includegraphics<4>[width=.45\textheight]{persistent-naming-step-4}%
 			\end{minipage}
 
 		\end{column}
@@ -280,7 +301,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Évaluation de modèle}
+	\frametitle{Évaluation de modèle~: PN3=[1n3;2n4;3n0] }
 	\begin{minipage}[t][\textheight][t]{.45\textwidth}
 		\begin{overlayarea}{\textwidth}{.3\textheight}
 			\centering
@@ -292,24 +313,27 @@
 
 		\begin{minipage}[c][.5\textheight][b]{\textwidth}
 			\begin{figure}
-				\includegraphics<1>[width=.715\columnwidth]{short-4-evaluation-color-face}%
-				\includegraphics<2>[width=.71\columnwidth]{short-3-evaluation-triangulate-face}%
-				\includegraphics<3>[width=.7\columnwidth]{short-2-evaluation-extrude-face}%
-				\includegraphics<4>[width=.6\columnwidth]{short-1-evaluation-create-face}%
+				\includegraphics<1>[width=.45\textheight]{persistent-naming-step-4}%
+				\includegraphics<2>[width=.45\textheight]{persistent-naming-step-3}%
+				\includegraphics<3>[width=.45\textheight]{persistent-naming-step-2}%
+				\includegraphics<4>[width=.45\textheight]{persistent-naming-step-1}%
 			\end{figure}
 		\end{minipage}
 	\end{minipage}
 	\hfill
 	\begin{minipage}[t][\textheight][t]{.45\textwidth}
 		\begin{overlayarea}{\textwidth}{.3\textheight}
-			\only<1>{\hspace{3em}1-{\ttfamily\color{ForestGreen}square}(pos)}%
-			\only<2>{\hspace{3em}2-{\ttfamily\color{ForestGreen}extrude}(PN1, vec)}%
-			\only<3>{\hspace{3em}3-{\ttfamily\color{ForestGreen}triangulate}(PN2)}%
-			\only<4>{\hspace{3em}4-{\ttfamily\color{ForestGreen}colour}(PN3)}
+			\only<1>{\hspace{3em}4-{\ttfamily\color{ForestGreen}colour}(PN3)}
+			\only<2>{\hspace{3em}3-{\ttfamily\color{ForestGreen}triangulate}(PN2)}%
+			\only<3>{\hspace{3em}2-{\ttfamily\color{ForestGreen}extrude}(PN1, vec)}%
+			\only<4>{\hspace{3em}1-{\ttfamily\color{ForestGreen}square}(pos)}%
 		\end{overlayarea}
 		\begin{minipage}[t][.45\textheight][b]{\textwidth}
 			\begin{figure}
-				\includegraphics[width=\textwidth]{pn7}
+				\includegraphics<1>[width=\textwidth]{pn7-short-step-1}
+				\includegraphics<2>[width=\textwidth]{pn7-short-step-2}
+				\includegraphics<3>[width=\textwidth]{pn7-short-step-3}
+				\includegraphics<4>[width=\textwidth]{pn7-short}
 			\end{figure}
 		\end{minipage}
 
@@ -325,73 +349,55 @@
 
 \begin{frame}[fragile]
 	\frametitle{Réévaluation de modèle}
-	\begin{minipage}[t][\textheight][t]{.35\textwidth}
-		\begin{minipage}[t][.5\textheight][b]{\textwidth}
+	\begin{minipage}[t][\textheight][t]{.3\textwidth}
+		\begin{minipage}[t][.6\textheight][b]{\textwidth}
 			\begin{figure}
-				\includegraphics<1>[width=.8\textwidth]{short-1-evaluation-create-face}%
-				\includegraphics<2>[width=.8\textwidth]{short-1ADD-reevaluation-insert-vertex}%
-				\includegraphics<3>[width=.8\textwidth]{short-2-reevaluation-extrude-face}%
-				\includegraphics<4>[width=.8\textwidth]{short-3-reevaluation-triangulate-face}%
-				\includegraphics<5>[width=.8\textwidth]{short-4-reevaluation-color-face}%
+				\includegraphics<1>[width=.4\textheight]{persistent-naming-step-1}%
+				\includegraphics<2>[width=.4\textheight]{reevaluation-step-2}%
+				\includegraphics<3>[width=.4\textheight]{reevaluation-step-3}%
+				\includegraphics<4>[width=.4\textheight]{reevaluation-step-4}%
+				\includegraphics<5>[width=.4\textheight]{reevaluation-step-5}%
 			\end{figure}
 		\end{minipage}
 	\end{minipage}
 	\hfill
-	\begin{minipage}[t][\textheight][t]{.6\textwidth}
-		\begin{overlayarea}{\textwidth}{.3\textheight}
+	\begin{minipage}[t][\textheight][t]{.65\textwidth}
+		\begin{overlayarea}{\textwidth}{.2\textheight}
 			\centering
 			\only<1>{1-{\ttfamily\color{ForestGreen}square}(pos)}%
 			\only<2>{ADD1-{\ttfamily\color{ForestGreen}insert-vertex}({\color{red}3})}%
-			\only<3>{2-{\ttfamily\color{ForestGreen}extrude}(PN1, vec)}%
-			\only<4>{3-{\ttfamily\color{ForestGreen}triangulate}(PN2)}%
-			\only<5>{4-{\ttfamily\color{ForestGreen}colour}(PN3)}
+			\only<3>{2-{\ttfamily\color{ForestGreen}extrude}(6, vec)}%
+			\only<4>{3-{\ttfamily\color{ForestGreen}triangulate}(35)\\
+			3b-{\ttfamily\color{ForestGreen}triangulate}(50)}%
+			\only<5>{4-{\ttfamily\color{ForestGreen}colour}(37)\\
+			4b-{\ttfamily\color{ForestGreen}colour}(52)}
 		\end{overlayarea}
-		\begin{minipage}[t][.45\textheight][b]{\textwidth}
+		\begin{minipage}[b][.5\textheight][t]{\textwidth}
 			\begin{figure}
-				\includegraphics[width=\textwidth]{pn7-reval}
+				\includegraphics<1>[width=\textwidth]{pn7-reval-short-step-1}
+				\includegraphics<2>[width=\textwidth]{pn7-reval-short-step-2}
+				\includegraphics<3>[width=\textwidth]{pn7-reval-short-step-3}
+				\includegraphics<4-5>[width=\textwidth]{pn7-reval-short-step-4}
 			\end{figure}
 		\end{minipage}
 
 	\end{minipage}
 \end{frame}
 
-% \begin{frame}
-% 	\frametitle{Réévaluation de modèle}
-% 	\color{red}Uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
-% 	% \begin{figure}
-% 	% 	\only<1>{\vspace*{-2em}\raggedright}
-% 	% 	\includegraphics<1>[height=.3\textheight]{rule-create-square-face-poster-version}%
-% 	% 	\only<1>{\vspace*{-3.3em}}
-% 	% 	\includegraphics<2>[height=20pt]{rule-insert-vertex}%
-% 	% 	\includegraphics<3>[height=20pt]{rule-face-extrusion}%
-% 	% 	\includegraphics<4->[height=20pt]{rule-face-triangulation-3D-poster-version}%
-% 	% \end{figure}
-% 	\begin{columns}
-% 		\begin{column}{.29\textheight}
-% 			\begin{minipage}[b][.6\textheight][b]{1.0\linewidth}
-% 				\includegraphics<1>[width=.6\textwidth]{short-4-reevaluation-color-face}%
-% 				\includegraphics<2>[width=.6\textwidth]{short-3-reevaluation-triangulate-face}%
-% 				\includegraphics<3>[width=.6\textwidth]{short-2-reevaluation-extrude-face}%
-% 				\includegraphics<4>[width=.6\textwidth]{short-1ADD-reevaluation-insert-vertex}%
-% 				\includegraphics<5>[width=.6\textwidth]{short-1-evaluation-create-face}%
-% 			\end{minipage}
-% 		\end{column}
-% 		\begin{column}{.69\textheight}
-% 			\begin{minipage}[b][.6\textheight][b]{\textwidth}
-% 				\includegraphics[width=\textwidth]{pn7-reval}
-% 			\end{minipage}
-% 		\end{column}
-% 	\end{columns}
-% \end{frame}
-
 \section{Conclusion}
 
 \begin{frame}
 	\frametitle{Conclusion}
+	Un système de réévaluation~:
 	\begin{itemize}
-		\item Nommage persistant à base de règle
-		\item Suivi des entités topologiques nécessaire seulement
-		\item Stratégies d'appariement cohérentes avec l'édition de spécification paramétrique
+		\item Noms persistants basés sur les règles
+		\item Suivi des entités passées paramètres topologiques
+	  \item Stratégie de réévaluation permettant de réévaluer une sélection de
+			paramètres topologiques
+	\end{itemize}
+	Perspectives~:
+	\begin{itemize}
+	  \item[] Réévaluation d'opérations à base de scripts règles
 	\end{itemize}
 \end{frame}
 

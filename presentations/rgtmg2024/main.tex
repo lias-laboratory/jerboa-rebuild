@@ -11,7 +11,7 @@
 \usepackage{hyperref}
 \usepackage{subfiles}
 \usepackage{subcaption}
-\usetheme[sectionpage=none]{lias}
+\usetheme[numbering=fraction,sectionpage=none]{lias}
 
 \input{commands.tex}
 
@@ -39,31 +39,31 @@
 \title[Réévaluation de modèle]{Réévaluation de modèle basée sur les règles de transformation de graphe}
 
 \BeforeBeginEnvironment{document}{%
-  \titlegraphic{
-    \begin{tikzpicture}[overlay, remember picture]
-      \node at (current page.south west) [above right]{
-        \includegraphics[width=5em]{logo_lias.png}
-      };
-    \end{tikzpicture}
-    \begin{tikzpicture}[overlay, remember picture]
-      \node at (current page.north west) [below right]{
-        \includegraphics[width=5em]{Logo_ISAE-ENSMA}
-      };
-    \end{tikzpicture}
-    \begin{tikzpicture}[overlay, remember picture]
-      \node at (current page.south east) [above left]{
-        \includegraphics[width=5em]{xlim-logo.png}
-      };
-    \end{tikzpicture}
-    \begin{tikzpicture}[overlay, remember picture]
-      \node at (current page.north east) [below left]{
-        \includegraphics[width=5em]{Logo_up.png}
-      };
-    \end{tikzpicture}
-  }
+	\titlegraphic{
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south west) [above right]{
+				\includegraphics[width=5em]{logo_lias.png}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north west) [below right]{
+				\includegraphics[width=5em]{Logo_ISAE-ENSMA}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south east) [above left]{
+				\includegraphics[width=5em]{xlim-logo.png}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north east) [below left]{
+				\includegraphics[width=5em]{Logo_up.png}
+			};
+		\end{tikzpicture}
+	}
 }
 
-\noframetitlelogo
+% \noframetitlelogo
 
 \begin{document}
 
@@ -93,15 +93,18 @@
 		\begin{column}{.49\textwidth}
 			\begin{minipage}[c]{1.0\linewidth}
 				\begin{block}{
-						\alt<6->{Réévaluation}{Évaluation}
+						\begin{overlayarea}{\textwidth}{.3\textheight}
+							\alt<5->{Réévaluation}{Évaluation}
+							\begin{semiverbatim}
+								\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
+								\only<6->{{\color{red}ADD1-insert(e1)}}
+								\only<2->{2-{\color{ForestGreen}extrude}({\color{mediumblue}f1}, {\color{orange}vec})}
+								\temporal<3-6>{\hfill}{3-{\color{ForestGreen}triangulate}({\color{mediumblue}f2})}{3-{\color{ForestGreen}triangulate}({\color{red}??})}
+								\temporal<4-6>{\hfill}{4-{\color{ForestGreen}colour}({\color{mediumblue}f7})}{4-{\color{ForestGreen}colour}({\color{red}??})}
+							\end{semiverbatim}
+						\end{overlayarea}
 					}
-					\begin{semiverbatim}
-						\onslide<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
-						\onslide<6->{{\color{red}ADD1-insert(3)}}
-						\onslide<2->{2-{\color{ForestGreen}extrude}({\color{mediumblue}f1}, {\color{orange}vec})}
-						\temporal<3-6>{\hfill}{4-{\color{ForestGreen}triangulate}({\color{mediumblue}f2})}{4-{\color{ForestGreen}triangulate}({\color{red}??})}
-						\temporal<4-6>{\hfill}{5-{\color{ForestGreen}colour}({\color{mediumblue}f7})}{5-{\color{ForestGreen}colour}({\color{red}??})}
-					\end{semiverbatim}
+
 				\end{block}
 			\end{minipage}
 		\end{column}
@@ -112,6 +115,33 @@
 		paramètres {\color{mediumblue}topologiques} et
 			{\color{orange}géométriques}.
 	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Contribution}
+	\begin{itemize}
+		\item Objectifs:
+		      \begin{itemize}
+			      \item Réévaluation d'objet
+			      \item Ajout, suppression et déplacement d'opération
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item Outils:
+		      \begin{itemize}
+			      \item Cartes généralisées : Formalisme d'objet
+			      \item Règles Jerboa : Formalisme d'opération
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item Approche:
+		      \begin{itemize}
+			      \item Nommage persistant basé sur les règles
+			      \item Suivis des seuls paramètres topologiques
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \section{Concepts}
@@ -214,10 +244,10 @@
 		\begin{column}{.49\textwidth}
 			\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
 				\centering
-				\includegraphics<1>[width=.6\textwidth]{1-evaluation-square}%
-				\includegraphics<2>[width=.6\textwidth]{2-evaluation-extrusion}%
-				\includegraphics<3>[width=.6\textwidth]{5-evaluation-triangulation}%
-				\includegraphics<4>[width=.6\textwidth]{8-evaluation-colour}%
+				\includegraphics<1>[width=.6\textwidth]{short-1-evaluation-create-face}%
+				\includegraphics<2>[width=.6\textwidth]{short-2-evaluation-extrude-face}%
+				\includegraphics<3>[width=.6\textwidth]{short-3-evaluation-triangulate-face}%
+				\includegraphics<4>[width=.6\textwidth]{short-4-evaluation-color-face}%
 			\end{minipage}
 
 		\end{column}
@@ -226,13 +256,16 @@
 				\begin{block}{
 						Spécification paramétrique
 					}
-					\footnotesize
-					\begin{semiverbatim}
-						\only<1->{1-{\color{ForestGreen}square}(pos)}
-						\only<2->{2-{\color{ForestGreen}extrude}(PN1=[1n6], vec)}
-						\only<3->{5-{\color{ForestGreen}triangulate}(PN2=[1n3;2n2])}
-						\only<4->{8-{\color{ForestGreen}colour}(PN3=[1n3;2n4;3n0])}
-					\end{semiverbatim}
+					\begin{overlayarea}{\textwidth}{.3\textheight}
+						\small
+						\begin{semiverbatim}
+							\only<1->{1-{\color{ForestGreen}square}(pos)}
+							\only<2->{2-{\color{ForestGreen}extrude}(PN1=[1n6], vec)}
+							\only<3->{3-{\color{ForestGreen}triangulate}(PN2=[1n3;2n2])}
+							\only<4->{4-{\color{ForestGreen}colour}(PN3=[1n3;2n4;3n0])}
+						\end{semiverbatim}
+
+					\end{overlayarea}
 				\end{block}
 			\end{minipage}
 		\end{column}
@@ -248,28 +281,39 @@
 
 \begin{frame}
 	\frametitle{Évaluation de modèle}
-	\color{red}Uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
-	\begin{figure}
-		\only<1>{\vspace*{-2em}}
-		\includegraphics<1>[height=.3\textheight]{rule-create-square-face-poster-version}%
-		\only<1>{\vspace*{-3.3em}}
-		\includegraphics<2>[height=20pt]{rule-face-extrusion}%
-		\includegraphics<3>[height=20pt]{rule-face-triangulation-3D-poster-version}%
-	\end{figure}
-	\begin{columns}[b]
-		\begin{column}{.49\textheight}
-			\begin{minipage}[b][.6\textheight][b]{\textwidth}
-				\includegraphics<1>[width=.6\textwidth]{5-evaluation-triangulation}%
-				\includegraphics<2>[width=.6\textwidth]{2-evaluation-extrusion}%
-				\includegraphics<3>[width=.6\textwidth]{1-evaluation-square}%
-			\end{minipage}
-		\end{column}
-		\begin{column}{.49\textheight}
-			\begin{minipage}[b][.6\textheight][b]{\textwidth}
-				\includegraphics[width=.3\framewidth]{pn7}
-			\end{minipage}
-		\end{column}
-	\end{columns}
+	\begin{minipage}[t][\textheight][t]{.45\textwidth}
+		\begin{overlayarea}{\textwidth}{.3\textheight}
+			\centering
+			\includegraphics<1>[width=.5\textwidth]{rule-colour-face}%
+			\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D}%
+			\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact}%
+			\includegraphics<4>[width=\textwidth]{rule-create-square-face}%
+		\end{overlayarea}
+
+		\begin{minipage}[c][.5\textheight][b]{\textwidth}
+			\begin{figure}
+				\includegraphics<1>[width=.715\columnwidth]{short-4-evaluation-color-face}%
+				\includegraphics<2>[width=.71\columnwidth]{short-3-evaluation-triangulate-face}%
+				\includegraphics<3>[width=.7\columnwidth]{short-2-evaluation-extrude-face}%
+				\includegraphics<4>[width=.6\columnwidth]{short-1-evaluation-create-face}%
+			\end{figure}
+		\end{minipage}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t][\textheight][t]{.45\textwidth}
+		\begin{overlayarea}{\textwidth}{.3\textheight}
+			\only<1>{\hspace{3em}1-{\ttfamily\color{ForestGreen}square}(pos)}%
+			\only<2>{\hspace{3em}2-{\ttfamily\color{ForestGreen}extrude}(PN1, vec)}%
+			\only<3>{\hspace{3em}3-{\ttfamily\color{ForestGreen}triangulate}(PN2)}%
+			\only<4>{\hspace{3em}4-{\ttfamily\color{ForestGreen}colour}(PN3)}
+		\end{overlayarea}
+		\begin{minipage}[t][.45\textheight][b]{\textwidth}
+			\begin{figure}
+				\includegraphics[width=\textwidth]{pn7}
+			\end{figure}
+		\end{minipage}
+
+	\end{minipage}
 \end{frame}
 
 \section[Réévaluation de modèle]{Réévaluation de modèle}
@@ -279,36 +323,66 @@
 	\tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Réévaluation de modèle}
-	\color{red}Uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
-	\begin{figure}
-		\only<1>{\vspace*{-2em}\raggedright}
-		\includegraphics<1>[height=.3\textheight]{rule-create-square-face-poster-version}%
-		\only<1>{\vspace*{-3.3em}}
-		\includegraphics<2>[height=20pt]{rule-insert-vertex}%
-		\includegraphics<3>[height=20pt]{rule-face-extrusion}%
-		\includegraphics<4->[height=20pt]{rule-face-triangulation-3D-poster-version}%
-	\end{figure}
-	\begin{columns}
-		\begin{column}{.29\textheight}
-			\begin{minipage}[b][.6\textheight][b]{1.0\linewidth}
-				\includegraphics<1>[width=\textwidth]{1-evaluation-square}%
-				\includegraphics<2>[width=\textwidth]{1ADD-reevaluation-insert}%
-				\includegraphics<3>[width=\textwidth]{2-reevaluation-extrusion}%
-				\includegraphics<4>[width=\textwidth]{5-reevaluation-triangulation}%
-				\includegraphics<5>[width=\textwidth]{6-reevaluation-collapse}%
-				\includegraphics<6>[width=\textwidth]{7-reevaluation-chamfer}%
-				\includegraphics<7>[width=\textwidth]{8-reevaluation-colour}%
-			\end{minipage}
-		\end{column}
-		\begin{column}{.69\textheight}
-			\begin{minipage}[b][.6\textheight][b]{\textwidth}
+	\begin{minipage}[t][\textheight][t]{.35\textwidth}
+		\begin{minipage}[t][.5\textheight][b]{\textwidth}
+			\begin{figure}
+				\includegraphics<1>[width=.8\textwidth]{short-1-evaluation-create-face}%
+				\includegraphics<2>[width=.8\textwidth]{short-1ADD-reevaluation-insert-vertex}%
+				\includegraphics<3>[width=.8\textwidth]{short-2-reevaluation-extrude-face}%
+				\includegraphics<4>[width=.8\textwidth]{short-3-reevaluation-triangulate-face}%
+				\includegraphics<5>[width=.8\textwidth]{short-4-reevaluation-color-face}%
+			\end{figure}
+		\end{minipage}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t][\textheight][t]{.6\textwidth}
+		\begin{overlayarea}{\textwidth}{.3\textheight}
+			\centering
+			\only<1>{1-{\ttfamily\color{ForestGreen}square}(pos)}%
+			\only<2>{ADD1-{\ttfamily\color{ForestGreen}insert-vertex}({\color{red}3})}%
+			\only<3>{2-{\ttfamily\color{ForestGreen}extrude}(PN1, vec)}%
+			\only<4>{3-{\ttfamily\color{ForestGreen}triangulate}(PN2)}%
+			\only<5>{4-{\ttfamily\color{ForestGreen}colour}(PN3)}
+		\end{overlayarea}
+		\begin{minipage}[t][.45\textheight][b]{\textwidth}
+			\begin{figure}
 				\includegraphics[width=\textwidth]{pn7-reval}
-			\end{minipage}
-		\end{column}
-	\end{columns}
+			\end{figure}
+		\end{minipage}
+
+	\end{minipage}
 \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Réévaluation de modèle}
+% 	\color{red}Uniformiser les illustrations (et faire apparaître les \textbf{bons} nœuds et brins)
+% 	% \begin{figure}
+% 	% 	\only<1>{\vspace*{-2em}\raggedright}
+% 	% 	\includegraphics<1>[height=.3\textheight]{rule-create-square-face-poster-version}%
+% 	% 	\only<1>{\vspace*{-3.3em}}
+% 	% 	\includegraphics<2>[height=20pt]{rule-insert-vertex}%
+% 	% 	\includegraphics<3>[height=20pt]{rule-face-extrusion}%
+% 	% 	\includegraphics<4->[height=20pt]{rule-face-triangulation-3D-poster-version}%
+% 	% \end{figure}
+% 	\begin{columns}
+% 		\begin{column}{.29\textheight}
+% 			\begin{minipage}[b][.6\textheight][b]{1.0\linewidth}
+% 				\includegraphics<1>[width=.6\textwidth]{short-4-reevaluation-color-face}%
+% 				\includegraphics<2>[width=.6\textwidth]{short-3-reevaluation-triangulate-face}%
+% 				\includegraphics<3>[width=.6\textwidth]{short-2-reevaluation-extrude-face}%
+% 				\includegraphics<4>[width=.6\textwidth]{short-1ADD-reevaluation-insert-vertex}%
+% 				\includegraphics<5>[width=.6\textwidth]{short-1-evaluation-create-face}%
+% 			\end{minipage}
+% 		\end{column}
+% 		\begin{column}{.69\textheight}
+% 			\begin{minipage}[b][.6\textheight][b]{\textwidth}
+% 				\includegraphics[width=\textwidth]{pn7-reval}
+% 			\end{minipage}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
 \section{Conclusion}
 

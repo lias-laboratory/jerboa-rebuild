@@ -7,7 +7,10 @@
 ** Un état de l'art
 *** rejeu
 **** modélisation paramétrique
-**** réévaluation (nommage persistant entre autre) : kripac, capoyleas, chen, mun…
+**** réévaluation (nommage persistant entre autre) : kripac, capoyleas, chen, mun, wu, cheon, fajarna, agbodan, marcheix, hepworth,…
+# ***** Le nommage persistant : un problème historique de la modélisation paramétrique (CAO)
+# ****** Les systèmes de nommage existants
+# ****** Les usages du nommage persistant : reevaluation, STEP, collaborative modelling
 *** modélisation à base de règles
 **** G-carte
 - G-carte
@@ -57,13 +60,13 @@
 ***** Une identification des opérations
 ***** Des paramètres géométriques
 ***** Des paramètres topologiques
-**** Le nommage persistant : un problème historique de la modélisation paramétrique
-***** Les systèmes de nommage existants
-***** Les usages du nommage persistant
+**** Le nommage persistant : un mécanisme pour identifier et suivre les entités topologiques
+***** Mise en place d'un mécanisme de nommage à base de règles de transformation de graphe
 **** Un système de nommage persistant basé sur les règles Jerboa
 Les règles, mises bout-à-bout, nous permettent de tracer l'historique des
 évènements impliqué dans la création d'un brin
 *** DAGs évaluation
+**** Construction à partir d'un nom persistant (de la fin vers le début)
 **** Les origines pour un historique complet des cellules topologiques
 Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
 complète d'un évènement entre deux applications de règles
@@ -71,6 +74,7 @@ complète d'un évènement entre deux applications de règles
 Formalisation de l'usage de chemins pour préciser une origine lorsque celle-ci
 n'est pas directement liée à un nœud d'accroche dans une règle
 *** DAGs réévaluation
+**** Construction à partir d'un DAG d'évaluation (du début jusqu'à la fin)
 **** La réévaluation, un contexte différent
 Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
 topologiques, ceux-ci ne contiennent non pas des nœuds de règles mais des brins
@@ -80,7 +84,7 @@ Des stratégies par défaut
 - Scission d'un paramètre topologique : évaluation de tous les paramètres éligibles
 - Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètres (potentiellement de l'objet)
 ** Réévaluer des scripts de règles pour générer des modèles complexes (En cours)
-# *** Les « limites » des règles Jerboa
+# *** Les règles Jerboa : absences de structures de contrôle
 *** Les scripts Jerboa
 *** support des scripts
 **** Les séquences de règles
@@ -100,6 +104,7 @@ Des stratégies par défaut
 *** Implantation d'une Interface Utilisateur pour éditer et générer des spécifications paramétriques (À boucler absolument)
 * Animation spatio-temporelle (Actuellement, totalement de la perspective)
 ** Un état de l'art
+- de luca, stefani,…
 ** Extension de la spécification paramétrique pour annoter avec des données temporelles
 *** Annotation des opérations avec des données temporelles
 *** Modulation de la vitesse d'animation en fonction des deltas temporels entre deux opérations

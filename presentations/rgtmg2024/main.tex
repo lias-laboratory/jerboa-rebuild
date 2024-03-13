@@ -77,70 +77,87 @@
 \section[Introduction]{Introduction}
 
 \begin{frame}[c,fragile]{Spécification paramétrique : principe et exemple}
-	\begin{columns}
-		\begin{column}{.49\textwidth}
-			\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
-				\centering
-				\includegraphics<1>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
-				\includegraphics<2>[width=.7\textwidth]{\dbasepath/classic-figures/2-face-extrusion}%
-				\includegraphics<3>[width=.7\textwidth]{\dbasepath/classic-figures/4-face-triangulation}%
-				\includegraphics<4>[width=.7\textwidth]{\dbasepath/classic-figures/5-colour-face}%
-				\includegraphics<5>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
-				\includegraphics<6>[width=.7\textwidth]{\dbasepath/classic-figures/2-reeval-insert-vertex}%
-				\includegraphics<7>[width=.7\textwidth]{\dbasepath/classic-figures/3-reeval-face-extrusion}%
-				% \includegraphics<9>[width=.6\textwidth]{\dbasepath/classic-figures/4-reeval-face-triangulation}%
-				% \includegraphics<10>[width=.6\textwidth]{\dbasepath/classic-figures/5-reeval-colour-face}%
-			\end{minipage}
+	\begin{overlayarea}{\textwidth}{.7\textheight}
+		\begin{columns}
+			\begin{column}{.49\textwidth}
+				\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
+					\centering
+					\includegraphics<1>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+					\includegraphics<2>[width=.7\textwidth]{\dbasepath/classic-figures/2-face-extrusion}%
+					\includegraphics<3>[width=.7\textwidth]{\dbasepath/classic-figures/4-face-triangulation}%
+					\includegraphics<4>[width=.7\textwidth]{\dbasepath/classic-figures/5-colour-face}%
+					\includegraphics<5>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+					\includegraphics<6>[width=.7\textwidth]{\dbasepath/classic-figures/2-reeval-insert-vertex}%
+					\includegraphics<7>[width=.7\textwidth]{\dbasepath/classic-figures/3-reeval-face-extrusion}%
+					% \includegraphics<9>[width=.6\textwidth]{\dbasepath/classic-figures/4-reeval-face-triangulation}%
+					% \includegraphics<10>[width=.6\textwidth]{\dbasepath/classic-figures/5-reeval-colour-face}%
+				\end{minipage}
 
-		\end{column}
-		\begin{column}{.49\textwidth}
-			\begin{minipage}[c]{1.0\linewidth}
-				\begin{block}{
-						\begin{overlayarea}{\textwidth}{.3\textheight}
-							\alt<5->{Réévaluation}{Évaluation}
-							\begin{semiverbatim}
-								\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
-								\only<6->{{\color{red}ADD1-insert(e1)}}
-								\only<2->{2-{\color{ForestGreen}extrude}({\color{mediumblue}f1}, {\color{orange}vec})}
-								\temporal<3-6>{\hfill}{3-{\color{ForestGreen}triangulate}({\color{mediumblue}f2})}{3-{\color{ForestGreen}triangulate}({\color{red}f2?})}
-								\temporal<4-6>{\hfill}{4-{\color{ForestGreen}colour}({\color{mediumblue}f7})}{4-{\color{ForestGreen}colour}({\color{red}f7?})}
-							\end{semiverbatim}
-						\end{overlayarea}
-					}
-
-				\end{block}
-			\end{minipage}
-		\end{column}
-	\end{columns}
+			\end{column}
+			\begin{column}{.49\textwidth}
+				\begin{minipage}[c]{1.0\linewidth}
+					\begin{block}{%
+							\begin{overlayarea}{\textwidth}{1em}
+								\alt<2->{Réévaluation}{Évaluation}
+							\end{overlayarea}} \ttfamily
+						\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
+						\only<1-4>{%
+						\alt<2-4>{2-{\color{ForestGreen}extrusion}({\color{mediumblue}f1},
+						{\color{orange}vec})}
+						{2-{\color{gray}extrusion}({\color{mediumblue}f1},
+						{\color{orange}vec})}
+						\alt<3-4>{3-{\color{ForestGreen}triangulation}({\color{mediumblue}f2})}
+						{3-{\color{gray}triangulation}({\color{mediumblue}f2})}
+						\alt<4>{4-{\color{ForestGreen}colour}({\color{mediumblue}f7})}
+						{4-{\color{gray}colour}({\color{mediumblue}f7})}%
+						}%
+						\only<5->{
+						\alt<6->{ADD1-{\color{red}insert}({\color{mediumblue}e1})}
+						{ADD1-{\color{gray}insert(e1)}}
+						\alt<7>{2-{\color{ForestGreen}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
+						{2-{\color{gray}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
+						\alt<7->{3-{\color{ForestGreen}triangulation}({\color{red}f2?})}
+						{3-{\color{gray}triangulation}({\color{mediumblue}f2})}
+						\alt<7>{4-{\color{ForestGreen}colour}({\color{red}f7?})}
+						{4-{\color{gray}colour}({\color{mediumblue}f7})}%
+						}
+					\end{block}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+		\only<7>{%
+			\begin{block}{}
+				\color{red}\(\to\) Nommage persistant nécessaire
+			\end{block}
+		}
+	\end{overlayarea}
 	\vfill
 	\begin{block}{}
-		Une \emph{application} contient une {\color{ForestGreen}opération}, des
-		paramètres {\color{mediumblue}topologiques} et
-			{\color{orange}géométriques}.
+		{\color{ForestGreen}Opérations} et paramètres {\color{mediumblue}topologiques} et {\color{orange}géométriques}.
 	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Contribution}
+	\frametitle{Plan}
 	\begin{itemize}
 		\item Objectifs:
 		      \begin{itemize}
 			      \item Réévaluation d'une spécification
-				\item Édition d'une spécification (Ajout, suppression et
-					  déplacement d'opérations)
+			      \item Édition d'une spécification (Ajout, suppression et
+			            déplacement d'opérations)
 		      \end{itemize}
 
 		      \vspace{1em}
 
-		\item Outils:
+		\item Formalismes:
 		      \begin{itemize}
-			      \item Cartes généralisées : formalisme d'objet
-			      \item Règles Jerboa : formalisme d'opération
+			      \item Cartes généralisées : formalisation des objets
+			      \item Règles Jerboa : formalisation des opérations
 		      \end{itemize}
 
 		      \vspace{1em}
 
-		\item Approche:
+		\item Contribution:
 		      \begin{itemize}
 			      \item Nommage persistant basé sur les règles Jerboa
 			      \item Suivis des paramètres topologiques
@@ -148,7 +165,7 @@
 	\end{itemize}
 \end{frame}
 
-\section{Concepts}
+\section{Formalismes}
 \begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
 	\tableofcontents[currentsection]
@@ -216,8 +233,8 @@
 							\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}%
 							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}%
 							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}%
-							\item<5> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}
-							\item<5> \ldots
+							\item<5-> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}
+							\item<6> \ldots
 						\end{itemize}
 					\end{overlayarea}
 				\end{block}
@@ -248,7 +265,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Règles de transformation Jerboa~: Origines}
+	\frametitle{Règles de transformation Jerboa~: Orbites et origines}
 	\begin{figure}
 		\includegraphics<1>[height=.8\textheight]{triangulation-application-3D-origines}%
 		\includegraphics<2>[height=.8\textheight]{triangulation-application-3D-origines-2}%
@@ -257,12 +274,15 @@
 
 \section[Nommage Persistant]{Nommage Persistant}
 
+% \subsection[Nommage Persistant des brins]{Nommage Persistant des brins}
+
 \begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
 	\tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[c,fragile]{Nommage Persistant}
+\begin{frame}[c,fragile]
+  \frametitle{Nommage Persistant des brins}
 	\begin{columns}
 		\begin{column}{.49\textwidth}
 			\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
@@ -295,7 +315,7 @@
 	\end{columns}
 \end{frame}
 
-\section[Évaluation de modèle]{Evaluation de modèle}
+% \subsection[Nommage Persistant des orbites]{Nommage Persistant des orbites}
 
 \begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
@@ -303,9 +323,9 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Évaluation de modèle~: PN3=[1n3;2n4;3n0] }
+	\frametitle{Nommage Persistant d'une orbite~: PN3=[1n3;2n4;3n0] }
 	\begin{minipage}[t][\textheight][t]{.45\textwidth}
-		\begin{overlayarea}{\textwidth}{.3\textheight}
+		\begin{overlayarea}{\textwidth}{.25\textheight}
 			\centering
 			\includegraphics<1>[width=.5\textwidth]{rule-colour-face}%
 			\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D}%
@@ -315,22 +335,22 @@
 
 		\begin{minipage}[c][.5\textheight][b]{\textwidth}
 			\begin{figure}
-				\includegraphics<1>[width=.45\textheight]{persistent-naming-step-4}%
-				\includegraphics<2>[width=.45\textheight]{persistent-naming-step-3}%
-				\includegraphics<3>[width=.45\textheight]{persistent-naming-step-2}%
-				\includegraphics<4>[width=.45\textheight]{persistent-naming-step-1}%
+				\includegraphics[width=.4\textheight]{persistent-naming-step-3}%
 			\end{figure}
 		\end{minipage}
 	\end{minipage}
 	\hfill
 	\begin{minipage}[t][\textheight][t]{.45\textwidth}
-		\begin{overlayarea}{\textwidth}{.3\textheight}
-			\only<1>{\hspace{3em}4-{\ttfamily\color{ForestGreen}colour}(PN3)}
-			\only<2>{\hspace{3em}3-{\ttfamily\color{ForestGreen}triangulate}(PN2)}%
-			\only<3>{\hspace{3em}2-{\ttfamily\color{ForestGreen}extrude}(PN1, vec)}%
-			\only<4>{\hspace{3em}1-{\ttfamily\color{ForestGreen}square}(pos)}%
-		\end{overlayarea}
-		\begin{minipage}[t][.45\textheight][b]{\textwidth}
+		\begin{minipage}[b][.3\textheight][b]{\textwidth}
+			1-{\ttfamily\color{ForestGreen}square}(pos)
+
+			2-{\ttfamily\color{ForestGreen}extrude}(PN1,vec)
+
+			3-{\ttfamily\color{ForestGreen}triangulate}(PN2)
+
+			4-{\ttfamily\color{ForestGreen}colour}(PN3)
+		\end{minipage}
+		\begin{minipage}[t][.5\textheight][b]{\textwidth}
 			\begin{figure}
 				\includegraphics<1>[width=\textwidth]{pn7-short-step-1}
 				\includegraphics<2>[width=\textwidth]{pn7-short-step-2}
@@ -342,7 +362,7 @@
 	\end{minipage}
 \end{frame}
 
-\section[Réévaluation de modèle]{Réévaluation de modèle}
+\section[Réévaluation]{Réévaluation}
 
 \begin{frame}[noframenumbering,plain]
 	\frametitle{Plan}
@@ -394,12 +414,12 @@
 	\begin{itemize}
 		\item Noms persistants basés sur les règles
 		\item Suivi des entités passées paramètres topologiques
-	  \item Stratégie de réévaluation permettant de réévaluer une sélection de
-			paramètres topologiques
+		\item Stratégie de réévaluation permettant de réévaluer une sélection de
+		      paramètres topologiques
 	\end{itemize}
 	Perspectives~:
 	\begin{itemize}
-	  \item[] Réévaluation d'opérations à base de scripts règles
+		\item[] Réévaluation d'opérations à base de scripts règles
 	\end{itemize}
 \end{frame}
 

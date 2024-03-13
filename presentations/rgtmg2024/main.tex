@@ -102,8 +102,8 @@
 								\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
 								\only<6->{{\color{red}ADD1-insert(e1)}}
 								\only<2->{2-{\color{ForestGreen}extrude}({\color{mediumblue}f1}, {\color{orange}vec})}
-								\temporal<3-6>{\hfill}{3-{\color{ForestGreen}triangulate}({\color{mediumblue}f2})}{3-{\color{ForestGreen}triangulate}({\color{red}??})}
-								\temporal<4-6>{\hfill}{4-{\color{ForestGreen}colour}({\color{mediumblue}f7})}{4-{\color{ForestGreen}colour}({\color{red}??})}
+								\temporal<3-6>{\hfill}{3-{\color{ForestGreen}triangulate}({\color{mediumblue}f2})}{3-{\color{ForestGreen}triangulate}({\color{red}f2?})}
+								\temporal<4-6>{\hfill}{4-{\color{ForestGreen}colour}({\color{mediumblue}f7})}{4-{\color{ForestGreen}colour}({\color{red}f7?})}
 							\end{semiverbatim}
 						\end{overlayarea}
 					}
@@ -125,24 +125,25 @@
 	\begin{itemize}
 		\item Objectifs:
 		      \begin{itemize}
-			      \item Réévaluation d'objet
-			      \item Ajout, suppression et déplacement d'opération
+			      \item Réévaluation d'une spécification
+				\item Édition d'une spécification (Ajout, suppression et
+					  déplacement d'opérations)
 		      \end{itemize}
 
 		      \vspace{1em}
 
 		\item Outils:
 		      \begin{itemize}
-			      \item Cartes généralisées : Formalisme d'objet
-			      \item Règles Jerboa : Formalisme d'opération
+			      \item Cartes généralisées : formalisme d'objet
+			      \item Règles Jerboa : formalisme d'opération
 		      \end{itemize}
 
 		      \vspace{1em}
 
 		\item Approche:
 		      \begin{itemize}
-			      \item Nommage persistant basé sur les règles
-			      \item Suivis des seuls paramètres topologiques
+			      \item Nommage persistant basé sur les règles Jerboa
+			      \item Suivis des paramètres topologiques
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -186,7 +187,7 @@
 	\end{minipage}
 	\begin{overlayarea}{\textwidth}{.4\textheight}
 		\begin{block}{}<5>
-			Graphe dont les nœuds des \emph{brins} et les arcs des \emph{liaisons}.
+			Graphe dont les nœuds sont des \emph{brins} et les arcs des \emph{liaisons}.
 		\end{block}
 	\end{overlayarea}
 \end{frame}
@@ -215,7 +216,8 @@
 							\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}%
 							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}%
 							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}%
-							\item<5-> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}%
+							\item<5> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}
+							\item<5> \ldots
 						\end{itemize}
 					\end{overlayarea}
 				\end{block}

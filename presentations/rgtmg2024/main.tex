@@ -89,8 +89,6 @@
 					\includegraphics<5>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
 					\includegraphics<6>[width=.7\textwidth]{\dbasepath/classic-figures/2-reeval-insert-vertex}%
 					\includegraphics<7>[width=.7\textwidth]{\dbasepath/classic-figures/3-reeval-face-extrusion}%
-					% \includegraphics<9>[width=.6\textwidth]{\dbasepath/classic-figures/4-reeval-face-triangulation}%
-					% \includegraphics<10>[width=.6\textwidth]{\dbasepath/classic-figures/5-reeval-colour-face}%
 				\end{minipage}
 
 			\end{column}
@@ -282,30 +280,36 @@
 \end{frame}
 
 \begin{frame}[c,fragile]
-  \frametitle{Nommage Persistant des brins}
+	\frametitle{Nommage Persisant de brins}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
+		\begin{overlayarea}{\textwidth}{.25\textheight}
+			\centering
+			\includegraphics<1>[height=.4\textheight]{rule-create-square-face}%
+			\includegraphics<2>[height=.3\textheight]{rule-face-extrusion-compact}%
+			\includegraphics<3>[height=.175\textheight]{rule-face-triangulation-3D}%
+			\includegraphics<4>[height=.175\textheight]{rule-colour-face}%
+		\end{overlayarea}
+	\end{minipage}
 	\begin{columns}
 		\begin{column}{.49\textwidth}
-			\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
+			\begin{minipage}[t][.4\textheight][b]{1.0\linewidth}
 				\centering
 				\includegraphics<1>[width=.45\textheight]{persistent-naming-step-1}%
 				\includegraphics<2>[width=.45\textheight]{persistent-naming-step-2}%
 				\includegraphics<3>[width=.45\textheight]{persistent-naming-step-3}%
 				\includegraphics<4>[width=.45\textheight]{persistent-naming-step-4}%
 			\end{minipage}
-
 		\end{column}
 		\begin{column}{.49\textwidth}
-			\begin{minipage}[t][.6\textheight][c]{1.0\linewidth}
-				\begin{block}{
-						Spécification paramétrique
-					}
+			\begin{minipage}[t][.4\textheight][c]{1.0\linewidth}
+				\begin{block}{Spécification paramétrique}
 					\begin{overlayarea}{\textwidth}{.3\textheight}
-						\small
+						\footnotesize
 						\begin{semiverbatim}
 							\only<1->{1-{\color{ForestGreen}square}(pos)}
-							\only<2->{2-{\color{ForestGreen}extrude}(PN1=[1n6], vec)}
-							\only<3->{3-{\color{ForestGreen}triangulate}(PN2=[1n3;2n2])}
-							\only<4->{4-{\color{ForestGreen}colour}(PN3=[1n3;2n4;3n0])}
+							\only<2->{2-{\color{ForestGreen}extrusion}([1n6], vec)}
+							\only<3->{3-{\color{ForestGreen}triangulation}([1n3;2n2])}
+							\only<4->{4-{\color{ForestGreen}colour}([1n3;2n4;3n0])}
 						\end{semiverbatim}
 
 					\end{overlayarea}
@@ -323,43 +327,43 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Nommage Persistant d'une orbite~: PN3=[1n3;2n4;3n0] }
-	\begin{minipage}[t][\textheight][t]{.45\textwidth}
-		\begin{overlayarea}{\textwidth}{.25\textheight}
-			\centering
-			\includegraphics<1>[width=.5\textwidth]{rule-colour-face}%
-			\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D}%
-			\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact}%
-			\includegraphics<4>[width=\textwidth]{rule-create-square-face}%
-		\end{overlayarea}
-
-		\begin{minipage}[c][.5\textheight][b]{\textwidth}
-			\begin{figure}
-				\includegraphics[width=.4\textheight]{persistent-naming-step-3}%
-			\end{figure}
-		\end{minipage}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[t][\textheight][t]{.45\textwidth}
-		\begin{minipage}[b][.3\textheight][b]{\textwidth}
-			1-{\ttfamily\color{ForestGreen}square}(pos)
-
-			2-{\ttfamily\color{ForestGreen}extrude}(PN1,vec)
-
-			3-{\ttfamily\color{ForestGreen}triangulate}(PN2)
-
-			4-{\ttfamily\color{ForestGreen}colour}(PN3)
-		\end{minipage}
-		\begin{minipage}[t][.5\textheight][b]{\textwidth}
-			\begin{figure}
-				\includegraphics<1>[width=\textwidth]{pn7-short-step-1}
-				\includegraphics<2>[width=\textwidth]{pn7-short-step-2}
-				\includegraphics<3>[width=\textwidth]{pn7-short-step-3}
-				\includegraphics<4>[width=\textwidth]{pn7-short}
-			\end{figure}
-		\end{minipage}
-
-	\end{minipage}
+	\frametitle{Nommage Persistant d'une orbite}
+	\begin{columns}[b]
+		\begin{column}{.45\textwidth}
+			\begin{minipage}[t][.25\textheight][t]{\textwidth}
+				\begin{overlayarea}{\textwidth}{.25\textheight}
+					\centering
+					\includegraphics<1>[width=.6\textwidth]{rule-colour-face}%
+					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D}%
+					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact}%
+					\includegraphics<4>[width=\textwidth]{rule-create-square-face}%
+				\end{overlayarea}
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics[width=.6\columnwidth]{persistent-naming-pn3}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.45\textwidth}
+			\hfill
+			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
+				\ttfamily\scriptsize
+				1-{\color{ForestGreen}square}(pos)\\
+				2-{\color{ForestGreen}extrusion}([1n6],vec)\\
+				3-{\color{ForestGreen}triangulation}([1n3;2n2])\\
+				4-{\color{ForestGreen}colour}([1n3;2n4;3n0])
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[width=.9\columnwidth]{pn7-short-step-1}%
+					\includegraphics<2>[width=.9\columnwidth]{pn7-short-step-2}%
+					\includegraphics<3>[width=.9\columnwidth]{pn7-short-step-3}%
+					\includegraphics<4>[width=.9\columnwidth]{pn7-short}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \section[Réévaluation]{Réévaluation}
@@ -369,41 +373,47 @@
 	\tableofcontents[currentsection]
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Réévaluation de modèle}
-	\begin{minipage}[t][\textheight][t]{.3\textwidth}
-		\begin{minipage}[t][.6\textheight][b]{\textwidth}
-			\begin{figure}
-				\includegraphics<1>[width=.4\textheight]{persistent-naming-step-1}%
-				\includegraphics<2>[width=.4\textheight]{reevaluation-step-2}%
-				\includegraphics<3>[width=.4\textheight]{reevaluation-step-3}%
-				\includegraphics<4>[width=.4\textheight]{reevaluation-step-4}%
-				\includegraphics<5>[width=.4\textheight]{reevaluation-step-5}%
-			\end{figure}
-		\end{minipage}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[t][\textheight][t]{.65\textwidth}
-		\begin{overlayarea}{\textwidth}{.2\textheight}
-			\centering
-			\only<1>{1-{\ttfamily\color{ForestGreen}square}(pos)}%
-			\only<2>{ADD1-{\ttfamily\color{ForestGreen}insert-vertex}({\color{red}3})}%
-			\only<3>{2-{\ttfamily\color{ForestGreen}extrude}(6, vec)}%
-			\only<4>{3-{\ttfamily\color{ForestGreen}triangulate}(35)\\
-			3b-{\ttfamily\color{ForestGreen}triangulate}(50)}%
-			\only<5>{4-{\ttfamily\color{ForestGreen}colour}(37)\\
-			4b-{\ttfamily\color{ForestGreen}colour}(52)}
-		\end{overlayarea}
-		\begin{minipage}[b][.5\textheight][t]{\textwidth}
-			\begin{figure}
-				\includegraphics<1>[width=\textwidth]{pn7-reval-short-step-1}
-				\includegraphics<2>[width=\textwidth]{pn7-reval-short-step-2}
-				\includegraphics<3>[width=\textwidth]{pn7-reval-short-step-3}
-				\includegraphics<4-5>[width=\textwidth]{pn7-reval-short-step-4}
-			\end{figure}
-		\end{minipage}
-
-	\end{minipage}
+\begin{frame}
+	\frametitle{Réévaluation}
+	\begin{columns}
+		\begin{column}{.35\textwidth}
+			\begin{minipage}[t][.3\textheight][c]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[width=.6\columnwidth]{short-1-evaluation-create-face}%
+					\includegraphics<2>[width=.6\columnwidth]{short-1ADD-reevaluation-insert-vertex}%
+					\includegraphics<3>[width=.6\columnwidth]{short-2-reevaluation-extrude-face}%
+					\includegraphics<4>[width=.6\columnwidth]{short-3-reevaluation-triangulate-face}%
+					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face}%
+				\end{figure}
+				% \vspace{2em}
+				% \vfill
+			\end{minipage}
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics[width=\columnwidth]{pn7-short}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.65\textwidth}
+			\hfill
+			\begin{minipage}[t][.3\textheight][c]{.65\textwidth}
+				\ttfamily\scriptsize
+				1-{\color{ForestGreen}square}(pos)\\
+				ADD1-{\color{ForestGreen}insert}({\color{red}3})\\
+				2-{\color{ForestGreen}extrusion}([1n6], vec)\\
+				3-{\color{ForestGreen}triangulation}([1n3;2n2])\\
+				4-{\color{ForestGreen}colour}([1n3;2n4;3n0])
+			\end{minipage}
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[width=.8\textwidth]{pn7-reval-short-step-1}%
+					\includegraphics<2>[width=.8\textwidth]{pn7-reval-short-step-2}%
+					\includegraphics<3>[width=.8\textwidth]{pn7-reval-short-step-3}%
+					\includegraphics<4-5>[width=.8\textwidth]{pn7-reval-short-step-4}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \section{Conclusion}

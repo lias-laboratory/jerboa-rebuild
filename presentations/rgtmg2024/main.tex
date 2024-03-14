@@ -96,7 +96,7 @@
 				\begin{minipage}[c]{1.0\linewidth}
 					\begin{block}{%
 							\begin{overlayarea}{\textwidth}{1em}
-								\alt<2->{Réévaluation}{Évaluation}
+								\alt<5->{Réévaluation}{Évaluation}
 							\end{overlayarea}} \ttfamily
 						\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
 						\only<1-4>{%
@@ -111,7 +111,7 @@
 						}%
 						\only<5->{
 						\alt<6->{{\color{red}ADD1-insert}({\color{mediumblue}e1})}
-						{ADD1-{\color{gray}insert(e1)}}
+						{ADD1-{\color{gray}insert({\color{mediumblue}e1})}}
 						\alt<7>{2-{\color{ForestGreen}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
 						{2-{\color{gray}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
 						\alt<7->{3-{\color{ForestGreen}triangulation}({\color{red}f2?})}
@@ -253,12 +253,18 @@
 		\includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view-3D}%
 		\includegraphics<2>[height=.8\textheight]{triangulation-application-1-3D}%
 		\includegraphics<3>[height=.8\textheight]{triangulation-application-2-left-3D}%
-		\includegraphics<4>[height=.8\textheight]{triangulation-application-3-impl-3D}%
-		\includegraphics<5>[height=.8\textheight]{triangulation-application-4-impl-3D}%
-		\includegraphics<6>[height=.8\textheight]{triangulation-application-4-expl-3D}%
-		\includegraphics<7>[height=.8\textheight]{triangulation-application-5-impl-3D}%
-		\includegraphics<8>[height=.8\textheight]{triangulation-application-3D-implicit-links}%
-		\includegraphics<9>[height=.8\textheight]{triangulation-application-3D-explicit-links}%
+		\includegraphics<4>[height=.8\textheight]{triangulation-application-n0}%
+		\includegraphics<5>[height=.8\textheight]{triangulation-application-n2}%
+		\includegraphics<6>[height=.8\textheight]{triangulation-application-n1}%
+		\includegraphics<7>[height=.8\textheight]{triangulation-application-n0-n1}%
+		\includegraphics<8>[height=.8\textheight]{triangulation-application-n1-n2}%
+		% \includegraphics<6>[height=.8\textheight]{triangulation-application-}%
+		% \includegraphics<4>[height=.8\textheight]{triangulation-application-3-impl-3D}%
+		% \includegraphics<5>[height=.8\textheight]{triangulation-application-4-impl-3D}%
+		% \includegraphics<6>[height=.8\textheight]{triangulation-application-4-expl-3D}%
+		% \includegraphics<7>[height=.8\textheight]{triangulation-application-5-impl-3D}%
+		% \includegraphics<8>[height=.8\textheight]{triangulation-application-3D-implicit-links}%
+		% \includegraphics<9>[height=.8\textheight]{triangulation-application-3D-explicit-links}%
 	\end{figure}
 \end{frame}
 

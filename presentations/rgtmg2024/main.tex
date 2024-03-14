@@ -110,7 +110,7 @@
 						{4-{\color{gray}colour}({\color{mediumblue}f7})}%
 						}%
 						\only<5->{
-						\alt<6->{ADD1-{\color{red}insert}({\color{mediumblue}e1})}
+						\alt<6->{{\color{red}ADD1-insert}({\color{mediumblue}e1})}
 						{ADD1-{\color{gray}insert(e1)}}
 						\alt<7>{2-{\color{ForestGreen}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
 						{2-{\color{gray}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
@@ -141,7 +141,7 @@
 		\item Objectifs:
 		      \begin{itemize}
 			      \item Réévaluation d'une spécification
-			      \item Édition d'une spécification (Ajout, suppression et
+			      \item Modification d'une spécification (ajout, suppression et
 			            déplacement d'opérations)
 		      \end{itemize}
 
@@ -158,7 +158,7 @@
 		\item Contribution:
 		      \begin{itemize}
 			      \item Nommage persistant basé sur les règles Jerboa
-			      \item Suivis des paramètres topologiques
+			      \item Mécanisme de réévaluation basé sur le nommage persistant
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -231,8 +231,8 @@
 							\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}%
 							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}%
 							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}%
-							\item<5-> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}
-							\item<6> \ldots
+							\item<5> Arête de volume {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}
+							\item<5> \ldots
 						\end{itemize}
 					\end{overlayarea}
 				\end{block}
@@ -280,7 +280,7 @@
 \end{frame}
 
 \begin{frame}[c,fragile]
-	\frametitle{Nommage Persisant de brins}
+	\frametitle{Nommage Persistant de brins}
 	\begin{minipage}[t][.4\textheight][t]{\textwidth}
 		\begin{overlayarea}{\textwidth}{.25\textheight}
 			\centering

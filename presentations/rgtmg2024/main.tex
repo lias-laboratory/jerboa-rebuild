@@ -290,20 +290,20 @@
 	\begin{minipage}[t][.4\textheight][t]{\textwidth}
 		\begin{overlayarea}{\textwidth}{.25\textheight}
 			\centering
-			\includegraphics<1>[height=.4\textheight]{rule-create-square-face}%
-			\includegraphics<2>[height=.3\textheight]{rule-face-extrusion-compact}%
-			\includegraphics<3>[height=.175\textheight]{rule-face-triangulation-3D}%
-			\includegraphics<4>[height=.175\textheight]{rule-colour-face}%
+			\includegraphics<1-2>[height=.4\textheight]{rule-create-square-face-n3-n6-highlight}%
+			\includegraphics<3-4>[height=.3\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
+			\includegraphics<5-6>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
+			\includegraphics<7-8>[height=.175\textheight]{rule-colour-face}%
 		\end{overlayarea}
 	\end{minipage}
 	\begin{columns}
 		\begin{column}{.49\textwidth}
 			\begin{minipage}[t][.4\textheight][b]{1.0\linewidth}
 				\centering
-				\includegraphics<1>[width=.45\textheight]{persistent-naming-step-1}%
-				\includegraphics<2>[width=.45\textheight]{persistent-naming-step-2}%
-				\includegraphics<3>[width=.45\textheight]{persistent-naming-step-3}%
-				\includegraphics<4>[width=.45\textheight]{persistent-naming-step-4}%
+				\includegraphics<2-3>[width=.45\textheight]{persistent-naming-step-1}%
+				\includegraphics<4-5>[width=.45\textheight]{persistent-naming-step-2-alt}%
+				\includegraphics<6-7>[width=.45\textheight]{persistent-naming-step-3-alt}%
+				\includegraphics<8>[width=.45\textheight]{persistent-naming-step-4}%
 			\end{minipage}
 		\end{column}
 		\begin{column}{.49\textwidth}
@@ -313,9 +313,9 @@
 						\footnotesize
 						\begin{semiverbatim}
 							\only<1->{1-{\color{ForestGreen}square}(pos)}
-							\only<2->{2-{\color{ForestGreen}extrusion}([1n6], vec)}
-							\only<3->{3-{\color{ForestGreen}triangulation}([1n3;2n2])}
-							\only<4->{4-{\color{ForestGreen}colour}([1n3;2n4;3n0])}
+							\only<3->{2-{\color{ForestGreen}extrusion}([1n6], vec)}
+							\only<5->{3-{\color{ForestGreen}triangulation}([1n3;2n2])}
+							\only<7-8>{4-{\color{ForestGreen}colour}([1n3;2n4;3n0])}
 						\end{semiverbatim}
 
 					\end{overlayarea}
@@ -354,18 +354,18 @@
 		\begin{column}{.45\textwidth}
 			\hfill
 			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
-				\ttfamily\scriptsize
-				1-{\color{ForestGreen}square}(pos)\\
-				2-{\color{ForestGreen}extrusion}([1n6],vec)\\
-				3-{\color{ForestGreen}triangulation}([1n3;2n2])\\
-				4-{\color{ForestGreen}colour}([1n3;2n4;3n0])
+			  \ttfamily\scriptsize
+			  1-{\color{ForestGreen}square}(pos)\\
+			  2-{\color{ForestGreen}extrusion}([1n6],vec)\\
+			  3-{\color{ForestGreen}triangulation}([1n3;2n2])\\
+			  4-{\color{ForestGreen}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4>{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
 			\end{minipage}
 			\begin{minipage}[t][.5\textheight][b]{\textwidth}
 				\begin{figure}
-					\includegraphics<1>[width=.9\columnwidth]{pn7-short-step-1}%
-					\includegraphics<2>[width=.9\columnwidth]{pn7-short-step-2}%
-					\includegraphics<3>[width=.9\columnwidth]{pn7-short-step-3}%
-					\includegraphics<4>[width=.9\columnwidth]{pn7-short}%
+					\includegraphics<1>[height=.5\textheight]{pn7-short-nolevels-step-1}%
+					\includegraphics<2>[height=.5\textheight]{pn7-short-nolevels-step-2}%
+					\includegraphics<3>[height=.5\textheight]{pn7-short-nolevels-step-3}%
+					\includegraphics<4>[height=.5\textheight]{pn7-short-nolevels-step-4}%
 				\end{figure}
 			\end{minipage}
 		\end{column}
@@ -388,15 +388,14 @@
 					\includegraphics<1>[width=.6\columnwidth]{short-1-evaluation-create-face}%
 					\includegraphics<2>[width=.6\columnwidth]{short-1ADD-reevaluation-insert-vertex}%
 					\includegraphics<3>[width=.6\columnwidth]{short-2-reevaluation-extrude-face}%
-					\includegraphics<4>[width=.6\columnwidth]{short-3-reevaluation-triangulate-face}%
-					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face}%
+					\includegraphics<4>[width=.601\columnwidth]{short-3-reevaluation-triangulate-face-darts}%
+					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face-nodarts}%
 				\end{figure}
-				% \vspace{2em}
-				% \vfill
 			\end{minipage}
+			%
 			\begin{minipage}[b][.7\textheight][t]{\textwidth}
 				\begin{figure}
-					\includegraphics[width=\columnwidth]{pn7-short}%
+					\includegraphics[height=.5\textheight]{pn7-short-nolevels}%
 				\end{figure}
 			\end{minipage}
 		\end{column}
@@ -412,10 +411,10 @@
 			\end{minipage}
 			\begin{minipage}[b][.7\textheight][t]{\textwidth}
 				\begin{figure}
-					\includegraphics<1>[width=.8\textwidth]{pn7-reval-short-step-1}%
-					\includegraphics<2>[width=.8\textwidth]{pn7-reval-short-step-2}%
-					\includegraphics<3>[width=.8\textwidth]{pn7-reval-short-step-3}%
-					\includegraphics<4-5>[width=.8\textwidth]{pn7-reval-short-step-4}%
+					\includegraphics<1>[width=.8\textwidth]{pn7-reval-short-nolevels-step-1}%
+					\includegraphics<2>[width=.8\textwidth]{pn7-reval-short-nolevels-step-2}%
+					\includegraphics<3>[width=.8\textwidth]{pn7-reval-short-nolevels-step-3}%
+					\includegraphics<4-5>[width=.8\textwidth]{pn7-reval-short-nolevels-step-4}%
 				\end{figure}
 			\end{minipage}
 		\end{column}
@@ -426,17 +425,21 @@
 
 \begin{frame}
 	\frametitle{Conclusion}
-	Un système de réévaluation~:
+	Un mécanisme de réévaluation~:
 	\begin{itemize}
-		\item Noms persistants basés sur les règles
-		\item Suivi des entités passées paramètres topologiques
-		\item Stratégie de réévaluation permettant de réévaluer une sélection de
-		      paramètres topologiques
+	  \item Adapté pour les systèmes à base de règles
+	  \item Nommage Persistant multi-niveaux~:
+	  \begin{itemize}
+		\item brins : histoire unique et homogène en toutes dimensions
+		\item orbites : histoire complète (suivis et origines) calculée
+			  statiquement
+	  \end{itemize}
+	  \item Réévaluation ajustable via des stratégies
 	\end{itemize}
-	Perspectives~:
-	\begin{itemize}
-		\item[] Réévaluation d'opérations à base de scripts règles
-	\end{itemize}
+
+	Perspectives~:\\
+
+	\hspace{2em} Portage aux scripts de règles pour des opérations complexes.
 \end{frame}
 
 \end{document}

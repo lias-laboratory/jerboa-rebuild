@@ -1,4 +1,4 @@
-% Created 2024-03-14 jeu. 08:59
+% Created 2024-03-15 ven. 18:56
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -27,43 +27,53 @@
 
 \tableofcontents
 
-\section{titre}
-\label{sec:org31478dc}
-Bonjour, je m'appelle Maxime Gaide et aujourd'hui, je vous fais un exposé de mes travaux sur la réévaluation de modèle basée sur les règles de transformation de graphe
+Bonjour, je m'appelle Maxime Gaide. Aujourd'hui, je vous fais un exposé de mes travaux sur la réévaluation de modèle basée sur les règles de transformation de graphe
 \section{slide 1}
-\label{sec:org4cc47a2}
-La réévaluation est un mécanisme de reconstruction un objet par la
-ré-application des opérations d'une spécification paramétrique.
+\label{sec:org2f29158}
+
+La modélisation d'objets complexes est souvent un long processus dans lequel on
+enchaîne des nombreuses opérations modélisation.
+
+Ce processus peut être enregistré dans une spécification paramétrique afin
+d'être rejoué en modifiant éventuellement certains paramètres topologiques ou
+géométriques ou en ajoutant, supprimant ou en déplaçant des opérations.
+
+Voici un exemple de spécification paramétrique.
 
 Suivons un exemple :
 \begin{itemize}
-\item Une première opération, à droite, crée la face f1 avec son arête e1 à gauche
-\item La suivante extrude f1 en un cube et e1 en la face f2
-\item On triangule f2 et créons f7
-\item Pour la colorer.
-\end{itemize}
+\item Une première opération crée la face carrée f1 et plusieurs arêtes dont e1.
+\item La suivante extrude f1 en un cube et e1 en la face f2.
+\item La triangulation de f2 crée plusieurs faces dont f7.
+\item La dernière opération colorie f7.
 
-Maintenant, éditons cette spécification paramétrique et réévaluons la pour
-obtenir un objet différent.
+Supposons que l'on modifie la spécification paramétrique, que l'on ajoute
+l'opération qui insert un sommet sur l'arête e1, puis la réévaluons.
 
-On ajoute l'opération qui insert un sommet l'arête e1.
-
-\begin{itemize}
-\item La face f1 et l'arête e1 sont recréées
+\item La face f1 et l'arête e1 sont recréées à l'identique
 \item Le sommet inséré scinde e1 en e5 et e6
-\item L'extrusion, s'applique sur f1 mais cette fois e5 et e6 sont extrudés en f3 et f4.
+\item L'extrusion s'applique sur f1 mais cette fois e5 et e6 sont extrudés en f3 et f4.
 \end{itemize}
 
-Se pose la question de comment poursuivre la réévaluation puisque f2 et f7
-n'existent plus sous leur forme initiale.
+Se pose la question de comment poursuivre la réévaluation puisque f2 n'existe
+plus sous sa forme initiale et de même pour f7.
 
 On se confronte ici à la nécessité d'identifier des cellules avec des noms persistants.
+
+C'est-à-dire des noms qui permettent d'enregistrer l'histoire des cellules et
+trouver celles qui correspondent lorsque l'histoire est modifiée.
+
+Comme on le voit ici, f2 est devenue f3 et f4 donc intuitivement la
+triangulation devrait s'appliquer sur f3 et f4.
+
+La problématique étant posée, voyons le plan pour le reste de cet exposé.
 \section{plan}
-\label{sec:orga0830d4}
+\label{sec:org1bf38be}
 \begin{itemize}
 \item L'objectif de mes travaux est de permettre la réévaluation de spécifications
-éditées notamment avec l'ajout, la suppression et le déplacement d'opérations.
-\item Pour cela nous utilisons deux formalismes
+modifiées notamment avec l'ajout, la suppression et le déplacement
+d'opérations.
+\item Pour cela, nous utilisons deux formalismes
 \begin{itemize}
 \item Celui des cartes généralisées pour les objets
 \item Celui des règles Jerboa de transformation de graphe pour les opérations de modélisation
@@ -75,76 +85,79 @@ On se confronte ici à la nécessité d'identifier des cellules avec des noms pe
 \end{itemize}
 \end{itemize}
 \section{plan - formalismes}
-\label{sec:org02a5162}
+\label{sec:org970e123}
 
-Commençons avec les cartes généralisées pour la représentation des objets
+Nous commençons donc avec les cartes généralisées, ou g-cartes, pour la
+représentation des objets
 \section{3}
-\label{sec:orgcc8810b}
+\label{sec:orgceda85a}
 \subsection{3.1}
-\label{sec:org43f0c41}
+\label{sec:orge972faa}
 Ici, un objet
 \subsection{3.2}
-\label{sec:org33ca6fa}
+\label{sec:orgd5e9218}
 Il se décompose en deux volumes connectés par des 3-liaisons vertes
 \subsection{3.3}
-\label{sec:org8bb030b}
-Les volumes en faces connectés par des 2-liaisons bleues
+\label{sec:org1811a01}
+Les volumes se décomposent en faces connectées par des 2-liaisons
+bleues
 \subsection{3.4}
-\label{sec:org8d79ec6}
-Les faces en arêtes connectés par des 1-liaisons rouges
+\label{sec:org66d67a5}
+Les faces se décomposent en arêtes connectées par des 1-liaisons rouges
 \subsection{3.5}
-\label{sec:orgc3db5ae}
+\label{sec:orgde3af62}
 Les arêtes en sommets connectés par des 0-liaisons noires
 
-Il s'agit d'un graphe dont les nœuds sont appelés des brins.
+Une g-carte est un graphe dont les nœuds sont appelés des brins.
 \section{4}
-\label{sec:org70a32ee}
-Dans ces graphes, les cellules sont représentées par des sous-graphes par exemple:
+\label{sec:org26ff558}
+Dans ces graphes, les cellules sont représentées par des sous-graphes appelés
+orbites. Par exemple\textasciitilde{}:
 \subsection{4.1}
-\label{sec:orgbd8b762}
+\label{sec:org213d8a0}
 Le sommet incident au brin a contient a, tous les brins atteignables des liaisons 1, 2 et 3 ainsi que ces liaisons
 \subsection{4.2}
-\label{sec:orgf4af5b5}
+\label{sec:orgaf5967e}
 Cette arête contient ceux atteignable par des liaisons 0,2 et 3
 \subsection{4.3}
-\label{sec:orgefa36ab}
+\label{sec:org46813a8}
 Ici la face pour les liaisons 0,1,3
 \subsection{4.4}
-\label{sec:org899999f}
+\label{sec:orgd4a0a09}
 Le volume 0,1,2
 \subsection{4.5}
-\label{sec:orgf7d8c1d}
+\label{sec:org4a90ba3}
 Et nous pouvons représenter toutes sortes d'entité topologique comme cette arête de volumes.
 
 Ces sous-graphes sont appelés des orbites
 \section{5}
-\label{sec:org1da5c91}
+\label{sec:org832ce42}
 \subsection{5.1}
-\label{sec:orge77cd74}
+\label{sec:org1f35cf8}
 Passons maintenant aux règles Jerboa pour transformer des objets et prenons l'exemple de la triangulation
 \subsection{5.2}
-\label{sec:org95ba606}
+\label{sec:orgb3f587e}
 Une règle se présente ainsi
 \subsection{5.3}
-\label{sec:org64c9e73}
+\label{sec:orgb9b09c7}
 Le nœud n0, à gauche, est étiqueté du type face. Appliqué sur a0, il filtre cette face.
 \subsection{5.4}
-\label{sec:org00e8eeb}
+\label{sec:orgd238df2}
 À gauche, n0 et ses brins sont préservés mais les 1-liaisons sont supprimés d'où le tiret du bas
 \subsection{5.5}
-\label{sec:org93289c2}
+\label{sec:orgefde96f}
 n2 est un nœud créé, ses brins sont créés par copie de ceux de n0. Les liaisons sont renommées de 0,1,3 à 1,2,3 respectivement.
 \subsection{5.6}
-\label{sec:org16972c3}
+\label{sec:org8e15d47}
 Enfin, n1 est créé, les liaisons 0 et 1 sont renommés en tiret du bas et 2 respectivement.
 \subsection{5.7}
-\label{sec:org65fb159}
+\label{sec:org23bf59f}
 Les nœuds sont étiquetés par des arcs implicites
 \subsection{5.8}
-\label{sec:org14cb449}
+\label{sec:org91c1dad}
 et sont connectés par des arcs explicites
 \subsection{5.9}
-\label{sec:orgbc2dcdc}
+\label{sec:orgfb6c8ef}
 On peut représenter des orbites dans les règles.
 
 Par exemple la face de volume incidente à n0.
@@ -163,26 +176,26 @@ Chaque face a pour origine une arête préservée.
 Grâce à une analyse statique en pré-calcul des règles, on est capable de
 détecter tout type d'évènement sur les orbites indépendamment des objets.
 \section{Plan Nommage Persistant}
-\label{sec:org96f3126}
+\label{sec:org029115b}
 Nous avons fini pour les formalismes, passons maintenant au mécanisme de nommage persistant
 
 Reprenons notre exemple de l'introduction
 \section{7}
-\label{sec:orgb12423b}
+\label{sec:org998b3b3}
 \subsection{7.1}
-\label{sec:orgc77e55b}
+\label{sec:orgaed6bcd}
 La première règle qui s'affiche crée une face dont deux brins.
 Le brin 3 est créé par le nœud n3 et le brin 6 par n6
 \subsection{7.1}
-\label{sec:org07536dc}
+\label{sec:org2b32af4}
 L'extrusion s'applique sur la face incidente au brin identifié par [1n6] 1n3
 devient 1n3;2n1 et 1n6 devient 1n6;2n1
 Les brin 33 et 35 sont des copies du brin 3, leurs identifiants sont 1n3;2n2 et 1n3;2n4 respectivement.
 \subsection{7.1}
-\label{sec:org940d54f}
+\label{sec:org0e4995a}
 La triangulation s'applique sur 1n3;2n2 et l'identifiant de 35 devient 1n3;2n4;3n0
 \subsection{7.1}
-\label{sec:orgd0aadcf}
+\label{sec:orgb76a52a}
 Enfin la coloration s'applique 1n3;2n4;3n0 qui devient 1n3;2n4;3n0;4n0
 
 Nous venons de dérouler un mécanisme de nommage persistant pour les brins

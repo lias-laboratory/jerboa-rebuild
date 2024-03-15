@@ -1,125 +1,233 @@
 #+title:
 #+author:
 
-* titre
-Bonjour, je m'appelle Maxime Gaide et aujourd'hui, je vous fais un exposé de mes travaux sur la réévaluation de modèle basée sur les règles de transformation de graphe
+Bonjour, je m'appelle Maxime Gaide. Aujourd'hui, je vous fais un exposé de mes
+travaux sur la réévaluation de modèle basée sur les règles de transformation de
+graphe
 * slide 1
-La réévaluation est un mécanisme de reconstruction un objet par la
-ré-application des opérations d'une spécification paramétrique.
+
+La modélisation d'objets complexes est souvent un long processus dans lequel on
+enchaîne des nombreuses opérations modélisation.
+
+Ce processus peut être enregistré dans une spécification paramétrique afin
+d'être rejoué en modifiant éventuellement certains paramètres topologiques ou
+géométriques ou en ajoutant, supprimant ou en déplaçant des opérations.
+
+Voici un exemple de spécification paramétrique.
 
 Suivons un exemple :
-- Une première opération, à droite, crée la face f1 avec son arête e1 à gauche
-- La suivante extrude f1 en un cube et e1 en la face f2
-- On triangule f2 et créons f7
-- Pour la colorer.
+- Une première opération crée la face carrée f1 et plusieurs arêtes dont e1.
+- La suivante extrude f1 en un cube et e1 en la face f2.
+- La triangulation de f2 crée plusieurs faces dont f7.
+- La dernière opération colorie f7.
 
-Maintenant, éditons cette spécification paramétrique et réévaluons la pour
-obtenir un objet différent.
+  Supposons que l'on modifie la spécification paramétrique, que l'on ajoute
+  l'opération qui insert un sommet sur l'arête e1, puis la réévaluons.
 
-On ajoute l'opération qui insert un sommet l'arête e1.
-
-- La face f1 et l'arête e1 sont recréées
+- La face f1 et l'arête e1 sont recréées à l'identique
 - Le sommet inséré scinde e1 en e5 et e6
-- L'extrusion, s'applique sur f1 mais cette fois e5 et e6 sont extrudés en f3 et f4.
+- L'extrusion s'applique sur f1 mais cette fois e5 et e6 sont extrudés en f3 et
+  f4.
 
-Se pose la question de comment poursuivre la réévaluation puisque f2 et f7
-n'existent plus sous leur forme initiale.
+Se pose la question de comment poursuivre la réévaluation puisque f2 n'existe
+plus sous sa forme initiale et de même pour f7.
 
-On se confronte ici à la nécessité d'identifier des cellules avec des noms persistants.
+On se confronte ici à la nécessité d'identifier des cellules avec des noms
+persistants.
+
+C'est-à-dire des noms qui permettent d'enregistrer l'histoire des cellules et
+trouver celles qui correspondent lorsque l'histoire est modifiée.
+
+Comme on le voit ici, f2 est devenue f3 et f4 donc intuitivement la
+triangulation devrait s'appliquer sur f3 et f4.
+
+La problématique étant posée, voyons le plan pour le reste de cet exposé.
 
 * plan
 - L'objectif de mes travaux est de permettre la réévaluation de spécifications
-  éditées notamment avec l'ajout, la suppression et le déplacement d'opérations.
-- Pour cela nous utilisons deux formalismes
+  modifiées notamment avec l'ajout, la suppression et le déplacement
+  d'opérations.
+- Pour cela, nous utilisons deux formalismes
   - Celui des cartes généralisées pour les objets
-  - Celui des règles Jerboa de transformation de graphe pour les opérations de modélisation
+  - Celui des règles Jerboa de transformation de graphe pour les opérations de
+    modélisation
 - Notre contribution comprend :
   - d'une part un mécanisme de nommage persistant basé sur les règles Jerboa
   - d'autre part un mécanisme de réévaluation exploitant ce nommage persistant
 
 * plan - formalismes
 
-Commençons avec les cartes généralisées pour la représentation des objets
+Nous commençons donc avec les cartes généralisées, ou g-cartes, pour la
+représentation des objets
 
-* 3
+* G-cartes
 ** 3.1
 Ici, un objet
 ** 3.2
 Il se décompose en deux volumes connectés par des 3-liaisons vertes
 ** 3.3
-Les volumes en faces connectés par des 2-liaisons bleues
+Les volumes se décomposent en faces connectées par des 2-liaisons bleues
 ** 3.4
-Les faces en arêtes connectés par des 1-liaisons rouges
+Les faces se décomposent en arêtes connectées par des 1-liaisons rouges
 ** 3.5
 Les arêtes en sommets connectés par des 0-liaisons noires
 
-Il s'agit d'un graphe dont les nœuds sont appelés des brins.
-* 4
-Dans ces graphes, les cellules sont représentées par des sous-graphes par exemple:
+Une g-carte est un graphe dont les nœuds sont appelés des brins.
+* Orbites
+Dans ces graphes, les cellules sont représentées par des sous-graphes appelés
+orbites.
+
+Une orbite est constituée d'un ensemble de brins et de liaisons incidents à un
+brin b.
+
+Par exemple~:
 ** 4.1
-Le sommet incident au brin a contient a, tous les brins atteignables des liaisons 1, 2 et 3 ainsi que ces liaisons
+Le sommet incident au brin a contient a, tous les brins atteignables des
+liaisons 1, 2 et 3 ainsi que ces liaisons
 ** 4.2
-Cette arête contient ceux atteignable par des liaisons 0,2 et 3
+Cette arête contient le brin a et tous ceux atteignables par des liaisons 0,2 et
+3
 ** 4.3
-Ici la face pour les liaisons 0,1,3
+Une face contient tous les brins atteignables par des liaisons 0,1,3
 ** 4.4
-Le volume 0,1,2
+Le volume contient ceux atteignables par des liaisons 0,1,2
 ** 4.5
-Et nous pouvons représenter toutes sortes d'entité topologique comme cette arête de volumes.
+Et nous pouvons aussi représenter toutes sortes d'entité topologique plus
+générales que des cellules comme cette arête de volumes.
 
-Ces sous-graphes sont appelés des orbites
-
-* 5
+* Règles de transformation de graphe Jerboa
 ** 5.1
-Passons maintenant aux règles Jerboa pour transformer des objets et prenons l'exemple de la triangulation
+De la même manière que les objets sont formalisés à l'aide de G-cartes, les
+opérations sont formalisées à l'aide de règles de transformation de graphe.
+
+Nous prenons l'exemple de la triangulation de face.
 ** 5.2
-Une règle se présente ainsi
+De manière générale, une règle se compose d'une partie gauche qui filtre un
+sous-graphe de l'objet avant sa transformation et d'une partie droite qui décrit
+le résultat de la transformation.
+
+Dans notre cas, nous utilisons le langages de règles Jerboa.
 ** 5.3
-Le nœud n0, à gauche, est étiqueté du type face. Appliqué sur a0, il filtre cette face.
+Le nœud n0, à gauche, porte le type face <0,1,3>. Appliqué sur a0, il filtre
+cette face.
 ** 5.4
-À gauche, n0 et ses brins sont préservés mais les 1-liaisons sont supprimés d'où le tiret du bas
+À droite, n0 est préservé donc ses brins sont préservés. Les 1-liaisons sont
+supprimés, ce qui se traduit par se symbole tiret dans le nœud.
 ** 5.5
-n2 est un nœud créé, ses brins sont créés par copie de ceux de n0. Les liaisons sont renommées de 0,1,3 à 1,2,3 respectivement.
+n2 est un nœud créé, ses brins sont créés par copie de ceux de n0. Les liaisons
+0 sont renommées en liaisons 1 et les liaisons 1 en liaisons 2. Ce qui se
+traduit, dans l'objet, par des liaisons 1 et 2 entre les brins.
 ** 5.6
-Enfin, n1 est créé, les liaisons 0 et 1 sont renommés en tiret du bas et 2 respectivement.
+Enfin, n1 est créé, les liaisons 0 sont supprimées et les liaisons 1 sont
+renommées en 2.
 ** 5.7
-Les nœuds sont étiquetés par des arcs implicites
+Une liaison 1 connecte n0 et n1, donc les brins de n0 sont liés par des
+liaisons 1.
 ** 5.8
-et sont connectés par des arcs explicites
+De mêmes, n1 et n2 sont liés par 0 alors leur brins sont liés par 0.
 ** 5.9
-On peut représenter des orbites dans les règles.
+On peut aussi représenter des orbites dans les règles.
 
 Par exemple la face de volume incidente à n0.
 
-À gauche, elle contient n0 et ses arcs 0, 1
+À gauche, elle contient n0 avec ses liaisons 0 et 1
 
-À droite, elle contient n0 ses arcs 0, l'arc 1 qui le connecte a n1, l'arc 0 qui
-connecte n1 à n2 et les arcs 1 de n2.
+À droite, elle contient n0 avec ses liaisons 0, la liaison 1 qui le connecte a
+n1, la liaison 0 qui connecte n1 à n2 et les liaisons 1 de n2.
 
-Notons que s'il y a une seule orbite face dans la règle, il y en a bien 4 dans l'objet.
-Cela est dû au renommage des 1-arcs dans la règle qui ne sont ni 0 ni 1.
+Notons que s'il y a une seule orbite face dans la règle, il y en a bien 4 dans
+l'objet. Cela est dû au renommage des liaisons 1 dans la règle qui ne sont ni 0
+ni 1 ce qui se traduit par une scission de la face de volume filtrée à gauche.
 
-On peut voir que les arcs 0 et 1 à droite sont des renommages du 0-arc à gauche.
-Chaque face a pour origine une arête préservée.
+** 5.10
+
+On peut voir à droite que les liaisons 0 et 1 constituant notre orbite face de
+volume sont des renommages de la liaison 0 à gauche, ce qui implique que notre
+orbite face a pour origine l'orbite arête de face de volume <0>. Chaque face a
+pour origine une arête préservée.
+
+Par exemple cette face verte avec cette arête verte, la bleue avec la bleue et
+ainsi de suite.
 
 Grâce à une analyse statique en pré-calcul des règles, on est capable de
 détecter tout type d'évènement sur les orbites indépendamment des objets.
 
-* Plan Nommage Persistant
-Nous avons fini pour les formalismes, passons maintenant au mécanisme de nommage persistant
+Notamment, la scission, fusion, etc.
 
-Reprenons notre exemple de l'introduction
-* 7
+* Plan Nommage Persistant
+Les formalismes que nous venons de voir nous permettent d'aborder la notion de
+nommage persistant.
+
+Reprenons notre spécification paramétrique vue en introduction.
+* Nommage Persistant
 ** 7.1
-La première règle qui s'affiche crée une face dont deux brins.
-Le brin 3 est créé par le nœud n3 et le brin 6 par n6
+Ici, on se propose de nommer les brins par rapport aux règles et nœuds qui les
+créent ou réécrivent.
+
+La première règle qui s'affiche comporte 8 nœuds, elle crée une face carrée
+dont, par exemple, les deux brins 3 et 6.
+
+Le brin 3 est créé par le nœud n3, il est nommé [1n3].
+
+Le brin 6 par n6, il est nommé [1n6].
 ** 7.1
-L'extrusion s'applique sur la face incidente au brin identifié par [1n6] 1n3
-devient 1n3;2n1 et 1n6 devient 1n6;2n1
-Les brin 33 et 35 sont des copies du brin 3, leurs identifiants sont 1n3;2n2 et 1n3;2n4 respectivement.
+La face désignée dans la deuxième opération est désigné par le brin nommé [1n6].
+
+Les brin 33 et 35, sont des copie du brin 3 créés par n2 et n4, donc il héritent
+de son nom.
+
+Leurs identifiants sont [1n3;2n2] et [1n3;2n4].
 ** 7.1
-La triangulation s'applique sur 1n3;2n2 et l'identifiant de 35 devient 1n3;2n4;3n0
+La triangulation s'applique sur [1n3;2n2].
+
+Le brin 35, étant réécrit par n0 à droite, son nom devient [1n3;2n4;3n0].
 ** 7.1
-Enfin la coloration s'applique 1n3;2n4;3n0 qui devient 1n3;2n4;3n0;4n0
+Enfin la coloration s'applique sur la face désignée par [1n3;2n4;3n0].
 
 Nous venons de dérouler un mécanisme de nommage persistant pour les brins
+** 7.x
+Avec le nommage persistant des brins, nous représentons leur histoire de manière
+unique.
+
+Cependant, les paramètres topologiques des spécification paramétrique étant des
+orbites, ainsi nous avons besoin de représenter l'histoire de ces orbites.
+
+Pour cela, nous utilisons les noms de brins que nous venons de voir.
+
+** 8.1
+
+Prenons l'exemple de l'opération de coloration et de l'orbite désignée par
+[1n3;2n4;3n0].
+
+Pour reconstituer l'histoire de cette orbite, nous remontons celle décrite par
+le nom persistant.
+
+La coloration prend une face en entrée comme le décrit n0 à gauche, c'est notre
+point de départ.
+
+L'histoire comment avec le nœud n0 de la troisième opération appliquée.
+
+À cette étape, notre face provient d'une scission issue de la triangulation.
+
+Cette flèche noire nous indique la face scindée, cette flèche rouge nous dit
+qu'elle a pour origine une arête.
+
+Nous remontons maintenant l'histoire à la deuxième opération et son nœud n4.
+
+Cette face que l'on suit est créé lors de l'extrusion, elle a pour origine une
+arête.
+
+Cette arête aussi est créée, elle, à partir d'un brin.
+
+Enfin, nous arrivons à la toute première opération.
+
+L'arête et le brin sont créés lors de la création de la face carrée.
+
+Cette procédure, nous la suivons pour chacun des paramètres topologiques
+désignés dans une spécification paramétrique.
+
+* Plan réévaluation
+
+* Réévaluation
+
+**

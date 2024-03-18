@@ -6,9 +6,8 @@
 \usepackage{biblatex}
 \usepackage{graphicx}
 \usepackage[normalem]{ulem}
-\usepackage{amsmath}
-\usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \usepackage{subfiles}
 \usepackage{subcaption}
 \usetheme[numbering=fraction,sectionpage=none]{lias}
@@ -263,13 +262,13 @@
 		% \includegraphics<5>[height=.8\textheight]{triangulation-application-4-impl-3D}%
 		% \includegraphics<6>[height=.8\textheight]{triangulation-application-4-expl-3D}%
 		% \includegraphics<7>[height=.8\textheight]{triangulation-application-5-impl-3D}%
-		% \includegraphics<8>[height=.8\textheight]{triangulation-application-3D-implicit-links}%
-		% \includegraphics<9>[height=.8\textheight]{triangulation-application-3D-explicit-links}%
+		\includegraphics<9>[height=.8\textheight]{triangulation-application-3D-implicit-links}%
+		\includegraphics<10>[height=.8\textheight]{triangulation-application-3D-explicit-links}%
 	\end{figure}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Règles de transformation Jerboa~: Orbites et origines}
+	\frametitle{Règles de transformation Jerboa~: Suivi d'orbite}
 	\begin{figure}
 		\includegraphics<1>[height=.8\textheight]{triangulation-application-3D-origines}%
 		\includegraphics<2>[height=.8\textheight]{triangulation-application-3D-origines-2}%
@@ -355,9 +354,9 @@
 			\hfill
 			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
 				\ttfamily\scriptsize
-				1-{\color{ForestGreen}square}(pos)\\
-				2-{\color{ForestGreen}extrusion}([1n6],vec)\\
-				3-{\color{ForestGreen}triangulation}([1n3;2n2])\\
+				1-{\color{ForestGreen}\alt<4>{\color{orange}}{}square}(pos)\\
+				2-{\color{ForestGreen}\alt<3>{\color{orange}}{}extrusion}([1n6],vec)\\
+				3-{\color{ForestGreen}\alt<2>{\color{orange}}{}triangulation}([1n3;2n2])\\
 				4-{\color{ForestGreen}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4>{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
 			\end{minipage}
 			\begin{minipage}[t][.5\textheight][b]{\textwidth}
@@ -403,11 +402,11 @@
 			\hfill
 			\begin{minipage}[t][.3\textheight][c]{.65\textwidth}
 				\ttfamily\scriptsize
-				1-{\color{ForestGreen}square}(pos)\\
-				ADD1-{\color{ForestGreen}insert}({\color{red}3})\\
-				2-{\color{ForestGreen}extrusion}([1n6], vec)\\
-				3-{\color{ForestGreen}triangulation}([1n3;2n2])\\
-				4-{\color{ForestGreen}colour}([1n3;2n4;3n0])
+				1-{\color{ForestGreen}\alt<1>{\color{orange}}{}square}(pos)\\
+				ADD1-{\color{ForestGreen}\alt<2>{\color{orange}}{}insert}({\color{red}3})\\
+				2-{\color{ForestGreen}\alt<3>{\color{orange}}{}extrusion}([1n6], vec)\\
+				3-{\color{ForestGreen}\alt<4>{\color{orange}}{}triangulation}([1n3;2n2])\\
+				4-{\color{ForestGreen}\alt<5>{\color{orange}}{}colour}([1n3;2n4;3n0])
 			\end{minipage}
 			\begin{minipage}[b][.7\textheight][t]{\textwidth}
 				\begin{figure}
@@ -434,7 +433,7 @@
 			      \item orbites : histoire complète (suivis et origines) calculée
 			            statiquement
 		      \end{itemize}
-		\item Réévaluation ajustable via des stratégies
+		\item Réévaluation paramétrable (stratégies de rejeu)
 	\end{itemize}
 
 	Perspectives~:\\

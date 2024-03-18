@@ -312,9 +312,9 @@
 						\footnotesize
 						\begin{semiverbatim}
 							\only<1->{1-{\color{ForestGreen}square}(pos)}
-							\only<3->{2-{\color{ForestGreen}extrusion}([1n6], vec)}
-							\only<5->{3-{\color{ForestGreen}triangulation}([1n3;2n2])}
-							\only<7-8>{4-{\color{ForestGreen}colour}([1n3;2n4;3n0])}
+							\only<3->{2-{\color{ForestGreen}extrusion}(\alt<3>{6}{[1n6]}, vec)}
+							\only<5->{3-{\color{ForestGreen}triangulation}(\alt<5>{33}{[1n3;2n2]})}
+							\only<7-8>{4-{\color{ForestGreen}colour}(\alt<7>{35}{[1n3;2n4;3n0]})}
 						\end{semiverbatim}
 
 					\end{overlayarea}
@@ -339,7 +339,7 @@
 				\begin{overlayarea}{\textwidth}{.25\textheight}
 					\centering
 					\includegraphics<1>[width=.6\textwidth]{rule-colour-face-n0-highlight}%
-					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight}%
+					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed}%
 					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight}%
 					\includegraphics<4>[width=\textwidth]{rule-create-square-face-n3-highlight}%
 				\end{overlayarea}

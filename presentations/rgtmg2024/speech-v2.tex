@@ -25,23 +25,22 @@
 
 \begin{document}
 
-\maketitle
-Bonjour, aujourd'hui, je vous présente mes travaux sur la réévaluation
-de modèle basée sur les règles de transformation de graphe
+\maketitle Bonjour, aujourd'hui, je vous présente mes travaux sur la
+réévaluation de modèle basée sur les règles de transformation de graphe
 \section{Introduction}
 \label{sec:orgded3f04}
 
-Modéliser des objets complexes, c'est un processus souvent long où on enchaîne
-de nombreuses opérations de modélisation.
+Modéliser un objet complexe, c'est un processus long où on enchaîne plein
+d'opérations de modélisation.
 
-Aujourd'hui, tous les modeleurs enregistrent ces processus dans ce qui s'appelle
-une spécification paramétrique.
+Aujourd'hui, tous les modeleurs enregistrent ces processus dans ce qu'on appelle
+des spécifications paramétriques.
 
-Le but étant de les rejouer après avoir modifié, éventuellement, certains
-paramètres topologiques ou géométriques, voire ajouté, supprimé ou déplacé
-des opérations.
+Le but c'est de les modifier puis les rejouer. On peut modifier les paramètres
+topologiques ou géométriques, voire ajouter, supprimer ou déplacer des
+opérations.
 
-Voyons maintenant un exemple de spécification paramétrique:
+On va voir un exemple de spécification qui sera notre fil rouge~:
 \begin{itemize}
 	\item Une première opération crée la face carrée f1 et ses arêtes dont e1.
 	\item La suivante extrude f1 en un cube et e1 en la face f2.
@@ -49,41 +48,46 @@ Voyons maintenant un exemple de spécification paramétrique:
 	\item La dernière opération colore f7.
 \end{itemize}
 
-Supposons que l'on modifie cette spécification, on y ajoute l'opération qui
-insert un sommet sur l'arête e1 et on la réévalue.
+Maintenant, on modifie cette spécification~: on ajoute l'opération qui insère un
+sommet sur l'arête e1 et on la réévalue.
 
 \begin{itemize}
 	\item f1 et e1 sont recréées à l'identique
 	\item Le sommet inséré scinde e1 en e5 et e6
-	\item L'extrusion s'applique sur f1 mais cette fois e5 et e6 sont extrudés en f3 et
-	      f4.
+	\item L'extrusion s'applique sur f1 mais cette fois e5 et e6 sont extrudés
+en f3 et f4.
 \end{itemize}
 
-Et maintenant, comment on réévalue puisque f2 n'existe plus sous sa forme initiale,
-pareil pour f7 ?
+Et maintenant, comment on réévalue puisque f2 n'existe plus sous sa forme
+initiale, pareil pour f7 ?
 
-Intuitivement, f2 est divisé en f3 et f4 alors on voudrait trianguler f3 et/ou f4.
+Intuitivement, f2 est divisé en f3 et f4 alors on voudrait trianguler f3 et/ou
+f4.
 
-C'est là que l'on a besoin d'un nom persistant pour identifier des cellules par leurs histoire et dire, par exemple, «~f3 est construit comme f2, alors on triangule f3~».
+C'est là qu'on a besoin d'un nom persistant pour identifier des cellules par
+leurs histoire et dire, par exemple, «~f3 et f4 sont construits comme f2, alors
+on triangule ces deux faces~».
 
 Maintenant que la problématique est posée, on va voir le plan.
 
 \section{plan}
 \label{sec:orgdf64a4e}
 \begin{itemize}
-	\item L'objectif de ces travaux est de permettre la réévaluation de spécifications
-	      modifiées notamment avec l'ajout, la suppression et le déplacement
-	      d'opérations.
+	\item L'objectif de ces travaux est de permettre la réévaluation de
+spécifications modifiées notamment avec l'ajout, la suppression et le
+déplacement d'opérations.
 	\item Pour cela, on utilise deux formalismes
 	      \begin{itemize}
 		      \item Celui des cartes généralisées pour les objets
-		      \item Celui des règles Jerboa de transformation de graphe pour les opérations de
-		            modélisation
+		      \item Celui des règles de transformation de graphe Jerboa pour les
+opérations de modélisation
 	      \end{itemize}
 	\item Cette contribution comprend :
 	      \begin{itemize}
-		      \item d'une part un mécanisme de nommage persistant basé sur les règles Jerboa
-		      \item d'autre part un mécanisme de réévaluation exploitant ce nommage persistant
+		      \item d'une part un mécanisme de nommage persistant basé sur les
+règles
+		      \item d'autre part un mécanisme de réévaluation exploitant ce
+nommage persistant
 	      \end{itemize}
 \end{itemize}
 \section{plan - formalismes}
@@ -92,8 +96,7 @@ Maintenant que la problématique est posée, on va voir le plan.
 On commence avec les cartes généralisées, ou G-cartes, pour représenter des
 objets
 \section{G-cartes}
-\label{sec:orgf33c57b}
-On prend un objet
+\label{sec:orgf33c57b} On prend un objet
 
 Il se décompose en deux volumes connectés par des liaisons 3 en vert
 
@@ -101,7 +104,7 @@ Ses volumes se décomposent en faces connectées par des liaisons 2 en bleu
 
 Qui se décomposent elles-mêmes en arêtes connectées par des liaisons 1 en rouge
 
-Qui se décomposent en sommets connectés par des liaisons 0 en noire
+Qui se décomposent en sommets connectés par des liaisons 0 en noir
 
 Cette G-carte, c'est un graphe dont les nœuds sont des brins et les arcs des
 liaisons.
@@ -109,131 +112,140 @@ liaisons.
 \section{Orbites}
 \label{sec:org99b57a4}
 
-Dans ces G-cartes, on représente les cellules avec des sous-graphes que l'on
+Dans les G-cartes, on représente les cellules avec des sous-graphes que l'on
 appelle orbites.
-
-Une orbite, c'est tous les brins que l'on atteint en suivant certaines liaisons
-à partir d'un brin de départ plus les liaisons.
 
 Par exemple~:
 
-Le sommet incident au brin «~a~» contient «~a~», tous les brins atteignables par des
-liaisons 1, 2 et 3 et les liaisons.
+Le sommet incident au brin «~a~» contient «~a~», tous les brins atteignables par
+des liaisons 1, 2 et 3 et les liaisons elles-mêmes.
 
-Cette arête contient le brin «~a~» et tous ceux atteignables par des liaisons 0,2,3.
+Cette arête contient le brin «~a~» et tous ceux atteignables par des liaisons
+0,2,3.
 
 Une face contient tous les brins atteignables par des liaisons 0,1,3
 
 un volume contient ceux atteignables par des liaisons 0,1,2
 
-On représente aussi toutes sortes d'entités topologiques plus générales que des
-cellules comme cette arête de volumes.
+Les orbites représentent aussi toutes sortes d'entités topologiques plus
+générales que des cellules comme cette arête de volume.
+
+%% Orbite = un sous-graphe de type o incident à un brin ((a) en vert)
 
 \section{Règles de transformation de graphe Jerboa}
 \label{sec:org89fe9a5}
 
-On a formalisé les objets avec les G-cartes, maintenant, on formalise les
+Maintenant que l'on a formalisé les objets avec les G-cartes, on formalise les
 opérations avec les règles de transformations de graphe Jerboa.
 
 On prend l'exemple de la triangulation de face.
 
 De manière générale, une règle se compose d'une partie gauche qui filtre un
-sous-graphe avant la transformation d'un objet et d'une partie droite qui décrit
-la transformation.
+sous-graphe d'un objet à transformer et d'une partie droite qui décrit la
+transformation.
 
-À gauche, n0 porte le type d'orbite face <0,1,3>. Quand on applique la règle sur
-a0, n0 filtre cette face.
+À gauche, le nœud n0 porte le type d'orbite face <0,1,3>.
 
-À droite, n0 est préservé donc ses brins sont préservés. Les liaisons 1 sont
-supprimées, donc on a ce symbole tiret dans n0.
+Quand on applique la règle sur le brin a0, on filtre toute la face incidente à
+a0 en jaune.
 
-n2 est un nœud créé donc ses brins sont créés par copie de ceux de n0. %
-Les liaisons 0 sont renommées en liaisons 1 et les liaisons 1 en liaisons 2. %
-Donc, dans l'objet, il y a des liaisons 1 et 2 entre les brins.
+À droite, le nœud n0 est préservé donc ses brins sont préservés. La liaison 1 à
+gauche est remplacée par un «~underscore~» à droite, donc on supprime les
+liaisons 1 dans l'objet.
 
-Enfin, n1 est créé, on a renommage et suppression.
+n2 est un nœud créé donc ses brins sont créés comme des copies des brins filtrés
+par n0. % Dans la règle, les liaisons 0 sont renommées en liaisons 1 et les
+liaisons 1 en liaisons 2. % %Les liaisons 0, 1 de n0 à gauche sont renommés
+respectivement en 1,2 dans n2 à droite %Donc, dans l'objet, il y a des liaisons
+1 et 2 entre les brins. Donc, dans l'objet, la sommet bleu et créé comme le dual
+de la face jaune en remplaçant les liaisons 0,1 par des liaisons 1,2.
+%respectivement
 
-Une liaison 1 connecte n0 à n1, pareil pour leurs brins.
-Même principe entre n1 et n2.
+Enfin, n1 est créé, avec des suppressions et du renommage.
 
-Les liaisons dans les nœuds sont des arcs implicites.
-Celles entre les nœuds sont des arcs explicites.
+Dans la règle, une liaison 1 connecte n0 à n1, ce qui lie les brins 2 à 2 dans
+l'objet. Même principe pour la liaison 0 entre n1 et n2.
+
+Les liaisons dans les nœuds on les appelles des arcs implicites. Celles entre
+les nœuds sont des arcs explicites.
 
 \subsection{Orbites}
 \label{sec:orgcf72bd7}
 
-On peut aussi suivre des orbites dans les règles.
+Avec les règles, on peut suivre les orbites.
 
 Par exemple la face de volume incidente à n0.
 
 À gauche, elle contient n0 avec ses arcs 0,1
 
-À droite, elle contient n0 avec ses arcs 0, l'arc 1 qui le connecte à
-n1, l'arc 0 qui connecte n1 à n2 et les arcs 1 de n2.
+À droite, elle contient n0 avec ses arcs 0, l'arc 1 qui le connecte à n1, l'arc
+0 qui connecte n1 à n2 et les arcs 1 de n2.
 
 On remarque qu'il y a une seule orbite face dans la règle, alors que l'on en a 4
-dans l'objet. %
-C'est dû aux renommages de cet arc implicite 1, à gauche, qui ne sont ni 0
-ni 1 à droite, donc on a une scission de la face de volume filtrée par n0.
+dans l'objet. % C'est parce que le deuxième arc implicite à gauche est soit
+supprimé soit renommé en 2, en dehors du type d'orbite 0,1. Donc on a une
+scission de la face. %
 
 \subsection{Origines}
 \label{sec:org341560c}
 
-En plus, les arcs implicites 0 et 1 qui constituent notre face de volume sont
-des renommages de cet arc implicite 0 à gauche, donc cette face de volume a pour
-origine cette arête de face de volume de type <0>. %
+En plus, on voit que les arcs implicites 0,1 à droite sont tous issus du
+renommage de l'arc 0 à gauche, donc chacune des facettes à droite à pour origine
+une seule arête à gauche. %
 
-Dans l'objet, chaque face a pour origine une arête préservée.
-
-Par exemple cette face verte vient de cette arête verte, la bleue de cette bleue et
-ainsi de suite.
+Par exemple cette face verte vient de cette arête verte, la bleue de cette bleue
+et ainsi de suite.
 
 Grâce à une analyse statique en pré-calcul des règles, on est capable de
-détecter tout type d'évènement sur les orbites indépendamment des objets.
+détecter les évènements sur les orbites indépendamment des objets sur lesquels
+on applique les règles.
 
 Notamment, la scission, fusion, etc.
+
 \section{Plan Nommage Persistant}
 \label{sec:orgaa5036e}
 
 Avec ces formalismes, on peut maintenant voir le nommage persistant.
 
-On reprend la spécification de l'introduction.
+On reprend l'exemple de l'introduction.
 \section{Nommage Persistant}
 \label{sec:org84648da}
 
 \subsection{Nom persistant brin}
 \label{sec:org53f1b92}
 
-Ici, on propose d'enregistrer l'histoire des brins comme leurs noms
-persistants. %
-Chaque brin contient alors les numéros d'opérations et de nœuds qui les créent
-ou réécrivent.
+Ici, on propose d'enregistrer l'histoire des brins comme leurs noms persistants.
+% %Chaque brin contient alors les numéros d'opérations et de nœuds qui les
+créent %ou réécrivent.
 
-Cette première règle crée une face carrée.
-Elle a 8 nœuds dont n3 et n6.
+Cette première règle crée une face carrée. Elle a 8 nœuds dont n3 et n6.
 
-n3, crée le brin 3. Son histoire, c'est application 1 nœud n3, donc [1n3].
+Dans cette première application, n3 crée le brin 3, on enregistre son histoire
+[1n3] dans le brin 3.
 
-n6 crée le brin 6, son histoire, c'est [1n6].
+n6 crée le brin 6, on enregistre son histoire [1n6].
 
-Quand on applique l'extrusion sur le carré, on sélectionne le brin 6. %
-Sauf que le brin pourrait changer, alors dans la spécification, on met son histoire [1n6].
+Quand on applique l'extrusion sur le carré, on sélectionne le brin 6 pour
+désigner sa face incidente. % Sauf que le brin pourrait changer, alors dans la
+spécification, on enregistre son nom persistant [1n6].
 
-n1 filtre le brin 3 et n2 et n4 créent ses copies 33 et 35. %
-On construit leurs histoires à partir de celle de 3, suivie des leurs.
+n1 à gauche filtre le brin 3 et n2 et n4 à droite créent ses copies 33 et 35. %
+On construit leurs histoires à partir de celle du brin 3. %
 
-L'histoire de 33 est [1n3;2n2]. %
-L'histoire de 35 est [1n3;2n4].
+L'histoire de 33 c'est [1n3;2n2]. % L'histoire de 35 c'est [1n3;2n4]. %
+L'histoire 3 devient [1n3;2n1], pareil pour le brin 6. %
 
-Ensuite, on applique la triangulation sur la face désignée par le brin 33 et on
-enregistre son histoire.
+Ensuite, pour trianguler la face de devant, on sélectionne le brin 33 pour
+désigner sa face incidente et on enregistre son nom persistant.
 
-À droite, n0 réécrit 35, comme c'est la troisième opération, son histoire devient
-[1n3;2n4;3n0].
+À droite, n0 réécrit les brins 33 et 35. C'est la troisième application,
+l'histoire du brin 35 devient [1n3;2n4;3n0], même principe pour 33.
 
-Enfin, on colorie la face désignée par 35.
+Enfin, on colorie la face désignée incidente au brin 35 et on enregistre son nom
+persistant.
 
-On vient de nommer des brins de manière unique en représentant leurs histoires, il s'agit du nommage persistant des brins.
+On vient de nommer des brins de manière unique en représentant leurs histoires,
+il s'agit du nommage persistant des brins.
 
 Mais, dans une spécification, les paramètres topologiques sont des orbites.
 Donc, on doit représenter les histoires de ces orbites.
@@ -241,66 +253,80 @@ Donc, on doit représenter les histoires de ces orbites.
 \subsection{Nom persistant orbite}
 \label{sec:orgf5219a2}
 
-Pour reconstituer l'histoire d'une orbite, on prend le nom persistant qui la
-désigne et on remonte l'histoire décrite.
+Pour reconstituer l'histoire d'une orbite, on remonte l'histoire du nom
+persistant de brin qui la désigne.
 
-Cette histoire prend la forme d'un arbre.
+On va prendre l'orbite désignée par [1n3;2n4;3n0] dans l'opération de
+coloration.
 
-On prend l'orbite désignée par [1n3;2n4;3n0] dans l'opération de coloration.
+Les arcs implicites de ce n0, en jaune, désignent une face de volume.
 
-Les arcs implicites de ce n0 désignent une face.
+On commence l'histoire à la dernière étape la troisième opération appliquée. Et
+on s'intéresse à la face de volume incident à n0 ce qui correspond à la face
+jaune dans la règle
 
-L'histoire commence alors avec une face incidente à n0 dans la troisième opération.
+Comme on l'a vu, cette face en jaune provient de la scission de la face filtrée
+à gauche et a pour origine une arête.
 
-Cette flèche noire dit qu'elle provient de la scission de cette face. %
-Cette flèche rouge dit qu'elle a pour origine une arête.
+On reporte ces informations dans l'histoire de l'orbite.
 
-On remonte l'histoire d'un cran à la deuxième opération et son nœud n4.
+Donc la face qui nous intéresse, c'est la face incidente à n0, en jaune. Elle
+est produite par la triangulation, qui scinde la face filtrée à gauche, notée
+avec la flèche noire, et a pour origine une arête notée par la flèche rouge.
 
-La face que l'on suit est créé lors de l'extrusion, elle a pour origine une
-arête.
+On remonte l'histoire d'un cran à la deuxième opération, qui est l'extrusion, et
+son nœud n4.
 
-Cette arête, elle est créé à partir de l'extrusion d'un brin.
+Ce qu'on doit suivre maintenant, c'est la face et l'arête incidentes à n4,
+notées par les boîtes bleue et jaune dans la règle.
 
-Enfin, on remonte encore l'histoire, cette fois à la toute première opération et son nœud n3.
+La face est créée par l'extrusion d'une arête et l'arête par l'extrusion d'un
+brin.
 
-Cette règle crée le brin et l'arête incidents au nœud 3.
+Enfin, on remonte encore l'histoire, cette fois à la toute première opération de
+création de carré et son nœud n3.
 
-On vient de reconstituer l'histoire d'une orbite statiquement à partir d'un nom
-persistant et des règles impliquées.
+Les orbites que l'on suit sont créées par la règle la création de carré.
 
-On suit la même procédure pour chacun des paramètres topologiques enregistrés dans une spécification et uniquement ceux-ci.
+On vient de reconstituer l'histoire d'une orbite à partir du nom persistant d'un
+brin et des règles de la spécification.
+
+On fait ça uniquement à partir de la spécification et des règles, sans utiliser
+l'objet et sans réappliquer les règles.
+
+On suit la même procédure pour chacun des paramètres topologiques enregistrés
+dans la spécification et uniquement ceux-ci.
+
+Donc les histoires des orbites, on les reconstitue à la demande seulement si
+elles sont utilisées dans la spécification.
 
 \section{Plan réévaluation}
 \label{sec:org04c39be}
 
-Grâce aux histoires que l'on reconstitue, on peut réévaluer une spécification.
+Avec les noms persistants d'orbites, on peut maintenant passer à la
+réévaluation.
 
 \section{Réévaluation}
 \label{sec:org3b38850}
 
-On reprend l'histoire précédente, cette fois de haut en bas, et on va réévaluer
-la spécification modifiée. %
+On reprend l'histoire précédente, cette fois de haut en bas, et on réévalue la
+spécification modifiée. %
 
 La première opération recrée la face carrée à l'identique.
 
-n3 crée un unique brin, 3. On retrouve nos orbites arête et brin.
+Le nœud n3 de la règle de création de carré crée un unique brin, 3.
 
-L'opération suivante a été ajoutée, insert un sommet sur l'arête désignée par
-le brin 3.
+L'opération suivante a été ajoutée, j'affiche pas la règle mais si on l'analyse
+on voit qu'elle scinde l'arête filtrée en deux. À partir de ses nœuds on
+retrouve les deux arêtes scindées, l'une désignée par le brin 3, l'autre par le
+brin 4.
 
-Résultat, cette modification de spécification scinde l'arête en deux, l'une
-désignée par le brin 3, l'autre désignée par le brin 4.
+Donc on a une histoire par arête. %
 
-On a donc une histoire par arête, les brins eux, restent inchangés.
+Pour l'opération d'extrusion, on aura déterminé son paramètre topologique au
+préalable dans un autre arbre, exactement comme on fait là.
 
-Pour l'opération d'extrusion, son paramètre topologique a été déterminé au
-préalable dans un autre arbre, exactement comme on est en train de faire.
-
-Maintenant, on a deux histoires que l'on peut suivre~: une pour chaque arête.
-
-Chaque arête est extrudée en une nouvelle face, et chaque des brins en une
-arête.
+Chaque arête est extrudée en une nouvelle face, et chaque brins en une arête.
 
 Ici, n4 crée plusieurs brins mais une seule copie de 3, qui est 37, et une seule
 copie de 4, qui est 52.
@@ -309,7 +335,12 @@ Enfin, on peut réappliquer la triangulation sur chaque branche.
 
 n0 réécrit 37 et 52 à l'identique.
 
-C'est la dernière application enregistrée, 37 et 52 désignent les faces à colorer.
+C'est la dernière application enregistrée, 37 et 52 désignent les faces à
+colorer.
+
+Notre procédure permet de retrouver tous les paramètres potentiels, ici on peut
+laisser le choix à l'utilisateur de réappliquer les opérations sur l'une et/ou
+l'autre branche. %
 
 \section{Conclusion}
 \label{sec:orga7a7cfd}
@@ -317,7 +348,7 @@ C'est la dernière application enregistrée, 37 et 52 désignent les faces à co
 Pour conclure, on propose un mécanisme de réévaluation adapté aux systèmes de
 modélisation à base de règles.
 
-Pour cela, on met place un nommage persistant différents niveaux~:
+Pour cela, on met place un nommage persistant à deux niveaux~:
 
 un pour les brins, ce qui rend le nommage unique et homogène en toutes
 dimensions~;
@@ -325,14 +356,17 @@ dimensions~;
 l'autre pour les orbites avec une histoire complète au cours de laquelle on peut
 suivre l'évolution d'une orbite et de ses origines
 
-Le nommage d'une orbite est fait entièrement à partir des informations obtenues lors de
-l'analyse statique des règles en pré-calcul.
+Le nommage d'une orbite est fait entièrement à partir des informations obtenues
+lors de l'analyse statique des règles en pré-calcul.
+
+Au contraire de nos prédécesseurs qui suivent toutes les cellules d'une même
+dimension, habituellement les faces ou les arêtes.
 
 Pendant la réévaluation, on suit toutes les histoires possibles ce qui permet de
 mettre en place des stratégies comme la décision de réappliquer des opérations
 sur une ou plusieurs branches.
 
 Actuellement, on travaille sur la réévaluation de scripts qui appellent des
-règles dans les structures de contrôles habituelles comme les alternatives et
+règles avec les structures de contrôles habituelles comme les alternatives et
 les boucles.
 \end{document}

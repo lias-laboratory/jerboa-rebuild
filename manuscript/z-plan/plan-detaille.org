@@ -3,108 +3,110 @@
 #+language: fr
 
 ** Intro
-* Conception d'un système de réévaluation basé sur les règles de transformation de graphe
-** Un état de l'art
-*** rejeu
-**** modélisation paramétrique
-**** réévaluation (nommage persistant entre autre) : kripac, capoyleas, chen, mun, wu, cheon, fajarna, agbodan, marcheix, hepworth,…
-# ***** Le nommage persistant : un problème historique de la modélisation paramétrique (CAO)
-# ****** Les systèmes de nommage existants
-# ****** Les usages du nommage persistant : reevaluation, STEP, collaborative modelling
+# * Conception d'un système de réévaluation basé sur les règles de transformation de graphe
+** État de l'art
 *** modélisation à base de règles
-**** G-carte
+**** Rappels sur les graphes
+- graphe
+- sous-graphe
+- chemins
+**** G-carte : lienhardt, damiand
 - G-carte
-- Orbite
-**** Jerboa
-- Règles de transformation de graphe
-- Règles Jerboa de transformation de graphe
-- Chemin (?)
 - Lexique pour les G-cartes
   + brin, liaisons, orbites
+- Orbite
+**** Jerboa : belhaouari, arnould
+- Règles instanciées de transformation de graphe (pour donner idée)
+- Règles Jerboa de transformation de graphe
+  - règles « repliées »
 - Lexique pour les règles
   + nœud, arcs, orbites
-**** Rejeu à base de règle (Anaïs)
-** Formalisation des évènements liés à l'application des opérations de modélisation
-# ** Que sont les évènements, en quoi sont-ils liés aux opérations de modélisation ?
-*** Un état des lieux de la détection d'évènement
-*** Les évènements dans un graphe/une G-carte
-**** Formaliser la création
-**** Formaliser la suppression
-**** Formaliser le non-changement
-**** Formaliser la modification
-**** Formaliser la scission
-**** Formaliser la fusion
-**** (Formaliser le sans effet ?)
-*** Les évènements dans les règles de transformation de graphe
-**** Formaliser la création
-**** Formaliser la suppression
-**** Formaliser le non-changement
-**** Formaliser la modification
-**** Formaliser la scission
-**** Formaliser la fusion
-**** (Formaliser le sans effet ?)
-*** Les évènements dans les règles Jerboa
-**** Formaliser la création
-**** Formaliser la suppression
-**** Formaliser le non-changement
-**** Formaliser la modification
-**** Formaliser la scission
-**** Formaliser la fusion
-**** (Formaliser le sans effet ?)
-# *** Type (d'orbite) d'origine d'un évènement
-*** Application : suivi de l'évolution et de l'origine d'une orbite
-**** Formaliser l'origine d'un évènement créé par une règle de transformation de graphe
-**** Formaliser l'origine d'un évènement créé par une règle Jerboa
-** Réévaluation dans les systèmes de modélisation à base de règles de transformation de graphe
-*** Conception d'un système de spécification paramétrique
-**** La spécification paramétrique : un enregistrement du processus de construction d'un modèle
+- Scripts de règles Jerboa : Gauthier
+*** Réévaluation
+**** Concepts, définitions et propriétés
+***** Modélisation paramétrique
+***** Nomination persistante : définitions et propriétés
+***** Critères de classification des systèmes de modélisation
+- TODO à détailler
+# ****** Les applications du nommage persistant : reevaluation, STEP, collaborative modelling
+**** Approches existantes en CAO (kripac, capoyleas, chen, mun, wu, cheon, fajarna, agbodan, marcheix, hepworth, cardot …)
+Positionner les approches selon les critères établis issues principalement de la
+CAO, conception pièces mécaniques + conception bâtiments (reprendre ce qui a été fait)
+***** systèmes de réévaluation (une par auteur)
+**** Réévaluation à base de règles (cardot)
+- TODO voir la thèse, mettre en avant les nouveautés, quelles sont les limitations pour faire le lien plus tard avec ma thèse
+** Formalisation des évènements (suivi)
+*** Introduction
+TODO: notions de suivi et d'origine dans un exemple; extraction automatique en pré-calcul grâce à l'analyse des règles
+*** Les évènements dans les transformations d'objets (suivi)
+**** la création
+**** la suppression
+**** le non-changement
+**** la modification
+**** la scission
+**** la fusion
+**** le sans effet / NOEFFECT
+*** Les évènements dans les règles de transformation de graphe (suivi)
+**** la création
+**** la suppression
+**** le non-changement
+**** la modification
+**** la scission
+**** la fusion
+**** le sans effet
+*** Les évènements dans les règles Jerboa (suivi, origine et chemins)
+**** la création
+**** la suppression
+**** le non-changement
+**** la modification
+**** la scission
+**** la fusion
+**** le sans effet
+**** discussion sur les règles repliées
+** Réévaluation à base de règles de transformation de graphe
+***  spécification paramétrique
 ***** Une identification des opérations
 ***** Des paramètres géométriques
 ***** Des paramètres topologiques
-**** Le nommage persistant : un mécanisme pour identifier et suivre les entités topologiques
-***** Mise en place d'un mécanisme de nommage à base de règles de transformation de graphe
-**** Un système de nommage persistant basé sur les règles Jerboa
-Les règles, mises bout-à-bout, nous permettent de tracer l'historique des
-évènements impliqué dans la création d'un brin
-*** DAGs évaluation
-**** Construction à partir d'un nom persistant (de la fin vers le début)
-**** Les origines pour un historique complet des cellules topologiques
+*** Nommage persistant des brins
+Mise en place d'un mécanisme de nommage à base de règles de transformation de graphe
+*** Nommage persistant des orbites
 Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
-complète d'un évènement entre deux applications de règles
-**** Des chemins pour plus de précision
-Formalisation de l'usage de chemins pour préciser une origine lorsque celle-ci
-n'est pas directement liée à un nœud d'accroche dans une règle
-*** DAGs réévaluation
-**** Construction à partir d'un DAG d'évaluation (du début jusqu'à la fin)
+complète d'un évènement à chaque application de règles. Formalisation de l'usage
+de chemins pour préciser une origine lorsque celle-ci n'est pas directement liée
+à un nœud d'accroche dans une règle.
+*** Réévaluation
+**** Construction à partir d'un DAG d'évaluation
+(du début jusqu'à la fin)
 **** La réévaluation, un contexte différent
 Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
 topologiques, ceux-ci ne contiennent non pas des nœuds de règles mais des brins
 issus de l'objet en cours de reconstruction.
-**** Un mécanisme extensible via des stratégies de réévaluation
-Des stratégies par défaut
-- Scission d'un paramètre topologique : évaluation de tous les paramètres éligibles
+**** Stratégies de réévaluation
+- Scission d'un paramètre topologique : évaluation de tout ou partie des paramètres éligibles
 - Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètres (potentiellement de l'objet)
 ** Réévaluer des scripts de règles pour générer des modèles complexes (En cours)
-# *** Les règles Jerboa : absences de structures de contrôle
-*** Les scripts Jerboa
-*** support des scripts
-**** Les séquences de règles
+# *** Les scripts Jerboa
+*** Les séquences de règles
 - Extension de la spécification paramétrique : des blocs « séquence » de règles contenues dans un script
 - Extension des DAGs : une boîte englobante contenant les règles jouées dans le contexte d'un script
-**** Les boucles de sous-orbites
+*** Les boucles de sous-orbites
 - Extension de la spécification paramétrique : des blocs « boucle » de règles contenues dans une boucle de script
 - Extension des DAGs : Ajout de branches pour identifier les paramètres topologiques itérés dans une boucle
-**** Les conditions Si-Sinon-Alors
+*** Les conditions Si-Sinon-Alors
 - Extension de la spécification paramétrique : des blocs « condition » de règles contenues dans une condition de script
 - Extension des DAGs : Ajout d'un paramètre associé à boîte permettant d'identifier une instance de cellule topologique (spécifique aux règles Jerboa)
+*** Exemples (Scripts avec combinaisons de structures)
+*** Discussion
+Discussion des structures de contrôles qui n'apparaissent pas ici, boucles plus générales (while,…)
 ** Implantation d'un système de modélisation à base de règles de transformation de graphe
-*** Structure et implantation d'une spécification paramétrique
-*** Structure et implantation du nommage persistant
-*** Structure et implantation des DAGs de jeu et de rejeu
-*** Implantation d'un outil pour visualiser les DAGs
-*** Implantation d'une Interface Utilisateur pour éditer et générer des spécifications paramétriques (À boucler absolument)
-* Animation spatio-temporelle (Actuellement, totalement de la perspective)
-** Un état de l'art
+*** spécification paramétrique
+*** nommage persistant
+*** Arbres de jeu et de rejeu
+*** Visualisation les DAGs
+*** Interface Utilisateur pour éditer et générer des spécifications paramétriques
+# * Animation spatio-temporelle (Actuellement, totalement de la perspective)
+** État de l'art
 - de luca, stefani,…
 ** Extension de la spécification paramétrique pour annoter avec des données temporelles
 *** Annotation des opérations avec des données temporelles

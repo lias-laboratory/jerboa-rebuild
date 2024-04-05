@@ -187,7 +187,7 @@
 
 			\vspace{1mm}
 
-			{\footnotesize Au sein du {\bfseries\normalsize \@laboratory}}
+			{\footnotesize Au {\bfseries\normalsize \@laboratory}}
 
 			\vspace{1em}
 

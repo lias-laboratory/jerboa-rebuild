@@ -1,0 +1,58 @@
+% \newtheoremstyle{mytheoremstyle}{}
+\theoremstyle{break}
+\newtheorem{definition}{Définition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theoreme}{Théorème}
+\newenvironment{proof}{\paragraph{Preuve~:}}{\hfill$\square$\vspace{10pt}}
+\newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\(\square\newline\)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% math mode only %%%%%
+\newcommand{\orbit}[1]{%
+	\langle#1\rangle
+}
+\newcommand{\pn}[1]{%
+	[#1]
+}
+\newcommand{\pnfull}[2]{%
+	PN_{#1}=[#2]
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\commentout}[1]{}
+
+\newcommand{\maxime}[1]{%
+	\textbf{\color{blue} Maxime: #1}
+}
+
+\newcommand{\agnes}[1]{%
+	\textbf{\color{red} Agnès: #1}
+}
+
+\newcommand{\david}[1]{%
+	\textbf{\color{violet} David: #1}
+}
+
+\newcommand{\stephane}[1]{%
+	\textbf{\color{green} [Stephane]: #1}
+}
+\newcommand{\xavier}[1]{%
+	\textbf{\color{magenta} [Xavier]: #1}
+}
+\newcommand{\xavierSupp}[1]{%
+	\textbf{\color{magenta} \sout{#1}}
+}
+\newcommand{\xavierAdd}[1]{%
+	\textbf{\color{magenta} #1}
+}
+
+\newcommand{\hakim}[1]{%
+	\textbf{\color{teal} [Hakim]: #1}
+}
+
+\definecolor{darkgreen}{rgb}{0,.4,0}
+
+\newcommand{\highlight}[1]{%
+	\textbf{\color{orange}#1}
+}

@@ -1,0 +1,177 @@
+\section[Modélisation à base de règles]{Modélisation à base de règles}
+\label{sec:etat-art-model-regles}
+
+\subsection[Rappels sur les graphes]{Rappels sur les graphes}
+\label{sec:etat-art-rappels-graphes}
+
+\begin{definition}[Graphes topologiques]
+	Soit $n \in \mathbb{N}$ une dimension. Un \emph{graphe topologique} de dimension $n$ $G=(V,E,s,t,\alpha)$ est défini par:
+	\begin{itemize}
+		\item un ensemble $V$ de nœuds;
+		\item un ensemble $E$ d'arcs;
+		\item deux fonctions source $s : E \to V$ et cible
+		      $t : E \to V$ qui lient les arcs aux nœuds et une fonction d'étiquetage $\alpha : E \to [0,n]$. Soit l'arc $e \in E$~; $s(e)$, $t(e)$  sont appelés respectivement le nœud
+		      source et le nœud cible de $e$ et $\alpha(e)$ est son étiquette.
+	\end{itemize}
+\end{definition}
+
+\noindent Les principales notions ensemblistes peuvent être étendues sur les graphes.
+
+\begin{definition}[Inclusion, union, intersection, différence]
+	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes tels que
+	$s_{|E \cap E'} = s'_{|E \cap E'}$, $t_{|E \cap E'} = t'_{|E \cap E'}$ et
+	$\alpha_{|E \cap E'} = \alpha'_{|E \cap E'}$.
+
+	\begin{itemize}
+		\item $G$ est \textbf{\emph{inclus}} dans $G'$, noté $G \subset G'$, si $V \subset V'$,
+		      $E \subset E'$, $s'_{|E} = s$, $t'_{|E} = t$ et $\alpha'_{|E} = \alpha$.
+
+		\item L'\textbf{\emph{intersection}} $G \cap G'$ est le graphe
+		      $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, \alpha_{|E \cap E'})$.
+
+		\item L'\textbf{\emph{union}} $G \cup G'$ est le graphe
+		      $(V \cup V', E \cup E', s^{\prime\prime}, t^{\prime\prime}, \alpha^{\prime\prime})$, où $s^{\prime\prime}_{|E} = s$,
+		      $s^{\prime\prime}_{|E'} = s'$, $t^{\prime\prime}_{|E} = t$, $t^{\prime\prime}_{|E'} = t'$, $\alpha^{\prime\prime}_{|E} = \alpha$,
+		      $\alpha^{\prime\prime}_{|E'} = \alpha'$.
+
+		\item La \textbf{\emph{différence}} $G \setminus G'$ est la structure
+		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, \alpha_{|E \setminus E'})$.
+
+		\item Soit $\emptyset$ le \textbf{\emph{graphe vide}}, c'est-à-dire l'unique graphe
+		      ayant un ensemble vide de nœuds et d'arcs.
+	\end{itemize}
+\end{definition}
+
+\begin{definition}[Sous-graphes]
+	Soient $G=(V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes. $G'$ est
+	un sous-graphe de $G$ si et seulement si, $G \subset G'$.
+\end{definition}
+
+\begin{definition}[Chemin]
+	Un \textbf{\emph{chemin}} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
+	une suite d'arcs tels que pour $1 \leq i < k$, $t(e_{i}) = s(e_{i+1})$.
+	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son
+	étiquette est le mot $\alpha(e_{1}) \alpha(e_{2}) \dots \alpha(e_{k})$.
+	Si $s(e_{1}) = t(e_{k})$, le chemin est appelé \emph{cycle}.
+\end{definition}
+
+% \begin{definition}[Orbite]
+% 	Soit $G = (V,E,s,t,\alpha)$ un graphe topologique de dimension $n$ et soient $o$ un sous-ensemble de $[0,n]$ et $v \in V$ un nœud de $G$.
+
+% 	L'\textbf{\emph{orbite}} $G\langle o \rangle(v)$ incidente à $v$ de type $\langle o \rangle$, ou
+% 	$\orbit{o}$-orbite, est le sous-graphe de $G$ contenant $v$ et les nœuds de
+% 	$G$ atteignables par des arcs étiquetés sur $o$, ainsi que ces arcs. Quand il
+% 	n'y a pas d'ambiguïté sur le graphe $G$ considéré, on notera l'orbite
+% 	$v\orbit{o}$.
+% \end{definition}
+
+\subsection[Les cartes généralisées ou «~G-cartes~»]{Les cartes généralisées ou
+	«~G-cartes~»}
+\label{sec:etat-art-cartes-generalisees}
+
+\begin{itemize}
+	\item G-carte
+	\item Lexique pour les G-cartes
+	      \begin{itemize}
+		      \item brin, liaisons, orbites
+	      \end{itemize}
+	\item Orbite
+\end{itemize}
+
+\cite{Damiand-Lienhardt14,lienhardt1991topological}
+
+\begin{definition}[G-Carte]
+	\label{def:gcarte}
+	Une \textbf{\emph{G-carte}} de dimension $n \in \mathbb{N}$ est un graphe topologique
+	$G = (V,E,s,t,\alpha)$ de dimension $n$ qui vérifie les contraintes suivantes~:
+	\begin{itemize}
+		\item \textbf{\emph{non-orientation}}~: pour tout arc
+		      $e \in E$, il existe un arc inverse $e' \in E$ tel que
+		      $s(e') = t(e)$, $t(e') = s(e)$ et $\alpha(e') = \alpha(e)$~;
+		\item \textbf{\emph{arcs incidents}}~: pour toute dimension $i \in [0,n]$ et pour tout nœud $v \in V$,
+		      il existe exactement un arc $e \in E$ d'étiquette $\alpha(e)=i$ et de source
+		      $s(e)=v$~;
+		      % \xavier{C'est ici qu'on peut écrire que les G-cartes sont étiquetées par des dimensions topologiques.}
+		\item \textbf{\emph{cycle}}~: pour toutes dimensions $i, j \in [0,n]^{2}$ telles que $i+2 \leq j$, et
+		      pour tout nœud $v \in V$, il existe un cycle, étiqueté par \emph{$ijij$}, de source
+		      $v$.
+	\end{itemize}
+\end{definition}
+
+\begin{definition}[Orbite]
+	Soient $G$ une G-carte de dimension $n$, où $n \in \mathbb{N}$, $o$ un sous-ensemble de $[0, n]$ et $b$ un brin de $G$.
+
+	L'\textbf{\emph{orbite}} $G\orbit{o}(b)$ incidente à $b$ et de type $o$,
+	ou $\orbit{o}$-orbite, est le sous-graphe de $G$ contenant $b$, les brins
+	de $G$ atteignables à partir de $b$ par des liaisons étiquetés sur $o$,
+	ainsi que ces liaisons. %
+	Lorsqu'il n'y a pas d'ambiguïté sur le graphe $G$
+	considéré, on notera une telle orbite $b\orbit{o}$.
+\end{definition}
+
+\subsection[Jerboa]{Jerboa}
+\label{sec:etat-art-jerboa}
+
+Arnould, Belhaouari
+\begin{itemize}
+	\item Règles instanciées de transformation de graphe (pour donner idée)
+	\item Règles Jerboa de transformation de graphe
+	      \begin{itemize}
+		      \item règles « repliées »
+	      \end{itemize}
+	\item Lexique pour les règles
+	      \begin{itemize}
+		      \item nœud, arcs, orbites
+	      \end{itemize}
+	\item Scripts de règles Jerboa : Gauthier
+\end{itemize}
+
+\begin{definition}[Morphisme]
+	Soient $G = (V,E,s,t,\alpha)$
+	et $G' = (V',E',s',$ $t',\alpha')$ deux graphes.
+	%et $m : G \to G'$ un morphisme.
+	Un \emph{morphisme}  $m: G \to G'$  est un couple de fonctions $m_{V} : V \to V'$,
+	$m_{E} : E \to E'$ préservant les sources, cibles et étiquettes de G
+	dans G', tel que pour tout $e \in E$, $m_{V}(s(e)) = s'(m_{E}(e))$,
+	$m_{V}(t(e)) = t'(m_{E}(e))$ et $\alpha(e) = \alpha'(m_{E}(e))$.
+
+	Un morphisme $G \to G'$ est un morphisme d'inclusion, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
+
+	Un morphisme est \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont
+	injectives.
+
+	Un morphisme est un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
+\end{definition}
+
+\begin{definition}[Application d'une règle de transformation de graphe]
+	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage injectif.
+
+	L'\emph{application} $G \longrightarrow^{(r, m)} H$ de $r$ sur $G$ le long de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$ , où $m'$ est la restriction de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit injective. $m'$, et donc $H$ est unique à isomorphisme près.
+	$H$ est la transformation directe de $G$ par la règle $r$ le long du morphisme de filtrage $m$.
+\end{definition}
+
+\begin{theoreme}[Préservation de la cohérence topologique]\leavevmode
+
+	\begin{itemize}
+		\label{theo:topo-coherence-base-rule}
+		\item \emph{Condition de non-orientation} : $L$ et $R$ sont \emph{non-orientés}.
+		\item \emph{Conditions d'arcs incidents} : pour toute dimension $i \in [0,n]$,
+		      \begin{itemize}
+			      \item un nœud préservé de $L \cap R$ est la source d'un arc étiqueté $i$ dans $L$ si et seulement si il est la source d'un arc étiqueté $i$ dans $R$~;
+			      \item tout nœud supprimé de $L \setminus R$ et tout nœud créé de $R \setminus L$ est la source d'un unique arc étiqueté $i$.
+		      \end{itemize}
+		\item \emph{Conditions de cycles} : pour tout couple $(i,j)$ tel que $0 \leq i \leq i + 2 \leq j \leq n$,
+		      \begin{itemize}
+			      \item un nœud créé de $R \setminus L$ est la source d'un cycle étiqueté $ijij$;
+			      \item si un nœud préservé de $L \cap R$ est source d'un cycle étiqueté $ijij$ dans $R$, il est source d'un cycle étiqueté $ijij$
+			            dans $L$;
+			      \item si un nœud préservé de $L \cap R$ n'est pas la source d'un cycle étiqueté $ijij$ dans $L$, alors les arcs d'étiquette
+			            $i$ et $j$ dont il est la source sont préservés dans $R$.
+		      \end{itemize}
+	\end{itemize}
+\end{theoreme}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../main"
+%%% End:

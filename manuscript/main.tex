@@ -1,13 +1,20 @@
 \documentclass[x11names]{LiasThesis}
 
 \usepackage[french]{babel}
+\usepackage{csquotes}
+\usepackage{ntheorem}
 \usepackage{subfiles}
 \usepackage{hyperref}
+\usepackage{soul}
 \usepackage{lipsum}
 \usepackage[switch*,pagewise]{lineno}
 \usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic]{biblatex}
 \addbibresource{references/references.bib}
 
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\input{commands}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
@@ -64,9 +71,9 @@
 
 \begin{document}
 
-\maketitle
-\frontmatter
-\tableofcontents
+% \maketitle
+% \frontmatter
+% \tableofcontents
 \mainmatter
 \ifpublish
 \else
@@ -79,22 +86,22 @@
 \pagestyle{ruled}
 
 
-\subfile{tex-introduction/introduction}
-\subfile{tex-parts/chapitres-reevaluation/etat-art-reevaluation}
-% \subfile{tex-parts/chapitres-reevaluation/etat-art-modelisation-base-regles}
-\subfile{tex-parts/chapitres-reevaluation/formalisation-evenements-regles-modelisation}
-\subfile{tex-parts/chapitres-reevaluation/systeme-modelisation-base-regles}
-\subfile{tex-parts/chapitres-reevaluation/systeme-modelisation-base-regles-scripts}
-\subfile{tex-parts/chapitres-reevaluation/implantation}
-\subfile{tex-parts/chapitres-animation/etat-art-animation-spatio-temporelle}
-\subfile{tex-parts/chapitres-animation/annotation-temporelle-specification-parametrique}
-\subfile{tex-parts/chapitres-animation/implantation}
+% \subfile{tex-introduction/introduction}
+\subfile{tex-parts/chapitres-reevaluation/etat-art/etat-art-reevaluation}
+%% \subfile{tex-parts/chapitres-reevaluation/etat-art-modelisation-base-regles}
+% \subfile{tex-parts/chapitres-reevaluation/formalisation-evenements-regles-modelisation}
+% \subfile{tex-parts/chapitres-reevaluation/systeme-modelisation-base-regles}
+% \subfile{tex-parts/chapitres-reevaluation/systeme-modelisation-base-regles-scripts}
+% \subfile{tex-parts/chapitres-reevaluation/implantation}
+% \subfile{tex-parts/chapitres-animation/etat-art-animation-spatio-temporelle}
+% \subfile{tex-parts/chapitres-animation/annotation-temporelle-specification-parametrique}
+% \subfile{tex-parts/chapitres-animation/implantation}
 
 %%%%%%%%% Post-rédaction : annexes + bibliographie
 
 \backmatter
-\chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
-\nocite{*}
-\printbibliography
+% \chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
+% \nocite{*}
+% \printbibliography
 
 \end{document}

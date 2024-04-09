@@ -1,25 +1,31 @@
 \section[Modélisation à base de règles]{Modélisation à base de règles}
 \label{sec:etat-art-model-regles}
 
-\todo{Mini-introduction sur le contenu de cette section.}
+\todo{}
 
 \subsection[Rappels sur les graphes]{Rappels sur les graphes}
 \label{sec:etat-art-rappels-graphes}
 
+Les structures topologiques sont représentées par des graphes dont les arcs sont
+étiquetés par des dimensions topologiques
+
 \begin{definition}[Graphes topologiques]
+	\label{def:graphe-topologique}
 	Soit $n \in \mathbb{N}$ une dimension. Un \emph{graphe topologique} de dimension $n$ $G=(V,E,s,t,\alpha)$ est défini par:
 	\begin{itemize}
 		\item un ensemble $V$ de nœuds;
 		\item un ensemble $E$ d'arcs;
-		\item deux fonctions source $s : E \to V$ et cible
-		      $t : E \to V$ qui lient les arcs aux nœuds et une fonction d'étiquetage $\alpha : E \to [0,n]$. Soit l'arc $e \in E$~; $s(e)$, $t(e)$  sont appelés respectivement le nœud
-		      source et le nœud cible de $e$ et $\alpha(e)$ est son étiquette.
+		\item deux fonctions source $s : E \to V$ et cible $t : E \to V$ qui lient les
+					arcs aux nœuds et une fonction d'étiquetage $\alpha : E \to [0,n]$. Soit
+					l'arc $e \in E$~; $s(e)$, $t(e)$ sont appelés respectivement le nœud
+					source et le nœud cible de $e$ et $\alpha(e)$ est son étiquette.
 	\end{itemize}
 \end{definition}
 
 \noindent Les principales notions ensemblistes peuvent être étendues sur les graphes.
 
 \begin{definition}[Inclusion, union, intersection, différence]
+	\label{def:graphe-notions-ensembles}
 	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes tels que
 	$s_{|E \cap E'} = s'_{|E \cap E'}$, $t_{|E \cap E'} = t'_{|E \cap E'}$ et
 	$\alpha_{|E \cap E'} = \alpha'_{|E \cap E'}$.
@@ -45,11 +51,13 @@
 \end{definition}
 
 \begin{definition}[Sous-graphes]
+	\label{def:sous-graphes}
 	Soient $G=(V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes. $G'$ est
 	un sous-graphe de $G$ si et seulement si, $G \subset G'$.
 \end{definition}
 
 \begin{definition}[Chemin]
+	\label{def:graphes-chemin}
 	Un \textbf{\emph{chemin}} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
 	une suite d'arcs tels que pour $1 \leq i < k$, $t(e_{i}) = s(e_{i+1})$.
 	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son

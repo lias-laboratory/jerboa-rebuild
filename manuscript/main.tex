@@ -8,13 +8,15 @@
 \usepackage{soul}
 \usepackage{lipsum}
 \usepackage[switch*,pagewise]{lineno}
-\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic]{biblatex}
+\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
 \addbibresource{references/references.bib}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 
 \input{commands}
+
+\AtBeginDocument{\def\labelitemi{\(\bullet\)}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
@@ -71,7 +73,7 @@
 
 \begin{document}
 
-% \maketitle
+\maketitle
 % \frontmatter
 % \tableofcontents
 \mainmatter
@@ -95,20 +97,38 @@
 % \subfile{tex-parts/chapitres-reevaluation/etat-art/section-reevaluation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% \subfile{tex-parts/chapitres-reevaluation/etat-art-modelisation-base-regles}
-% \subfile{tex-parts/chapitres-reevaluation/formalisation-evenements-regles-modelisation}
-% \subfile{tex-parts/chapitres-reevaluation/systeme-modelisation-base-regles}
-% \subfile{tex-parts/chapitres-reevaluation/systeme-modelisation-base-regles-scripts}
-% \subfile{tex-parts/chapitres-reevaluation/implantation}
+%%%%%%%%%% Chapitre formalisation évènements %%%%%%%%%%
+\subfile{tex-parts/chapitres-reevaluation/formalisation-evenements/formalisation-evenements-regles-modelisation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%% Chapitre réévaluation règles %%%%%%%%%%
+\subfile{tex-parts/chapitres-reevaluation/reevaluation-regles/systeme-modelisation-base-regles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%% Chapitre réévaluation scripts %%%%%%%%%%
+\subfile{tex-parts/chapitres-reevaluation/reevaluation-scripts/systeme-modelisation-base-regles-scripts}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%% Chapitre implantation du code %%%%%%%%%%
+\subfile{tex-parts/chapitres-reevaluation/implantation/implantation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%% Chapitre etat art %%%%%%%%%%
 % \subfile{tex-parts/chapitres-animation/etat-art-animation-spatio-temporelle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%% Chapitre annotation temporelle %%%%%%%%%%
 % \subfile{tex-parts/chapitres-animation/annotation-temporelle-specification-parametrique}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%% Chapitre implantation du code %%%%%%%%%%
 % \subfile{tex-parts/chapitres-animation/implantation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% Post-rédaction : annexes + bibliographie
 
 \backmatter
-% \chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
-% \nocite{*}
-% \printbibliography
+\chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
+\printbibliography
 
 \end{document}

@@ -57,6 +57,8 @@
 \addtolength{\tmargin}{\headheight}
 \addtolength{\tmargin}{\headsep}
 \addtolength{\bmargin}{\footskip}
+% \addtolength{\lmargin}{\oddsidemargin}
+% \addtolength{\rmargin}{\evensidemargin}
 %% memoir specific commands to set margins and blocks
 \setulmarginsandblock{\tmargin}{\bmargin}{*}
 \setlrmarginsandblock{\lmargin}{\rmargin}{*}
@@ -65,6 +67,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% SECTION NUMBERING %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
 \setsecnumdepth{subsection}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -226,28 +229,28 @@
 \newlength{\barlength} \setlength{\barlength}{25pt}
 
 \makechapterstyle{gaide}{%
-  \setlength{\afterchapskip}{40pt}
-  \renewcommand*{\chapterheadstart}{\vspace*{0pt}}
+	\setlength{\afterchapskip}{40pt}
+	\renewcommand*{\chapterheadstart}{\vspace*{0pt}}
 	\renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
 	\renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
 	\renewcommand*{\chapnumfont}{\normalfont\bfseries\HUGE\color{nord10}}
 	\renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushright}
 	\renewcommand*{\printchaptername}{%
-	  \chapnamefont\MakeUppercase{\@chapapp}}
+		\chapnamefont\MakeUppercase{\@chapapp}}
 	\renewcommand*{\chapternamenum}{}
 	\setlength{\beforechapskip}{18mm}
 	\setlength{\midchapskip}{\paperwidth}
 	\addtolength{\midchapskip}{-\textwidth}
 	\addtolength{\midchapskip}{-\spinemargin}
 	\renewcommand*{\printchapternum}{%
-	  \makebox[2pt][l]{\hspace{1em}%
-		\resizebox{!}{\numberheight}{\chapnumfont \thechapter}%
-		\hspace{0.35em}%
+		\makebox[2pt][l]{\hspace{1em}%
+			\resizebox{!}{\numberheight}{\chapnumfont \thechapter}%
+			\hspace{0.35em}%
 			\rule{\barlength}{\numberheight}%
 		}
 	}%
 	% \renewcommand*{\printchaptertitle}{%
-	  %   \color{nord0}
+	%   \color{nord0}
 	%   \chaptitlefont}
 	\renewcommand*{\afterchaptertitle}{\clearpage}
 }

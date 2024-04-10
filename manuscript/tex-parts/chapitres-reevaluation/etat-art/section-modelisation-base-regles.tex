@@ -1,7 +1,7 @@
 \section[Modélisation à base de règles]{Modélisation à base de règles}
 \label{sec:etat-art-model-regles}
 
-\todo{}
+\todo{Chapeau!}
 
 \subsection[Rappels sur les graphes]{Rappels sur les graphes}
 \label{sec:etat-art-rappels-graphes}
@@ -16,13 +16,13 @@ Les structures topologiques sont représentées par des graphes dont les arcs so
 		\item un ensemble $V$ de nœuds;
 		\item un ensemble $E$ d'arcs;
 		\item deux fonctions source $s : E \to V$ et cible $t : E \to V$ qui lient les
-					arcs aux nœuds et une fonction d'étiquetage $\alpha : E \to [0,n]$. Soit
-					l'arc $e \in E$~; $s(e)$, $t(e)$ sont appelés respectivement le nœud
-					source et le nœud cible de $e$ et $\alpha(e)$ est son étiquette.
+		      arcs aux nœuds et une fonction d'étiquetage $\alpha : E \to [0,n]$. Soit
+		      l'arc $e \in E$~; $s(e)$, $t(e)$ sont appelés respectivement le nœud
+		      source et le nœud cible de $e$ et $\alpha(e)$ est son étiquette.
 	\end{itemize}
 \end{definition}
 
-\noindent Les principales notions ensemblistes peuvent être étendues sur les graphes.
+Les principales notions ensemblistes peuvent être étendues sur les graphes.
 
 \begin{definition}[Inclusion, union, intersection, différence]
 	\label{def:graphe-notions-ensembles}
@@ -79,15 +79,6 @@ Les structures topologiques sont représentées par des graphes dont les arcs so
 	«~G-cartes~»}
 \label{sec:etat-art-cartes-generalisees}
 
-\begin{itemize}
-	\item G-carte
-	\item Lexique pour les G-cartes
-	      \begin{itemize}
-		      \item brin, liaisons, orbites
-	      \end{itemize}
-	\item Orbite
-\end{itemize}
-
 \cite{Damiand-Lienhardt14,lienhardt1991topological}
 
 \begin{definition}[G-Carte]
@@ -122,19 +113,16 @@ Les structures topologiques sont représentées par des graphes dont les arcs so
 \subsection[Jerboa]{Jerboa}
 \label{sec:etat-art-jerboa}
 
-Arnould, Belhaouari
-\begin{itemize}
-	\item Règles instanciées de transformation de graphe (pour donner idée)
-	\item Règles Jerboa de transformation de graphe
-	      \begin{itemize}
-		      \item règles « repliées »
-	      \end{itemize}
-	\item Lexique pour les règles
-	      \begin{itemize}
-		      \item nœud, arcs, orbites
-	      \end{itemize}
-	\item Scripts de règles Jerboa : Gauthier
-\end{itemize}
+\cite{belhaouari2014jerboa,gauthier2016topological}
+
+\subsubsection[Transformation de graphe]{Transformation de graphe}
+\label{sec:etat-art-jerboa-transformation-graphe}
+
+Dans cette section, nous avons défini les cartes généralisées comme des graphes
+topologiques vérifiant certaines contraintes de cohérence. Les opérations sur
+ces graphes peuvent être définies par des règles de transformation de graphes.
+
+Intuitivement, un morphisme entre deux graphes $m: G \to G'$ est une application définie  respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs.
 
 \begin{definition}[Morphisme]
 	Soient $G = (V,E,s,t,\alpha)$
@@ -153,6 +141,56 @@ Arnould, Belhaouari
 	Un morphisme est un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
 \end{definition}
 
+\todo{illustration morphismes}
+
+\begin{definition}[Union disjointe]
+	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes.
+
+	L'\emph{union disjointe} $G \sqcup G'$ est définie à isomorphisme près comme suit.
+	Soient $m : G \to H$ et $m' : G' \to H'$ deux isomorphismes tel que $H$ et $H'$ soient disjoints, c'est-à-dire $H \cap H' = \emptyset$.
+	L'union disjointe de  $G$ et $G'$ est l'union simple de $H$ et $H'$, plus formellement $G \sqcup G' = H \cup H'$.
+\end{definition}
+
+
+\subsubsection[Règles de transformation de graphe]{Règles de transformation de graphe}
+\label{sec:etat-art-jerboa-regles-transformation}
+
+~
+
+\todo{Ajouter illustration application règle de triangulation}
+
+~
+
+Une règle $r$ est définie par un couple de graphes $L$ et $R$ tel que $L \cap R \hookrightarrow L$ et $L \cap R \hookrightarrow R$.
+C'est-à-dire que pour toute arête $e \in L \cap R$, $e$ a les mêmes sources, cibles et étiquettes dans $L$ et $R$.
+Une manière simple d'assurer cette condition est que $L$ et $R$ n'aient pas d'arête commune.
+$L$ est le motif \emph{filtré} et $R$ est le motif \emph{transformé}. La syntaxe d'une
+règle est introduite par \cite{poudr2009} et est notée $r: L \longrightarrow R$.
+
+
+\subsubsection[Application de règle]{Application de règle}
+\label{sec:etat-art-jerboa-application-regle}
+
+
+L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme de
+filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un morphisme
+injectif qui étend $m$ sur $R$.
+
+Intuitivement, $m(L \setminus R)$ est supprimé dans $G$, puis $m'(R \setminus L)$ est ajouté
+pour produire la transformation directe $H$.
+
+$m'$ et $H$ sont définis à isomorphisme près, c'est-à-dire au nom près des
+nouveaux brins. L'injectivité de $m'$ garantie que les nouveaux brins de $H$
+sont bien des brins distincts les uns des autres et distincts de ceux de $G$.
+L'application d'une règle peut être définie formellement dans la théorie des
+catégories~\cite{bellet2010designing,pascual2022topological,poudret2008graph}.
+
+
+%Notons que $m(L \setminus R)$ et
+%$m'(R \setminus L)$ ne sont pas forcément des graphes à cause de possibles arcs pendants \mgnote{phrase OK?}. \xsnote{Phrase correcte mais il faut donner un exemple produisant justement des arcs pendants.} \xsnote{(2022-03-22) : illustrer graphiquement $m(L \setminus R)$ et $m'(R \setminus L)$ sur la figure ?}
+La figure \textbf{fig:application-regle} présente la règle de triangulation d'une face quadrangulaire et son application.
+Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est l'identité.
+
 \begin{definition}[Application d'une règle de transformation de graphe]
 	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage injectif.
 
@@ -160,7 +198,7 @@ Arnould, Belhaouari
 	$H$ est la transformation directe de $G$ par la règle $r$ le long du morphisme de filtrage $m$.
 \end{definition}
 
-\begin{theoreme}[Préservation de la cohérence topologique]\leavevmode
+\begin{theoreme}[Préservation de la cohérence topologique]
 
 	\begin{itemize}
 		\label{theo:topo-coherence-base-rule}
@@ -175,11 +213,157 @@ Arnould, Belhaouari
 			      \item un nœud créé de $R \setminus L$ est la source d'un cycle étiqueté $ijij$;
 			      \item si un nœud préservé de $L \cap R$ est source d'un cycle étiqueté $ijij$ dans $R$, il est source d'un cycle étiqueté $ijij$
 			            dans $L$;
-			      \item si un nœud préservé de $L \cap R$ n'est pas la source d'un cycle étiqueté $ijij$ dans $L$, alors les arcs d'étiquette
-			            $i$ et $j$ dont il est la source sont préservés dans $R$.
+			      \item si un nœud préservé de $L \cap R$ n'est pas la source d'un cycle
+                  étiqueté $ijij$ dans $L$, alors les arcs d'étiquette $i$ et
+                  $j$ dont il est la source sont préservés dans $R$.
 		      \end{itemize}
 	\end{itemize}
 \end{theoreme}
+
+Dans la suite, nous utiliserons uniquement des règles qui vérifient ces conditions de préservation des G-cartes. Ainsi, lorsque $G$ est une G-carte, sa transformation directe $H$ l'est aussi.
+
+En pratique les morphismes de filtrage ne sont pas donnés \textit{in extenso},
+mais à partir du mapping d'un sous-ensemble de nœuds de $L$ appelés nœuds
+d'accroche (\textit{hooks} en anglais). Par exemple figure
+\textbf{fig:application-regle}, le nœud $h$ de $L$ est son nœud d'accroche noté
+par un double cercle. Son association au nœud $h$ de $G$ défini un unique
+morphisme de filtrage $m$ grâce à la condition d'arcs incidents. Pour cela, les
+règles comportent un nœud d'accroche par composante connexe de $L$.
+
+\subsubsection[Motifs]{Motifs}
+\label{sec:etat-art-regles-jerboa-motifs}
+
+Comme nous l'avons vu, les motifs des règles de bases sont des parties des objets transformés. Ainsi, les règles de base déterminent complètement la topologie des parties modifiées.
+Pour être plus générales et permettre par exemple de filtrer une face indépendamment de son nombre d'arêtes, les règles Jerboa sont paramétrées par les orbites.
+
+Un \emph{motif avec orbite} est un graphe $M=(V,E,s,t,\alpha,l)$, où $(V,E,s,t,\alpha)$ est un graphe topologique classique,  $l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une fonction d'étiquetage des nœuds par des mots sur les dimensions topologiques et le symbole "$\_$", telle que toutes les étiquettes des nœuds du motif soient des mots de la même longueur.
+
+Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au motif $M$ privé de ses étiquettes de nœuds.
+
+%L'ensemble des définitions précédentes (union, intersection, différence, morphismes, événements, \textit{etc.}) s'étendent sur les motifs avec orbites.
+
+Intuitivement, le mot $013$ est noté $\orbit{013}$ et désigne l'orbite face. De même, le mot $0\_3$ est noté $\orbit{0\_3}$ et désigne l'orbite face précédente dont tous les $1$-arcs sont supprimés.
+
+Ces étiquettes désignent la modification des orbites par renommage et suppression des arcs. Une étiquette construite sur $[0,n]$, c'est-à-dire sans suppression, est appelée \emph{orbite pleine}. Une \emph{fonction de renommage} $\orbit{o} \mapsto \orbit{o'}$, d'une orbite pleine $\orbit{o_1 o_2 ... o_k}$, vers une orbite $\orbit{o'_1 o'_2 ... o'_k}$ définit le renommage des étiquettes topologiques $o_1 \mapsto o'_1, o_2 \mapsto o'_2$ \ldots $o_k \mapsto o'_k$.
+
+Le \emph{renommage} $(\orbit{o} \mapsto \orbit{o'})(G\orbit{o}(v))$ d'une $\orbit{o}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe $(V,E',s',t',\alpha')$ défini par :
+\begin{itemize}
+    \item $E'$ est le sous-ensemble des arêtes de $E$ qui n'ont pas été supprimées, c'est-à-dire $E'=\{e \in E \mid (\orbit{o} \mapsto \orbit{o'})(\alpha(e)) \neq \_ \}$,
+
+    \item $s'$ et $t'$ sont les restrictions respectives de $s$ et $t$ sur $E'$,
+
+    \item $\alpha'$ est définie sur $E'$ pour toute arête $e \in E'$ par $\alpha'(e) = (\orbit{o} \mapsto \orbit{o'})(\alpha(e))$.
+\end{itemize}
+
+L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{o}$, par une orbite $G\orbit{o}(v)=(V',E',s',t',\alpha')$ d'un graphe topologique $G$ est définie par le graphe topologique $M(G\orbit{o}(v))=(V'',E'',s'',t'',\alpha'')$~:
+\begin{itemize}
+    \item $V^{\prime\prime}= V \times V'$,
+
+    \item $E''=E''_i \cup E''_e$ comprend les \emph{arcs implicites} issus de l'instanciation des nœuds du motif $E''_i = \{ (v, e') \in V \times E' \mid (\orbit{o} \mapsto \orbit{\alpha(v)})(\alpha'(e')) \neq \_ \}$ et les \emph{arcs explicites} issus du motif $E''_e = \{ (e, v') \in E \times V' \}$,
+
+    \item tout arc implicite $(v,e') \in E''_i$ a pour source $s''((v,e'))=(v,s'(e'))$, pour cible $t''((v,e'))=(v,t'(e'))$ et pour étiquette $\alpha''((v,e'))=(\orbit{o} \mapsto \alpha(v))(\alpha'(e'))$,
+
+    et tout arc explicite $(e,v') \in E''_e$, a pour source $s''((e,v')) = ((s(e),v')$, pour cible $t''((e,v')) = ((t(e),v')$, et pour étiquette $\alpha''((e, v')) = \alpha(e)$.
+\end{itemize}
+
+~
+
+\todo{Ajouter motif droit triangulation}
+
+\todo{Ajouter instanciation motif triangulation quadrangle}
+
+\todo{Ajouter instanciation motif triangulation triangle}
+
+~
+
+La figure \textbf{fig:before-after-quad-triangulation} illustre l'instanciation du schéma de triangulation sur la face carrée \textbf{fig:jerboa-quad-before-triangulation} dont les brins sont nommés de a à h.
+
+Dans un premier temps, dans \textbf{fig:inst-quad-triangulation-1}, le nœud d'instanciation $0$ filtre les brins $\{a_0 \dots h_0\}$ et préserve les $0$-arcs, les $1$-arcs incidents aux brins $\{a_0 \dots h_0\}$ étant supprimés.
+Dans \textbf{fig:inst-quad-triangulation-2}, de nouveaux $1$-arcs sont ensuite instanciés à partir des $\{a_0 \dots h_0\}$ puis liés, dans \textbf{fig:inst-quad-triangulation-3} à de nouveaux brins créés par le nœud d'instanciation $1$. Ces brins sont nommés $\{a_1 \dots h_1\}$ et sont liés entre eux par des $2$-arcs.
+Enfin, dans \textbf{fig:inst-quad-triangulation-4}, des $0$-arcs incidents à $\{a_1 \dots h_1\}$ sont créés puis liés aux brins $\{a_2 \dots h_2\}$ lorsque ceux-ci sont créés par le nœud d'instanciation $2$ dans \textbf{fig:inst-quad-triangulation-5}.
+
+Le processus est identique figure \textbf{fig:before-after-tri-triangulation} pour le triangle figure \textbf{fig:jerboa-tri-before-triangulation}.
+
+\subsubsection[Règles Jerboa]{Règles Jerboa}
+\label{sec:etat-art-jerboa-regles-jerboa}
+
+Une \emph{règle} Jerboa $r: L \longrightarrow R$ est définie par un couple de motifs avec orbites $L$ et $R$ dont toutes les étiquettes d'orbites ont la même longueur, tels que $\underline{L} \cap \underline{R} \hookrightarrow \underline{L}$ et $\underline{L} \cap \underline{R} \hookrightarrow \underline{R}$, et dont un sous-ensemble des nœuds de $L$ sont appelés nœuds d'accroche (\emph{hooks} en anglais) et portent des étiquettes d'orbites pleines, c'est-à-dire sans "$\_$".
+
+L'application d'une règle Jerboa est l'application de son instanciation, qui est une règle de base. Cela nécessite tout d'abord de rechercher dans l'objet à transformer l'orbite d'instanciation de la règle, d'instancier la règle, de construire le morphisme de filtrage entre le motif gauche instancié et l'objet, puis finalement d'appliquer la règle instanciée sur l'objet pour obtenir la transformation directe.
+
+Soit $\underline{m} : \underline{L} \rightarrow G$ un morphisme de filtrage sur une G-carte $G$, c'est à dire un morphisme injectif tel que les nœuds d'accrochent désignes de orbites isomorphes à renomage près. Plus précisément,
+pour un nœud d'accroche $h$ de $L$, $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation. Et si la règle $r$ possède un autre nœud d'accorche $h'$, alors $O' = G\orbit{l(h')}(\underline{m}(h'))$ est isomorphe à renomage près, c'est-à-dire que $(l(h) \mapsto l(h'))(O)$ est isomorphe à $O'$.\\
+
+Le morphisme de filtrage $m : L(O) \rightarrow G$, s'il existe, est le morphisme qui vérifie les propriétés suivantes, pour $L = (V, E, s, t, \alpha, l)$ et $O = (V', E', s', t', \alpha')$~:
+\begin{itemize}
+    \item pour tout nœud $v \in V$ de $L$, $m_V((v,\underline{m}(h))) = \underline{m}(v)$~;
+
+    \item pour tout arc implicite $(v,e')$, avec $v \in V$ un nœud de $L$ et $e' \in E'$ un arc de l'orbite $O$ non supprimé (c'est-à-dire tel que $\orbit{l(h)} \mapsto \orbit{l(v)} (\alpha'(e')) \neq \_$)~: $m_E((v,e'))$ est l'unique arc de $G$ de source $m_V((v, s'(e')))$ et d'étiquette $\orbit{l(h)} \mapsto \orbit{l(v)}(\alpha'(e'))$ ; et $m_V(t((v, e'))) = t'(m_E((v,e')))$~;
+
+    \item pour tout arc explicite $(e, v')$, avec $e \in E$ un arc de $L$ et $v' \in V'$ un nœud de l'orbite $O$~: $m_E((e, v'))$ est l'unique arc de source $m_V((s(e), v'))$ et d'étiquette $\alpha(e)$~; et $m_V(t(e,v')) = t'(m_E(e,v'))$.
+\end{itemize}
+
+Remarquons que si le morphisme de filtrage $m$ existe, il est unique en raison de la contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte}) et de la condition d'arc incident du motif $L$.
+
+\agnes{Donner un exemple de morphisme sur la règle précédente + expliciter l'orbite d'instanciation}
+\agnes{Donner un exemple de règle avec 2 hook + montrer que les 2 hook donnent des orbites d'instanciation isomorphes}
+
+L'\emph{instanciation} de la règle $r: L \longrightarrow R$ le long d'un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $r(\underline{m})$ est définie par l'instanciation de ses motifs $r(\underline{m}) : L(O) \longrightarrow R(O)$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation d'un nœud d'accroche $h$ de $L$.
+
+~
+
+\todo{Ajouter règle de triangulation}
+
+\todo{Ajouter instanciation règle de triangulation sur quad + annotation}
+
+~
+
+La figure \textbf{fig:inst-annotation} représente l'instanciation de la règle de triangulation figure \textbf{fig:rule-triangulation-example} sur une face carrée. Dans le membre gauche, on retrouve l'orbite d'instanciation de la figure \textbf{fig:jerboa-quad-before-triangulation} car le membre gauche est réduit au nœud d'accroche.
+Dans le membre droit, on retrouve l'instanciation du motif figure \textbf{fig:inst-quad-triangulation-final}.
+
+L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée $r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié $m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation désigné par le nœud d'accroche.
+Autrement dit, la transformation directe $G \longrightarrow^{r, \underline{m}} H$ est la transformation directe $G \longrightarrow^{r(\underline{m}), m} H$.
+
+~
+
+\agnes{Donner l'exemple de la transformation directe de l'objet de départ}
+
+~
+
+Comme pour les règles de base, des conditions syntaxiques suivantes sur les règles permettent de garantir la préservation de contraintes des G-cartes lors des transformations directes \cite{belle2012}.
+
+Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$.
+
+La transformation directe $G \longrightarrow^{r, \underline{m}} H$ produit une G-carte si les conditions de préservation de la cohérence suivantes sont vérifiées :
+\begin{itemize}
+    \item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
+
+    \item pour toute dimension $i$, un nœud $v$ est source d'un arc implicite si l'étiquette d'orbite de $v$ comprend $i$~;
+
+    \emph{condition d'arcs incidents} : pour toute dimension $i \in [0, n]$, la condition d'arcs incidents est celle des règles de base en considérant simultanément les arcs implicites et explicites~:
+    \begin{itemize}
+        \item un nœud préservé de $L \cap R$ est  source d'un $i$-arc dans $L$ (implicite ou explicite) si et seulement s'il est  source d'un $i$-arc dans $R$ (implicite ou explicite)~;
+        \item tout nœud supprimé de $L \setminus R$ et tout nœud ajouté de $R \setminus L$ est la source d'exactement un $i$-arc (implicite ou explicite) ;
+    \end{itemize}
+
+    \item un nœud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
+    \begin{itemize}
+        \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son étiquette d'orbite ;
+        \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son étiquette d'orbite et que ces dernières renomment un cycle de $L$, c'est-à-dire tel qu'il existe un nœud $v'$ de $L$ avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
+        \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non renommé, c'est à dire tel que $l(v) \mapsto l(v') (j) = j$ ;
+        \item inversement, $v$ est la source d'un $j$-arc de cible $v'$ tel que les deux nœuds $v$ et $v'$ ont $i$ dans leurs étiquettes d'orbites non renommés ;
+    \end{itemize}
+
+    \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les cycles ayant des arcs implicites ou explicites :
+    \begin{itemize}
+        \item un nœud créé $v$ de $R \setminus L$ est la source d'un $ijij$-cycle ;
+        \item si un nœud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;
+        \item si un nœud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont préservés dans $R$.
+    \end{itemize}
+\end{itemize}
+
+
+Remarquons que les règles de base sont aussi des règles Jerboa sur l'orbite vide $\orbit{}$.
 
 
 %%% Local Variables:

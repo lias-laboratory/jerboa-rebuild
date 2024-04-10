@@ -13,8 +13,6 @@
  \RequirePackage[dvips]{color}
 \fi
 
-\def\showauthors{true}
-
 \usepackage[english]{babel}
 
 \usepackage[T1]{fontenc}
@@ -59,6 +57,7 @@
 
 \title{Reevaluation in Rule-Based Graph Transformation Modeling Systems}
 
+
 \ifsubmission
   \author{}
 \else
@@ -88,17 +87,18 @@
         $^2$Université de Poitiers, ISAE-ENSMA Poitiers, LIAS, Poitiers, France\\
         $^3$Université de Poitiers, Univ. Limoges, CNRS, XLIM, Poitiers, France
       }\\[1mm]
-      firstname.lastname@\{$^{1,2}$ensma.fr, $^{3}$univ-poitiers.fr\}
+      firstname.lastname@\{$^{1,2}$ensma, $^{3}$univ-poitiers\}.fr
     }
     \vspace{-1em}
   }
 \fi
 
+
 \begin{document}
 \ifsubmission
 \linenumbers
 \fi
-\twocolumn[{\csname @twowcolumnfalse\endcsname
+\twocolumn[{\csname @twocolumnfalse\endcsname
 
 \maketitle
 
@@ -110,7 +110,7 @@ It enables a unique and homogeneous characterisation of entities in all dimensio
 Most existing methods require tracking numerous topological entities and consider the persistent naming problem only from the parameters' modifications of a parametric specification standpoint. 
 With our solution, not only the naming problem is tackled within the usual framework of parameters edition, but we also take the specification edition into account (addition, deletion and displacement of operations).
 Moreover, our solution makes use of directed acyclic graphs to represent the histories of topological entities and to track only the entities used in the parametric specification and the ones they originate from. 
-Representing the history of a topological entity allows for an efficient persistent naming mechanism that takes into account the impact of the modifications during reevaluation.
+%Representing the history of a topological entity allows for an efficient persistent naming mechanism that takes into account the impact of the modifications during reevaluation.
 \end{abstract}
 
 \subsection*{Keywords}

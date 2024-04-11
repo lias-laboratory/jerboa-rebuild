@@ -23,40 +23,46 @@
 \newcommand{\commentout}[1]{}
 
 \newcommand{\maxime}[1]{%
-	\textbf{\color{blue} Maxime: #1}
+	\textbf{\color{blue} Maxime: #1}%
 }
 
 \newcommand{\agnes}[1]{%
-	\textbf{\color{red} Agnès: #1}
+	\textbf{\color{red} Agnès: #1}%
 }
 
 \newcommand{\david}[1]{%
-	\textbf{\color{violet} David: #1}
+	\textbf{\color{violet} David: #1}%
 }
 
 \newcommand{\stephane}[1]{%
-	\textbf{\color{green} [Stephane]: #1}
+	\textbf{\color{green} [Stephane]: #1}%
 }
 \newcommand{\xavier}[1]{%
-	\textbf{\color{magenta} [Xavier]: #1}
+	\textbf{\color{magenta} [Xavier]: #1}%
 }
 \newcommand{\xavierSupp}[1]{%
-	\textbf{\color{magenta} \st{#1}}
+	\textbf{\color{magenta} \st{#1}}%
 }
 \newcommand{\xavierAdd}[1]{%
-	\textbf{\color{magenta} #1}
+	\textbf{\color{magenta} #1}%
 }
 
 \newcommand{\hakim}[1]{%
-	\textbf{\color{teal} [Hakim]: #1}
+	\textbf{\color{teal} [Hakim]: #1}%
 }
+
+\definecolor{mylightblue}{rgb}{0,0,.752}
 
 \definecolor{darkgreen}{rgb}{0,.4,0}
 
 \newcommand{\highlight}[1]{%
-	\textbf{\color{orange}#1}
+	\textbf{\color{orange}#1}%
 }
 
 \newcommand{\todo}[1]{%
-  \textbf{\highlight{TODO: #1}}
+  \textbf{\highlight{TODO: #1}}%
+}
+
+\newcommand{\idee}[1]{%
+  {\color{mylightblue}#1}%
 }

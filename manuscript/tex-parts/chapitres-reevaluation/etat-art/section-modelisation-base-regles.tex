@@ -1,7 +1,14 @@
 \section[Modélisation à base de règles]{Modélisation à base de règles}
 \label{sec:etat-art-model-regles}
 
-\todo{Chapeau!}
+\idee{Il existe de nombreuse façons de représenter des objets (exemples +
+	refs), parmi celle-ci, on retrouve des modèles de représentation à base de
+	graphe (exemples + refs). Pour générer et modifier ces modèles, les systèmes
+	existants utilisent le plus souvent des opérations à base de code ou encore
+	des grammaires (exemples + refs \cite{bohl2015modeling,terraz20093gmap}). Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les opérations de modélisation à l'aide de ce que l'on appelle des règles de transformation de graphe.
+	%
+	Cette section commence avec des rappels liés aux graphes avant de présenter les
+	outils utilisés dans le reste de ce manuscrit.}
 
 \subsection[Rappels sur les graphes]{Rappels sur les graphes}
 \label{sec:etat-art-rappels-graphes}
@@ -50,8 +57,8 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 	\end{itemize}
 \end{definition}
 
-\begin{definition}[Sous-graphes]
-	\label{def:sous-graphes}
+\begin{definition}[Sous-graphe]
+	\label{def:sous-graphe}
 	Soient $G=(V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes. $G'$ est
 	un sous-graphe de $G$ si et seulement si, $G \subset G'$.
 \end{definition}
@@ -214,8 +221,8 @@ Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) es
 			      \item si un nœud préservé de $L \cap R$ est source d'un cycle étiqueté $ijij$ dans $R$, il est source d'un cycle étiqueté $ijij$
 			            dans $L$;
 			      \item si un nœud préservé de $L \cap R$ n'est pas la source d'un cycle
-                  étiqueté $ijij$ dans $L$, alors les arcs d'étiquette $i$ et
-                  $j$ dont il est la source sont préservés dans $R$.
+			            étiqueté $ijij$ dans $L$, alors les arcs d'étiquette $i$ et
+			            $j$ dont il est la source sont préservés dans $R$.
 		      \end{itemize}
 	\end{itemize}
 \end{theoreme}
@@ -248,22 +255,22 @@ Ces étiquettes désignent la modification des orbites par renommage et suppress
 
 Le \emph{renommage} $(\orbit{o} \mapsto \orbit{o'})(G\orbit{o}(v))$ d'une $\orbit{o}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe $(V,E',s',t',\alpha')$ défini par :
 \begin{itemize}
-    \item $E'$ est le sous-ensemble des arêtes de $E$ qui n'ont pas été supprimées, c'est-à-dire $E'=\{e \in E \mid (\orbit{o} \mapsto \orbit{o'})(\alpha(e)) \neq \_ \}$,
+	\item $E'$ est le sous-ensemble des arêtes de $E$ qui n'ont pas été supprimées, c'est-à-dire $E'=\{e \in E \mid (\orbit{o} \mapsto \orbit{o'})(\alpha(e)) \neq \_ \}$,
 
-    \item $s'$ et $t'$ sont les restrictions respectives de $s$ et $t$ sur $E'$,
+	\item $s'$ et $t'$ sont les restrictions respectives de $s$ et $t$ sur $E'$,
 
-    \item $\alpha'$ est définie sur $E'$ pour toute arête $e \in E'$ par $\alpha'(e) = (\orbit{o} \mapsto \orbit{o'})(\alpha(e))$.
+	\item $\alpha'$ est définie sur $E'$ pour toute arête $e \in E'$ par $\alpha'(e) = (\orbit{o} \mapsto \orbit{o'})(\alpha(e))$.
 \end{itemize}
 
 L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{o}$, par une orbite $G\orbit{o}(v)=(V',E',s',t',\alpha')$ d'un graphe topologique $G$ est définie par le graphe topologique $M(G\orbit{o}(v))=(V'',E'',s'',t'',\alpha'')$~:
 \begin{itemize}
-    \item $V^{\prime\prime}= V \times V'$,
+	\item $V^{\prime\prime}= V \times V'$,
 
-    \item $E''=E''_i \cup E''_e$ comprend les \emph{arcs implicites} issus de l'instanciation des nœuds du motif $E''_i = \{ (v, e') \in V \times E' \mid (\orbit{o} \mapsto \orbit{\alpha(v)})(\alpha'(e')) \neq \_ \}$ et les \emph{arcs explicites} issus du motif $E''_e = \{ (e, v') \in E \times V' \}$,
+	\item $E''=E''_i \cup E''_e$ comprend les \emph{arcs implicites} issus de l'instanciation des nœuds du motif $E''_i = \{ (v, e') \in V \times E' \mid (\orbit{o} \mapsto \orbit{\alpha(v)})(\alpha'(e')) \neq \_ \}$ et les \emph{arcs explicites} issus du motif $E''_e = \{ (e, v') \in E \times V' \}$,
 
-    \item tout arc implicite $(v,e') \in E''_i$ a pour source $s''((v,e'))=(v,s'(e'))$, pour cible $t''((v,e'))=(v,t'(e'))$ et pour étiquette $\alpha''((v,e'))=(\orbit{o} \mapsto \alpha(v))(\alpha'(e'))$,
+	\item tout arc implicite $(v,e') \in E''_i$ a pour source $s''((v,e'))=(v,s'(e'))$, pour cible $t''((v,e'))=(v,t'(e'))$ et pour étiquette $\alpha''((v,e'))=(\orbit{o} \mapsto \alpha(v))(\alpha'(e'))$,
 
-    et tout arc explicite $(e,v') \in E''_e$, a pour source $s''((e,v')) = ((s(e),v')$, pour cible $t''((e,v')) = ((t(e),v')$, et pour étiquette $\alpha''((e, v')) = \alpha(e)$.
+	      et tout arc explicite $(e,v') \in E''_e$, a pour source $s''((e,v')) = ((s(e),v')$, pour cible $t''((e,v')) = ((t(e),v')$, et pour étiquette $\alpha''((e, v')) = \alpha(e)$.
 \end{itemize}
 
 ~
@@ -296,11 +303,11 @@ pour un nœud d'accroche $h$ de $L$, $O = G\orbit{l(h)}(\underline{m}(h))$ est l
 
 Le morphisme de filtrage $m : L(O) \rightarrow G$, s'il existe, est le morphisme qui vérifie les propriétés suivantes, pour $L = (V, E, s, t, \alpha, l)$ et $O = (V', E', s', t', \alpha')$~:
 \begin{itemize}
-    \item pour tout nœud $v \in V$ de $L$, $m_V((v,\underline{m}(h))) = \underline{m}(v)$~;
+	\item pour tout nœud $v \in V$ de $L$, $m_V((v,\underline{m}(h))) = \underline{m}(v)$~;
 
-    \item pour tout arc implicite $(v,e')$, avec $v \in V$ un nœud de $L$ et $e' \in E'$ un arc de l'orbite $O$ non supprimé (c'est-à-dire tel que $\orbit{l(h)} \mapsto \orbit{l(v)} (\alpha'(e')) \neq \_$)~: $m_E((v,e'))$ est l'unique arc de $G$ de source $m_V((v, s'(e')))$ et d'étiquette $\orbit{l(h)} \mapsto \orbit{l(v)}(\alpha'(e'))$ ; et $m_V(t((v, e'))) = t'(m_E((v,e')))$~;
+	\item pour tout arc implicite $(v,e')$, avec $v \in V$ un nœud de $L$ et $e' \in E'$ un arc de l'orbite $O$ non supprimé (c'est-à-dire tel que $\orbit{l(h)} \mapsto \orbit{l(v)} (\alpha'(e')) \neq \_$)~: $m_E((v,e'))$ est l'unique arc de $G$ de source $m_V((v, s'(e')))$ et d'étiquette $\orbit{l(h)} \mapsto \orbit{l(v)}(\alpha'(e'))$ ; et $m_V(t((v, e'))) = t'(m_E((v,e')))$~;
 
-    \item pour tout arc explicite $(e, v')$, avec $e \in E$ un arc de $L$ et $v' \in V'$ un nœud de l'orbite $O$~: $m_E((e, v'))$ est l'unique arc de source $m_V((s(e), v'))$ et d'étiquette $\alpha(e)$~; et $m_V(t(e,v')) = t'(m_E(e,v'))$.
+	\item pour tout arc explicite $(e, v')$, avec $e \in E$ un arc de $L$ et $v' \in V'$ un nœud de l'orbite $O$~: $m_E((e, v'))$ est l'unique arc de source $m_V((s(e), v'))$ et d'étiquette $\alpha(e)$~; et $m_V(t(e,v')) = t'(m_E(e,v'))$.
 \end{itemize}
 
 Remarquons que si le morphisme de filtrage $m$ existe, il est unique en raison de la contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte}) et de la condition d'arc incident du motif $L$.
@@ -336,30 +343,30 @@ Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \
 
 La transformation directe $G \longrightarrow^{r, \underline{m}} H$ produit une G-carte si les conditions de préservation de la cohérence suivantes sont vérifiées :
 \begin{itemize}
-    \item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
+	\item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
 
-    \item pour toute dimension $i$, un nœud $v$ est source d'un arc implicite si l'étiquette d'orbite de $v$ comprend $i$~;
+	\item pour toute dimension $i$, un nœud $v$ est source d'un arc implicite si l'étiquette d'orbite de $v$ comprend $i$~;
 
-    \emph{condition d'arcs incidents} : pour toute dimension $i \in [0, n]$, la condition d'arcs incidents est celle des règles de base en considérant simultanément les arcs implicites et explicites~:
-    \begin{itemize}
-        \item un nœud préservé de $L \cap R$ est  source d'un $i$-arc dans $L$ (implicite ou explicite) si et seulement s'il est  source d'un $i$-arc dans $R$ (implicite ou explicite)~;
-        \item tout nœud supprimé de $L \setminus R$ et tout nœud ajouté de $R \setminus L$ est la source d'exactement un $i$-arc (implicite ou explicite) ;
-    \end{itemize}
+	      \emph{condition d'arcs incidents} : pour toute dimension $i \in [0, n]$, la condition d'arcs incidents est celle des règles de base en considérant simultanément les arcs implicites et explicites~:
+	      \begin{itemize}
+		      \item un nœud préservé de $L \cap R$ est  source d'un $i$-arc dans $L$ (implicite ou explicite) si et seulement s'il est  source d'un $i$-arc dans $R$ (implicite ou explicite)~;
+		      \item tout nœud supprimé de $L \setminus R$ et tout nœud ajouté de $R \setminus L$ est la source d'exactement un $i$-arc (implicite ou explicite) ;
+	      \end{itemize}
 
-    \item un nœud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
-    \begin{itemize}
-        \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son étiquette d'orbite ;
-        \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son étiquette d'orbite et que ces dernières renomment un cycle de $L$, c'est-à-dire tel qu'il existe un nœud $v'$ de $L$ avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
-        \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non renommé, c'est à dire tel que $l(v) \mapsto l(v') (j) = j$ ;
-        \item inversement, $v$ est la source d'un $j$-arc de cible $v'$ tel que les deux nœuds $v$ et $v'$ ont $i$ dans leurs étiquettes d'orbites non renommés ;
-    \end{itemize}
+	\item un nœud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
+	      \begin{itemize}
+		      \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son étiquette d'orbite ;
+		      \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son étiquette d'orbite et que ces dernières renomment un cycle de $L$, c'est-à-dire tel qu'il existe un nœud $v'$ de $L$ avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
+		      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non renommé, c'est à dire tel que $l(v) \mapsto l(v') (j) = j$ ;
+		      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$ tel que les deux nœuds $v$ et $v'$ ont $i$ dans leurs étiquettes d'orbites non renommés ;
+	      \end{itemize}
 
-    \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les cycles ayant des arcs implicites ou explicites :
-    \begin{itemize}
-        \item un nœud créé $v$ de $R \setminus L$ est la source d'un $ijij$-cycle ;
-        \item si un nœud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;
-        \item si un nœud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont préservés dans $R$.
-    \end{itemize}
+	      \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les cycles ayant des arcs implicites ou explicites :
+	      \begin{itemize}
+		      \item un nœud créé $v$ de $R \setminus L$ est la source d'un $ijij$-cycle ;
+		      \item si un nœud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;
+		      \item si un nœud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont préservés dans $R$.
+	      \end{itemize}
 \end{itemize}
 
 

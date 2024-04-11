@@ -14,7 +14,12 @@
 \label{sec:etat-art-rappels-graphes}
 
 Les structures topologiques sont représentées par des graphes dont les arcs sont
-étiquetés par des dimensions topologiques
+porteurs d'information topologique. %
+Ces informations, sous la forme de dimensions, établissent des relations
+d'appartenance entre plusieurs nœuds à une même structure topologique (par
+exemple des cellules telles que les faces, arêtes, sommets, etc). %
+De tels graphes sont appelés graphes topologiques. %
+% étiquetés par des dimensions topologiques
 
 \begin{definition}[Graphes topologiques]
 	\label{def:graphe-topologique}
@@ -116,8 +121,11 @@ Les G-cartes ayant pour but de représenter des objets par leur topologie, nous
 utiliserons désormais les termes «~brin~» et «~liaison~» en lieu et place de
 «~nœud~» et «~arc~» respectivement.
 
-Les brins étant ici des entités topologiques et les liaisons, porteurs
-d'information de dimension, les relient.
+\todo{Faire un choix entre «~structure topologique~» et «~entités
+	topologiques~», j'ai l'impression que ça veut dire la même chose}
+
+Les brins sont des entités topologiques et les liaisons, porteuses
+d'information de dimension, les relient entre eux pour représenter des structures topologiques de plus grand ordre.
 
 Les cellules, et plus encore, peuvent être représentées à l'aide de sous-graphe que l'on appelle orbites.
 

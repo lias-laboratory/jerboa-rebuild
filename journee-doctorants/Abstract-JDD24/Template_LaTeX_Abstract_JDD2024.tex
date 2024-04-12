@@ -1,0 +1,191 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{array}%création tableaux
+\usepackage{graphicx}%pour les photosimages
+\usepackage{subcaption}
+\usepackage{float}
+% \graphicspath{{img/}}
+\def\dbasepath{../../resources-figures-jerboa}
+\def\dlogopath{../../logos}
+\graphicspath{{\dbasepath/article2/}%
+		{\dbasepath/figures/}%
+		{\dbasepath/concepts/}%
+		{\dbasepath/rules/}%
+		{\dbasepath/persistent-naming/}%
+		{\dlogopath}}
+
+\usepackage{subcaption}
+%\usepackage{gentium}
+
+\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\renewcommand{\headrulewidth}{0pt}
+%\renewcommand{\footrulewidth}{0pt}
+%\setlength\headheight{80.0pt}
+%\addtolength{\textheight}{-80.0pt}
+%\chead{\includegraphics[scale=0.4]{Logo-template.PNG}}
+
+\usepackage{mathptmx} % Use Times Font
+\usepackage{geometry}
+         \geometry{
+         a4paper,
+         left=14mm,
+         top=20mm,
+         right =15mm,
+         bottom =15mm
+         }
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\chead{\includegraphics[scale=9.]{logos_2024.pdf}}
+
+\setlength\parindent{0em}
+
+\begin{document}
+
+\begin{center}
+	{\Large \textbf{Réévaluation de modèle à base de règles de transformation de graphe}}
+\end{center}
+
+{\underline{M. Gaide}$^{1}$, S. Jean$^{1}$, D. Marcheix$^{1}$, X. Skapin$^{2}$, A. Arnould$^{2}$, H. Belhaouari$^{2}$}
+\begin{flushright}
+	\underline{Contact} : maxime.gaide@ensma.fr
+\end{flushright}
+
+\begin{flushleft}
+	\scriptsize{
+		$^1$	LIAS IDD, ISAE-ENSMA\\
+		$^2$	XLIM ASALI, Université de Poitiers
+	}
+\end{flushleft}
+
+\rule{1\linewidth}{3pt}
+
+\textbf{Mots-clés} : Modélisation géométrique à base topologique, Règles de
+transformation de graphe, Nommage Persistant, Réévaluation, Cartes généralisées
+
+~
+
+Nous étendons l'étude du problème de nommage[kripac,Capoyleas,bidarra] aux systèmes de modélisations basés
+sur les règles de transformation de graphe[bohl2015modeling,terraz20093gmap]. %
+Pour cela, nous proposons une méthode de nommage persistant s'appuyant sur les
+cartes généralisées[1,2] et la formalisation des opérations par des règles de
+transformation de graphe. %
+Ces formalismes permettent la caractérisation unique et homogène des entités
+topologiques en toutes dimensions. %
+
+Afin de réévaluer des objets, la plupart des méthodes existantes nécessitent de
+suivre la totalité, ou presque, des entités topologiques qui les composent. %
+Par ailleurs, ces mêmes méthodes considèrent le problème du nommage seulement du
+point de vue de la modification des paramètres dans une spécification
+paramétriques. %
+
+Avec notre méthode, non seulement nous abordons le nommage persistant dans le
+cadre habituel de l'édition de paramètres, mais nous prenons aussi en compte
+l'édition de la spécification paramétrique elle-même (ajout, suppression et
+déplacement d'opération). %
+De plus, nous utilisons des graphes orientés acycliques pour représenter
+l'histoire des entités passées en paramètres dans les opérations jusqu'à leurs
+origines. %
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.2\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-1-evaluation-create-face}
+		\caption{1-create(pos)}
+		\label{fig:fr-create-face}
+	\end{subfigure}
+	\begin{subfigure}{.2\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-2-evaluation-extrude-face}
+		\caption{2-extrude($PN_1$, vec)}
+		\label{fig:fr-extrude-face}
+	\end{subfigure}
+	\begin{subfigure}{.2\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-3-evaluation-triangulate-face}
+		\caption{3-triangulate($PN_2$)}
+		\label{fig:fr-triangulate-face}
+	\end{subfigure}
+	\begin{subfigure}{.2\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-4-evaluation-color-face}
+		\caption{4-color($PN_3$)}
+		\label{fig:fr-color-face}
+	\end{subfigure}
+	\caption{Evaluation du processus de construction d'un objet}
+  \label{fig:fig-eval}
+\end{figure}
+\vspace*{-1em}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.19\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-1-reevaluation-create-face-darts}
+		\caption{1-create(pos)}
+		\label{fig:fr-reeval-create-face}
+	\end{subfigure}
+	\begin{subfigure}{.19\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-1ADD-reevaluation-insert-vertex-darts}
+		\caption{ADD1-insert(3)}
+		\label{fig:fr-reeval-insert-vertex}
+	\end{subfigure}
+	\begin{subfigure}{.19\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-2-reevaluation-extrude-face-darts}
+		\caption{2-extrude($PN_1$, vec)}
+		\label{fig:fr-reeval-extrude-face}
+	\end{subfigure}
+	\begin{subfigure}{.19\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-3-reevaluation-triangulate-face-darts}
+		\caption{3-triangulate($PN_2$)}
+		\label{fig:fr-reeval-triangulate-face}
+	\end{subfigure}
+	\begin{subfigure}{.19\columnwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{short-4-reevaluation-color-face}
+		\caption{4-color($PN_3$)}
+		\label{fig:fr-reeval-color-face}
+	\end{subfigure}
+	\caption{Ajout d'une opération et réévaluation du processus de construction de l'objet en Figure~\ref{fig:fig-eval}}
+  \label{fig:fig-reeval}
+\end{figure}
+
+% \begin{minipage}[b]{.45\textwidth}
+% 	\begin{figure}[H]
+% 		\centering
+% 		\includegraphics[height=100pt]{pn7-short-nolevels}
+% 		\caption{}
+% 	\end{figure}
+% \end{minipage}
+% \begin{minipage}[b]{.45\textwidth}
+% 	\begin{figure}[H]
+% 		\centering
+% 		\includegraphics[height=100pt]{pn7-reval-short-nolevels}
+% 		\caption{}
+% 	\end{figure}
+% \end{minipage}
+
+\vfill
+
+\begin{flushright}
+	\rule{0.85\linewidth}{3pt}
+\end{flushright}
+
+\textbf{Références (optionnelles)} {\color{red}(TNR, 11, Gras, justifié)}
+
+{%
+	\footnotesize %% Affecte tout ce qui suit, doit être contenu entre `{` et `}`
+	$^{[1]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale.
+
+	$^{[2]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale.
+
+	$^{[3]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale.
+
+}
+\end{document}

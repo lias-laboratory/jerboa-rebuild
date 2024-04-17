@@ -2,24 +2,55 @@
 \ProvidesClass{LiasThesis}[2024/02/28 Lias Thesis class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%% CLASSE ÉTENDUE AU FORMAT MANUSCRIPT DE THÈSE %%%%%%%%%%
+%%%%%%%%%% MEMOIR EXTENSION FOR THESIS TEMPLATE %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \LoadClass[a4paper,12pt,twoside,openright,final]{memoir}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%% PACKAGES REQUIS POUR LIASTHESIS %%%%%%%%%%
+%%%%%%%%%% REQUIRED PACKAGES FOR LIASTHESIS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[utf8]{inputenc} %% On veut tous les caractères et diactriques
 \RequirePackage[T1]{fontenc} %% T1 est suffisament complet pour avoir textbf + textsc
-\RequirePackage{tabto} %% Pour aligner arbitrairement du text
 \RequirePackage{graphicx} %% À titre personnel
+\RequirePackage{hyperref}
+\RequirePackage{tabto} %% Pour aligner arbitrairement du text
 \RequirePackage{xcolor}
+\RequirePackage{translator}
+\RequirePackage{tikz}
+\RequirePackage[pages=some]{background}
+
+\usedictionary{translator-basic-dictionnary}
+\newtranslation[to = french]{THESIS}{THÈSE}
+\newtranslation[to = english]{THÈSE}{THESIS}
+\newtranslation[to = french]{submitted for the degree of}{pour l'obtention du Grade de}
+\newtranslation[to = english]{pour l'obtention du Grade de}{submitted for the degree of}
+\newtranslation[to = french]{Doctor of Philosophy from}{Docteur de l'}
+\newtranslation[to = english]{Docteur de l'}{Doctor of Philosophy from}
+\newtranslation[to = french]{National Degree}{Diplôme National}
+\newtranslation[to = english]{Diplôme National}{National Degree}
+\newtranslation[to = french]{Decree of}{Arrêté du}
+\newtranslation[to = english]{Arrêté du}{Decree of}
+\newtranslation[to = french]{August 26, 2023}{26 Août 2023}
+\newtranslation[to = english]{26 Août 2023}{August 26, 2023}
+\newtranslation[to = french]{Doctoral School}{École Doctorale}
+\newtranslation[to = english]{École Doctorale}{Doctoral School}
+\newtranslation[to = french]{Field of Research}{Secteur de Recherche}
+\newtranslation[to = english]{Secteur de Recherche}{Field of Research}
+\newtranslation[to = french]{Defended by}{Présentée par}
+\newtranslation[to = english]{Présentée par}{Defended by}
+\newtranslation[to = french]{Under the supervision of}{Sous la direction de}
+\newtranslation[to = english]{Sous la direction de}{Under the supervision of}
+\newtranslation[to = french]{At}{Au}
+\newtranslation[to = english]{Au}{At}
+\newtranslation[to = french]{Defended on}{Soutenue le}
+\newtranslation[to = english]{Soutenue le}{Defended on}
+\newtranslation[to = french]{before the examination committee}{devant la Commission d'Examen}
+\newtranslation[to = english]{devant la Commission d'Examen}{before the examination committee}
 
 % \ifpdftex
 %   % Maybe issue pdftex logs
 % \fi
-% \ifluatex
-%   % Maybe issue luatex logs
+% \ifluatex % Maybe issue luatex logs
 % \fi
 % \ifxetex
 %   % Maybe issue xetex logs
@@ -54,11 +85,10 @@
 \newlength{\bmargin} \setlength{\bmargin}{2cm}
 \newlength{\lmargin} \setlength{\lmargin}{2.5cm}
 \newlength{\rmargin} \setlength{\rmargin}{2.5cm}
+%% Adding some length to have *real* margins both on top and bottom
 \addtolength{\tmargin}{\headheight}
 \addtolength{\tmargin}{\headsep}
 \addtolength{\bmargin}{\footskip}
-% \addtolength{\lmargin}{\oddsidemargin}
-% \addtolength{\rmargin}{\evensidemargin}
 %% memoir specific commands to set margins and blocks
 \setulmarginsandblock{\tmargin}{\bmargin}{*}
 \setlrmarginsandblock{\lmargin}{\rmargin}{*}
@@ -91,10 +121,10 @@
 \institute{}
 
 %% - Nom de l'école doctorale
-\DeclareRobustCommand*\phdschool[1]{%
-	\gdef\@phdschool{#1}
+\DeclareRobustCommand*\doctoralschool[1]{%
+	\gdef\@doctoralschool{#1}
 }
-\phdschool{}
+\doctoralschool{}
 
 %% - Champs disciplinaire
 \DeclareRobustCommand*\researchfield[1]{%
@@ -120,6 +150,17 @@
 }
 \jury{}
 
+%% Logo établissement
+\DeclareRobustCommand*\titlelogoleft[1]{%
+	\gdef\@titlelogoleft{#1}
+}
+\titlelogoleft{}
+
+%% Logo laboratoire
+\DeclareRobustCommand*\titlelogoright[1]{%
+	\gdef\@titlelogoright{#1}
+}
+\titlelogoright{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% TITLE PAGE REDEFINITION %%%%%%%%%%
@@ -140,31 +181,57 @@
 %%%%%%%%%% THESIS TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\TitleLogos}{%
+	\usetikzlibrary{positioning}
+	\begin{tikzpicture}[overlay, remember picture]
+		% if \@titlelogoleft is empty then relax evaluates to relax
+		\if\relax \@titlelogoleft \relax % goes to true branch
+		\else % goes to the false branch
+			\node (TitleLogoLeft) at (current page.north west)
+			[below right = \tmargin and \lmargin] {
+				\includegraphics[height=2cm]{\@titlelogoleft} };
+		\fi
+		\if\relax \@titlelogoright \relax
+		\else
+			\node (TitleLogoRight) at (current page.north east)
+			[below left = \tmargin and \rmargin] {
+				\includegraphics[height=2cm]{\@titlelogoright}
+			};
+		\fi
+	\end{tikzpicture}
+}
+
+\backgroundsetup{opacity=1, scale=1, angle=0, contents=\TitleLogos}
+
 \renewcommand{\maketitle}{%
 	\begin{titlingpage}
+
+		\BgThispage
+
 		\begin{center}
 			\vspace*{.05\paperheight}
-			{\huge\textbf{THÈSE}}
+			{\huge\textbf{\translate{THÈSE}}}
 
 			\vspace{1em}
 
-			{\textbf{pour l'obtention du Grade de}}
+			{\textbf{\translate{pour l'obtention du Grade de}}}
 
 			\vspace{1em}
 
-			\textsc{\large\bfseries Docteur de l'\@institute}
+			\textsc{\large\bfseries \translate{Docteur de l'} \@institute}
 
-			{\footnotesize (Diplôme National - Arrêté du {\color{purple}26 Août 2022})}
-
-			\vspace{1em}
-
-			{\footnotesize École Doctorale~: \@phdschool}
-
-			{\footnotesize Secteur de Recherche~: \@researchfield}
+			{\footnotesize (\translate{Diplôme National} - \translate{Arrêté du}
+				{\color{purple}\translate{26 Août 2023}})}
 
 			\vspace{1em}
 
-			{\footnotesize\textit{Présentée par}~:}
+			{\footnotesize \translate{École Doctorale}~: \@doctoralschool}
+
+			{\footnotesize \translate{Secteur de Recherche}~: \@researchfield}
+
+			\vspace{1em}
+
+			{\footnotesize\textit{\translate{Présentée par}}~:}
 
 			\vspace{1mm}
 
@@ -186,12 +253,11 @@
 
 			\vspace{1em}
 
-			{\footnotesize Sous la direction de {\bfseries\normalsize \@supervisor}}
+			{\footnotesize \translate{Sous la direction de} {\bfseries\normalsize \@supervisor}}
 
 			\vspace{1mm}
 
-			{\footnotesize Au {\bfseries\normalsize \@laboratory}}
-
+			{\footnotesize \translate{Au} {\bfseries\normalsize \@laboratory}}
 			\vspace{1em}
 
 			\par\noindent\rule{.5\textwidth}{0.6pt}
@@ -200,7 +266,9 @@
 
 			\ifpublish
 
-			{\footnotesize Soutenue le {\@date\space} devant la Commission d'Examen} %% Keeping \@date between brackets prevents font/colour bleeding
+			{\footnotesize \translate{Soutenue le} {\@date\space}
+				\translate{devant la Commission
+					d'Examen}} %% Keeping \@date between brackets prevents font/colour bleeding
 
 			\fi
 
@@ -212,8 +280,7 @@
 
 			\vfill
 
-			% {\raggedright{\bfseries\normalsize {\@jury}}}
-			\bfseries\normalsize {\@jury}
+			{\raggedright{\bfseries\normalsize {\@jury}}}
 			\fi
 			\vspace*{0.05\paperheight}
 

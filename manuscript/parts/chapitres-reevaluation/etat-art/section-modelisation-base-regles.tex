@@ -231,7 +231,7 @@ Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) es
 \begin{definition}[Application d'une règle de transformation de graphe]
 	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage injectif.
 
-	L'\emph{application} $G \longrightarrow^{(r, m)} H$ de $r$ sur $G$ le long de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$ , où $m'$ est la restriction de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit injective. $m'$, et donc $H$ est unique à isomorphisme près.
+	L'\emph{application} $G \xlongrightarrow{(r, m)} H$ de $r$ sur $G$ le long de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$ , où $m'$ est la restriction de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit injective. $m'$, et donc $H$ est unique à isomorphisme près.
 	$H$ est la transformation directe de $G$ par la règle $r$ le long du morphisme de filtrage $m$.
 \end{definition}
 
@@ -359,7 +359,7 @@ La figure \textbf{fig:inst-annotation} représente l'instanciation de la règle 
 Dans le membre droit, on retrouve l'instanciation du motif figure \textbf{fig:inst-quad-triangulation-final}.
 
 L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée $r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié $m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation désigné par le nœud d'accroche.
-Autrement dit, la transformation directe $G \longrightarrow^{r, \underline{m}} H$ est la transformation directe $G \longrightarrow^{r(\underline{m}), m} H$.
+Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ est la transformation directe $G \xlongrightarrow{r(\underline{m}), m} H$.
 
 ~
 
@@ -371,7 +371,7 @@ Comme pour les règles de base, des conditions syntaxiques suivantes sur les rè
 
 Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$.
 
-La transformation directe $G \longrightarrow^{r, \underline{m}} H$ produit une G-carte si les conditions de préservation de la cohérence suivantes sont vérifiées :
+La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit une G-carte si les conditions de préservation de la cohérence suivantes sont vérifiées :
 \begin{itemize}
 	\item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
 

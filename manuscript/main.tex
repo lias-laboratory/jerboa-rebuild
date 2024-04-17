@@ -2,6 +2,7 @@
 
 \usepackage[french]{babel}
 \usepackage[style=french]{csquotes}
+\usepackage{extarrows}
 \usepackage{ntheorem}
 \usepackage{subfiles}
 \usepackage{hyperref}
@@ -21,10 +22,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \publishtrue %% Keep it commented until you have defended
+\publishtrue %% Keep it commented until you have defended
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \jurytrue %% Keep it commented until you have a jury
+\jurytrue %% Keep it commented until you have a jury
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\titlelogoleft{../logos/logo_isae-ensma}
+\titlelogoright{../logos/lias-logo}
 
 \title{%
 	Rejeu et modélisation spatio-temporelle basée sur les règles d'éléments archéologiques}
@@ -35,7 +39,7 @@
 \institute{%
 	École Nationale Supérieure de Mécanique et d'Aérotechnique}
 %
-\phdschool{%
+\doctoralschool{%
 	Mathématiques Informatique Matériaux Mécanique Énergétique}
 %
 \researchfield{%
@@ -74,8 +78,8 @@
 \begin{document}
 
 \maketitle
-% \frontmatter
-% \tableofcontents
+\frontmatter
+\tableofcontents*
 \mainmatter
 \ifpublish
 \else
@@ -89,41 +93,43 @@
 
 
 
-% \subfile{tex-introduction/introduction}
+\subfile{parts/introduction/introduction}
 
 %%%%%%%%%% Chapitre etat art %%%%%%%%%%
-\subfile{tex-parts/chapitres-reevaluation/etat-art/etat-art-reevaluation}
-\subfile{tex-parts/chapitres-reevaluation/etat-art/section-modelisation-base-regles}
-% \subfile{tex-parts/chapitres-reevaluation/etat-art/section-reevaluation}
+\subfile{parts/chapitres-reevaluation/etat-art/etat-art-reevaluation}
+\subfile{parts/chapitres-reevaluation/etat-art/section-modelisation-base-regles}
+% \subfile{parts/chapitres-reevaluation/etat-art/section-reevaluation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre formalisation évènements %%%%%%%%%%
-\subfile{tex-parts/chapitres-reevaluation/formalisation-evenements/formalisation-evenements-regles-modelisation}
+\subfile{parts/chapitres-reevaluation/formalisation-evenements/formalisation-evenements-regles-modelisation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre réévaluation règles %%%%%%%%%%
-\subfile{tex-parts/chapitres-reevaluation/reevaluation-regles/systeme-modelisation-base-regles}
+\subfile{parts/chapitres-reevaluation/reevaluation-regles/systeme-modelisation-base-regles}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre réévaluation scripts %%%%%%%%%%
-\subfile{tex-parts/chapitres-reevaluation/reevaluation-scripts/systeme-modelisation-base-regles-scripts}
+\subfile{parts/chapitres-reevaluation/reevaluation-scripts/systeme-modelisation-base-regles-scripts}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre implantation du code %%%%%%%%%%
-\subfile{tex-parts/chapitres-reevaluation/implantation/implantation}
+\subfile{parts/chapitres-reevaluation/implantation/implantation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre etat art %%%%%%%%%%
-% \subfile{tex-parts/chapitres-animation/etat-art-animation-spatio-temporelle}
+% \subfile{parts/chapitres-animation/etat-art-animation-spatio-temporelle}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre annotation temporelle %%%%%%%%%%
-% \subfile{tex-parts/chapitres-animation/annotation-temporelle-specification-parametrique}
+% \subfile{parts/chapitres-animation/annotation-temporelle-specification-parametrique}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre implantation du code %%%%%%%%%%
-% \subfile{tex-parts/chapitres-animation/implantation}
+% \subfile{parts/chapitres-animation/implantation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subfile{parts/conclusions/conclusions}
 
 %%%%%%%%% Post-rédaction : annexes + bibliographie
 

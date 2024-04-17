@@ -68,10 +68,10 @@ transformation de graphe, Nommage Persistant, Réévaluation, Cartes généralis
 
 ~
 
-Nous étendons l'étude du problème de nommage[kripac,Capoyleas,bidarra] aux systèmes de modélisations basés
-sur les règles de transformation de graphe[bohl2015modeling,terraz20093gmap]. %
+Nous étendons l'étude du problème de nommage[1,2,3] aux
+systèmes de modélisations basés sur les règles de transformation de graphe. %
 Pour cela, nous proposons une méthode de nommage persistant s'appuyant sur les
-cartes généralisées[1,2] et la formalisation des opérations par des règles de
+cartes généralisées[4,5] et la formalisation des opérations par des règles de
 transformation de graphe. %
 Ces formalismes permettent la caractérisation unique et homogène des entités
 topologiques en toutes dimensions. %
@@ -117,7 +117,7 @@ origines. %
 		\label{fig:fr-color-face}
 	\end{subfigure}
 	\caption{Evaluation du processus de construction d'un objet}
-  \label{fig:fig-eval}
+	\label{fig:fig-eval}
 \end{figure}
 \vspace*{-1em}
 \begin{figure}[H]
@@ -153,23 +153,46 @@ origines. %
 		\label{fig:fr-reeval-color-face}
 	\end{subfigure}
 	\caption{Ajout d'une opération et réévaluation du processus de construction de l'objet en Figure~\ref{fig:fig-eval}}
-  \label{fig:fig-reeval}
+	\label{fig:fig-reeval}
 \end{figure}
 
-% \begin{minipage}[b]{.45\textwidth}
-% 	\begin{figure}[H]
-% 		\centering
-% 		\includegraphics[height=100pt]{pn7-short-nolevels}
-% 		\caption{}
-% 	\end{figure}
-% \end{minipage}
-% \begin{minipage}[b]{.45\textwidth}
-% 	\begin{figure}[H]
-% 		\centering
-% 		\includegraphics[height=100pt]{pn7-reval-short-nolevels}
-% 		\caption{}
-% 	\end{figure}
-% \end{minipage}
+\begin{minipage}[b]{.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\scriptsize
+\begin{verbatim}
+            1-square(pos)
+            2-extrude(PN1=[1n6], vec)
+            3-insert(PN2=[1n5;2n5])
+            4-extrude(PN3=[1n5;2n6;3n0], vec)
+            5-triangulate(PN4=[1n3;2n2])
+            6-collapse(PN5=[1n4;2n6;4n6])
+            7-chamfer(PN6=[1n5;2n6;3n0;4n4;6n2])
+            8-colour(PN7=[1n3;2n4;5n0])
+\end{verbatim}
+	\caption{Spécification paramétrique\\ de la construction en Figure~\ref{fig:fig-eval}}
+	\label{fig:init-spec}
+\end{figure}
+\end{minipage}
+\begin{minipage}[b]{.5\textwidth}
+\begin{figure}[H]
+    \centering
+    \scriptsize
+\begin{verbatim}
+            1-square(pos)
+            ADD1-insert(3)
+            2-extrude(PN1=[1n6], vec)
+            DELETE 3-insert(PN2=[1n5;2n4])
+            4-extrude(PN3=[1n5;2n6;3n0], vec)
+            5-triangulate(PN4=[1n3;2n2])
+            6-collapse(PN5=[1n4;2n6;4n6])
+            7-chamfer(PN6=[1n5;2n6;3n0;4n4;6n2])
+            8-colour(PN7=[1n3;2n4;5n0])
+\end{verbatim}
+	\caption{Spécification paramétrique modifiée\\ de la réévaluation en Figure~\ref{fig:fig-reeval}}
+    \label{fig:reval-spec}
+\end{figure}
+\end{minipage}
 
 \vfill
 
@@ -177,15 +200,19 @@ origines. %
 	\rule{0.85\linewidth}{3pt}
 \end{flushright}
 
-\textbf{Références (optionnelles)} {\color{red}(TNR, 11, Gras, justifié)}
+\textbf{Références}
 
 {%
 	\footnotesize %% Affecte tout ce qui suit, doit être contenu entre `{` et `}`
-	$^{[1]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale.
+	$^{[1]}$ J. Kripac. Proceedings of the third ACM symposium on Solid modeling and applications (1995) 21-30.
 
-	$^{[2]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale.
+	$^{[2]}$ V. Capoyleas, X. Chen, C. Hoffmann. Computer-Aided Design N°28 (1996) 17-26.
 
-	$^{[3]}$ P.Nom 1, P.P. Nom 2, P.-P. Nom 3.Nom de la revue scientifique N°Vol (N°Sous Vol) (Année) Page initiale–Page finale.
+	$^{[3]}$ R. Bidarra, P. J. Nyirenda, W. F. Bronsvoort. Computer-Aided Design and Applications N°2 (2005) 517-526.
+
+	$^{[4]}$ P. Lienhardt. International Journal of Computational Geometry \& Applications N°4 (1994) 275-324.
+
+	$^{[5]}$ G. Damiand, P. Lienhardt. Combinatorial Maps: Efficient Data Structures for Computer Graphics and Image Processing (2014).
 
 }
 \end{document}

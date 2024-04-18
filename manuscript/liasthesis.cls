@@ -5,12 +5,11 @@
 %%%%%%%%%% MEMOIR EXTENSION FOR THESIS TEMPLATE %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \LoadClass[a4paper,12pt,twoside,openright,final]{memoir}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% REQUIRED PACKAGES FOR LIASTHESIS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage[utf8]{inputenc} %% On veut tous les caractères et diactriques
-\RequirePackage[T1]{fontenc} %% T1 est suffisament complet pour avoir textbf + textsc
+\RequirePackage[utf8]{inputenc} %% On veut tous les caractères et diacritiques
+\RequirePackage[T1]{fontenc} %% T1 est suffisamment complet pour avoir textbf + textsc
 \RequirePackage{graphicx} %% À titre personnel
 \RequirePackage{hyperref}
 \RequirePackage{tabto} %% Pour aligner arbitrairement du text
@@ -18,6 +17,7 @@
 \RequirePackage{translator}
 \RequirePackage{tikz}
 \RequirePackage[pages=some]{background}
+\RequirePackage[french]{minitoc}
 
 \usedictionary{translator-basic-dictionnary}
 \newtranslation[to = french]{THESIS}{THÈSE}
@@ -297,11 +297,11 @@
 
 \makechapterstyle{gaide}{%
 	\setlength{\afterchapskip}{40pt}
-	\renewcommand*{\chapterheadstart}{\vspace*{0pt}}
+	\renewcommand*{\chapterheadstart}{\vspace*{2cm}}
 	\renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
 	\renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
 	\renewcommand*{\chapnumfont}{\normalfont\bfseries\HUGE\color{nord10}}
-	\renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushright}
+	\renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushleft}
 	\renewcommand*{\printchaptername}{%
 		\chapnamefont\MakeUppercase{\@chapapp}}
 	\renewcommand*{\chapternamenum}{}
@@ -319,5 +319,5 @@
 	% \renewcommand*{\printchaptertitle}{%
 	%   \color{nord0}
 	%   \chaptitlefont}
-	\renewcommand*{\afterchaptertitle}{\clearpage}
+	\renewcommand*{\afterchaptertitle}{\vspace*{2cm}\minitoc\clearpage}
 }

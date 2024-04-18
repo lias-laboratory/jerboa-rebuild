@@ -1,10 +1,25 @@
-% \newtheoremstyle{mytheoremstyle}{}
+\newenvironment{roundedframe}{%
+  \def\FrameCommand{%
+	\cornersize*{20pt}%
+	\setlength{\fboxsep}{5pt}%
+	\ovalbox}%
+	\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+  {\endMakeFramed}
+
+% \theoremclass{Definition}
 \theoremstyle{break}
-\newtheorem{definition}{Définition}
+\newframedtheorem{definition}{Définition}
 \newtheorem{proposition}{Proposition}
 \newtheorem{theoreme}{Théorème}
 \newenvironment{proof}{\paragraph{Preuve~:}}{\hfill$\square$\vspace{10pt}}
 \newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\(\square\newline\)}
+% \newenvironment{mytheorem}[1]{%
+%   \begin{defthm}[#1]
+% 	\begin{leftbar}
+% }{%
+%   \end{leftbar}
+%   \end{defthm}
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% math mode only %%%%%
@@ -68,3 +83,8 @@
 \newcommand{\idee}[1]{%
 	{\color{mylightblue}#1}%
 }
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

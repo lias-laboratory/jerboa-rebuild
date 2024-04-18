@@ -1,25 +1,52 @@
 \newenvironment{roundedframe}{%
-  \def\FrameCommand{%
-	\cornersize*{20pt}%
-	\setlength{\fboxsep}{5pt}%
-	\ovalbox}%
+	\def\FrameCommand{%
+		\cornersize*{20pt}%
+		\setlength{\fboxsep}{5pt}%
+		\ovalbox}%
 	\MakeFramed{\advance\hsize-\width \FrameRestore}}%
-  {\endMakeFramed}
+{\endMakeFramed}
 
-% \theoremclass{Definition}
+\renewenvironment{leftbar}[1][]{%
+	\def\FrameCommand{{\color{#1}\vrule width 3pt} \hspace{10pt}}%
+	\MakeFramed{\advance\hsize -\width \FrameRestore}}%
+{\endMakeFramed}
+
 \theoremstyle{break}
-\newframedtheorem{definition}{Définition}
-\newtheorem{proposition}{Proposition}
-\newtheorem{theoreme}{Théorème}
-\newenvironment{proof}{\paragraph{Preuve~:}}{\hfill$\square$\vspace{10pt}}
-\newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\(\square\newline\)}
-% \newenvironment{mytheorem}[1]{%
-%   \begin{defthm}[#1]
-% 	\begin{leftbar}
-% }{%
-%   \end{leftbar}
-%   \end{defthm}
-% }
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\upshape}
+\theoremseparator{:}
+
+\newtheorem{thmi}{Théorème}
+\newtheorem{defi}{Définition}
+\newtheorem{propi}{Proposition}
+
+\renewenvironment{proof}{\noindent\textbf{Preuve~:}}{\hfill$\square$\newline}
+\newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\hfill\(\square\newline\)}
+
+\newenvironment{definition}[1][]{%
+	\begin{defi}[#1]
+		\begin{leftbar}[nord9]}{%
+		\end{leftbar}
+	\end{defi}
+}
+
+\newenvironment{proposition}[1][]{%
+	\begin{propi}[#1]
+		\begin{leftbar}[nord8]}{%
+		\end{leftbar}
+	\end{propi}
+}
+
+\newenvironment{theoreme}[1][]{%
+	\begin{thmi}[#1]
+		\begin{leftbar}[nord7]}{%
+		\end{leftbar}
+	\end{thmi}
+}
+
+%% Proof leftbar : nord14
+%% ProofIdea leftbar : nord13 (a priori elles supportent la même fonction mais proofidea est allégée)
+%% Remark leftbar : nord15 ou nord12 (le orange peut être un peu trop agressif même pour simplement attirer l'attention)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% math mode only %%%%%

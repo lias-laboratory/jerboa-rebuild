@@ -22,9 +22,9 @@
 
 Les structures topologiques sont représentées par des graphes dont les arcs sont
 porteurs d'information topologique. %
-Ces informations, sous la forme de dimensions, établissent des relations
-d'appartenance entre plusieurs nœuds à une même structure topologique (par
-exemple des cellules telles que les faces, arêtes, sommets, etc). %
+Ces informations, des dimensions, établissent les relations d'appartenance entre
+plusieurs nœuds à une même structure topologique, par exemple des cellules
+telles que les faces, arêtes, sommets, etc. %
 De tels graphes sont appelés graphes topologiques. %
 
 \begin{definition}[Graphes topologiques]
@@ -163,11 +163,12 @@ peut être décomposé en volumes connectés par des \emph{3-liaisons}, en vert
 Ces Volumes peuvent se décomposent en faces, connectées par des
 \emph{2-liaisons}, en bleu
 (Figure~\ref{fig:etat-art-model-regle-gcarte-2-cell}). %
-Les faces se décomposent en arêtes connectées des \emph{1-liaisons}, en rouge
-(Figure~\ref{fig:etat-art-model-regle-gcarte-1-cell}). %
+Les faces se décomposent en arêtes connectées par des \emph{1-liaisons}, en
+rouge (Figure~\ref{fig:etat-art-model-regle-gcarte-1-cell}). %
 Enfin ces arêtes se décomposent en sommets connectés par des \emph{0-liaisons},
 en noir (Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
 
+Par la suite, pour ne pas créer de confusion, nous appellerons respectivement «~brins~» et «~liaisons~» les nœuds et arcs dans les G-cartes. %
 
 Dans les G-cartes, Les cellules peuvent être représentées à l'aide de
 sous-graphes que l'on appelle orbites.
@@ -315,6 +316,7 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 \end{figure}
 % \todo{Ajouter illustration application règle de triangulation}
 
+\maxime{def règle ?}
 Une règle $r$ est définie par un couple de graphes $L$ et $R$ tel que $L \cap R \hookrightarrow L$ et $L \cap R \hookrightarrow R$.
 C'est-à-dire que pour toute arête $e \in L \cap R$, $e$ a les mêmes sources, cibles et étiquettes dans $L$ et $R$.
 Une manière simple d'assurer cette condition est que $L$ et $R$ n'aient pas d'arête commune.
@@ -326,6 +328,7 @@ règle est introduite par \cite{poudr2009} et est notée $r: L \longrightarrow R
 % \label{sec:etat-art-jerboa-application-regle}
 
 
+\maxime{def application ?}
 L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme de
 filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un morphisme
 injectif qui étend $m$ sur $R$.
@@ -345,7 +348,7 @@ catégories~\cite{bellet2010designing,pascual2022topological,poudret2008graph}.
 La Figure~\ref{fig:etat-art-model-regles-transformation-inst-application} présente la règle de triangulation d'une face quadrangulaire et son application.
 Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est l'identité.
 
-\begin{definition}[Application d'une règle de transformation de graphe]
+\begin{definition}[transformation directe d'un graphe ?]
 	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage injectif.
 
 	L'\emph{application} $G \xlongrightarrow{(r, m)} H$ de $r$ sur $G$ le long de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$ , où $m'$ est la restriction de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit injective. $m'$, et donc $H$ est unique à isomorphisme près.
@@ -419,15 +422,15 @@ Ces étiquettes désignent la modification des orbites par renommage et suppress
 \begin{definition}[Renommage d'une orbite]
 	Le \emph{renommage} $(\orbit{o} \mapsto \orbit{o'})(G\orbit{o}(v))$ d'une $\orbit{o}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe $(V,E',s',t',\alpha')$ défini par :
 	\begin{itemize}
-	  \item $E'$ est le sous-ensemble des arêtes de $E$ qui n'ont pas été
-			supprimées, c'est-à-dire
-			$E'=\{e \in E \mid (\orbit{o} \mapsto \orbit{o'})(\alpha(e)) \neq \_ \}$,
+		\item $E'$ est le sous-ensemble des arêtes de $E$ qui n'ont pas été
+		      supprimées, c'est-à-dire
+		      $E'=\{e \in E \mid (\orbit{o} \mapsto \orbit{o'})(\alpha(e)) \neq \_ \}$,
 
-	  \item $s'$ et $t'$ sont les restrictions respectives de $s$ et $t$ sur
-			$E'$,
+		\item $s'$ et $t'$ sont les restrictions respectives de $s$ et $t$ sur
+		      $E'$,
 
-	  \item $\alpha'$ est définie sur $E'$ pour toute arête $e \in E'$ par
-			$\alpha'(e) = (\orbit{o} \mapsto \orbit{o'})(\alpha(e))$.
+		\item $\alpha'$ est définie sur $E'$ pour toute arête $e \in E'$ par
+		      $\alpha'(e) = (\orbit{o} \mapsto \orbit{o'})(\alpha(e))$.
 	\end{itemize}
 \end{definition}
 

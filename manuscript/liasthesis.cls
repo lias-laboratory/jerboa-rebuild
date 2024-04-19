@@ -19,6 +19,7 @@
 \RequirePackage[pages=some]{background}
 \RequirePackage[french]{minitoc}
 
+
 \usedictionary{translator-basic-dictionnary}
 \newtranslation[to = french]{THESIS}{THÈSE}
 \newtranslation[to = english]{THÈSE}{THESIS}
@@ -93,6 +94,22 @@
 \setulmarginsandblock{\tmargin}{\bmargin}{*}
 \setlrmarginsandblock{\lmargin}{\rmargin}{*}
 \checkandfixthelayout
+
+
+\newcommand{\TitleFrame}{}
+
+\DeclareOption{framed}{%
+	\renewcommand{\TitleFrame}{%
+		\usetikzlibrary{positioning,calc}
+		\begin{tikzpicture}[remember picture, overlay]
+			\draw[line width = 1pt]
+			($(current page.north west) + (\lmargin-1em,-\tmargin)$) rectangle
+			($(current page.south east) + (-\rmargin+1em,\bmargin-1em)$);
+		\end{tikzpicture}
+	}
+}
+\ProcessOptions\relax
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% SECTION NUMBERING %%%%%%%%%%
@@ -182,18 +199,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\TitleLogos}{%
-	\usetikzlibrary{positioning}
+	\usetikzlibrary{positioning,calc}
 	\begin{tikzpicture}[overlay, remember picture]
 		% if \@titlelogoleft is empty then relax evaluates to relax
 		\if\relax \@titlelogoleft \relax % goes to true branch
 		\else % goes to the false branch
-			\node (TitleLogoLeft) at (current page.north west)
+			\node (TitleLogoLeft) at ($(current page.north west) + (1em,-1em)$)
 			[below right = \tmargin and \lmargin] {
 				\includegraphics[height=2cm]{\@titlelogoleft} };
 		\fi
 		\if\relax \@titlelogoright \relax
 		\else
-			\node (TitleLogoRight) at (current page.north east)
+			\node (TitleLogoRight) at ($(current page.north east) + (-1em,-1em)$)
 			[below left = \tmargin and \rmargin] {
 				\includegraphics[height=2cm]{\@titlelogoright}
 			};
@@ -201,11 +218,14 @@
 	\end{tikzpicture}
 }
 
-\backgroundsetup{opacity=1, scale=1, angle=0, contents=\TitleLogos}
+
+
+\backgroundsetup{opacity=1, scale=1, angle=0, color=black, contents=\TitleFrame\TitleLogos}
 
 \renewcommand{\maketitle}{%
-	\begin{titlingpage}
 
+
+	\begin{titlingpage}
 		\BgThispage
 
 		\begin{center}

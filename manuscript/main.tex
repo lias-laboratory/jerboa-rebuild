@@ -1,14 +1,14 @@
-\documentclass[x11names]{LiasThesis}
+\documentclass[x11names,framed]{LiasThesis}
 
 \usepackage[french]{babel}
 \usepackage[style=french]{csquotes}
-\usepackage{fancybox}
 \usepackage{extarrows}
 \usepackage{subfiles}
+\usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{soul}
 \usepackage{lipsum}
-\usepackage[switch*,pagewise]{lineno}
+\usepackage[switch*,pagewise,mathlines]{lineno}
 \usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
 \addbibresource{references/references.bib}
 
@@ -16,19 +16,19 @@
 \usepackage{amssymb}
 \usepackage[amsmath,amsthm]{ntheorem}
 
-\graphicspath{{../logos/}}
+\def\gResourcesPath{../resources-figures-jerboa}
+\graphicspath{{../logos/}{\gResourcesPath/concepts}}
 
 \input{commands}
 
 \AtBeginDocument{\def\labelitemi{\(\bullet\)}}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \publishtrue %% Keep it commented until you have defended
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\jurytrue %% Keep it commented until you have a jury
+% \jurytrue %% Keep it commented until you have a jury
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \titlelogoleft{logo_isae-ensma.pdf}

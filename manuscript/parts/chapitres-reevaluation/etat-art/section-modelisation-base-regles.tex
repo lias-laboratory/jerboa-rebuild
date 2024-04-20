@@ -20,12 +20,13 @@
 \label{sec:etat-art-rappels-graphes}
 
 
-Les structures topologiques sont représentées par des graphes dont les arcs sont
-porteurs d'information topologique. %
-Ces informations, des dimensions, établissent les relations d'appartenance entre
-plusieurs nœuds à une même structure topologique, par exemple des cellules
-telles que les faces, arêtes, sommets, etc. %
-De tels graphes sont appelés graphes topologiques. %
+Les structures topologiques peuvent être représentées par des graphes dont les
+arcs établissent des relations d'appartenance, entre plusieurs nœuds, à une même
+structure topologique. %
+Ces structures peuvent être, par exemple, des cellules telles que les volumes,
+faces, arêtes et sommets lorsque le modèle de représentation est en dimension
+3. %
+De tels graphes sont appelés des graphes topologiques. %
 
 \begin{definition}[Graphes topologiques]
 	\label{def:graphe-topologique}
@@ -78,6 +79,8 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 \end{definition}
 
 De même, nous pouvons définir la notion de chemin dans les graphes. %
+Intuitivement, un chemin est un ensemble fini des arêtes traversées lors d'un
+parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 
 \begin{definition}[Chemin]
 	\label{def:graphes-chemin}
@@ -98,7 +101,7 @@ De même, nous pouvons définir la notion de chemin dans les graphes. %
 
 Les \emph{cartes généralisées} (ou «~G-cartes~»)
 \cite{lienhardt1991topological,Damiand-Lienhardt14} permettent la
-représentation d'objets géométriques variétés (avec ou sans bord), basées sur
+représentation variétés géométriques (avec ou sans bord), basées sur
 des structures topologiques cellulaires de dimension $n$.
 
 \begin{definition}[G-Carte]
@@ -167,8 +170,18 @@ Les faces se décomposent en arêtes connectées par des \emph{1-liaisons}, en
 rouge (Figure~\ref{fig:etat-art-model-regle-gcarte-1-cell}). %
 Enfin ces arêtes se décomposent en sommets connectés par des \emph{0-liaisons},
 en noir (Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
+Notons que, en bordure de l'objet, les liaisons bouclent sur elles-mêmes. %
+C'est le cas ici pour les 3-liaisons des sommets, arêtes et faces
+incidentes à un unique volume. %
+Par soucis de visibilité, nous masquons ces boucles dans les illustrations d'objet 3D. %
 
-Par la suite, pour ne pas créer de confusion, nous appellerons respectivement «~brins~» et «~liaisons~» les nœuds et arcs dans les G-cartes. %
+~
+
+Par la suite, pour distinguer les entités topologiques des graphes qui les
+représentent et ne pas créer de confusion, nous appellerons respectivement
+«~brins~» et «~liaisons~» les nœuds et arcs dans les G-cartes. %
+
+~
 
 Dans les G-cartes, Les cellules peuvent être représentées à l'aide de
 sous-graphes que l'on appelle orbites.
@@ -257,15 +270,16 @@ Jerboa \cite{belhaouari2014jerboa} pour terminer avec les scripts de
 règle \cite{gauth2019}. %
 
 
-\subsubsection[Règles de transformation de graphe instanciées]{Règles de transformation de graphe instanciées}
-\label{sec:etat-art-regles-transformation-inst}
+\subsubsection[Concepts]{Concepts}
+\label{sec:etat-art-model-regles-regles-transformation-concepts}
 
-Deux concepts sont essentiels pour que l'on puisse définir les règles de
-transformation de graphe, les morphismes de graphe et les unions disjointes. %
+Deux concepts sont nécessaires pour définir les règles de transformation de
+graphe ainsi que leurs applications~: les morphismes et unions disjointes de
+graphes. %
 
 ~
 
-Intuitivement, un morphisme entre deux graphes $m: G \to G'$ est une application
+Intuitivement, un morphisme entre deux graphes, $m: G \to G'$, est une application
 définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
 arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 
@@ -295,44 +309,46 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 
 % \todo{Ajouter illustrations morphismes}
 
+Intuitivement, l'union disjointe de deux graphes est l'union simple de ceux-ci
+lorsque leur intersection est nulle. %
+
 \begin{definition}[Union disjointe]
 	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes.
 
 	L'\emph{union disjointe} $G \sqcup G'$ est définie à isomorphisme près comme suit.
-	Soient $m : G \to H$ et $m' : G' \to H'$ deux isomorphismes tel que $H$ et $H'$ soient disjoints, c'est-à-dire $H \cap H' = \emptyset$.
+	Soient $m: G \to H$ et $m': G' \to H'$ deux isomorphismes tels que $H$ et $H'$ soient disjoints, c'est-à-dire $H \cap H' = \emptyset$.
 	L'union disjointe de  $G$ et $G'$ est l'union simple de $H$ et $H'$, plus formellement $G \sqcup G' = H \cup H'$.
 \end{definition}
 
 \todo{Ajouter illustration union disjointe, c'est pas si évident que ça}
 
-% \subsubsection[Règles de transformation de graphe]{Règles de transformation de graphe}
-% \label{sec:etat-art-jerboa-regles-transformation}
+\subsubsection[Règles de transformation de graphe]{Règles de transformation de graphe}
+\label{sec:etat-art-model-regles-regles-transformation-inst}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[scale=0.5]{application-regle}
+	\includegraphics[width=\textwidth]{application-regle}
 	\caption{Application d'une règle de triangulation}
 	\label{fig:etat-art-model-regles-transformation-inst-application}
 \end{figure}
 % \todo{Ajouter illustration application règle de triangulation}
 
-\maxime{def règle ?}
 Une règle $r$ est définie par un couple de graphes $L$ et $R$ tel que $L \cap R \hookrightarrow L$ et $L \cap R \hookrightarrow R$.
 C'est-à-dire que pour toute arête $e \in L \cap R$, $e$ a les mêmes sources, cibles et étiquettes dans $L$ et $R$.
-Une manière simple d'assurer cette condition est que $L$ et $R$ n'aient pas d'arête commune.
+\highlight{Une manière simple d'assurer cette condition est que $L$ et $R$ n'aient pas d'arête commune.}
 $L$ est le motif \emph{filtré} et $R$ est le motif \emph{transformé}. La syntaxe d'une
 règle est introduite par \cite{poudr2009} et est notée $r: L \longrightarrow R$.
-
 
 % \subsubsection[Application de règle]{Application de règle}
 % \label{sec:etat-art-jerboa-application-regle}
 
+\begin{definition}[Application d'une règle]
+	L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme
+	de filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un
+	morphisme injectif qui étend $m$ sur $R$.
+\end{definition}
 
-\maxime{def application ?}
-L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme de
-filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un morphisme
-injectif qui étend $m$ sur $R$.
-
+\todo{Limiter les «~intuitivement~» et faire des exemples}
 Intuitivement, $m(L \setminus R)$ est supprimé dans $G$, puis $m'(R \setminus L)$ est ajouté
 pour produire la transformation directe $H$.
 
@@ -346,7 +362,7 @@ catégories~\cite{bellet2010designing,pascual2022topological,poudret2008graph}.
 %Notons que $m(L \setminus R)$ et
 %$m'(R \setminus L)$ ne sont pas forcément des graphes à cause de possibles arcs pendants \mgnote{phrase OK?}. \xsnote{Phrase correcte mais il faut donner un exemple produisant justement des arcs pendants.} \xsnote{(2022-03-22) : illustrer graphiquement $m(L \setminus R)$ et $m'(R \setminus L)$ sur la figure ?}
 La Figure~\ref{fig:etat-art-model-regles-transformation-inst-application} présente la règle de triangulation d'une face quadrangulaire et son application.
-Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est l'identité.
+Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est l'identité.
 
 \begin{definition}[transformation directe d'un graphe ?]
 	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage injectif.

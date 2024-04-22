@@ -89,20 +89,18 @@ parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son
 	étiquette est le mot $\alpha(e_{1}) \alpha(e_{2}) \dots \alpha(e_{k})$.
 
-	\begin{leftbar}[nord12]
-		Si $s(e_{1}) = t(e_{k})$, le chemin est appelé \emph{cycle}.
-	\end{leftbar}
+
+	Si $s(e_{1}) = t(e_{k})$, le chemin est appelé \emph{cycle}.
 \end{definition}
 
-
 \subsection[Les cartes généralisées]{Les cartes généralisées}
-\label{sec:etat-art-cartes-generalisees}
+\label{sec:etat-art-model-regles-gcartes}
 
 
 Les \emph{cartes généralisées} (ou «~G-cartes~»)
-\cite{lienhardt1991topological,Damiand-Lienhardt14} permettent la
-représentation variétés géométriques (avec ou sans bord), basées sur
-des structures topologiques cellulaires de dimension $n$.
+\cite{lienhardt1991topological,Damiand-Lienhardt14} permettent la représentation
+de variétés géométriques (avec ou sans bord) basées sur des structures
+topologiques cellulaires de dimension $n$.
 
 \begin{definition}[G-Carte]
 	\label{def:gcarte}
@@ -173,15 +171,11 @@ en noir (Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
 Notons que, en bordure de l'objet, les liaisons bouclent sur elles-mêmes. %
 C'est le cas ici pour les 3-liaisons des sommets, arêtes et faces
 incidentes à un unique volume. %
-Par soucis de visibilité, nous masquons ces boucles dans les illustrations d'objet 3D. %
-
-~
+Par soucis de visibilité, nous masquons ces boucles dans les illustrations d'objets en 3D. %
 
 Par la suite, pour distinguer les entités topologiques des graphes qui les
 représentent et ne pas créer de confusion, nous appellerons respectivement
 «~brins~» et «~liaisons~» les nœuds et arcs dans les G-cartes. %
-
-~
 
 Dans les G-cartes, Les cellules peuvent être représentées à l'aide de
 sous-graphes que l'on appelle orbites.
@@ -255,9 +249,9 @@ brins atteignables par des liaisons $0,2$. %
 \label{sec:etat-art-model-regles-regles-transformation}
 
 
-Dans la sous-section précédente~\ref{sec:etat-art-rappels-graphes}, nous avons
-défini les cartes généralisées comme des graphes topologiques vérifiant
-certaines contraintes de cohérence. %
+Dans la sous-section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
+cartes généralisées comme des graphes topologiques vérifiant certaines
+contraintes de cohérence. %
 Les opérations sur ces graphes peuvent être définies par des règles de
 transformation de graphes. %
 Dans cette sous-section, nous abordons la formalisation des opérations de
@@ -266,8 +260,8 @@ temps. %
 Tout d'abord, nous présentons les règles de transformation de graphe et les
 concepts nécessaires à leurs mises en œuvre. %
 Ensuite, nous étendons ces concepts aux règles de transformation de graphe
-Jerboa \cite{belhaouari2014jerboa} pour terminer avec les scripts de
-règle \cite{gauth2019}. %
+Jerboa \cite{belhaouari2014jerboa} pour terminer avec les scripts de règles
+\cite{gauth2019}. %
 
 
 \subsubsection[Concepts]{Concepts}
@@ -277,9 +271,7 @@ Deux concepts sont nécessaires pour définir les règles de transformation de
 graphe ainsi que leurs applications~: les morphismes et unions disjointes de
 graphes. %
 
-~
-
-Intuitivement, un morphisme entre deux graphes, $m: G \to G'$, est une application
+Le morphisme $m$ entre deux graphes $G$ et $G'$, est l'application
 définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
 arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 
@@ -292,13 +284,19 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	dans G', tel que pour tout $e \in E$, $m_{V}(s(e)) = s'(m_{E}(e))$,
 	$m_{V}(t(e)) = t'(m_{E}(e))$ et $\alpha(e) = \alpha'(m_{E}(e))$.
 
-	Un morphisme $G \to G'$ est un morphisme d'inclusion, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
+	~
 
-	Un morphisme est \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont
-	injectives.
-
-	Un morphisme est un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
+	\noindent Un morphisme $G \to G'$ est un~:
+	\begin{itemize}
+		\item morphisme d'\emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
+		\item morphisme \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives.
+		\item \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
+	\end{itemize}
+	% un morphisme d'inclusion, .
+	% Un morphisme est \emph{injectif} .
+	% Un morphisme est un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
 \end{definition}
+
 
 \begin{figure}[ht]
 	\centering
@@ -322,49 +320,55 @@ lorsque leur intersection est nulle. %
 
 \todo{Ajouter illustration union disjointe, c'est pas si évident que ça}
 
-\subsubsection[Règles de transformation de graphe]{Règles de transformation de graphe}
-\label{sec:etat-art-model-regles-regles-transformation-inst}
+\subsubsection[Règles instanciées]{Règles instanciées}
+\label{sec:etat-art-model-regles-regles-inst}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{application-regle}
+	\includegraphics[width=.85\textwidth]{application-regle}
 	\caption{Application d'une règle de triangulation}
-	\label{fig:etat-art-model-regles-transformation-inst-application}
+	\label{fig:etat-art-model-regles-inst-application}
 \end{figure}
-% \todo{Ajouter illustration application règle de triangulation}
 
-Une règle $r$ est définie par un couple de graphes $L$ et $R$ tel que $L \cap R \hookrightarrow L$ et $L \cap R \hookrightarrow R$.
-C'est-à-dire que pour toute arête $e \in L \cap R$, $e$ a les mêmes sources, cibles et étiquettes dans $L$ et $R$.
-\highlight{Une manière simple d'assurer cette condition est que $L$ et $R$ n'aient pas d'arête commune.}
-$L$ est le motif \emph{filtré} et $R$ est le motif \emph{transformé}. La syntaxe d'une
-règle est introduite par \cite{poudr2009} et est notée $r: L \longrightarrow R$.
+Une règle de transformation de graphe se compose de deux membres. %
+Un membre gauche pour filtrer tout ou partie d'un graphe et un membre droit pour
+transformer l'élément filtré par le membre gauche. %
+% C'est ce qu'illustre la règle dans le cadre vert de la
+% Figure~\ref{fig:etat-art-model-regles-inst-application} dont le membre gauche
+% est une face carrée et dont le membre droit est la même face carrée qui a été
+% triangulée. %
 
-% \subsubsection[Application de règle]{Application de règle}
-% \label{sec:etat-art-jerboa-application-regle}
+Plus formellement, une règle $r$ est définie par un couple de graphes $L$ et $R$
+tel que $L \cap R \hookrightarrow L$ et $L \cap R \hookrightarrow R$. %
+C'est-à-dire que pour toute arête $e \in L \cap R$, $e$ a les mêmes sources, cibles
+et étiquettes dans $L$ et $R$. %
+Une manière simple d'assurer cette condition est que $L$ et $R$ n'aient pas
+d'arête commune. %
+$L$ est le motif \emph{filtré} et $R$ est le motif \emph{transformé}. %
+La syntaxe d'une règle est introduite par \cite{poudr2009} et est notée
+$r: L \longrightarrow R$. %
 
-\begin{definition}[Application d'une règle]
-	L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme
-	de filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un
-	morphisme injectif qui étend $m$ sur $R$.
-\end{definition}
-
-\todo{Limiter les «~intuitivement~» et faire des exemples}
+L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme
+de filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un
+morphisme injectif qui étend $m$ sur $R$. %
+%
 Intuitivement, $m(L \setminus R)$ est supprimé dans $G$, puis $m'(R \setminus L)$ est ajouté
-pour produire la transformation directe $H$.
-
+pour produire la transformation directe $H$. %
+%
 $m'$ et $H$ sont définis à isomorphisme près, c'est-à-dire au nom près des
-nouveaux brins. L'injectivité de $m'$ garantie que les nouveaux brins de $H$
-sont bien des brins distincts les uns des autres et distincts de ceux de $G$.
+nouveaux brins. %
+L'injectivité de $m'$ garantie que les nouveaux brins de $H$ sont bien des brins
+distincts les uns des autres et distincts de ceux de $G$. %
 L'application d'une règle peut être définie formellement dans la théorie des
-catégories~\cite{bellet2010designing,pascual2022topological,poudret2008graph}.
+catégories~\cite{poudret2008graph,bellet2010designing,pascual2022topological}. %
 
 
 %Notons que $m(L \setminus R)$ et
 %$m'(R \setminus L)$ ne sont pas forcément des graphes à cause de possibles arcs pendants \mgnote{phrase OK?}. \xsnote{Phrase correcte mais il faut donner un exemple produisant justement des arcs pendants.} \xsnote{(2022-03-22) : illustrer graphiquement $m(L \setminus R)$ et $m'(R \setminus L)$ sur la figure ?}
-La Figure~\ref{fig:etat-art-model-regles-transformation-inst-application} présente la règle de triangulation d'une face quadrangulaire et son application.
+La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de triangulation d'une face quadrangulaire et son application.
 Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est l'identité.
 
-\begin{definition}[transformation directe d'un graphe ?]
+\begin{definition}[Application d'une règle de transformation de graphe]
 	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage injectif.
 
 	L'\emph{application} $G \xlongrightarrow{(r, m)} H$ de $r$ sur $G$ le long de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$ , où $m'$ est la restriction de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit injective. $m'$, et donc $H$ est unique à isomorphisme près.
@@ -399,41 +403,63 @@ respectent ces conditions syntaxiques. %
 	\end{itemize}
 \end{theoreme}
 
-Dans la suite, nous utiliserons uniquement des règles qui vérifient ces conditions de préservation des G-cartes. Ainsi, lorsque $G$ est une G-carte, sa transformation directe $H$ l'est aussi.
+\begin{remarque}
+	Dans la suite, nous utiliserons uniquement des règles qui vérifient ces
+	conditions de préservation des G-cartes. %
+	Ainsi, lorsque $G$ est une G-carte, sa transformation directe $H$ l'est
+	aussi. %
+\end{remarque}
 
-En pratique les morphismes de filtrage ne sont pas donnés \textit{in extenso},
-mais à partir du \highlight{mapping} d'un sous-ensemble de nœuds de $L$ appelés nœuds
-d'accroche (\emph{hooks} en anglais). Par exemple, dans la Figure~\ref{fig:etat-art-model-regles-transformation-inst-application}, le nœud $h$ de $L$ est son nœud d'accroche noté
-par un double cercle. Son association au nœud $h$ de $G$ défini un unique
-morphisme de filtrage $m$ grâce à la condition d'arcs incidents. Pour cela, les
-règles comportent un nœud d'accroche par composante connexe de $L$.
+En pratique, les morphismes de filtrage ne sont pas donnés \textit{in extenso},
+mais à partir \highlight{\st{du mapping} $\to$ de l'appariement} d'un
+sous-ensemble de brins de $L$ appelés brins d'accroche (\emph{hooks} en
+anglais). %
+Par exemple, dans la
+Figure~\ref{fig:etat-art-model-regles-inst-application}, le nœud
+$h$ de $L$ est son brin d'accroche. % noté par un double cercle. %
+Son association au brin $h$ de $G$ défini un unique morphisme de filtrage $m$
+grâce à la condition d'arcs incidents. %
+Pour cela, les règles comportent un brin d'accroche par composante connexe de
+$L$.
 
-% \subsubsection[Motifs]{Motifs}
-% \label{sec:etat-art-regles-jerboa-motifs}
 
 \subsubsection[Règles Jerboa]{Règles Jerboa}
-\label{sec:etat-art-jerboa-regles-jerboa}
+\label{sec:etat-art-model-regles-regles-jerboa}
 
-\cite{belhaouari2014jerboa,gauthier2016topological}
 
-Comme nous l'avons vu, les motifs des règles de bases sont des parties des objets transformés. Ainsi, les règles de base déterminent complètement la topologie des parties modifiées.
-Pour être plus générales et permettre par exemple de filtrer une face indépendamment de son nombre d'arêtes, les règles Jerboa sont paramétrées par les orbites.
+Comme nous l'avons vu, les motifs des règles instanciées sont des parties des
+objets transformés. %
+Ainsi, les règles instanciées déterminent complètement la topologie des parties
+modifiées. %
+Le langage de règles Jerboa \cite{belhaouari2014jerboa}, avec la paramétrisation
+des motifs par des orbites, permet de concevoir des règles plus générales
+permettant, par exemple, de filtrer des faces indépendamment du nombre
+d'arêtes. %
 
-\begin{proposition}[Motif avec orbite]
+\begin{definition}[Motif avec orbite]
 	Un \emph{motif avec orbite} est un graphe $M=(V,E,s,t,\alpha,l)$, où $(V,E,s,t,\alpha)$
 	est un graphe topologique classique, $l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une
 	fonction d'étiquetage des nœuds par des mots sur les dimensions topologiques
 	et le symbole "$\_$", telle que toutes les étiquettes des nœuds du motif
 	soient des mots de la même longueur.
-\end{proposition}
+\end{definition}
 
-Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au motif $M$ privé de ses étiquettes de nœuds.
+Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au
+motif $M$ privé de ses étiquettes de nœuds.
+%
+Prenons le mot $013$, que l'on note $\orbit{013}$ et qui désigne l'orbite
+face. %
+De même, le mot $0\_3$ est noté $\orbit{0\_3}$ et désigne l'orbite face
+précédente dont tous les $1$-arcs sont supprimés. %
 
-%L'ensemble des définitions précédentes (union, intersection, différence, morphismes, événements, \textit{etc.}) s'étendent sur les motifs avec orbites.
-
-Intuitivement, le mot $013$ est noté $\orbit{013}$ et désigne l'orbite face. De même, le mot $0\_3$ est noté $\orbit{0\_3}$ et désigne l'orbite face précédente dont tous les $1$-arcs sont supprimés.
-
-Ces étiquettes désignent la modification des orbites par renommage et suppression des arcs. Une étiquette construite sur $[0,n]$, c'est-à-dire sans suppression, est appelée \emph{orbite pleine}. Une \emph{fonction de renommage} $\orbit{o} \mapsto \orbit{o'}$, d'une orbite pleine $\orbit{o_1 o_2 ... o_k}$, vers une orbite $\orbit{o'_1 o'_2 ... o'_k}$ définit le renommage des étiquettes topologiques $o_1 \mapsto o'_1, o_2 \mapsto o'_2$ \ldots $o_k \mapsto o'_k$.
+Ces étiquettes désignent la modification des orbites par renommage et
+suppression des arcs. %
+Une étiquette construite sur $[0,n]$, c'est-à-dire sans suppression, est appelée
+\emph{orbite pleine}. %
+Une \emph{fonction de renommage} $\orbit{o} \mapsto \orbit{o'}$, d'une orbite pleine
+$\orbit{o_1 o_2 ... o_k}$, vers une orbite $\orbit{o'_1 o'_2 ... o'_k}$ définit
+le renommage des étiquettes topologiques $o_1 \mapsto o'_1, o_2 \mapsto o'_2$ \ldots
+$o_k \mapsto o'_k$. %
 
 \begin{definition}[Renommage d'une orbite]
 	Le \emph{renommage} $(\orbit{o} \mapsto \orbit{o'})(G\orbit{o}(v))$ d'une $\orbit{o}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe $(V,E',s',t',\alpha')$ défini par :
@@ -463,13 +489,137 @@ L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'
 
 ~
 
-\todo{Ajouter motif droit triangulation}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=.8]{right-scheme-rule-face-triangulation}
+	\caption{Motif droit de la règle de triangulation}
+	\label{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation}
+\end{figure}
 
-\todo{Ajouter instanciation motif triangulation quadrangle}
 
-\todo{Ajouter instanciation motif triangulation triangle}
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{inst-quad-face-v2.pdf}
+		\caption{}
+		\label{fig:jerboa-quad-before-triangulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-quad-triangulation-step1-v2.pdf}
+		\caption{}
+		\label{fig:inst-quad-triangulation-1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-quad-triangulation-step2-v2.pdf}
+		\caption{}
+		\label{fig:inst-quad-triangulation-2}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{inst-quad-triangulation-step3-v2.pdf}
+		\caption{}
+		\label{fig:inst-quad-triangulation-3}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-quad-triangulation-step4-v2.pdf}
+		\caption{}
+		\label{fig:inst-quad-triangulation-4}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-quad-triangulation-step5-v2.pdf}
+		\caption{}
+		\label{fig:inst-quad-triangulation-5}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{inst-quad-triangulation-step-final-v2.pdf}
+		\caption{}
+		\label{fig:inst-quad-triangulation-final}
+	\end{subfigure}
+	\caption{Instanciation du motif de triangulation (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation} ) sur une face quadrangulaire.
+		(\subref{fig:jerboa-quad-before-triangulation}) Orbite face d'instanciation,
+		(\subref{fig:inst-quad-triangulation-1})  Nœuds d'instanciation $0$,
+		(\subref{fig:inst-quad-triangulation-2})  Instanciation des $1$-arcs incidents aux nœuds d'instanciation $0$,
+		(\subref{fig:inst-quad-triangulation-3}) Nœuds d'instanciation $1$,
+		(\subref{fig:inst-quad-triangulation-4})  Instanciation des $0$-arcs incidents aux nœuds d'instanciation $1$ et
+		(\subref{fig:inst-quad-triangulation-5}) Nœuds d'instanciation $2$.
+		Enfin, (\subref{fig:inst-quad-triangulation-final}) Résultat de l'instanciation.}
+	\label{fig:before-after-quad-triangulation}
+\end{figure}
+\clearpage
 
-~
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.9\linewidth]{inst-tri-face.pdf}
+		\caption{}
+		\label{fig:jerboa-tri-before-triangulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step1.pdf}
+		\caption{}
+		\label{fig:inst-tri-triangulation-1}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step2.pdf}
+		\caption{}
+		\label{fig:inst-tri-triangulation-2}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step3.pdf}
+		\caption{}
+		\label{fig:inst-tri-triangulation-3}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step4.pdf}
+		\caption{}
+		\label{fig:inst-tri-triangulation-4}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step5.pdf}
+		\caption{}
+		\label{fig:inst-tri-triangulation-5}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{inst-tri-triangulation-step-final.pdf}
+		\caption{}
+		\label{fig:inst-tri-triangulation-final}
+	\end{subfigure}
+	\caption{Instanciation du motif de triangulation (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation}) sur une face triangulaire.
+		(\subref{fig:jerboa-tri-before-triangulation}) Orbite face d'instanciation,
+		(\subref{fig:inst-tri-triangulation-1}) Nœuds d'instanciation $0$,
+		(\subref{fig:inst-tri-triangulation-2})  Instanciation des $1$-arcs explicite incidents aux nœuds d'instanciation $0$,
+		(\subref{fig:inst-tri-triangulation-3}) Nœuds d'instanciation $1$,
+		(\subref{fig:inst-tri-triangulation-4})  Instanciation des $0$-arcs incidents aux nœuds d'instanciation $1$ et
+		(\subref{fig:inst-tri-triangulation-5}) Nœuds d'instanciation $2$.
+		(\subref{fig:inst-tri-triangulation-final}) Résultat final de l'instanciation.}
+	\label{fig:before-after-tri-triangulation}
+\end{figure}
+\clearpage
 
 La figure \textbf{fig:before-after-quad-triangulation} illustre l'instanciation du schéma de triangulation sur la face carrée \textbf{fig:jerboa-quad-before-triangulation} dont les brins sont nommés de a à h.
 
@@ -529,7 +679,11 @@ directe. %
 	\end{itemize}
 \end{definition}
 
-Remarquons que si le morphisme de filtrage $m$ existe, il est unique en raison de la contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte}) et de la condition d'arc incident du motif $L$.
+\begin{remarque}
+	Si le morphisme de filtrage $m$ existe, il est unique en raison de la
+	contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte}) et
+	de la condition d'arc incident du motif $L$.
+\end{remarque}
 
 \agnes{Donner un exemple de morphisme sur la règle précédente + expliciter l'orbite d'instanciation}
 \agnes{Donner un exemple de règle avec 2 hook + montrer que les 2 hook donnent des orbites d'instanciation isomorphes}

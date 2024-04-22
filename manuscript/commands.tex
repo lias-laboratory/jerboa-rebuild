@@ -11,14 +11,23 @@
 	\MakeFramed{\advance\hsize -\width \FrameRestore}}%
 {\endMakeFramed}
 
+{
 \theoremstyle{break}
 \theoremheaderfont{\normalfont\bfseries}
-\theorembodyfont{\upshape}
+% \theorembodyfont{\upshape}
 \theoremseparator{:}
-
+%
 \newtheorem{thmi}{Théorème}
 \newtheorem{defi}{Définition}
 \newtheorem{propi}{Proposition}
+}
+
+{
+\theoremstyle{plain}
+\theoremheaderfont{\normalfont}
+\theorembodyfont{\itshape}
+\newtheorem*{remarki}{Remarque}
+}
 
 \renewenvironment{proof}{\noindent\textbf{Preuve~:}}{\hfill$\square$\newline}
 \newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\hfill\(\square\newline\)}
@@ -42,6 +51,13 @@
 		\begin{leftbar}[nord7]}{%
 		\end{leftbar}
 	\end{thmi}
+}
+
+\newenvironment{remarque}[1][]{%
+  \begin{remarki}
+		\begin{leftbar}[nord12]}{%
+		\end{leftbar}
+  \end{remarki}
 }
 
 %% Proof leftbar : nord14

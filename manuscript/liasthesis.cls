@@ -18,7 +18,7 @@
 \RequirePackage{tikz}
 \RequirePackage[pages=some]{background}
 \RequirePackage[french]{minitoc}
-
+\RequirePackage{tgtermes}
 
 \usedictionary{translator-basic-dictionnary}
 \newtranslation[to = french]{THESIS}{THÈSE}

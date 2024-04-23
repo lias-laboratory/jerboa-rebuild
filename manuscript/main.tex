@@ -8,7 +8,6 @@
 \usepackage{hyperref}
 \usepackage{soul}
 \usepackage{lipsum}
-% \usepackage{tgtermes}
 \usepackage[switch*,pagewise,mathlines]{lineno}
 \usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
 \addbibresource{references/references.bib}
@@ -18,7 +17,10 @@
 \usepackage[amsmath,amsthm]{ntheorem}
 
 \def\gResourcesPath{../resources-figures-jerboa}
-\graphicspath{{../logos/}{\gResourcesPath/concepts}}
+\graphicspath{{../logos/}%
+  {\gResourcesPath/concepts}%
+  {\gResourcesPath/rules}%
+}
 
 \input{commands}
 

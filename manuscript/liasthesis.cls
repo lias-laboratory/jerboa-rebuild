@@ -223,8 +223,6 @@
 \backgroundsetup{opacity=1, scale=1, angle=0, color=black, contents=\TitleFrame\TitleLogos}
 
 \renewcommand{\maketitle}{%
-
-
 	\begin{titlingpage}
 		\BgThispage
 

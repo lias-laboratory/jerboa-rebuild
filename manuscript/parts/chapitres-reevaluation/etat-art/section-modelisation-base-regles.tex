@@ -271,9 +271,12 @@ Deux concepts sont nécessaires pour définir les règles de transformation de
 graphe ainsi que leurs applications~: les morphismes et unions disjointes de
 graphes. %
 
+~
+
 Le morphisme $m$ entre deux graphes $G$ et $G'$, est l'application
 définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
 arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
+
 
 \begin{definition}[Morphisme]
 	Soient $G = (V,E,s,t,\alpha)$
@@ -284,32 +287,50 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	dans G', tel que pour tout $e \in E$, $m_{V}(s(e)) = s'(m_{E}(e))$,
 	$m_{V}(t(e)) = t'(m_{E}(e))$ et $\alpha(e) = \alpha'(m_{E}(e))$.
 
-	~
-
 	\noindent Un morphisme $G \to G'$ est un~:
 	\begin{itemize}
 		\item morphisme d'\emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
 		\item morphisme \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives.
 		\item \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
 	\end{itemize}
-	% un morphisme d'inclusion, .
-	% Un morphisme est \emph{injectif} .
-	% Un morphisme est un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
 \end{definition}
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[height=100pt]{morphisme}
-	\caption{Morphisme entre deux graphes}
-	\label{fig:etat-art-model-regles-transformation-inst-morphisme}
+	\begin{subfigure}{.3\textwidth}
+		\includegraphics[width=.9\textwidth]{example-image-a}
+		\caption{Morphisme d'inclusion}
+	\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.3\textwidth}
+		% \includegraphics[width=.9\textwidth]{morphisme}
+		\includegraphics[width=.9\textwidth]{example-image-b}
+		\caption{Morphisme injectif}
+	\label{fig:etat-art-model-regles-regles-concepts-morphismes-inj}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.3\textwidth}
+		\includegraphics[width=.9\textwidth]{example-image-c}
+		\caption{Isomorphisme}
+	\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
+	\end{subfigure}
+	\caption{Morphismes $G \to G'$}
+	\label{fig:etat-art-model-regles-regles-concepts-morphismes}
 \end{figure}
 
-% \todo{Ajouter illustrations morphismes}
+\begin{exemple}[Morphisme d'inclusion, injectif et isomorphisme]
+  \begin{description}
+	\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc}] test
+	\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inj}] test
+	\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}] test
+  \end{description}
+\end{exemple}
 
 % Intuitivement, l'union disjointe de deux graphes est l'union simple de ceux-ci
 % lorsque leur intersection est nulle. %
-
+%
 \begin{definition}[Union disjointe]
 	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes.
 
@@ -477,7 +498,7 @@ leur nombre d'arêtes. %
 		(\ref{fig:etat-art-model-regle-regles-jerboa-motif-gauche-triangulation}) et droit
 		(\ref{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation}), avec
 		orbites, de la règle de triangulation}
-	  \label{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}
+	\label{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}
 \end{figure}
 
 Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au

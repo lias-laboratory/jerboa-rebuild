@@ -20,6 +20,7 @@
 \newtheorem{thmi}{Théorème}
 \newtheorem{defi}{Définition}
 \newtheorem{propi}{Proposition}
+\newtheorem*{exmpi}{Exemple}
 }
 
 {
@@ -32,11 +33,11 @@
 \renewenvironment{proof}{\noindent\textbf{Preuve~:}}{\hfill$\square$\newline}
 \newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\hfill\(\square\newline\)}
 
-\newenvironment{definition}[1][]{%
-	\begin{defi}[#1]
-		\begin{leftbar}[nord9]}{%
+\newenvironment{theoreme}[1][]{%
+	\begin{thmi}[#1]
+		\begin{leftbar}[nord7]}{%
 		\end{leftbar}
-	\end{defi}
+	\end{thmi}
 }
 
 \newenvironment{proposition}[1][]{%
@@ -46,11 +47,11 @@
 	\end{propi}
 }
 
-\newenvironment{theoreme}[1][]{%
-	\begin{thmi}[#1]
-		\begin{leftbar}[nord7]}{%
+\newenvironment{definition}[1][]{%
+	\begin{defi}[#1]
+		\begin{leftbar}[nord9]}{%
 		\end{leftbar}
-	\end{thmi}
+	\end{defi}
 }
 
 \newenvironment{remarque}[1][]{%
@@ -58,6 +59,13 @@
 		\begin{leftbar}[nord12]}{%
 		\end{leftbar}
   \end{remarki}
+}
+
+\newenvironment{exemple}[1][]{%
+  \begin{exmpi}[#1]
+		\begin{leftbar}[nord15]}{%
+		\end{leftbar}
+  \end{exmpi}
 }
 
 %% Proof leftbar : nord14

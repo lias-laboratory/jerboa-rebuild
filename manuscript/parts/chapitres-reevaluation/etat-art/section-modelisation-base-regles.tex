@@ -301,31 +301,31 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	\begin{subfigure}{.3\textwidth}
 		\includegraphics[width=.9\textwidth]{example-image-a}
 		\caption{Morphisme d'inclusion}
-	\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.3\textwidth}
 		% \includegraphics[width=.9\textwidth]{morphisme}
 		\includegraphics[width=.9\textwidth]{example-image-b}
 		\caption{Morphisme injectif}
-	\label{fig:etat-art-model-regles-regles-concepts-morphismes-inj}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inj}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.3\textwidth}
 		\includegraphics[width=.9\textwidth]{example-image-c}
 		\caption{Isomorphisme}
-	\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
 	\end{subfigure}
 	\caption{Morphismes $G \to G'$}
 	\label{fig:etat-art-model-regles-regles-concepts-morphismes}
 \end{figure}
 
 \begin{exemple}[Morphisme d'inclusion, injectif et isomorphisme]
-  \begin{description}
-	\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc}] test
-	\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inj}] test
-	\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}] test
-  \end{description}
+	\begin{description}
+		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc}] test
+		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inj}] test
+		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}] test
+	\end{description}
 \end{exemple}
 
 % Intuitivement, l'union disjointe de deux graphes est l'union simple de ceux-ci
@@ -789,7 +789,7 @@ Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H
 
 ~
 
-Comme pour les règles de base, des conditions syntaxiques suivantes sur les règles permettent de garantir la préservation de contraintes des G-cartes lors des transformations directes \cite{belle2012}.
+Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation de contraintes des G-cartes lors des transformations directes \cite{belle2012}.
 
 \begin{theoreme}[Préservation de la cohérence topologique~: Règles Jerboa]
 	Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$.
@@ -810,11 +810,13 @@ Comme pour les règles de base, des conditions syntaxiques suivantes sur les rè
 		      \begin{itemize}
 			      \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son étiquette d'orbite ;
 			      \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son étiquette d'orbite et que ces dernières renomment un cycle de $L$, c'est-à-dire tel qu'il existe un nœud $v'$ de $L$ avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
-			      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non renommé, c'est à dire tel que $l(v) \mapsto l(v') (j) = j$ ;
+			      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non renommé, c'est-à-dire tel que $l(v) \mapsto l(v') (j) = j$ ;
 			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$ tel que les deux nœuds $v$ et $v'$ ont $i$ dans leurs étiquettes d'orbites non renommés ;
 		      \end{itemize}
 
-		      \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les cycles ayant des arcs implicites ou explicites :
+		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel
+		      que $i+2 \geq j$, la condition de cycle est celle des règles de base en
+		      considérant les cycles ayant des arcs implicites ou explicites :
 		      \begin{itemize}
 			      \item un nœud créé $v$ de $R \setminus L$ est la source d'un $ijij$-cycle ;
 			      \item si un nœud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;

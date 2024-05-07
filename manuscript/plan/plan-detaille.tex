@@ -1,4 +1,4 @@
-% Created 2024-04-17 mer. 14:49
+% Created 2024-05-02 jeu. 18:27
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -30,91 +30,86 @@
 \tableofcontents
 
 
-\section{{\bfseries\sffamily WAIT} Intro}
-\label{sec:orgace171e}
-\section{{\bfseries\sffamily TODO} État de l'art}
-\label{sec:org654e4a1}
+\section{Intro}
+\label{sec:orgd19ed1e}
+\section{État de l'art}
+\label{sec:org8e13229}
 Ici, je présente en deux temps l'état de l'art de la réévaluation dans les systèmes de modélisation paramétrique.
-Première étape, on a la modélisation à base de règle.
-Deuxième étape, on a l'état de l'art réévaluation
-\subsection{modélisation à base de règles}
-\label{sec:org78198b1}
+Première étape, on a la modélisation à base de règle (Il y a plusieurs systèmes de modélisation qui existent, je restreins rapidement sur la modélisation à base de règles)
+Deuxième étape, on a l'état de la réévaluation dans les systèmes de modélisation paramétriques (réévaluation que l'on étend aux systèmes à base de règles de transformation de graphe)
+\subsection{Modélisation à base de règles}
+\label{sec:org9264d31}
 Ici, je présente les concepts et outils utilisés en modélisation à base de règle.
-L'      objectif est de présenter les outils \textbf{qui vont nous servir pour le reste du manuscrit}
+L'objectif est de présenter les outils \textbf{qui sont essentiels pour la définition de concepts tout au long du manuscrit}
+
+Dans cette section, je reprends l'essentiel des concepts (hors suivi d'orbite) défini dans le document de formalisation.
+J'ajoute aussi une présentation rapide des scripts de règles pour les aborder plus tard dans le chapitre qui parlera des scripts de règles
 \subsubsection{Rappels sur les graphes}
-\label{sec:org48a9cee}
+\label{sec:orgc2a6ace}
 Tout d'abord, il y a des rappels sur les fondamentaux, ce que sont des graphes (topologiques) et ce qui en découle.
 \begin{itemize}
-\item graphe
-\item sous-graphe
-\item chemins
+\item Graphe
+\item Notions ensemblistes sur les graphes (pour définir les sous-graphes et autres)
+\item Sous-graphe
+\item Chemins
 \end{itemize}
-\subsubsection{G-carte : lienhardt, damiand}
-\label{sec:orga5009fc}
+\subsubsection{G-carte : Lienhardt, Damiand}
+\label{sec:orgafc2c2b}
 Je présente les G-cartes et ce qui en découle.
 \begin{itemize}
 \item G-carte
-\item Lexique pour les G-cartes
-\begin{itemize}
-\item brin, liaisons
-\end{itemize}
 \item Orbite
 \end{itemize}
-\subsubsection{Jerboa : belhaouari, arnould}
-\label{sec:orge233098}
+\subsubsection{Règles de transformation de graphe : Belhaouari, Arnould}
+\label{sec:org7b65932}
 Je présente les règles en commençant avec les règles instanciées pour remonter jusqu'aux règles et scripts Jerboa.
 \begin{itemize}
+\item Concepts (morphismes, union disjointe tels que présentés dans le doc de formalisation avec des exemples visuels)
 \item Règles instanciées de transformation de graphe (pour donner idée)
 \item Règles Jerboa de transformation de graphe
 \begin{itemize}
-\item règles « repliées »
-\end{itemize}
-\item Lexique pour les règles
-\begin{itemize}
-\item nœud, arcs implicites et explicites,
+\item règles « repliées » (J'explique que dans ce manuscrit, on ne traitera que les règles dites repliées)
 \end{itemize}
 \item Scripts de règles Jerboa : Gauthier
 \end{itemize}
-\subsection{Réévaluation}
-\label{sec:org82717f8}
-Ici, je fais l'état de l'art de la réévaluation à proprement parler.
-
-L'objectif est de présenter pourquoi les méthodes de réévaluation sont apparues
-et d'en faire l'historique jusqu'à remonter à la réévaluation à base de règles.
+\subsection{Modélisation paramétrique}
+\label{sec:orgc8ddf6e}
+Dans cette section, je fais un état autour de la modélisation paramétrique.
+Mentionner rapidement les types de modèles paramétriques et dire que dans ce manuscrit, on s'intéresse aux modèles paramétriques fonctionnels
 \subsubsection{Concepts, définitions et propriétés}
-\label{sec:org62c1f61}
-Je commence à donner les concepts propres à la réévaluation avec définitions et
-propriétés.
-
-Dans quels cadres (modélisation paramétrique) et les solutions
-(nommage persistant).
-
-Ensuite, je présente une classification des systèmes avec
-leurs usages (par exemple : STEP, modélisation collaborative,…).
-\subsubsection{Modélisation paramétrique}
-\label{sec:orgc390aba}
+\label{sec:orgbf59b10}
 \begin{enumerate}
+\item Modèle paramétrique fonctionnel
+\label{sec:org64f3f8b}
+Définition et présentation \textbf{rapide} de ce qu'est un modèle paramétrique fonctionnel.
+Définition et présentation d'une spécification paramétrique (une définition \texttt{légère} sera probablement donnée en chapitre d'introduction mais on verra bien)
+Dans quels cadres les modèles paramétriques sont utilisés
+\item Problématique lors de certains cas d'usages (réévaluation, transfert de modèles, …)
+\label{sec:org1f342ef}
+Présentation de la problématique de l'identification persistante de cellules topologiques (plus coquilles, géométrie…) lors du transfert/de la réévaluation d'un modèle.
 \item Nomination persistante : définitions et propriétés
-\label{sec:org7962e95}
+\label{sec:org48fd45b}
+Définition et présentation du concept de nommage persistant
+Définitions des concepts développés pour le nommage persistant
 \item Critères de classification des systèmes de modélisation
-\label{sec:orgaa2d09a}
-TODO: établir une classification et la rédiger
-\begin{enumerate}
-\item Approches existantes en CAO (kripac, capoyleas, chen, mun, wu, cheon, fajarna, agbodan, marcheix, hepworth, cardot …)
-\label{sec:org230888c}
-Positionner les approches selon les critères établis issues principalement de la
+\label{sec:org3bba19d}
+Présentation d'une classification des systèmes de nommage persistant
+\end{enumerate}
+\subsubsection{Approches de réévaluation existantes en CAO (Kripac, Capoyleas, Chen, Mun, Wu, Cheon, Fajarna, Agbodan, Marcheix, Hepworth, Cardot …)}
+\label{sec:org586bd5b}
+Positionner les approches selon les critères établis issus principalement de la
 CAO, conception pièces mécaniques + conception bâtiments (reprendre ce qui a été
 fait).
-\end{enumerate}
-\item Systèmes de réévaluation (une par auteur)
-\label{sec:org91ceee7}
-\end{enumerate}
-\subsubsection{Réévaluation à base de règles (cardot)}
-\label{sec:org5650589}
-TODO: voir la thèse, mettre en avant les nouveautés, quelles sont les limitations pour faire le lien plus tard avec ma thèse
+\subsubsection{Systèmes de réévaluation existants (une par auteur)}
+\label{sec:org97f008f}
+À venir
+\subsubsection{Réévaluation à base de règles (Cardot)}
+\label{sec:org61bf765}
+Reprendre les contributions et nouveautés apportées avec la thèse d'Anaïs Cardot.
+Aborder les limitations pour faire le lien plus tard avec ma thèse
 
-\section{{\bfseries\sffamily TODO} Formalisation des évènements (suivi)}
-\label{sec:orgf314c5f}
+\section{Formalisation des évènements (suivi)}
+\label{sec:org9f3d442}
 Pour être en mesure de proposer un nommage persistant avec une histoire riche et
 complète des entités topologiques d'un objet, il faut suivre l'évolution de ces
 entités topologiques.
@@ -125,44 +120,44 @@ directement dans les opérations, voire, un mix des deux.
 
 Ici, je présente la première partie de mes travaux : proposer un suivi des cellules grâce à l'analyse statique des règles de modélisation.
 \subsection{Introduction}
-\label{sec:org158923d}
-TODO: notions de suivi et d'origine dans un exemple ; extraction automatique en pré-calcul grâce à l'analyse des règles
+\label{sec:org26827c0}
+notions de suivi et d'origine dans un exemple ; extraction automatique en pré-calcul grâce à l'analyse des règles
 \subsection{Les évènements dans les transformations d'objets (suivi)}
-\label{sec:org330bf0d}
+\label{sec:org53f0930}
 Ici, je présente le suivi des évènements d'un point de vue ensembliste dans un objet
 \subsubsection{la création}
-\label{sec:orgeb89dcd}
+\label{sec:org80c6317}
 \subsubsection{la suppression}
-\label{sec:org47859e6}
+\label{sec:org6f288ee}
 \subsubsection{le non-changement}
-\label{sec:orgff5164b}
+\label{sec:orgb6b7f0b}
 \subsubsection{la modification}
-\label{sec:org8368f90}
+\label{sec:org5a20036}
 \subsubsection{la scission}
-\label{sec:org24df424}
+\label{sec:org85d5eda}
 \subsubsection{la fusion}
-\label{sec:orgd65dcd7}
+\label{sec:orgaa86a84}
 \subsubsection{le sans effet / NOEFFECT}
-\label{sec:org2289b8d}
+\label{sec:org3f392d5}
 \subsection{Les évènements dans les règles de transformation de graphe (suivi)}
-\label{sec:orgad5f7f0}
+\label{sec:org889829a}
 Ici, je présente le suivi des évènements du point de vue des règles instanciées.
 \subsubsection{la création}
-\label{sec:orgbed3e79}
+\label{sec:org6079086}
 \subsubsection{la suppression}
-\label{sec:org7833d42}
+\label{sec:orgeefe671}
 \subsubsection{le non-changement}
-\label{sec:orge5b7092}
+\label{sec:org7165f70}
 \subsubsection{la modification}
-\label{sec:orgb9170ba}
+\label{sec:orgfb597b2}
 \subsubsection{la scission}
-\label{sec:org2206dc6}
+\label{sec:org46dd5c6}
 \subsubsection{la fusion}
-\label{sec:orgf9d4790}
+\label{sec:orgb5551e5}
 \subsubsection{le sans effet}
-\label{sec:orgfbadfa4}
+\label{sec:org6bdbd69}
 \subsection{Les évènements dans les règles Jerboa (suivi, origine et chemins)}
-\label{sec:orge75111e}
+\label{sec:org3303932}
 Ici, je présente le suivi des évènements du point de vue des règles Jerboa. Ces
 règles présentent l'avantage de définir implicitement des relations que l'on
 peut extraire avec une analyse syntaxique.
@@ -171,23 +166,23 @@ En outre, je présente les notions d'origine pour donner du sens et de l'unicit�
 aux entités topologiques. Je présente aussi une méthode exploitant les chemins
 pour maintenir une origine dans un contexte qui ne la décrit/maintient pas (explicitement).
 \subsubsection{la création}
-\label{sec:orgc50f5b4}
+\label{sec:orgd4e5636}
 \subsubsection{la suppression}
-\label{sec:orgd95c1ae}
+\label{sec:org447a296}
 \subsubsection{le non-changement}
-\label{sec:org9d41e18}
+\label{sec:org2dcfa75}
 \subsubsection{la modification}
-\label{sec:orgd6b73f9}
+\label{sec:orgff223d1}
 \subsubsection{la scission}
-\label{sec:orgf2a7472}
+\label{sec:org54092a9}
 \subsubsection{la fusion}
-\label{sec:orgfd3eb92}
+\label{sec:org249aa2e}
 \subsubsection{le sans effet}
-\label{sec:org9f7dbb3}
+\label{sec:org22cc883}
 \subsubsection{discussion sur les règles repliées}
-\label{sec:org944ae9f}
-\section{{\bfseries\sffamily TODO} Réévaluation à base de règles de transformation de graphe}
-\label{sec:org17c4b02}
+\label{sec:org6b11c9c}
+\section{Réévaluation à base de règles de transformation de graphe}
+\label{sec:org18dd5b6}
 Ici, je présente tout d'abord un fil rouge.
 
 Ensuite, je présente un mécanisme pour le nommage persistant des brins et orbites dans les G-cartes.
@@ -196,48 +191,47 @@ Enfin, je montre en quoi c'est nécessaire et utile pour réévaluer une spécif
 
 Dans ce chapitre, je reprends le narratif utilisé pour ma présentation au R-GTMG.
 \subsection{Spécification paramétrique}
-\label{sec:org610218f}
+\label{sec:org50c0012}
 Ici, je présente une spécification paramétrique et son édition/sa modification.
 \begin{enumerate}
 \item Une identification des opérations
-\label{sec:org8adbef5}
+\label{sec:org6e4f8dc}
 \item Des paramètres géométriques
-\label{sec:org21d9c9a}
+\label{sec:orgb137f14}
 \item Des paramètres topologiques
-\label{sec:org0108a8e}
+\label{sec:orgee18448}
 \end{enumerate}
 \subsection{Nommage persistant des brins}
-\label{sec:orga7fbcc0}
+\label{sec:org77c5373}
 Mise en place d'un mécanisme de nommage à base de règles de transformation de graphe
 Ce mécanisme comprend, pour chaque brin, l'ensemble des paires (numéro application, nom de nœud) qui conduisent à sa création/le réécrivent.
 \subsection{Nommage persistant des orbites}
-\label{sec:org1148c11}
+\label{sec:org646300b}
 Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
 complète d'un évènement à chaque application de règles. Formalisation de l'usage
 de chemins pour préciser une origine lorsque celle-ci n'est pas directement liée
 à un nœud d'accroche dans une règle.
 \subsection{Réévaluation}
-\label{sec:org01d80a5}
+\label{sec:org4a77fd6}
 Ici, je présente la méthode de réévaluation.
 
 J'explique que je fais ça à partir du nom persistant d'une orbite (arbre
 d'évaluation) et ce pour chacune des orbites identifiées dans la spec à
 réévaluer.
 \subsubsection{Construction à partir d'un DAG d'évaluation}
-\label{sec:org7b1bfdb}
+\label{sec:orgfb58d74}
 (du début jusqu'à la fin)
-
 Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
 topologiques, ceux-ci ne contiennent non pas des nœuds de règles, mais des brins
 issus de l'objet en cours de reconstruction.
 \subsubsection{Stratégies de réévaluation}
-\label{sec:org23f4052}
+\label{sec:orge8a7429}
 \begin{itemize}
 \item Scission d'un paramètre topologique : évaluation de tout ou partie des paramètres éligibles
 \item Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètre (potentiellement de l'objet)
 \end{itemize}
-\section{{\bfseries\sffamily TODO} Réévaluer des scripts de règles pour générer des modèles complexes (En cours)}
-\label{sec:orgf61b3e2}
+\section{Réévaluer des scripts de règles pour générer des modèles complexes (En cours)}
+\label{sec:org0c2f7ec}
 Ici, je présente l'adaptation de la méthode pour les scripts Jerboa.
 
 Les scripts sont des outils puissants permettant d'organiser règles dans combinaisons de structures de contrôles.
@@ -249,34 +243,34 @@ J'explique qu'actuellement, on supporte des scripts comportant les combinaisons 
 \item les conditions If-Then-Else sur les opérations (plus compliqué)
 \end{itemize}
 \subsection{Les séquences de règles}
-\label{sec:orgf8f92c9}
+\label{sec:orgb8671fe}
 \begin{itemize}
 \item Extension de la spécification paramétrique : des blocs « séquence » de règles contenues dans un script
 \item Extension des DAGs : une boîte englobante contenant les règles jouées dans le contexte d'un script
 \end{itemize}
 \subsection{Les boucles de sous-orbites}
-\label{sec:org1de5007}
+\label{sec:org5d322ab}
 \begin{itemize}
 \item Extension de la spécification paramétrique : des blocs « boucle » de règles contenues dans une boucle de script
 \item Extension des DAGs : Ajout de branches pour identifier les paramètres topologiques itérés dans une boucle
 \end{itemize}
 \subsection{Les conditions Si-Sinon-Alors}
-\label{sec:org29263eb}
+\label{sec:orgbe920c6}
 \begin{itemize}
 \item Extension de la spécification paramétrique : des blocs « condition » de règles contenues dans une condition de script
 \item Extension des DAGs : Ajout d'un paramètre associé à boîte permettant d'identifier une instance de cellule topologique (spécifique aux règles Jerboa)
 \end{itemize}
 \subsection{Exemples (Scripts avec combinaisons de structures)}
-\label{sec:orge4ca3c3}
+\label{sec:orgcd937da}
 Ici, je montre quelques exemples de scenarii avec et sans combinaisons.
 \subsection{Discussion}
-\label{sec:org37be0da}
+\label{sec:org7362512}
 Discussion des structures de contrôles qui n'apparaissent pas ici, boucles plus générales (while, …)
-\section{{\bfseries\sffamily TODO} Implantation d'un système de modélisation à base de règles de transformation de graphe}
-\label{sec:org00c694c}
+\section{Implantation d'un système de modélisation à base de règles de transformation de graphe}
+\label{sec:org2916a8a}
 Ici, je présente productions (implantations et design) liés aux travaux présentés jusque-là.
 \subsection{spécification paramétrique}
-\label{sec:org4a6cf8b}
+\label{sec:org08a673d}
 Ici, on retrouve les structures de données suivantes :
 \begin{itemize}
 \item ParametricSpecification
@@ -284,41 +278,41 @@ Ici, on retrouve les structures de données suivantes :
 \item PersistentName
 \item PersistentIDElement
 \end{itemize}
-\subsection{nommage persistant}
-\label{sec:org014dad6}
+\subsection{Nommage persistant des brins}
+\label{sec:orgc87393b}
 Ici, on a l'algorithme pour la construction et l'« héritage » des noms persistant des brins.
-\subsection{Arbres de jeu et de rejeu}
-\label{sec:org137cd29}
+\subsection{Nommage persistant des orbites (Arbres de jeu) et appariement (arbres de rejeu)}
+\label{sec:org9115aaa}
 Ici, on a les algorithmes pour créer les arbres d'évaluation et de réévaluations:
 \begin{itemize}
 \item HistoryRecord (refactoring prévu pour l'appeler EvaluationTree)
 \item ReevaluationTree
 \end{itemize}
-\subsection{Visualisation les DAGs}
-\label{sec:orgb50906d}
+\subsection{Visualisation des arbres de jeu et de rejeu}
+\label{sec:org671ef41}
 Ici, je présente le pipeline pour faire le rendu visuel des arbres (pas la peine de présenter les scripts dans leur intégralité, si (?))
 \subsection{Interface Utilisateur pour éditer et générer des spécifications paramétriques}
-\label{sec:org3993463}
+\label{sec:org610bb25}
 Ici, je présente l'interface graphique conçue et développée par Tom pour faire
 l'édition des spécifications paramétriques directement dans le viewer Jerboa (s'il a le
 temps de la finir, sinon dire que c'est fait à la main en éditant un json)
-\section{{\bfseries\sffamily TODO} État de l'art}
-\label{sec:orgc4bffeb}
+\section{État de l'art}
+\label{sec:orge1f24b9}
 \begin{itemize}
-\item de luca, stefani,…
+\item de Luca, Stefani, …
 \end{itemize}
-\section{{\bfseries\sffamily IDEA} Extension de la spécification paramétrique pour annoter avec des données temporelles}
-\label{sec:orgd638a8e}
+\section{Extension de la spécification paramétrique pour annoter avec des données temporelles}
+\label{sec:orga1b49b7}
 \subsection{Annotation des opérations avec des données temporelles}
-\label{sec:org87e03ab}
+\label{sec:org4989b61}
 \subsection{Modulation de la vitesse d'animation en fonction des deltas temporels entre deux opérations}
-\label{sec:org9d6cd81}
-\section{{\bfseries\sffamily IDEA} Processus d'animation de modèle générés automatiquement}
-\label{sec:orgfc1b91e}
+\label{sec:org5713109}
+\section{Processus d'animation de modèle générés automatiquement}
+\label{sec:orga762e91}
 \subsection{Génération à la volée des modèles ?}
-\label{sec:org563d13b}
+\label{sec:orgf9698a3}
 \subsection{Pré-génération des modèles avant phase d'animation ?}
-\label{sec:org43fd48f}
-\section{{\bfseries\sffamily WAIT} Conclusions}
-\label{sec:orgc372c83}
+\label{sec:orgaa2b428}
+\section{Conclusions}
+\label{sec:org43bf11d}
 \end{document}

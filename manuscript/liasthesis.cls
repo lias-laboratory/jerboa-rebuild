@@ -338,5 +338,5 @@
 	% \renewcommand*{\printchaptertitle}{%
 	%   \color{nord0}
 	%   \chaptitlefont}
-	\renewcommand*{\afterchaptertitle}{\vspace*{2cm}\minitoc\clearpage}
+	\renewcommand*{\afterchaptertitle}{\vfill\minitoc\vfill\clearpage}
 }

@@ -1,24 +1,26 @@
 #+title:
 #+date:
 
-Pour répondre à la problématique du référencement d'un élément géométrique,
-Cascaval et al. (2023) affirment qu'un outil de CAO doit répondre à trois
+Pour Cascaval et al., un langage conçu pour la CAO doit respecter trois
 propriétés :
-- le référencement doit être continu par rapport aux paramètres des opérations,
-- la géométrie à référencer doit pouvoir être sélectionnée parmi un ensemble
-  d'éléments,
-- l'utilisateur pouvoir contraindre la production finale à certaines classes de topologie.
+- il ne doit pas introduire de discontinuité dans le référencement d'une
+  géométrie,
+- il doit permettre la sélection de tout ou partie d'un ensemble d'éléments
+  géométrique résultant de la partition d'une géométrie passée en entrée d'une
+  opération,
+- l'utilisateur doit pouvoir exclure des configurations topologiques des modèles
+  en sortie du programme.
 
-Sont également posés les concepts suivants :
+Dans Cascaval (2023), les auteurs placent leurs travaux dans un contexte défini
+par les concepts suivants :
 - Un modèle paramétrique est un programme.
-- Un élément géométrique est une donnée construite dans le programme.
 - Une référence est le résultat d'une requête sur un élément géométrique.
 - Les types géométriques sont les point, segment (ligne ou courbe), polygone
   (conceptuellement une face sans trou) et face (un élément produit à partir
   d'un ou plusieurs polygones).
 
 Ainsi, les auteurs proposent un langage spécifique à la conception de modèles
-paramétriques mettant en œuvre un suivi des éléments géométriques dont les
+paramétriques en 2.5D mettant en œuvre un suivi des éléments géométriques dont les
 historiques sont enrichis par une sémantique détaillée pour la généalogie des
 éléments (\textit{semantics for fine-grained element lineage}). Ainsi, trois
 types de relations entre un élément en entrée et en sortie d'une opération sont
@@ -42,3 +44,10 @@ appliquée, une arête est créée à partir d'un sommet, il s'agit du premier l
 établi. Il faut ensuite faire la distinction entre les deux sommets aux
 extrémités de cette arête. Pour cela, la relation de dérivation établit un lien
 entre l'un des deux sommets une arête adjacente pré-existante.
+
+
+
+Ici, Cascaval et al. proposent un langage permettant de créer des modèles
+paramétriques respectant des contraintes à la fois topologiques et géométriques
+tout en assurant que la géométrie passée en référence respecte les intentions de
+modélisations telles que définies par l'utilisateur. Néanmoins, en l'état actuel, les

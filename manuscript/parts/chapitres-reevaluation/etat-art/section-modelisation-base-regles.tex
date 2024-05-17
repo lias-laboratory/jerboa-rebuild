@@ -25,6 +25,7 @@ faces, arêtes et sommets lorsque le modèle de représentation est en dimension
 3. %
 De tels graphes sont appelés des graphes topologiques. %
 
+\todo{graphe topo -> étiqueté : étiquettes arcs et nœuds $\alpha \to l_{E}$, dans le cadre de cette thèse on s'intéresse exclusivement à la partie topo donc on omet les étiquettes de nœuds $l_{V}$ qui représente les plongements (citer Thomas et Romain) }
 \begin{definition}[Graphes topologiques]
 	\label{def:graphe-topologique}
 	Soit $n \in \mathbb{N}$ une dimension. Un \emph{graphe topologique} de dimension $n$ $G=(V,E,s,t,\alpha)$ est défini par:
@@ -40,10 +41,12 @@ De tels graphes sont appelés des graphes topologiques. %
 
 Les principales notions ensemblistes peuvent être étendues sur les graphes.
 
-\begin{definition}[Inclusion, union, intersection, différence]
+\begin{definition}[Inclusion, union (disjointe), intersection, différence]
 	\label{def:graphe-notions-ensembles}
-	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes tels que
-	$s_{|E \cap E'} = s'_{|E \cap E'}$, $t_{|E \cap E'} = t'_{|E \cap E'}$ et
+	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes
+	topologiques dont les arcs communs ont des sources, cibles et étiquettes
+	identiques, \textit{i.e.} $s_{|E \cap E'} = s'_{|E \cap E'}$,
+	$t_{|E \cap E'} = t'_{|E \cap E'}$ et
 	$\alpha_{|E \cap E'} = \alpha'_{|E \cap E'}$.
 
 	\begin{itemize}
@@ -53,11 +56,18 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 		\item L'\textbf{\emph{intersection}} $G \cap G'$ est le graphe
 		      $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, \alpha_{|E \cap E'})$.
 
+		      % \item L'\textbf{\emph{intersection}} $G \cap G'$ existe si toute arête de l'intersection
+		      %       $e \in E \cap E', s(e) = s'(e) \in V \cap V'$ et
+		      %       $t(e) = t'(e) \in V \cap V'$ et est définie par le graphe
+		      %       $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, \alpha_{|E \cap E'})$.
+
 		\item L'\textbf{\emph{union}} $G \cup G'$ est le graphe
 		      $(V \cup V', E \cup E', s^{\prime\prime}, t^{\prime\prime}, \alpha^{\prime\prime})$, où $s^{\prime\prime}_{|E} = s$,
 		      $s^{\prime\prime}_{|E'} = s'$, $t^{\prime\prime}_{|E} = t$, $t^{\prime\prime}_{|E'} = t'$, $\alpha^{\prime\prime}_{|E} = \alpha$,
 		      $\alpha^{\prime\prime}_{|E'} = \alpha'$.
-
+		\item L'\textbf{\emph{union disjointe}} $G \sqcup G'$ est l'union de deux graphes
+		      disjoints $G$ et $G'$ (tels que $V \cap V' = \emptyset$ et
+		      $E \cap E' = \emptyset$)
 		\item La \textbf{\emph{différence}} $G \setminus G'$ est la structure
 		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, \alpha_{|E \setminus E'})$.
 
@@ -65,6 +75,8 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 		      ayant un ensemble vide de nœuds et d'arcs.
 	\end{itemize}
 \end{definition}
+
+\todo{Ajouter des illustrations pour exemples}
 
 Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 
@@ -89,6 +101,118 @@ parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 
 	Si $s(e_{1}) = t(e_{k})$, le chemin est appelé \emph{cycle}.
 \end{definition}
+
+Le morphisme $m$ entre deux graphes $G$ et $G'$, est l'application
+définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
+arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
+
+
+\begin{definition}[Morphisme]
+	Soient $G = (V,E,s,t,\alpha)$
+	et $G' = (V',E',s',$ $t',\alpha')$ deux graphes.
+	%et $m : G \to G'$ un morphisme.
+	Un \emph{morphisme}  $m: G \to G'$  est un couple de fonctions $m_{V} : V \to V'$,
+	$m_{E} : E \to E'$ préservant les sources, cibles et étiquettes de G
+	dans G', tel que pour tout $e \in E$, $m_{V}(s(e)) = s'(m_{E}(e))$,
+	$m_{V}(t(e)) = t'(m_{E}(e))$ et $\alpha(e) = \alpha'(m_{E}(e))$.
+
+	\noindent Un morphisme $G \to G'$ est un~:
+	\begin{itemize}
+		\item morphisme d'\emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
+		\item morphisme \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives.
+		\item \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
+	\end{itemize}
+\end{definition}
+
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{.3\textwidth}
+		\includegraphics[width=.9\textwidth]{example-image-a}
+		\caption{Morphisme d'inclusion}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.3\textwidth}
+		% \includegraphics[width=.9\textwidth]{morphisme}
+		\includegraphics[width=.9\textwidth]{example-image-b}
+		\caption{Morphisme injectif}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inj}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.3\textwidth}
+		\includegraphics[width=.9\textwidth]{example-image-c}
+		\caption{Isomorphisme}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
+	\end{subfigure}
+	\caption{Morphismes $G \to G'$}
+	\label{fig:etat-art-model-regles-regles-concepts-morphismes}
+\end{figure}
+
+\begin{exemple}[Morphisme d'inclusion, injectif et isomorphisme]
+	\begin{description}
+		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc}] test
+		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inj}] test
+		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}] test
+	\end{description}
+\end{exemple}
+
+La syntaxe d'une règle est introduite par \cite{poudr2009}.
+\begin{definition}[Règle de transformation de graphe]
+	Soient deux graphes topologiques $L$ et $R$ tels que l'intersection $L \cap R$ existe.
+
+	$r : L \longrightarrow R$ définie la \emph{règle de transformation de
+		graphe} où $L$ est appelé le membre gauche et $R$ le membre droit.
+\end{definition}
+
+
+Le membre gauche filtre tout ou partie d'un graphe et le membre droit transforme
+l'élément filtré par le membre gauche. %
+Une manière simple d'assurer l'existence de l'intersection $L \cap R$ est que
+$L$ et $R$ n'aient pas d'arête commune. %
+
+L'application d'une règle peut être définie formellement dans la théorie des
+catégories~\cite{poudr2009,pascual2022topological}. %
+\begin{definition}[Application d'une règle de transformation de graphe]
+	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage
+	injectif. %
+
+	L'\emph{application} $G \xlongrightarrow{(r, m)} H$ de $r$ sur $G$ le long
+	de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$, où $m'$ est une restriction
+	de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit
+	injective. %
+	$m'$, et donc $H$ est unique à isomorphisme près. %
+	$H$ est la transformation directe de $G$ par la règle $r$ le long du
+	morphisme de filtrage $m$. %
+\end{definition}
+
+L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme
+de filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un
+morphisme injectif qui étend $m$ sur $R$. %
+%
+Intuitivement, $m(L \setminus R)$ est supprimé dans $G$, puis
+$m'(R \setminus L)$ est ajouté pour produire la transformation directe $H$. %
+$m'$ est construit de telle manière que la partie ajoutée est disjointe de $G$,
+\textit{i.e.} les nouveaux nœuds et arcs ont des noms «~frais~» (disjoints de
+ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{application-regle-v2}
+	\caption{Application d'une règle de triangulation}
+	\label{fig:etat-art-model-regles-inst-application}
+\end{figure}
+
+
+\begin{exemple}[application d'une règle de transformation]
+	\todo{Faire un exemple plus simple en graph topo orienté}
+
+
+	La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
+	triangulation d'une face quadrangulaire et son application. %
+	Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est
+	l'identité. %
+\end{exemple}
 
 \subsection[Les cartes généralisées]{Les cartes généralisées}
 \label{sec:etat-art-model-regles-gcartes}
@@ -168,7 +292,7 @@ en noir (Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
 Notons que, en bordure de l'objet, les liaisons bouclent sur elles-mêmes. %
 C'est le cas ici pour les 3-liaisons des sommets, arêtes et faces
 incidentes à un unique volume. %
-Par soucis de visibilité, nous masquons ces boucles dans les illustrations d'objets en 3D. %
+Par soucis de visibilité, nous masquons ces boucles dans les illustrations d'objets. %
 
 Par la suite, pour distinguer les entités topologiques des graphes qui les
 représentent et ne pas créer de confusion, nous appellerons respectivement
@@ -242,8 +366,8 @@ dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-02} contient les
 brins atteignables par des liaisons $0,2$. %
 
 
-\subsection[Règles de transformation de graphe]{Règles de transformation de graphe}
-\label{sec:etat-art-model-regles-regles-transformation}
+\subsection[Langage Jerboa]{Langage Jerboa}
+\label{sec:etat-art-model-regles-lang-jerboa}
 
 
 Dans la sous-section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
@@ -261,143 +385,10 @@ Jerboa \cite{belhaouari2014jerboa} pour terminer avec les scripts de règles
 \cite{gauth2019}. %
 
 
-\subsubsection[Concepts]{Concepts}
-\label{sec:etat-art-model-regles-regles-transformation-concepts}
-
-Deux concepts sont nécessaires pour définir les règles de transformation de
-graphe ainsi que leurs applications~: les morphismes et unions disjointes de
-graphes. %
-
-~
-
-Le morphisme $m$ entre deux graphes $G$ et $G'$, est l'application
-définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
-arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
-
-
-\begin{definition}[Morphisme]
-	Soient $G = (V,E,s,t,\alpha)$
-	et $G' = (V',E',s',$ $t',\alpha')$ deux graphes.
-	%et $m : G \to G'$ un morphisme.
-	Un \emph{morphisme}  $m: G \to G'$  est un couple de fonctions $m_{V} : V \to V'$,
-	$m_{E} : E \to E'$ préservant les sources, cibles et étiquettes de G
-	dans G', tel que pour tout $e \in E$, $m_{V}(s(e)) = s'(m_{E}(e))$,
-	$m_{V}(t(e)) = t'(m_{E}(e))$ et $\alpha(e) = \alpha'(m_{E}(e))$.
-
-	\noindent Un morphisme $G \to G'$ est un~:
-	\begin{itemize}
-		\item morphisme d'\emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
-		\item morphisme \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives.
-		\item \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
-	\end{itemize}
-\end{definition}
-
-
-\begin{figure}[ht]
-	\centering
-	\begin{subfigure}{.3\textwidth}
-		\includegraphics[width=.9\textwidth]{example-image-a}
-		\caption{Morphisme d'inclusion}
-		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{.3\textwidth}
-		% \includegraphics[width=.9\textwidth]{morphisme}
-		\includegraphics[width=.9\textwidth]{example-image-b}
-		\caption{Morphisme injectif}
-		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inj}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{.3\textwidth}
-		\includegraphics[width=.9\textwidth]{example-image-c}
-		\caption{Isomorphisme}
-		\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
-	\end{subfigure}
-	\caption{Morphismes $G \to G'$}
-	\label{fig:etat-art-model-regles-regles-concepts-morphismes}
-\end{figure}
-
-\begin{exemple}[Morphisme d'inclusion, injectif et isomorphisme]
-	\begin{description}
-		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc}] test
-		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inj}] test
-		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}] test
-	\end{description}
-\end{exemple}
-
-% Intuitivement, l'union disjointe de deux graphes est l'union simple de ceux-ci
-% lorsque leur intersection est nulle. %
-%
-\begin{definition}[Union disjointe]
-	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes.
-
-	L'\emph{union disjointe} $G \sqcup G'$ est définie à isomorphisme près comme suit.
-	Soient $m: G \to H$ et $m': G' \to H'$ deux isomorphismes tels que $H$ et $H'$ soient disjoints, c'est-à-dire $H \cap H' = \emptyset$.
-	L'union disjointe de  $G$ et $G'$ est l'union simple de $H$ et $H'$, plus formellement $G \sqcup G' = H \cup H'$.
-\end{definition}
-
-\todo{Ajouter illustration union disjointe, c'est pas si évident que ça}
-
 \subsubsection[Règles instanciées]{Règles instanciées}
-\label{sec:etat-art-model-regles-regles-inst}
+\label{sec:etat-art-model-regles-lang-jerboa-regles-inst}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=.6\textwidth]{application-regle-v2}
-	\caption{Application d'une règle de triangulation}
-	\label{fig:etat-art-model-regles-inst-application}
-\end{figure}
-
-Une règle de transformation de graphe se compose de deux membres. %
-Un membre gauche pour filtrer tout ou partie d'un graphe et un membre droit pour
-transformer l'élément filtré par le membre gauche. %
-% C'est ce qu'illustre la règle dans le cadre vert de la
-% Figure~\ref{fig:etat-art-model-regles-inst-application} dont le membre gauche
-% est une face carrée et dont le membre droit est la même face carrée qui a été
-% triangulée. %
-
-Plus formellement, une règle $r$ est définie par un couple de graphes $L$ et $R$
-tel que $L \cap R \hookrightarrow L$ et $L \cap R \hookrightarrow R$. %
-C'est-à-dire que pour toute arête $e \in L \cap R$, $e$ a les mêmes sources, cibles
-et étiquettes dans $L$ et $R$. %
-Une manière simple d'assurer cette condition est que $L$ et $R$ n'aient pas
-d'arête commune. %
-$L$ est le motif \emph{filtré} et $R$ est le motif \emph{transformé}. %
-La syntaxe d'une règle est introduite par \cite{poudr2009} et est notée
-$r: L \longrightarrow R$. %
-
-L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme
-de filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un
-morphisme injectif qui étend $m$ sur $R$. %
-%
-Intuitivement, $m(L \setminus R)$ est supprimé dans $G$, puis $m'(R \setminus L)$ est ajouté
-pour produire la transformation directe $H$. %
-%
-$m'$ et $H$ sont définis à isomorphisme près, c'est-à-dire au nom près des
-nouveaux brins. %
-L'injectivité de $m'$ garantie que les nouveaux brins de $H$ sont bien des brins
-distincts les uns des autres et distincts de ceux de $G$. %
-L'application d'une règle peut être définie formellement dans la théorie des
-catégories~\cite{poudr2009,pascual2022topological}. %
-% \maxime{thèse de Thomas Bellet aussi ?}
-
-La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
-triangulation d'une face quadrangulaire et son application. %
-Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est
-l'identité. %
-
-\begin{definition}[Application d'une règle de transformation de graphe]
-	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage
-	injectif. %
-
-	L'\emph{application} $G \xlongrightarrow{(r, m)} H$ de $r$ sur $G$ le long
-	de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$, où $m'$ est la restriction
-	de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit
-	injective. %
-	$m'$, et donc $H$ est unique à isomorphisme près. %
-	$H$ est la transformation directe de $G$ par la règle $r$ le long du
-	morphisme de filtrage $m$. %
-\end{definition}
+Les règles de transformation de G-cartes sont les règles instanciées de Jerboa.
 
 Des conditions syntaxiques sur les règles définies dans
 \cite{poudr2009,pascual2022topological} permettent de garantir la préservation
@@ -443,8 +434,8 @@ les règles éditées respectent ces conditions syntaxiques. %
 \end{remarque}
 
 En pratique, les morphismes de filtrage ne sont pas donnés \textit{in extenso},
-mais à partir \highlight{\st{du mapping} $\to$ de l'accrochage} d'un sous-ensemble
-de brins de $L$ appelés brins d'accroche (\emph{hooks} en anglais). %
+mais à partir de l'association d'un sous-ensemble de brins de $L$ appelés brins
+d'accroche (\emph{hooks} en anglais) à leur image dans $G$. %
 Par exemple, dans la Figure~\ref{fig:etat-art-model-regles-inst-application}, le
 nœud $h$ de $L$ est son brin d'accroche. % noté par un double cercle. %
 Son association au brin $h$ de $G$ défini un unique morphisme de filtrage $m$
@@ -452,6 +443,7 @@ grâce à la condition d'arcs incidents. %
 Pour cela, les règles comportent un brin d'accroche par composante connexe de
 $L$.
 
+% \todo{Donner un exemple}
 
 \subsubsection[Règles Jerboa]{Règles Jerboa}
 \label{sec:etat-art-model-regles-regles-jerboa}
@@ -531,16 +523,18 @@ $o_k \mapsto o'_k$. %
 	\end{itemize}
 \end{definition}
 
-L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{o}$, par une orbite $G\orbit{o}(v)=(V',E',s',t',\alpha')$ d'un graphe topologique $G$ est définie par le graphe topologique $M(G\orbit{o}(v))=(V'',E'',s'',t'',\alpha'')$~:
-\begin{itemize}
-	\item $V^{\prime\prime}= V \times V'$,
+\begin{definition}[Instanciation d'un motif]
+	L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{o}$, par une orbite $G\orbit{o}(v)=(V',E',s',t',\alpha')$ d'un graphe topologique $G$ est définie par le graphe topologique $M(G\orbit{o}(v))=(V'',E'',s'',t'',\alpha'')$~:
+	\begin{itemize}
+		\item $V^{\prime\prime}= V \times V'$,
 
-	\item $E''=E''_i \cup E''_e$ comprend les \emph{arcs implicites} issus de l'instanciation des nœuds du motif $E''_i = \{ (v, e') \in V \times E' \mid (\orbit{o} \mapsto \orbit{\alpha(v)})(\alpha'(e')) \neq \_ \}$ et les \emph{arcs explicites} issus du motif $E''_e = \{ (e, v') \in E \times V' \}$,
+		\item $E''=E''_i \cup E''_e$ comprend les \emph{arcs implicites} issus de l'instanciation des nœuds du motif $E''_i = \{ (v, e') \in V \times E' \mid (\orbit{o} \mapsto \orbit{\alpha(v)})(\alpha'(e')) \neq \_ \}$ et les \emph{arcs explicites} issus du motif $E''_e = \{ (e, v') \in E \times V' \}$,
 
-	\item tout arc implicite $(v,e') \in E''_i$ a pour source $s''((v,e'))=(v,s'(e'))$, pour cible $t''((v,e'))=(v,t'(e'))$ et pour étiquette $\alpha''((v,e'))=(\orbit{o} \mapsto \alpha(v))(\alpha'(e'))$,
+		\item tout arc implicite $(v,e') \in E''_i$ a pour source $s''((v,e'))=(v,s'(e'))$, pour cible $t''((v,e'))=(v,t'(e'))$ et pour étiquette $\alpha''((v,e'))=(\orbit{o} \mapsto \alpha(v))(\alpha'(e'))$,
 
-	      et tout arc explicite $(e,v') \in E''_e$, a pour source $s''((e,v')) = ((s(e),v')$, pour cible $t''((e,v')) = ((t(e),v')$, et pour étiquette $\alpha''((e, v')) = \alpha(e)$.
-\end{itemize}
+		      et tout arc explicite $(e,v') \in E''_e$, a pour source $s''((e,v')) = ((s(e),v')$, pour cible $t''((e,v')) = ((t(e),v')$, et pour étiquette $\alpha''((e, v')) = \alpha(e)$.
+	\end{itemize}
+\end{definition}
 
 
 
@@ -604,7 +598,20 @@ L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'
 		Enfin, (\subref{fig:inst-quad-triangulation-final}) Résultat de l'instanciation.}
 	\label{fig:before-after-quad-triangulation}
 \end{figure}
-\clearpage
+
+La Figure~\ref{fig:before-after-quad-triangulation} illustre l'instanciation du schéma de triangulation sur la face carrée \ref{fig:jerboa-quad-before-triangulation} dont les brins sont nommés de a à h.
+
+Dans un premier temps, dans \ref{fig:inst-quad-triangulation-1}, le nœud
+d'instanciation $0$ filtre les brins $\{a_0 \dots h_0\}$ et préserve les
+$0$-arcs, les $1$-arcs incidents aux brins $\{a_0 \dots h_0\}$ étant supprimés.
+Dans \ref{fig:inst-quad-triangulation-2}, de nouveaux $1$-arcs sont ensuite
+instanciés à partir des $\{a_0 \dots h_0\}$ puis liés, dans
+\ref{fig:inst-quad-triangulation-3} à de nouveaux brins créés par le nœud
+d'instanciation $1$. Ces brins sont nommés $\{a_1 \dots h_1\}$ et sont liés
+entre eux par des $2$-arcs. Enfin, dans \ref{fig:inst-quad-triangulation-4},
+des $0$-arcs incidents à $\{a_1 \dots h_1\}$ sont créés puis liés aux brins
+$\{a_2 \dots h_2\}$ lorsque ceux-ci sont créés par le nœud d'instanciation $2$
+dans \ref{fig:inst-quad-triangulation-5}.
 
 \begin{figure}[ht]
 	\centering
@@ -666,21 +673,6 @@ L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'
 		(\subref{fig:inst-tri-triangulation-final}) Résultat final de l'instanciation.}
 	\label{fig:before-after-tri-triangulation}
 \end{figure}
-\clearpage
-
-La Figure~\ref{fig:before-after-quad-triangulation} illustre l'instanciation du schéma de triangulation sur la face carrée \ref{fig:jerboa-quad-before-triangulation} dont les brins sont nommés de a à h.
-
-Dans un premier temps, dans \ref{fig:inst-quad-triangulation-1}, le nœud
-d'instanciation $0$ filtre les brins $\{a_0 \dots h_0\}$ et préserve les
-$0$-arcs, les $1$-arcs incidents aux brins $\{a_0 \dots h_0\}$ étant supprimés.
-Dans \ref{fig:inst-quad-triangulation-2}, de nouveaux $1$-arcs sont ensuite
-instanciés à partir des $\{a_0 \dots h_0\}$ puis liés, dans
-\ref{fig:inst-quad-triangulation-3} à de nouveaux brins créés par le nœud
-d'instanciation $1$. Ces brins sont nommés $\{a_1 \dots h_1\}$ et sont liés
-entre eux par des $2$-arcs. Enfin, dans \ref{fig:inst-quad-triangulation-4},
-des $0$-arcs incidents à $\{a_1 \dots h_1\}$ sont créés puis liés aux brins
-$\{a_2 \dots h_2\}$ lorsque ceux-ci sont créés par le nœud d'instanciation $2$
-dans \ref{fig:inst-quad-triangulation-5}.
 
 Le processus est identique Figure~\ref{fig:before-after-tri-triangulation} pour le triangle Figure~\ref{fig:jerboa-tri-before-triangulation}.
 

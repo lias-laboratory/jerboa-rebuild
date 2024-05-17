@@ -26,14 +26,15 @@ faces, arêtes et sommets lorsque le modèle de représentation est en dimension
 De tels graphes sont appelés des graphes topologiques. %
 
 \todo{graphe topo -> étiqueté : étiquettes arcs et nœuds $\alpha \to l_{E}$, dans le cadre de cette thèse on s'intéresse exclusivement à la partie topo donc on omet les étiquettes de nœuds $l_{V}$ qui représente les plongements (citer Thomas et Romain) }
-\begin{definition}[Graphes topologiques]
-	\label{def:graphe-topologique}
-	Soit $n \in \mathbb{N}$ une dimension. Un \emph{graphe topologique} de dimension $n$ $G=(V,E,s,t,\alpha)$ est défini par:
+\begin{definition}[Graphes étiqueté]
+	\label{def:graphe-etiquete}
+	Soit $n \in \mathbb{N}$ une dimension. Un \emph{graphe étiqueté} $G=(V,E,s,t,l_{V},l_{E})$ est défini par:
 	\begin{itemize}
 		\item un ensemble $V$ de nœuds;
 		\item un ensemble $E$ d'arcs;
 		\item deux fonctions source $s : E \to V$ et cible $t : E \to V$ qui lient les
-		      arcs aux nœuds et une fonction d'étiquetage $\alpha : E \to [0,n]$. Soit
+		      arcs aux nœuds;
+	  \item deux fonctions d'étiquetage $l_{V} : V -> \pi$ et $l_{E} : E \to [0,n]$. Soit
 		      l'arc $e \in E$~; $s(e)$, $t(e)$ sont appelés respectivement le nœud
 		      source et le nœud cible de $e$ et $\alpha(e)$ est son étiquette.
 	\end{itemize}
@@ -50,10 +51,10 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 	$\alpha_{|E \cap E'} = \alpha'_{|E \cap E'}$.
 
 	\begin{itemize}
-		\item $G$ est \textbf{\emph{inclus}} dans $G'$, noté $G \subset G'$, si $V \subset V'$,
+		\item $G$ est  \emph{inclus} dans $G'$, noté $G \subset G'$, si $V \subset V'$,
 		      $E \subset E'$, $s'_{|E} = s$, $t'_{|E} = t$ et $\alpha'_{|E} = \alpha$.
 
-		\item L'\textbf{\emph{intersection}} $G \cap G'$ est le graphe
+		\item L'\emph{intersection} $G \cap G'$ est le graphe
 		      $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, \alpha_{|E \cap E'})$.
 
 		      % \item L'\textbf{\emph{intersection}} $G \cap G'$ existe si toute arête de l'intersection
@@ -61,17 +62,17 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 		      %       $t(e) = t'(e) \in V \cap V'$ et est définie par le graphe
 		      %       $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, \alpha_{|E \cap E'})$.
 
-		\item L'\textbf{\emph{union}} $G \cup G'$ est le graphe
+		\item L'\emph{union} $G \cup G'$ est le graphe
 		      $(V \cup V', E \cup E', s^{\prime\prime}, t^{\prime\prime}, \alpha^{\prime\prime})$, où $s^{\prime\prime}_{|E} = s$,
 		      $s^{\prime\prime}_{|E'} = s'$, $t^{\prime\prime}_{|E} = t$, $t^{\prime\prime}_{|E'} = t'$, $\alpha^{\prime\prime}_{|E} = \alpha$,
 		      $\alpha^{\prime\prime}_{|E'} = \alpha'$.
-		\item L'\textbf{\emph{union disjointe}} $G \sqcup G'$ est l'union de deux graphes
+		\item L'\emph{union disjointe} $G \sqcup G'$ est l'union de deux graphes
 		      disjoints $G$ et $G'$ (tels que $V \cap V' = \emptyset$ et
 		      $E \cap E' = \emptyset$)
-		\item La \textbf{\emph{différence}} $G \setminus G'$ est la structure
+		\item La \emph{différence} $G \setminus G'$ est la structure
 		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, \alpha_{|E \setminus E'})$.
 
-		\item Soit $\emptyset$ le \textbf{\emph{graphe vide}}, c'est-à-dire l'unique graphe
+		\item Soit $\emptyset$ le \emph{graphe vide}, c'est-à-dire l'unique graphe
 		      ayant un ensemble vide de nœuds et d'arcs.
 	\end{itemize}
 \end{definition}
@@ -84,22 +85,23 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 	\label{def:sous-graphe}
 	Soient $G=(V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes.%
 
-	\noindent$G'$ est un \textbf{\emph{sous-graphe}} de $G$ si et seulement si, $G \subset G'$.
+	\noindent$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G \subset G'$.
 \end{definition}
 
 De même, nous pouvons définir la notion de chemin dans les graphes. %
 Intuitivement, un chemin est un ensemble fini des arêtes traversées lors d'un
 parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 
-\begin{definition}[Chemin]
+\begin{definition}[Chemin et cycle]
 	\label{def:graphes-chemin}
-	Un \textbf{\emph{chemin}} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
+	Un \emph{chemin} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
 	une suite d'arcs tels que pour $1 \leq i < k$, $t(e_{i}) = s(e_{i+1})$.
 	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son
 	étiquette est le mot $\alpha(e_{1}) \alpha(e_{2}) \dots \alpha(e_{k})$.
 
-
-	Si $s(e_{1}) = t(e_{k})$, le chemin est appelé \emph{cycle}.
+	\noindent Un \emph{cycle} est un chemin particulier pour lequel la
+	source du premier arc $e_{1}$ est également la cible du dernier arc $e_{1}$,
+	\textit{i.e.} $s(e_{1}) = t(e_{k})$.
 \end{definition}
 
 Le morphisme $m$ entre deux graphes $G$ et $G'$, est l'application
@@ -225,19 +227,19 @@ topologiques cellulaires de dimension $n$.
 
 \begin{definition}[G-Carte]
 	\label{def:gcarte}
-	Une \textbf{\emph{G-carte}} de dimension $n \in \mathbb{N}$ est un graphe topologique
+	Une \emph{G-carte} de dimension $n \in \mathbb{N}$ est un graphe topologique
 	$G = (V,E,s,t,\alpha)$ de dimension $n$ qui vérifie les contraintes suivantes~:
 	\begin{itemize}
-		\item \textbf{\emph{non-orientation}}~: pour tout arc
-		      $e \in E$, il existe un arc inverse $e' \in E$ tel que
-		      $s(e') = t(e)$, $t(e') = s(e)$ et $\alpha(e') = \alpha(e)$~;
-		\item \textbf{\emph{arcs incidents}}~: pour toute dimension $i \in [0,n]$ et pour tout nœud $v \in V$,
-		      il existe exactement un arc $e \in E$ d'étiquette $\alpha(e)=i$ et de source
-		      $s(e)=v$~;
+		\item \emph{non-orientation}~: pour tout arc $e \in E$, il existe un arc
+		      inverse $e' \in E$ tel que $s(e') = t(e)$, $t(e') = s(e)$ et
+		      $\alpha(e') = \alpha(e)$~;
+		\item \emph{arcs incidents}~: pour toute dimension $i \in [0,n]$ et pour
+		      tout nœud $v \in V$, il existe exactement un arc $e \in E$ d'étiquette
+		      $\alpha(e)=i$ et de source $s(e)=v$~;
 		      % \xavier{C'est ici qu'on peut écrire que les G-cartes sont étiquetées par des dimensions topologiques.}
-		\item \textbf{\emph{cycle}}~: pour toutes dimensions $i, j \in [0,n]^{2}$ telles que $i+2 \leq j$, et
-		      pour tout nœud $v \in V$, il existe un cycle, étiqueté par \emph{$ijij$}, de source
-		      $v$.
+		\item \emph{cycle}~: pour toutes dimensions $i, j \in [0,n]^{2}$ telles que
+		      $i+2 \leq j$, et pour tout nœud $v \in V$, il existe un cycle, étiqueté
+		      par \emph{$ijij$}, de source $v$.
 	\end{itemize}
 \end{definition}
 

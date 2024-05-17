@@ -311,7 +311,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Chapter Style %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newlength{\numberheight} \setlength{\numberheight}{50pt}
+\newlength{\numberheight} \setlength{\numberheight}{80pt}
 \newlength{\barlength} \setlength{\barlength}{25pt}
 
 \makechapterstyle{gaide}{%
@@ -321,18 +321,17 @@
 	\renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
 	\renewcommand*{\chapnumfont}{\normalfont\bfseries\HUGE\color{nord10}}
 	\renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushleft}
-	\renewcommand*{\printchaptername}{%
-		\chapnamefont\MakeUppercase{\@chapapp}}
+	\renewcommand*{\printchaptername}{\chapnamefont\MakeUppercase{\@chapapp}}
 	\renewcommand*{\chapternamenum}{}
 	\setlength{\beforechapskip}{18mm}
 	\setlength{\midchapskip}{\paperwidth}
 	\addtolength{\midchapskip}{-\textwidth}
 	\addtolength{\midchapskip}{-\spinemargin}
 	\renewcommand*{\printchapternum}{%
-		\makebox[2pt][l]{\hspace{1em}%
+		\makebox[.4\numberheight][l]{\hspace{1em}%
 			\resizebox{!}{\numberheight}{\chapnumfont \thechapter}%
 			\hspace{0.35em}%
-			\rule{\barlength}{\numberheight}%
+			\rule{.8\barlength}{\numberheight}%
 		}
 	}%
 	% \renewcommand*{\printchaptertitle}{%

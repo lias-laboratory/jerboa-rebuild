@@ -14,7 +14,7 @@
 {
 \theoremstyle{break}
 \theoremheaderfont{\normalfont\bfseries}
-% \theorembodyfont{\upshape}
+\theorembodyfont{\upshape}
 \theoremseparator{}
 %
 \newtheorem{thmi}{Théorème}
@@ -24,13 +24,14 @@
 }
 
 {
-\theoremstyle{plain}
-\theoremheaderfont{\normalfont}
-\theorembodyfont{\itshape}
+\theoremstyle{change}
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\upshape}
+\theoremseparator{~:}
 \newtheorem*{remarki}{Remarque}
 }
 
-\renewenvironment{proof}{\noindent\textbf{Preuve~:}}{\hfill$\square$\newline}
+\newenvironment{proof}{\noindent\textbf{Preuve~:}}{\hfill$\square$\newline}
 \newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\hfill\(\square\newline\)}
 
 \newenvironment{theoreme}[1][]{%

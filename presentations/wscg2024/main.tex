@@ -1,0 +1,451 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[]{beamer}
+% \documentclass[aspectratio=169]{beamer}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{subfiles}
+\usepackage{subcaption}
+\usetheme[numbering=fraction,sectionpage=none]{lias}
+
+\input{commands.tex}
+
+\noframetitlelogo
+
+\def\dbasepath{../../resources-figures-jerboa}
+\def\dlogopath{../../logos}
+\graphicspath{{\dbasepath/article2/}%
+		{\dbasepath/figures/}%
+		{\dbasepath/concepts/}%
+		{\dbasepath/rules/}%
+		{\dbasepath/persistent-naming/}%
+		{\dlogopath}}
+
+\author[M. Gaide et al.]{\underline{Maxime Gaide}$^{1}$, David Marcheix$^{2}$, Agnès
+	Arnould$^{3}$, Xavier Skapin$^{3}$, Hakim Belhaouari$^{3}$, Stéphane
+	Jean$^{2}$}
+
+\institute[]{\parbox{\textwidth}{\centering\small
+		$^1$ISAE-ENSMA Poitiers, Université de Poitiers, LIAS, Poitiers, France\\
+		$^2$University of Poitiers, ISAE-ENSMA Poitiers, LIAS, Poitiers, France\\
+		$^3$University of Poitiers, Univ. Limoges, CNRS, XLIM, Poitiers, France
+	}\\[1mm]}
+
+\date{}
+% \date{\today}
+
+\title[Reevaluation in rule-based modeling systems]{Reevaluation in rule-based Graph Transformation Modeling Systems}
+
+\BeforeBeginEnvironment{document}{%
+	\titlegraphic{
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south west) [above right]{
+				\includegraphics[width=5em]{logo_lias.png}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north west) [below right]{
+				\includegraphics[width=5em]{Logo_ISAE-ENSMA}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south east) [above left]{
+				\includegraphics[width=5em]{xlim-logo.png}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north east) [below left]{
+				\includegraphics[width=5em]{Logo_up.png}
+			};
+		\end{tikzpicture}
+	}
+}
+
+% \noframetitlelogo
+
+\begin{document}
+
+\begin{frame}[noframenumbering,plain]
+	\titlepage
+\end{frame}
+
+\section[Introduction]{Introduction}
+
+\begin{frame}[c,fragile]{Parametric specification : concept and example}
+	\begin{overlayarea}{\textwidth}{.7\textheight}
+		\begin{columns}
+			\begin{column}{.49\textwidth}
+				\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
+					\centering
+					\includegraphics<1>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+					\includegraphics<2>[width=.7\textwidth]{\dbasepath/classic-figures/2-face-extrusion}%
+					\includegraphics<3>[width=.7\textwidth]{\dbasepath/classic-figures/4-face-triangulation}%
+					\includegraphics<4>[width=.7\textwidth]{\dbasepath/classic-figures/5-colour-face}%
+					\includegraphics<5>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+					\includegraphics<6>[width=.7\textwidth]{\dbasepath/classic-figures/2-reeval-insert-vertex}%
+					\includegraphics<7>[width=.7\textwidth]{\dbasepath/classic-figures/3-reeval-face-extrusion}%
+				\end{minipage}
+
+			\end{column}
+			\begin{column}{.49\textwidth}
+				\begin{minipage}[c]{1.0\linewidth}
+					\begin{block}{%
+							\begin{overlayarea}{\textwidth}{1em}
+								\alt<5->{Reevaluation}{Evaluation}
+							\end{overlayarea}} \ttfamily
+						\only<1->{1-{\color{ForestGreen}square}({\color{orange}pos})}
+						\only<1-4>{%
+						\alt<2-4>{2-{\color{ForestGreen}extrusion}({\color{mediumblue}f1},
+						{\color{orange}vec})}
+						{2-{\color{gray}extrusion}({\color{mediumblue}f1},
+						{\color{orange}vec})}
+						\alt<3-4>{3-{\color{ForestGreen}triangulation}({\color{mediumblue}f2})}
+						{3-{\color{gray}triangulation}({\color{mediumblue}f2})}
+						\alt<4>{4-{\color{ForestGreen}colour}({\color{mediumblue}f7})}
+						{4-{\color{gray}colour}({\color{mediumblue}f7})}%
+						}%
+						\only<5->{
+						\alt<6->{{\color{red}ADD1-insert}({\color{mediumblue}e1})}
+						{ADD1-{\color{gray}insert({\color{mediumblue}e1})}}
+						\alt<7>{2-{\color{ForestGreen}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
+						{2-{\color{gray}extrusion}({\color{mediumblue}f1},{\color{orange}vec})}
+						\alt<7->{3-{\color{ForestGreen}triangulation}({\color{red}f2?})}
+						{3-{\color{gray}triangulation}({\color{mediumblue}f2})}
+						\alt<7>{4-{\color{ForestGreen}colour}({\color{red}f7?})}
+						{4-{\color{gray}colour}({\color{mediumblue}f7})}%
+						}
+					\end{block}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+		\only<7>{%
+			\begin{block}{}
+				\color{red}\(\to\) Persistent naming is necessary
+			\end{block}
+		}
+	\end{overlayarea}
+	\vfill
+	\begin{block}{}
+		{\color{ForestGreen}Operations} and {\color{mediumblue}topological} and {\color{orange}geometric} parameters.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\begin{itemize}
+		\item Goals:
+		      \begin{itemize}
+			      \item Reevaluating a parametric specification
+			      \item Modifying a specification (adding, deleting and moving
+			            operations)
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item Formalisms:
+		      \begin{itemize}
+			      \item Generalized maps : formalization of objects
+			      \item Jerboa rules : formalization of operations
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item Contribution:
+		      \begin{itemize}
+			      \item Persistent naming based on Jerboa rules
+			      \item Reevaluation mechanism based on persistent naming
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{Formalisms}
+\begin{frame}[noframenumbering,plain]
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+
+\begin{frame}{Generalized maps (G-maps)}
+	\begin{minipage}[t][.6\textheight][t]{\textwidth}
+		\begin{columns}[t]
+			\begin{column}{.49\textwidth}
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{figure}
+						\centering
+						\includegraphics<1>[height=.6\textheight]{decomposition-3D-no-decomp}%
+						\includegraphics<2>[height=.6\textheight]{decomposition-3D-3-cell}%
+						\includegraphics<3>[height=.6\textheight]{decomposition-3D-2-cell}%
+						\includegraphics<4>[height=.6\textheight]{decomposition-3D-1-cell}%
+						\includegraphics<5>[height=.6\textheight]{decomposition-3D-0-cell}%
+					\end{figure}
+				\end{overlayarea}
+			\end{column}
+			\hfill
+			\begin{column}{.49\textwidth}
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{block}<2->{Decomposition of an object into :}
+						\begin{itemize}
+							\item<2-> Volumes connected with $3$-links ({\color{ForestGreen} —})%
+							\item<3-> Faces connected with $2$-links ({\color{mediumblue} —})%
+							\item<4-> Edges connected with $1$-links ({\color{red} —})%
+							\item<5> Vertices connected with $0$-links ({\color{black} —})%
+						\end{itemize}
+					\end{block}
+				\end{overlayarea}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{overlayarea}{\textwidth}{.4\textheight}
+		\begin{block}{}<5>
+			Graph where nodes are called \emph{darts} and arcs are \emph{links}.
+		\end{block}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}{Orbits}
+	\begin{minipage}[t][.6\textheight][t]{\textwidth}
+		\begin{columns}
+			\begin{column}{.49\textwidth}
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{figure}
+						\centering
+						\includegraphics<1>[height=.6\textheight]{orbit-3D-vertex-123}%
+						\includegraphics<2>[height=.6\textheight]{orbit-3D-edge-023}%
+						\includegraphics<3>[height=.6\textheight]{orbit-3D-face-013}%
+						\includegraphics<4>[height=.6\textheight]{orbit-3D-volume-012}%
+						\includegraphics<5>[height=.6\textheight]{orbit-3D-edge-02}%
+					\end{figure}
+				\end{overlayarea}
+			\end{column}
+			\hfill
+			\begin{column}{.49\textwidth}
+				\begin{block}{Orbits~:}
+					\begin{overlayarea}{\textwidth}{.6\textheight}
+						\begin{itemize}
+							\item<1-> Vertex {\color{red}$\orbit{1,2,3}$}{\color{ForestGreen}$(a)$}%
+							\item<2-> Edge {\color{red}$\orbit{0,2,3}$}{\color{ForestGreen}$(a)$}%
+							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{ForestGreen}$(a)$}%
+							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{ForestGreen}$(a)$}%
+							\item<5> Volume edge {\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}
+							\item<5> \ldots
+						\end{itemize}
+					\end{overlayarea}
+				\end{block}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{overlayarea}{\textwidth}{.4\textheight}
+		\begin{block}{}<1->
+			Sub-graph of type {\color{red}$\orbit{o}$} incident to a dart
+				{\color{ForestGreen}(d)}.
+		\end{block}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}{Jerboa transformation rules: Application}
+	\begin{figure}
+		\centering
+		\includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view-3D}%
+		\includegraphics<2>[height=.8\textheight]{triangulation-application-1-3D}%
+		\includegraphics<3>[height=.8\textheight]{triangulation-application-2-left-3D}%
+		\includegraphics<4>[height=.8\textheight]{triangulation-application-n0}%
+		\includegraphics<5>[height=.8\textheight]{triangulation-application-n2}%
+		\includegraphics<6>[height=.8\textheight]{triangulation-application-n1}%
+		\includegraphics<7>[height=.8\textheight]{triangulation-application-n0-n1}%
+		\includegraphics<8>[height=.8\textheight]{triangulation-application-n1-n2}%
+		% \includegraphics<6>[height=.8\textheight]{triangulation-application-}%
+		% \includegraphics<4>[height=.8\textheight]{triangulation-application-3-impl-3D}%
+		% \includegraphics<5>[height=.8\textheight]{triangulation-application-4-impl-3D}%
+		% \includegraphics<6>[height=.8\textheight]{triangulation-application-4-expl-3D}%
+		% \includegraphics<7>[height=.8\textheight]{triangulation-application-5-impl-3D}%
+		\includegraphics<9>[height=.8\textheight]{triangulation-application-3D-implicit-links-en}%
+		\includegraphics<10>[height=.8\textheight]{triangulation-application-3D-explicit-links-en}%
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Jerboa transformation rules: Orbit tracking}
+	\begin{figure}
+		\includegraphics<1>[height=.8\textheight]{triangulation-application-3D-origines-en}%
+		\includegraphics<2>[height=.8\textheight]{triangulation-application-3D-origines-2-en}%
+	\end{figure}
+\end{frame}
+
+\section{Persistent Naming}
+
+% \subsection[Nommage Persistant des darts]{Nommage Persistant des brins}
+
+\begin{frame}[noframenumbering,plain]
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}[c,fragile]
+	\frametitle{Persistent naming of darts}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
+		\begin{overlayarea}{\textwidth}{.25\textheight}
+			\centering
+			\includegraphics<1-2>[height=.35\textheight]{rule-create-square-face-n3-n6-highlight}%
+
+			\only<1-2>{Square creation}
+			\includegraphics<3-5>[height=.3\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
+
+			\only<3-5>{Face extrusion}
+			\includegraphics<6-8>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
+
+			\only<6-8>{Face triangulation}
+
+			\includegraphics<9-11>[height=.175\textheight]{rule-colour-face}%
+
+			\only<9-11>{Face coloration}
+
+		\end{overlayarea}
+	\end{minipage}
+	\begin{columns}
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[t][.4\textheight][b]{1.0\linewidth}
+				\centering
+				\includegraphics<2-4>[width=.45\textheight]{persistent-naming-step-1}%
+				\includegraphics<5>[width=.45\textheight]{persistent-naming-step-2}%
+				\includegraphics<6-7>[width=.45\textheight]{persistent-naming-step-2}%
+				\includegraphics<8-10>[width=.45\textheight]{persistent-naming-step-3}%
+				\includegraphics<11>[width=.45\textheight]{persistent-naming-step-4}%
+			\end{minipage}
+		\end{column}
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[t][.4\textheight][c]{1.0\linewidth}
+				\begin{block}{Spécification paramétrique}
+					\begin{overlayarea}{\textwidth}{.3\textheight}
+						\footnotesize
+						\begin{semiverbatim}
+							\only<1->{1-{\color{ForestGreen}square}(pos)}
+							\only<3->{2-{\color{ForestGreen}extrusion}(\alt<3>{6}{[1n6]}, vec)}
+							\only<6->{3-{\color{ForestGreen}triangulation}(\alt<6>{33}{[1n3;2n2]})}
+							\only<9->{4-{\color{ForestGreen}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}
+						\end{semiverbatim}
+
+					\end{overlayarea}
+				\end{block}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+% \subsection[Nommage Persistant des orbites]{Nommage Persistant des orbites}
+
+\begin{frame}
+	\frametitle{Persistent naming of an orbit}
+	\begin{columns}[b]
+		\begin{column}{.45\textwidth}
+			\begin{minipage}[t][.25\textheight][t]{\textwidth}
+				\begin{overlayarea}{\textwidth}{.25\textheight}
+					\centering
+					\includegraphics<1>[width=.6\textwidth]{rule-colour-face-n0-highlight}%
+					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed}%
+					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight}%
+					\includegraphics<4>[width=\textwidth]{rule-create-square-face-n3-highlight}%
+				\end{overlayarea}
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics[width=.6\columnwidth]{persistent-naming-pn3}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.45\textwidth}
+			\hfill
+			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
+				\ttfamily\scriptsize
+				1-{\color{ForestGreen}\alt<4>{\color{orange}}{}square}(pos)\\
+				2-{\color{ForestGreen}\alt<3>{\color{orange}}{}extrusion}([1n6],vec)\\
+				3-{\color{ForestGreen}\alt<2>{\color{orange}}{}triangulation}([1n3;2n2])\\
+				4-{\color{ForestGreen}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4>{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[height=.5\textheight]{pn7-short-nolevels-step-1}%
+					\includegraphics<2>[height=.5\textheight]{pn7-short-nolevels-step-2}%
+					\includegraphics<3>[height=.5\textheight]{pn7-short-nolevels-step-3}%
+					\includegraphics<4>[height=.5\textheight]{pn7-short-nolevels-step-4}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\section{Reevaluation}
+
+\begin{frame}[noframenumbering,plain]
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Reevaluation}
+	\begin{columns}
+		\begin{column}{.35\textwidth}
+			\begin{minipage}[t][.3\textheight][c]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[width=.6\columnwidth]{short-1-reevaluation-create-face-darts}%
+					\includegraphics<2>[width=.6\columnwidth]{short-1ADD-reevaluation-insert-vertex-darts}%
+					\includegraphics<3>[width=.6\columnwidth]{short-2-reevaluation-extrude-face-darts}%
+					\includegraphics<4>[width=.601\columnwidth]{short-3-reevaluation-triangulate-face-darts}%
+					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face-nodarts}%
+				\end{figure}
+			\end{minipage}
+			%
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics[height=.5\textheight]{pn7-short-nolevels}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.65\textwidth}
+			\hfill
+			\begin{minipage}[t][.3\textheight][c]{.65\textwidth}
+				\ttfamily\scriptsize
+				1-{\color{ForestGreen}\alt<1>{\color{orange}}{}square}(pos)\\
+				ADD1-{\color{ForestGreen}\alt<2>{\color{orange}}{}insert}({\color{red}3})\\
+				2-{\color{ForestGreen}\alt<3>{\color{orange}}{}extrusion}([1n6], vec)\\
+				3-{\color{ForestGreen}\alt<4>{\color{orange}}{}triangulation}([1n3;2n2])\\
+				4-{\color{ForestGreen}\alt<5>{\color{orange}}{}colour}([1n3;2n4;3n0])
+			\end{minipage}
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[width=.8\textwidth]{pn7-reval-short-nolevels-step-1}%
+					\includegraphics<2>[width=.8\textwidth]{pn7-reval-short-nolevels-step-2}%
+					\includegraphics<3>[width=.8\textwidth]{pn7-reval-short-nolevels-step-3}%
+					\includegraphics<4>[width=.8\textwidth]{pn7-reval-short-nolevels-step-4}%
+					\includegraphics<5>[width=.8\textwidth]{pn7-reval-short-nolevels}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	A reevaluation mechanism:
+	\begin{itemize}
+		\item Suited to rule-based systems
+		\item Two levels of persistent naming:
+		      \begin{itemize}
+			      \item darts : unique histories and homogeneous in all dimensions
+			      \item orbits : complete histories (trace and origin) statically
+			            computed
+		      \end{itemize}
+		\item Parameterizable reevaluation (reevaluation strategies)
+	\end{itemize}
+
+	Work in progress~:\\
+
+	\hspace{2em} Port to scripts of rules for complex operations.
+\end{frame}
+
+\end{document}

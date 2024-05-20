@@ -1,21 +1,22 @@
 \section[Modélisation à base de règles]{Modélisation à base de règles}
 \label{sec:etat-art-model-regles}
 
-Il existe de nombreuses façons de représenter des objets (exemples +
-refs), parmi celles-ci, on retrouve des modèles de représentation à base de
-graphe (exemples + refs). Pour générer et modifier ces modèles, les systèmes
-existants utilisent le plus souvent des opérations à base de code ou encore
-des grammaires (exemples + refs \cite{bohl2015modeling,terraz20093gmap}). Dans
-ce manuscrit, l'approche qui nous intéresse est celle qui représente les
+La modélisation à base de règle est un concept proposant l'usage de règles pour
+la création et l'édition d'objets virtuelles à partir d'opérations conçues comme
+des règles. Il peut s'agir d'une grammaire donc .
+
+Pour générer et modifier ces modèles, les systèmes existants utilisent le plus
+souvent des opérations à base de code ou encore des grammaires (L-Systèmes
+\cite{bohl2015modeling,terraz20093gmap}). %
+Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
 opérations de modélisation à l'aide de ce que l'on appelle des règles de
-transformation de graphe.
+transformation de graphe. %
 %
 Cette section commence avec des rappels liés aux graphes avant de présenter les
 outils utilisés dans le reste de ce manuscrit.
 
-\subsection[Rappels sur les graphes]{Rappels sur les graphes}
-\label{sec:etat-art-rappels-graphes}
-
+\subsection[Graphe et transformation de graphe]{Graphe et transformation de graphe}
+\label{sec:etat-art-model-regles-graphe-et-transfo}
 
 Les structures topologiques peuvent être représentées par des graphes dont les
 arcs établissent des relations d'appartenance, entre plusieurs nœuds, à une même
@@ -26,29 +27,35 @@ faces, arêtes et sommets lorsque le modèle de représentation est en dimension
 De tels graphes sont appelés des graphes topologiques. %
 
 \todo{graphe topo -> étiqueté : étiquettes arcs et nœuds $\alpha \to l_{E}$, dans le cadre de cette thèse on s'intéresse exclusivement à la partie topo donc on omet les étiquettes de nœuds $l_{V}$ qui représente les plongements (citer Thomas et Romain) }
-\begin{definition}[Graphes étiqueté]
+
+\begin{definition}[Graphe étiqueté]
 	\label{def:graphe-etiquete}
-	Soit $n \in \mathbb{N}$ une dimension. Un \emph{graphe étiqueté} $G=(V,E,s,t,l_{V},l_{E})$ est défini par:
+	Soient deux ensembles d'étiquetage $\mathcal{C}_{V}$ pour les nœuds et $\mathcal{C}_{E}$ pour
+	les arcs. %
+
+	Un \emph{graphe étiqueté} $G=(V,E,s,t,l^{V},l^{E})$ est défini par~:
 	\begin{itemize}
-		\item un ensemble $V$ de nœuds;
-		\item un ensemble $E$ d'arcs;
-		\item deux fonctions source $s : E \to V$ et cible $t : E \to V$ qui lient les
-		      arcs aux nœuds;
-	  \item deux fonctions d'étiquetage $l_{V} : V -> \pi$ et $l_{E} : E \to [0,n]$. Soit
-		      l'arc $e \in E$~; $s(e)$, $t(e)$ sont appelés respectivement le nœud
-		      source et le nœud cible de $e$ et $\alpha(e)$ est son étiquette.
+		\item un ensemble $V$ de \emph{nœuds}~;
+		\item un ensemble $E$ d'\emph{arcs}~;
+		\item deux fonctions \emph{source} $s : E \to V$ et \emph{cible} $t : E \to V$
+		      qui lient les arcs aux nœuds~;
+		\item deux \emph{fonctions d'étiquetage} $l_{V} : V -> \mathcal{C}_{V}$ et
+		      $l_{E} : E \to \mathcal{C}_{E}$ étiquetant respectivement les nœuds et les
+		      arcs.%
 	\end{itemize}
+	Soient le nœud $v \in V$ et l'arc $e \in E$~; $s(e)$, $t(e)$ sont appelés
+	respectivement le nœud source et le nœud cible de $e$ et $l_{V}(v)$ et
+	$l_{E}(e)$ sont respectivement les étiquettes de $v$ et $e$.
 \end{definition}
 
 Les principales notions ensemblistes peuvent être étendues sur les graphes.
 
 \begin{definition}[Inclusion, union (disjointe), intersection, différence]
 	\label{def:graphe-notions-ensembles}
-	Soient $G = (V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes
-	topologiques dont les arcs communs ont des sources, cibles et étiquettes
-	identiques, \textit{i.e.} $s_{|E \cap E'} = s'_{|E \cap E'}$,
-	$t_{|E \cap E'} = t'_{|E \cap E'}$ et
-	$\alpha_{|E \cap E'} = \alpha'_{|E \cap E'}$.
+	Soient $G = (V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux
+	graphes étiquetés dont les arcs communs ont des sources, cibles et
+	étiquettes identiques, \textit{i.e.} $s_{|E \cap E'} = s'_{|E \cap E'}$,
+	$t_{|E \cap E'} = t'_{|E \cap E'}$ et $\alpha_{|E \cap E'} = \alpha'_{|E \cap E'}$.
 
 	\begin{itemize}
 		\item $G$ est  \emph{inclus} dans $G'$, noté $G \subset G'$, si $V \subset V'$,
@@ -208,7 +215,6 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 
 \begin{exemple}[application d'une règle de transformation]
 	\todo{Faire un exemple plus simple en graph topo orienté}
-
 
 	La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
 	triangulation d'une face quadrangulaire et son application. %
@@ -371,6 +377,11 @@ brins atteignables par des liaisons $0,2$. %
 \subsection[Langage Jerboa]{Langage Jerboa}
 \label{sec:etat-art-model-regles-lang-jerboa}
 
+\todo{Dans cette thèse, on ne s'intéresse qu'à un aspect purement topologique
+	des règles de transformation. Toutefois, j'y présente tout de même la notion
+	de plongement pour que le lecteur comprenne où se pose la géométrie dans tout
+	ça. L'aspect géométrique (qui pourra concerner la modélisation CSG et les
+	géométries courbes sont de l'ordre de la perspective)}
 
 Dans la sous-section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
 cartes généralisées comme des graphes topologiques vérifiant certaines
@@ -385,7 +396,6 @@ concepts nécessaires à leurs mises en œuvre. %
 Ensuite, nous étendons ces concepts aux règles de transformation de graphe
 Jerboa \cite{belhaouari2014jerboa} pour terminer avec les scripts de règles
 \cite{gauth2019}. %
-
 
 \subsubsection[Règles instanciées]{Règles instanciées}
 \label{sec:etat-art-model-regles-lang-jerboa-regles-inst}

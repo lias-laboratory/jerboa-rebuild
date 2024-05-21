@@ -96,7 +96,7 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 \end{definition}
 
 De même, nous pouvons définir la notion de chemin dans les graphes. %
-Intuitivement, un chemin est un ensemble fini des arêtes traversées lors d'un
+Intuitivement, un chemin est un ensemble fini des arcs traversées lors d'un
 parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 
 \begin{definition}[Chemin et cycle]
@@ -137,20 +137,20 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{.3\textwidth}
-		\includegraphics[width=.9\textwidth]{example-image-a}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-inclusion}
 		\caption{Morphisme d'inclusion}
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.3\textwidth}
 		% \includegraphics[width=.9\textwidth]{morphisme}
-		\includegraphics[width=.9\textwidth]{example-image-b}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-injectif}
 		\caption{Morphisme injectif}
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inj}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.3\textwidth}
-		\includegraphics[width=.9\textwidth]{example-image-c}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-isomorphisme}
 		\caption{Isomorphisme}
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
 	\end{subfigure}
@@ -158,11 +158,53 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	\label{fig:etat-art-model-regles-regles-concepts-morphismes}
 \end{figure}
 
-\begin{exemple}[Morphisme d'inclusion, injectif et isomorphisme]
+\todo{ajouter des noms aux arcs, ce sera mieux que des couleurs (?)}
+
+\begin{exemple}[Morphismes]
 	\begin{description}
-		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc}] test
-		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inj}] test
-		\item[- Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}] test
+		\item[Inclusion~:] Dans la
+		      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
+		      les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds et arcs à
+		      l'identique. %
+
+		      En substance, nous avons l'appariement suivant~:
+
+		      \begin{minipage}[c]{1.0\linewidth}
+			      \begin{multicols}{2}
+				      \begin{itemize}
+					      \item $a \to a$,
+					      \item $b \to b$,
+					      \item $c \to c$,
+					      \item $d \to d$
+				      \end{itemize}
+
+				      \columnbreak
+
+				      \begin{itemize}
+					      \item $rose \to rose$,
+					      \item $vert \to vert$,
+					      \item $orange \to orange$,
+					      \item $bleu \to bleu$
+				      \end{itemize}
+			      \end{multicols}
+		      \end{minipage}
+
+		      % le graphe à gauche de la flèche est inclus dans celui de droite. %
+		      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
+		      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
+		      % l'identique. %
+		\item[Injection] Dans la
+		      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
+		      l'application $m_{V}$ donne les appariement suivants~:
+		      $a \to e, b \to f, c \to g, d \to h$. %
+		      L'application $m_{V}$, quant à elle, préserve tous les arcs à
+		      l'exception de l'arc $vert$ entre $a$ et $b$ (respectivement $e$
+		      et $f$ à droite de la flèche).
+		\item[Isomorphisme] Dans la
+		      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
+		      les applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à
+		      renommage près, c'est-à-dire ici que les nœuds sont simplement
+		      renommés $a \to e, b \to f, c \to g, d \to h$. %
 	\end{description}
 \end{exemple}
 
@@ -207,14 +249,14 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.6\textwidth]{application-regle-v2}
+	\includegraphics[width=.6\textwidth]{application-regle-v2-transfo-graphe}
 	\caption{Application d'une règle de triangulation}
 	\label{fig:etat-art-model-regles-inst-application}
 \end{figure}
 
 
 \begin{exemple}[application d'une règle de transformation]
-	\todo{Faire un exemple plus simple en graph topo orienté}
+	\todo{Faire un exemple plus simple en graphe topo orienté}
 
 	La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
 	triangulation d'une face quadrangulaire et son application. %
@@ -523,7 +565,7 @@ $o_k \mapsto o'_k$. %
 \begin{definition}[Renommage d'une orbite]
 	Le \emph{renommage} $(\orbit{o} \mapsto \orbit{o'})(G\orbit{o}(v))$ d'une $\orbit{o}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe $(V,E',s',t',\alpha')$ défini par :
 	\begin{itemize}
-		\item $E'$ est le sous-ensemble des arêtes de $E$ qui n'ont pas été
+		\item $E'$ est le sous-ensemble des arcs de $E$ qui n'ont pas été
 		      supprimées, c'est-à-dire
 		      $E'=\{e \in E \mid (\orbit{o} \mapsto \orbit{o'})(\alpha(e)) \neq \_ \}$,
 

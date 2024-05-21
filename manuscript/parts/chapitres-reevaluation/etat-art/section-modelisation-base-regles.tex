@@ -3,17 +3,17 @@
 
 La modélisation à base de règle est un concept proposant l'usage de règles pour
 la création et l'édition d'objets virtuelles à partir d'opérations conçues comme
-des règles. Il peut s'agir d'une grammaire donc .
-
+des règles. Il peut s'agir d'une grammaire donc . %
 Pour générer et modifier ces modèles, les systèmes existants utilisent le plus
-souvent des opérations à base de code ou encore des grammaires (L-Systèmes
-\cite{bohl2015modeling,terraz20093gmap}). %
+souvent des opérations à base de code (ArcGIS's CGA) ou encore des grammaires
+(L-Systèmes \cite{bohl2015modeling,terraz20093gmap}). %
 Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
 opérations de modélisation à l'aide de ce que l'on appelle des règles de
 transformation de graphe. %
 %
-Cette section commence avec des rappels liés aux graphes avant de présenter les
-outils utilisés dans le reste de ce manuscrit.
+Cette section commence avec des définitions liées aux graphes et à leur
+transformation avant de présenter les outils utilisés dans le reste de ce
+manuscrit.
 
 \subsection[Graphe et transformation de graphe]{Graphe et transformation de graphe}
 \label{sec:etat-art-model-regles-graphe-et-transfo}
@@ -33,7 +33,7 @@ De tels graphes sont appelés des graphes topologiques. %
 	Soient deux ensembles d'étiquetage $\mathcal{C}_{V}$ pour les nœuds et $\mathcal{C}_{E}$ pour
 	les arcs. %
 
-	Un \emph{graphe étiqueté} $G=(V,E,s,t,l^{V},l^{E})$ est défini par~:
+	Un \emph{graphe étiqueté} $G=(V,E,s,t,l_{V},l_{E})$ est défini par~:
 	\begin{itemize}
 		\item un ensemble $V$ de \emph{nœuds}~;
 		\item un ensemble $E$ d'\emph{arcs}~;

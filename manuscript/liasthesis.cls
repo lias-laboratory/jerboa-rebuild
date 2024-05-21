@@ -114,7 +114,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% SECTION NUMBERING %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesection}{\arabic{section}}
 \setsecnumdepth{subsubsection}
 \setcounter{tocdepth}{3}
 

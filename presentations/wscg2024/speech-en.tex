@@ -1,0 +1,327 @@
+% Created 2024-03-15 ven. 23:40
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{}
+\title{discours présentation R-GTMG}
+
+\begin{document}
+
+\maketitle
+
+Hello, today I present my works about reevaluation in rule-based graph
+transformation modeling systems.
+
+\section{Introduction}
+\label{sec:orgded3f04}
+
+Modeling complex 3D objects is tedious process often with many operations.
+
+Nowadays, all modeling kernels record these process' in what's called a
+parametric specification to modify and reevaluate them.
+
+One can modify topological and geometric parameters and even add, delete or move
+operations.
+
+Let's see a specification it will be our guiding thread throughout this presentation:
+\begin{itemize}
+	\item First operation creates the square face f1 and its edges including e1.
+	\item Next one extrudes f1 into a cube and e1 into the face f2.
+	\item Triangulating f2 creates several faces including f7.
+	\item Last operation colors f7.
+\end{itemize}
+
+Now let's modify this specification: we add the insertion of a vertex on edge e1
+and we reevaluate.
+
+\begin{itemize}
+	\item f1 and e1 are identical
+	\item the vertex splits e1 into e5 and e6
+	\item The extrusion applies on f1, this time e5 and e6 are extruded into f3
+	      and f4.
+\end{itemize}
+
+Finally, how can we continue reevaluating since f2 is no longer here ? The same goes
+for f7.
+
+Intuitively, f2 is split into f3 and f4, we want to triangulate f3 and/or f4.
+
+Right now, that's when we need a persistent naming scheme to identify cells'
+histories to be able to say, for example, ``f3 and f4 are built like f2,
+then we triangulate these two faces.''
+
+% Maintenant que la problématique est posée, on va voir le plan.
+Now the issue is raised, let's see the outline.
+
+\section*{Outline}
+\label{sec:orgdf64a4e}
+\begin{itemize}
+	\item We aim to allow the reevaluation of modified specifications especially
+	      by adding, deleting and moving operations.
+	\item To this end we will see two formalisms for objets and operations
+	      % \begin{itemize}
+	      %   \item Celui des cartes généralisées pour les objets
+	      %   \item Celui des règles de transformation de graphe Jerboa pour les
+	      %         opérations de modélisation
+	      % \end{itemize}
+	\item Our contributions for a persistent naming scheme:
+	      % \begin{itemize}
+	      %   \item d'une part un mécanisme de nommage persistant basé sur les
+	      %         règles
+	      %   \item d'autre part un mécanisme de réévaluation exploitant ce
+	      %         nommage persistant
+	      % \end{itemize}
+	\item And then I will conclude.
+\end{itemize}
+
+\section{G-maps}
+\label{sec:orgf33c57b}
+
+We start with generalized maps, or G-maps, to represent objects
+
+Consider this object
+
+It can be decomposed into two volumes connected with 3-links in green
+
+Its volumes are faces connected by 2-links in blue
+
+Which are edges connected by 1-links in red
+
+And finally, these edges are vertices connected by 0-links in black.
+
+This G-map is a graph whose nodes and arcs are called darts and links.
+
+\section{Orbits}
+\label{sec:org99b57a4}
+
+G-maps have the ability to represent cells with sub-graphs called orbits
+
+For example~:
+
+The vertex incident to dart ``a'' contains ``a'', all the darts reachable
+through 1,2,3-links and the links themselves.
+
+This edge contains ``a'' and darts reachable through 0,2,3-links.
+
+A face contains darts reachable through 0,1,3-links.
+
+A volume contains those reachable through 0,1,2-links.
+
+Orbits can also represent all kind of topological, not limited to cells, such as
+this volume edge.
+
+\section{Jerboa graph transformation rules}
+\label{sec:org89fe9a5}
+
+We have formalized the objects with G-maps not let's get to the operations with
+Jerboa graph transformation rules.
+
+Here is the triangulation of a face.
+
+Generally speaking, a rule has a left membre used to match a sub-graph in the
+object to transform and a right member which describe the transformation.
+
+On the left, the node n0 holds the face <0,1,3> orbit type.
+
+When applying the rule on dart ``a0'', it matches all the face incident to
+``a0'' (in yellow).
+
+On the right, the node n0 is preserved thus the matched darts are preserved. %
+The rewriting of this implicit 1-arc into an underscore in n0 denotes the
+deletion of the 1-links in the object. %
+
+n2 is a created node, as such, the darts it creates are copied from those
+matched by n0. %
+In the rule, 0-links are rewritten into 1-links and the 1-links into 2-links. %
+In the object, the vertex, in blue, is created as the dual of the face, in
+yellow, by replacing 0-,1-links with 1-,2-links. %
+
+Finally, n1 is created and presents both deletion and rewriting of links. %
+
+In the rule, an explicit 1-arc connects n0 to n1 which links their darts 1-to-1 in the object. %
+The same goes for this 0-link between n1 and n2. %
+
+\subsection{Orbits}
+\label{sec:orgcf72bd7}
+
+We can also track the orbits.
+
+Let's track the volume face incident to n0.
+
+On the left, it contains n0 with its 0-,1-arcs.
+
+On the right, it contains n0 with its 0-arc, the 1-arc connecting it to n1, the
+0-arc connecting n1 to n2 and n2's 1-arc.
+
+Note that there is only one face orbit in the rule yet there are 4 of them in
+the object. %
+That's because the second implicit link on the left is either deleted or
+rewritten into 2 (out of the 0,1 orbit type). %
+Such rewriting splits the face. %
+
+\subsection{Origins}
+\label{sec:org341560c}
+
+Moreover, the implicit 0,1-arcs on the right are rewritten from the implicit 0-arc on the left. %
+Each one of the faces on the right originates from a single edge on the left.
+
+For example, this green face comes from this green edge.
+
+A static analysis of the rules, performed at pre-compute, time makes it possible
+to detect the events on orbits independently of the object onto which the
+operations are applied.
+We refer to these events as the split, merging and so on.
+
+\section*{Outline: persistent naming}
+\label{sec:orgaa5036e}
+
+That's it the formalisms, let's get to the persistent with our parametric
+specification.
+
+\section{Persistent naming}
+\label{sec:org84648da}
+
+\subsection{Persistent naming: darts}
+\label{sec:org53f1b92}
+
+The history of each dart, namely the rules and nodes that create them, is
+recorded and used as their persistent names. %
+
+This rule, creating a square face, has 8 node including n3 and n6.
+
+With this first application, n3 creates the dart 3, its history [1n3].
+
+n6 creates the dart 6, its history is [1n6]
+
+To extrude the square, we select the dart 6. However, its name may change. Thus,
+when applying the rule, we make a snapshot of the dart's history and use it as a
+persistent name for the specification.
+
+n1, on the left, matches dart 3 while n2 and n4, on the right, create its copies 33 and 35. %
+As such, we build their histories from dart 3.
+
+Dart 33 history is [1n3;2n2]. %
+For dart 35 it's [1n3;2n4]. %
+Dart 3 history is update and becomes [1n3;2n1], the same goes for dart 6. %
+
+Next we triangule the front face which we select through dart 33.
+Again we snapshot the history into a persistent name.
+
+Darts 33 and 35 are updated with n0 on the left.
+For 35 this third application gives [1n3;2n4;3n0], the same goes for 33.
+
+Finally, the face is colored.
+
+Here, we have just given unique persistent names to darts based on their histories.
+
+Yet, topological parameters are orbits and not darts.
+Now we must represent the orbits histories.
+
+\subsection{Persistent naming: orbits}
+\label{sec:orgf5219a2}
+
+Now, we use the history of a dart to reconstitute the history of an
+orbit.
+
+Let's consider the orbit designated with [1n3;2n4;3n0] in the color operation.
+n0, in yellow, denotes a volume face, then we start tracing the history from a
+face which is drawn here.
+
+From the persistent name, we start from the last step being the third operation. %
+
+As I told earlier, this face is split from a matched face and originates from an
+edge. %
+We transfer these informations into the history.
+
+So, this face incident to n0, is tracked, the black arrow, back to a matched
+face split by the triangulation. It originates, the red arrow, to from an edge.
+
+We keep backtracking the history up to the second operation, the
+extrusion and its node n4.
+
+Now we track this face and this edge both incident to n4 respectively in blue
+and yellow boxes.
+
+The face is created through the extrusion of an edge and the edge itself is
+created from a dart.
+
+Finally, we backtrack to the first operation, the square creation which creates
+these edge and dart.
+
+We have reconstituted an orbit history solely from the persistent name of a dart
+and the rules from the specification.
+
+We did not need to reapply any of the rules.
+% On fait ça uniquement à partir de la spécification et des règles, sans utiliser
+% l'objet et sans réappliquer les règles.
+
+This process is performed for each persistent name and only those.
+
+In the end we only reconstitute orbit histories if there is a corresponding
+persistent name in the specification.
+
+\section*{Outline: reevaluation}
+\label{sec:org04c39be}
+
+Thanks to these persistent names, we can now proceed to the reevaluation.
+
+\section{Reevaluation}
+\label{sec:org3b38850}
+
+Let's reevaluate the specification from the standpoint of the history we just
+built.  %
+
+The fist operation recreates the square identically. %
+n3 has created a unique dart 3.
+
+The next operation has been added, I miss the place and time to show it, still
+its analysis reveals it split the matched edge. %
+In the history we now trace a branch for each edge.
+
+The extrusion creates a face from each edge, an edge from each dart. %
+n4 creates several darts yet only one copy of 3, being 37, and one copy of 4,
+being 52.
+
+Finally we reapply the triangulation on each branch. %
+Darts 37 and 52 remain identical. %
+It was the last operation, darts 37 and 52 now designate the faces to color. %
+
+This way, we can find all the topological entities eligible during the
+reevaluation. %
+The user has the choice to reapply operations for each branch. %
+
+\section{Conclusion}
+\label{sec:orga7a7cfd}
+
+To conclude, we propose a reevaluation mechanism built for rule-based
+modeling systems.
+
+To this end, we designed a two layers persistent naming scheme:
+
+One for the darts, making the naming unique;
+
+The other of for the orbits, representing a complete history tracing the
+evolution of an orbit up to its origins.
+
+The naming of an orbit is solely built from the data obtain during the analysis of
+the rules used in a specification. The analysis itself is statically performed
+at pre-compute time.
+
+As such, this approach distinguishes itself from other where all cells of a given
+dimension (usually edges and faces) are being track throughout the design process.
+
+During the reevaluation, we track all the possible histories allowing setting up strategies such as reapplying an operation on one or many operations.
+
+We currently work on the integration of scripted rules involving usual control
+structures such as loops and conditionals within this reevaluation mechanism.
+\end{document}

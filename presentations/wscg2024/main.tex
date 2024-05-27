@@ -292,16 +292,18 @@
 			\includegraphics<1-2>[height=.35\textheight]{rule-create-square-face-n3-n6-highlight}%
 
 			\only<1-2>{Square creation}
+
 			\includegraphics<3-5>[height=.3\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
 
 			\only<3-5>{Face extrusion}
-			\includegraphics<6-8>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
 
-			\only<6-8>{Face triangulation}
+			\includegraphics<6-7>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
 
-			\includegraphics<9-11>[height=.175\textheight]{rule-colour-face}%
+			\only<6-7>{Face triangulation}
 
-			\only<9-11>{Face coloration}
+			\includegraphics<8>[height=.175\textheight]{rule-colour-face}%
+
+			\only<8>{Face coloration}
 
 		\end{overlayarea}
 	\end{minipage}
@@ -311,9 +313,9 @@
 				\centering
 				\includegraphics<2-4>[width=.45\textheight]{persistent-naming-step-1}%
 				\includegraphics<5>[width=.45\textheight]{persistent-naming-step-2}%
-				\includegraphics<6-7>[width=.45\textheight]{persistent-naming-step-2}%
-				\includegraphics<8-10>[width=.45\textheight]{persistent-naming-step-3}%
-				\includegraphics<11>[width=.45\textheight]{persistent-naming-step-4}%
+				\includegraphics<6>[width=.45\textheight]{persistent-naming-step-2}%
+				\includegraphics<7>[width=.45\textheight]{persistent-naming-step-3}%
+				\includegraphics<8>[width=.45\textheight]{persistent-naming-step-4}%
 			\end{minipage}
 		\end{column}
 		\begin{column}{.49\textwidth}
@@ -324,8 +326,8 @@
 						\begin{semiverbatim}
 							\only<1->{1-{\color{ForestGreen}square}(pos)}
 							\only<3->{2-{\color{ForestGreen}extrusion}(\alt<3>{6}{[1n6]}, vec)}
-							\only<6->{3-{\color{ForestGreen}triangulation}(\alt<6>{33}{[1n3;2n2]})}
-							\only<9->{4-{\color{ForestGreen}colour}([1n3;2n4;3n0])}
+							\only<6->{3-{\color{ForestGreen}triangulation}([1n3;2n2])}
+							\only<8>{4-{\color{ForestGreen}colour}([1n3;2n4;3n0])}
 						\end{semiverbatim}
 
 					\end{overlayarea}
@@ -345,8 +347,8 @@
 				\begin{overlayarea}{\textwidth}{.25\textheight}
 					\centering
 					\includegraphics<1>[width=.6\textwidth]{rule-colour-face-n0-highlight}%
-					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed}%
-					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight}%
+					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed-v2}%
+					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight-v2}%
 					\includegraphics<4>[width=\textwidth]{rule-create-square-face-n3-highlight}%
 				\end{overlayarea}
 			\end{minipage}

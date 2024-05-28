@@ -1,0 +1,35 @@
+#+title:
+#+author:
+
+* Contexte
+
+Dans Dai (2024), les auteurs proposent une méthode basé sur le sens de balayage
+des extrusions pour ordonnancer les entités topologiques.
+
+Il est suggéré que l'orientation, la rotations et le sens de balayage pour
+l'extrusion d'une pièce sont des intentions de modélisation exprimées
+explicitement par l'utilisateur.
+
+* Contribution
+
+Ces travaux proposent de retenir le sens de balayage pour enrichir le nommage
+persistant des faces symétriques issues d'une scission et ainsi permettre de le
+distinguer.
+
+Pour cela, Dai et al., proposent une méthode de classification et
+d'ordonnancement des courbures sur les surfaces inspirée des travaux de
+Capoyleas et al. pour la classification des courbes de Wu et al. pour
+l'ordonnancement grâce aux information d'espace paramétrique.
+
+** catégories de courbes
+Issu des travaux de Capoyleas, les catégories de courbes suivantes sont définies.
+- courbe qui coupe/ouvre une surface permettant de la dérouler
+- courbe qui scinde une surface en deux
+- courbe qui découpe un disque dans une surface et crée un trou (exposant l'intérieur)
+Une quatrième catégorie de courbe est définie par Dai et al.
+- courbe n'appartenant à aucune des trois autres catégorie.
+Cette dernière courbe est présentée comme une limitation car ce cas n'est pas
+gérée.
+** extension avec catégories de contour
+Pour
+** Méthode

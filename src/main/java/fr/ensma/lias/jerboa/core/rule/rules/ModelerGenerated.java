@@ -92,6 +92,8 @@ import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.InsertVertexFoldedFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.CreateSquareFaceFake;
 import fr.ensma.lias.jerboa.core.rule.rules.CreationFake.CreatePentagonFake;
 import fr.ensma.lias.jerboa.core.rule.rules.Experiments.XpRejeuScriptIfElse;
+import fr.ensma.lias.jerboa.core.rule.rules.Color.MakeFaceRed;
+import fr.ensma.lias.jerboa.core.rule.rules.Color.MakeFaceGreen;
 
 
 
@@ -207,6 +209,8 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new CreateSquareFaceFake(this));
         this.registerRule(new CreatePentagonFake(this));
         this.registerRule(new XpRejeuScriptIfElse(this));
+        this.registerRule(new MakeFaceRed(this));
+        this.registerRule(new MakeFaceGreen(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

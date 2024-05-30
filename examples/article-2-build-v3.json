@@ -9,15 +9,6 @@
     "dartIDs": []
   },
   {
-    "ID": 9,
-    "type": "ADD",
-    "rule": {
-      "name": "InsertVertexFolded"
-    },
-    "PNs": [],
-    "dartIDs": [3]
-  },
-  {
     "ID": 2,
     "type": "INIT",
     "rule": {
@@ -33,7 +24,7 @@
   },
   {
     "ID": 3,
-    "type": "DELETE",
+    "type": "INIT",
     "rule": {
       "name": "InsertVertexFolded"
     },
@@ -59,15 +50,6 @@
     ],
     "dartIDs": []
   },
-  // {
-  //   "ID": 10,
-  //   "type": "ADD",
-  //   "rule": {
-  //     "name": "InsertVertexFolded"
-  //   },
-  //   "PNs": [],
-  //   "dartIDs": [52]
-  // },
   {
     "ID": 5,
     "type": "INIT",
@@ -86,6 +68,34 @@
     "ID": 6,
     "type": "INIT",
     "rule": {
+      "name": "MakeFaceRed"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n5; 2 - n6; 3 - n0; 4 - n5}]",
+        "orbitType": "(0, 1)"
+      }
+    ],
+    "dartIDs": []
+  },
+  {
+    "ID": 7,
+    "type": "INIT",
+    "rule": {
+      "name": "MakeFaceGreen"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n6; 2 - n6; 3 - n0; 4 - n5}]",
+        "orbitType": "(0, 1)"
+      }
+    ],
+    "dartIDs": []
+  },
+  {
+    "ID": 8,
+    "type": "INIT",
+    "rule": {
       "name": "FaceCollapse"
     },
     "PNs": [
@@ -97,21 +107,21 @@
     "dartIDs": []
   },
   {
-    "ID": 7,
+    "ID": 9,
     "type": "INIT",
     "rule": {
       "name": "ChamferCorner"
     },
     "PNs": [
       {
-        "PersistentName": "[{1 - n5; 2 - n6; 3 - n0; 4 - n4; 6 - n2}]",
+        "PersistentName": "[{1 - n5; 2 - n6; 3 - n1; 4 - n4; 6 - n0; 8 - n2}]",
         "orbitType": "(1, 2)"
       }
     ],
     "dartIDs": []
   },
   {
-    "ID": 8,
+    "ID": 10,
     "type": "INIT",
     "rule": {
       "name": "MakeFaceBlue"

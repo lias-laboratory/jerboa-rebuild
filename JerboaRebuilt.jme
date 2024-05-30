@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>ChamferCorner2DFake</openRules>
-	<openRules>XpRejeuScript</openRules>
-	<openRules>CreatePentagonFake</openRules>
-	<openRules>XpRejeuScriptIfElse</openRules>
-	<openRules>InsertVertexFoldedFake</openRules>
-	<openRules>TriangulateFaceFake</openRules>
-	<openRules>CreateSquareFaceFake</openRules>
+	<openRules>MakeFaceRed</openRules>
+	<openRules>MakeFaceGreen</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -16,7 +11,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="85">
+    <rules count="87">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -2752,7 +2747,7 @@ return res;</expr>
             </left>
             <right>
                 <nodes count="1">
-                    <node name="n0" x="172" y="142" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                    <node name="n0" x="175" y="103" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
                         <expr ebd="color">return new Color(0,0,255);</expr>
                     </node>
                 </nodes>
@@ -4919,6 +4914,64 @@ return false;</precondition>
             <paramstopo>
             </paramstopo>
         </script>
+        <rule name="MakeFaceRed" module="Color" category="Color" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="270" y="99" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n0" x="175" y="103" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="color">return new Color(255,0,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
+        <rule name="MakeFaceGreen" module="Color" category="Color" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="n0" x="270" y="99" orbit="0,1" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="1">
+                    <node name="n0" x="175" y="103" orbit="0,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="color">return new Color(0,255,0);</expr>
+                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+            </paramstopo>
+        </rule>
     </rules>
     <inferrules count="0">
     </inferrules>

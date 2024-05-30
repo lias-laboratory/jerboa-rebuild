@@ -162,10 +162,15 @@ public class NodeOrbit {
     int currentRuleNodeIndex = rule.getRightIndexRuleNode(nodeName);
     JerboaRuleNode currentRuleNode = rule.getRightRuleNode(currentRuleNodeIndex);
 
-    // System.out.println("BBBuildEntry: -> AlphaPath: " + this.getAlphaPath());
+    System.out.println("BBBuildEntry: -> AlphaPath: " + this.getAlphaPath());
+    System.out.println(rule);
     for (Integer alpha : this.getAlphaPath()) {
-      currentRuleNode = currentRuleNode.alpha(alpha);
+      if (currentRuleNode.alpha(alpha) != null) { // FIXED STUPID MISTAKE!!
+        currentRuleNode = currentRuleNode.alpha(alpha);
+      }
     }
+
+    System.out.println(currentRuleNode);
 
     List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(currentRuleNode, this.orbit);
     JerboaRebuiltRule rebuiltRule = (JerboaRebuiltRule) rule;

@@ -3,33 +3,65 @@
 
 * Contexte
 
-Dans Dai (2024), les auteurs proposent une méthode basé sur le sens de balayage
-des extrusions pour ordonnancer les entités topologiques.
+Dans Dai (2024), les auteurs proposent d'enrichir le nommage persistant avec une
+méthode de permettant d'ordonnancer des entités topologiques invariantes distinctes générées
+lors d'une extrusion par balayage et ainsi respecter l'intention de modélisation
+de l'utilisateur. Les travaux s'inscrivent dans un contexte défini par les concepts suivants :
+- Modélisation paramétrique dite «feature-based»
+- Un système de modélisation avec une architecture à 3 couches :
+  - Représentation géométrique
+  - Spécification paramétrique
+  - Nommage persistant
+- Résolution de l'ambiguïté symétrique lors de la génération d'entités invariantes
+  suivant une extrusion
 
-Il est suggéré que l'orientation, la rotations et le sens de balayage pour
-l'extrusion d'une pièce sont des intentions de modélisation exprimées
-explicitement par l'utilisateur.
+Notons que, d'après les auteurs, le sens du balayage d'une entité invariante le
+long d'une courbe, dans le but de créer un objet, est un choix explicitement
+formulé par l'utilisateur et que ce choix doit être respecté lors de la
+réévaluation.
 
 * Contribution
 
-Ces travaux proposent de retenir le sens de balayage pour enrichir le nommage
-persistant des faces symétriques issues d'une scission et ainsi permettre de le
+Cette contribution propose d'enrichir le nommage persistant à l'aide d'une
+information d'ordonnancement lorsqu'une entité invariante est générée par
+balayage.
+
+Pour cela, Dai et al. proposent une méthode pour d'abord classifier les
+courbures sur la surface de l'objet balayé puis de les ordonner afin de les
 distinguer.
 
-Pour cela, Dai et al., proposent une méthode de classification et
-d'ordonnancement des courbures sur les surfaces inspirée des travaux de
-Capoyleas et al. pour la classification des courbes de Wu et al. pour
-l'ordonnancement grâce aux information d'espace paramétrique.
-
-** catégories de courbes
-Issu des travaux de Capoyleas, les catégories de courbes suivantes sont définies.
+Cette approche s'appuie sur les travaux de Capoyleas et Wu (puis Han) pour
+catégoriser les courbures puis extraire des informations sur ces courbures
+depuis un espace paramétrique. Ainsi,issu des travaux de Capoyleas, les
+catégories de courbes suivantes sont définies.
 - courbe qui coupe/ouvre une surface permettant de la dérouler
 - courbe qui scinde une surface en deux
 - courbe qui découpe un disque dans une surface et crée un trou (exposant l'intérieur)
 Une quatrième catégorie de courbe est définie par Dai et al.
 - courbe n'appartenant à aucune des trois autres catégorie.
-Cette dernière courbe est présentée comme une limitation car ce cas n'est pas
-gérée.
-** extension avec catégories de contour
-Pour
-** Méthode
+
+Pour leur extension, Dai et al. proposent de distinguer les courbures selon deux
+classes, les courbure enveloppantes (surrounding contours) et les
+non-enveloppantes (non-surrounding contours).
+
+Les contours enveloppants sont ceux qui découpent une surface en deux de même
+genre topologique et plus particulièrement de genre 1. Les contours
+non-enveloppants sont ceux qui découpent une surface en deux dont l'une est de
+genre 2 et l'autre de genre 0.
+
+Ces contours sont ensuite représentés à l'aide de NURBS dans un espace de
+paramètres (u,v) pour pouvoir d'abord les catégoriser puis les ordonner.
+
+La classification des contours se fait de la façon suivante. En admettant que:
+- une v ligne peut être déterminée à partir du guide d'extrusion
+- une u ligne peut être déterminée à partir de la forme à balayer le long du guide
+Alors, le nombre d'intersections entre une u ligne et un contour permet de
+catégoriser le classe de contour:
+- Si le nombre d'intersection est impair, alors le contour est enveloppant
+- Au contraire, s'il est pair, alors le contour est non-enveloppant.
+
+L'ordonnancement est déterminé selon l'intersection d'une courbe avec une v
+ligne. Dai et al. expriment qu'il est difficile de classer des contours
+non-enveloppant car instables.
+
+Leur méthode se concentre alors sur l'ordonnancement des contours enveloppants.

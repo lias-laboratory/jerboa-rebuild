@@ -12,23 +12,23 @@
 {\endMakeFramed}
 
 {
-\theoremstyle{break}
-\theoremheaderfont{\normalfont\bfseries}
-\theorembodyfont{\upshape}
-\theoremseparator{}
-%
-\newtheorem{thmi}{Théorème}
-\newtheorem{defi}{Définition}
-\newtheorem{propi}{Proposition}
-\newtheorem*{exmpi}{Exemple}
+	\theoremstyle{break}
+	\theoremheaderfont{\normalfont\bfseries}
+	\theorembodyfont{\upshape}
+	\theoremseparator{}
+	%
+	\newtheorem{thmi}{Théorème}
+	\newtheorem{defi}{Définition}
+	\newtheorem{propi}{Proposition}
+	\newtheorem*{exmpi}{Exemple}
 }
 
 {
-\theoremstyle{change}
-\theoremheaderfont{\normalfont\bfseries}
-\theorembodyfont{\upshape}
-\theoremseparator{~:}
-\newtheorem*{remarki}{Remarque}
+	\theoremstyle{change}
+	\theoremheaderfont{\normalfont\bfseries}
+	\theorembodyfont{\upshape}
+	\theoremseparator{~:}
+	\newtheorem*{remarki}{Remarque}
 }
 
 \newenvironment{proof}{\noindent\textbf{Preuve~:}}{\hfill$\square$\newline}
@@ -56,17 +56,18 @@
 }
 
 \newenvironment{remarque}[1][]{%
-  \begin{remarki}
-		\begin{leftbar}[nord12]}{%
-		\end{leftbar}
-  \end{remarki}
+	\begin{remarki}
+		% \begin{leftbar}[nord12]
+		}{%
+		% \end{leftbar}
+	\end{remarki}
 }
 
 \newenvironment{exemple}[1][]{%
-  \begin{exmpi}[#1]
+	\begin{exmpi}[#1]
 		\begin{leftbar}[nord15]}{%
 		\end{leftbar}
-  \end{exmpi}
+	\end{exmpi}
 }
 
 %% Proof leftbar : nord14

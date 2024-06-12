@@ -55,29 +55,29 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 	Soient $G = (V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux
 	graphes étiquetés dont les arcs communs ont des sources, cibles et
 	étiquettes identiques, \textit{i.e.} $s_{|E \cap E'} = s'_{|E \cap E'}$,
-	$t_{|E \cap E'} = t'_{|E \cap E'}$ et $\alpha_{|E \cap E'} = \alpha'_{|E \cap E'}$.
+	$t_{|E \cap E'} = t'_{|E \cap E'}$ et $l_{E_{|E \cap E'}} = l'_{E_{|E \cap E'}}$.
 
 	\begin{itemize}
 		\item $G$ est  \emph{inclus} dans $G'$, noté $G \subset G'$, si $V \subset V'$,
-		      $E \subset E'$, $s'_{|E} = s$, $t'_{|E} = t$ et $\alpha'_{|E} = \alpha$.
+		      $E \subset E'$, $s'_{|E} = s$, $t'_{|E} = t$ et $l'_{E_{|E}} = l_{E}$.
 
 		\item L'\emph{intersection} $G \cap G'$ est le graphe
-		      $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, \alpha_{|E \cap E'})$.
+		      $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, l_{E_{|E \cap E'}})$.
 
 		      % \item L'\textbf{\emph{intersection}} $G \cap G'$ existe si toute arête de l'intersection
 		      %       $e \in E \cap E', s(e) = s'(e) \in V \cap V'$ et
 		      %       $t(e) = t'(e) \in V \cap V'$ et est définie par le graphe
-		      %       $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, \alpha_{|E \cap E'})$.
+		      %       $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, l_{E_{|E \cap E'}})$.
 
 		\item L'\emph{union} $G \cup G'$ est le graphe
-		      $(V \cup V', E \cup E', s^{\prime\prime}, t^{\prime\prime}, \alpha^{\prime\prime})$, où $s^{\prime\prime}_{|E} = s$,
-		      $s^{\prime\prime}_{|E'} = s'$, $t^{\prime\prime}_{|E} = t$, $t^{\prime\prime}_{|E'} = t'$, $\alpha^{\prime\prime}_{|E} = \alpha$,
-		      $\alpha^{\prime\prime}_{|E'} = \alpha'$.
+		      $(V \cup V', E \cup E', s^{\prime\prime}, t^{\prime\prime}, l_{E}^{\prime\prime})$, où $s^{\prime\prime}_{|E} = s$,
+		      $s^{\prime\prime}_{|E'} = s'$, $t^{\prime\prime}_{|E} = t$, $t^{\prime\prime}_{|E'} = t'$, $l_{E_{|E}}^{\prime\prime} = l_{E}$,
+		      $l_{E_{|E'}}^{\prime\prime} = l'_{E}$.
 		\item L'\emph{union disjointe} $G \sqcup G'$ est l'union de deux graphes
 		      disjoints $G$ et $G'$ (tels que $V \cap V' = \emptyset$ et
 		      $E \cap E' = \emptyset$)
 		\item La \emph{différence} $G \setminus G'$ est la structure
-		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, \alpha_{|E \setminus E'})$.
+		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, l_{E_{|E \setminus E'}})$.
 
 		\item Soit $\emptyset$ le \emph{graphe vide}, c'est-à-dire l'unique graphe
 		      ayant un ensemble vide de nœuds et d'arcs.
@@ -90,7 +90,7 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 
 \begin{definition}[Sous-graphe]
 	\label{def:sous-graphe}
-	Soient $G=(V,E,s,t,\alpha)$ et $G'=(V',E',s',t',\alpha')$ deux graphes.%
+	Soient $G=(V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux graphes.%
 
 	\noindent$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G \subset G'$.
 \end{definition}
@@ -162,53 +162,51 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 
 \todo{ajouter des noms aux arcs, ce sera mieux que des couleurs (?)}
 
-\begin{exemple}[Morphismes]
-	\begin{description}
-		\item[Inclusion~:] Dans la
-		      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
-		      les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds et arcs à
-		      l'identique. %
+\begin{description}
+	\item[Inclusion~:] Dans la
+	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
+	      les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds et arcs à
+	      l'identique. %
 
-		      En substance, nous avons l'appariement suivant~:
+	      En substance, nous avons l'appariement suivant~:
 
-		      \begin{minipage}[c]{1.0\linewidth}
-			      \begin{multicols}{2}
-				      \begin{itemize}
-					      \item $a \to a$,
-					      \item $b \to b$,
-					      \item $c \to c$,
-					      \item $d \to d$
-				      \end{itemize}
+	      \begin{minipage}[c]{1.0\linewidth}
+		      \begin{multicols}{2}
+			      \begin{itemize}
+				      \item $a \to a$,
+				      \item $b \to b$,
+				      \item $c \to c$,
+				      \item $d \to d$
+			      \end{itemize}
 
-				      \columnbreak
+			      \columnbreak
 
-				      \begin{itemize}
-					      \item $rose \to rose$,
-					      \item $vert \to vert$,
-					      \item $orange \to orange$,
-					      \item $bleu \to bleu$
-				      \end{itemize}
-			      \end{multicols}
-		      \end{minipage}
+			      \begin{itemize}
+				      \item $rose \to rose$,
+				      \item $vert \to vert$,
+				      \item $orange \to orange$,
+				      \item $bleu \to bleu$
+			      \end{itemize}
+		      \end{multicols}
+	      \end{minipage}
 
-		      % le graphe à gauche de la flèche est inclus dans celui de droite. %
-		      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
-		      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
-		      % l'identique. %
-		\item[Injection] Dans la
-		      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
-		      l'application $m_{V}$ donne les appariement suivants~:
-		      $a \to e, b \to f, c \to g, d \to h$. %
-		      L'application $m_{V}$, quant à elle, préserve tous les arcs à
-		      l'exception de l'arc $vert$ entre $a$ et $b$ (respectivement $e$
-		      et $f$ à droite de la flèche).
-		\item[Isomorphisme] Dans la
-		      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
-		      les applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à
-		      renommage près, c'est-à-dire ici que les nœuds sont simplement
-		      renommés $a \to e, b \to f, c \to g, d \to h$. %
-	\end{description}
-\end{exemple}
+	      % le graphe à gauche de la flèche est inclus dans celui de droite. %
+	      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
+	      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
+	      % l'identique. %
+	\item[Injection] Dans la
+	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
+	      l'application $m_{V}$ donne les appariement suivants~:
+	      $a \to e, b \to f, c \to g, d \to h$. %
+	      L'application $m_{V}$, quant à elle, préserve tous les arcs à
+	      l'exception de l'arc $vert$ entre $a$ et $b$ (respectivement $e$
+	      et $f$ à droite de la flèche).
+	\item[Isomorphisme] Dans la
+	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
+	      les applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à
+	      renommage près, c'est-à-dire ici que les nœuds sont simplement
+	      renommés $a \to e, b \to f, c \to g, d \to h$. %
+\end{description}
 
 % La syntaxe d'une règle est introduite par \cite{poudr2009}.
 \begin{definition}[Règle de transformation de graphe]
@@ -257,14 +255,12 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 \end{figure}
 
 
-\begin{exemple}[application d'une règle de transformation]
-	\todo{Faire un exemple plus simple en graphe topo orienté}
+\todo{Faire un exemple plus simple en graphe topo orienté}
 
-	La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
-	triangulation d'une face quadrangulaire et son application. %
-	Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est
-	l'identité. %
-\end{exemple}
+La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
+triangulation d'une face quadrangulaire et son application. %
+Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est
+l'identité. %
 
 \subsection[Les cartes généralisées]{Les cartes généralisées}
 \label{sec:etat-art-model-regles-gcartes}
@@ -278,7 +274,7 @@ topologiques cellulaires de dimension $n$.
 \begin{definition}[G-Carte]
 	\label{def:gcarte}
 	Une \emph{G-carte} de dimension $n \in \mathbb{N}$ est un graphe topologique
-	$G = (V,E,s,t,\alpha)$ de dimension $n$ qui vérifie les contraintes suivantes~:
+	$G = (V,E,s,t,l_{E})$ de dimension $n$ qui vérifie les contraintes suivantes~:
 	\begin{itemize}
 		\item \emph{non-orientation}~: pour tout arc $e \in E$, il existe un arc
 		      inverse $e' \in E$ tel que $s(e') = t(e)$, $t(e') = s(e)$ et

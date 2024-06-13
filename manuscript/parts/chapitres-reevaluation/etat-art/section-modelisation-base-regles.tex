@@ -160,7 +160,7 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	\label{fig:etat-art-model-regles-regles-concepts-morphismes}
 \end{figure}
 
-\todo{ajouter des noms aux arcs, ce sera mieux que des couleurs (?)}
+% \todo{ajouter des noms aux arcs, ce sera mieux que des couleurs (?)}
 
 \begin{description}
 	\item[Inclusion~:] Dans la
@@ -168,44 +168,26 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	      les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds et arcs à
 	      l'identique. %
 
-	      En substance, nous avons l'appariement suivant~:
-
-	      \begin{minipage}[c]{1.0\linewidth}
-		      \begin{multicols}{2}
-			      \begin{itemize}
-				      \item $a \to a$,
-				      \item $b \to b$,
-				      \item $c \to c$,
-				      \item $d \to d$
-			      \end{itemize}
-
-			      \columnbreak
-
-			      \begin{itemize}
-				      \item $rose \to rose$,
-				      \item $vert \to vert$,
-				      \item $orange \to orange$,
-				      \item $bleu \to bleu$
-			      \end{itemize}
-		      \end{multicols}
-	      \end{minipage}
-
+	      L'appariement que l'on obtient est le suivant, $a \to a$, $b \to b$,
+				$c \to c$, $d \to d$ pour les sommets et $e1 {\color{Orchid2}\to} e1$,
+				$e2 {\color{Chartreuse3}\to} e2$, $e3 {\color{orange}\to} e3$,
+				$e4 {\color{DeepSkyBlue2}\to} e4$ pour les arêtes.
 	      % le graphe à gauche de la flèche est inclus dans celui de droite. %
 	      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
 	      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
 	      % l'identique. %
 	\item[Injection] Dans la
-	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
-	      l'application $m_{V}$ donne les appariement suivants~:
-	      $a \to e, b \to f, c \to g, d \to h$. %
-	      L'application $m_{V}$, quant à elle, préserve tous les arcs à
-	      l'exception de l'arc $vert$ entre $a$ et $b$ (respectivement $e$
-	      et $f$ à droite de la flèche).
+				\autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
+				l'application $m_{V}$ préserve l'appariement des nœuds tandis que
+				$m_{E}$ préserve les arcs à l'exception de $e3 {\color{orange}\to} e3$
+				entre les nœuds $b$ et $c$.
 	\item[Isomorphisme] Dans la
-	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
-	      les applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à
-	      renommage près, c'est-à-dire ici que les nœuds sont simplement
-	      renommés $a \to e, b \to f, c \to g, d \to h$. %
+				\autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}, les
+				applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à renommage
+				près, c'est-à-dire ici que les nœuds sont simplement renommés
+				$a \to e, b \to f, c \to g, d \to h$ et les arcs $e1 {\color{Orchid2} \to} e11$,
+				$e2 {\color{Chartreuse2} \to} e12$, $e3 {\color{orange} \to} e13$,
+				$e4 {\color{DeepSkyBlue2} \to} e14$. %
 \end{description}
 
 % La syntaxe d'une règle est introduite par \cite{poudr2009}.
@@ -223,7 +205,7 @@ Une manière simple d'assurer l'existence de l'intersection $L \cap R$ est que
 $L$ et $R$ n'aient pas d'arête commune. %
 
 L'application d'une règle peut être définie formellement dans la théorie des
-catégories~\cite{poudr2009,pascual2022topological}. %
+catégories~\cite{poudr2009,pascual2022topological,ehrig2006fundamentals}. %
 \begin{definition}[Application d'une règle de transformation de graphe]
 	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage
 	injectif. %
@@ -575,6 +557,7 @@ $o_k \mapsto o'_k$. %
 	\end{itemize}
 \end{definition}
 
+\highlight{Comment on fait ici avec $\alpha$ et $l$, par rapport à $l_{E}$ et $l_{V}$ }
 \begin{definition}[Instanciation d'un motif]
 	L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{o}$, par une orbite $G\orbit{o}(v)=(V',E',s',t',\alpha')$ d'un graphe topologique $G$ est définie par le graphe topologique $M(G\orbit{o}(v))=(V'',E'',s'',t'',\alpha'')$~:
 	\begin{itemize}

@@ -3,7 +3,7 @@
 
 La modélisation à base de règle est un concept proposant l'usage de règles pour
 la création et l'édition d'objets virtuelles à partir d'opérations conçues comme
-des règles. Il peut s'agir d'une grammaire donc . %
+des règles. %Il peut s'agir d'une grammaire donc . %
 Pour générer et modifier ces modèles, les systèmes existants utilisent le plus
 souvent des opérations à base de code (ArcGIS's CGA) ou encore des grammaires
 (L-Systèmes \cite{bohl2015modeling,terraz20093gmap}). %
@@ -11,20 +11,19 @@ Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
 opérations de modélisation à l'aide de ce que l'on appelle des règles de
 transformation de graphe. %
 %
-Cette section commence avec des définitions liées aux graphes et à leur
-transformation avant de présenter les outils utilisés dans le reste de ce
+Cette section commence avec des définitions liées aux graphes et à leurs
+transformations avant de présenter les outils utilisés dans le reste de ce
 manuscrit.
 
 \subsection[Graphe et transformation de graphe]{Graphe et transformation de graphe}
 \label{sec:etat-art-model-regles-graphe-et-transfo}
 
-Les structures topologiques peuvent être représentées par des graphes dont les
-arcs établissent des relations d'appartenance, entre plusieurs nœuds, à une même
-structure topologique. %
-Ces structures peuvent être, par exemple, des cellules telles que les volumes,
-faces, arêtes et sommets lorsque le modèle de représentation est en dimension
-3. %
-De tels graphes sont appelés des graphes topologiques. %
+% Les structures topologiques peuvent être représentées par des graphes dont les
+% arcs établissent des relations d'adjacences entre les nœuds. %
+% Ces structures peuvent être, par exemple, des cellules telles que les volumes,
+% faces, arêtes et sommets lorsque le modèle de représentation est en dimension
+% 3. %
+% De tels graphes sont appelés des graphes topologiques. %
 
 \todo{graphe topo -> étiqueté : étiquettes arcs et nœuds $\alpha \to l_{E}$, dans le cadre de cette thèse on s'intéresse exclusivement à la partie topo donc on omet les étiquettes de nœuds $l_{V}$ qui représente les plongements (citer Thomas et Romain) }
 
@@ -40,83 +39,15 @@ De tels graphes sont appelés des graphes topologiques. %
 		\item deux fonctions \emph{source} $s : E \to V$ et \emph{cible} $t : E \to V$
 		      qui lient les arcs aux nœuds~;
 		\item deux \emph{fonctions d'étiquetage} $l_{V} : V -> \mathcal{C}_{V}$ et
-		      $l_{E} : E \to \mathcal{C}_{E}$ étiquetant respectivement les nœuds et les
+		      $l_{E} : E \to \mathcal{C}_{E}$ qui étiquettent respectivement les nœuds et les
 		      arcs.%
 	\end{itemize}
-	Soient le nœud $v \in V$ et l'arc $e \in E$~; $s(e)$, $t(e)$ sont appelés
+	Soient un nœud $v \in V$ et un arc $e \in E$~; $s(e)$, $t(e)$ sont appelés
 	respectivement le nœud source et le nœud cible de $e$ et $l_{V}(v)$ et
 	$l_{E}(e)$ sont respectivement les étiquettes de $v$ et $e$.
 \end{definition}
 
-Les principales notions ensemblistes peuvent être étendues sur les graphes.
-
-\begin{definition}[Inclusion, union (disjointe), intersection, différence]
-	\label{def:graphe-notions-ensembles}
-	Soient $G = (V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux
-	graphes étiquetés dont les arcs communs ont des sources, cibles et
-	étiquettes identiques, \textit{i.e.} $s_{|E \cap E'} = s'_{|E \cap E'}$,
-	$t_{|E \cap E'} = t'_{|E \cap E'}$ et $l_{E_{|E \cap E'}} = l'_{E_{|E \cap E'}}$.
-
-	\begin{itemize}
-		\item $G$ est  \emph{inclus} dans $G'$, noté $G \subset G'$, si $V \subset V'$,
-		      $E \subset E'$, $s'_{|E} = s$, $t'_{|E} = t$ et $l'_{E_{|E}} = l_{E}$.
-
-		\item L'\emph{intersection} $G \cap G'$ est le graphe
-		      $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, l_{E_{|E \cap E'}})$.
-
-		      % \item L'\textbf{\emph{intersection}} $G \cap G'$ existe si toute arête de l'intersection
-		      %       $e \in E \cap E', s(e) = s'(e) \in V \cap V'$ et
-		      %       $t(e) = t'(e) \in V \cap V'$ et est définie par le graphe
-		      %       $(V \cap V', E \cap E', s_{|E \cap E'}, t_{|E \cap E'}, l_{E_{|E \cap E'}})$.
-
-		\item L'\emph{union} $G \cup G'$ est le graphe
-		      $(V \cup V', E \cup E', s^{\prime\prime}, t^{\prime\prime}, l_{E}^{\prime\prime})$, où $s^{\prime\prime}_{|E} = s$,
-		      $s^{\prime\prime}_{|E'} = s'$, $t^{\prime\prime}_{|E} = t$, $t^{\prime\prime}_{|E'} = t'$, $l_{E_{|E}}^{\prime\prime} = l_{E}$,
-		      $l_{E_{|E'}}^{\prime\prime} = l'_{E}$.
-		\item L'\emph{union disjointe} $G \sqcup G'$ est l'union de deux graphes
-		      disjoints $G$ et $G'$ (tels que $V \cap V' = \emptyset$ et
-		      $E \cap E' = \emptyset$)
-		\item La \emph{différence} $G \setminus G'$ est la structure
-		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, l_{E_{|E \setminus E'}})$.
-
-		\item Soit $\emptyset$ le \emph{graphe vide}, c'est-à-dire l'unique graphe
-		      ayant un ensemble vide de nœuds et d'arcs.
-	\end{itemize}
-\end{definition}
-
-\todo{Ajouter des illustrations pour exemples}
-
-Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
-
-\begin{definition}[Sous-graphe]
-	\label{def:sous-graphe}
-	Soient $G=(V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux graphes.%
-
-	\noindent$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G \subset G'$.
-\end{definition}
-
-\todo{Définir sous-graphe généré par un nœud et un ensemble d'étiquettes}
-
-De même, nous pouvons définir la notion de chemin dans les graphes. %
-Intuitivement, un chemin est un ensemble fini des arcs traversées lors d'un
-parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
-
-\begin{definition}[Chemin et cycle]
-	\label{def:graphes-chemin}
-	Un \emph{chemin} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
-	une suite d'arcs tels que pour $1 \leq i < k$, $t(e_{i}) = s(e_{i+1})$.
-	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son
-	étiquette est le mot $\alpha(e_{1}) \alpha(e_{2}) \dots \alpha(e_{k})$.
-
-	\noindent Un \emph{cycle} est un chemin particulier pour lequel la
-	source du premier arc $e_{1}$ est également la cible du dernier arc $e_{1}$,
-	\textit{i.e.} $s(e_{1}) = t(e_{k})$.
-\end{definition}
-
-Le morphisme $m$ entre deux graphes $G$ et $G'$, est l'application
-définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
-arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
-
+\todo{dessiner un premier graphe et introduire : étiquette = couleur}
 
 \begin{definition}[Morphisme]
 	Soient $G = (V,E,s,t,\alpha)$
@@ -169,52 +100,131 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	      l'identique. %
 
 	      L'appariement que l'on obtient est le suivant, $a \to a$, $b \to b$,
-				$c \to c$, $d \to d$ pour les sommets et $e1 {\color{Orchid2}\to} e1$,
-				$e2 {\color{Chartreuse3}\to} e2$, $e3 {\color{orange}\to} e3$,
-				$e4 {\color{DeepSkyBlue2}\to} e4$ pour les arêtes.
+	      $c \to c$, $d \to d$ pour les sommets et $e1 {\color{Orchid2}\to} e1$,
+	      $e2 {\color{Chartreuse3}\to} e2$, $e3 {\color{orange}\to} e3$,
+	      $e4 {\color{DeepSkyBlue2}\to} e4$ pour les arêtes.
 	      % le graphe à gauche de la flèche est inclus dans celui de droite. %
 	      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
 	      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
 	      % l'identique. %
 	\item[Injection] Dans la
-				\autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
-				l'application $m_{V}$ préserve l'appariement des nœuds tandis que
-				$m_{E}$ préserve les arcs à l'exception de $e3 {\color{orange}\to} e3$
-				entre les nœuds $b$ et $c$.
+	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
+	      l'application $m_{V}$ préserve l'appariement des nœuds tandis que
+	      $m_{E}$ préserve les arcs à l'exception de $e3 {\color{orange}\to} e3$
+	      entre les nœuds $b$ et $c$.
 	\item[Isomorphisme] Dans la
-				\autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}, les
-				applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à renommage
-				près, c'est-à-dire ici que les nœuds sont simplement renommés
-				$a \to e, b \to f, c \to g, d \to h$ et les arcs $e1 {\color{Orchid2} \to} e11$,
-				$e2 {\color{Chartreuse2} \to} e12$, $e3 {\color{orange} \to} e13$,
-				$e4 {\color{DeepSkyBlue2} \to} e14$. %
+	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}, les
+	      applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à renommage
+	      près, c'est-à-dire ici que les nœuds sont simplement renommés
+	      $a \to e, b \to f, c \to g, d \to h$ et les arcs $e1 {\color{Orchid2} \to} e11$,
+	      $e2 {\color{Chartreuse2} \to} e12$, $e3 {\color{orange} \to} e13$,
+	      $e4 {\color{DeepSkyBlue2} \to} e14$. %
 \end{description}
+
+~
+
+Les principales notions ensemblistes peuvent être étendues sur les graphes.
+
+\begin{definition}[Inclusion, union (disjointe), intersection, différence]
+	\label{def:graphe-notions-ensembles}
+	Soient $G = (V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux
+	graphes étiquetés. %
+
+	\begin{itemize}
+		\item $G$ est  \emph{inclus} dans $G'$, si et seulement si il existe un morphisme d'inclusion $G \hookrightarrow G'$.
+
+		\item L'\emph{intersection} $G \cap G'$, quand elle existe, est le graphe
+		      $K$ dont les nœuds sont $V \cap V'$ et les arcs sont $E \cap E'$, tel
+		      que $G \hookleftarrow K \hookrightarrow G'$.
+
+		\item L'\emph{union} $G \cup G'$, quand elle existe, est le graphe $J$ sont
+		      les nœuds sont $V \cup V'$ et les arcs sont $E \cup E'$, tel que
+		      $G \hookrightarrow K \hookleftarrow G'$.
+
+		\item L'\emph{union disjointe} $G \sqcup G'$ est l'union de deux graphes
+		      disjoints $G$ et $G'$ (tels que $V \cap V' = \emptyset$ et
+		      $E \cap E' = \emptyset$)
+		\item La \emph{différence} $G \setminus G'$ est la structure
+		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, l_{E_{|E \setminus E'}})$.
+
+		\item Soit $\emptyset$ le \emph{graphe vide}, c'est-à-dire l'unique graphe
+		      ayant un ensemble vide de nœuds et d'arcs.
+	\end{itemize}
+\end{definition}
+
+\todo{Préciser que : la différence produit un résultat qui n'est généralement pas un graphe (arcs pendants)}
+
+\todo{Ajouter des illustrations pour exemples}
+
+Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
+
+\begin{definition}[Sous-graphe]
+	\label{def:sous-graphe}
+	Soient $G=(V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux graphes, $\omega$ un mot sur $l_{E}$ et $v \in V$. %
+
+	\noindent$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G \subset G'$.
+	On note $G\orbit{\omega}(v)$ le sous-graphe qui contient le nœud $v$, tous les nœuds atteignables par des arcs étiquetés par des lettres de $\omega$ et ces arcs eux-mêmes. %
+
+\end{definition}
+
+\todo{Définir sous-graphe généré par un nœud et un ensemble d'étiquettes}
+
+De même, nous pouvons définir la notion de chemin dans les graphes. %
+Intuitivement, un chemin est une suite d'arcs traversée, à la suite, lors d'un
+parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
+
+\begin{definition}[Chemin et cycle]
+	\label{def:graphes-chemin}
+	Un \emph{chemin} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
+	une suite d'arcs tels que pour $1 \leq i < k$, $t(e_{i}) = s(e_{i+1})$.
+	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son
+	étiquette est le mot $\alpha(e_{1}) \alpha(e_{2}) \dots \alpha(e_{k})$.
+
+	\noindent Un \emph{cycle} est un chemin pour lequel la
+	source du premier arc $e_{1}$ est également la cible du dernier arc $e_{k}$,
+	\textit{i.e.} $s(e_{1}) = t(e_{k})$.
+\end{definition}
+
+Un morphisme $m$ entre deux graphes $G$ et $G'$, est une application
+définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
+arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
+
+
 
 % La syntaxe d'une règle est introduite par \cite{poudr2009}.
 \begin{definition}[Règle de transformation de graphe]
-	Soient deux graphes topologiques $L$ et $R$ tels que l'intersection $L \cap R$ existe.
+	Soient deux graphes étiquetés $L$ et $R$ tels que l'intersection
+	$L \cap R = K$ existe. %
 
-	$r : L \longrightarrow R$ définie la \emph{règle de transformation de
-		graphe} où $L$ est appelé le membre gauche et $R$ le membre droit.
+	$r : L \longrightarrow R$ est la \emph{règle de transformation de graphe}
+	définie par le double morphisme d'inclusion
+	$L \hookleftarrow K \hookrightarrow R$.
+	$L$ est appelé le membre gauche, $R$ le membre droit et $K$
+	l'interface.
 \end{definition}
 
 
 Le membre gauche filtre tout ou partie d'un graphe et le membre droit transforme
 l'élément filtré par le membre gauche. %
-Une manière simple d'assurer l'existence de l'intersection $L \cap R$ est que
+Une manière simple d'assurer que l'intersection $L \cap R$ est un graphe est que
 $L$ et $R$ n'aient pas d'arête commune. %
 
 L'application d'une règle peut être définie formellement dans la théorie des
-catégories~\cite{poudr2009,pascual2022topological,ehrig2006fundamentals}. %
-\begin{definition}[Application d'une règle de transformation de graphe]
-	Soient $r: L \longrightarrow R$ une règle et $m : L \rightarrow G$ un morphisme de filtrage
-	injectif. %
+catégories~\cite{ehrig2006fundamentals}. %
+Dans ce manuscrit, nous en donnons une définition ensembliste équivalente.
 
+\begin{definition}[Application d'une règle de transformation de graphe]
+	Soient $r: L \longrightarrow R$ une règle d'interface $K$ et
+	$m : L \rightarrow G$ un morphisme injectif appelé morphisme de filtrage. %
+
+	%
 	L'\emph{application} $G \xlongrightarrow{(r, m)} H$ de $r$ sur $G$ le long
-	de $m$ est définie par $H = (G \setminus m(L))\sqcup m'(R)$, où $m'$ est une restriction
-	de $m$ sur $L \setminus R$, puis son extension sur $R$ telle que $m'$ soit
-	injective. %
-	$m'$, et donc $H$ est unique à isomorphisme près. %
+	de $m$, lorsqu'elle existe, est définie par le double morphisme d'inclusion
+	$G \hookleftarrow D \hookrightarrow H$, où
+	$D = (G \setminus m(L \setminus K))$ et $H = D \sqcup m'(R \setminus K)$,
+	avec $m'$ une restriction de $m$ sur $K$, puis son extension sur $R$ telle
+	que $m'$ soit injective. %
+	$m'$, et donc $H$, est unique à isomorphisme près. %
 	$H$ est la transformation directe de $G$ par la règle $r$ le long du
 	morphisme de filtrage $m$. %
 \end{definition}
@@ -229,6 +239,13 @@ $m'$ est construit de telle manière que la partie ajoutée est disjointe de $G$
 \textit{i.e.} les nouveaux nœuds et arcs ont des noms «~frais~» (disjoints de
 ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 
+\begin{remarque}
+	La transformation directe $H$ existe à la condition que $D$ existe,
+	c'est-à-dire que pour tout arc $e$ de $G$, si $e$ relie un nœud $v$ filtré
+	(qui appartient à $m(L)$) et un nœud $v'$ non filtré (qui n'appartient pas
+	$m(L)$), alors $v$ est filtré par l'interface (qui appartient à $m(K)$).
+\end{remarque}
+
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=.6\textwidth]{application-regle-v2-transfo-graphe}
@@ -237,12 +254,14 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 \end{figure}
 
 
-\todo{Faire un exemple plus simple en graphe topo orienté}
+\todo{Redessiner cette règle avec K}
 
-La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
-triangulation d'une face quadrangulaire et son application. %
-Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est
-l'identité. %
+\todo{Dire qu'on a pris des inclusions pour $m$ et $m'$, mais en pratique ce n'est pas le cas et que la partie ajoutée dans H est ajoutée avec des noms frais }
+
+% La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
+% triangulation d'une face quadrangulaire et son application. %
+% Dans cet exemple, le morphisme $m : L \to G$ (respectivement $m' : R \to H$) est
+% l'identité. %
 
 \subsection[Les cartes généralisées]{Les cartes généralisées}
 \label{sec:etat-art-model-regles-gcartes}
@@ -251,12 +270,12 @@ l'identité. %
 Les \emph{cartes généralisées} (ou «~G-cartes~»)
 \cite{lienhardt1991topological,Damiand-Lienhardt14} permettent la représentation
 de variétés géométriques (avec ou sans bord) basées sur des structures
-topologiques cellulaires de dimension $n$.
+topologiques cellulaires de dimension quelconque.
 
 \begin{definition}[G-Carte]
 	\label{def:gcarte}
 	Une \emph{G-carte} de dimension $n \in \mathbb{N}$ est un graphe topologique
-	$G = (V,E,s,t,l_{E})$ de dimension $n$ qui vérifie les contraintes suivantes~:
+	$G = (V,E,s,t,\alpha)$ de dimension $n$ qui vérifie les contraintes suivantes~:
 	\begin{itemize}
 		\item \emph{non-orientation}~: pour tout arc $e \in E$, il existe un arc
 		      inverse $e' \in E$ tel que $s(e') = t(e)$, $t(e') = s(e)$ et
@@ -271,6 +290,13 @@ topologiques cellulaires de dimension $n$.
 	\end{itemize}
 \end{definition}
 
+\begin{remarque}
+	Ici, on a définit la structure topologique, mais en pratique, les objets sont
+	représentés par des structures topologiques plongées où les étiquettes de nœuds
+	permettent de représenter des propriétés géométriques et physiques.
+	(formulation à revoir)
+\end{remarque}
+
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}[t]{.16\textwidth}
@@ -281,25 +307,25 @@ topologiques cellulaires de dimension $n$.
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-3-cell}
-		\caption{\centering Volumes\\({\color{Chartreuse4}\textbf{—}})}
+		\caption{\centering 3-liaisons\\({\color{Chartreuse4}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-3-cell}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-2-cell}
-		\caption{Faces\\ ({\color{DodgerBlue1}\textbf{—}})}
+		\caption{2-liaisons\\ ({\color{DodgerBlue1}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-2-cell}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-1-cell}
-		\caption{Arêtes\\ ({\color{Red1}\textbf{—}})}
+		\caption{1-liaisons\\ ({\color{Red1}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-1-cell}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-0-cell}
-		\caption{\centering Sommets (\textbf{—})}
+		\caption{\centering 0-liaisons (\textbf{—})}
 		\label{fig:etat-art-model-regle-gcarte-0-cell}
 	\end{subfigure}
 	\caption[Décomposition par dimension d'un objet]{Décompositions successives par dimension d'un objet}
@@ -319,11 +345,15 @@ Les faces se décomposent en arêtes connectées par des \emph{1-liaisons}, en
 rouge (Figure~\ref{fig:etat-art-model-regle-gcarte-1-cell}). %
 Enfin ces arêtes se décomposent en sommets connectés par des \emph{0-liaisons},
 en noir (Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
+Le graphe ainsi obtenu Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell} est
+une G-carte de dimension 3 dont les nœuds sont appelés brins et les arcs sont
+appelés liaisons. %
 Notons que, en bordure de l'objet, les liaisons bouclent sur elles-mêmes. %
-C'est le cas ici pour les 3-liaisons des sommets, arêtes et faces
-incidentes à un unique volume. %
-Par soucis de visibilité, nous masquons ces boucles dans les illustrations d'objets. %
+% C'est le cas ici pour les 3-liaisons des sommets, arêtes et faces
+% incidentes à un unique volume.
+Par soucis de visibilité, nous masquons ces boucles dans les illustrations. %
 
+\todo{fusionner ce paragraphe avec la phrase qui correspond juste au dessus}
 Par la suite, pour distinguer les entités topologiques des graphes qui les
 représentent et ne pas créer de confusion, nous appellerons respectivement
 «~brins~» et «~liaisons~» les nœuds et arcs dans les G-cartes. %

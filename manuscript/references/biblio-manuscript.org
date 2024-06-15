@@ -1,6 +1,8 @@
 #+titre: biblio manuscript
 #+author: Maxime Gaide
 
+* TODO Ajouter les thèses
+
 * Tableau type
 
 #+TBLNAME: biblio
@@ -11,17 +13,9 @@
 |---+-------+---------+-----+-------|
 # #+TBLFM: $1=(@#-1)
 
-* Études `Shape modeling` et `Persistent Naming`
-
-|---+-------------------------------------------+----------------+-----+-------|
-|   | titre                                     | premier auteur | URL | année |
-|---+-------------------------------------------+----------------+-----+-------|
-| 1 | A survey of the persistent naming problem | Marcheix       |     |  2002 |
-| 2 | A survey of algorithmic shapes            | Krispel        |     |  2015 |
-|---+-------------------------------------------+----------------+-----+-------|
-#+TBLFM: $1=(@#-1)
 
 * Modeleurs
+
 #+TBLNAME: Modeleurs
 #+STARTUP: shrink
 |---+----------------+-------------------+-----+-------|
@@ -37,29 +31,47 @@
 |---+----------------+-------------------+-----+-------|
 #+TBLFM: $1=(@#-1)
 
+** Noyaux de modeleurs
+
+#+TBLNAME: Modeleurs
+#+STARTUP: shrink
+|---+-------------------------------+--------------------------+-----+-------|
+|   | modeleur/noyau                | entreprise               | URL | année |
+|---+-------------------------------+--------------------------+-----+-------|
+|   | ACIS                          | Dassault Systèmes        |     |       |
+|   | CGAL                          | opensource               |     |       |
+|   | Convergence Geometric Modeler | Dassault Systèmes        |     |       |
+|   | Open CASCADE                  | opensource               |     |       |
+|   | Parasolid                     | Siemens                  |     |       |
+|   | ShapeManager                  | Autodesk (ACIS fork)     |     |       |
+|   | SMLib                         | Solid Modeling Solutions |     |       |
+|   | …                             |                          |     |       |
+|---+-------------------------------+--------------------------+-----+-------|
+#+TBLFM: $1=()
+
 * Modélisation à base g-cartes et/ou de règles
 
-#+TBLNAME: biblio modélisation g-cartes et règles
+#+TBLNAME: biblio modélisation g cartes et règles
 #+STARTUP: shrink
 |----+--------------------------------------------------------------------------------------------------+-------------+-----+-------|
 |    | titre                                                                                            | authors     | URL | année |
 |----+--------------------------------------------------------------------------------------------------+-------------+-----+-------|
-|  1 | Adding continuous components to L-systems                                                        | Lindenmayer |     |  1974 |
-|  2 | Topological models for boundary representation: a comparison with n-dimensional generalized maps | Lienhardt   |     |  1991 |
-|  3 | N-dimensional generalized combinatorial maps and cellular quasi-manifolds                        | Lienhardt   |     |  1994 |
-|  4 | Generalized maps in geological modeling: Object-oriented design of topological kernels           | Halbwachs   |     |  2000 |
-|  5 | Fundamentals of algebraic graph transformation                                                   |             |     |       |
+|  1 | Adding continuous components to L systems                                                        | Lindenmayer |     |  1974 |
+|  2 | Topological models for boundary representation: a comparison with n dimensional generalized maps | Lienhardt   |     |  1991 |
+|  3 | N dimensional generalized combinatorial maps and cellular quasi manifolds                        | Lienhardt   |     |  1994 |
+|  4 | Generalized maps in geological modeling: Object oriented design of topological kernels           | Halbwachs   |     |  2000 |
+|  5 | Fundamentals of algebraic graph transformation                                                   | Ehrig       |     |  2006 |
 |  6 | Graph transformation for topology modelling                                                      | Poudret     |     |  2008 |
-|  7 | 3Gmap L-systems: an application on the modelling of wood                                         | Terraz      |     |  2009 |
+|  7 | 3Gmap L systems: an application on the modelling of wood                                         | Terraz      |     |  2009 |
 |  8 | Implementin a Generative Urban Design Model: Grammar-based design patterns for urban design      | Beirao      |     |  2009 |
 |  9 | Designing a topological modeler kernel: a rule-based approach                                    | Bellet      |     |  2010 |
 | 10 | Graph transformation library for topology-based geometric modeling                               | Belhaouari  |     |  2014 |
 | 11 | Jerboa: A graph transformation library for topology-based geometric modeling                     | Belhaouari  |     |  2014 |
 | 12 | Combinatorial Maps: Efficient Data Structures for Computer Graphics and Image Processing         | Damiand     |     |  2014 |
-| 13 | Modeling fruits and their internal structure using parametric 3Gmap L-systems                    | Bohl        |     |  2015 |
-| 14 | A dimension-independent extrusion algorithm using generalised maps                               | Arroyo      |     |  2015 |
+| 13 | Modeling fruits and their internal structure using parametric 3Gmap L systems                    | Bohl        |     |  2015 |
+| 14 | A dimension independent extrusion algorithm using generalised maps                               | Arroyo      |     |  2015 |
 | 15 | A topological approach for automated unstructured meshing of complex reservoir                   | Gauthier    |     |  2016 |
-| 16 | General physical-topological framework using rule-based language for physical simulation         | Ben Salah   |     |  2017 |
+| 16 | General physical topological framework using rule-based language for physical simulation         | Ben Salah   |     |  2017 |
 | 17 | Preserving Consistency in geometric modeling with graph transformations                          | Arnould     |     |  2022 |
 | 18 | Inferring topological operations on generalized maps: Application to subdivision schemes         | Pascual     |     |  2022 |
 | 19 | Topological constistency preservation with graph transformation schemes                          | Pascual     |     |  2022 |
@@ -69,7 +81,7 @@
 
 
 * Ré-utilisabilité et changement de processus de design
-#+TBLNAME: design et ré-utilisabilité
+#+TBLNAME: design et ré utilisabilité
 #+STARTUP: shrink
 |---+--------------------------------------------------------------------------------------------------+----------+-----+-------|
 |   | titre                                                                                            | authors  | URL | année |
@@ -93,36 +105,45 @@
 |---+----------------------------------------------------------------------------------------------------+-----------+-----+-------|
 #+TBLFM: $1=(@#-1)
 
-* Réévaluation (nommage persistant) et nommage d'entité (cross system)
+* Réévaluation (no mage persistant) et nommage d'entité (cross system)
+
+** Études `Shape modeling` et `Persistent Naming`
+
+|---+-------------------------------------------+----------------+-----+-------|
+|   | titre                                     | premier auteur | URL | année |
+|---+-------------------------------------------+----------------+-----+-------|
+| 1 | A survey of the persistent naming problem | Marcheix       |     |  2002 |
+| 2 | A survey of algorithmic shapes            | Krispel        |     |  2015 |
+|---+-------------------------------------------+----------------+-----+-------|
+#+TBLFM: $1=(@#-1)
+
 ** Réévaluation
 
 #+TBLNAME: biblio réévaluation
 #+STARTUP: shrink
-|----+------------------------------------------------------------------------------------------------------------+-----------+-----+-------+--------|
-|    | titre                                                                                                      | authors   | URL | année | état   |
-|----+------------------------------------------------------------------------------------------------------------+-----------+-----+-------+--------|
-|  1 | A mechanism for persistently naming topological entities in history-based parametric solid models          | Kripac    |     |  1995 |        |
-|  2 | On editability of feature-based design                                                                     | Chen      |     |  1995 |        |
-|  3 | Generic naming in generative, constraint-based design                                                      | Capoyleas |     |  1996 |        |
-|  4 | Semantic feature modelling                                                                                 | Bidarra   |     |  2000 |        |
-|  5 | Persistent naming for parametric models                                                                    | Agbodan   |     |  2000 |        |
-|  6 | A face based mechanism for naming, recording and retrieving topological entities                           | Wu        |     |  2001 |        |
-|  7 | A topological entity matching technique for geometric parametric models                                    | Agbodan   |     |  2003 |        |
-|  8 | A feature-based solution to the persistent naming problem                                                  | Bidarra   |     |  2005 |        |
-|  9 | Geometry-based semantic ID for persistent and interoperable reference in feature-based parametric modeling | Wang      |     |  2005 |        |
-| 10 | A persistent naming of shell                                                                               | Marcheix  |     |  2006 |        |
-| 11 | Generic computation of bulletin boards into geometric kernels                                              | Baba-Ali  |     |  2007 |        |
-| 12 | An edge matching technique for non-planar face intersections in geometric parametric models                | Baba-Ali  |     |  2009 |        |
-| 13 | Enhancements for Improved Topological Entity Identification Performance in Multi-user CAD                  | Hepworth  |     |  2015 |        |
-| 14 | Name and maintain topological faces in rotating and scanning features                                      | Gao X.-Y. |     |  2016 | à lire |
-| 15 | Implementation of persistent identification of topological entities based on macro-parametrics approach    | Farjana   |     |  2016 |        |
-| 16 | Mechanisms of persistent identification of topological entities in CAD systems: A review                   | Farjana   |     |  2018 |        |
-| 17 | The Parametric Casting Process Modeling Method Based on the Topological Entities Naming                    | Liu       |     |  2018 | à lire |
-| 18 | Persistent naming based on graph transformation rules to reevaluate parametric specification               | Cardot    |     |  2019 |        |
-| 19 | A Lineage-Based Referencing DSL for Computer-Aided Design                                                  | Cascaval  |     |  2023 | lu     |
-| 20 | Reevaluation in rule-based graph transformation modeling systems                                           | Gaide     |     |  2024 |        |
-| 21 | A persistent naming discrimination method based on the sweeping direction                                  | Dai       |     |  2024 | lu     |
-|----+------------------------------------------------------------------------------------------------------------+-----------+-----+-------+--------|
+|----+------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------|
+|    | titre                                                                                                      | authors   | URL | année | état |
+|----+------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------|
+|  1 | A mechanism for persistently naming topological entities in history-based parametric solid models          | Kripac    |     |  1995 |      |
+|  2 | On editability of feature-based design                                                                     | Chen      |     |  1995 |      |
+|  3 | Generic naming in generative, constraint-based design                                                      | Capoyleas |     |  1996 |      |
+|  4 | Semantic feature modelling                                                                                 | Bidarra   |     |  2000 |      |
+|  5 | Persistent naming for parametric models                                                                    | Agbodan   |     |  2000 |      |
+|  6 | A face-based mechanism for naming, recording and retrieving topological entities                           | Wu        |     |  2001 |      |
+|  7 | A topological entity matching technique for geometric parametric models                                    | Agbodan   |     |  2003 |      |
+|  8 | A feature-based solution to the persistent naming problem                                                  | Bidarra   |     |  2005 |      |
+|  9 | Geometry-based semantic ID for persistent and interoperable reference in feature-based parametric modeling | Wang      |     |  2005 |      |
+| 10 | A persistent naming of shell                                                                               | Marcheix  |     |  2006 |      |
+| 11 | Generic computation of bulletin boards into geometric kernels                                              | Baba Ali  |     |  2007 |      |
+| 12 | An edge matching technique for non planar face intersections in geometric parametric models                | Baba Ali  |     |  2009 |      |
+| 13 | Enhancements for Improved Topological Entity Identification Performance in multi-user CAD                  | Hepworth  |     |  2015 |      |
+| 14 | Implementation of persistent identification of topological entities-based on macro parametrics approach    | Farjana   |     |  2016 |      |
+| 15 | Mechanisms of persistent identification of topological entities in CAD systems: A review                   | Farjana   |     |  2018 |      |
+| 16 | Persistent naming-based on graph transformation rules to reevaluate parametric specification               | Cardot    |     |  2019 |      |
+| 17 | A Lineage-based Referencing DSL for Computer Aided Design                                                  | Cascaval  |     |  2023 | lu   |
+| 18 | Reevaluation in rule-based graph transformation modeling systems                                           | Gaide     |     |  2024 |      |
+| 19 | A persistent naming discrimination method-based on the sweeping direction                                  | Dai       |     |  2024 | lu   |
+|----+------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------|
 #+TBLFM: $1=(@#-1)
 
 ** Nommage entités : STEP
@@ -132,37 +153,37 @@
 |---+------------------------------------------------------------------------------------------------------------+---------+-----+-------|
 |   | titre                                                                                                      | authors | URL | année |
 |---+------------------------------------------------------------------------------------------------------------+---------+-----+-------|
-| 1 | Identification of topological entities and naming mapping for parametric cad model exchange                | Mun     |     |  2005 |
-| 2 | Name matching method using topology merging and splitting history for exchange of feature-based CAD models | Cheon   |     |  2012 |
-| 3 | Point-oriented persistent identification of entities for exchanging parametric CAD data                    | Safdar  |     |  2020 |
-| 4 | Feature-based translation of CAD models with macro-parametric approach                                     | Safdar  |     |  2020 |
+| 1 | derivation of a standard set of geometric constraints for parametric modeling and data exchange            | Bettig  |     |  2001 |
+| 2 | Identification of topological entities and naming mapping for parametric cad model exchange                | Mun     |     |  2005 |
+| 3 | Name matching method using topology merging and splitting history for exchange of feature-based CAD models | Cheon   |     |  2012 |
+| 4 | Point oriented persistent identification of entities for exchanging parametric CAD data                    | Safdar  |     |  2020 |
+| 5 | Feature-based translation of CAD models with macro parametric approach                                     | Safdar  |     |  2020 |
 |---+------------------------------------------------------------------------------------------------------------+---------+-----+-------|
 #+TBLFM: $1=(@#-1)
 
-** À étudier
+* À étudier
 
 #+tblname: à étudier
-|---+------------------------------------------------------------------------------------------------------------------------------+----------------+-----+-------|
-|   | titre                                                                                                                        | premier auteur | URL | année |
-|---+------------------------------------------------------------------------------------------------------------------------------+----------------+-----+-------|
-| 1 | 3D convolutional neural network for machining feature recognition with gradient-based visual explanations from 3D CAD models | J.Lee          |     |  2022 |
-| 2 | A Generic Parametric Modeling Engine Targeted Towards Multipisciplinary Design : Goals and Concepts                          | Kleinert       |     |  2023 |
-| 3 | B-rep Matching for Collaborating Across CAD Systems                                                                          | Jones          |     |  2023 |
-|---+------------------------------------------------------------------------------------------------------------------------------+----------------+-----+-------|
-#+TBLFM: $1=(@#-1)
-
-* Autres (TODO: utiliser mots-clés)
-
-#+TBLNAME: CAD modelling (from persistent naming to Learning models "filling the gap")
 #+STARTUP: shrink
-|---+-------+----------------+-----+-------+-----------|
-| 0 | titre | premier auteur | URL | année | mots-clés |
-|---+-------+----------------+-----+-------+-----------|
-|---+-------+----------------+-----+-------+-----------|
-#+TBLFM: $1=(@#-1)
+|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+-------------------------|
+|    | titre                                                                                                                              | p. auteur | URL | année | catégorie (biblio)      |
+|    | <80>                                                                                                                               |           |     |       | <10>                    |
+|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+-------------------------|
+|  1 | Using Rule Based Selection to Support Change in Parametric CAD Models                                                              | Marques   |     |  2006 | rule-based change CAD   |
+|  2 | Collaborative intelligent CAD framework incorporating design history tracking algorithm                                            | H.Lee     |     |  2010 | reevaluation (tracking) |
+|  3 | Meta operation conflict resolution for human–human interaction in collaborative feature-based CAD systems                          | Cheng     |     |  2016 | reevaluation            |
+|  4 | Name and maintain topological faces in rotating and scanning features                                                              | Gao X.-Y. |     |  2016 | reevaluation (naming)   |
+|  5 | The Parametric Casting Process Modeling Method-based on the Topological Entities Naming                                            | Liu       |     |  2018 | reevaluation (naming)   |
+|  6 | Machining feature recognition based on deep neural networks to support tight integration with 3D CAD systems                       | Yeo       |     |  2021 | STEP (dnn recognition)  |
+|  7 | 3D convolutional neural network for machining feature recognition with gradient-based visual explanations from 3D CAD models       | J.Lee     |     |  2022 | reevaluation (cnn)      |
+|  8 | Digital Form Generation of Heritages in Historical District-based on Plan Typology and Shape Grammar: Case Study on Kulangsu Islet | Zhang     |     |  2022 | heritage (grammar)      |
+|  9 | Propagating Design Updates to Structured Analysis Meshes                                                                           | Lecallard |     |  2022 | reevaluation (naming)   |
+| 10 | A Generic Parametric Modeling Engine Targeted Towards Multipisciplinary Design : Goals and Concepts                                | Kleinert  |     |  2023 | reevaluation            |
+| 11 | B rep Matching for Collaborating Across CAD Systems                                                                                | Jones     |     |  2023 | reevaluation (gnn)      |
+|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+-------------------------|
+#+TBLFM: $1=(@#-2)
 
-
-* "Out of scope"
+* triés et (a priori) pas le sujet
 
 #+TBLNAME: biblio
 #+STARTUP: shrink
@@ -170,16 +191,16 @@
 |    | titre                                                                                                          | authors        | URL | année |   |
 |----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+---|
 |  1 | Tracking topological changes in parametric models                                                              | Van der Meiden |     |  2010 |   |
-|  2 | Subdividing triangular and quadrilateral meshes in parallel to approximate curved geometries                   | Gargallo-Peiro |     |  2017 |   |
+|  2 | Subdividing triangular and quadrilateral meshes in parallel to approximate curved geometries                   | Gargallo Peiro |     |  2017 |   |
 |  3 | AlSub: fully parallel and modular subdivision                                                                  | Mlakar         |     |  2018 |   |
-|  4 | Push-Pull Direct Modeling of Solid CAD Models                                                                  | Qiang Zou      |     |  2019 |   |
-|  5 | Assembly Solving for Neutral Re-Imported Product Models                                                        | Jauhar         |     |  2020 |   |
+|  4 | Push Pull Direct Modeling of Solid CAD Models                                                                  | Qiang Zou      |     |  2019 |   |
+|  5 | Assembly Solving for Neutral Re Imported Product Models                                                        | Jauhar         |     |  2020 |   |
 |  6 | Transparent Parallelization of Enrichment Operations in Geometric Modeling                                     | Bourquat       |     |  2020 |   |
-|  7 | Cooperative versus non-cooperative parallel variable neighborhood search strategies                            | kalatzanonakis |     |  2020 |   |
+|  7 | Cooperative versus non cooperative parallel variable neighborhood search strategies                            | kalatzanonakis |     |  2020 |   |
 |  8 | Reconstructing editable prismatic CAD from rounded voxel models                                                | Lambourne      |     |  2022 |   |
-|  9 | ComplexGen: CAD reconstruction by B-rep chain complex generation                                               | H. Guo         |     |  2022 |   |
+|  9 | ComplexGen: CAD reconstruction by B rep chain complex generation                                               | H. Guo         |     |  2022 |   |
 | 10 | Towards computing complete parameter ranges in parametric modeling                                             | Tang           |     |  2022 |   |
-| 11 | A robust direct modeling method for quadric B-rep models based on geometry-topology inconsistency tracking     | Qiang Zou      |     |  2022 |   |
+| 11 | A robust direct modeling method for quadric B rep models-based on geometry topology inconsistency tracking     | Qiang Zou      |     |  2022 |   |
 | 12 | Variational Direct Modeling: A framework towards integration of parametric modeling and direct modeling in CAD | Qiang Zou      |     |  2023 |   |
 |----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+---|
 # #+TBLFM: $1=(@#-1)

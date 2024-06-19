@@ -50,39 +50,68 @@ manuscrit.
 \todo{dessiner un premier graphe et introduire : étiquette = couleur}
 
 \begin{definition}[Morphisme]
-	Soient $G = (V,E,s,t,\alpha)$
-	et $G' = (V',E',s',$ $t',\alpha')$ deux graphes.
+	Soient $G = (V,E,s,t,l_{V}, l_{E})$
+	et $G' = (V',E',s',$ $t',l_{V}', l_{E}')$ deux graphes étiquetés.
 	%et $m : G \to G'$ un morphisme.
-	Un \emph{morphisme}  $m: G \to G'$  est un couple de fonctions $m_{V} : V \to V'$,
-	$m_{E} : E \to E'$ préservant les sources, cibles et étiquettes de G
-	dans G', tel que pour tout $e \in E$, $m_{V}(s(e)) = s'(m_{E}(e))$,
-	$m_{V}(t(e)) = t'(m_{E}(e))$ et $\alpha(e) = \alpha'(m_{E}(e))$.
+	Un \emph{morphisme} $m: G \to G'$ est un couple de fonctions
+	$m_{V} : V \to V'$, $m_{E} : E \to E'$ préservant les sources, les cibles et
+	les étiquettes de G dans G', c'est-à-dire pour tout arc $e \in E$,
+	$m_{V}(s(e)) = s'(m_{E}(e))$, $m_{V}(t(e)) = t'(m_{E}(e))$, $l_{V}(e) = l_{V}'(m_{V}(v))$ et
+	$l_{E}(e) = l_{E}'(m_{E}(e))$.
 
-	\noindent Un morphisme $G \to G'$ est un~:
+	\noindent $m$ est~:
 	\begin{itemize}
-		\item morphisme d'\emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
-		\item morphisme \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives.
-		\item \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
+		\item \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives
+		      \todo{footnote pour un rappel}.
+		\item un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des
+		      bijections. \todo{footnote pour un rappel}
+		\item une \emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou
+		      simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$
+		      sont les applications identités.
 	\end{itemize}
 \end{definition}
+
+% \begin{definition}[Morphisme]
+% 	Soient $G = (V,E,s,t,\alpha)$
+% 	et $G' = (V',E',s',$ $t',\alpha')$ deux graphes.
+% 	%et $m : G \to G'$ un morphisme.
+% 	Un \emph{morphisme}  $m: G \to G'$  est un couple de fonctions $m_{V} : V \to V'$,
+% 	$m_{E} : E \to E'$ préservant les sources, cibles et étiquettes de G
+% 	dans G', tel que pour tout $e \in E$, $m_{V}(s(e)) = s'(m_{E}(e))$,
+% 	$m_{V}(t(e)) = t'(m_{E}(e))$ et $\alpha(e) = \alpha'(m_{E}(e))$.
+
+% 	\noindent Un morphisme $G \to G'$ est un~:
+% 	\begin{itemize}
+% 		\item morphisme d'\emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
+% 		\item morphisme \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives.
+% 		\item \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des bijections.
+% 	\end{itemize}
+% \end{definition}
 
 
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{.3\textwidth}
+	\begin{subfigure}{.49\textwidth}
+		% \includegraphics[width=.9\textwidth]{morphisme}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-injectif}
+		\caption{Morphisme TODO: changer de `d` en vert}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-normal}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.49\textwidth}
 		\includegraphics[width=.9\textwidth]{graphe-morphisme-inclusion}
 		\caption{Morphisme d'inclusion}
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}{.3\textwidth}
-		% \includegraphics[width=.9\textwidth]{morphisme}
-		\includegraphics[width=.9\textwidth]{graphe-morphisme-injectif}
-		\caption{Morphisme injectif}
-		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inj}
+
+	~
+	\begin{subfigure}{.49\textwidth}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-normal}
+		\caption{Morphisme injectif TODO: faire les renommages}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}{.3\textwidth}
+	\begin{subfigure}{.49\textwidth}
 		\includegraphics[width=.9\textwidth]{graphe-morphisme-isomorphisme}
 		\caption{Isomorphisme}
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
@@ -94,19 +123,6 @@ manuscrit.
 % \todo{ajouter des noms aux arcs, ce sera mieux que des couleurs (?)}
 
 \begin{description}
-	\item[Inclusion~:] Dans la
-	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
-	      les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds et arcs à
-	      l'identique. %
-
-	      L'appariement que l'on obtient est le suivant, $a \to a$, $b \to b$,
-	      $c \to c$, $d \to d$ pour les sommets et $e1 {\color{Orchid2}\to} e1$,
-	      $e2 {\color{Chartreuse3}\to} e2$, $e3 {\color{orange}\to} e3$,
-	      $e4 {\color{DeepSkyBlue2}\to} e4$ pour les arêtes.
-	      % le graphe à gauche de la flèche est inclus dans celui de droite. %
-	      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
-	      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
-	      % l'identique. %
 	\item[Injection] Dans la
 	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
 	      l'application $m_{V}$ préserve l'appariement des nœuds tandis que
@@ -119,6 +135,19 @@ manuscrit.
 	      $a \to e, b \to f, c \to g, d \to h$ et les arcs $e1 {\color{Orchid2} \to} e11$,
 	      $e2 {\color{Chartreuse2} \to} e12$, $e3 {\color{orange} \to} e13$,
 	      $e4 {\color{DeepSkyBlue2} \to} e14$. %
+	\item[Inclusion~:] Dans la
+	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
+	      les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds et arcs à
+	      l'identique. %
+
+	      L'appariement que l'on obtient est le suivant, $a \mapsto a$, $b \mapsto b$,
+	      $c \mapsto c$, $d \mapsto d$ pour les sommets et $e1 \mapsto e1$,
+	      $e2 \mapsto e2$, $e3 \mapsto e3$,
+	      $e4 \mapsto e4$ pour les arêtes.
+	      % le graphe à gauche de la flèche est inclus dans celui de droite. %
+	      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
+	      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
+	      % l'identique. %
 \end{description}
 
 ~
@@ -248,13 +277,13 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.6\textwidth]{application-regle-v2-transfo-graphe}
+	\includegraphics[width=\textwidth]{application-regle-v3-transfo-graphe}
 	\caption{Application d'une règle de triangulation}
 	\label{fig:etat-art-model-regles-inst-application}
 \end{figure}
 
 
-\todo{Redessiner cette règle avec K}
+\todo{Couleurs (reprendre celles des morphismes), texte + grand, enlever les boîtes, fleche de K vers D}
 
 \todo{Dire qu'on a pris des inclusions pour $m$ et $m'$, mais en pratique ce n'est pas le cas et que la partie ajoutée dans H est ajoutée avec des noms frais }
 
@@ -274,7 +303,7 @@ topologiques cellulaires de dimension quelconque.
 
 \begin{definition}[G-Carte]
 	\label{def:gcarte}
-	Une \emph{G-carte} de dimension $n \in \mathbb{N}$ est un graphe topologique
+	Une \emph{G-carte} de dimension $n \in \mathbb{N}$ est un graphe étiqueté
 	$G = (V,E,s,t,\alpha)$ de dimension $n$ qui vérifie les contraintes suivantes~:
 	\begin{itemize}
 		\item \emph{non-orientation}~: pour tout arc $e \in E$, il existe un arc
@@ -288,14 +317,8 @@ topologiques cellulaires de dimension quelconque.
 		      $i+2 \leq j$, et pour tout nœud $v \in V$, il existe un cycle, étiqueté
 		      par \emph{$ijij$}, de source $v$.
 	\end{itemize}
+	Les nœuds sont appelés brins et les arcs sont appelés liaisons.
 \end{definition}
-
-\begin{remarque}
-	Ici, on a définit la structure topologique, mais en pratique, les objets sont
-	représentés par des structures topologiques plongées où les étiquettes de nœuds
-	permettent de représenter des propriétés géométriques et physiques.
-	(formulation à revoir)
-\end{remarque}
 
 \begin{figure}[ht]
 	\centering
@@ -332,9 +355,9 @@ topologiques cellulaires de dimension quelconque.
 	\label{fig:etat-art-model-regle-gcarte-decomp}
 \end{figure}
 
-Les G-cartes nous permettent de représenter les objets par leurs décompositions
+Les G-cartes permettent de représenter les objets par leurs décompositions
 successives en dimensions comme illustré dans la
-Figure~\ref{fig:etat-art-model-regle-gcarte-decomp}. %*
+Figure~\ref{fig:etat-art-model-regle-gcarte-decomp}. %
 Par exemple, un objet (Figure~\ref{fig:etat-art-model-regle-gcarte-nodecomp})
 peut être décomposé en volumes connectés par des \emph{3-liaisons}, en vert
 (Figure~\ref{fig:etat-art-model-regle-gcarte-3-cell}). %
@@ -346,30 +369,31 @@ rouge (Figure~\ref{fig:etat-art-model-regle-gcarte-1-cell}). %
 Enfin ces arêtes se décomposent en sommets connectés par des \emph{0-liaisons},
 en noir (Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
 Le graphe ainsi obtenu Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell} est
-une G-carte de dimension 3 dont les nœuds sont appelés brins et les arcs sont
-appelés liaisons. %
+une G-carte de dimension 3. %
 Notons que, en bordure de l'objet, les liaisons bouclent sur elles-mêmes. %
 % C'est le cas ici pour les 3-liaisons des sommets, arêtes et faces
 % incidentes à un unique volume.
 Par soucis de visibilité, nous masquons ces boucles dans les illustrations. %
 
-\todo{fusionner ce paragraphe avec la phrase qui correspond juste au dessus}
-Par la suite, pour distinguer les entités topologiques des graphes qui les
-représentent et ne pas créer de confusion, nous appellerons respectivement
-«~brins~» et «~liaisons~» les nœuds et arcs dans les G-cartes. %
+\begin{remarque}
+	Ici, on a défini la structure topologique, sans étiqueter les brins. Mais en
+	pratique, les objets sont représentés par des structures topologiques plongées
+	où les étiquettes des brins représentent des propriétés géométriques et
+	physiques.
+\end{remarque}
 
-Dans les G-cartes, Les cellules peuvent être représentées à l'aide de
-sous-graphes que l'on appelle orbites.
+Les G-cartes représentent les cellules à l'aide de sous-graphes que l'on appelle
+orbites.
 
 \begin{definition}[Orbite]
-	Soient $G$ une G-carte de dimension $n$, où $n \in \mathbb{N}$, $o$ un sous-ensemble de $[0, n]$ et $b$ un brin de $G$.
+	Soient $G$ une G-carte de dimension $n$, où $n \in \mathbb{N}$, $\orbit{\omega}$ un mot de $[0, n]$ et $b$ un brin de $G$.
 
-	L'\emph{orbite} $G\orbit{o}(b)$ incidente à $b$ et de type $o$,
-	ou $\orbit{o}$-orbite, est le sous-graphe de $G$ contenant $b$, les brins
-	de $G$ atteignables à partir de $b$ par des liaisons étiquetés sur $o$,
+	L'\emph{orbite} $G\orbit{\omega}(b)$ incidente à $b$ et de type $\omega$, ou
+	$\orbit{\omega}$-orbite, est le sous-graphe de $G$ contenant $b$, les brins
+	de $G$ atteignables à partir de $b$ par des liaisons étiquetés sur $\omega$,
 	ainsi que ces liaisons. %
-	Lorsqu'il n'y a pas d'ambiguïté sur le graphe $G$
-	considéré, on notera une telle orbite $b\orbit{o}$.
+	Lorsqu'il n'y a pas d'ambiguïté sur le graphe $G$ considéré, on notera une
+	telle orbite $\orbit{\omega}(b)$.
 \end{definition}
 
 \begin{figure}[ht]
@@ -413,18 +437,15 @@ On retrouve, dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-012}, le
 volume incident au brin $a$, noté $\orbit{0,1,2}(a)$, contenant le brin $a$, les
 brins atteignables à partir de $a$ par les liaisons $0,1,2$ ainsi que ces
 liaisons. %
-Dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-123}, le sommet
-incident au brin $a$, noté $\orbit{0,1,2}(a)$, contient le brin $a$, les brins
-atteignables par des liaisons $0,1,2$. %
-Dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-013}, la face notée
-$\orbit{0,1,3}(a)$, contient les brins atteignables par des liaisons $0,1,3$. %
-Enfin, la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-023}, l'arête notée
-$\orbit{0,2,3}(a)$, contient les brins atteignables par des liaisons $0,2,3$. %
-Notons cependant qu'il est également possible de représenter des entités
-topologiques plus générales que des cellules, par exemple, l'arête de volume
-dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-02} contient les
-brins atteignables par des liaisons $0,2$. %
-
+Le sommet (Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-123}) est noté
+$\orbit{0,1,2}(a)$, la face
+(Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-013}) $\orbit{0,1,3}(a)$ et
+l'arête (Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-023})
+$\orbit{0,2,3}(a)$. %
+Notons qu'il est également possible de représenter des entités topologiques plus
+générales que des cellules, par exemple, l'arête de volume dans la
+Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-02} contient les brins
+atteignables par des liaisons $0,2$. %
 
 \subsection[Langage Jerboa]{Langage Jerboa}
 \label{sec:etat-art-model-regles-lang-jerboa}
@@ -435,33 +456,41 @@ brins atteignables par des liaisons $0,2$. %
 	ça. L'aspect géométrique (qui pourra concerner la modélisation CSG et les
 	géométries courbes sont de l'ordre de la perspective)}
 
-Dans la sous-section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
-cartes généralisées comme des graphes topologiques vérifiant certaines
+Dans la section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
+cartes généralisées comme des graphes étiquetés vérifiant certaines
 contraintes de cohérence. %
 Les opérations sur ces graphes peuvent être définies par des règles de
 transformation de graphes. %
-Dans cette sous-section, nous abordons la formalisation des opérations de
+Dans cette section, nous abordons la formalisation des opérations de
 modélisation sous la forme de règles de transformation de graphe en trois
 temps. %
 Tout d'abord, nous présentons les règles de transformation de graphe et les
 concepts nécessaires à leurs mises en œuvre. %
 Ensuite, nous étendons ces concepts aux règles de transformation de graphe
-Jerboa \cite{belhaouari2014jerboa} pour terminer avec les scripts de règles
+Jerboa \cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological} pour terminer avec les scripts de règles
 \cite{gauth2019}. %
 
-\subsubsection[Règles instanciées]{Règles instanciées}
+\subsubsection[Règles de transformation de graphe]{Règles de transformation de graphe}
 \label{sec:etat-art-model-regles-lang-jerboa-regles-inst}
 
-Les règles de transformation de G-cartes sont les règles instanciées de Jerboa.
+% Les règles de transformation de G-cartes sont les règles instanciées de Jerboa.
+
+Les règles de transformation de graphe (\todo{mettre ref definition}) permettent de construire des objets représentés par des G-cartes.
 
 Des conditions syntaxiques sur les règles définies dans
 \cite{poudr2009,pascual2022topological} permettent de garantir la préservation
 des G-cartes. %
-Jerboa et son éditeur vérifient automatiquement que
-les règles éditées respectent ces conditions syntaxiques. %
+% Jerboa et son éditeur vérifient automatiquement que les règles éditées respectent ces conditions syntaxiques. %
 
 \begin{theoreme}[Préservation de la cohérence topologique]
 	\label{theo:topo-coherence-base-rule}
+
+	Soit $r : L \longrightarrow R$ une règle de transformation de graphe. Si $r$
+	vérifie les propriétés syntaxiques suivantes, alors pour tout morphisme de
+	filtrage $m : L \to G$, la transformation directe
+	$G \xlongrightarrow{r,m} H$ produit une G-carte $H$~:
+
+
 	\begin{itemize}
 		\item \emph{Condition de non-orientation}~: $L$ et $R$ sont
 		      \emph{non-orientés}.

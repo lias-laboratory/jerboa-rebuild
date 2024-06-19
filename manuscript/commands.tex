@@ -6,9 +6,15 @@
 	\MakeFramed{\advance\hsize-\width \FrameRestore}}%
 {\endMakeFramed}
 
+\renewcommand*{\FrameCommand}{%
+	\setlength{\fboxrule}{\FrameRule}\setlength{\fboxsep}{\FrameSep}%
+	\fbox}
+
 \renewenvironment{leftbar}[1][]{%
+	\setlength{\OuterFrameSep}{0pt}
 	\def\FrameCommand{{\color{#1}\vrule width 3pt} \hspace{10pt}}%
-	\MakeFramed{\advance\hsize -\width \FrameRestore}}%
+	\MakeFramed{\advance\hsize -\width \FrameRestore}
+	\noindent\ignorespaces}%
 {\endMakeFramed}
 
 {

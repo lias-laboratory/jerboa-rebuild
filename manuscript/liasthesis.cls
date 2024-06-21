@@ -16,9 +16,10 @@
 \RequirePackage{xcolor}
 \RequirePackage{translator}
 \RequirePackage{tikz}
-\RequirePackage[pages=some]{background}
 \RequirePackage[french]{minitoc}
 \RequirePackage{tgtermes}
+
+\usetikzlibrary{positioning,calc}
 
 \usedictionary{translator-basic-dictionnary}
 \newtranslation[to = french]{THESIS}{THÈSE}
@@ -100,7 +101,6 @@
 
 \DeclareOption{framed}{%
 	\renewcommand{\TitleFrame}{%
-		\usetikzlibrary{positioning,calc}
 		\begin{tikzpicture}[remember picture, overlay]
 			\draw[line width = 1pt]
 			($(current page.north west) + (\lmargin-1em,-\tmargin)$) rectangle
@@ -200,7 +200,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\TitleLogos}{%
-	\usetikzlibrary{positioning,calc}
 	\begin{tikzpicture}[overlay, remember picture]
 		% if \@titlelogoleft is empty then relax evaluates to relax
 		\if\relax \@titlelogoleft \relax % goes to true branch
@@ -220,13 +219,11 @@
 }
 
 
-
-\backgroundsetup{opacity=1, scale=1, angle=0, color=black, contents=\TitleFrame\TitleLogos}
-
 \renewcommand{\maketitle}{%
 	\begin{titlingpage}
-		\BgThispage
-
+		\AddToHook{shipout/firstpage}{%
+			\put(0,-\paperheight)
+			{\TitleFrame\TitleLogos}}
 		\begin{center}
 			\vspace*{.05\paperheight}
 			{\huge\textbf{\translate{THÈSE}}}

@@ -6,92 +6,78 @@ CAO. (Principalement) les systèmes de modélisation paramétriques, (Concentrer
 sur) la famille fonctionnelle, c'est-à--dire, avec spécification paramétrique.
 (Introduire) les besoins de générations de modèles et (motiver rapidement avec) les coûts de changements dans les designs.
 
-Dans un premier temps~: concepts, définitions et propriétés
+Cette section est dédiée aux concepts et définitions nécessaires à la
+compréhension des systèmes de réévaluation de leurs mécanismes, notamment celui
+du nommage persistent d'entités topologiques.
+
+Dans un premier temps~: concepts, définitions et propriétés ()
 Puis~: modélisation paramétrique (famille fonctionnelle)
 
-\subsection[Concepts, définitions et propriétés]{Concepts, définitions et propriétés}
-\label{sec:etat-art-reevaluation-defs-props}
-
-\begin{definition}[entités invariantes]
-
-\end{definition}
-
-\begin{definition}[entités contingente]
-
-\end{definition}
-
-\begin{definition}[entités avec sources]
-
-\end{definition}
-
-\begin{definition}[entités sans sources]
-
-\end{definition}
-
-\begin{definition}[specification paramétrique]
-
-\end{definition}
-
-\begin{definition}[historique]
-
-\end{definition}
-
-
-\subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
-\label{sec:etat-art-reevaluation-model-param}
-
-% La modélisation paramétrique une méthode de modélisation incontournable en
-% CAO. %
-% Dans ces systèmes, un utilisateur crée un objet 3D uniquement à partir
-% d'opérations de modélisation à paramétrer. %
-% Ces paramètres permettent de restituer au mieux les intentions de modélisation
-% de l'utilisateur. %
-
-\paragraph*{Modélisation paramétrique}
-
-\paragraph{Spécification paramétrique}
-
-\paragraph{Réévaluation}
-
-\subsubsection[Nomination persistante : définitions et propriétés]{Nomination persistante : définitions et propriétés}
-\label{sec:etat-art-reevaluation-model-param-nom-persistant-def-props}
-
-\begin{definition}[nommage persistant]
-
-\end{definition}
-
-\subsubsection[Critères de classification des systèmes de modélisation]{Critères de classification des systèmes de modélisation}
-\label{sec:etat-art-reevaluation-model-param-criteres}
-
-\subsection[Approches existantes en CAO]{Approches existantes en CAO}
-\label{sec:etat-art-reevaluation-approches}
+\subsection{Concepts, définitions et propriétés}
+\label{sec:etat-art-reevaluation-concepts}
 
 \begin{itemize}
-	\item Entités invariantes et contingentes
-	\item Entités avec et sans source
-	\item Nomination des entités issues d'extrusion ou de révolution
-	\item Nomination des entités basée sur les entités invariantes
+	\item Modèles paramétriques (fonctionnel)
+	      \begin{itemize}
+		      \item modèles fonctionnels
+		      \item représentation des objets
+		      \item spécification paramétrique
+	      \end{itemize}
+	\item réévaluation et problématique
+	      \begin{itemize}
+		      \item identification des entités topologiques
+		      \item modification de la spécification et problème d'appariement
+	      \end{itemize}
+	\item nommage persistant d'entité topologique
+	\item identification persistante d'entités lors d'une réévaluation
 \end{itemize}
 
-% \subsubsection[Distinction des entités invariantes et contingentes]{Distinction des entités invariantes et contingentes}
-% \label{sec:etat-art-reevaluation-approches-dis-entites}
 
-% \subsubsection[Distinction des entités avec et sans sources]{Distinctions des entités avec et sans sources}
-% \label{sec:etat-art-reevaluation-approches-dis-sources}
-
-% \subsubsection[Nomination des entités issues d'extrusion ou de révolution]{Nominations des entités issues d'extrusion ou de révolution}
-% \label{sec:etat-art-reevaluation-approches-nomination-ext-rev}
-
-% \subsubsection[Nomination basée sur les entités invariantes]{Nomination basée sur les entités invariantes}
-% \label{sec:etat-art-reevaluation-approches-nomination-inv}
-
-% \subsubsection[Utilisation d'un historique de noms]{Utilisation d'un historique de noms}
-% \label{sec:etat-art-reevaluation-approche-historique-noms}
-
-% \subsubsection[Nomination hétérogène des entités]{Nomination hétérogène des entités}
-% \label{sec:etat-art-reevaluation-approche-nomination-heterogene}
+% \subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
+% \label{sec:etat-art-reevaluation-model-param}
 
 
+% \subsubsection[Nomination persistante : définitions et propriétés]{Nomination persistante : définitions et propriétés}
+% \label{sec:etat-art-reevaluation-model-param-nom-persistant-def-props}
+
+% \begin{definition}[Nommage persistant]
+%   Nommer une entité topologique est le fait d'attribuer un identifiant unique à
+%   une entité topologique dans un modèle évalué. %
+%   Le nommage persistant est la propriété qui garantie le nommage permet
+%   l'appariement de l'entité avec son équivalent, respectant les mêmes
+%   contraintes, lors de la réévaluation. %
+% \end{definition}
+
+\subsection{Classification des méthodes de nommage persistant}
+\label{sec:etat-art-reevaluation-approches-nommages}
+
+\begin{itemize}
+	\item Propriétés communes dans les systèmes de nommages
+	      \begin{itemize}
+		      \item Entités invariantes et contingentes
+		      \item Entités avec et sans source
+		      \item entités issues d'extrusion ou de révolution
+	      \end{itemize}
+	\item propriétés distinctes dans les systèmes de nommages
+\end{itemize}
+
+D'après les travaux de Mehdi Baba-ali~:
+\begin{itemize}
+  \item distinction des entités invariantes et contingentes
+  \item distinction des entités avec et sans sources
+  \item nomination basée sur les entités invariantes
+  \item utilisation d'un historique de noms
+  \item nomination hétérogène des entités
+\end{itemize}
+
+\subsection{Systèmes de réévaluation}
+\label{sec:etat-art-reevaluation-approches-reevaluation}
+
+\begin{itemize}
+  \item Cascaval 2023
+  \item dai 2024
+  \item \dots
+\end{itemize}
 
 \subsection[Réévaluation à base de règles]{Réévaluation à base de règles}
 \label{sec:etat-art-reevaluation-reevaluation-regles}

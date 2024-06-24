@@ -1,5 +1,6 @@
 #+titre: biblio manuscript
 #+author: Maxime Gaide
+#+LATEX_CLASS_OPTIONS: [a4paper,8pt]
 
 * TODO Ajouter les thèses
 
@@ -35,18 +36,18 @@
 
 #+TBLNAME: Modeleurs
 #+STARTUP: shrink
-|---+-------------------------------+--------------------------+-----+-------|
-|   | modeleur/noyau                | entreprise               | URL | année |
-|---+-------------------------------+--------------------------+-----+-------|
-|   | ACIS                          | Dassault Systèmes        |     |       |
-|   | CGAL                          | opensource               |     |       |
-|   | Convergence Geometric Modeler | Dassault Systèmes        |     |       |
-|   | Open CASCADE                  | opensource               |     |       |
-|   | Parasolid                     | Siemens                  |     |       |
-|   | ShapeManager                  | Autodesk (ACIS fork)     |     |       |
-|   | SMLib                         | Solid Modeling Solutions |     |       |
-|   | …                             |                          |     |       |
-|---+-------------------------------+--------------------------+-----+-------|
+|--------+-------------------------------+--------------------------+-----+-------|
+|        | modeleur/noyau                | entreprise               | URL | année |
+|--------+-------------------------------+--------------------------+-----+-------|
+| #ERROR | ACIS                          | Dassault Systèmes        |     |       |
+| #ERROR | CGAL                          | opensource               |     |       |
+| #ERROR | Convergence Geometric Modeler | Dassault Systèmes        |     |       |
+| #ERROR | Open CASCADE                  | opensource               |     |       |
+| #ERROR | Parasolid                     | Siemens                  |     |       |
+| #ERROR | ShapeManager                  | Autodesk (ACIS fork)     |     |       |
+| #ERROR | SMLib                         | Solid Modeling Solutions |     |       |
+| #ERROR | …                             |                          |     |       |
+|--------+-------------------------------+--------------------------+-----+-------|
 #+TBLFM: $1=()
 
 * Modélisation à base g-cartes et/ou de règles
@@ -165,22 +166,23 @@
 
 #+tblname: à étudier
 #+STARTUP: shrink
-|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+-------------------------|
-|    | titre                                                                                                                              | p. auteur | URL | année | catégorie (biblio)      |
-|    | <80>                                                                                                                               |           |     |       | <10>                    |
-|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+-------------------------|
-|  1 | Using Rule Based Selection to Support Change in Parametric CAD Models                                                              | Marques   |     |  2006 | rule-based change CAD   |
-|  2 | Collaborative intelligent CAD framework incorporating design history tracking algorithm                                            | H.Lee     |     |  2010 | reevaluation (tracking) |
-|  3 | Meta operation conflict resolution for human–human interaction in collaborative feature-based CAD systems                          | Cheng     |     |  2016 | reevaluation            |
-|  4 | Name and maintain topological faces in rotating and scanning features                                                              | Gao X.-Y. |     |  2016 | reevaluation (naming)   |
-|  5 | The Parametric Casting Process Modeling Method-based on the Topological Entities Naming                                            | Liu       |     |  2018 | reevaluation (naming)   |
-|  6 | Machining feature recognition based on deep neural networks to support tight integration with 3D CAD systems                       | Yeo       |     |  2021 | STEP (dnn recognition)  |
-|  7 | 3D convolutional neural network for machining feature recognition with gradient-based visual explanations from 3D CAD models       | J.Lee     |     |  2022 | reevaluation (cnn)      |
-|  8 | Digital Form Generation of Heritages in Historical District-based on Plan Typology and Shape Grammar: Case Study on Kulangsu Islet | Zhang     |     |  2022 | heritage (grammar)      |
-|  9 | Propagating Design Updates to Structured Analysis Meshes                                                                           | Lecallard |     |  2022 | reevaluation (naming)   |
-| 10 | A Generic Parametric Modeling Engine Targeted Towards Multipisciplinary Design : Goals and Concepts                                | Kleinert  |     |  2023 | reevaluation            |
-| 11 | B rep Matching for Collaborating Across CAD Systems                                                                                | Jones     |     |  2023 | reevaluation (gnn)      |
-|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+-------------------------|
+|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------------------------|
+|    | titre                                                                                                                              | p. auteur | URL | année | catégorie (biblio)     |
+|    | <80>                                                                                                                               |           |     |       | <10>                   |
+|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------------------------|
+|  1 | Using Rule Based Selection to Support Change in Parametric CAD Models                                                              | Marques   |     |  2006 | rule-based change CAD  |
+|  2 | Collaborative intelligent CAD framework incorporating design history tracking algorithm                                            | H.Lee     |     |  2010 | reevaluation (collab)  |
+|  3 | A New mechanism of naming topological entities for semantic feature operations                                                     | Gao X.-Y. |     |  2012 | reevaluation (naming)  |
+|  4 | Meta operation conflict resolution for human–human interaction in collaborative feature-based CAD systems                          | Cheng     |     |  2016 | reevaluation           |
+|  5 | Name and maintain topological faces in rotating and scanning features                                                              | Gao X.-Y. |     |  2016 | reevaluation (naming)  |
+|  6 | The Parametric Casting Process Modeling Method-based on the Topological Entities Naming                                            | Liu       |     |  2018 | reevaluation (naming)  |
+|  7 | Machining feature recognition based on deep neural networks to support tight integration with 3D CAD systems                       | Yeo       |     |  2021 | STEP (dnn recognition) |
+|  8 | 3D convolutional neural network for machining feature recognition with gradient-based visual explanations from 3D CAD models       | J.Lee     |     |  2022 | reevaluation (cnn)     |
+|  9 | Digital Form Generation of Heritages in Historical District-based on Plan Typology and Shape Grammar: Case Study on Kulangsu Islet | Zhang     |     |  2022 | heritage (grammar)     |
+| 10 | Propagating Design Updates to Structured Analysis Meshes                                                                           | Lecallard |     |  2022 | reevaluation (naming)  |
+| 11 | A Generic Parametric Modeling Engine Targeted Towards Multipisciplinary Design : Goals and Concepts                                | Kleinert  |     |  2023 | reevaluation           |
+| 12 | B rep Matching for Collaborating Across CAD Systems                                                                                | Jones     |     |  2023 | reevaluation (gnn)     |
+|----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------------------------|
 #+TBLFM: $1=(@#-2)
 
 * triés et (a priori) pas le sujet

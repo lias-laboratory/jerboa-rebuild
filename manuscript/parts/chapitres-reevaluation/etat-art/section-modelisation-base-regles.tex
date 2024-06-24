@@ -50,6 +50,7 @@ manuscrit.
 \todo{dessiner un premier graphe et introduire : étiquette = couleur}
 
 \begin{definition}[Morphisme]
+	\label{def:etat-art-morphismes}
 	Soient $G = (V,E,s,t,l_{V}, l_{E})$
 	et $G' = (V',E',s',$ $t',l_{V}', l_{E}')$ deux graphes étiquetés.
 	%et $m : G \to G'$ un morphisme.
@@ -61,15 +62,19 @@ manuscrit.
 
 	\noindent $m$ est~:
 	\begin{itemize}
-		\item \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont injectives
-		      \todo{footnote pour un rappel}.
+		\item \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont
+		      injectives\footnotemark,
 		\item un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des
-		      bijections. \todo{footnote pour un rappel}
-		\item une \emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou
-		      simplement $G \hookrightarrow G'$, si $\iota_{V}$ et $\iota_{E}$
-		      sont les applications identités.
+		      bijections\footnotemark,
+		\item une \emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si
+		      $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
 	\end{itemize}
 \end{definition}
+
+\addtocounter{footnote}{-1} \footnotetext{Tout élément de $G'$ a au plus un
+  antécédant de $G$} %
+\stepcounter{footnote} \footnotetext{Tout élément de $G'$ a exactement un
+  antécédant dans $G$} %
 
 % \begin{definition}[Morphisme]
 % 	Soient $G = (V,E,s,t,\alpha)$
@@ -92,10 +97,23 @@ manuscrit.
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{.49\textwidth}
-		% \includegraphics[width=.9\textwidth]{morphisme}
-		\includegraphics[width=.9\textwidth]{graphe-morphisme-injectif}
-		\caption{Morphisme TODO: changer de `d` en vert}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-normal}
+		\caption{Morphisme}
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-normal}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.49\textwidth}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-injectif}
+		\caption{Morphisme injectif}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-injectif}
+	\end{subfigure}
+
+	~
+
+	\begin{subfigure}{.49\textwidth}
+		\includegraphics[width=.9\textwidth]{graphe-morphisme-isomorphisme-unfit}
+		\caption{Isomorphisme}
+		\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.49\textwidth}
@@ -103,54 +121,29 @@ manuscrit.
 		\caption{Morphisme d'inclusion}
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
 	\end{subfigure}
-
-	~
-	\begin{subfigure}{.49\textwidth}
-		\includegraphics[width=.9\textwidth]{graphe-morphisme-normal}
-		\caption{Morphisme injectif TODO: faire les renommages}
-		\label{fig:etat-art-model-regles-regles-concepts-morphismes-inc}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{.49\textwidth}
-		\includegraphics[width=.9\textwidth]{graphe-morphisme-isomorphisme}
-		\caption{Isomorphisme}
-		\label{fig:etat-art-model-regles-regles-concepts-morphismes-iso}
-	\end{subfigure}
 	\caption{Morphismes $G \to G'$}
 	\label{fig:etat-art-model-regles-regles-concepts-morphismes}
 \end{figure}
 
-% \todo{ajouter des noms aux arcs, ce sera mieux que des couleurs (?)}
-
+La Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes} illustre
+chacun des morphismes présentés dans la définition~\ref{def:etat-art-morphismes}~:
 \begin{description}
-	\item[Injection] Dans la
-	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inj},
-	      l'application $m_{V}$ préserve l'appariement des nœuds tandis que
-	      $m_{E}$ préserve les arcs à l'exception de $e3 {\color{orange}\to} e3$
-	      entre les nœuds $b$ et $c$.
-	\item[Isomorphisme] Dans la
-	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-iso}, les
-	      applications $m_{V}$ et $m_{E}$ préservent les nœuds à arête à renommage
-	      près, c'est-à-dire ici que les nœuds sont simplement renommés
-	      $a \to e, b \to f, c \to g, d \to h$ et les arcs $e1 {\color{Orchid2} \to} e11$,
-	      $e2 {\color{Chartreuse2} \to} e12$, $e3 {\color{orange} \to} e13$,
-	      $e4 {\color{DeepSkyBlue2} \to} e14$. %
-	\item[Inclusion~:] Dans la
-	      \autoref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
-	      les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds et arcs à
-	      l'identique. %
-
-	      L'appariement que l'on obtient est le suivant, $a \mapsto a$, $b \mapsto b$,
-	      $c \mapsto c$, $d \mapsto d$ pour les sommets et $e1 \mapsto e1$,
-	      $e2 \mapsto e2$, $e3 \mapsto e3$,
-	      $e4 \mapsto e4$ pour les arêtes.
-	      % le graphe à gauche de la flèche est inclus dans celui de droite. %
-	      % En effet, les applications $\iota_{V}$ et $\iota_{E}$ préservent les nœuds
-	      % $a,b,c$ et $d$ ainsi que les arêtes $bleu, orange$ et $verte$ à
-	      % l'identique. %
+	\item La
+	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-normal}
+	      illustre deux morphismes $m_{v}$ et $m_{E}$ qui fusionnent les nœuds $c$
+	      et $d$ et produisent les applications suivantes~: $c \mapsto j$, $d \mapsto j$ et
+	      $e4 \mapsto e8$.
+	\item La
+	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-injectif}
+	      illustre un morphisme injectif de $G$ vers $G'$ tel
+	\item Dans la
+	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
+	      les applications sont des identités à renommage près des arcs et des
+	      nœuds.
+	\item dans la
+	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
+	      les applications sont des identités sans renommage.
 \end{description}
-
-~
 
 Les principales notions ensemblistes peuvent être étendues sur les graphes.
 
@@ -277,15 +270,20 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{application-regle-v3-transfo-graphe}
-	\caption{Application d'une règle de triangulation}
+	\includegraphics[width=\textwidth]{application-regle-v4-transfo-graphe}
+	\caption{Application d'une règle de transformation de graphe}
 	\label{fig:etat-art-model-regles-inst-application}
 \end{figure}
 
 
-\todo{Couleurs (reprendre celles des morphismes), texte + grand, enlever les boîtes, fleche de K vers D}
+% \todo{Couleurs (reprendre celles des morphismes), texte + grand, enlever les boîtes, fleche de K vers D}
 
-\todo{Dire qu'on a pris des inclusions pour $m$ et $m'$, mais en pratique ce n'est pas le cas et que la partie ajoutée dans H est ajoutée avec des noms frais }
+% \todo{Dire qu'on a pris des inclusions pour $m$ et $m'$, mais en pratique ce n'est pas le cas et que la partie ajoutée dans H est ajoutée avec des noms frais }
+
+Dans la Figure~\ref{fig:etat-art-model-regles-inst-application}, illustrant
+l'application d'une règle de transformation de graphe, les morphismes $m$ et
+$m'$ sont des inclusion mais en pratique, ce n'est le cas et la partie ajoutée
+dans $H$ est ajoutée avec des noms frais. %
 
 % La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
 % triangulation d'une face quadrangulaire et son application. %

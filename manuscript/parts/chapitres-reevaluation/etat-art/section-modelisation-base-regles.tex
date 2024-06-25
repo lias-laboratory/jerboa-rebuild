@@ -609,27 +609,28 @@ Ces étiquettes désignent la modification des orbites par renommage et
 suppression des arcs. %
 Une étiquette construite sur $[0,n]$, c'est-à-dire sans suppression, est appelée
 \emph{orbite pleine}. %
-Une \emph{fonction de renommage} $\orbit{o} \mapsto \orbit{o'}$, d'une orbite pleine
-$\orbit{o_1 o_2 ... o_k}$, vers une orbite $\orbit{o'_1 o'_2 ... o'_k}$ définit
-le renommage des étiquettes topologiques $o_1 \mapsto o'_1, o_2 \mapsto o'_2$ \ldots
-$o_k \mapsto o'_k$. %
+Une \emph{fonction de renommage} $\orbit{\omega} \mapsto \orbit{\omega'}$, d'une orbite pleine
+$\orbit{\omega_1 \omega_2 ... \omega_k}$, vers une orbite $\orbit{\omega'_1 \omega'_2 ... \omega'_k}$ définit
+le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
+$\omega_k \mapsto \omega'_k$. %
 
 \begin{definition}[Renommage d'une orbite]
-	Le \emph{renommage} $(\orbit{o} \mapsto \orbit{o'})(G\orbit{o}(v))$ d'une $\orbit{o}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe $(V,E',s',t',\alpha')$ défini par :
+	Le \emph{renommage} $(\orbit{\omega} \mapsto \orbit{\omega'})(G\orbit{\omega}(v))$ d'une
+	$\orbit{\omega}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe
+	$(V,E',s',t',\alpha')$ défini par :
 	\begin{itemize}
 		\item $E'$ est le sous-ensemble des arcs de $E$ qui n'ont pas été
 		      supprimées, c'est-à-dire
-		      $E'=\{e \in E \mid (\orbit{o} \mapsto \orbit{o'})(\alpha(e)) \neq \_ \}$,
+		      $E'=\{e \in E \mid (\orbit{\omega} \mapsto \orbit{\omega'})(\alpha(e)) \neq \_ \}$,
 
 		\item $s'$ et $t'$ sont les restrictions respectives de $s$ et $t$ sur
 		      $E'$,
 
 		\item $\alpha'$ est définie sur $E'$ pour toute arête $e \in E'$ par
-		      $\alpha'(e) = (\orbit{o} \mapsto \orbit{o'})(\alpha(e))$.
+		      $\alpha'(e) = (\orbit{\omega} \mapsto \orbit{\omega'})(\alpha(e))$.
 	\end{itemize}
 \end{definition}
 
-\highlight{Comment on fait ici avec $\alpha$ et $l$, par rapport à $l_{E}$ et $l_{V}$ }
 \begin{definition}[Instanciation d'un motif]
 	L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{o}$, par une orbite $G\orbit{o}(v)=(V',E',s',t',\alpha')$ d'un graphe topologique $G$ est définie par le graphe topologique $M(G\orbit{o}(v))=(V'',E'',s'',t'',\alpha'')$~:
 	\begin{itemize}
@@ -643,9 +644,7 @@ $o_k \mapsto o'_k$. %
 	\end{itemize}
 \end{definition}
 
-
-
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering
@@ -706,21 +705,27 @@ $o_k \mapsto o'_k$. %
 	\label{fig:before-after-quad-triangulation}
 \end{figure}
 
-La Figure~\ref{fig:before-after-quad-triangulation} illustre l'instanciation du schéma de triangulation sur la face carrée \ref{fig:jerboa-quad-before-triangulation} dont les brins sont nommés de a à h.
+La Figure~\ref{fig:before-after-quad-triangulation} illustre l'instanciation du
+schéma de triangulation sur la face carrée
+\ref{fig:jerboa-quad-before-triangulation} dont les brins sont nommés de $a$ à
+$h$. %
 
 Dans un premier temps, dans \ref{fig:inst-quad-triangulation-1}, le nœud
 d'instanciation $0$ filtre les brins $\{a_0 \dots h_0\}$ et préserve les
-$0$-arcs, les $1$-arcs incidents aux brins $\{a_0 \dots h_0\}$ étant supprimés.
+$0$-arcs, les $1$-arcs incidents aux brins $\{a_0 \dots h_0\}$ étant
+supprimés. %
 Dans \ref{fig:inst-quad-triangulation-2}, de nouveaux $1$-arcs sont ensuite
 instanciés à partir des $\{a_0 \dots h_0\}$ puis liés, dans
 \ref{fig:inst-quad-triangulation-3} à de nouveaux brins créés par le nœud
-d'instanciation $1$. Ces brins sont nommés $\{a_1 \dots h_1\}$ et sont liés
-entre eux par des $2$-arcs. Enfin, dans \ref{fig:inst-quad-triangulation-4},
-des $0$-arcs incidents à $\{a_1 \dots h_1\}$ sont créés puis liés aux brins
-$\{a_2 \dots h_2\}$ lorsque ceux-ci sont créés par le nœud d'instanciation $2$
-dans \ref{fig:inst-quad-triangulation-5}.
+d'instanciation $1$. %
+Ces brins sont nommés $\{a_1 \dots h_1\}$ et sont liés entre eux par des
+$2$-arcs. %
+Enfin, dans \ref{fig:inst-quad-triangulation-4}, des $0$-arcs incidents à
+$\{a_1 \dots h_1\}$ sont créés puis liés aux brins $\{a_2 \dots h_2\}$ lorsque
+ceux-ci sont créés par le nœud d'instanciation $2$ dans
+\ref{fig:inst-quad-triangulation-5}. %
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering
@@ -825,14 +830,12 @@ directe. %
 	\begin{itemize}
 		\item pour tout nœud $v \in V$ de $L$,
 		      $m_V((v,\underline{m}(h))) = \underline{m}(v)$~;
-
 		\item pour tout arc implicite $(v,e')$, avec $v \in V$ un nœud de $L$ et
 		      $e' \in E'$ un arc de l'orbite $O$ non supprimé (c'est-à-dire tel que
 		      $\orbit{l(h)} \mapsto \orbit{l(v)} (\alpha'(e')) \neq \_$)~: $m_E((v,e'))$ est
 		      l'unique arc de $G$ de source $m_V((v, s'(e')))$ et d'étiquette
 		      $\orbit{l(h)} \mapsto \orbit{l(v)}(\alpha'(e'))$ ; et
 		      $m_V(t((v, e'))) = t'(m_E((v,e')))$~;
-
 		\item pour tout arc explicite $(e, v')$, avec $e \in E$ un arc de $L$ et
 		      $v' \in V'$ un nœud de l'orbite $O$~: $m_E((e, v'))$ est l'unique arc de
 		      source $m_V((s(e), v'))$ et d'étiquette $\alpha(e)$~; et

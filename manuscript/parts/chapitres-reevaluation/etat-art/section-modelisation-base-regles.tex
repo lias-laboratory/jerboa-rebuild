@@ -47,6 +47,8 @@ manuscrit.
 	$l_{E}(e)$ sont respectivement les étiquettes de $v$ et $e$.
 \end{definition}
 
+\todo{text}
+
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=.15\textwidth]{graphe-etiquete}
@@ -76,10 +78,8 @@ manuscrit.
 	\end{itemize}
 \end{definition}
 
-\addtocounter{footnote}{-1} \footnotetext{Tout élément de $G'$ a au plus un
-	antécédant de $G$} %
-\stepcounter{footnote} \footnotetext{Tout élément de $G'$ a exactement un
-	antécédant dans $G$} %
+\addtocounter{footnote}{-1} \footnotetext{Pour rappel, une fonction $f : A \to B$ est injective si et seulement si tout élément $b \in B$ à au plus un antécédant par $f$, c'est-à-dire $\forall a,a' \in A^{2}$, si $f(a) = f(a')$ alors $a = a'$} %
+\stepcounter{footnote} \footnotetext{Pour rappel, une fonction $f : A \to B$ est bijective si et seulement si tout élément de $b \in B$ à exactement un antécédant par $f$, c'est-à-dire $\forall b \in B$, $\exists!$ $a \in A$ tel que $f(a) = b$} %
 
 % \begin{definition}[Morphisme]
 % 	Soient $G = (V,E,s,t,\alpha)$
@@ -203,7 +203,8 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 	\label{fig:etat-art-modelisation-base-regles-sous-graphe-genere}
 \end{figure}
 
-\todo{Définir sous-graphe généré par un nœud et un ensemble d'étiquettes}
+\todo{faire en sous-figure $G$ et $G'$} %
+\todo{commenter la figure}
 
 De même, nous pouvons définir la notion de chemin dans les graphes. %
 Intuitivement, un chemin est une suite d'arcs traversée, à la suite, lors d'un
@@ -221,6 +222,8 @@ parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 	\textit{i.e.} $s(e_{1}) = t(e_{k})$.
 \end{definition}
 
+\todo{illustrer}
+
 Un morphisme $m$ entre deux graphes $G$ et $G'$, est une application
 définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
 arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
@@ -229,6 +232,7 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 
 % La syntaxe d'une règle est introduite par \cite{poudr2009}.
 \begin{definition}[Règle de transformation de graphe]
+	\label{def:regle-transformation-graphe}
 	Soient deux graphes étiquetés $L$ et $R$ tels que l'intersection
 	$L \cap R = K$ existe. %
 
@@ -266,6 +270,8 @@ Dans ce manuscrit, nous en donnons une définition ensembliste équivalente.
 	morphisme de filtrage $m$. %
 \end{definition}
 
+\todo{ajouter l'exemple de la règle suivante}
+
 L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme
 de filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un
 morphisme injectif qui étend $m$ sur $R$. %
@@ -297,7 +303,7 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 
 Dans la Figure~\ref{fig:etat-art-model-regles-inst-application}, illustrant
 l'application d'une règle de transformation de graphe, les morphismes $m$ et
-$m'$ sont des inclusion mais en pratique, ce n'est le cas et la partie ajoutée
+$m'$ sont des inclusions mais en pratique, ce n'est pas le cas et la partie ajoutée
 dans $H$ est ajoutée avec des noms frais. %
 
 % La Figure~\ref{fig:etat-art-model-regles-inst-application} présente la règle de
@@ -316,8 +322,12 @@ topologiques cellulaires de dimension quelconque.
 
 \begin{definition}[G-Carte]
 	\label{def:gcarte}
-	Une \emph{G-carte} de dimension $n \in \mathbb{N}$ est un graphe étiqueté
-	$G = (V,E,s,t,\alpha)$ de dimension $n$ qui vérifie les contraintes suivantes~:
+    Un \emph{graphe topologique} de dimension $n \in \mathbb{N}$ est un graphe étiqueté
+	$G = (V,E,s,t,\alpha)$, où les nœuds sont appelés brins, les arcs sont appelés liaisons et $\alpha : E \to [0,n]$ est la fonction d'étiquetage des liaisons.
+
+	Une \emph{G-carte} est un graphe topologique
+	% $G = (V,E,s,t,\alpha)$, où les nœuds sont appelés brins et les arcs sont appelés liaisons et $\alpha : E \to [0,n]$ est la fonction d'étiquetage des liaisons,
+ qui vérifie les contraintes suivantes~:
 	\begin{itemize}
 		\item \emph{non-orientation}~: pour tout arc $e \in E$, il existe un arc
 		      inverse $e' \in E$ tel que $s(e') = t(e)$, $t(e') = s(e)$ et
@@ -330,7 +340,6 @@ topologiques cellulaires de dimension quelconque.
 		      $i+2 \leq j$, et pour tout nœud $v \in V$, il existe un cycle, étiqueté
 		      par \emph{$ijij$}, de source $v$.
 	\end{itemize}
-	Les nœuds sont appelés brins et les arcs sont appelés liaisons.
 \end{definition}
 
 \begin{figure}[ht]
@@ -395,15 +404,14 @@ Par soucis de visibilité, nous masquons ces boucles dans les illustrations. %
 	physiques.
 \end{remarque}
 
-Les G-cartes représentent les cellules à l'aide de sous-graphes que l'on appelle
-orbites.
+Les G-cartes représentent les cellules et plus généralement les orbites à l'aide de sous-graphes.
 
 \begin{definition}[Orbite]
-	Soient $G$ une G-carte de dimension $n$, où $n \in \mathbb{N}$, $\orbit{\omega}$ un mot de $[0, n]$ et $b$ un brin de $G$.
+	Soient $G$ une G-carte de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un mot de $[0, n]$ et $b$ un brin de $G$.
 
-	L'\emph{orbite} $G\orbit{\omega}(b)$ incidente à $b$ et de type $\omega$, ou
+	L'\emph{orbite} $G\orbit{\omega}(b)$ incidente à $b$ et de type $\orbit{\omega}$, ou
 	$\orbit{\omega}$-orbite, est le sous-graphe de $G$ contenant $b$, les brins
-	de $G$ atteignables à partir de $b$ par des liaisons étiquetés sur $\omega$,
+	de $G$ atteignables à partir de $b$ par des liaisons étiquetés sur $\orbit{\omega}$,
 	ainsi que ces liaisons. %
 	Lorsqu'il n'y a pas d'ambiguïté sur le graphe $G$ considéré, on notera une
 	telle orbite $\orbit{\omega}(b)$.
@@ -448,7 +456,7 @@ Par exemple, la Figure~\ref{fig:etat-art-model-regle-gcarte-orbites} illustre un
 panel de cellules présentes dans une G-carte de dimension $3$. %
 On retrouve, dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-012}, le
 volume incident au brin $a$, noté $\orbit{0,1,2}(a)$, contenant le brin $a$, les
-brins atteignables à partir de $a$ par les liaisons $0,1,2$ ainsi que ces
+brins atteignables à partir de $a$ par les liaisons $0,1$ et $2$ ainsi que ces
 liaisons. %
 Le sommet (Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-123}) est noté
 $\orbit{0,1,2}(a)$, la face
@@ -458,7 +466,7 @@ $\orbit{0,2,3}(a)$. %
 Notons qu'il est également possible de représenter des entités topologiques plus
 générales que des cellules, par exemple, l'arête de volume dans la
 Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-02} contient les brins
-atteignables par des liaisons $0,2$. %
+atteignables par des liaisons $0$ et $2$. %
 
 \subsection[Langage Jerboa]{Langage Jerboa}
 \label{sec:etat-art-model-regles-lang-jerboa}
@@ -466,8 +474,7 @@ atteignables par des liaisons $0,2$. %
 \todo{Dans cette thèse, on ne s'intéresse qu'à un aspect purement topologique
 	des règles de transformation. Toutefois, j'y présente tout de même la notion
 	de plongement pour que le lecteur comprenne où se pose la géométrie dans tout
-	ça. L'aspect géométrique (qui pourra concerner la modélisation CSG et les
-	géométries courbes sont de l'ordre de la perspective)}
+	ça.}
 
 Dans la section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
 cartes généralisées comme des graphes étiquetés vérifiant certaines
@@ -488,7 +495,7 @@ Jerboa \cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological} 
 
 % Les règles de transformation de G-cartes sont les règles instanciées de Jerboa.
 
-Les règles de transformation de graphe (définition~\ref{def:application-regle-transformation-graphe}) permettent de construire des objets représentés par des G-cartes.
+Les règles de transformation de graphe (définition~\ref{def:regle-transformation-graphe}) permettent de construire des objets représentés par des G-cartes.
 
 Des conditions syntaxiques sur les règles définies dans
 \cite{poudr2009,pascual2022topological} permettent de garantir la préservation
@@ -497,10 +504,9 @@ des G-cartes. %
 
 \begin{theoreme}[Préservation de la cohérence topologique]
 	\label{theo:topo-coherence-base-rule}
-
-	Soit $r : L \longrightarrow R$ une règle de transformation de graphe. Si $r$
+	Soit $r : L \longrightarrow R$ une règle de transformation de graphe topologique de dimension $n \in \mathbb{N}$. Si $r$
 	vérifie les propriétés syntaxiques suivantes, alors pour tout morphisme de
-	filtrage $m : L \to G$, la transformation directe
+	filtrage $m : L \to G$ d'une G-carte $G$, la transformation directe
 	$G \xlongrightarrow{r,m} H$ produit une G-carte $H$~:
 
 
@@ -539,6 +545,10 @@ des G-cartes. %
 	aussi. %
 \end{remarque}
 
+D'autres conditions permettent de préserver la cohérence géométrique \cite{bellet2011rule,arnould2022preserving}.
+
+\todo{mettre règle instanciée et changer référence illustration}
+
 En pratique, les morphismes de filtrage ne sont pas donnés \textit{in extenso},
 mais à partir de l'association d'un sous-ensemble de brins de $L$ appelés brins
 d'accroche (\emph{hooks} en anglais) à leur image dans $G$. %
@@ -549,7 +559,9 @@ grâce à la condition d'arcs incidents. %
 Pour cela, les règles comportent un brin d'accroche par composante connexe de
 $L$.
 
-% \todo{Donner un exemple}
+\begin{remarque}
+    \todo{écrire/rédiger : Un nœud d'accroche par composante connexe suffit pour définir le morphisme de manière unique grâce à la condition d'arcs incidents}
+\end{remarque}
 
 \subsubsection[Règles Jerboa]{Règles Jerboa}
 \label{sec:etat-art-model-regles-regles-jerboa}
@@ -565,58 +577,79 @@ permettant, par exemple, de filtrer puis transformer des faces indépendamment d
 leur nombre d'arêtes. %
 
 \begin{definition}[Motif avec orbite]
-	Un \emph{motif avec orbite} est un graphe $M=(V,E,s,t,\alpha,l)$, où $(V,E,s,t,\alpha)$
-	est un graphe topologique classique, $l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une
+	Un \emph{motif avec orbite} est un graphe topologique $M=(V,E,s,t,l,\alpha)$ de dimension $n \in \mathbb{N}$, où~:
+ \begin{itemize}
+     \item $l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une
 	fonction d'étiquetage des nœuds par des mots sur les dimensions topologiques
 	et le symbole "$\_$", telle que toutes les étiquettes des nœuds du motif
-	soient des mots de la même longueur.
+	soient des mots de la même longueur,
+    \item $\alpha : E \to [0,n]$ est une fonction d'étiquetage des arcs.
+ \end{itemize}
 \end{definition}
 
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{.29\textwidth}
+	\begin{subfigure}[t]{.15\textwidth}
 		\centering
 		\includegraphics[height=50pt]{left-scheme-rule-face-triangulation-3D}
-		\caption{% Motif gauche de la règle de triangulation
+		\caption{Face $M1$
 		}
-		\label{fig:etat-art-model-regle-regles-jerboa-motif-gauche-triangulation}
+		\label{fig:etat-art-model-regle-regles-jerboa-motif-m1}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}{.69\textwidth}
+ 	\begin{subfigure}[t]{.15\textwidth}
+		\centering
+		\includegraphics[height=50pt]{suppression-dans-motif-n0.pdf}
+		\caption{Arête $M2$}
+		\label{fig:etat-art-model-regle-regles-jerboa-motif-m2}
+	\end{subfigure}
+ 	\begin{subfigure}[t]{.15\textwidth}
+		\centering
+		\includegraphics[height=50pt]{renommage-dans-motif-n2.pdf}
+		\caption{Sommet dual $M3$}
+		\label{fig:etat-art-model-regle-regles-jerboa-motif-m3}
+	\end{subfigure}
+	\begin{subfigure}[t]{.5\textwidth}
 		\centering
 		\includegraphics[height=50pt]{right-scheme-rule-face-triangulation-3D}
-		\caption{% Motif droit de la règle de triangulation
-		}
-		\label{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation}
+		\caption{Face triangulée $M4$}
+		\label{fig:etat-art-model-regle-regles-jerboa-motif-m4}
 	\end{subfigure}
-	\caption{Motifs gauche
-		(\ref{fig:etat-art-model-regle-regles-jerboa-motif-gauche-triangulation}) et droit
-		(\ref{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation}), avec
-		orbites, de la règle de triangulation}
+	\caption{Motifs}
 	\label{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}
 \end{figure}
 
-Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au
-motif $M$ privé de ses étiquettes de nœuds. %
-Prenons le mot $013$, que l'on note $\orbit{013}$ et qui désigne l'orbite face,
+\todo{Commenter la figure en donnant l'intuition du renommage d'étiquette}
+
+% Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au
+% motif $M$ privé de ses étiquettes de nœuds. %
+Prenons le type d'orbite $\orbit{0,1,3}$ qui désigne l'orbite face,
 un exemple est donné dans la
-Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-gauche-triangulation}. %
+Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m1}. %
 De même, le mot $0\_3$ est noté $\orbit{0\_3}$ et désigne l'orbite face
 précédente dont tous les $1$-arcs sont supprimés, un exemple est donné avec le
 nœud $n_{0}$ dans la
-Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation}. %
+Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}. %
 Ces étiquettes désignent la modification des orbites par renommage et
 suppression des arcs. %
 Une étiquette construite sur $[0,n]$, c'est-à-dire sans suppression, est appelée
 \emph{orbite pleine}. %
 Une \emph{fonction de renommage} $\orbit{\omega} \mapsto \orbit{\omega'}$, d'une orbite pleine
-$\orbit{\omega_1 \omega_2 ... \omega_k}$, vers une orbite $\orbit{\omega'_1 \omega'_2 ... \omega'_k}$ définit
+$\orbit{\omega_1 \omega_2 \dots \omega_k}$, vers une orbite $\orbit{\omega'_1 \omega'_2 ... \omega'_k}$ définit
 le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
 $\omega_k \mapsto \omega'_k$. %
 
-\begin{definition}[Renommage d'une orbite]
+\begin{definition}[Renommage]
+    Soient $n \in \mathbb{N}$ une dimension topologique, $\omega$ et $\omega'$ deux mots sur $([0,n] \cup \{ \_ \})^*$.
+
+    $\orbit{\omega}$ est dite une \emph{orbite pleine} lorsque $\omega$ est un mot sur $[0,n]^*$, c'est-à-dire sans suppression.
+
+    Une \emph{fonction de renommage} $\orbit{\omega} \mapsto \orbit{\omega'}$, d'une orbite pleine
+    $\orbit{\omega_1 \omega_2 ... \omega_k}$, vers $\orbit{\omega'_1 \omega'_2 \dots \omega'_k}$ définit
+    le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
+    $\omega_k \mapsto \omega'_k$. %
+
 	Le \emph{renommage} $(\orbit{\omega} \mapsto \orbit{\omega'})(G\orbit{\omega}(v))$ d'une
-	$\orbit{\omega}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ est le graphe
+	$\orbit{\omega}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ de dimension $n \in \mathbb{N}$ est le graphe
 	$(V,E',s',t',\alpha')$ défini par :
 	\begin{itemize}
 		\item $E'$ est le sous-ensemble des arcs de $E$ qui n'ont pas été
@@ -631,14 +664,18 @@ $\omega_k \mapsto \omega'_k$. %
 	\end{itemize}
 \end{definition}
 
+\todo{reprendre l'exemple précédent pour le dérouler avec la fonction de renommage}
+
 \begin{definition}[Instanciation d'un motif]
-	L'instanciation d'un motif $M=(V,E,s,t,\alpha,l)$ dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{o}$, par une orbite $G\orbit{o}(v)=(V',E',s',t',\alpha')$ d'un graphe topologique $G$ est définie par le graphe topologique $M(G\orbit{o}(v))=(V'',E'',s'',t'',\alpha'')$~:
+    Soient $G$ un graphe topologique de dimension $n \in \mathbb{N}$, $v$ un brin de $G$ et $\orbit{\omega}$ un type d'orbite de dimension $n$.
+
+	L'instanciation d'un motif $M=(V,E,s,t,l,\alpha)$, dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{\omega}$, par l'orbite $G\orbit{\omega}(v)=(V',E',s',t',\alpha')$ est définie par le graphe topologique $M(G\orbit{\omega}(v))=(V'',E'',s'',t'',\alpha'')$~:
 	\begin{itemize}
 		\item $V^{\prime\prime}= V \times V'$,
 
-		\item $E''=E''_i \cup E''_e$ comprend les \emph{arcs implicites} issus de l'instanciation des nœuds du motif $E''_i = \{ (v, e') \in V \times E' \mid (\orbit{o} \mapsto \orbit{\alpha(v)})(\alpha'(e')) \neq \_ \}$ et les \emph{arcs explicites} issus du motif $E''_e = \{ (e, v') \in E \times V' \}$,
+		\item $E''=E''_i \cup E''_e$ comprend les \emph{arcs implicites} issus de l'instanciation des nœuds du motif $E''_i = \{ (v, e') \in V \times E' \mid (\orbit{\omega} \mapsto \orbit{\alpha(v)})(\alpha'(e')) \neq \_ \}$ et les \emph{arcs explicites} issus du motif $E''_e = \{ (e, v') \in E \times V' \}$,
 
-		\item tout arc implicite $(v,e') \in E''_i$ a pour source $s''((v,e'))=(v,s'(e'))$, pour cible $t''((v,e'))=(v,t'(e'))$ et pour étiquette $\alpha''((v,e'))=(\orbit{o} \mapsto \alpha(v))(\alpha'(e'))$,
+		\item tout arc implicite $(v,e') \in E''_i$ a pour source $s''((v,e'))=(v,s'(e'))$, pour cible $t''((v,e'))=(v,t'(e'))$ et pour étiquette $\alpha''((v,e'))=(\orbit{\omega} \mapsto \alpha(v))(\alpha'(e'))$,
 
 		      et tout arc explicite $(e,v') \in E''_e$, a pour source $s''((e,v')) = ((s(e),v')$, pour cible $t''((e,v')) = ((t(e),v')$, et pour étiquette $\alpha''((e, v')) = \alpha(e)$.
 	\end{itemize}
@@ -694,7 +731,7 @@ $\omega_k \mapsto \omega'_k$. %
 		\caption{}
 		\label{fig:inst-quad-triangulation-final}
 	\end{subfigure}
-	\caption{Instanciation du motif de triangulation (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation} ) sur une face quadrangulaire.
+	\caption{Instanciation du motif de triangulation (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4} ) sur une face quadrangulaire.
 		(\subref{fig:jerboa-quad-before-triangulation}) Orbite face d'instanciation,
 		(\subref{fig:inst-quad-triangulation-1})  Nœuds d'instanciation $0$,
 		(\subref{fig:inst-quad-triangulation-2})  Instanciation des $1$-arcs incidents aux nœuds d'instanciation $0$,
@@ -775,7 +812,7 @@ ceux-ci sont créés par le nœud d'instanciation $2$ dans
 		\caption{}
 		\label{fig:inst-tri-triangulation-final}
 	\end{subfigure}
-	\caption{Instanciation du motif de triangulation (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-droit-triangulation}) sur une face triangulaire.
+	\caption{Instanciation du motif de triangulation (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}) sur une face triangulaire.
 		(\subref{fig:jerboa-tri-before-triangulation}) Orbite face d'instanciation,
 		(\subref{fig:inst-tri-triangulation-1}) Nœuds d'instanciation $0$,
 		(\subref{fig:inst-tri-triangulation-2})  Instanciation des $1$-arcs explicite incidents aux nœuds d'instanciation $0$,

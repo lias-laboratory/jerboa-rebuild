@@ -47,7 +47,12 @@ manuscrit.
 	$l_{E}(e)$ sont respectivement les étiquettes de $v$ et $e$.
 \end{definition}
 
-\todo{dessiner un premier graphe et introduire : étiquette = couleur}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=.15\textwidth]{graphe-etiquete}
+	\caption{Graphe dont les nœuds et arêtes sont étiquetés par des couleurs}
+	\label{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}
+\end{figure}
 
 \begin{definition}[Morphisme]
 	\label{def:etat-art-morphismes}
@@ -72,9 +77,9 @@ manuscrit.
 \end{definition}
 
 \addtocounter{footnote}{-1} \footnotetext{Tout élément de $G'$ a au plus un
-  antécédant de $G$} %
+	antécédant de $G$} %
 \stepcounter{footnote} \footnotetext{Tout élément de $G'$ a exactement un
-  antécédant dans $G$} %
+	antécédant dans $G$} %
 
 % \begin{definition}[Morphisme]
 % 	Soient $G = (V,E,s,t,\alpha)$
@@ -128,19 +133,19 @@ manuscrit.
 La Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes} illustre
 chacun des morphismes présentés dans la définition~\ref{def:etat-art-morphismes}~:
 \begin{description}
-	\item La
+	\item[Morphisme] La
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-normal}
 	      illustre deux morphismes $m_{v}$ et $m_{E}$ qui fusionnent les nœuds $c$
 	      et $d$ et produisent les applications suivantes~: $c \mapsto j$, $d \mapsto j$ et
 	      $e4 \mapsto e8$.
-	\item La
+	\item[Morphisme injectif] La
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-injectif}
 	      illustre un morphisme injectif de $G$ vers $G'$ tel
-	\item Dans la
+	\item[Isomorphisme] Dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
 	      les applications sont des identités à renommage près des arcs et des
 	      nœuds.
-	\item dans la
+	\item[Morphisme inclusif] dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
 	      les applications sont des identités sans renommage.
 \end{description}
@@ -182,12 +187,21 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 
 \begin{definition}[Sous-graphe]
 	\label{def:sous-graphe}
-	Soient $G=(V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux graphes, $\omega$ un mot sur $l_{E}$ et $v \in V$. %
+	Soient deux graphes $G=(V,E,s,t,l_{V},l_{E})$ et
+	$G'=(V',E',s',t',l'_{V},l'_{E})$, $\omega$ un mot sur $l_{E}$
+	et $v \in V$. %
 
 	\noindent$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G \subset G'$.
 	On note $G\orbit{\omega}(v)$ le sous-graphe qui contient le nœud $v$, tous les nœuds atteignables par des arcs étiquetés par des lettres de $\omega$ et ces arcs eux-mêmes. %
 
 \end{definition}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=.6\textwidth]{sous-graphe-etiquete}
+	\caption{Sous-graphe généré à partir d'un nœud et d'un ensemble d'étiquettes}
+	\label{fig:etat-art-modelisation-base-regles-sous-graphe-genere}
+\end{figure}
 
 \todo{Définir sous-graphe généré par un nœud et un ensemble d'étiquettes}
 
@@ -236,6 +250,7 @@ catégories~\cite{ehrig2006fundamentals}. %
 Dans ce manuscrit, nous en donnons une définition ensembliste équivalente.
 
 \begin{definition}[Application d'une règle de transformation de graphe]
+	\label{def:application-regle-transformation-graphe}
 	Soient $r: L \longrightarrow R$ une règle d'interface $K$ et
 	$m : L \rightarrow G$ un morphisme injectif appelé morphisme de filtrage. %
 
@@ -473,7 +488,7 @@ Jerboa \cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological} 
 
 % Les règles de transformation de G-cartes sont les règles instanciées de Jerboa.
 
-Les règles de transformation de graphe (\todo{mettre ref definition}) permettent de construire des objets représentés par des G-cartes.
+Les règles de transformation de graphe (définition~\ref{def:application-regle-transformation-graphe}) permettent de construire des objets représentés par des G-cartes.
 
 Des conditions syntaxiques sur les règles définies dans
 \cite{poudr2009,pascual2022topological} permettent de garantir la préservation
@@ -911,8 +926,8 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 	\highlight{ou : les règles Jerboa sur l'orbite vide $\orbit{}$ expriment explicitement des règles instanciées}
 \end{remarque}
 
-% \subsubsection[Scripts de règles]{Scripts de règles}
-% \label{sec:etat-art-model-regles-jerboa-scripts}
+\subsubsection[Scripts de règles]{Scripts de règles}
+\label{sec:etat-art-model-regles-jerboa-scripts}
 
 
 

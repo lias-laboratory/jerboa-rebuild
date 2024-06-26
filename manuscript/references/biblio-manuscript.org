@@ -171,17 +171,16 @@
 |    | <80>                                                                                                                               |           |     |       | <10>                   |
 |----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------------------------|
 |  1 | Using Rule Based Selection to Support Change in Parametric CAD Models                                                              | Marques   |     |  2006 | rule-based change CAD  |
-|  2 | Collaborative intelligent CAD framework incorporating design history tracking algorithm                                            | H.Lee     |     |  2010 | reevaluation (collab)  |
-|  3 | A New mechanism of naming topological entities for semantic feature operations                                                     | Gao X.-Y. |     |  2012 | reevaluation (naming)  |
-|  4 | Meta operation conflict resolution for human–human interaction in collaborative feature-based CAD systems                          | Cheng     |     |  2016 | reevaluation           |
-|  5 | Name and maintain topological faces in rotating and scanning features                                                              | Gao X.-Y. |     |  2016 | reevaluation (naming)  |
-|  6 | The Parametric Casting Process Modeling Method-based on the Topological Entities Naming                                            | Liu       |     |  2018 | reevaluation (naming)  |
-|  7 | Machining feature recognition based on deep neural networks to support tight integration with 3D CAD systems                       | Yeo       |     |  2021 | STEP (dnn recognition) |
-|  8 | 3D convolutional neural network for machining feature recognition with gradient-based visual explanations from 3D CAD models       | J.Lee     |     |  2022 | reevaluation (cnn)     |
-|  9 | Digital Form Generation of Heritages in Historical District-based on Plan Typology and Shape Grammar: Case Study on Kulangsu Islet | Zhang     |     |  2022 | heritage (grammar)     |
-| 10 | Propagating Design Updates to Structured Analysis Meshes                                                                           | Lecallard |     |  2022 | reevaluation (naming)  |
-| 11 | A Generic Parametric Modeling Engine Targeted Towards Multipisciplinary Design : Goals and Concepts                                | Kleinert  |     |  2023 | reevaluation           |
-| 12 | B rep Matching for Collaborating Across CAD Systems                                                                                | Jones     |     |  2023 | reevaluation (gnn)     |
+|  2 | A New mechanism of naming topological entities for semantic feature operations                                                     | Gao X.-Y. |     |  2012 | reevaluation (naming)  |
+|  3 | Meta operation conflict resolution for human–human interaction in collaborative feature-based CAD systems                          | Cheng     |     |  2016 | reevaluation           |
+|  4 | Name and maintain topological faces in rotating and scanning features                                                              | Gao X.-Y. |     |  2016 | reevaluation (naming)  |
+|  5 | The Parametric Casting Process Modeling Method-based on the Topological Entities Naming                                            | Liu       |     |  2018 | reevaluation (naming)  |
+|  6 | Machining feature recognition based on deep neural networks to support tight integration with 3D CAD systems                       | Yeo       |     |  2021 | STEP (dnn recognition) |
+|  7 | 3D convolutional neural network for machining feature recognition with gradient-based visual explanations from 3D CAD models       | J.Lee     |     |  2022 | reevaluation (cnn)     |
+|  8 | Digital Form Generation of Heritages in Historical District-based on Plan Typology and Shape Grammar: Case Study on Kulangsu Islet | Zhang     |     |  2022 | heritage (grammar)     |
+|  9 | Propagating Design Updates to Structured Analysis Meshes                                                                           | Lecallard |     |  2022 | reevaluation (naming)  |
+| 10 | A Generic Parametric Modeling Engine Targeted Towards Multipisciplinary Design : Goals and Concepts                                | Kleinert  |     |  2023 | reevaluation           |
+| 11 | B rep Matching for Collaborating Across CAD Systems                                                                                | Jones     |     |  2023 | reevaluation (gnn)     |
 |----+------------------------------------------------------------------------------------------------------------------------------------+-----------+-----+-------+------------------------|
 #+TBLFM: $1=(@#-2)
 
@@ -189,20 +188,21 @@
 
 #+TBLNAME: biblio
 #+STARTUP: shrink
-|----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+---|
-|    | titre                                                                                                          | authors        | URL | année |   |
-|----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+---|
-|  1 | Tracking topological changes in parametric models                                                              | Van der Meiden |     |  2010 |   |
-|  2 | Subdividing triangular and quadrilateral meshes in parallel to approximate curved geometries                   | Gargallo Peiro |     |  2017 |   |
-|  3 | AlSub: fully parallel and modular subdivision                                                                  | Mlakar         |     |  2018 |   |
-|  4 | Push Pull Direct Modeling of Solid CAD Models                                                                  | Qiang Zou      |     |  2019 |   |
-|  5 | Assembly Solving for Neutral Re Imported Product Models                                                        | Jauhar         |     |  2020 |   |
-|  6 | Transparent Parallelization of Enrichment Operations in Geometric Modeling                                     | Bourquat       |     |  2020 |   |
-|  7 | Cooperative versus non cooperative parallel variable neighborhood search strategies                            | kalatzanonakis |     |  2020 |   |
-|  8 | Reconstructing editable prismatic CAD from rounded voxel models                                                | Lambourne      |     |  2022 |   |
-|  9 | ComplexGen: CAD reconstruction by B rep chain complex generation                                               | H. Guo         |     |  2022 |   |
-| 10 | Towards computing complete parameter ranges in parametric modeling                                             | Tang           |     |  2022 |   |
-| 11 | A robust direct modeling method for quadric B rep models-based on geometry topology inconsistency tracking     | Qiang Zou      |     |  2022 |   |
-| 12 | Variational Direct Modeling: A framework towards integration of parametric modeling and direct modeling in CAD | Qiang Zou      |     |  2023 |   |
-|----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+---|
-# #+TBLFM: $1=(@#-1)
+|----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+-------------------|
+|    | titre                                                                                                          | authors        | URL | année | notes             |
+|----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+-------------------|
+|  1 | Collaborative intelligent CAD framework incorporating design history tracking algorithm                        | H.Lee          |     |  2010 | history tracking  |
+|  2 | Tracking topological changes in parametric models                                                              | Van der Meiden |     |  2010 | variational param |
+|  3 | Subdividing triangular and quadrilateral meshes in parallel to approximate curved geometries                   | Gargallo Peiro |     |  2017 |                   |
+|  4 | AlSub: fully parallel and modular subdivision                                                                  | Mlakar         |     |  2018 |                   |
+|  5 | Push Pull Direct Modeling of Solid CAD Models                                                                  | Qiang Zou      |     |  2019 |                   |
+|  6 | Assembly Solving for Neutral Re Imported Product Models                                                        | Jauhar         |     |  2020 |                   |
+|  7 | Transparent Parallelization of Enrichment Operations in Geometric Modeling                                     | Bourquat       |     |  2020 |                   |
+|  8 | Cooperative versus non cooperative parallel variable neighborhood search strategies                            | kalatzanonakis |     |  2020 |                   |
+|  9 | Reconstructing editable prismatic CAD from rounded voxel models                                                | Lambourne      |     |  2022 |                   |
+| 10 | ComplexGen: CAD reconstruction by B rep chain complex generation                                               | H. Guo         |     |  2022 |                   |
+| 11 | Towards computing complete parameter ranges in parametric modeling                                             | Tang           |     |  2022 |                   |
+| 12 | A robust direct modeling method for quadric B rep models-based on geometry topology inconsistency tracking     | Qiang Zou      |     |  2022 |                   |
+| 13 | Variational Direct Modeling: A framework towards integration of parametric modeling and direct modeling in CAD | Qiang Zou      |     |  2023 |                   |
+|----+----------------------------------------------------------------------------------------------------------------+----------------+-----+-------+-------------------|
+#+TBLFM: $1=(@#-1)

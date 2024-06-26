@@ -14,43 +14,41 @@ Cette section est dédiée aux concepts et définitions nécessaires à la
 compréhension des systèmes de réévaluation de leurs mécanismes, notamment celui
 du nommage persistent d'entités topologiques.
 
-Dans un premier temps~: concepts, définitions et propriétés ()
+Dans un premier temps~: concepts, définitions et propriétés. %
 Puis~: modélisation paramétrique (famille fonctionnelle)
 
 \subsection{Concepts, définitions et propriétés}
 \label{sec:etat-art-reevaluation-concepts}
 
+Chapeautage de la modélisation paramétrique. %
+En CAO, il existe de nombreuses familles de modélisation. %
+En modélisation paramétrique, il existe deux grandes approches, celle dite «~variationnelle~» et celle dite «~fonctionnelle~».
+
+\subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
+\label{sec:etat-art-reevaluation-concepts-model-param}
+
 \begin{itemize}
-	\item Modèles paramétriques (fonctionnel)
-	      \begin{itemize}
-		      \item modèles fonctionnels
-		      \item représentation des objets
-		      \item spécification paramétrique
-	      \end{itemize}
-	\item réévaluation et problématique
-	      \begin{itemize}
-		      \item identification des entités topologiques
-		      \item modification de la spécification et problème d'appariement
-	      \end{itemize}
-	\item nommage persistant d'entité topologique
-	\item identification persistante d'entités lors d'une réévaluation
+	\item Représentation des objets (couche explicite),
+	\item spécification paramétrique (couche implicite).
 \end{itemize}
 
+Transition vers la réévaluation de spécification pour la (re-)génération de modèles à partir d'un processus de conception pré-existant. %
 
-% \subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
-% \label{sec:etat-art-reevaluation-model-param}
+\subsubsection[Nommage persistant d'entités topologiques]{Nommage persistant
+	d'entités topologiques}
+\label{sec:etat-art-reevaluation--concepts-identification}
 
+\begin{itemize}
+	\item (problématique) Modification et réévaluation de spécification paramétrique
+	\item (solution) Nommage persistant d'entités pour la réévaluation
+	\item (autres) D'autres problématiques comme le transfert s'appuie sur un nommage des entités mais ne rencontre pas les mêmes contraintes de robustesses
+\end{itemize}
 
-% \subsubsection[Nomination persistante : définitions et propriétés]{Nomination persistante : définitions et propriétés}
-% \label{sec:etat-art-reevaluation-model-param-nom-persistant-def-props}
-
-% \begin{definition}[Nommage persistant]
-%   Nommer une entité topologique est le fait d'attribuer un identifiant unique à
-%   une entité topologique dans un modèle évalué. %
-%   Le nommage persistant est la propriété qui garantie le nommage permet
-%   l'appariement de l'entité avec son équivalent, respectant les mêmes
-%   contraintes, lors de la réévaluation. %
-% \end{definition}
+% Nommer une entité topologique est le fait d'attribuer un identifiant unique à
+% une entité topologique dans un modèle évalué. %
+% Le nommage persistant est la propriété qui garantie le nommage permet
+% l'appariement de l'entité avec son équivalent, respectant les mêmes
+% contraintes, lors de la réévaluation. %
 
 \subsection{Classification des méthodes de nommage persistant}
 \label{sec:etat-art-reevaluation-approches-nommages}

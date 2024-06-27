@@ -27,10 +27,18 @@ En modélisation paramétrique, il existe deux grandes approches, celle dite «~
 \subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
 \label{sec:etat-art-reevaluation-concepts-model-param}
 
-\begin{itemize}
-	\item Représentation des objets (couche explicite),
-	\item spécification paramétrique (couche implicite).
-\end{itemize}
+%% Démarrer avec les approches de modélisation paramétrique, ne retenir que l'approche fonctionnelle.
+
+%% Paragraphe : système de modélisation à deux couches
+Un système de modélisation paramétrique est un système à deux couches. %
+%% Couche explicite, ou représentation géométrique d'un modèle CAO.
+La première couche, dite explicite, est la représentation réelle, autrement dit,
+géométrique de l'objet conçu. %
+%% Cocuhe implicite, ou spécification paramétrique pour représenter un modèle CAO par ses opérations et leurs paramétriques géométriques et topologiques.
+La deuxième couche, dite implicite, est un processus de conception aussi appelé
+spécification paramétrique, c'est-à-dire un enregistrement de l'ensemble des
+opérations et leurs paramètres appliquées lors de la conception d'un modèle
+CAO. %
 
 (Transition vers la réévaluation de spécification pour la (re-)génération de
 modèles à partir d'un processus de conception pré-existant) %
@@ -39,17 +47,24 @@ modèles à partir d'un processus de conception pré-existant) %
 	d'entités topologiques}
 \label{sec:etat-art-reevaluation--concepts-identification}
 
-\begin{itemize}
-	\item (problématique) Modification et réévaluation de spécification paramétrique
-	\item (solution) Nommage persistant d'entités pour la réévaluation
-	\item (autres) D'autres problématiques comme le transfert s'appuie sur un nommage des entités mais ne rencontre pas les mêmes contraintes de robustesses
-\end{itemize}
+%% autres problématiques comme le transfert qui s'appuie sur un nommage des entités
+%% mais ne rencontre pas les mêmes contraintes de robustesses
+Nommer une entité topologique est le fait d'attribuer un identifiant unique à
+une entité topologique dans un modèle évalué. %
+Cette approche est particulièrement utilisée dans les différents standards
+établis pour l'échange de modèle entre les systèmes CAO.
 
-% Nommer une entité topologique est le fait d'attribuer un identifiant unique à
-% une entité topologique dans un modèle évalué. %
-% Le nommage persistant est la propriété qui garantie le nommage permet
-% l'appariement de l'entité avec son équivalent, respectant les mêmes
-% contraintes, lors de la réévaluation. %
+%% problématique : Réévaluation de spécification paramétrique
+Seulement, dans le cadre de la réévaluation, le nommage n'est pas suffisamment
+robuste, car sensible au changement de la topologie, lorsque l'on modifie les
+paramètres des opérations, voire lors de l'ajout, la suppression et le
+déplacement d'opération dans une spécification paramétrique. %
+
+%% solution :  Nommage persistant d'entités pour la réévaluation
+Le nommage persistant est une propriété qui garantie un nommage permettant
+l'appariement de toute entité une ou plusieurs entités équivalentes,
+c'est-à-dire qui respectent les mêmes contraintes, schémas et intentions de
+construction, lors de la réévaluation. %
 
 \subsection{Classification des méthodes de nommage persistant}
 \label{sec:etat-art-reevaluation-approches-nommages}

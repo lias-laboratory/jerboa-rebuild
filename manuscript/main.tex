@@ -11,7 +11,8 @@
 \usepackage{lipsum}
 \usepackage{enumitem}
 \usepackage{multicol}
-\usepackage{framed}
+\usepackage{mdframed}
+\usepackage{titlesec}
 \usepackage[switch*,pagewise,mathlines]{lineno}
 \usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
 \addbibresource{references/references.bib}
@@ -20,9 +21,9 @@
 
 \usepackage{amssymb}
 \usepackage{ntheorem}
-\usepackage{thmtools}
 
-\usepackage{savefnmark}
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
 
 \def\gResourcesPath{../resources-figures-jerboa}
 \graphicspath{{../logos/}%

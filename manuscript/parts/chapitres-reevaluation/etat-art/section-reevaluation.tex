@@ -10,6 +10,13 @@ modélisation (STEP,…) et (plus longuement) les besoins de générations de mo
 par réévaluation. (Motiver rapidement avec) les coûts (en temps humain, entre
 autres) de changements dans les designs.
 
+Systèmes de modélisation de solides~:
+\begin{itemize}
+	\item Modélisation paramétrique,
+	\item Modélisation directe, ou explicite, de la géométrie,
+	\item Modélisation par assemblage
+\end{itemize}
+
 Cette section est dédiée aux concepts et définitions nécessaires à la
 compréhension des systèmes de réévaluation de leurs mécanismes, notamment celui
 du nommage persistent d'entités topologiques.
@@ -20,21 +27,26 @@ Puis~: modélisation paramétrique (famille fonctionnelle)
 \subsection{Concepts, définitions et propriétés}
 \label{sec:etat-art-reevaluation-concepts}
 
-(Chapeautage) %
-En CAO, il existe de nombreuses familles de modélisation. %
-En modélisation paramétrique, il existe deux grandes approches, celle dite «~variationnelle~» et celle dite «~fonctionnelle~».
+La génération de variantes à partir d'un modèle pré-existant, ou réévaluation,
+repose sur un certains nombre de notions. %
+Dans cette section, nous commençons par décrire les systèmes paramétriques,
+grâce auxquels il est possible de réévaluer des modèles puis présentons une
+solution, largement présentée dans la littérature, qui est l'identification
+persistante des entités topologiques. %
 
 \subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
 \label{sec:etat-art-reevaluation-concepts-model-param}
 
-%% Démarrer avec les approches de modélisation paramétrique, ne retenir que l'approche fonctionnelle.
-
 %% Paragraphe : système de modélisation à deux couches
-Un système de modélisation paramétrique est un système à deux couches. %
+Un système de modélisation paramétrique est un système comprenant deux couches: %
 %% Couche explicite, ou représentation géométrique d'un modèle CAO.
-La première couche, dite explicite, est la représentation réelle, autrement dit,
-géométrique de l'objet conçu. %
-%% Cocuhe implicite, ou spécification paramétrique pour représenter un modèle CAO par ses opérations et leurs paramétriques géométriques et topologiques.
+\begin{itemize}
+	\item une \emph{couche géométrique}, pour la représentation explicite d'un
+	      solide, et
+	\item une \emph{spécification paramétrique} pour la représentation implicite.
+\end{itemize}
+%% Couche implicite, ou spécification paramétrique pour représenter un modèle
+%% CAO par ses opérations et leurs paramétriques géométriques et topologiques.
 La deuxième couche, dite implicite, est un processus de conception aussi appelé
 spécification paramétrique, c'est-à-dire un enregistrement de l'ensemble des
 opérations et leurs paramètres appliquées lors de la conception d'un modèle
@@ -69,15 +81,36 @@ construction, lors de la réévaluation. %
 \subsection{Classification des méthodes de nommage persistant}
 \label{sec:etat-art-reevaluation-approches-nommages}
 
-\begin{itemize}
-	\item Propriétés communes dans les systèmes de nommages
-	      \begin{itemize}
-		      \item Entités invariantes et contingentes
-		      \item Entités avec et sans source
-		      \item entités issues d'extrusion ou de révolution
-	      \end{itemize}
-	\item propriétés distinctes dans les systèmes de nommages
-\end{itemize}
+\subsubsection[Propriétés communes pour le nommage]{Propriétés communes pour le nommage}
+\label{sec:etat-art-reevaluation-classification-props}
+
+\paragraph{Entités invariantes et contingentes}
+
+(Une phrase dans ce style) Des définitions précises de ces concepts sont
+proposées par Agbodan et al. \cite{agbodan1999data}
+
+\begin{definition}[Entité invariante]\label{def:entite-invariante}%
+	Une entité invariante est une entité géométrique ou topologique qui peut être,
+	complètement et sans ambiguïté, caractérisée par la structure d'une opération
+	de modélisation et ses paramètres d'entrée, indépendamment des valeurs
+	impliquées. %
+\end{definition}
+
+\begin{definition}[Entité contingente]\label{def:entite-contingente}%
+	Une entité contingente est une entité topologique ou géométrique qui résulte
+	de l'interaction entre le modèle géométrique pré-existant et les entités
+	invariantes issues de la dernière opération de modélisation. %
+\end{definition}
+
+\paragraph{Entités avec et sans sources}
+
+\begin{definition}[Entité avec source]\label{def:entite-avec-source}%
+	Une entité avec source est une entité topologique résultant d'une autre entité
+	topologique de même dimension, et ayant une partie du plongement en commun
+	avec cette dernière, suite à l'application d'une opération de modélisation.
+\end{definition}
+
+\paragraph{Entités issues d'extrusion ou de révolution}
 
 D'après les travaux de Mehdi Baba-ali~:
 \begin{itemize}

@@ -57,7 +57,7 @@ manuscrit.
 \end{figure}
 
 \begin{definition}[Morphisme]
-	\label{def:etat-art-morphismes}
+	\label{def:morphismes-graphes}
 	Soient $G = (V,E,s,t,l_{V}, l_{E})$
 	et $G' = (V',E',s',$ $t',l_{V}', l_{E}')$ deux graphes étiquetés.
 	%et $m : G \to G'$ un morphisme.
@@ -153,7 +153,7 @@ chacun des morphismes présentés dans la définition~\ref{def:etat-art-morphism
 Les principales notions ensemblistes peuvent être étendues sur les graphes.
 
 \begin{definition}[Inclusion, union (disjointe), intersection, différence]
-	\label{def:graphe-notions-ensembles}
+	\label{def:graphe-notions-ensemblistes}
 	Soient $G = (V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux
 	graphes étiquetés. %
 
@@ -211,7 +211,7 @@ Intuitivement, un chemin est une suite d'arcs traversée, à la suite, lors d'un
 parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 
 \begin{definition}[Chemin et cycle]
-	\label{def:graphes-chemin}
+	\label{def:chemin-et-cycle}
 	Un \emph{chemin} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
 	une suite d'arcs tels que pour $1 \leq i < k$, $t(e_{i}) = s(e_{i+1})$.
 	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son
@@ -320,14 +320,14 @@ Les \emph{cartes généralisées} (ou «~G-cartes~»)
 de variétés géométriques (avec ou sans bord) basées sur des structures
 topologiques cellulaires de dimension quelconque.
 
-\begin{definition}[G-Carte]
+\begin{definition}[G-carte]\label{def:cartes-generalisees}%
 	\label{def:gcarte}
-    Un \emph{graphe topologique} de dimension $n \in \mathbb{N}$ est un graphe étiqueté
+	Un \emph{graphe topologique} de dimension $n \in \mathbb{N}$ est un graphe étiqueté
 	$G = (V,E,s,t,\alpha)$, où les nœuds sont appelés brins, les arcs sont appelés liaisons et $\alpha : E \to [0,n]$ est la fonction d'étiquetage des liaisons.
 
 	Une \emph{G-carte} est un graphe topologique
 	% $G = (V,E,s,t,\alpha)$, où les nœuds sont appelés brins et les arcs sont appelés liaisons et $\alpha : E \to [0,n]$ est la fonction d'étiquetage des liaisons,
- qui vérifie les contraintes suivantes~:
+	qui vérifie les contraintes suivantes~:
 	\begin{itemize}
 		\item \emph{non-orientation}~: pour tout arc $e \in E$, il existe un arc
 		      inverse $e' \in E$ tel que $s(e') = t(e)$, $t(e') = s(e)$ et
@@ -406,7 +406,7 @@ Par soucis de visibilité, nous masquons ces boucles dans les illustrations. %
 
 Les G-cartes représentent les cellules et plus généralement les orbites à l'aide de sous-graphes.
 
-\begin{definition}[Orbite]
+\begin{definition}[Orbite]\label{def:orbite}%
 	Soient $G$ une G-carte de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un mot de $[0, n]$ et $b$ un brin de $G$.
 
 	L'\emph{orbite} $G\orbit{\omega}(b)$ incidente à $b$ et de type $\orbit{\omega}$, ou
@@ -503,7 +503,7 @@ des G-cartes. %
 % Jerboa et son éditeur vérifient automatiquement que les règles éditées respectent ces conditions syntaxiques. %
 
 \begin{theoreme}[Préservation de la cohérence topologique]
-	\label{theo:topo-coherence-base-rule}
+	\label{thm:preservation-coherence-topo-gcarte}
 	Soit $r : L \longrightarrow R$ une règle de transformation de graphe topologique de dimension $n \in \mathbb{N}$. Si $r$
 	vérifie les propriétés syntaxiques suivantes, alors pour tout morphisme de
 	filtrage $m : L \to G$ d'une G-carte $G$, la transformation directe
@@ -560,7 +560,7 @@ Pour cela, les règles comportent un brin d'accroche par composante connexe de
 $L$.
 
 \begin{remarque}
-    \todo{écrire/rédiger : Un nœud d'accroche par composante connexe suffit pour définir le morphisme de manière unique grâce à la condition d'arcs incidents}
+	\todo{écrire/rédiger : Un nœud d'accroche par composante connexe suffit pour définir le morphisme de manière unique grâce à la condition d'arcs incidents}
 \end{remarque}
 
 \subsubsection[Règles Jerboa]{Règles Jerboa}
@@ -576,15 +576,15 @@ des motifs par des orbites, permet de concevoir des règles plus générales
 permettant, par exemple, de filtrer puis transformer des faces indépendamment de
 leur nombre d'arêtes. %
 
-\begin{definition}[Motif avec orbite]
+\begin{definition}[Motif avec orbite]\label{def:motif-avec-orbite}%
 	Un \emph{motif avec orbite} est un graphe topologique $M=(V,E,s,t,l,\alpha)$ de dimension $n \in \mathbb{N}$, où~:
- \begin{itemize}
-     \item $l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une
-	fonction d'étiquetage des nœuds par des mots sur les dimensions topologiques
-	et le symbole "$\_$", telle que toutes les étiquettes des nœuds du motif
-	soient des mots de la même longueur,
-    \item $\alpha : E \to [0,n]$ est une fonction d'étiquetage des arcs.
- \end{itemize}
+	\begin{itemize}
+		\item $l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une
+		      fonction d'étiquetage des nœuds par des mots sur les dimensions topologiques
+		      et le symbole "$\_$", telle que toutes les étiquettes des nœuds du motif
+		      soient des mots de la même longueur,
+		\item $\alpha : E \to [0,n]$ est une fonction d'étiquetage des arcs.
+	\end{itemize}
 \end{definition}
 
 \begin{figure}[ht]
@@ -596,13 +596,13 @@ leur nombre d'arêtes. %
 		}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m1}
 	\end{subfigure}
- 	\begin{subfigure}[t]{.15\textwidth}
+	\begin{subfigure}[t]{.15\textwidth}
 		\centering
 		\includegraphics[height=50pt]{suppression-dans-motif-n0.pdf}
 		\caption{Arête $M2$}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m2}
 	\end{subfigure}
- 	\begin{subfigure}[t]{.15\textwidth}
+	\begin{subfigure}[t]{.15\textwidth}
 		\centering
 		\includegraphics[height=50pt]{renommage-dans-motif-n2.pdf}
 		\caption{Sommet dual $M3$}
@@ -638,15 +638,15 @@ $\orbit{\omega_1 \omega_2 \dots \omega_k}$, vers une orbite $\orbit{\omega'_1 \o
 le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
 $\omega_k \mapsto \omega'_k$. %
 
-\begin{definition}[Renommage]
-    Soient $n \in \mathbb{N}$ une dimension topologique, $\omega$ et $\omega'$ deux mots sur $([0,n] \cup \{ \_ \})^*$.
+\begin{definition}[Renommage]\label{def:renommage-orbite}%
+	Soient $n \in \mathbb{N}$ une dimension topologique, $\omega$ et $\omega'$ deux mots sur $([0,n] \cup \{ \_ \})^*$.
 
-    $\orbit{\omega}$ est dite une \emph{orbite pleine} lorsque $\omega$ est un mot sur $[0,n]^*$, c'est-à-dire sans suppression.
+	$\orbit{\omega}$ est dite une \emph{orbite pleine} lorsque $\omega$ est un mot sur $[0,n]^*$, c'est-à-dire sans suppression.
 
-    Une \emph{fonction de renommage} $\orbit{\omega} \mapsto \orbit{\omega'}$, d'une orbite pleine
-    $\orbit{\omega_1 \omega_2 ... \omega_k}$, vers $\orbit{\omega'_1 \omega'_2 \dots \omega'_k}$ définit
-    le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
-    $\omega_k \mapsto \omega'_k$. %
+	Une \emph{fonction de renommage} $\orbit{\omega} \mapsto \orbit{\omega'}$, d'une orbite pleine
+	$\orbit{\omega_1 \omega_2 ... \omega_k}$, vers $\orbit{\omega'_1 \omega'_2 \dots \omega'_k}$ définit
+	le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
+	$\omega_k \mapsto \omega'_k$. %
 
 	Le \emph{renommage} $(\orbit{\omega} \mapsto \orbit{\omega'})(G\orbit{\omega}(v))$ d'une
 	$\orbit{\omega}$-orbite d'un graphe topologique $G=(V,E,s,t,\alpha)$ de dimension $n \in \mathbb{N}$ est le graphe
@@ -666,8 +666,8 @@ $\omega_k \mapsto \omega'_k$. %
 
 \todo{reprendre l'exemple précédent pour le dérouler avec la fonction de renommage}
 
-\begin{definition}[Instanciation d'un motif]
-    Soient $G$ un graphe topologique de dimension $n \in \mathbb{N}$, $v$ un brin de $G$ et $\orbit{\omega}$ un type d'orbite de dimension $n$.
+\begin{definition}[Instanciation d'un motif]\label{def:instanciation-motif}%
+	Soient $G$ un graphe topologique de dimension $n \in \mathbb{N}$, $v$ un brin de $G$ et $\orbit{\omega}$ un type d'orbite de dimension $n$.
 
 	L'instanciation d'un motif $M=(V,E,s,t,l,\alpha)$, dont toutes les étiquettes d'orbites ont la même longueur que $\orbit{\omega}$, par l'orbite $G\orbit{\omega}(v)=(V',E',s',t',\alpha')$ est définie par le graphe topologique $M(G\orbit{\omega}(v))=(V'',E'',s'',t'',\alpha'')$~:
 	\begin{itemize}
@@ -825,7 +825,7 @@ ceux-ci sont créés par le nœud d'instanciation $2$ dans
 
 Le processus est identique Figure~\ref{fig:before-after-tri-triangulation} pour le triangle Figure~\ref{fig:jerboa-tri-before-triangulation}.
 
-\begin{definition}[Règle transformation de graphe Jerboa]
+\begin{definition}[Règle transformation de graphe Jerboa]\label{def:regle-transfo-graphe-jerboa}%
 	Une \emph{règle} Jerboa  $r: L \longrightarrow R$  est définie par un couple  de motifs avec
 	orbites $L$ et $R$ dont toutes  les étiquettes d'orbites ont la même longueur,
 	tels    que   $\underline{L}    \cap    \underline{R}    \hookrightarrow   \underline{L}$    et
@@ -849,7 +849,7 @@ de filtrage entre le motif gauche instancié et l'objet, puis finalement
 d'appliquer la règle instanciée sur l'objet pour obtenir la transformation
 directe. %
 
-\begin{definition}[Orbite d'instanciation]
+\begin{definition}[Orbite d'instanciation]\label{def:orbite-instanciation}%
 	Soit $\underline{m} : \underline{L} \rightarrow G$ un morphisme de filtrage sur une
 	G-carte $G$, c'est-à-dire un morphisme injectif tel que les nœuds d'accroche
 	désignent des orbites isomorphes à renommage près. %
@@ -860,7 +860,7 @@ directe. %
 	c'est-à-dire que $(l(h) \mapsto l(h'))(O)$ est isomorphe à $O'$.
 \end{definition}
 
-\begin{definition}[Filtrage de l'orbite d'instanciation]
+\begin{definition}[Filtrage de l'orbite d'instanciation]\label{def:filtrage-orbite-instanciation}%
 	Le morphisme de filtrage $m : L(O) \rightarrow G$, s'il existe, est le morphisme qui
 	vérifie les propriétés suivantes, pour $L = (V, E, s, t, \alpha, l)$ et
 	$O = (V', E', s', t', \alpha')$~:
@@ -889,7 +889,7 @@ directe. %
 \agnes{Donner un exemple de morphisme sur la règle précédente + expliciter l'orbite d'instanciation}
 \agnes{Donner un exemple de règle avec 2 hook + montrer que les 2 hook donnent des orbites d'instanciation isomorphes}
 
-\begin{definition}[Instanciation d'une règle Jerboa]
+\begin{definition}[Instanciation d'une règle Jerboa]\label{def:instanciation-regle-jerboa}%
 	L'\emph{instanciation} de la règle $r: L \longrightarrow R$ le long d'un morphisme de
 	filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$,
 	$r(\underline{m})$ est définie par l'instanciation de ses motifs
@@ -927,36 +927,56 @@ Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H
 
 Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation de contraintes des G-cartes lors des transformations directes \cite{belle2012}.
 
-\begin{theoreme}[Préservation de la cohérence topologique~: Règles Jerboa]
+\begin{theoreme}[Préservation de la cohérence topologique~: Règles
+		Jerboa]\label{thm:preservation-coherence-topo-regles}%
 	Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$.
 
-	La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit une G-carte si les conditions de préservation de la cohérence suivantes sont vérifiées :
+	La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit une
+	G-carte si les conditions de préservation de la cohérence suivantes sont
+	vérifiées :
 	\begin{itemize}
 		\item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
 
-		\item pour toute dimension $i$, un nœud $v$ est source d'un arc implicite si l'étiquette d'orbite de $v$ comprend $i$~;
+		\item pour toute dimension $i$, un nœud $v$ est source d'un arc implicite si
+		      l'étiquette d'orbite de $v$ comprend $i$~;
 
-		      \emph{condition d'arcs incidents} : pour toute dimension $i \in [0, n]$, la condition d'arcs incidents est celle des règles de base en considérant simultanément les arcs implicites et explicites~:
+		      \emph{condition d'arcs incidents} : pour toute dimension $i \in [0, n]$, la
+		      condition d'arcs incidents est celle des règles de base en considérant
+		      simultanément les arcs implicites et explicites~:
 		      \begin{itemize}
-			      \item un nœud préservé de $L \cap R$ est  source d'un $i$-arc dans $L$ (implicite ou explicite) si et seulement s'il est  source d'un $i$-arc dans $R$ (implicite ou explicite)~;
-			      \item tout nœud supprimé de $L \setminus R$ et tout nœud ajouté de $R \setminus L$ est la source d'exactement un $i$-arc (implicite ou explicite) ;
+			      \item un nœud préservé de $L \cap R$ est source d'un $i$-arc dans $L$
+			            (implicite ou explicite) si et seulement s'il est source d'un $i$-arc dans $R$
+			            (implicite ou explicite)~;
+			      \item tout nœud supprimé de $L \setminus R$ et tout nœud ajouté de $R \setminus L$ est la
+			            source d'exactement un $i$-arc (implicite ou explicite) ;
 		      \end{itemize}
 
 		\item un nœud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
 		      \begin{itemize}
-			      \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son étiquette d'orbite ;
-			      \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son étiquette d'orbite et que ces dernières renomment un cycle de $L$, c'est-à-dire tel qu'il existe un nœud $v'$ de $L$ avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
-			      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non renommé, c'est-à-dire tel que $l(v) \mapsto l(v') (j) = j$ ;
-			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$ tel que les deux nœuds $v$ et $v'$ ont $i$ dans leurs étiquettes d'orbites non renommés ;
+			      \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son étiquette
+			            d'orbite ;
+			      \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son étiquette
+			            d'orbite et que ces dernières renomment un cycle de $L$, c'est-à-dire tel qu'il
+			            existe un nœud $v'$ de $L$ avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
+			            $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
+			      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel
+			            que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non
+			            renommé, c'est-à-dire tel que $l(v) \mapsto l(v') (j) = j$ ;
+			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$ tel que
+			            les deux nœuds $v$ et $v'$ ont $i$ dans leurs étiquettes d'orbites non renommés
+			            ;
 		      \end{itemize}
 
-		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel
-		      que $i+2 \geq j$, la condition de cycle est celle des règles de base en
-		      considérant les cycles ayant des arcs implicites ou explicites :
+		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que
+		      $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les
+		      cycles ayant des arcs implicites ou explicites :
 		      \begin{itemize}
 			      \item un nœud créé $v$ de $R \setminus L$ est la source d'un $ijij$-cycle ;
-			      \item si un nœud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;
-			      \item si un nœud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont préservés dans $R$.
+			      \item si un nœud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans
+			            $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;
+			      \item si un nœud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle
+			            dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont
+			            préservés dans $R$.
 		      \end{itemize}
 	\end{itemize}
 \end{theoreme}

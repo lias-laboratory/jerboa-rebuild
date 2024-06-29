@@ -51,7 +51,7 @@ manuscrit.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width=.15\textwidth]{graphe-etiquete}
+	\includegraphics[height=90pt]{graphe-etiquete}
 	\caption{Graphe dont les nœuds et arêtes sont étiquetés par des couleurs}
 	\label{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}
 \end{figure}
@@ -197,14 +197,24 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 \end{definition}
 
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width=.6\textwidth]{sous-graphe-etiquete}
-	\caption{Sous-graphe généré à partir d'un nœud et d'un ensemble d'étiquettes}
+	\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-etiquete}
+		\caption{Graphe $G$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[height=90pt]{sous-graphe-etiquete}
+		\caption{Sous-graphe $G'$ de $G$ }
+	\end{subfigure}
+	\caption{sous-graphe généré à partir du nœud $a$ et des étiquettes
+	{\bfseries\color{green}—} et {\bfseries\color{orange}—}'un nœud et d'un
+	ensemble d'étiquettes}
 	\label{fig:etat-art-modelisation-base-regles-sous-graphe-genere}
 \end{figure}
 
-\todo{faire en sous-figure $G$ et $G'$} %
-\todo{commenter la figure}
+\todo{commentaire/paragraphe exemple de figure}
 
 De même, nous pouvons définir la notion de chemin dans les graphes. %
 Intuitivement, un chemin est une suite d'arcs traversée, à la suite, lors d'un
@@ -222,7 +232,23 @@ parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 	\textit{i.e.} $s(e_{1}) = t(e_{k})$.
 \end{definition}
 
-\todo{illustrer}
+\begin{figure}[htb]
+	\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-etiquete}
+		\caption{Graphe $G$ avec deux chemins depuis $d$ vers $c$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-etiquete-cycle-v2}
+		\caption{Graphe $G'$ avec un cycle depuis $d$}
+	\end{subfigure}
+	\caption{Chemin et cycle dans un graphe}
+	\label{fig:etat-art-modelisation-base-regle-chemin-cycle}
+\end{figure}
+
+\todo{commentaire/paragraphe exemple de figure}
 
 Un morphisme $m$ entre deux graphes $G$ et $G'$, est une application
 définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
@@ -243,6 +269,25 @@ arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 	l'interface.
 \end{definition}
 
+\begin{figure}[htb]
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[height=50pt]{regle-transformation-graphe-long}
+		\caption{Règle avec interface $K$}
+	\end{subfigure}
+
+	~
+
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[height=50pt]{regle-transformation-graphe}
+		\caption{Règle abbrégée $r : L \longrightarrow R$}
+	\end{subfigure}
+	\caption{Règle de transformation de graphe}
+	\label{fig:etat-art-modelisation-base-regle-regle-transformation-graphe}
+\end{figure}
+
+\todo{commentaire/paragraphe exemple de figure}
 
 Le membre gauche filtre tout ou partie d'un graphe et le membre droit transforme
 l'élément filtré par le membre gauche. %
@@ -270,7 +315,7 @@ Dans ce manuscrit, nous en donnons une définition ensembliste équivalente.
 	morphisme de filtrage $m$. %
 \end{definition}
 
-\todo{ajouter l'exemple de la règle suivante}
+% \todo{ajouter l'exemple de la règle suivante}
 
 L'application d'une règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'un morphisme
 de filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un
@@ -681,7 +726,7 @@ $\omega_k \mapsto \omega'_k$. %
 	\end{itemize}
 \end{definition}
 
-\begin{figure}[H]
+\begin{figure}[p!]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering
@@ -762,7 +807,7 @@ $\{a_1 \dots h_1\}$ sont créés puis liés aux brins $\{a_2 \dots h_2\}$ lorsqu
 ceux-ci sont créés par le nœud d'instanciation $2$ dans
 \ref{fig:inst-quad-triangulation-5}. %
 
-\begin{figure}[H]
+\begin{figure}[p!]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering
@@ -919,11 +964,7 @@ Dans le membre droit, on retrouve l'instanciation du motif Figure~\ref{fig:inst-
 L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée $r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié $m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation désigné par le nœud d'accroche.
 Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ est la transformation directe $G \xlongrightarrow{r(\underline{m}), m} H$.
 
-~
-
 \agnes{Donner l'exemple de la transformation directe de l'objet de départ}
-
-~
 
 Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation de contraintes des G-cartes lors des transformations directes \cite{belle2012}.
 
@@ -931,40 +972,41 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 		Jerboa]\label{thm:preservation-coherence-topo-regles}%
 	Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$.
 
-	La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit une
-	G-carte si les conditions de préservation de la cohérence suivantes sont
+	La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit
+	une G-carte si les conditions de préservation de la cohérence suivantes sont
 	vérifiées :
 	\begin{itemize}
 		\item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
-
-		\item pour toute dimension $i$, un nœud $v$ est source d'un arc implicite si
-		      l'étiquette d'orbite de $v$ comprend $i$~;
-
-		      \emph{condition d'arcs incidents} : pour toute dimension $i \in [0, n]$, la
-		      condition d'arcs incidents est celle des règles de base en considérant
-		      simultanément les arcs implicites et explicites~:
+		\item pour toute dimension $i$, un nœud $v$ est source d'un arc implicite
+		      si l'étiquette d'orbite de $v$ comprend $i$~;
+		\item \emph{condition d'arcs incidents} : pour toute dimension
+		      $i \in [0, n]$, la condition d'arcs incidents est celle des règles de
+		      base en considérant simultanément les arcs implicites et
+		      explicites~:
 		      \begin{itemize}
-			      \item un nœud préservé de $L \cap R$ est source d'un $i$-arc dans $L$
-			            (implicite ou explicite) si et seulement s'il est source d'un $i$-arc dans $R$
-			            (implicite ou explicite)~;
-			      \item tout nœud supprimé de $L \setminus R$ et tout nœud ajouté de $R \setminus L$ est la
-			            source d'exactement un $i$-arc (implicite ou explicite) ;
+			      \item un nœud préservé de $L \cap R$ est source d'un $i$-arc dans
+			            $L$ (implicite ou explicite) si et seulement s'il est
+			            source d'un $i$-arc dans $R$ (implicite ou explicite)~;
+			      \item tout nœud supprimé de $L \setminus R$ et tout nœud ajouté de
+			            $R \setminus L$ est la source d'exactement un $i$-arc (implicite
+			            ou explicite) ;
 		      \end{itemize}
-
 		\item un nœud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
 		      \begin{itemize}
-			      \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son étiquette
-			            d'orbite ;
-			      \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son étiquette
-			            d'orbite et que ces dernières renomment un cycle de $L$, c'est-à-dire tel qu'il
-			            existe un nœud $v'$ de $L$ avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
+			      \item $v$ est un nœud de $L$ qui contient $i$ et $j$ dans son
+			            étiquette d'orbite ;
+			      \item $v$ est un nœud de $R$ qui contient $i$ et $j$ dans son
+			            étiquette d'orbite et que ces dernières renomment un cycle
+			            de $L$, c'est-à-dire tel qu'il existe un nœud $v'$ de $L$
+			            avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
 			            $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
-			      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou $R$) tel
-			            que les deux nœuds $v$ et $v'$ ont $j$ dans leurs étiquettes d'orbite non
-			            renommé, c'est-à-dire tel que $l(v) \mapsto l(v') (j) = j$ ;
-			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$ tel que
-			            les deux nœuds $v$ et $v'$ ont $i$ dans leurs étiquettes d'orbites non renommés
-			            ;
+			      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou
+			            $R$) tel que les deux nœuds $v$ et $v'$ ont $j$ dans leurs
+			            étiquettes d'orbite non renommé, c'est-à-dire tel que
+			            $l(v) \mapsto l(v') (j) = j$ ;
+			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$
+			            tel que les deux nœuds $v$ et $v'$ ont $i$ dans leurs
+			            étiquettes d'orbites non renommés ;
 		      \end{itemize}
 
 		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que

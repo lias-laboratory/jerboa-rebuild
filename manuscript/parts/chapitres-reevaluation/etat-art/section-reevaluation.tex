@@ -6,14 +6,14 @@ CAO. (Principalement) les systèmes de modélisation paramétriques, (Concentrer
 sur) la famille fonctionnelle, c'est-à-dire, avec spécification paramétrique.
 (Aborder) les initiatives pour l'identification de la topologie et leurs
 objectifs. Ça concerne entre autres, (rapidement) l'échange entre systèmes de
-modélisation (STEP,…) et (plus longuement) les besoins de générations de modèles
+modélisation (échange de modèles entre systèmes,…) et (plus longuement) les besoins de générations de modèles
 par réévaluation. (Motiver rapidement avec) les coûts (en temps humain, entre
 autres) de changements dans les designs.
 
 Systèmes de modélisation de solides~:
 \begin{itemize}
 	\item Modélisation paramétrique,
-	\item Modélisation directe, ou explicite, de la géométrie,
+	\item Modélisation géométrique directe (ou explicite),
 	\item Modélisation par assemblage
 \end{itemize}
 
@@ -27,8 +27,8 @@ Puis~: modélisation paramétrique (famille fonctionnelle)
 \subsection{Concepts, définitions et propriétés}
 \label{sec:etat-art-reevaluation-concepts}
 
-La génération de variantes à partir d'un modèle pré-existant, ou réévaluation,
-repose sur un certains nombre de notions. %
+La génération de variantes à partir d'un modèle pré-existant ou réévaluation,
+repose sur un certain nombre de notions. %
 Dans cette section, nous commençons par décrire les systèmes paramétriques,
 grâce auxquels il est possible de réévaluer des modèles puis présentons une
 solution, largement présentée dans la littérature, qui est l'identification
@@ -37,34 +37,56 @@ persistante des entités topologiques. %
 \subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
 \label{sec:etat-art-reevaluation-concepts-model-param}
 
+Les systèmes de modélisation paramétriques sont des outils dans lesquels il est
+possible d'associer des informations caractéristiques, des paramètres, aux
+entités topologiques (pour rappel, les sommets, arêtes, face,\dots) de l'objet
+qu'un utilisateur souhaite construire. %
+
 %% Paragraphe : système de modélisation à deux couches
-Un système de modélisation paramétrique est un système comprenant deux couches: %
-%% Couche explicite, ou représentation géométrique d'un modèle CAO.
+Les systèmes de modélisation paramétrique sont conçus comme des systèmes à deux
+couches~: %
 \begin{itemize}
 	\item une \emph{couche géométrique}, pour la représentation explicite d'un
-	      solide, et
+	      solide et
 	\item une \emph{spécification paramétrique} pour la représentation implicite.
 \end{itemize}
-%% Couche implicite, ou spécification paramétrique pour représenter un modèle
-%% CAO par ses opérations et leurs paramétriques géométriques et topologiques.
-La deuxième couche, dite implicite, est un processus de conception aussi appelé
-spécification paramétrique, c'est-à-dire un enregistrement de l'ensemble des
-opérations et leurs paramètres appliquées lors de la conception d'un modèle
-CAO. %
 
-(Transition vers la réévaluation de spécification pour la (re-)génération de
-modèles à partir d'un processus de conception pré-existant) %
+Il existe deux approches de la modélisation paramétriques, la première est
+l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
+Dans cette première approche, la spécification paramétrique est présentée comme
+un système de contraintes géométriques (angle, longueur, parallélisme, \dots)
+sur les entités topologiques d'un modèle. %
+
+\todo{ajouter illustrations et décrire rapidement + références pour que le lecteur ait tout de même des clés de compréhension ?}
+
+La deuxième approche, dite \emph{fonctionnelle} propose de représenter un modèle
+comme un ensemble de fonctions ordonnées, plus particulièrement des opérations de modélisation, paramétrées par des structures géométriques (vecteurs,\dots) et topologiques (entités topologiques). %
+
+\todo{élaborer et ajouter example}
 
 \subsubsection[Nommage persistant d'entités topologiques]{Nommage persistant
 	d'entités topologiques}
-\label{sec:etat-art-reevaluation--concepts-identification}
+\label{sec:etat-art-reevaluation-concepts-identification}
+
+Avec la modélisation paramétrique et la possibilité de modifier les paramètres
+contenus dans les spécifications paramétriques sont arrivés plusieurs
+problèmes. %
+Nous noterons, entre autre, l'historisation des changements géométriques et
+topologiques (échange de modèle entre différents systèmes, modélisation
+collaborative) et la réévaluation de spécifications paramétriques modifiées
+(génération de modèles variants, changements de design). %
+
+Pour répondre à ces problèmes, une solution a été proposée, c'est le nommage des
+entités topologiques d'un modèle.
+
+\todo{exemple + illustration + description RAPIDE}
 
 %% autres problématiques comme le transfert qui s'appuie sur un nommage des entités
 %% mais ne rencontre pas les mêmes contraintes de robustesses
 Nommer une entité topologique est le fait d'attribuer un identifiant unique à
-une entité topologique dans un modèle évalué. %
-Cette approche est particulièrement utilisée dans les différents standards
-établis pour l'échange de modèle entre les systèmes CAO.
+une entité topologique dans un modèle CAO. %
+
+\todo{Ici, justifier que nommer c'est pas suffisant $\to$ exemple + illustration + description}
 
 %% problématique : Réévaluation de spécification paramétrique
 Seulement, dans le cadre de la réévaluation, le nommage n'est pas suffisamment
@@ -72,22 +94,34 @@ robuste, car sensible au changement de la topologie, lorsque l'on modifie les
 paramètres des opérations, voire lors de l'ajout, la suppression et le
 déplacement d'opération dans une spécification paramétrique. %
 
+\todo{ajouter illustration et expliquer}
+
 %% solution :  Nommage persistant d'entités pour la réévaluation
 Le nommage persistant est une propriété qui garantie un nommage permettant
 l'appariement de toute entité une ou plusieurs entités équivalentes,
 c'est-à-dire qui respectent les mêmes contraintes, schémas et intentions de
 construction, lors de la réévaluation. %
 
+\todo{\cite{kripac1995mechanism,CAPOYLEAS199617,chen1995editability,wang2005geometry,wu2001face,farjana2016implementation},\dots}
+
 \subsection{Classification des méthodes de nommage persistant}
 \label{sec:etat-art-reevaluation-approches-nommages}
 
-\subsubsection[Propriétés communes pour le nommage]{Propriétés communes pour le nommage}
+\subsubsection[Propriétés pour le nommage persistant]{Propriétés pour le nommage
+	persistant}
 \label{sec:etat-art-reevaluation-classification-props}
+
+\highlight{J'ai vu que, dans leurs thèses, Anaïs Cardot et Mehdi Baba-ali
+	utilisent les mêmes définitions au mot près en citant \cite{agbodan1999data}
+	donc j'ai repris ces définitions. Je ne pense à pas réinventer les defs mais
+	je ne veux pas non plus tomber dans la catégorie plagiat, donc là, c'est au minimum pour avancer.}
+
+(Une phrase dans ce style) Des définitions précises de ces concepts sont
+proposées par Agbodan et al. \cite{agbodan1999data}. %
 
 \paragraph{Entités invariantes et contingentes}
 
-(Une phrase dans ce style) Des définitions précises de ces concepts sont
-proposées par Agbodan et al. \cite{agbodan1999data}
+\todo{exemple avec illustration + description}
 
 \begin{definition}[Entité invariante]\label{def:entite-invariante}%
 	Une entité invariante est une entité géométrique ou topologique qui peut être,
@@ -95,6 +129,8 @@ proposées par Agbodan et al. \cite{agbodan1999data}
 	de modélisation et ses paramètres d'entrée, indépendamment des valeurs
 	impliquées. %
 \end{definition}
+
+\todo{exemple avec illustration + description}
 
 \begin{definition}[Entité contingente]\label{def:entite-contingente}%
 	Une entité contingente est une entité topologique ou géométrique qui résulte
@@ -104,6 +140,8 @@ proposées par Agbodan et al. \cite{agbodan1999data}
 
 \paragraph{Entités avec et sans sources}
 
+\todo{exemple avec illustration + description (pour les deux)}
+
 \begin{definition}[Entité avec source]\label{def:entite-avec-source}%
 	Une entité avec source est une entité topologique résultant d'une autre entité
 	topologique de même dimension, et ayant une partie du plongement en commun
@@ -112,7 +150,12 @@ proposées par Agbodan et al. \cite{agbodan1999data}
 
 \paragraph{Entités issues d'extrusion ou de révolution}
 
-D'après les travaux de Mehdi Baba-ali~:
+\todo{exemples avec illustrations et descriptions}
+
+
+\subsubsection{Méthodes communes pour le nommage persistant}
+\label{sec:etat-art-reevaluation-classification-methodes-communes}
+
 \begin{itemize}
 	\item distinction des entités invariantes et contingentes
 	\item distinction des entités avec et sans sources
@@ -121,12 +164,17 @@ D'après les travaux de Mehdi Baba-ali~:
 	\item nomination hétérogène des entités
 \end{itemize}
 
+\subsubsection[Systèmes de nommage persistant]{Systèmes de nommage persistants}
+\label{sec:etat-art-reevaluation-classification-nommage}
+
+
 Présentation, par auteurs, des méthodes utilisées~:
 \begin{itemize}
 	\item Cascaval 2023
 	\item dai 2024
 	\item \dots
 \end{itemize}
+
 
 \subsection{Synthèse des méthodes (par auteurs)}
 \label{sec:etat-art-reevaluation-synthese}

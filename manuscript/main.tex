@@ -1,33 +1,39 @@
 \documentclass[x11names,framed]{LiasThesis}
 
+%% Pour causer français
 \usepackage[french]{babel}
 \usepackage[style=french]{csquotes}
-\usepackage{extarrows}
+
 \usepackage{subfiles}
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{soul}
-\usepackage{lipsum}
-\usepackage{enumitem}
-\usepackage{multicol}
-\usepackage{framed}
+
+%% Pour avoir encore plus niveau de section -> surtout redéfinir paragraph
 \usepackage{titlesec}
-\usepackage[switch*,pagewise,mathlines]{lineno}
-\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
-\addbibresource{references/references.bib}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{ntheorem}
-
-\usepackage{hyperref}
-\usepackage{cleveref}
-
-\frenchbsetup{FrenchFootnotes=false}
-\crefformat{footnote}{#2\footnotemark[#1]#3}
-
 \titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
+
+%% Des numéros de lignes partout (ou presque)
+\usepackage[switch*,pagewise,mathlines]{lineno}
+
+%% Pour la bibliographie
+\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
+\addbibresource{references/references.bib}
+%%
+
+%% Maths
+\usepackage{extarrows}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[amsmath,thmmarks]{ntheorem}
+%%
+
+%% jumping refs (and urls), must be called last
+\usepackage{hyperref}
+%%
+
+% \frenchbsetup{FrenchFootnotes=false}
+
 
 \def\gResourcesPath{../resources-figures-jerboa}
 \graphicspath{{../logos/}%

@@ -1,16 +1,16 @@
 \section[Modélisation à base de règles]{Modélisation à base de règles}
 \label{sec:etat-art-model-regles}
 
-La modélisation à base de règle est un concept proposant l'usage de règles pour
-la création et l'édition d'objets virtuelles à partir d'opérations conçues comme
-des règles. %Il peut s'agir d'une grammaire donc . %
-Pour générer et modifier ces modèles, les systèmes existants utilisent le plus
-souvent des opérations à base de code (ArcGIS's CGA) ou encore des grammaires
-(L-Systèmes \cite{bohl2015modeling,terraz20093gmap}). %
-Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
-opérations de modélisation à l'aide de ce que l'on appelle des règles de
-transformation de graphe. %
-%
+% La modélisation à base de règle est un concept proposant l'usage de règles pour
+% la création et l'édition d'objets virtuelles à partir d'opérations conçues comme
+% des règles. %Il peut s'agir d'une grammaire donc . %
+% Pour générer et modifier ces modèles, les systèmes existants utilisent le plus
+% souvent des opérations à base de code (ArcGIS's CGA) ou encore des grammaires
+% (L-Systèmes \cite{bohl2015modeling,terraz20093gmap}). %
+% Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
+% opérations de modélisation à l'aide de ce que l'on appelle des règles de
+% transformation de graphe. %
+% %
 Cette section commence avec des définitions liées aux graphes et à leurs
 transformations avant de présenter les outils utilisés dans le reste de ce
 manuscrit.
@@ -19,7 +19,8 @@ manuscrit.
 \label{sec:etat-art-model-regles-graphe-et-transfo}
 
 % Les structures topologiques peuvent être représentées par des graphes dont les
-% arcs établissent des relations d'adjacences entre les nœuds. %
+% arcs établissent des relations d'adjacences entre les nœuds.
+%
 % Ces structures peuvent être, par exemple, des cellules telles que les volumes,
 % faces, arêtes et sommets lorsque le modèle de représentation est en dimension
 % 3. %
@@ -75,21 +76,25 @@ noms d'usages et non des étiquettes. %
 	\noindent $m$ est~:
 	\begin{itemize}
 		\item \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont
-		      injectives\cref{fonction-injective},
+		      injectives\footnotemark,
 		\item un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des
-		      bijections\cref{fonction-bijective},
+		      bijections\footnotemark,
 		\item une \emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si
 		      $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
 	\end{itemize}
 \end{definition}
 
-\footnote{\label{fonction-injective}fonction injective footnote}
-
-\footnote{\label{fonction-bijective}fonction bijective footnote}
-
-% % \addtocounter{footnote}{-1} \footnotetext{Pour rappel, une fonction $f : A \to B$ est injective si et seulement si tout élément $b \in B$ à au plus un antécédant par $f$, c'est-à-dire $\forall a,a' \in A^{2}$, si $f(a) = f(a')$ alors $a = a'$} %
-% % %
-% \stepcounter{footnote} \footnotetext{Pour rappel, une fonction $f : A \to B$ est bijective si et seulement si tout élément de $b \in B$ à exactement un antécédant par $f$, c'est-à-dire $\forall b \in B$, $\exists!$ $a \in A$ tel que $f(a) = b$} %
+\addtocounter{footnote}{-1}%
+\footnotetext{Pour rappel, une fonction
+	$f : A \to B$ est injective si et seulement si tout élément $b \in B$ à au plus un
+	antécédant par $f$, c'est-à-dire $\forall a,a' \in A^{2}$, si $f(a) = f(a')$ alors
+	$a = a'$} %
+%
+\stepcounter{footnote}%
+\footnotetext{Pour rappel, une fonction $f : A \to B$ est
+	bijective si et seulement si tout élément de $b \in B$ à exactement un
+	antécédant par $f$, c'est-à-dire $\forall b \in B$, $\exists!$ $a \in A$ tel que $f(a) =
+		b$} %
 
 % \begin{definition}[Morphisme]
 % 	Soient $G = (V,E,s,t,\alpha)$
@@ -218,9 +223,9 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 		\includegraphics[height=90pt]{sous-graphe-etiquete}
 		\caption{Sous-graphe $G'$ de $G$ }
 	\end{subfigure}
-	\caption{sous-graphe généré à partir du nœud $a$ et des étiquettes
-	{\bfseries\color{green}—} et {\bfseries\color{orange}—}'un nœud et d'un
-	ensemble d'étiquettes}
+	\caption{Sous-graphe généré à partir d'un nœud étiqueté
+	{\large\bfseries\color[HTML]{ffdb00}\textcircled{~}} et d'ensemble d'arcs étiquetés
+	{\bfseries\color[HTML]{00c000}—} et {\bfseries\color[HTML]{ff8000}—}}
 	\label{fig:etat-art-modelisation-base-regles-sous-graphe-genere}
 \end{figure}
 
@@ -736,7 +741,7 @@ $\omega_k \mapsto \omega'_k$. %
 	\end{itemize}
 \end{definition}
 
-\begin{figure}[p!]
+\begin{figure}[htb]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering
@@ -817,7 +822,7 @@ $\{a_1 \dots h_1\}$ sont créés puis liés aux brins $\{a_2 \dots h_2\}$ lorsqu
 ceux-ci sont créés par le nœud d'instanciation $2$ dans
 \ref{fig:inst-quad-triangulation-5}. %
 
-\begin{figure}[p!]
+\begin{figure}[htb]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering

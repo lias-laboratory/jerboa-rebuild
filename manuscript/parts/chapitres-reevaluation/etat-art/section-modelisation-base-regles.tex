@@ -47,14 +47,19 @@ manuscrit.
 	$l_{E}(e)$ sont respectivement les étiquettes de $v$ et $e$.
 \end{definition}
 
-\todo{text}
-
 \begin{figure}[htb]
 	\centering
 	\includegraphics[height=90pt]{graphe-etiquete}
 	\caption{Graphe dont les nœuds et arêtes sont étiquetés par des couleurs}
 	\label{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}
 \end{figure}
+
+Une illustration de graphe étiqueté peut-être trouvé dans la
+Figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs} où les nœuds
+et arcs sont étiquetés par des couleurs. %
+Par exemple, le nœud $a$ est étiqueté par la couleur jaune et l'arête $e2$ est étiqueté par la couleur verte. %
+Notons que $a, b,\dots$ pour les nœuds et $e1,e2,\dots$ pour les arêtes sont des
+noms d'usages et non des étiquettes. %
 
 \begin{definition}[Morphisme]
 	\label{def:morphismes-graphes}
@@ -70,16 +75,21 @@ manuscrit.
 	\noindent $m$ est~:
 	\begin{itemize}
 		\item \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont
-		      injectives\footnotemark,
+		      injectives\cref{fonction-injective},
 		\item un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des
-		      bijections\footnotemark,
+		      bijections\cref{fonction-bijective},
 		\item une \emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si
 		      $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
 	\end{itemize}
 \end{definition}
 
-\addtocounter{footnote}{-1} \footnotetext{Pour rappel, une fonction $f : A \to B$ est injective si et seulement si tout élément $b \in B$ à au plus un antécédant par $f$, c'est-à-dire $\forall a,a' \in A^{2}$, si $f(a) = f(a')$ alors $a = a'$} %
-\stepcounter{footnote} \footnotetext{Pour rappel, une fonction $f : A \to B$ est bijective si et seulement si tout élément de $b \in B$ à exactement un antécédant par $f$, c'est-à-dire $\forall b \in B$, $\exists!$ $a \in A$ tel que $f(a) = b$} %
+\footnote{\label{fonction-injective}fonction injective footnote}
+
+\footnote{\label{fonction-bijective}fonction bijective footnote}
+
+% % \addtocounter{footnote}{-1} \footnotetext{Pour rappel, une fonction $f : A \to B$ est injective si et seulement si tout élément $b \in B$ à au plus un antécédant par $f$, c'est-à-dire $\forall a,a' \in A^{2}$, si $f(a) = f(a')$ alors $a = a'$} %
+% % %
+% \stepcounter{footnote} \footnotetext{Pour rappel, une fonction $f : A \to B$ est bijective si et seulement si tout élément de $b \in B$ à exactement un antécédant par $f$, c'est-à-dire $\forall b \in B$, $\exists!$ $a \in A$ tel que $f(a) = b$} %
 
 % \begin{definition}[Morphisme]
 % 	Soient $G = (V,E,s,t,\alpha)$
@@ -131,7 +141,7 @@ manuscrit.
 \end{figure}
 
 La Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes} illustre
-chacun des morphismes présentés dans la définition~\ref{def:etat-art-morphismes}~:
+chacun des morphismes présentés dans la définition~\ref{def:morphismes-graphes}~:
 \begin{description}
 	\item[Morphisme] La
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-normal}

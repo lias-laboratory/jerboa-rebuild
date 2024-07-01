@@ -6,21 +6,25 @@
 \usepackage{subfiles}
 \usepackage{subcaption}
 \usepackage{float}
-\usepackage{hyperref}
 \usepackage{soul}
 \usepackage{lipsum}
 \usepackage{enumitem}
 \usepackage{multicol}
-\usepackage{mdframed}
+\usepackage{framed}
 \usepackage{titlesec}
 \usepackage[switch*,pagewise,mathlines]{lineno}
 \usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
 \addbibresource{references/references.bib}
 
 \usepackage{amsmath}
-
 \usepackage{amssymb}
 \usepackage{ntheorem}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\frenchbsetup{FrenchFootnotes=false}
+\crefformat{footnote}{#2\footnotemark[#1]#3}
 
 \titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}

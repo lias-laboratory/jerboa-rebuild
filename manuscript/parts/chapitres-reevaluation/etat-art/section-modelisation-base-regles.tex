@@ -282,7 +282,7 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 	$G'=(V',E',s',t',l'_{V},l'_{E})$, $\omega$ un mot sur $l_{E}$
 	et $v \in V$. %
 
-	\noindent$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G \subset G'$.
+	$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G' \subset G$.
 	On note $G\orbit{\omega}(v)$ le sous-graphe qui contient le nœud $v$, tous les nœuds atteignables par des arcs étiquetés par des lettres de $\omega$ et ces arcs eux-mêmes. %
 
 \end{definition}
@@ -297,18 +297,25 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 	\begin{subfigure}[t]{.5\textwidth}
 		\centering
 		\includegraphics[height=90pt]{sous-graphe-etiquete}
-		\caption{Sous-graphe $G'$ de $G$ }
+		\caption{$G'$ }
+		\label{fig:etat-art-modelisation-base-regles-sous-graphe-genere}
 	\end{subfigure}
-	\caption{Sous-graphe généré à partir d'un nœud étiqueté
-	{\large\bfseries\color[HTML]{ffdb00}\textcircled{~}} et d'ensemble d'arcs étiquetés
-	{\bfseries\color[HTML]{00c000}—} et {\bfseries\color[HTML]{ff8000}—}}
-	\label{fig:etat-art-modelisation-base-regles-sous-graphe-genere}
+	\caption{Génération du sous-graphe
+		$G' = G\orbit{{\color[HTML]{00c000}-},{\color[HTML]{ff8000}-}}({\color[HTML]{ffdb00}\circ})$}
+	\label{fig:etat-art-modelisation-base-regles-sous-graphe}
 \end{figure}
 
+Dans la Figure~\ref{fig:etat-art-modelisation-base-regles-sous-graphe}, nous
+définissons $G'$ comme un sous-graphe de $G$ généré à partir d'un nœud, étiqueté
+{\large\color[HTML]{ffdb00}$\circ$}, qui s'étend le long d'un ensemble d'arcs
+étiquetés sur $\orbit{{\color[HTML]{00c000}-},{\color[HTML]{ff8000}-}}$. %
+Le sous-graphe illustré dans la
+Figure~\ref{fig:etat-art-modelisation-base-regles-sous-graphe-genere} est généré
+à partir d'un nœud $a$, les nœuds $b$ et $c$ sont atteint au travers des arcs
+$e2$ et $e3$ respectivement. %
+En fin de compte, $G'$ comporte les nœuds $a, b, c$ et les arcs $e2, e3$. %
 
-\todo{commentaire/paragraphe exemple de figure}
-
-De même, nous pouvons définir la notion de chemin dans les graphes. %
+Un dernier concept essentiel pour l'utilisation des graphes et celui du chemin. %
 Intuitivement, un chemin est une suite d'arcs traversée, à la suite, lors d'un
 parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 
@@ -329,22 +336,37 @@ parcours depuis un nœud $v_{i}$ jusqu'à un nœud $v_{k}$. %
 		\centering
 		\includegraphics[height=90pt]{graphe-etiquete}
 		\caption{Graphe $G$ avec deux chemins depuis $d$ vers $c$}
+		\label{fig:etat-art-modelisation-base-regle-chemin}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.5\textwidth}
 		\centering
 		\includegraphics[height=90pt]{graphe-etiquete-cycle-v2}
 		\caption{Graphe $G'$ avec un cycle depuis $d$}
+		\label{fig:etat-art-modelisation-base-regle-cycle}
 	\end{subfigure}
 	\caption{Chemin et cycle dans un graphe}
 	\label{fig:etat-art-modelisation-base-regle-chemin-cycle}
 \end{figure}
 
-\todo{commentaire/paragraphe exemple de figure}
+La Figure~\ref{fig:etat-art-modelisation-base-regle-chemin-cycle} illustre d'un
+part (Figure~\ref{fig:etat-art-modelisation-base-regle-chemin}) un graphe
+comportant deux chemins et d'autre part
+(Figure~\ref{fig:etat-art-modelisation-base-regle-cycle}) d'un graphe comportant
+un cycle. %
+En effet, le graphe Figure~\ref{fig:etat-art-modelisation-base-regle-chemin}
+présente deux chemin à partir du nœud $d$ jusqu'au nœud $c$. %
+Le premier traverse les nœuds $a$, $b$ et enfin $c$ au travers des arcs
+$e1,e2,e3$. %
+Le deuxième atteint le nœud $c$ au travers de l'arc $e4$. %
+Enfin, la Figure~\ref{fig:etat-art-modelisation-base-regle-chemin-cycle}
+présente un cas particulier de chemin, un cycle, puisqu'il est possible, partir
+du nœud $d$ de revenir à ce même nœud en traversant les arcs $e1,e2,e3,e4$. %
 
-Un morphisme $m$ entre deux graphes $G$ et $G'$, est une application
-définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
-arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
+
+% Un morphisme $m$ entre deux graphes $G$ et $G'$, est une application
+% définie respectivement sur les nœuds et les arcs de $G$ vers les nœuds et les
+% arcs de $G'$, qui préserve les sources, cibles et étiquettes des arcs. %
 
 
 

@@ -67,6 +67,7 @@ noms d'usages et non des étiquettes. %
 	Soient $G = (V,E,s,t,l_{V}, l_{E})$
 	et $G' = (V',E',s',$ $t',l_{V}', l_{E}')$ deux graphes étiquetés.
 	%et $m : G \to G'$ un morphisme.
+
 	Un \emph{morphisme} $m: G \to G'$ est un couple de fonctions
 	$m_{V} : V \to V'$, $m_{E} : E \to E'$ préservant les sources, les cibles et
 	les étiquettes de G dans G', c'est-à-dire pour tout arc $e \in E$,
@@ -194,9 +195,35 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 	\end{itemize}
 \end{definition}
 
-\todo{Préciser que : la différence produit un résultat qui n'est généralement pas un graphe (arcs pendants)}
-
 \todo{Ajouter des illustrations pour exemples}
+
+\begin{figure}[htb]
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-etiquete}
+		\caption{$G$}
+		\label{fig:etat-art-modelisation-base-regle-g-difference}
+	\end{subfigure}
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{sous-graphe-etiquete}
+		\caption{$G'$}
+		\label{fig:etat-art-modelisation-base-regle-gprime-difference}
+	\end{subfigure}
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-difference}
+		\caption{Différence $G \setminus G'$}
+		\label{fig:etat-art-modelisation-base-regle-res-difference}
+	\end{subfigure}
+	\caption{Ensembles sur les graphes}
+	\label{fig:etat-art-modelisation-base-regles-graphes-ensembles}
+\end{figure}
+
+Notons que la différence entre deux graphes peut produire une structure qui
+n'est pas un graphe. Par exemple, la structure illustrée dans la
+Figure~\ref{fig:etat-art-modelisation-base-regle-res-difference} présente deux
+arcs $e1$ et $e4$ dits pendants, c'est-à-dire des arcs qui n'ont pas de source et/ou de cible. %
 
 Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 
@@ -228,6 +255,7 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 	{\bfseries\color[HTML]{00c000}—} et {\bfseries\color[HTML]{ff8000}—}}
 	\label{fig:etat-art-modelisation-base-regles-sous-graphe-genere}
 \end{figure}
+
 
 \todo{commentaire/paragraphe exemple de figure}
 

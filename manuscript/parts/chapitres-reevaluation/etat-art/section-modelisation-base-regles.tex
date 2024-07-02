@@ -149,24 +149,28 @@ noms d'usages et non des étiquettes. %
 La Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes} illustre
 chacun des morphismes présentés dans la définition~\ref{def:morphismes-graphes}~:
 \begin{description}
-	\item[Morphisme] La
+	\item[Morphisme] Dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-normal}
-	      illustre deux morphismes $m_{v}$ et $m_{E}$ qui fusionnent les nœuds $c$
-	      et $d$ et produisent les applications suivantes~: $c \mapsto j$, $d \mapsto j$ et
+	      les fonctions $m_{v}$ et $m_{E}$ entraînent la fusion des nœuds $c$ et
+	      $d$ et produisent les applications suivantes~: $c \mapsto j$, $d \mapsto j$ et
 	      $e4 \mapsto e8$.
-	\item[Morphisme injectif] La
-	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-injectif}
-	      illustre un morphisme injectif de $G$ vers $G'$ tel
+	\item[Morphisme injectif] Dans la
+	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-injectif},
+	      tout arc (respectivement nœud) de $G'$ est associé à un arc
+	      (respectivement nœud) de $G$.
 	\item[Isomorphisme] Dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
-	      les applications sont des identités à renommage près des arcs et des
-	      nœuds.
+	      les arcs et nœuds de $G$ sont identiques à ceux de $G'$ au renommage
+	      près.
 	\item[Morphisme inclusif] dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-inc},
 	      les applications sont des identités sans renommage.
 \end{description}
 
-Les principales notions ensemblistes peuvent être étendues sur les graphes.
+À l'aide de la notion de morphisme, il est possible d'étendre les principales
+notions ensemblistes aux graphes. %
+Ces notions ensemblistes sont, entre autres, l'union, l'intersection ou encore
+la différence entre deux graphes. %
 
 \begin{definition}[Inclusion, union (disjointe), intersection, différence]
 	\label{def:graphe-notions-ensemblistes}
@@ -196,6 +200,51 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 \end{definition}
 
 \todo{Ajouter des illustrations pour exemples}
+\begin{figure}[htb]
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-etiquete}
+		\caption{$G$}
+		\label{fig:etat-art-modelisation-base-regle-g-union}
+	\end{subfigure}
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-gprime-union}
+		\caption{$G'$}
+		\label{fig:etat-art-modelisation-base-regle-gprime-union}
+	\end{subfigure}
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-union}
+		\caption{$G \cup G'$}
+		\label{fig:etat-art-modelisation-base-regle-res-union}
+	\end{subfigure}
+	\caption{Union de graphes}
+	\label{fig:etat-art-modelisation-base-regles-graphes-union}
+\end{figure}
+
+\begin{figure}[htb]
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-etiquete}
+		\caption{$G$}
+		\label{fig:etat-art-modelisation-base-regle-g-intersection}
+	\end{subfigure}
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-gprime-intersection}
+		\caption{$G'$}
+		\label{fig:etat-art-modelisation-base-regle-gprime-intersection}
+	\end{subfigure}
+	\begin{subfigure}[t]{.33\textwidth}
+		\centering
+		\includegraphics[height=90pt]{graphe-intersection}
+		\caption{$G \cap G'$}
+		\label{fig:etat-art-modelisation-base-regle-res-intersection}
+	\end{subfigure}
+	\caption{Intersection de graphes}
+	\label{fig:etat-art-modelisation-base-regles-graphes-intersection}
+\end{figure}
 
 \begin{figure}[htb]
 	\begin{subfigure}[t]{.33\textwidth}
@@ -213,10 +262,10 @@ Les principales notions ensemblistes peuvent être étendues sur les graphes.
 	\begin{subfigure}[t]{.33\textwidth}
 		\centering
 		\includegraphics[height=90pt]{graphe-difference}
-		\caption{Différence $G \setminus G'$}
+		\caption{$G \setminus G'$}
 		\label{fig:etat-art-modelisation-base-regle-res-difference}
 	\end{subfigure}
-	\caption{Ensembles sur les graphes}
+	\caption{Différence de graphes}
 	\label{fig:etat-art-modelisation-base-regles-graphes-ensembles}
 \end{figure}
 
@@ -377,7 +426,7 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 	$m(L)$), alors $v$ est filtré par l'interface (qui appartient à $m(K)$).
 \end{remarque}
 
-\begin{figure}[ht]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=\textwidth]{application-regle-v4-transfo-graphe}
 	\caption{Application d'une règle de transformation de graphe}
@@ -769,7 +818,7 @@ $\omega_k \mapsto \omega'_k$. %
 	\end{itemize}
 \end{definition}
 
-\begin{figure}[htb]
+\begin{figure}[!htbp]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering
@@ -850,7 +899,7 @@ $\{a_1 \dots h_1\}$ sont créés puis liés aux brins $\{a_2 \dots h_2\}$ lorsqu
 ceux-ci sont créés par le nœud d'instanciation $2$ dans
 \ref{fig:inst-quad-triangulation-5}. %
 
-\begin{figure}[htb]
+\begin{figure}[!htbp]
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering

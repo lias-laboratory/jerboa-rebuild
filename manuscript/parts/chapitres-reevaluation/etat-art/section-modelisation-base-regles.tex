@@ -736,14 +736,19 @@ $L$.
 \label{sec:etat-art-model-regles-regles-jerboa}
 
 
-Comme nous l'avons vu, les motifs des règles instanciées sont des parties des
-objets transformés. %
+La règle que nous avons vu plus tôt
+(Figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}) est dite
+instanciée, c'est-à-dire que ses membres représentent des parties des objets
+transformées.
+% Comme nous l'avons vu, les motifs des règles instanciées sont des parties des
+% objets transformés.
 Ainsi, les règles instanciées déterminent complètement la topologie des parties
 modifiées. %
 Le langage de règles Jerboa \cite{belhaouari2014jerboa}, avec la paramétrisation
 des motifs par des orbites, permet de concevoir des règles plus générales
 permettant, par exemple, de filtrer puis transformer des faces indépendamment de
 leur nombre d'arêtes. %
+\highlight{Réécrire ici, c'est la première mention du terme motif, il faut l'expliquer}
 
 \begin{definition}[Motif avec orbite]\label{def:motif-avec-orbite}%
 	Un \emph{motif avec orbite} est un graphe topologique $M=(V,E,s,t,l,\alpha)$ de dimension $n \in \mathbb{N}$, où~:
@@ -771,10 +776,10 @@ leur nombre d'arêtes. %
 		\caption{Arête $M2$}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m2}
 	\end{subfigure}
-	\begin{subfigure}[t]{.15\textwidth}
+	\begin{subfigure}[t]{.18\textwidth}
 		\centering
 		\includegraphics[height=50pt]{renommage-dans-motif-n2.pdf}
-		\caption{Sommet dual $M3$}
+		\caption{\centering Sommet dual $M3$}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m3}
 	\end{subfigure}
 	\begin{subfigure}[t]{.5\textwidth}
@@ -787,25 +792,61 @@ leur nombre d'arêtes. %
 	\label{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}
 \end{figure}
 
-\todo{Commenter la figure en donnant l'intuition du renommage d'étiquette}
+Pour bien saisir ce qu'est un motif avec orbite, nous allons travailler avec les
+motifs illustrés dans la
+Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}. %
+Tout d'abord, une orbite dans un motif est un mot d'étiquette
+$\orbit{\omega} = \orbit{\omega_{0}\omega_{1}\dots\omega_{k}}$, où $k$ est le nombre d'étiquette,
+tel que pour tout nœud $n$ dans un motif, $n$ a une orbite avec strictement $k$
+étiquettes. %
 
-% Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au
-% motif $M$ privé de ses étiquettes de nœuds. %
-Prenons le type d'orbite $\orbit{0,1,3}$ qui désigne l'orbite face,
-un exemple est donné dans la
-Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m1}. %
-De même, le mot $0\_3$ est noté $\orbit{0\_3}$ et désigne l'orbite face
-précédente dont tous les $1$-arcs sont supprimés, un exemple est donné avec le
-nœud $n_{0}$ dans la
-Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}. %
-Ces étiquettes désignent la modification des orbites par renommage et
-suppression des arcs. %
-Une étiquette construite sur $[0,n]$, c'est-à-dire sans suppression, est appelée
-\emph{orbite pleine}. %
-Une \emph{fonction de renommage} $\orbit{\omega} \mapsto \orbit{\omega'}$, d'une orbite pleine
-$\orbit{\omega_1 \omega_2 \dots \omega_k}$, vers une orbite $\orbit{\omega'_1 \omega'_2 ... \omega'_k}$ définit
-le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
-$\omega_k \mapsto \omega'_k$. %
+Commençons avec le motif $M1$
+(Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m1}). %
+Ce motif comporte un unique $n0$ désignant une face. %
+Ici, $n0$ est étiqueté par le mot d'étiquettes $\orbit{\omega} =
+	\orbit{0,1,3}$. %
+Le motif $M2$ (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m2}),
+toujours composée du nœud $n0$ à la différence que ce $n0$ est étiqueté par le
+mot $\orbit{\_,1,3}$ et désigne une face dans une G-carte dont les $1$-liaisons
+sont supprimées. %
+Passons maintenant au motif $M3$
+(Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m3}) composé du nœud
+$n2$ et étiqueté par le mot $\orbit{1,2,3}$ désignant un sommet. %
+Ce sommet est présenté comme un sommet dual. %
+Ainsi, on comprend que ce sommet est créé à partir de la face désignée par le
+nœud $n0$ ainsi, la structure représenté est un sous-graphe dont les brins sont
+connectés par des $1$ et $2$-liaisons au lieu de $0$ et $1$-liaisons
+respectivement. %
+% Dans ce cas, l'étiquette $\omega_{0} = 0$ devient $\omega_{0} = 1$, $\omega_{1}=1$ devient
+% $\omega_{1} = 2$ et $\omega_{3}$ est ré-écrit à l'identique.
+%
+Enfin, le motif $M4$
+(Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}) contient trois
+nœuds dont $n0$ et $n2$ que nous venons de voir. %
+Le nœud $n1$ est un nœud créé, dans la G-carte les $0$-liaisons sont supprimés
+et les $1$-liaisons sont remplacées par des $2$-liaisons. %
+Ce dernier motif représente, en fin de compte, une face triangulé à partir de la
+face désigné dans le motif $M1$. %
+
+% \todo{Commenter la figure en donnant l'intuition du renommage d'étiquette}
+
+% % Notons $\underline{M} = (V, E, s, t, \alpha)$ le graphe topologique correspondant au
+% % motif $M$ privé de ses étiquettes de nœuds. %
+% Prenons le type d'orbite $\orbit{0,1,3}$ qui désigne l'orbite face,
+% un exemple est donné dans la
+% Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m1}. %
+% De même, le mot $0\_3$ est noté $\orbit{0\_3}$ et désigne l'orbite face
+% précédente dont tous les $1$-arcs sont supprimés, un exemple est donné avec le
+% nœud $n_{0}$ dans la
+% Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}. %
+% Ces étiquettes désignent la modification des orbites par renommage et
+% suppression des arcs. %
+% Une étiquette construite sur $[0,n]$, c'est-à-dire sans suppression, est appelée
+% \emph{orbite pleine}. %
+% Une \emph{fonction de renommage} $\orbit{\omega} \mapsto \orbit{\omega'}$, d'une orbite pleine
+% $\orbit{\omega_1 \omega_2 \dots \omega_k}$, vers une orbite $\orbit{\omega'_1 \omega'_2 ... \omega'_k}$ définit
+% le renommage des étiquettes topologiques $\omega_1 \mapsto \omega'_1, \omega_2 \mapsto \omega'_2$ \ldots
+% $\omega_k \mapsto \omega'_k$. %
 
 \begin{definition}[Renommage]\label{def:renommage-orbite}%
 	Soient $n \in \mathbb{N}$ une dimension topologique, $\omega$ et $\omega'$ deux mots sur $([0,n] \cup \{ \_ \})^*$.
@@ -833,7 +874,18 @@ $\omega_k \mapsto \omega'_k$. %
 	\end{itemize}
 \end{definition}
 
-\todo{reprendre l'exemple précédent pour le dérouler avec la fonction de renommage}
+À l'aide des motifs de la
+Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}, nous
+allons voir comment s'applique la fonction de renommage. %
+Encore une fois, commençons avec le motif $M1$ dont l'orbite de $n0$ est le mot
+d'étiquette $\orbit{\omega} = \orbit{0,1,3}$ tel que
+$\omega_{0} = 0, \omega_{1} = 1, \omega_{2} = 3 $ sont les étiquettes de
+$\omega$. %
+Dans le motif $M2$, l'orbite de $n0$ est $\orbit{\omega'} = \orbit{1,2,3}$ où
+$\omega'_{0} = 1, \omega'_{1} = 2, \omega'_{2} = 3 $, c'est-à-dire que $\omega \mapsto \omega'$ où $\omega_{0} = 0$
+est renommé en $\omega'_{0} = 1$, $\omega_{1} = 1$ est renommé en $\omega'_{1} = 2$ et
+$\omega_{2} = 3 = \omega'_{2}$. %
+\todo{dérouler example de renommage d'orbite}
 
 \begin{definition}[Instanciation d'un motif]\label{def:instanciation-motif}%
 	Soient $G$ un graphe topologique de dimension $n \in \mathbb{N}$, $v$ un brin de $G$ et $\orbit{\omega}$ un type d'orbite de dimension $n$.

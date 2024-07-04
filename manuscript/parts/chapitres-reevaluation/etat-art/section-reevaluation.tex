@@ -22,7 +22,8 @@ compréhension des systèmes de réévaluation de leurs mécanismes, notamment c
 du nommage persistent d'entités topologiques.
 
 Dans un premier temps~: concepts, définitions et propriétés. %
-Puis~: modélisation paramétrique (famille fonctionnelle)
+Puis~: classification des méthodes de nommage persistant
+Enfin~: réévaluation à base de règles
 
 \subsection{Concepts, définitions et propriétés}
 \label{sec:etat-art-reevaluation-concepts}
@@ -38,38 +39,62 @@ persistante des entités topologiques. %
 \todo{citer des outils qui proposent déjà de procéder à la réévaluation de modèle
 	paramétrique, [revit, autocad, catia, siemensNX,…]}
 
-\subsubsection[Modélisation paramétrique]{Modélisation paramétrique}
+
+\subsubsection[Modélisation paramétrique]{\color{red}Modélisation paramétrique}
 \label{sec:etat-art-reevaluation-concepts-model-param}
 
-Les systèmes de modélisation paramétriques sont des outils dans lesquels il est
-possible d'associer des informations de caractéristiques, des paramètres, aux
-entités topologiques (pour rappel, les sommets, arêtes, face,\dots) des
-objets à construire. %
 
 %% Paragraphe : système de modélisation à deux couches
-Les systèmes de modélisation paramétrique sont conçus comme des systèmes à deux
-couches~: %
+Un systèmes de modélisation paramétrique est composé de deux couches. %
+La première couche, dite \emph{couche géométrique}, a pour objet la
+représentation explicite d'un modèle avec sa géométrie. %
+Le deuxième couche, appelée \emph{spécification paramétrique} ou plus simplement
+\emph{spécification}, contient l'ensemble des paramètres caractérisant un modèle. %
+Ce sont ces même paramètres qui peuvent être modifiés puis réévalué pour générer
+un modèle variant. %
+
+Il existe deux approches de la modélisation paramétriques où la couche de
+spécification paramétrique prend une forme différente. %
+La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
+La deuxième est l'approche \emph{fonctionnelle}. %
+
+Dans cette première approche, la spécification paramétrique est présentée comme
+un système de contraintes (parallélisme, tangence, angle, longueur) sur les
+entités topologiques d'un modèle. %
+Ainsi, lorsque l'on souhaite réévaluer la spécification paramétrique, c'est un
+système de contrainte qu'il est nécessaire de résoudre. %
+\todo{citer des solveurs}
+
+Dans la deuxième approche, la spécification paramétrique est un historique des
+fonctions, ici des opérations de modélisation, paramétrées et dont les
+applications successives permettent la représentation implicite d'un modèle. %
+Dans cette approche les paramètres sont, entre autres, des vecteurs et des entités toplogiques. %
+Ainsi, une opération créant, par exemple, un cylindre pourra prendre la forme suivante : \texttt{Cylindre(rayon, hauteur)} ou \texttt{rayon} et \texttt{hauteur} sont des paramètres géométrique. %
+Un autre exemple d'opération serait la création d'une gouttière sur une face qui
+pourrait s'écrire de la manière suivante : \texttt{gouttiere(rayon,
+	rayon, longueur)} où \texttt{rayon} est un paramètre topologique,
+c'est-dire une référence vers une entité topologique, et où rayon et longueur
+sont des paramètres géométriques. %
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=.7\textwidth]{persistent-naming-pb-1}
+	\caption{Évaluation d'un modèle}
+	\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel}
+\end{figure}
+
+En prenant ces opérations, nous pouvons construire l'objet en
+Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel} ce
+qui produit la spécification paramétrique suivante~:
+
 \begin{itemize}
-	\item une \emph{couche géométrique}, pour la représentation explicite d'un
-	      solide et
-	\item une \emph{spécification paramétrique} pour la représentation implicite.
+	\item \texttt{1-Cylindre(rayon, hauteur)}
+	\item \texttt{2-Gouttiere(f1,rayon,longueur)} où f1 désigne la face supérieur du cylindre
+	\item \texttt{3-Protrusion\_Cylindre(f2,rayon,hauteur)}
 \end{itemize}
 
-Il existe deux approches de la modélisation paramétriques, la première est
-l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
-Dans cette première approche, la spécification paramétrique est présentée comme
-un système de contraintes géométriques (angle, longueur, parallélisme, \dots)
-sur les entités topologiques d'un modèle. %
-
-\todo{ajouter illustrations et décrire rapidement + références pour que le lecteur ait tout de même des clés de compréhension ?}
-
-La deuxième approche, dite \emph{fonctionnelle} propose de représenter un modèle
-comme un ensemble de fonctions ordonnées, plus particulièrement des opérations de modélisation, paramétrées par des structures géométriques (vecteurs,\dots) et topologiques (entités topologiques). %
-
-\todo{élaborer et ajouter example}
-
-\subsubsection[Nommage persistant d'entités topologiques]{Nommage persistant
-	d'entités topologiques}
+\subsubsection[Problème du nommage persistant]{Problème
+	du nommage persistant}
 \label{sec:etat-art-reevaluation-concepts-identification}
 
 Avec la modélisation paramétrique et la possibilité de modifier les paramètres

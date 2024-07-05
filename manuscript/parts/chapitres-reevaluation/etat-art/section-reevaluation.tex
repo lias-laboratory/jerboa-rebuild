@@ -1,40 +1,78 @@
 \section[Modélisation paramétrique]{Modélisation paramétrique}
 \label{sec:etat-art-modelisation-parametrique}
 
-Paragraphe : (Rapidement sur) les systèmes de modélisation géométriques pour la
-CAO. (Principalement) les systèmes de modélisation paramétriques, (Concentrer
-sur) la famille fonctionnelle, c'est-à-dire, avec spécification paramétrique.
-(Aborder) les initiatives pour l'identification de la topologie et leurs
-objectifs. Ça concerne entre autres, (rapidement) l'échange entre systèmes de
-modélisation (échange de modèles entre systèmes,…) et (plus longuement) les besoins de générations de modèles
-par réévaluation. (Motiver rapidement avec) les coûts (en temps humain, entre
-autres) de changements dans les designs.
+% Paragraphe : (Rapidement sur) les systèmes de modélisation géométriques pour la
+% CAO. (Principalement) les systèmes de modélisation paramétriques, (Concentrer
+% sur) la famille fonctionnelle, c'est-à-dire, avec spécification paramétrique.
+% (Aborder) les initiatives pour l'identification de la topologie et leurs
+% objectifs. Ça concerne entre autres, (rapidement) l'échange entre systèmes de
+% modélisation (échange de modèles entre systèmes,…) et (plus longuement) les besoins de générations de modèles
+% par réévaluation. (Motiver rapidement avec) les coûts (en temps humain, entre
+% autres) de changements dans les designs.
 
-Systèmes de modélisation de solides~:
-\begin{itemize}
-	\item Modélisation paramétrique,
-	\item Modélisation géométrique directe (ou explicite),
-	\item Modélisation par assemblage
-\end{itemize}
+% Systèmes de modélisation de solides~:
+% \begin{itemize}
+% 	\item Modélisation paramétrique,
+% 	\item Modélisation géométrique directe (ou explicite),
+% 	\item Modélisation par assemblage
+% \end{itemize}
 
-Cette section est dédiée aux concepts et définitions nécessaires à la
-compréhension des systèmes de réévaluation de leurs mécanismes, notamment celui
-du nommage persistent d'entités topologiques.
+% Cette section est dédiée aux concepts et définitions nécessaires à la
+% compréhension des systèmes de réévaluation de leurs mécanismes, notamment celui
+% du nommage persistent d'entités topologiques.
 
-Dans un premier temps~: concepts, définitions et propriétés. %
-Puis~: classification des méthodes de nommage persistant
-Enfin~: réévaluation à base de règles
+% Dans un premier temps~: concepts, définitions et propriétés. %
+% Puis~: classification des méthodes de nommage persistant
+% Enfin~: réévaluation à base de règles
 
-\david{Proposition : un truc du genre :  les système paramétriques sont utilisés depuis plusieurs années dans le domaine de la CAO \todo{citer des outils qui proposent déjà de procéder à la réévaluation de modèle
-		paramétrique, [revit, autocad, catia, siemensNX,…]}. Après avoir enregistré un processus constructif (i.e. une liste d'opérations ou de contraintes posées sur sur des entités géométriques plus ou moins élémentaires permettant de modéliser l'objet), ces systèmes permettent la génération de différentes variations de l'objet modélisé en modifiant certains paramètres de la construction et/ou en ajoutant, déplaçant ou supprimant des opérations ou des contraintes, puis en rejouant (i.e. réévaluant)  automatiquement le processus constructif. Dans cette section, nous commençons par définir plus précisément la notion de système paramétrique et en particulier sa structure ainsi que les concepts permettant de réévaluer ces modèles puis présentons une solution (cf remarque ci dessous), largement présentée dans la littérature, qui est l'identification persistante des entités topologiques.}.
-En CAO, et plus particulièrement en modélisation paramétrique, le mécanisme
-permettant la génération de variations à partir d'un modèle pré-existant,
-mécanisme dit de réévaluation ou rejeu, repose sur un certain nombre de concepts
-et définitions. %
-Dans cette section, nous commençons par décrire les systèmes paramétriques,
-grâce auxquels il est possible de réévaluer des modèles puis présentons une
-solution \david{Une solution à quoi ?}, largement présentée dans la littérature, qui est l'identification
-persistante des entités topologiques. %
+\david{ %
+	Proposition : un truc du genre : les système paramétriques sont utilisés
+	depuis plusieurs années dans le domaine de la CAO \todo{citer des outils qui
+		proposent déjà de procéder à la réévaluation de modèle paramétrique, [revit,
+				autocad, catia, siemensNX,…]}. %
+	Après avoir enregistré un processus constructif (i.e. une liste d'opérations
+	ou de contraintes posées sur sur des entités géométriques plus ou moins
+	élémentaires permettant de modéliser l'objet) , ces systèmes permettent la
+	génération de différentes variations de l'objet modélisé en modifiant certains
+	paramètres de la construction et/ou en ajoutant, déplaçant ou supprimant des
+	opérations ou des contraintes, puis en rejouant (i.e. réévaluant)
+	automatiquement le processus constructif. %
+	Dans cette section, nous commençons par définir plus précisément la notion de
+	système paramétrique et en particulier sa structure ainsi que les concepts
+	permettant de réévaluer ces modèles puis présentons une solution (cf remarque
+	ci dessous), largement présentée dans la littérature, qui est l'identification
+	persistante des entités topologiques. %
+}
+
+\maxime{ %
+	Le domaine de la CAO présente de nombreux outils de modélisation dont les
+	systèmes paramétriques qui permettent la génération de variations d'un modèle
+	à l'aide d'un mécanisme dit de rejeu, ou
+	réévaluation~\cite{dassaultCATIA,dassaultSOLIDWORKS,autodeskAUTOCAD,autodeskREVIT,siemensNX}. %
+	Tout d'abord, un tel système enregistre le processus constructif, c'est-à-dire
+	une liste d'opérations ou de contraintes posée sur des entités géométriques
+	(points, droites, caractéristiques de formes,\dots) permettant de modéliser
+	l'objet. %
+	Ensuite, l'utilisateur a la possibilité de modifier certains paramètres de la
+	construction et/ou d'ajouter, déplacer voire supprimer des opérations ou des
+	contraintes. %
+	Enfin, le processus constructif et rejoué, ou réévalué, automatiquement ce qui
+	génère une variation, selon les modifications effectuées, d'un objet
+	initialement construit. %
+	Dans cette section, nous commençons par définir plus précisément la notion de
+	système paramétrique et plus particulièrement sa structure ainsi que les
+	concepts permettant de réévaluer ces modèles puis présentons une solution à
+	l'identification des entités topologiques qui est la nomination persistante. %
+}
+
+% En CAO, et plus particulièrement en modélisation paramétrique, le mécanisme
+% permettant la génération de variations à partir d'un modèle pré-existant,
+% mécanisme dit de réévaluation ou rejeu, repose sur un certain nombre de concepts
+% et définitions. %
+% Dans cette section, nous commençons par décrire les systèmes paramétriques,
+% grâce auxquels il est possible de réévaluer des modèles puis présentons une
+% solution \david{Une solution à quoi ?}, largement présentée dans la littérature, qui est l'identification
+% persistante des entités topologiques. %
 
 
 
@@ -49,10 +87,27 @@ La deuxième couche, appelée \emph{spécification paramétrique} ou plus simple
 Ce sont ces mêmes paramètres \david{, ces contraintes ou ces opérations} qui peuvent être modifiés puis réévalués pour générer
 un modèle variant. %
 
+~
+
+\maxime{%
+	Un système paramétrique peut-être vu comme une structure duale avec d'une part
+	la représentation explicite, ou \emph{couche géométrique}, d'un objet et,
+	d'autre part, une représentation implicite, ou \emph{spécification
+		paramétrique} (ou simplement \emph{spécification}) contenant un processus, avec
+	l'ensemble de ses paramètres, ou un ensemble de contraintes pouvant être
+	réévalués afin de générer de nouvelles représentations explicites selon les
+	modifications effectuées. %
+}
+
 \xavierSupp{Il existe deux approches de la modélisation paramétriques où la couche de
 	spécification paramétrique prend une forme différente}\xavierAdd{On distingue deux principaux types de spécifications paramétriques.}. %
 La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
 La seconde est l'approche \emph{fonctionnelle}. %
+
+\maxime{On distingue principales approches de la modélisation paramétrique chacune avec son type de spécification paramétrique. %
+	La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
+	La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
+}
 
 \subsection[Approche variationnelle]{Approche variationnelle}
 \label{sec:etat-art-reevaluation-concepts-model-param}
@@ -66,16 +121,38 @@ système de contrainte qu'il est nécessaire de résoudre \david{à l'aide d'un 
 
 \subsection{Approche fonctionnelle, ou \textit{history-based}}
 
-Dans la deuxième approche, la spécification paramétrique est un historique \xavierSupp{des
-	fonctions, ici des} d'opérations de modélisation paramétrées, dont les
-applications successives permettent la représentation implicite d'un modèle \xavier{pourquoi une représentation "implicite" ?}. \david{ce n'est pas les applications successives qui permettent une représentation implicite, mais la spécification paramétrique est une représentation implicite.}%
-Dans cette approche les paramètres sont, entre autres, des \xavierSupp{vecteurs} \xavierAdd{valeurs géométriques} et des entités topologiques \david{existantes à l'étape n-1. En fait, il faut ici définir un système paramétrique fonctionnel (il correspond à une composition de fonctions cf Thèse Dago qui référence la définition d'un système paramétrique fonctionnel Pierra et Al 96)}. %
-Par exemple, \david{la spécification paramétrique suivante est composée de 3 opérations successives, où rayon1, 2 et 3 sont des paramètres geo et ... sont des paramètres topo). Les paramètres topo correspondent à des entités topo générées aux étapes précedentes. Par exemple, la protrusion cylindrique est posée sur la face fé générées à l'étape 2. Mettre ensuite dans l'ordre, la spec puis la figure. Pas besoin de détailler chaque op une à une.} une opération créant un cylindre pourra prendre la forme suivante : \texttt{Cylindre(rayon, hauteur)} où \texttt{rayon} et \texttt{hauteur} sont des paramètres géométriques. %
+Dans la deuxième approche, la spécification paramétrique est un historique
+\xavierSupp{des fonctions, ici des} d'opérations de modélisation paramétrées,
+dont les applications successives permettent la représentation implicite d'un
+modèle \xavier{pourquoi une représentation "implicite" ?}. %
+\david{ce n'est pas les applications successives qui permettent une
+	représentation implicite, mais la spécification paramétrique est une
+	représentation implicite.}%
+Dans cette approche les paramètres sont, entre autres, des \xavierSupp{vecteurs}
+\xavierAdd{valeurs géométriques} et des entités topologiques \david{existantes à
+	l'étape n-1.%
+	En fait, il faut ici définir un système paramétrique fonctionnel (il
+	correspond à une composition de fonctions cf Thèse Dago qui référence la
+	définition d'un système paramétrique fonctionnel Pierra et Al 96)}. %
+Par exemple, \david{la spécification paramétrique suivante est composée de 3
+	opérations successives, où rayon1, 2 et 3 sont des paramètres geo et ... sont
+	des paramètres topo). %
+	Les paramètres topo correspondent à des entités topo générées aux étapes
+	précedentes. %
+	Par exemple, la protrusion cylindrique est posée sur la face f2 générées à
+	l'étape 2. %
+	Mettre ensuite dans l'ordre, la spec puis la figure. %
+	Pas besoin de détailler chaque op une à une.} une opération créant un cylindre
+pourra prendre la forme suivante : \texttt{Cylindre(rayon, hauteur)} où
+\texttt{rayon} et \texttt{hauteur} sont des paramètres géométriques. %
 Un autre exemple d'opération serait la création d'une gouttière sur une face qui
-pourrait s'écrire de la manière suivante : \texttt{gouttiere(\xavierSupp{rayon}f1,
-	rayon, longueur)} où \xavierSupp{\texttt{rayon}}  \xavierAdd{\texttt{f1}} est un paramètre topologique,
-c'est-dire une référence vers une entité topologique, et où rayon et longueur
-sont des paramètres géométriques. \david{l'opération ne s'appelle pas gouttière, mais rainure-cylindrique et kla suivante protrusion\_cylindrique} %
+pourrait s'écrire de la manière suivante :
+\texttt{gouttiere(\xavierSupp{rayon}f1, rayon, longueur)} où
+\xavierSupp{\texttt{rayon}} \xavierAdd{\texttt{f1}} est un paramètre
+topologique, c'est-dire une référence vers une entité topologique, et où rayon
+et longueur sont des paramètres géométriques. \david{l'opération ne s'appelle
+	pas gouttière, mais rainure-cylindrique et kla suivante
+	protrusion\_cylindrique} %
 
 \begin{figure}[!htb]
 	\centering
@@ -154,7 +231,7 @@ proposées par Agbodan et al. \cite{agbodan1999data}. %
 	\item nomination hétérogène des entités
 \end{itemize}
 
-\paragraph{Distinction des entités invariantes et contingentes}
+\subsubsection*{Distinction des entités invariantes et contingentes}
 
 \todo{exemple avec illustration + description}
 
@@ -173,11 +250,11 @@ proposées par Agbodan et al. \cite{agbodan1999data}. %
 	invariantes issues de la dernière opération de modélisation. %
 \end{definition}
 
-\paragraph{Entités issues d'extrusion ou de révolution}
+\subsubsection*{Entités issues d'extrusion ou de révolution}
 
 \todo{exemples avec illustrations et descriptions}
 
-\paragraph{Entités avec et sans sources}
+\subsubsection*{Entités avec et sans sources}
 
 \todo{exemple avec illustration + description (pour les deux)}
 

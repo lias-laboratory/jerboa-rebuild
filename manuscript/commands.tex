@@ -6,15 +6,15 @@
 	\MakeFramed{\advance\hsize-\width \FrameRestore}}%
 {\endMakeFramed}
 
-\renewcommand*{\FrameCommand}{%
-	\setlength{\fboxrule}{\FrameRule}\setlength{\fboxsep}{\FrameSep}%
-	\fbox}
-
-\renewenvironment{leftbar}[1][]{%
-	\setlength{\OuterFrameSep}{0pt}
-	\def\FrameCommand{{\color{#1}\vrule width 3pt} \hspace{10pt}}%
-	\MakeFramed{\advance\hsize -\width \FrameRestore}
-	\noindent\ignorespaces}%
+\renewenvironment{leftbar}[1][]{% %
+	% \setlength{\OuterFrameSep}{0pt}
+	\def\FrameCommand{%
+		{\color{#1}\vrule width 2pt} \hspace{1em}%
+		% \fboxsep=\FrameSep\colorbox{white}%
+	}%
+	\MakeFramed{ \advance\hsize - \width\FrameRestore}
+	\noindent\ignorespaces
+}%
 {\endMakeFramed}
 
 {
@@ -22,7 +22,6 @@
 	\theoremheaderfont{\normalfont\bfseries}
 	\theorembodyfont{\upshape}
 	\theoremseparator{}
-	%
 	\newtheorem{thmi}{Théorème}[subsection]
 	\newtheorem{defi}{Définition}[subsection]
 	\newtheorem{propi}{Proposition}[subsection]
@@ -42,21 +41,24 @@
 
 \newenvironment{theoreme}[1][]{%
 	\begin{thmi}[#1]
-		\begin{leftbar}[nord7]}{%
+		\begin{leftbar}[nord7]
+			}{%
 		\end{leftbar}
 	\end{thmi}
 }
 
 \newenvironment{proposition}[1][]{%
 	\begin{propi}[#1]
-		\begin{leftbar}[nord8]}{%
+		\begin{leftbar}[nord8]
+			}{%
 		\end{leftbar}
 	\end{propi}
 }
 
 \newenvironment{definition}[1][]{%
 	\begin{defi}[#1]
-		\begin{leftbar}[nord9]}{%
+		\begin{leftbar}[nord9]
+			}{%
 		\end{leftbar}
 	\end{defi}
 }
@@ -71,14 +73,11 @@
 
 \newenvironment{exemple}[1][]{%
 	\begin{exmpi}[#1]
-		\begin{leftbar}[nord15]}{%
-		\end{leftbar}
+		% \begin{leftbar}[nord15]
+		}{%
+		% \end{leftbar}
 	\end{exmpi}
 }
-
-%% Proof leftbar : nord14
-%% ProofIdea leftbar : nord13 (a priori elles supportent la même fonction mais proofidea est allégée)
-%% Remark leftbar : nord15 ou nord12 (le orange peut être un peu trop agressif même pour simplement attirer l'attention)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% math mode only %%%%%

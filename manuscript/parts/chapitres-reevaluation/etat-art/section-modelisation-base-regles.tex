@@ -734,11 +734,13 @@ permettant, par exemple, de filtrer puis transformer des faces indépendamment d
 leur nombre d'arêtes. %
 
 \begin{definition}[Motif avec orbite]\label{def:motif-avec-orbite}%
-	Un \emph{motif avec orbite} est un graphe topologique $M=(V,E,s,t,l,\alpha)$ de dimension $n \in \mathbb{N}$, où
+	Un \emph{motif avec orbite} est un graphe $M=(V,E,s,t,l,\alpha)$ tel que sa \emph{structure} $\underline{M} = (V,E,s,t,\alpha)$ est un graphe topologique  de dimension $n \in \mathbb{N}$ et
 	$l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une
 	fonction d'étiquetage des nœuds par des mots sur les dimensions topologiques
 	et le symbole "$\_$", telle que toutes les étiquettes des nœuds du motif
 	soient des mots de la même longueur.
+
+	% La \emph{structure} $\underline{M} = (V, E, s, t, \alpha)$ du motif $M$ est le graphe topologique correspondant au motif $M$ privé de ses étiquettes de nœuds.
 \end{definition}
 
 \begin{figure}[ht]
@@ -847,37 +849,37 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 	\end{itemize}
 \end{definition}
 
+
 \begin{figure}[!htbp]
 	\centering
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=0.9\linewidth]{decomposition-3D-0-cell}
-		\caption{$G$ \todo{ajouter le brin $a$ à la bonne place}}
-		% \label{fig:}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
+	\includegraphics[width=0.3\textwidth]{g-carte-instanciation-motif}
+	\caption{$G$}
+	\label{fig:etat-art-modelisation-base-regle-instanciation-objet}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.9\linewidth]{inst-quad-face-v2.pdf}
-		\caption{Instanciation de $M1$ \todo{mettre les a0, b0…h0}}
+		\caption{Instanciation de $M1$}
 		\label{fig:jerboa-quad-before-triangulation}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=.9\linewidth]{inst-quad-triangulation-step1-v2.pdf}
 		\caption{Instanciation de $M2$}
 		\label{fig:inst-quad-triangulation-1}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
+	\end{subfigure}%
+
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
-		\includegraphics[width=.9\linewidth]{inst-quad-triangulation-step5-v2.pdf}
-		\caption{Instanciation de $M3$ \todo{ne laisser que le sommet central}}
+		\includegraphics[width=.9\linewidth]{instanciation-motif-m2}
+		\caption{Instanciation de $M3$}
 		\label{fig:inst-quad-triangulation-5}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\linewidth]{inst-quad-triangulation-step-final-v2.pdf}
 		\caption{Instanciation de $M4$}
@@ -886,6 +888,7 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 	\caption{Instanciation des motifs de la Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation} par l'orbite $G\orbit{0,1,3}(a)$}
 	\label{fig:before-after-quad-triangulation}
 \end{figure}
+
 
 La Figure~\ref{fig:before-after-quad-triangulation} illustre l'instanciation des motifs de la Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation} par la face incidente au brin $a$ de la G-carte Figure~\todo{mettre ref} (la face $G\orbit{0,1,3}(a)$). %
 L'instanciation de $M1$ Figure~\ref{fig:jerboa-quad-before-triangulation} est isomorphe à la face d'instanciation, car le renommage est l'identité. %
@@ -959,15 +962,16 @@ L'arc explicite entre $n0$ et $n1$ dans le motif $M4$ produit les $1$-liaisons e
 	\label{fig:before-after-tri-triangulation}
 \end{figure}
 
+\todo{rentrer les brins verts dans l'intérieur du triangle et faire des surlignages plutôt que de la coloration de brin}
+
 Le processus est identique Figure~\ref{fig:before-after-tri-triangulation} pour le triangle Figure~\ref{fig:jerboa-tri-before-triangulation}.
 
 \begin{definition}[Règle transformation de graphe Jerboa]\label{def:regle-transfo-graphe-jerboa}%
 	Une \emph{règle} Jerboa  $r: L \longrightarrow R$  est définie par un couple  de motifs avec
 	orbites $L$ et $R$ dont toutes  les étiquettes d'orbites ont la même longueur,
-	tels    que   $\underline{L}    \cap    \underline{R}    \hookrightarrow   \underline{L}$    et
-	$\underline{L} \cap \underline{R} \hookrightarrow \underline{R}$,  et dont un sous-ensemble des
+	tels    que   $\underline{L} \longrightarrow \underline{R} $ est une règle de transformation de graphe, dont un sous-ensemble des
 	nœuds  de $L$  sont  appelés  nœuds d'accroche  (\emph{hooks}  en anglais)  et
-	portent des étiquettes d'orbites pleines, c'est-à-dire sans "$\_$".
+	portent des étiquettes d'orbites pleines, c'est-à-dire sans~"$\_$".
 \end{definition}
 
 \begin{figure}[ht]
@@ -976,6 +980,9 @@ Le processus est identique Figure~\ref{fig:before-after-tri-triangulation} pour 
 	\caption{Règle de triangulation}
 	\label{fig:etat-art-model-regle-regle-jerboa-regle-triangulation}
 \end{figure}
+
+La Figure~\ref{fig:etat-art-model-regle-regle-jerboa-regle-triangulation} représente la règle Jerboa de triangulation qui reprend les motifs de la Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}. %
+Le nœud $n0$, dans le motif gauche, est le nœud d'accroche représenté graphiquement par un double cercle. %
 
 L'application d'une règle Jerboa est l'application de son instanciation, qui est
 une règle instanciée. %
@@ -986,19 +993,24 @@ d'appliquer la règle instanciée sur l'objet pour obtenir la transformation
 directe. %
 
 \begin{definition}[Orbite d'instanciation]\label{def:orbite-instanciation}%
-	Soit $\underline{m} : \underline{L} \rightarrow G$ un morphisme de filtrage sur une
-	G-carte $G$, c'est-à-dire un morphisme injectif tel que les nœuds d'accroche
-	désignent des orbites isomorphes à renommage près. %
+	Soit $\underline{m} : \underline{L} \rightarrow G$ un morphisme de filtrage
+	sur une G-carte $G$, c'est-à-dire un morphisme injectif tel que les nœuds
+	d'accroche désignent des orbites isomorphes à renommage près. %
 	Plus précisément, pour un nœud d'accroche $h$ de $L$,
 	$O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation. %
-	Et si la règle $r$ possède un autre nœud d'accroche $h'$, alors
-	$O' = G\orbit{l(h')}(\underline{m}(h'))$ est isomorphe à renommage près,
-	c'est-à-dire que $(l(h) \mapsto l(h'))(O)$ est isomorphe à $O'$.
+	Si la règle $r$ possède un autre nœud d'accroche $h'$, alors
+	$O' = G\orbit{l(h')}(\underline{m}(h'))$ est isomorphe à $O$ à renommage près,
+	c'est-à-dire que $(l(h') \mapsto l(h))(O')$ est isomorphe à~$O$.
 \end{definition}
+
+Par exemple, le morphisme de filtrage qui associe l'unique nœud $n0$ du motif gauche de la règle de triangulation (Figure~\ref{fig:etat-art-model-regle-regle-jerboa-regle-triangulation}) au brin $a$ de la G-carte $G$ (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-quad-before-triangulation}. %
+Le morphisme de filtrage qui associe le même nœud $n0$ au brin $i$ de la G-carte $G$ définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-tri-before-triangulation}.
+
+\todo{donner la règle de couture entre deux faces et commenter la contrainte d'isomorphisme (cube + pyramide).}
 
 \begin{definition}[Filtrage de l'orbite d'instanciation]\label{def:filtrage-orbite-instanciation}%
 	Le morphisme de filtrage $m : L(O) \rightarrow G$, s'il existe, est le morphisme qui
-	vérifie les propriétés suivantes, pour $L = (V, E, s, t, \alpha, l)$ et
+	vérifie les propriétés suivantes, pour $L = (V, E, s, t, l, \alpha)$ et
 	$O = (V', E', s', t', \alpha')$~:
 	\begin{itemize}
 		\item pour tout nœud $v \in V$ de $L$,
@@ -1019,11 +1031,10 @@ directe. %
 \begin{remarque}
 	Si le morphisme de filtrage $m$ existe, il est unique en raison de la
 	contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte}) et
-	de la condition d'arc incident du motif $L$.
+	de la condition d'arc incident du motif $L$ (Théorème~\ref{thm:preservation-coherence-topo-regles}).
 \end{remarque}
 
-\agnes{Donner un exemple de morphisme sur la règle précédente + expliciter l'orbite d'instanciation}
-\agnes{Donner un exemple de règle avec 2 hook + montrer que les 2 hook donnent des orbites d'instanciation isomorphes}
+\todo{Donner les deux morphismes de filtrage sur les exemples carré + triangle}
 
 \begin{definition}[Instanciation d'une règle Jerboa]\label{def:instanciation-regle-jerboa}%
 	L'\emph{instanciation} de la règle $r: L \longrightarrow R$ le long d'un morphisme de
@@ -1033,9 +1044,6 @@ directe. %
 	l'orbite d'instanciation d'un nœud d'accroche $h$ de $L$.
 \end{definition}
 
-% \todo{Ajouter règle de triangulation}
-
-% \todo{Ajouter instanciation règle de triangulation sur quad + annotation}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=.8\textwidth]{inst-quad-triangulation-before-after}
@@ -1043,19 +1051,21 @@ directe. %
 	\label{fig:etat-art-model-regle-regle-jerboa-inst-quad-triangulation}
 \end{figure}
 
-La face à gauche de la flèche, dans la
-Figure~\ref{fig:etat-art-model-regle-regle-jerboa-inst-quad-triangulation}
-représente l'instanciation de la règle de triangulation
-(Figure~\ref{fig:etat-art-model-regle-regle-jerboa-regle-triangulation}) sur une
-face carrée. %
-Dans le membre gauche, on retrouve l'orbite d'instanciation de la Figure~\ref{fig:jerboa-quad-before-triangulation} car le membre gauche est réduit au
-nœud d'accroche. %
-Dans le membre droit, on retrouve l'instanciation du motif Figure~\ref{fig:inst-quad-triangulation-final}. %
+\todo{uniformiser a0,b0,… dans le membre gauche + petit commentaire en reprenant les instanciations précédentes + instanciation avec les triangles }
+
+% La face à gauche de la flèche, dans la
+% Figure~\ref{fig:etat-art-model-regle-regle-jerboa-inst-quad-triangulation}
+% représente l'instanciation de la règle de triangulation
+% (Figure~\ref{fig:etat-art-model-regle-regle-jerboa-regle-triangulation}) sur une
+% face carrée. %
+% Dans le membre gauche, on retrouve l'orbite d'instanciation de la Figure~\ref{fig:jerboa-quad-before-triangulation} car le membre gauche est réduit au
+% nœud d'accroche. %
+% Dans le membre droit, on retrouve l'instanciation du motif Figure~\ref{fig:inst-quad-triangulation-final}. %
 
 L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée $r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié $m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation désigné par le nœud d'accroche.
 Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ est la transformation directe $G \xlongrightarrow{r(\underline{m}), m} H$.
 
-\agnes{Donner l'exemple de la transformation directe de l'objet de départ}
+\todo{Donner l'exemple de la transformation directe de l'objet de départ G-carte G ---> H avec brins annotés a0,b0… (que la triangulation du carré)}
 
 Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation de contraintes des G-cartes lors des transformations directes \cite{belle2012}.
 
@@ -1116,7 +1126,7 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 
 \begin{remarque}
 	Les règles instanciées sont aussi des règles Jerboa sur l'orbite vide $\orbit{}$.
-	\highlight{ou : les règles Jerboa sur l'orbite vide $\orbit{}$ expriment explicitement des règles instanciées}
+	% \highlight{ou : les règles Jerboa sur l'orbite vide $\orbit{}$ expriment explicitement des règles instanciées}
 \end{remarque}
 
 \subsubsection[Scripts de règles]{Scripts de règles}

@@ -28,13 +28,14 @@ Enfin~: réévaluation à base de règles
 \subsection{Concepts, définitions et propriétés}
 \label{sec:etat-art-reevaluation-concepts}
 
+\david{Proposition : un truc du genre :  les système paramétriques sont utilisés depuis plusieurs années dans le domaine de la CAO. Après avoir enregistré un processus constructif (i.e. une liste d'opérations ou de contraintes posées sur sur des entités géométriques plus ou moins élémentaires permettant de modéliser l'objet), ces systèmes permettent la génération de différentes variations de l'objet modélisé en modifiant certains paramètres de la construction et/ou en ajoutant, déplaçant ou supprimant des opérations ou des contraintes, puis en rejouant (i.e. réévaluant)  automatiquement le processus constructif. Dans cette section, nous commençons par définir plus précisément la notion de système paramétrique et en particulier sa structure ainsi que les concepts permettant de réévaluer ces modèles puis présentons une solution (cf remarque ci dessous), largement présentée dans la littérature, qui est l'identification persistante des entités topologiques.}.
 En CAO, et plus particulièrement en modélisation paramétrique, le mécanisme
 permettant la génération de variations à partir d'un modèle pré-existant,
 mécanisme dit de réévaluation ou rejeu, repose sur un certain nombre de concepts
 et définitions. %
 Dans cette section, nous commençons par décrire les systèmes paramétriques,
 grâce auxquels il est possible de réévaluer des modèles puis présentons une
-solution, largement présentée dans la littérature, qui est l'identification
+solution \david{Une solution à quoi ?}, largement présentée dans la littérature, qui est l'identification
 persistante des entités topologiques. %
 \todo{citer des outils qui proposent déjà de procéder à la réévaluation de modèle
 	paramétrique, [revit, autocad, catia, siemensNX,…]}
@@ -45,36 +46,36 @@ persistante des entités topologiques. %
 
 
 %% Paragraphe : système de modélisation à deux couches
-Un systèmes de modélisation paramétrique est composé de deux couches. %
+Un système de modélisation paramétrique est composé de deux couches. %
 La première couche, dite \emph{couche géométrique}, a pour objet la
 représentation explicite d'un modèle avec sa géométrie. %
-Le deuxième couche, appelée \emph{spécification paramétrique} ou plus simplement
-\emph{spécification}, contient l'ensemble des paramètres caractérisant un modèle. %
-Ce sont ces même paramètres qui peuvent être modifiés puis réévalué pour générer
+La deuxième couche, appelée \emph{spécification paramétrique} ou plus simplement
+\emph{spécification}, contient l'ensemble des \david{contraintes ou des opérations et leurs} paramètres permettant de caractériser le modèle. %
+Ce sont ces mêmes paramètres \david{, ces contraintes ou ces opérations} qui peuvent être modifiés puis réévalués pour générer
 un modèle variant. %
 
-Il existe deux approches de la modélisation paramétriques où la couche de
-spécification paramétrique prend une forme différente. %
+\xavierSupp{Il existe deux approches de la modélisation paramétriques où la couche de
+	spécification paramétrique prend une forme différente}\xavierAdd{On distingue deux principaux types de spécifications paramétriques.}. %
 La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
-La deuxième est l'approche \emph{fonctionnelle}. %
+La seconde est l'approche \emph{fonctionnelle}. %
 
-Dans cette première approche, la spécification paramétrique est présentée comme
+Dans la première approche, la spécification paramétrique est présentée comme
 un système de contraintes (parallélisme, tangence, angle, longueur) sur les
-entités topologiques d'un modèle. %
+entités topologiques \xavier{entité \textbf{géométriques} plutôt, non ? Toutes les contraintes citées sont géométriques...} d'un modèle. %
 Ainsi, lorsque l'on souhaite réévaluer la spécification paramétrique, c'est un
-système de contrainte qu'il est nécessaire de résoudre. %
+système de contrainte qu'il est nécessaire de résoudre \david{à l'aide d'un solveur. Rem : partie à détailler un peu plus, en particulier pour arriver à dire que ces systèmes ont des limites (cf thèse de Dago) et qu'ils sont utilisés principalement pour des sketcheurs 2D.}. %
 \todo{citer des solveurs}
 
-Dans la deuxième approche, la spécification paramétrique est un historique des
-fonctions, ici des opérations de modélisation, paramétrées et dont les
-applications successives permettent la représentation implicite d'un modèle. %
-Dans cette approche les paramètres sont, entre autres, des vecteurs et des entités toplogiques. %
-Ainsi, une opération créant, par exemple, un cylindre pourra prendre la forme suivante : \texttt{Cylindre(rayon, hauteur)} ou \texttt{rayon} et \texttt{hauteur} sont des paramètres géométrique. %
+Dans la deuxième approche, la spécification paramétrique est un historique \xavierSupp{des
+	fonctions, ici des} d'opérations de modélisation paramétrées\david{où chaque paramètre }, dont les
+applications successives permettent la représentation implicite d'un modèle \xavier{pourquoi une représentation "implicite" ?}. \david{ce n'est pas les applications successives qui permettent une représentation implicite, mais la spécification paramétrique est une représentation implicite.}%
+Dans cette approche les paramètres sont, entre autres, des \xavierSupp{vecteurs} \xavierAdd{valeurs géométriques} et des entités topologiques \david{existantes à l'étape n-1. En fait, il faut ici définir un système paramétrique fonctionnel (il correspond à une composition de fonctions cf Thèse Dago qui référence la définition d'un système paramétrique fonctionnel Pierra et Al 96)}. %
+Par exemple, \david{la spécification paramétrique suivante est composée de 3 opérations successives, où rayon1, 2 et 3 sont des paramètres geo et ... sont des paramètres topo). Les paramètres topo correspondent à des entités topo générées aux étapes précedentes. Par exemple, la protrusion cylindrique est posée sur la face fé générées à l'étape 2. Mettre ensuite dans l'ordre, la spec puis la figure. Pas besoin de détailler chaque op une à une.} une opération créant un cylindre pourra prendre la forme suivante : \texttt{Cylindre(rayon, hauteur)} où \texttt{rayon} et \texttt{hauteur} sont des paramètres géométriques. %
 Un autre exemple d'opération serait la création d'une gouttière sur une face qui
-pourrait s'écrire de la manière suivante : \texttt{gouttiere(rayon,
-	rayon, longueur)} où \texttt{rayon} est un paramètre topologique,
+pourrait s'écrire de la manière suivante : \texttt{gouttiere(\xavierSupp{rayon}f1,
+	rayon, longueur)} où \xavierSupp{\texttt{rayon}}  \xavierAdd{\texttt{f1}} est un paramètre topologique,
 c'est-dire une référence vers une entité topologique, et où rayon et longueur
-sont des paramètres géométriques. %
+sont des paramètres géométriques. \david{l'opération ne s'appelle pas gouttière, mais rainure-cylindrique et la suivante protrusion-cylindrique} %
 
 \begin{figure}[!htb]
 	\centering
@@ -83,13 +84,12 @@ sont des paramètres géométriques. %
 	\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel}
 \end{figure}
 
-En prenant ces opérations, nous pouvons construire l'objet en
-Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel} ce
-qui produit la spécification paramétrique suivante~:
+En reprenant ces opérations dans la spécification paramétrique suivante, nous pouvons construire l'objet de la
+Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel}: \xavier{C'est bizarre : tu utilises toujours les mêmes noms de variables \texttt{rayon} et \texttt{hauteur} pour les 3 opérations, mais il n'y a pas de raison qu'ils correspondent tous aux mêmes valeurs géométriques $\to$ si ce sont des valeurs différentes, renomme les variables en "rayon1", "rayon2", etc. Et dans l'idéal, refaire les schémas en dessinant explicitement ces variables.}
 
 \begin{itemize}
 	\item \texttt{1-Cylindre(rayon, hauteur)}
-	\item \texttt{2-Gouttiere(f1,rayon,longueur)} où f1 désigne la face supérieur du cylindre
+	\item \texttt{2-Gouttiere(f1,rayon,longueur)} où f1 désigne la face supérieure du cylindre
 	\item \texttt{3-Protrusion\_Cylindre(f2,rayon,hauteur)}
 \end{itemize}
 

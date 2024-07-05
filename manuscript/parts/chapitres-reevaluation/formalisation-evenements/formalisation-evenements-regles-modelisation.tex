@@ -5,17 +5,22 @@
 \todo{Chapeau de chapitre}
 
 \section[Suivi des évènements dans les transformations d'objets]{Les évènements dans
-  les transformations d'objets (suivi)}
+  les transformations d'objets}
 \label{sec:formalisation-evenement-transfo-objets}
 
-Considérons deux G-cartes $G = (V,E,s,t,\alpha)$ et $H = (V',E',s',t',\alpha')$. On veut qualifier
-les modifications d'orbites de type $\orbit{o}$ entre $G$ et $H$.
+Considérons deux G-cartes $G$ et $H$. %
+On veut qualifier les modifications d'orbites de type $\orbit{\omega}$ entre $G$ et $H$.
 Ces dernières peuvent être créées, supprimées, scindées, fusionnées, inchangées ou modifiées.
 On parle dans ce cas d'événements survenus sur les orbites.
 
-\subsection{Création}\label{sec:suivi-creation}
 
-\todo{Ajouter illustration création avant/après}
+\begin{definition}[Création d'orbite]
+	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $H$.
+
+	L'orbite $H\orbit{\omega}(v)$ est \emph{créée} si et seulement si $G \cap H\orbit{\omega}{v} = \emptyset$.
+\end{definition}
+
+\todo{Ajouter illustration triangulation création avant/après}
 
 % \begin{figure}[H]
 %   \centering
@@ -26,28 +31,61 @@ On parle dans ce cas d'événements survenus sur les orbites.
 
 \maxime{Faire des sous-figures et nommer les graphes G et H}
 
-La figure \textbf{fig:jerboa-create-then-now} représente la transformation d'un cube  suite à l'ajout d'un sommet (orbite de type $\orbit{1,2,3}$ apparaissant dans le cercle rouge). Une orbite est \emph{créée}, si elle appartient à $H$ sans exister dans $G$. Formellement, la création d'une orbite est donc définie de la façon suivante~:
+L'orbite sommet $H\orbit{1,2,3}(a_2)$ est créée. %
+En particulier, aucuns des brins $a_2,b_2,\dots,h_2$ de $H$ n'existent dans $G$. %
 
-Soit $v \in V'$ un nœud de $H$. Une orbite $H\orbit{o}(v)$ est \emph{créée} si  $G \cap H\orbit{o}(v) = \emptyset$.
+\begin{definition}[Scission d'orbite]
+	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
 
-\subsection{Suppression}\label{sec:suivi-suppression}
+	L'orbite $G\orbit{\omega}(v)$ est \emph{scindée} si et seulement si il existe deux brins $v_1$ et $v_2$ de $G\orbit{\omega}(v)$ tels que $v_1$ et $v_2$ sont des nœuds de $H$
+	d'orbites différentes, \textit{i.e.} $H\orbit{\omega}(v_1) \neq H\orbit{\omega}(v_2)$.
+\end{definition}
 
-\todo{Ajouter illustration suppression avant/après}
+Reprenons l'exemple Figure~\ref{??}. %
+La face $G\orbit{0,1,3}(a_0)$ est scindée en quatre faces $H\orbit{0,1,3}(a_0)$, $H\orbit{0,1,3}(c_0)$, $H\orbit{0,1,3}(e_0)$, $H\orbit{0,1,3}(g_0)$. %
+
+~
+
+La suppression est l'inverse de la création. %
+
+\begin{definition}[Suppression d'orbite]
+	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
+	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
+
+	L'orbite $G\orbit{\omega}(v)$ est \emph{supprimée} si et seulement si $H \cap G\orbit{\omega}(v) = \emptyset$.
+\end{definition}
+
+Reprenons l'exemple de la Figure~\ref{??}, cette fois de $H$ vers $G$. %
+Le sommet $H\orbit{1,2,3}(a_{2})$ est supprimé dans $G$. %
+
+La fusion est l'inverse de la scission. %
+
+\begin{definition}[Fusion d'orbites]
+	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
+	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ et $v'$ deux brins de $G$. %
+
+	Les orbites $G\orbit{\omega}(v)$ et $G\orbit{\omega}(v')$ sont \emph{fusionnées} si et seulement si il existes deux brins respectivement $v_{1}$ de $G\orbit{\omega}(v)$ et $v_{2}$ de $G\orbit{\omega}(v')$ tel que $v_{1}$ et $v_{2}$ sont des nœuds $H$ de la même orbite, \textit{i.e.} $H\orbit{\omega}(v_{1}) = H\orbit{\omega}(v_{2})$. %
+
+\end{definition}
 
 % \begin{figure}[H]
 %   \centering
-%   \includegraphics[width=.8\linewidth]{{figures/}jerboa-delete-then-now}
-%   \caption{Suppression d'une arête d'un cube}
-%   \label{fig:jerboa-delete-then-now}
+%   \includegraphics[width=.8\linewidth]{{figures/}jerboa-merge-then-now}
+%   \caption{Fusion de deux sommets voisins d'un cube}
+%   \label{fig:jerboa-merge-then-now}
 % \end{figure}
 
+La figure \textbf{fig:jerboa-merge-then-now} représente la transformation d'un cube par la contraction de l'arête entourée en vert.
+Les deux sommets de $G$ entourés rouge sont fusionnés en un seul sommet dans $H$ entouré en rouge.
+Deux orbites sont considérées comme fusionnées en une seule si leurs nœuds préservés sont, après
+transformation, réunis dans une seule et même orbite.
+Formellement, pour deux nœuds de $G$, $v, v' \in V^2$ d'orbites différentes (c'est-à-dire telles que $G\orbit{o}(v) \neq G\orbit{o}(v')$), la \emph{fusion} de deux orbites est définie de la façon suivante~:
 
-La figure \textbf{fig:jerboa-delete-then-now} représente la transformation d'un cube suite à la suppression d'une arête (orbite de type $\orbit{0,2,3}$ encerclée à gauche). Une orbite de $G$ est
-\emph{supprimée} si elle n'appartient pas à $H$. Par exemple, \textbf{fig:jerboa-delete-then-now}, aucun des quatre brins de l'arête entourée en rouge dans $G$ et des arcs qui les relient n'apparaissent dans $H$.
-Formellement, pour tout nœud de $G$, $v \in V$ la suppression d'une orbite est définie de la façon suivante~:
+Ces deux orbites $G\orbit{o}(v)$ et $G\orbit{o}(v')$
+sont \emph{fusionnées} s'il existe deux nœuds $v_1$ et $v_2$ appartenant respectivement à $G\orbit{o}(v)$ et $G\orbit{o}(v')$ et tous les deux nœuds de $H$, tels que $H\orbit{o}(v_1) = H\orbit{o}(v_2)$.
 
-Une orbite $G\orbit{o}(v)$ est \emph{supprimée} si
-$H \cap G\orbit{o}(v) = \emptyset$.
+
+
 
 \subsection{Non-changement}\label{sec:suivi-non-changement}
 
@@ -68,48 +106,6 @@ Formellement, pour nœud de $G$, $v \in V$, le \emph{non-changement} d'une orbit
 est défini de la façon suivante~:
 
 Une orbite $G\orbit{o}(v)$ est \emph{inchangée} si l'orbite $G\orbit{o}(v)$ est aussi une orbite de $H$, c'est-à-dire si $G\orbit{o}(v) \subset H$.
-
-\subsection{Scission}\label{sec:suivi-scission}
-
-\todo{Ajouter illustration scission avant/après}
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=.8\linewidth]{{figures/}jerboa-split-then-now}
-%   \caption{Triangulation d'une face d'un cube}
-%   \label{fig:jerboa-split-then-now}
-% \end{figure}
-
-La figure \textbf{fig:jerboa-split-then-now} représente la transformation d'un cube par la \emph{scission}
-de sa face avant. Dans $H$, la face avant du cube a été \emph{scindée} par triangulation. Une orbite est
-considérée comme \emph{scindée} s'il existe deux nœuds distincts dans l'orbite de départ qui
-appartiennent à deux orbites distinctes du même type après transformation.
-Formellement, pour tout nœud de $G$, $v \in V$, la \emph{scission} est définie de la façon suivante~:
-
-Une orbite $G\orbit{o}(v)$ est \emph{scindée} s'il existe deux nœuds $v_1$
-et $v_2$ de $G\orbit{o}(v)$ tels que $v_1$ et $v_2$ sont des nœuds de $H$
-d'orbites différentes, \textit{i.e.} $H\orbit{o}(v_1) \neq H\orbit{o}(v_2)$.
-
-\subsection{Fusion}
-
-\maxime{Entourer en Vert l'arête contractée}
-
-\todo{Ajouter illustration fusion avant/après}
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=.8\linewidth]{{figures/}jerboa-merge-then-now}
-%   \caption{Fusion de deux sommets voisins d'un cube}
-%   \label{fig:jerboa-merge-then-now}
-% \end{figure}
-
-La figure \textbf{fig:jerboa-merge-then-now} représente la transformation d'un cube par la contraction de l'arête entourée en vert.
-Les deux sommets de $G$ entourés rouge sont fusionnés en un seul sommet dans $H$ entouré en rouge.
-Deux orbites sont considérées comme fusionnées en une seule si leurs nœuds préservés sont, après
-transformation, réunis dans une seule et même orbite.
-Formellement, pour deux nœuds de $G$, $v, v' \in V^2$ d'orbites différentes (c'est-à-dire telles que $G\orbit{o}(v) \neq G\orbit{o}(v')$), la \emph{fusion} de deux orbites est définie de la façon suivante~:
-
-Ces deux orbites $G\orbit{o}(v)$ et $G\orbit{o}(v')$
-sont \emph{fusionnées} s'il existe deux nœuds $v_1$ et $v_2$ appartenant respectivement à $G\orbit{o}(v)$ et $G\orbit{o}(v')$ et tous les deux nœuds de $H$, tels que $H\orbit{o}(v_1) = H\orbit{o}(v_2)$.
-
 
 \subsection{Modification}
 
@@ -160,18 +156,18 @@ La figure \textbf{fig:base-rule-create} représente l'\emph{insertion} d'un somm
 Nous allons montrer que ce sommet est également créé lors de la transformation directe entre $G$ et $H$.
 
 \begin{proposition}
-\label{prop:base-rule-create}
-Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$ et un type d'orbite $\orbit{o}$.
+	\label{prop:base-rule-create}
+	Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$ et un type d'orbite $\orbit{o}$.
 
-Soit $v$ un nœud de $R$.
-Une orbite $R\orbit{o}(v)$ est créée dans la règle $r$, c'est-à-dire entre L et R, si et seulement si $H\orbit{o}(m'(v))$ est créée dans la transformation directe, c'est-à-dire entre $G$ et $H$.
+	Soit $v$ un nœud de $R$.
+	Une orbite $R\orbit{o}(v)$ est créée dans la règle $r$, c'est-à-dire entre L et R, si et seulement si $H\orbit{o}(m'(v))$ est créée dans la transformation directe, c'est-à-dire entre $G$ et $H$.
 \end{proposition}
 
 \begin{proof}
-Supposons que l'orbite $R\orbit{o}(v)$ est créée dans la règle $r: L \longrightarrow R$. D'après la condition d'arcs incidents sur la règle $r$, tout nœud créé de $R$ et donc tout nœud de l'orbite $R\orbit{o}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{o}$.
-Donc l'orbite $H\orbit{o}(m'(v))$ est entièrement filtrée par la règle, c'est-à-dire $H\orbit{o}(m'(v)) = m'(R\orbit{o}(v))$. Et donc $H\orbit{o}(m'(v))$ est une orbite créée.
+	Supposons que l'orbite $R\orbit{o}(v)$ est créée dans la règle $r: L \longrightarrow R$. D'après la condition d'arcs incidents sur la règle $r$, tout nœud créé de $R$ et donc tout nœud de l'orbite $R\orbit{o}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{o}$.
+	Donc l'orbite $H\orbit{o}(m'(v))$ est entièrement filtrée par la règle, c'est-à-dire $H\orbit{o}(m'(v)) = m'(R\orbit{o}(v))$. Et donc $H\orbit{o}(m'(v))$ est une orbite créée.
 
-Supposons que l'orbite $H\orbit{o}(m'(v))$ est créée dans $H$. Alors par définition de la transformation directe, $H\orbit{o}(m'(v))$ est l'image de l'orbite $R\orbit{o}(v)$ par $m'$. Et donc $R\orbit{o}(v)$ est une orbite créée par la règle $r$.
+	Supposons que l'orbite $H\orbit{o}(m'(v))$ est créée dans $H$. Alors par définition de la transformation directe, $H\orbit{o}(m'(v))$ est l'image de l'orbite $R\orbit{o}(v)$ par $m'$. Et donc $R\orbit{o}(v)$ est une orbite créée par la règle $r$.
 \end{proof}
 
 Remarquons que les arcs incidents aux nœuds créés sont nécessairement eux-même créés.
@@ -190,24 +186,24 @@ Remarquons que les arcs incidents aux nœuds créés sont nécessairement eux-m�
 La figure \textbf{fig:base-rule-delete} représente la suppression d'une face quadrangulaire isolée, c'est-à-dire qui n'est connectée à aucun autre objet. Comme défini dans la section \textbf{sec:suivi-suppression}, l'orbite $R\orbit{0,1,3}(n0)$ est supprimée dans $R$. Nous allons montrer que cette face est également supprimée lors de la transformation directe entre $G$ et $H$.
 
 \begin{proposition}
-\label{prop:base-rule-delete}
-Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$ et un type d'orbite $\orbit{o}$.
+	\label{prop:base-rule-delete}
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$ et un type d'orbite $\orbit{o}$.
 
-Soit $v$ un nœud de $L$. Une orbite $L\orbit{o}(v)$ est \emph{supprimée} dans la règle $r$,
-c'est-à-dire entre $L$ et $R$, si est seulement si $G\orbit{o}(m(v))$ est \emph{supprimée} dans
-la transformation directe, c'est-à-dire entre $G$ et $H$.
+	Soit $v$ un nœud de $L$. Une orbite $L\orbit{o}(v)$ est \emph{supprimée} dans la règle $r$,
+	c'est-à-dire entre $L$ et $R$, si est seulement si $G\orbit{o}(m(v))$ est \emph{supprimée} dans
+	la transformation directe, c'est-à-dire entre $G$ et $H$.
 \end{proposition}
 
 \begin{proof}
-Supposons que l'orbite $L\orbit{o}(v)$ est supprimée dans la règle $r : L \longrightarrow R$.
-D'après la condition d'arcs incidents sur la règle $r$, tout nœud supprimé de $L$ et donc tout
-nœud de l'orbite $L\orbit{o}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{o}$.
-Donc l'orbite $G\orbit{o}(m(v))$ est entièrement filtrée par la règle, c'est-à-dire
-$G\orbit{o}(m(v)) =  m(L\orbit{o}(v))$. Et donc $G\orbit{o}(m(v))$ est une orbite supprimée.
+	Supposons que l'orbite $L\orbit{o}(v)$ est supprimée dans la règle $r : L \longrightarrow R$.
+	D'après la condition d'arcs incidents sur la règle $r$, tout nœud supprimé de $L$ et donc tout
+	nœud de l'orbite $L\orbit{o}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{o}$.
+	Donc l'orbite $G\orbit{o}(m(v))$ est entièrement filtrée par la règle, c'est-à-dire
+	$G\orbit{o}(m(v)) =  m(L\orbit{o}(v))$. Et donc $G\orbit{o}(m(v))$ est une orbite supprimée.
 
-Supposons que l'orbite $G\orbit{o}(m(v))$ est supprimée dans $H$. Alors par définition de la
-transformation directe, $G\orbit{o}(m(v))$ est l'image de l'orbite $L\orbit{o}(v)$ par $m$.
-Et donc $L\orbit{o}(v)$ est une orbite supprimée par la règle $r$.
+	Supposons que l'orbite $G\orbit{o}(m(v))$ est supprimée dans $H$. Alors par définition de la
+	transformation directe, $G\orbit{o}(m(v))$ est l'image de l'orbite $L\orbit{o}(v)$ par $m$.
+	Et donc $L\orbit{o}(v)$ est une orbite supprimée par la règle $r$.
 \end{proof}
 
 \subsection{Non-changement et sans effet}
@@ -225,16 +221,16 @@ Dans la figure~\textbf{fig:base-rule-create} à la page~\textbf{pageref!fig:base
 % \end{proposition}
 
 \begin{proof}
-    Supposons que l'orbite $L\orbit{o}(v)$ est inchangée dans la règle $r : L \longrightarrow R$.
-    L'orbite $G\orbit{o}(m(v))$ n'est pas nécessairement entièrement filtrée,
-    c'est-à-dire
-    $m(L\orbit{o}(v)) \subset G\orbit{o}(m(v))$ et $m'(R\orbit{o}(v)) \subset H\orbit{o}(m'(v))$.
-    Par définition de la transformation directe, la partie filtrée de l'orbite est inchangée~: $m(L\orbit{o}(v)) = m'(R\orbit{o}(v))$, et par définition de la transformation directe, la partie non filtrée est aussi inchangée $G\orbit{o}(m(v)) \setminus m(L\orbit{o}(v)) = H\orbit{o}(m'(v)) \setminus m'(R\orbit{o}(v))$.
-    Donc $G\orbit{o}(m(v))$ est une orbite inchangée.
+	Supposons que l'orbite $L\orbit{o}(v)$ est inchangée dans la règle $r : L \longrightarrow R$.
+	L'orbite $G\orbit{o}(m(v))$ n'est pas nécessairement entièrement filtrée,
+	c'est-à-dire
+	$m(L\orbit{o}(v)) \subset G\orbit{o}(m(v))$ et $m'(R\orbit{o}(v)) \subset H\orbit{o}(m'(v))$.
+	Par définition de la transformation directe, la partie filtrée de l'orbite est inchangée~: $m(L\orbit{o}(v)) = m'(R\orbit{o}(v))$, et par définition de la transformation directe, la partie non filtrée est aussi inchangée $G\orbit{o}(m(v)) \setminus m(L\orbit{o}(v)) = H\orbit{o}(m'(v)) \setminus m'(R\orbit{o}(v))$.
+	Donc $G\orbit{o}(m(v))$ est une orbite inchangée.
 
-    Supposons que l'orbite $G\orbit{o}(m(v))$ est inchangée entre $G$ et $H$, c'est-à-dire que $G\orbit{o}(m(v)) = H\orbit{o}(m'(v))$.
-    Alors par définition de la
-    transformation directe, $L\orbit{o}(v)$ est une orbite inchangée par la règle $r$.
+	Supposons que l'orbite $G\orbit{o}(m(v))$ est inchangée entre $G$ et $H$, c'est-à-dire que $G\orbit{o}(m(v)) = H\orbit{o}(m'(v))$.
+	Alors par définition de la
+	transformation directe, $L\orbit{o}(v)$ est une orbite inchangée par la règle $r$.
 
 \end{proof}
 
@@ -258,52 +254,52 @@ Inversement $R\orbit{0,1,3}(n0)$ est issue de la scission de la face $L\orbit{0,
 Cette dernière est l'\emph{origine} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que $R\orbit{0,1,3}(n0)$ est l'unique face issue de la scission de $L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$ (inchangée par la règle) est non-vide.
 
 \begin{proposition}
-\label{prop:base-rule_split}
-Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$ et un type d'orbite $\orbit{o}$.
+	\label{prop:base-rule_split}
+	Soit une règle $r~: L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$ et un type d'orbite $\orbit{o}$.
 
-\begin{enumerate}
-    \item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que l'orbite $R\orbit{o}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout nœud $v$ de $R\orbit{o}(v_1)$ et toute dimension $i$ de $\orbit{o}$, $R\orbit{o}(v_1)$ possède un arc de dimension $i$ et de source~$v$.
+	\begin{enumerate}
+		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que l'orbite $R\orbit{o}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout nœud $v$ de $R\orbit{o}(v_1)$ et toute dimension $i$ de $\orbit{o}$, $R\orbit{o}(v_1)$ possède un arc de dimension $i$ et de source~$v$.
 
-    Si l'orbite $L\orbit{o}(v_1)$ est scindée en deux orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans la règle, alors $G\orbit{o}(m(v_1))$ est scindée en deux orbites $H\orbit{o}(m'(v_1))$ et $H\orbit{o}(m'(v_2))$ dans la transformation directe.
+		      Si l'orbite $L\orbit{o}(v_1)$ est scindée en deux orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans la règle, alors $G\orbit{o}(m(v_1))$ est scindée en deux orbites $H\orbit{o}(m'(v_1))$ et $H\orbit{o}(m'(v_2))$ dans la transformation directe.
 
-    \item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que les orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ sont partiellement filtrées.
+		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que les orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ sont partiellement filtrées.
 
-    Si l'orbite $L\orbit{o}(v_1)$ est scindée en deux orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans la règle, alors $G\orbit{o}(m(v_1))$ est soit scindée en deux orbites $H\orbit{o}(m'(v_1))$ et $H\orbit{o}(m'(v_2))$ dans la transformation directe, soit modifiée (et alors $H\orbit{o}~(m'(v_1)) = H\orbit{o}(m'(v_2))$.
+		      Si l'orbite $L\orbit{o}(v_1)$ est scindée en deux orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans la règle, alors $G\orbit{o}(m(v_1))$ est soit scindée en deux orbites $H\orbit{o}(m'(v_1))$ et $H\orbit{o}(m'(v_2))$ dans la transformation directe, soit modifiée (et alors $H\orbit{o}~(m'(v_1)) = H\orbit{o}(m'(v_2))$.
 
-    \item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
+		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
 
-    Si l'orbite $G\orbit{o}(m(v_1))$ est scindée en deux orbites $H\orbit{o}(m'(v_1))$ et $H\orbit{o}~(m'(v_2))$ dans la transformation directe, alors l'orbite $L\orbit{o}(v_1)$ est scindée en deux orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans la règle.
-\end{enumerate}
+		      Si l'orbite $G\orbit{o}(m(v_1))$ est scindée en deux orbites $H\orbit{o}(m'(v_1))$ et $H\orbit{o}~(m'(v_2))$ dans la transformation directe, alors l'orbite $L\orbit{o}(v_1)$ est scindée en deux orbites $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans la règle.
+	\end{enumerate}
 \end{proposition}
 
 %
 
 \begin{proof}
 
-Point 1 :
+	Point 1 :
 
-    Supposons que l'orbite $L\orbit{o}(v_1)$ est scindée dans la règle $r : L \longrightarrow R$ avec l'orbite $R\orbit{o}(v_1)$ entièrement filtrée. L'orbite $G\orbit{o}(m(v_1))$ n'est pas nécessairement
-    entièrement filtrée, c'est-à-dire que $m(L\orbit{o}(v_1)) \subset G\orbit{o}(m(v_1))$. De même, $m'(R\orbit{o}(v_2)) \subset H\orbit{o}(m'(v_2))$.
-    Par hypothèse, l'orbite $R\orbit{o}(v_1)$ est entièrement filtrée, donc $H\orbit{o}(m'(v_1)) = m'(R\orbit{o}(v_1))$, et est distincte de $R\orbit{o}(v_2))$, donc $m'(R\orbit{o}(v_1)) \cap m'(R\orbit{o}(v_2)) = \emptyset$.
-    Donc $H\orbit{o}(m'(v_1)) \cap m'(R\orbit{o}(v_2)) = \emptyset$.
-    Or $m'(v_2)$ n'est pas un nœud de $H\orbit{o}(m'(v_1))$, donc $H\orbit{o}(m'(v_1))$ et $H\orbit{o}(m'(v_2))$ sont des orbites distinctes.
-    Et donc $G\orbit{o}(m(v_1))$ est une orbite
-    scindée.
+	Supposons que l'orbite $L\orbit{o}(v_1)$ est scindée dans la règle $r : L \longrightarrow R$ avec l'orbite $R\orbit{o}(v_1)$ entièrement filtrée. L'orbite $G\orbit{o}(m(v_1))$ n'est pas nécessairement
+	entièrement filtrée, c'est-à-dire que $m(L\orbit{o}(v_1)) \subset G\orbit{o}(m(v_1))$. De même, $m'(R\orbit{o}(v_2)) \subset H\orbit{o}(m'(v_2))$.
+	Par hypothèse, l'orbite $R\orbit{o}(v_1)$ est entièrement filtrée, donc $H\orbit{o}(m'(v_1)) = m'(R\orbit{o}(v_1))$, et est distincte de $R\orbit{o}(v_2))$, donc $m'(R\orbit{o}(v_1)) \cap m'(R\orbit{o}(v_2)) = \emptyset$.
+	Donc $H\orbit{o}(m'(v_1)) \cap m'(R\orbit{o}(v_2)) = \emptyset$.
+	Or $m'(v_2)$ n'est pas un nœud de $H\orbit{o}(m'(v_1))$, donc $H\orbit{o}(m'(v_1))$ et $H\orbit{o}(m'(v_2))$ sont des orbites distinctes.
+	Et donc $G\orbit{o}(m(v_1))$ est une orbite
+	scindée.
 
-    Point 2 :
+	Point 2 :
 
-    Supposons que l'orbite $L\orbit{o}(v_1)$ est scindée dans la règle $r : L \longrightarrow R$ avec $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ toutes deux partiellement filtrées.
+	Supposons que l'orbite $L\orbit{o}(v_1)$ est scindée dans la règle $r : L \longrightarrow R$ avec $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ toutes deux partiellement filtrées.
 
-    Si $m'(v_1)$ et $m'(v_2)$ appartiennent à la même $\orbit{o}$-orbite dans $H$, c'est-à-dire
-    $H\orbit{o}(m'(v_1)) = H\orbit{o}(m'(v_2))$, alors l'orbite $G\orbit{o}(m(v_1))$ est modifiée dans la transformation directe.
+	Si $m'(v_1)$ et $m'(v_2)$ appartiennent à la même $\orbit{o}$-orbite dans $H$, c'est-à-dire
+	$H\orbit{o}(m'(v_1)) = H\orbit{o}(m'(v_2))$, alors l'orbite $G\orbit{o}(m(v_1))$ est modifiée dans la transformation directe.
 
-    Si $m'(v_1)$ et $m'(v_2)$ appartiennent à deux $\orbit{o}$-orbites  dans $H$, c'est-à-dire
-    $H\orbit{o}(m'(v_1)) \cap H\orbit{o}(m'(v_2)) = \emptyset$, alors l'orbite $G\orbit{o}(m(v_1))$ est scindée dans la transformation directe.
+	Si $m'(v_1)$ et $m'(v_2)$ appartiennent à deux $\orbit{o}$-orbites  dans $H$, c'est-à-dire
+	$H\orbit{o}(m'(v_1)) \cap H\orbit{o}(m'(v_2)) = \emptyset$, alors l'orbite $G\orbit{o}(m(v_1))$ est scindée dans la transformation directe.
 
-    Point 3 :
+	Point 3 :
 
-    Supposons que l'orbite $G\orbit{o}(m(v_1))$ est scindée dans $H$, c'est-à-dire que $G\orbit{o}(m(v_1)) \subset H\orbit{o}(m'(v_1))
-    \cup H\orbit{o}(m'(v_2))$. Alors par définition de la transformation directe, $L\orbit{o}(v_1)$ est une orbite scindée par la règle $r$.
+	Supposons que l'orbite $G\orbit{o}(m(v_1))$ est scindée dans $H$, c'est-à-dire que $G\orbit{o}(m(v_1)) \subset H\orbit{o}(m'(v_1))
+		\cup H\orbit{o}(m'(v_2))$. Alors par définition de la transformation directe, $L\orbit{o}(v_1)$ est une orbite scindée par la règle $r$.
 \end{proof}
 
 Si les deux orbites scindées ne sont ni l'une ni l'autre entièrement filtrées par la règle, alors selon l'objet transformé, elles peuvent filtrer des orbites différentes ou une seule et même orbite. Donc selon les cas, la scission peut exister ou non dans l'objet.
@@ -385,59 +381,59 @@ La figure \textbf{fig:base-rule-merge} représente la contraction d'une face tri
 Comme le montre la proposition \textbf{prop:base-rule-merge}, puisque la règle filtre entièrement les orbites sommet $\orbit{1,2,3}$ des 3 sommets à gauche, alors quel que soit l'objet transformé, les sommets de la face contractée seront fusionnés en un unique sommet.
 
 \begin{proposition}
-\label{prop:base-rule-merge}
-Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, et un type d'orbite $\orbit{o}$.
+	\label{prop:base-rule-merge}
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, et un type d'orbite $\orbit{o}$.
 
-\begin{enumerate}
-    \item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que l'orbite $L\orbit{o}(v_1)$ est entièrement
-    filtrée, c'est-à-dire que pour tout nœud $v$ de $L\orbit{o}(v_1)$ et toute dimension $i$ de $\orbit{o}$,
-    $L\orbit{o}(v_1)$ possède un arc de dimension $i$ et de source~$v$.
+	\begin{enumerate}
+		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que l'orbite $L\orbit{o}(v_1)$ est entièrement
+		      filtrée, c'est-à-dire que pour tout nœud $v$ de $L\orbit{o}(v_1)$ et toute dimension $i$ de $\orbit{o}$,
+		      $L\orbit{o}(v_1)$ possède un arc de dimension $i$ et de source~$v$.
 
-    Si les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées en une orbite $R\orbit{o}(v_1)$ dans la règle,
-    alors $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont fusionnées en une orbite $H\orbit{o}(m'(v_1))$ dans la
-    transformation directe.
+		      Si les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées en une orbite $R\orbit{o}(v_1)$ dans la règle,
+		      alors $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont fusionnées en une orbite $H\orbit{o}(m'(v_1))$ dans la
+		      transformation directe.
 
-    \item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont partiellement
-    filtrées.
+		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont partiellement
+		      filtrées.
 
-    Si les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées en une orbite $R\orbit{o}(v_1)$ dans la règle,
-    alors $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont soit fusionnées en une orbite $H\orbit{o}(m'(v_1))$ dans
-    la transformation directe, soit modifiées et alors $G\orbit{o}(m(v_1)) = G\orbit{o}(m(v_2))$.
+		      Si les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées en une orbite $R\orbit{o}(v_1)$ dans la règle,
+		      alors $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont soit fusionnées en une orbite $H\orbit{o}(m'(v_1))$ dans
+		      la transformation directe, soit modifiées et alors $G\orbit{o}(m(v_1)) = G\orbit{o}(m(v_2))$.
 
-    \item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
+		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
 
-    Si les orbites $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont fusionnées en une orbite $H\orbit{o}(m'(v_1))$ dans
-    la transformation directe, alors les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées en une orbite
-    $R\orbit{o}(v_1)$ dans la règle.
-\end{enumerate}
+		      Si les orbites $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont fusionnées en une orbite $H\orbit{o}(m'(v_1))$ dans
+		      la transformation directe, alors les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées en une orbite
+		      $R\orbit{o}(v_1)$ dans la règle.
+	\end{enumerate}
 \end{proposition}
 
 \begin{proof}
 
-    Point 1 :
+	Point 1 :
 
-    Supposons que les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées dans la règle $r : L \longrightarrow R$ avec l'orbite $L\orbit{o}(v_1)$ entièrement filtrée. L'orbite $H\orbit{o}(m'(v_1))$ n'est pas nécessairement
-    entièrement filtrée, c'est-à-dire que $m'(R\orbit{o}(v_1)) \subset H\orbit{o}(m'(v_1))$. De même, $m(L\orbit{o}(v_2)) \subset G\orbit{o}(m(v_2))$.
-    Par hypothèse, l'orbite $L\orbit{o}(v_1)$ est entièrement filtrée, donc $G\orbit{o}(m(v_1))= m(L\orbit{o}(v_1))$, et est distincte de $L\orbit{o}(v_2))$, donc $m(L\orbit{o}(v_1)) \cap m(L\orbit{o}(v_2)) = \emptyset$.
-    Donc $G\orbit{o}(m(v_1)) \cap m(L\orbit{o}(v_2)) = \emptyset$.
-    Or si $m(v_2)$ n'est pas un nœud de $G\orbit{o}(m(v_1))$, alors $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont des orbites distinctes.
-    Et donc $H\orbit{o}(m'(v_1))$ est une orbite scindée.
+	Supposons que les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées dans la règle $r : L \longrightarrow R$ avec l'orbite $L\orbit{o}(v_1)$ entièrement filtrée. L'orbite $H\orbit{o}(m'(v_1))$ n'est pas nécessairement
+	entièrement filtrée, c'est-à-dire que $m'(R\orbit{o}(v_1)) \subset H\orbit{o}(m'(v_1))$. De même, $m(L\orbit{o}(v_2)) \subset G\orbit{o}(m(v_2))$.
+	Par hypothèse, l'orbite $L\orbit{o}(v_1)$ est entièrement filtrée, donc $G\orbit{o}(m(v_1))= m(L\orbit{o}(v_1))$, et est distincte de $L\orbit{o}(v_2))$, donc $m(L\orbit{o}(v_1)) \cap m(L\orbit{o}(v_2)) = \emptyset$.
+	Donc $G\orbit{o}(m(v_1)) \cap m(L\orbit{o}(v_2)) = \emptyset$.
+	Or si $m(v_2)$ n'est pas un nœud de $G\orbit{o}(m(v_1))$, alors $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont des orbites distinctes.
+	Et donc $H\orbit{o}(m'(v_1))$ est une orbite scindée.
 
-    Point 2 :
+	Point 2 :
 
-    Supposons que les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées dans la règle $r : L \longrightarrow R$ avec $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ toutes deux partiellement filtrées.
+	Supposons que les orbites $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont fusionnées dans la règle $r : L \longrightarrow R$ avec $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ toutes deux partiellement filtrées.
 
-    Si $m(v_1)$ et $m(v_2)$ appartiennent à la même $\orbit{o}$-orbite dans $G$, c'est-à-dire
-    $G\orbit{o}(m(v_1)) = G\orbit{o}(m(v_2))$, alors l'orbite $H\orbit{o}(m'(v_1))$ est modifiée dans la transformation directe.
+	Si $m(v_1)$ et $m(v_2)$ appartiennent à la même $\orbit{o}$-orbite dans $G$, c'est-à-dire
+	$G\orbit{o}(m(v_1)) = G\orbit{o}(m(v_2))$, alors l'orbite $H\orbit{o}(m'(v_1))$ est modifiée dans la transformation directe.
 
-    Si $m(v_1)$ et $m(v_2)$ appartiennent à deux $\orbit{o}$-orbites dans $G$, c'est-à-dire
-    $G\orbit{o}(m(v_1)) \cap G\orbit{o}(m(v_2)) = \emptyset$, alors les orbites $G\orbit{o}(m(v_1))$
-    et $G\orbit{o}(m(v_2))$ sont fusionnées dans la transformation directe.
+	Si $m(v_1)$ et $m(v_2)$ appartiennent à deux $\orbit{o}$-orbites dans $G$, c'est-à-dire
+	$G\orbit{o}(m(v_1)) \cap G\orbit{o}(m(v_2)) = \emptyset$, alors les orbites $G\orbit{o}(m(v_1))$
+	et $G\orbit{o}(m(v_2))$ sont fusionnées dans la transformation directe.
 
-    Point 3 :
+	Point 3 :
 
-    Supposons que les orbites $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont fusionnées dans $H$, c'est-à-dire que $G\orbit{o}(m(v_1)) \cup G\orbit{o}(m(v_2)) \subset H\orbit{o}(m'(v_1))$.
-    Alors par définition de la transformation directe, $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont des orbites fusionnées par la règle $r$.
+	Supposons que les orbites $G\orbit{o}(m(v_1))$ et $G\orbit{o}(m(v_2))$ sont fusionnées dans $H$, c'est-à-dire que $G\orbit{o}(m(v_1)) \cup G\orbit{o}(m(v_2)) \subset H\orbit{o}(m'(v_1))$.
+	Alors par définition de la transformation directe, $L\orbit{o}(v_1)$ et $L\orbit{o}(v_2)$ sont des orbites fusionnées par la règle $r$.
 \end{proof}
 
 \todo{Ajouter illustration règle instanciée suppression d'arête (fusion de deux faces)}
@@ -552,28 +548,28 @@ Notons que le même phénomène se produit sur l'application figure \textbf{fig:
 Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En particulier, une modification dans la règle, même partiellement filtrée, ne peut pas produire une scission ou une fusion dans l'objet transformé.
 
 \begin{proposition}
-\label{prop:base-rule-modify}
-    Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{o}$ et $v$ un nœud préservé de $L \cap R$.
+	\label{prop:base-rule-modify}
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{o}$ et $v$ un nœud préservé de $L \cap R$.
 
-Si une orbite $L\orbit{o}(v)$ est modifiée
-    dans la règle $r$, alors $G\orbit{o}(m(v))$ est
-    modifiée dans la transformation directe.
+	Si une orbite $L\orbit{o}(v)$ est modifiée
+	dans la règle $r$, alors $G\orbit{o}(m(v))$ est
+	modifiée dans la transformation directe.
 
-    Réciproquement, si une orbite $G\orbit{o}(m(v))$ est modifiée dans la transformation directe, alors $L\orbit{o}(v)$ est modifiée, fusionnée ou scindée dans la règle.
+	Réciproquement, si une orbite $G\orbit{o}(m(v))$ est modifiée dans la transformation directe, alors $L\orbit{o}(v)$ est modifiée, fusionnée ou scindée dans la règle.
 \end{proposition}
 
 \begin{proof}
-Soit $v$ un nœud préservé de $L \cap R$ tel que l'orbite $L\orbit{o}(v)$ est modifiée dans la règle $r$.
-Donc par définition :
-\begin{itemize}
-    \item $L\orbit{o}(v) \neq R\orbit{o}(v)$ ; et donc par transformation directe, $G\orbit{o}(m(v)) \neq H\orbit{o}(m'(v))$ ;
+	Soit $v$ un nœud préservé de $L \cap R$ tel que l'orbite $L\orbit{o}(v)$ est modifiée dans la règle $r$.
+	Donc par définition :
+	\begin{itemize}
+		\item $L\orbit{o}(v) \neq R\orbit{o}(v)$ ; et donc par transformation directe, $G\orbit{o}(m(v)) \neq H\orbit{o}(m'(v))$ ;
 
-    \item pour tout nœud préservé $v'$ de $L \cap R$, $v'$ est un nœud de $L\orbit{o}(v)$ si et seulement si c'est un nœud de $R\orbit{o}(v)$~; donc $m(v')$ est un nœud de $G\orbit{o}(m(v))$ si et seulement si c'est un nœud de $H\orbit{o}(m'(v))$~; par ailleurs, les nœuds non filtrés de $G\orbit{o}(m(v))$ sont nécessairement des nœuds non filtrés dans $H\orbit{o}(m'(v))$ ; par conséquent, pour tout nœud $v^{\prime\prime}$ conservé de $G \cap H$, $v^{\prime\prime}$ est un nœud de $G\orbit{o}(m(v))$ si et seulement si c'est un nœud de $H\orbit{o}(m'(v))$~;
-\end{itemize}
+		\item pour tout nœud préservé $v'$ de $L \cap R$, $v'$ est un nœud de $L\orbit{o}(v)$ si et seulement si c'est un nœud de $R\orbit{o}(v)$~; donc $m(v')$ est un nœud de $G\orbit{o}(m(v))$ si et seulement si c'est un nœud de $H\orbit{o}(m'(v))$~; par ailleurs, les nœuds non filtrés de $G\orbit{o}(m(v))$ sont nécessairement des nœuds non filtrés dans $H\orbit{o}(m'(v))$ ; par conséquent, pour tout nœud $v^{\prime\prime}$ conservé de $G \cap H$, $v^{\prime\prime}$ est un nœud de $G\orbit{o}(m(v))$ si et seulement si c'est un nœud de $H\orbit{o}(m'(v))$~;
+	\end{itemize}
 
-De manière réciproque, soit $v$ un nœud conservé de $L\cap R$ tel que l'orbite $G\orbit{o}(m(v))$ est modifiée dans la transformation directe $G \xlongrightarrow{r,m} H$.
+	De manière réciproque, soit $v$ un nœud conservé de $L\cap R$ tel que l'orbite $G\orbit{o}(m(v))$ est modifiée dans la transformation directe $G \xlongrightarrow{r,m} H$.
 
-Or d'après les propositions précédentes, il est impossible que $L\orbit{o}(v)$ soit inchangée ou supprimée dans la règle $r$, de même $R\orbit{o}(v)$ ne peut pas être créée dans $r$. En revanche, $L\orbit{o}(v)$ peut être scindée, fusionnée ou modifiée dans la règle~$r$.
+	Or d'après les propositions précédentes, il est impossible que $L\orbit{o}(v)$ soit inchangée ou supprimée dans la règle $r$, de même $R\orbit{o}(v)$ ne peut pas être créée dans $r$. En revanche, $L\orbit{o}(v)$ peut être scindée, fusionnée ou modifiée dans la règle~$r$.
 \end{proof}
 
 \todo{Ajouter illustrations modifications faces cube insertion sommet}
@@ -643,38 +639,38 @@ modifiées en pentagones.
 La figure \textbf{fig:rule-insert-vertex} représente une règle d'insertion d'un sommet sur une arête où les nœuds $n_2$ et $n_3$ (en rouge) dans $R$ filtrent l'orbite du sommet créé. \maxime{à refaire}
 
 \begin{proposition}
-  Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
-  filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type
-  d'orbite $\orbit{o}$.
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
+	filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type
+	d'orbite $\orbit{o}$.
 
-Soit $v$ un nœud de $R$. L'orbite $\underline{R}\orbit{o}(v)$ est créé dans la
-règle si et seulement si toutes les orbites $G\orbit{o}(m((v,v')))$ sont créés
-dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous les nœuds
-$v'$ de l'orbite d'instanciation $G\orbit{l(h)}(\underline{m}(h))$.
+	Soit $v$ un nœud de $R$. L'orbite $\underline{R}\orbit{o}(v)$ est créé dans la
+	règle si et seulement si toutes les orbites $G\orbit{o}(m((v,v')))$ sont créés
+	dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous les nœuds
+	$v'$ de l'orbite d'instanciation $G\orbit{l(h)}(\underline{m}(h))$.
 \end{proposition}
 
 \begin{proof}
-  Soit $v$ un nœud de $R$ tel que l'orbite $\underline{R}\orbit{o}(v)$ est créée
-  par la règle, c'est-à-dire tel que
-  $\underline{R}\orbit{o}(v) \cap \underline{L} = \emptyset$. Soit
-  $O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
+	Soit $v$ un nœud de $R$ tel que l'orbite $\underline{R}\orbit{o}(v)$ est créée
+	par la règle, c'est-à-dire tel que
+	$\underline{R}\orbit{o}(v) \cap \underline{L} = \emptyset$. Soit
+	$O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
 
-Soit $w$ un nœud quelconque de l'orbite $\underline{R}\orbit{o}(v)$. $w$ est un
-nœud créé de la règle de $R \setminus L$. Donc, par construction de la règle instanciée,
-tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite d'instanciation
-$O$, sont des nœuds créés dans la règle instanciée $r(\underline{m})$.
+	Soit $w$ un nœud quelconque de l'orbite $\underline{R}\orbit{o}(v)$. $w$ est un
+	nœud créé de la règle de $R \setminus L$. Donc, par construction de la règle instanciée,
+	tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite d'instanciation
+	$O$, sont des nœuds créés dans la règle instanciée $r(\underline{m})$.
 
-Donc toutes les orbites $R(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de
-l'orbite d'instanciation $O$ sont des orbites créées dans la règle instanciée
-$r(\underline{m})$. Et donc, d'après la proposition \ref{prop:base-rule-create},
-toutes les orbites $G\orbit{o}(m((v,v')))$ sont créés dans la transformation
-directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous les nœuds $v'$ de l'orbite
-d'instanciation $O$.
-\\
+	Donc toutes les orbites $R(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de
+	l'orbite d'instanciation $O$ sont des orbites créées dans la règle instanciée
+	$r(\underline{m})$. Et donc, d'après la proposition \ref{prop:base-rule-create},
+	toutes les orbites $G\orbit{o}(m((v,v')))$ sont créés dans la transformation
+	directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous les nœuds $v'$ de l'orbite
+	d'instanciation $O$.
+	\\
 
-Réciproquement, supposons que toutes les orbites $H\orbit{o}(m'((v,v')))$ sont créés dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous les nœuds $v'$ de l'orbite d'instanciation $O$.
-Donc, d'après la proposition \ref{prop:base-rule-create}, toutes les orbites $R(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites créées dans la règle instanciée $r(\underline{m})$.
-Donc par construction de l'instanciation, $\underline{R}\orbit{o}(v)$ est une orbite créée dans la règle $r$.
+	Réciproquement, supposons que toutes les orbites $H\orbit{o}(m'((v,v')))$ sont créés dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous les nœuds $v'$ de l'orbite d'instanciation $O$.
+	Donc, d'après la proposition \ref{prop:base-rule-create}, toutes les orbites $R(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites créées dans la règle instanciée $r(\underline{m})$.
+	Donc par construction de l'instanciation, $\underline{R}\orbit{o}(v)$ est une orbite créée dans la règle $r$.
 \end{proof}
 
 \maxime{Instanciation + description}
@@ -724,46 +720,46 @@ supprimée.
 \maxime{Instanciation + description}
 
 \begin{proposition}
-  Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
-  filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type
-  d'orbite $\orbit{o}$.
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
+	filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type
+	d'orbite $\orbit{o}$.
 
-  Soit $v$ un nœud de $L$. L'orbite $\underline{L}\orbit{o}(v)$ est supprimée
-  dans la règle si et seulement si toutes les orbites $G\orbit{o}(m((v,v')))$
-  sont supprimées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour
-  tous les nœuds $v'$ de l'orbite d'instanciation
-  $G\orbit{l(h)}(\underline{m}(h))$.
+	Soit $v$ un nœud de $L$. L'orbite $\underline{L}\orbit{o}(v)$ est supprimée
+	dans la règle si et seulement si toutes les orbites $G\orbit{o}(m((v,v')))$
+	sont supprimées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour
+	tous les nœuds $v'$ de l'orbite d'instanciation
+	$G\orbit{l(h)}(\underline{m}(h))$.
 \end{proposition}
 
 \begin{proof}
-  Soit $v$ un nœud de $L$ tel que l'orbite $\underline{L}\orbit{o}(v)$ est
-  supprimée par la règle, c'est-à-dire tel que
-  $\underline{L}\orbit{o}(v) \cap \underline{R} = \emptyset$. Soit
-  $O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
+	Soit $v$ un nœud de $L$ tel que l'orbite $\underline{L}\orbit{o}(v)$ est
+	supprimée par la règle, c'est-à-dire tel que
+	$\underline{L}\orbit{o}(v) \cap \underline{R} = \emptyset$. Soit
+	$O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
 
-  Soit $w$ un nœud quelconque de l'orbite $\underline{L}\orbit{o}(v)$. $w$ est
-  un nœud supprimé de la règle de $L \setminus R$. Donc par construction de la règle
-  instanciée, tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite
-  d'instanciation $O$, sont des nœuds supprimés dans la règle instanciée
-  $r(\underline{m})$.
+	Soit $w$ un nœud quelconque de l'orbite $\underline{L}\orbit{o}(v)$. $w$ est
+	un nœud supprimé de la règle de $L \setminus R$. Donc par construction de la règle
+	instanciée, tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite
+	d'instanciation $O$, sont des nœuds supprimés dans la règle instanciée
+	$r(\underline{m})$.
 
-  Donc toutes les orbites $L(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de
-  l'orbite d'instanciation $O$ sont des orbites supprimées dans la règle
-  instanciée $r(\underline{m})$. Et donc, d'après le théorème
-  \ref{theo:topo-coherence-base-rule}, toutes les orbites
-  $G\orbit{o}(m((v,v')))$ sont supprimées dans la transformation directe
-  $G \xlongrightarrow{r,\underline{m}} H$, pour tous les nœuds $v'$ de l'orbite
-  d'instanciation $O$.
-  \\
+	Donc toutes les orbites $L(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de
+	l'orbite d'instanciation $O$ sont des orbites supprimées dans la règle
+	instanciée $r(\underline{m})$. Et donc, d'après le théorème
+	\ref{theo:topo-coherence-base-rule}, toutes les orbites
+	$G\orbit{o}(m((v,v')))$ sont supprimées dans la transformation directe
+	$G \xlongrightarrow{r,\underline{m}} H$, pour tous les nœuds $v'$ de l'orbite
+	d'instanciation $O$.
+	\\
 
-  Réciproquement, supposons que toutes les orbites $G\orbit{o}(m((v,v')))$ sont
-  supprimées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tous
-  les nœuds $v'$ de l'orbite d'instanciation $O$. Donc, d'après la proposition
-  \ref{prop:base-rule-delete}, toutes les orbites $L(O)\orbit{o}((v,v'))$ pour
-  tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites
-  supprimées dans la règle instanciée $r(\underline{m})$. Donc par construction
-  de l'instanciation, $\underline{L}\orbit{o}(v)$ est une orbite supprimée dans
-  la règle $r$.
+	Réciproquement, supposons que toutes les orbites $G\orbit{o}(m((v,v')))$ sont
+	supprimées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tous
+	les nœuds $v'$ de l'orbite d'instanciation $O$. Donc, d'après la proposition
+	\ref{prop:base-rule-delete}, toutes les orbites $L(O)\orbit{o}((v,v'))$ pour
+	tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites
+	supprimées dans la règle instanciée $r(\underline{m})$. Donc par construction
+	de l'instanciation, $\underline{L}\orbit{o}(v)$ est une orbite supprimée dans
+	la règle $r$.
 \end{proof}
 
 \maxime{Instanciation + description}
@@ -776,44 +772,44 @@ laquelle est inséré le nouveau sommet. Ces orbites sont inchangées par
 l'insertion du nouveau sommet.
 
 \begin{proposition} Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$,
-un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte
-$G$, et un type d'orbite $\orbit{o}$.
+	un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte
+	$G$, et un type d'orbite $\orbit{o}$.
 
-Soit $v$ un nœud de $L$. L'orbite $\underline{L}\orbit{o}(v)$ est inchangée dans
-la règle si et seulement si toutes les orbites $G\orbit{o}(m((v,v')))$ sont
-inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
-les nœuds $v'$ de l'orbite d'instanciation $G\orbit{l(h)}(\underline{m}(h))$.
+	Soit $v$ un nœud de $L$. L'orbite $\underline{L}\orbit{o}(v)$ est inchangée dans
+	la règle si et seulement si toutes les orbites $G\orbit{o}(m((v,v')))$ sont
+	inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
+	les nœuds $v'$ de l'orbite d'instanciation $G\orbit{l(h)}(\underline{m}(h))$.
 \end{proposition}
 
 \begin{proof} Soit $v$ un nœud préservé de $L \cap R$ tel que l'orbite
-$\underline{L}\orbit{o}(v)$ est inchangée dans la règle $r~: L \longrightarrow R$. Soit
-$O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
+	$\underline{L}\orbit{o}(v)$ est inchangée dans la règle $r~: L \longrightarrow R$. Soit
+	$O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
 
-Soit $w$ un nœud quelconque de l'orbite $\underline{L}\orbit{o}(v)$. $w$ est un
-nœud inchangé de la règle de $L \cap R$. Donc, par construction de la règle
-instanciée, tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite
-d'instanciation $O$, sont des nœuds inchangés dans la règle instanciée
-$r(\underline{m})$. Or une orbite $G\orbit{o}(m((v,v')))$ n'est pas
-nécessairement entièrement filtrée, c'est-à-dire
-$L(O)\orbit{o}((v,v')) \subset G\orbit{o}(m((v,v')))$ et
-$R(O)\orbit{o}((v,v')) \subset H\orbit{o}(m'((v,v')))$. Par définition, la partie non
-filtrée est aussi inchangée
-$G\orbit{o}(m((v,v'))) \setminus L(O)\orbit{o}((v,v')) = H\orbit{o}(m'((v,v'))) \setminus R(O)\orbit{o}((v,v'))$.
-Donc toutes les orbites $L(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de
-l'orbite d'instanciation $O$ sont des orbites inchangées dans la règle
-instanciée $r(\underline{m})$. Et donc, d'après la proposition
-\ref{prop:base-rule-unchange}, toutes les orbites $G\orbit{o}(m((v,v')))$ sont
-inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
-les nœuds $v'$ de l'orbite d'instanciation $O$. \\
+	Soit $w$ un nœud quelconque de l'orbite $\underline{L}\orbit{o}(v)$. $w$ est un
+	nœud inchangé de la règle de $L \cap R$. Donc, par construction de la règle
+	instanciée, tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite
+	d'instanciation $O$, sont des nœuds inchangés dans la règle instanciée
+	$r(\underline{m})$. Or une orbite $G\orbit{o}(m((v,v')))$ n'est pas
+	nécessairement entièrement filtrée, c'est-à-dire
+	$L(O)\orbit{o}((v,v')) \subset G\orbit{o}(m((v,v')))$ et
+	$R(O)\orbit{o}((v,v')) \subset H\orbit{o}(m'((v,v')))$. Par définition, la partie non
+	filtrée est aussi inchangée
+	$G\orbit{o}(m((v,v'))) \setminus L(O)\orbit{o}((v,v')) = H\orbit{o}(m'((v,v'))) \setminus R(O)\orbit{o}((v,v'))$.
+	Donc toutes les orbites $L(O)\orbit{o}((v,v'))$ pour tous les nœuds $v'$ de
+	l'orbite d'instanciation $O$ sont des orbites inchangées dans la règle
+	instanciée $r(\underline{m})$. Et donc, d'après la proposition
+	\ref{prop:base-rule-unchange}, toutes les orbites $G\orbit{o}(m((v,v')))$ sont
+	inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
+	les nœuds $v'$ de l'orbite d'instanciation $O$. \\
 
-Réciproquement, supposons que toutes les orbites $G\orbit{o}(m((v,v')))$ sont
-inchangées dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous
-les nœuds $v'$ de l'orbite d'instanciation $O$. Donc d'après la proposition
-\ref{prop:base-rule-unchange}, toutes les orbites $L(O)\orbit{o}((v,v'))$ pour
-tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites inchangées
-dans la règle instanciée $r(\underline{m})$. Donc par construction de
-l'instanciation, $\underline{L}\orbit{o}(v)$ est une orbite inchangée dans la
-règle $r$.
+	Réciproquement, supposons que toutes les orbites $G\orbit{o}(m((v,v')))$ sont
+	inchangées dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous
+	les nœuds $v'$ de l'orbite d'instanciation $O$. Donc d'après la proposition
+	\ref{prop:base-rule-unchange}, toutes les orbites $L(O)\orbit{o}((v,v'))$ pour
+	tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites inchangées
+	dans la règle instanciée $r(\underline{m})$. Donc par construction de
+	l'instanciation, $\underline{L}\orbit{o}(v)$ est une orbite inchangée dans la
+	règle $r$.
 \end{proof}
 
 \maxime{Instanciation + description}
@@ -826,11 +822,11 @@ Dans la figure ? le brin $a$ de $G$ n'est pas filtré, mais l'orbite sommet $G\o
 Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas filtrée non plus, donc l'orbite sommet $G\orbit{1,2,3}(b)$ n'est pas affectée par l'application de la règle.
 
 \begin{definition}
-Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage
-$\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite
-$\orbit{o}$.
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage
+	$\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite
+	$\orbit{o}$.
 
-Soit $b$ un brin de $G$ non filtré. L'orbite $G\orbit{o}(b)$ n'est \emph{pas affectée} par l'application de $r$ si $G\orbit{o}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée} sinon.
+	Soit $b$ un brin de $G$ non filtré. L'orbite $G\orbit{o}(b)$ n'est \emph{pas affectée} par l'application de $r$ si $G\orbit{o}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée} sinon.
 
 \end{definition}
 
@@ -851,99 +847,99 @@ Dans le membre droit $R$ construit la triangulation de la face.
 \maxime{instanciation et description nécessaire + règle de scission "explicite"}.
 
 \begin{proposition}
-Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
-filtrage $\underline{m}~: \underline{L} \rightarrow R$ sur une G-carte $G$, et un type d'orbite
-$\orbit{o}$.
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
+	filtrage $\underline{m}~: \underline{L} \rightarrow R$ sur une G-carte $G$, et un type d'orbite
+	$\orbit{o}$.
 
-Soit un nœud préservé $v_1$ de $L$ et $R$, $\underline{L}\orbit{o}(v_1)$ est scindé dans la règle si :
-     \begin{itemize}
-         \item la scission est due à des arcs explicites, c'est-à-dire si $\underline{L}\orbit{o}(v_1)$ est scindée dans $\underline{R}$~;
+	Soit un nœud préservé $v_1$ de $L$ et $R$, $\underline{L}\orbit{o}(v_1)$ est scindé dans la règle si :
+	\begin{itemize}
+		\item la scission est due à des arcs explicites, c'est-à-dire si $\underline{L}\orbit{o}(v_1)$ est scindée dans $\underline{R}$~;
 
-         \item la scission est due à des arcs implicites, c'est-à-dire si il existe un nœud $v$ de $\underline{L}\orbit{o}(v_1)$ dont l'étiquette $l(v)$ a pour k-ème position une dimension de $\orbit{o}$, et que pour tous les nœuds $v'$ de $\underline{R}\orbit{o}(v_1)$ l'étiquette de $l(v')$ a pour k-ème position est un "$\_$" ou une dimension qui n'appartient pas à $\orbit{o}$.
-     \end{itemize}
+		\item la scission est due à des arcs implicites, c'est-à-dire si il existe un nœud $v$ de $\underline{L}\orbit{o}(v_1)$ dont l'étiquette $l(v)$ a pour k-ème position une dimension de $\orbit{o}$, et que pour tous les nœuds $v'$ de $\underline{R}\orbit{o}(v_1)$ l'étiquette de $l(v')$ a pour k-ème position est un "$\_$" ou une dimension qui n'appartient pas à $\orbit{o}$.
+	\end{itemize}
 
-Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$. Notons $O = G\orbit{l(h)}(\underline{m}(h))$ l'orbite d'instanciation.
-\begin{enumerate}
+	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$. Notons $O = G\orbit{l(h)}(\underline{m}(h))$ l'orbite d'instanciation.
+	\begin{enumerate}
 
-     \item
-     Si $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$ dans la règle du à des arcs explicites.
-     Et si l'orbite $\underline{R}\orbit{o}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout nœud $v$ de $\underline{R}\orbit{o}(v_1)$ et pour toute dimension $i$ de $\orbit{o}$, $v$ est la source d'un $i$-arc implicite ou explicite dans~$R$.
-     Alors l'orbite $G\orbit{o}(m((v_1,v')))$ est scindée en deux orbites $H\orbit{o}(m'((v_1, v')))$ et $H\orbit{o}(m'((v_2, v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+		\item
+		      Si $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$ dans la règle du à des arcs explicites.
+		      Et si l'orbite $\underline{R}\orbit{o}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout nœud $v$ de $\underline{R}\orbit{o}(v_1)$ et pour toute dimension $i$ de $\orbit{o}$, $v$ est la source d'un $i$-arc implicite ou explicite dans~$R$.
+		      Alors l'orbite $G\orbit{o}(m((v_1,v')))$ est scindée en deux orbites $H\orbit{o}(m'((v_1, v')))$ et $H\orbit{o}(m'((v_2, v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
 
-     \item Si l'orbite $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et
-     $\underline{R}\orbit{o}(v_2)$ dans la règle due à un arc explicite.
-     Si les orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$
-     sont toutes deux partiellement filtrées.
-     Alors, pour chaque nœud $v'$ de l'orbite d'instanciation $O$, soit $G\orbit{o}(m((v_1,v')))$ est scindée en deux orbites
-     $H\orbit{o}(m((v_1, v')))$ et $H\orbit{o}(m((v_2,v')))$, soit l'orbite est modifiée, dans la transformation directe
-     $G \xlongrightarrow{r, \underline{m}} H$.
+		\item Si l'orbite $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et
+		      $\underline{R}\orbit{o}(v_2)$ dans la règle due à un arc explicite.
+		      Si les orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$
+		      sont toutes deux partiellement filtrées.
+		      Alors, pour chaque nœud $v'$ de l'orbite d'instanciation $O$, soit $G\orbit{o}(m((v_1,v')))$ est scindée en deux orbites
+		      $H\orbit{o}(m((v_1, v')))$ et $H\orbit{o}(m((v_2,v')))$, soit l'orbite est modifiée, dans la transformation directe
+		      $G \xlongrightarrow{r, \underline{m}} H$.
 
-     \item Si l'orbite $\underline{L}\orbit{o}(v_1)$ est scindée dans la règle du au k-ième arc implicite.
-     Alors pour tout nœud $v'_1$ de l'orbite d'instanciation $O$ et $v'_2$ le $i$-voisin de $v'_1$ dans $O$ avec $i$ la dimension à la k-ième position de $l(h)$, $G\orbit{o}(m((v_1,v'_1)))$ est soit scindée en deux orbites
-     $H\orbit{o}(m((v_1, v'_1)))$ et $H\orbit{o}(m((v_1,v'_2)))$, soit modifiée en une orbite unique $H\orbit{o}(m((v_1, v'_1))) = H\orbit{o}(m((v_1,v'_2)))$ dans la transformation directe
-     $G \xlongrightarrow{r, \underline{m}} H$.
-\end{enumerate}
+		\item Si l'orbite $\underline{L}\orbit{o}(v_1)$ est scindée dans la règle du au k-ième arc implicite.
+		      Alors pour tout nœud $v'_1$ de l'orbite d'instanciation $O$ et $v'_2$ le $i$-voisin de $v'_1$ dans $O$ avec $i$ la dimension à la k-ième position de $l(h)$, $G\orbit{o}(m((v_1,v'_1)))$ est soit scindée en deux orbites
+		      $H\orbit{o}(m((v_1, v'_1)))$ et $H\orbit{o}(m((v_1,v'_2)))$, soit modifiée en une orbite unique $H\orbit{o}(m((v_1, v'_1))) = H\orbit{o}(m((v_1,v'_2)))$ dans la transformation directe
+		      $G \xlongrightarrow{r, \underline{m}} H$.
+	\end{enumerate}
 
 \end{proposition}
 
 \begin{proof}
-Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
-\\
+	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
+	\\
 
-Cas 1 :
+	Cas 1 :
 
-Supposons que $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$ dans la règle du à des arcs explicites.
-Alors, par définition, il existe un chemin $e_1 e_2 ... e_j$ dans $L$ de source $v_1$, de cible $v_2$ et étiqueté par $i_1 i_2 ... i_j$ sur $\orbit{o}$, mais il n'existe pas de tel chemin $f_1 f_2 ... f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{o}$.
+	Supposons que $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$ dans la règle du à des arcs explicites.
+	Alors, par définition, il existe un chemin $e_1 e_2 ... e_j$ dans $L$ de source $v_1$, de cible $v_2$ et étiqueté par $i_1 i_2 ... i_j$ sur $\orbit{o}$, mais il n'existe pas de tel chemin $f_1 f_2 ... f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{o}$.
 
-Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il existe un chemin $(e_1,v') (e_2,v') ... (e_j,v')$ dans le motif gauche de la règle instanciée $L(O)$ dont la source est $(s(e_1),v') = (v_1, v')$, la cible est $(t(e_j), v') = (v_2, v')$ et étiqueté par le même mot $i_1 i_2 ... i_j$ sur $\orbit{o}$.
+	Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il existe un chemin $(e_1,v') (e_2,v') ... (e_j,v')$ dans le motif gauche de la règle instanciée $L(O)$ dont la source est $(s(e_1),v') = (v_1, v')$, la cible est $(t(e_j), v') = (v_2, v')$ et étiqueté par le même mot $i_1 i_2 ... i_j$ sur $\orbit{o}$.
 
-Supposons que pour un nœud $v'$ de l'orbite d'instanciation $O$, il existe un chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la règle instanciée $R(O)$ dont la source est $(s(f_1),v') = (v_1, v')$, la cible est $(t(e_j), v') = (v_2, v')$ et étiqueté sur $\orbit{o}$.
-Alors, par construction de l'instanciation, le chemin $f_1 f_2 ... f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{o}$ existe dans la règle de départ. Ce qui est contradictoire avec l'hypothèse. Donc il n'existe pas de chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la règle instanciée ayant les propriétés attendues.
-Donc $R(O)\orbit{o}((v_1,v'))$ et $R(O)\orbit{o}((v_2,v'))$ sont deux $\orbit{o}$-orbites distinctes.
+	Supposons que pour un nœud $v'$ de l'orbite d'instanciation $O$, il existe un chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la règle instanciée $R(O)$ dont la source est $(s(f_1),v') = (v_1, v')$, la cible est $(t(e_j), v') = (v_2, v')$ et étiqueté sur $\orbit{o}$.
+	Alors, par construction de l'instanciation, le chemin $f_1 f_2 ... f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{o}$ existe dans la règle de départ. Ce qui est contradictoire avec l'hypothèse. Donc il n'existe pas de chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la règle instanciée ayant les propriétés attendues.
+	Donc $R(O)\orbit{o}((v_1,v'))$ et $R(O)\orbit{o}((v_2,v'))$ sont deux $\orbit{o}$-orbites distinctes.
 
-Donc d'après la proposition \ref{prop:base-rule_split}, si $\underline{R}\orbit{o}(v_1)$ et donc $R(O)\orbit{o}((v_1, v'))$ est entièrement filtrée, alors l'orbite $G\orbit{o}(m((v_1,v')))$ est scindée en deux orbites $H\orbit{o}(m'((v_1, v')))$ et $H\orbit{o}(m'((v_2, v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
-\\
+	Donc d'après la proposition \ref{prop:base-rule_split}, si $\underline{R}\orbit{o}(v_1)$ et donc $R(O)\orbit{o}((v_1, v'))$ est entièrement filtrée, alors l'orbite $G\orbit{o}(m((v_1,v')))$ est scindée en deux orbites $H\orbit{o}(m'((v_1, v')))$ et $H\orbit{o}(m'((v_2, v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+	\\
 
-Cas 2 :
+	Cas 2 :
 
-Supposons que $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$ dans la règle du à des arcs explicites.
+	Supposons que $\underline{L}\orbit{o}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{o}(v_1)$ et $\underline{R}\orbit{o}(v_2)$ dans la règle du à des arcs explicites.
 
-Pour les mêmes raisons que dans le cas 1, $R(O)\orbit{o}((v_1,v'))$ et $R(O)\orbit{o}((v_2,v'))$ sont deux $\orbit{o}$-orbites distinctes dans la règles instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+	Pour les mêmes raisons que dans le cas 1, $R(O)\orbit{o}((v_1,v'))$ et $R(O)\orbit{o}((v_2,v'))$ sont deux $\orbit{o}$-orbites distinctes dans la règles instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
 
-Donc d'après la proposition \ref{prop:base-rule_split}, si $R\orbit{o}(v_1)$ et donc $R(O)\orbit{o}((v_1, v'))$ est partiellement filtrée, alors l'orbite $G\orbit{o}(m((v_1,v')))$ est soit scindée en deux orbites $H\orbit{o}(m'((v_1, v')))$ et $H\orbit{o}(m'((v_2, v')))$, soit modifiée, dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
-\\
+	Donc d'après la proposition \ref{prop:base-rule_split}, si $R\orbit{o}(v_1)$ et donc $R(O)\orbit{o}((v_1, v'))$ est partiellement filtrée, alors l'orbite $G\orbit{o}(m((v_1,v')))$ est soit scindée en deux orbites $H\orbit{o}(m'((v_1, v')))$ et $H\orbit{o}(m'((v_2, v')))$, soit modifiée, dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+	\\
 
-Cas 3 :
+	Cas 3 :
 
-Supposons que $\underline{L}\orbit{o}(v_1)$ est scindée due au k-ième arc implicite. Soit $v'_1$ un nœud de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$ et $v'_2$ le $i$-voisin de $v'_1$ dans $O$, avec $i$ la k-ième dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
+	Supposons que $\underline{L}\orbit{o}(v_1)$ est scindée due au k-ième arc implicite. Soit $v'_1$ un nœud de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$ et $v'_2$ le $i$-voisin de $v'_1$ dans $O$, avec $i$ la k-ième dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
 
-Par hypothèse, l'un des nœuds $v$ de $\underline{L}\orbit{o}(v_1)$ a une k-ième dimension $j$ dans l'orbite $\orbit{o}$ ($j \in \orbit{o}$), alors que tous des noeuds de $\underline{R}\orbit{o}(v_1)$ ont leur k-ième dimension hors de $\orbit{o}$.
-Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $L(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{o}$-orbite dans $L(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
+	Par hypothèse, l'un des nœuds $v$ de $\underline{L}\orbit{o}(v_1)$ a une k-ième dimension $j$ dans l'orbite $\orbit{o}$ ($j \in \orbit{o}$), alors que tous des noeuds de $\underline{R}\orbit{o}(v_1)$ ont leur k-ième dimension hors de $\orbit{o}$.
+	Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $L(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{o}$-orbite dans $L(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
 
-Nous avons plusieurs cas :
-\begin{itemize}
-    \item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans deux $\orbit{o}$-orbites différentes de $R(O)$, d'après la proposition \ref{prop:base-rule_split},
-    selon les cas, $H\orbit{o}(m'((v_1, v'_1)))$ et $H\orbit{o}(m'((v_1,v'_2)))$ sont dans deux orbites différentes ou non de $H$, avec $H$ le résultats de la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
-    autrement dit $G\orbit{o}(m((v_1, v'_1))$ est scindée en $H\orbit{o}(m'((v_1, v'_1)))$ et $H\orbit{o}(m'((v_1,v'_2)))$ ou juste modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
+	Nous avons plusieurs cas :
+	\begin{itemize}
+		\item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans deux $\orbit{o}$-orbites différentes de $R(O)$, d'après la proposition \ref{prop:base-rule_split},
+		      selon les cas, $H\orbit{o}(m'((v_1, v'_1)))$ et $H\orbit{o}(m'((v_1,v'_2)))$ sont dans deux orbites différentes ou non de $H$, avec $H$ le résultats de la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
+		      autrement dit $G\orbit{o}(m((v_1, v'_1))$ est scindée en $H\orbit{o}(m'((v_1, v'_1)))$ et $H\orbit{o}(m'((v_1,v'_2)))$ ou juste modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
 
-    \item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même $\orbit{o}$-orbites de $R(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$ de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce chemin est réécrit en un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $R(O)$ dont toutes les étiquettes sont dans $\orbit{o}$),
-    d'après la proposition \ref{prop:base-rule-modify}, alors $G\orbit{o}(m((v_1, v'_1))$ est modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
-\end{itemize}
+		\item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même $\orbit{o}$-orbites de $R(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$ de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce chemin est réécrit en un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $R(O)$ dont toutes les étiquettes sont dans $\orbit{o}$),
+		      d'après la proposition \ref{prop:base-rule-modify}, alors $G\orbit{o}(m((v_1, v'_1))$ est modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
+	\end{itemize}
 \end{proof}
 
 \begin{definition}
-Soit une règle $r~: L \longrightarrow R$, $v_1$ et $v_2$ deux nœuds préservés de $L$ et $R$ et $\orbit{o}$ un type d'orbite, tels que l'orbite $L\orbit{o}(v_1) = L\orbit{o}(v_2)$ de $L$ soit scindée en deux orbites distinctes $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans $R$.
+	Soit une règle $r~: L \longrightarrow R$, $v_1$ et $v_2$ deux nœuds préservés de $L$ et $R$ et $\orbit{o}$ un type d'orbite, tels que l'orbite $L\orbit{o}(v_1) = L\orbit{o}(v_2)$ de $L$ soit scindée en deux orbites distinctes $R\orbit{o}(v_1)$ et $R\orbit{o}(v_2)$ dans $R$.
 
-Une \emph{orbite d'origine} de $R\orbit{o}(v_1)$ dans $L$ (et de manière symétrique l'orbite d'origine de $R\orbit{o}(v_2)$ dans $L$) est une orbite $L\orbit{o'}(w)$ où :
-\begin{itemize}
-    \item où $w$ est un nœud de $\underline{L}\orbit{o}(v_1)$,
+	Une \emph{orbite d'origine} de $R\orbit{o}(v_1)$ dans $L$ (et de manière symétrique l'orbite d'origine de $R\orbit{o}(v_2)$ dans $L$) est une orbite $L\orbit{o'}(w)$ où :
+	\begin{itemize}
+		\item où $w$ est un nœud de $\underline{L}\orbit{o}(v_1)$,
 
-    \item $\orbit{o'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $w$ ; c'est-à-dire que $(l_L(w) \mapsto l_R(v_1))(i) = j \in \orbit{o}$
+		\item $\orbit{o'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $w$ ; c'est-à-dire que $(l_L(w) \mapsto l_R(v_1))(i) = j \in \orbit{o}$
 
-\end{itemize}
-Soit un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $G \xlongrightarrow{r, \underline{m}} H$ la transformation directe correspondante et $O$ l'orbite d'instanciation. Soit $v'$ un nœud de $O$.
+	\end{itemize}
+	Soit un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $G \xlongrightarrow{r, \underline{m}} H$ la transformation directe correspondante et $O$ l'orbite d'instanciation. Soit $v'$ un nœud de $O$.
 
-Une {\em origine} de l'orbite $H\orbit{o}((v_1,v'))$ est une orbite $G\orbit{o'}((w,v'))$.
+	Une {\em origine} de l'orbite $H\orbit{o}((v_1,v'))$ est une orbite $G\orbit{o'}((w,v'))$.
 \end{definition}
 
 \todo{Ajouter illustration règle insertion d'arête coloriée (dans le document il s'agit de la règle dépliée, je mettrai la règle repliée)}
@@ -1025,92 +1021,92 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 
 
 \begin{proposition}
-Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow R$ sur une G-carte $G$, et un type d'orbite $\orbit{o}$.
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow R$ sur une G-carte $G$, et un type d'orbite $\orbit{o}$.
 
-Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$, $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées dans la règle~:
+	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$, $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées dans la règle~:
 
-\begin{itemize}
-    \item si la fusion est due à des arcs explicites, c'est-à-dire si $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées dans $\underline{R}$~;
+	\begin{itemize}
+		\item si la fusion est due à des arcs explicites, c'est-à-dire si $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées dans $\underline{R}$~;
 
-    \item si la fusion est due à des arcs implicites, c'est-à-dire si pour tout nœud de $\underline{L}\orbit{o}(v_1)$, l'étiquette $l(v)$ a pour $k$-ème position un "\_" ou une
-    dimension qui n'appartient pas à $\orbit{o}$, et qu'il existe un nœud $v'$ de $\underline{R}\orbit{o}(v_1)$ dont l'étiquette $l(v')$ a pour $k$-ème position une dimension
-    de $\orbit{o}$.
-\end{itemize}
+		\item si la fusion est due à des arcs implicites, c'est-à-dire si pour tout nœud de $\underline{L}\orbit{o}(v_1)$, l'étiquette $l(v)$ a pour $k$-ème position un "\_" ou une
+		      dimension qui n'appartient pas à $\orbit{o}$, et qu'il existe un nœud $v'$ de $\underline{R}\orbit{o}(v_1)$ dont l'étiquette $l(v')$ a pour $k$-ème position une dimension
+		      de $\orbit{o}$.
+	\end{itemize}
 
-Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$. Notons $O = G\orbit{l(h)}(\underline{m}(h))$ l'orbite d'instanciation.
+	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$. Notons $O = G\orbit{l(h)}(\underline{m}(h))$ l'orbite d'instanciation.
 
-\begin{enumerate}
-    \item Si $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
-    Et si l'orbite $\underline{L}\orbit{o}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout nœud $v$ de $\underline{L}\orbit{o}(v_1)$ et pour toute dimension $i$ de $\orbit{o}$, $v$ est la source d'un $i$-arc implicite
-    ou explicite dans $L$. Alors les orbites $G\orbit{o}(m((v_1,v')))$ et $G\orbit{o}(m((v_2,v')))$ sont fusionnées en une orbite $H\orbit{o}(m'((v_1,v')))$ dans la transformation directe
-    $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+	\begin{enumerate}
+		\item Si $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
+		      Et si l'orbite $\underline{L}\orbit{o}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout nœud $v$ de $\underline{L}\orbit{o}(v_1)$ et pour toute dimension $i$ de $\orbit{o}$, $v$ est la source d'un $i$-arc implicite
+		      ou explicite dans $L$. Alors les orbites $G\orbit{o}(m((v_1,v')))$ et $G\orbit{o}(m((v_2,v')))$ sont fusionnées en une orbite $H\orbit{o}(m'((v_1,v')))$ dans la transformation directe
+		      $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
 
-    \item Si les orbites $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
-    Si les orbites $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont toutes deux partiellement filtrées. Alors, pour chaque nœud $v'$ de l'orbite
-    d'instanciation $O$, soit $G\orbit{o}(m((v_1,v')))$ et $G\orbit{o}(m((v_2,v')))$ sont fusionnées en une orbite
-    $H\orbit{o}(m'((v_1,v')))$, soit elles sont deux parties d'une même orbite modifiée dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
+		\item Si les orbites $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
+		      Si les orbites $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont toutes deux partiellement filtrées. Alors, pour chaque nœud $v'$ de l'orbite
+		      d'instanciation $O$, soit $G\orbit{o}(m((v_1,v')))$ et $G\orbit{o}(m((v_2,v')))$ sont fusionnées en une orbite
+		      $H\orbit{o}(m'((v_1,v')))$, soit elles sont deux parties d'une même orbite modifiée dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
 
-    \item Si l'orbite $\underline{L}\orbit{o}(v_1)$ est fusionnées dans la règle du au $k$-ème arc implicite.
-    Alors pour tout nœud $v_1'$ de l'orbite d'instanciation $O$ et $v_2'$ le $i$-voisin de $v_1'$ dans $O$ avec $i$ la dimension à la $k$-ème position
-    de $l(h)$, $G\orbit{o}(m((v_1,v_1')))$ et $G\orbit{o}(m((v_1,v_2')))$ sont soit fusionnées en une orbite $H\orbit{o}(m'((v_1,v_1')))$, soit modifiées en une orbite unique
-    $H\orbit{o}(m'((v_1,v_1'))) = H\orbit{o}(m'((v_1,v_2')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$
-\end{enumerate}
+		\item Si l'orbite $\underline{L}\orbit{o}(v_1)$ est fusionnées dans la règle du au $k$-ème arc implicite.
+		      Alors pour tout nœud $v_1'$ de l'orbite d'instanciation $O$ et $v_2'$ le $i$-voisin de $v_1'$ dans $O$ avec $i$ la dimension à la $k$-ème position
+		      de $l(h)$, $G\orbit{o}(m((v_1,v_1')))$ et $G\orbit{o}(m((v_1,v_2')))$ sont soit fusionnées en une orbite $H\orbit{o}(m'((v_1,v_1')))$, soit modifiées en une orbite unique
+		      $H\orbit{o}(m'((v_1,v_1'))) = H\orbit{o}(m'((v_1,v_2')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$
+	\end{enumerate}
 \end{proposition}
 
 \begin{proof}
-    Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$
-    \\
+	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$
+	\\
 
-    Cas 1~:
+	Cas 1~:
 
-    Supposons que $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
-    Alors, par définition, il n'existe pas de chemin $e_1 e_2 \dots e_j$ dans $L$ de source $v_1$, de cible $v_2$ et étiqueté par $i_1 i_2 \dots i_j$ sur $\orbit{o}$, mais il existe un chemin
-    $f_1 f_2 \dots f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{o}$.
+	Supposons que $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
+	Alors, par définition, il n'existe pas de chemin $e_1 e_2 \dots e_j$ dans $L$ de source $v_1$, de cible $v_2$ et étiqueté par $i_1 i_2 \dots i_j$ sur $\orbit{o}$, mais il existe un chemin
+	$f_1 f_2 \dots f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{o}$.
 
-    Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il n'existe pas de chemin $(e_1, v')(e_2, v')\dots(e_j,v')$ dans le
-    motif gauche de la règle instanciée $L(O)$ dont la source est $(s(e_1),v') = (v_1,v')$, la cible est $(t(e_j),v') = (v_2,v')$ et étiqueté par le même mot $i_1 i_2 \dots i_j$ sur $\orbit{o}$.
+	Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il n'existe pas de chemin $(e_1, v')(e_2, v')\dots(e_j,v')$ dans le
+	motif gauche de la règle instanciée $L(O)$ dont la source est $(s(e_1),v') = (v_1,v')$, la cible est $(t(e_j),v') = (v_2,v')$ et étiqueté par le même mot $i_1 i_2 \dots i_j$ sur $\orbit{o}$.
 
-    Supposons que pour tout nœud $v'$ de l'orbite d'instanciation $O$, il n'existe pas de chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le motif droit de la règle instanciée $R(O)$ dont la source
-    est $(s(f_1),v') = (v_1,v')$, la cible est $(t(f_k),v') = (v_2, v')$ et étiqueté sur $\orbit{o}$.
-    Alors, par construction de l'instanciation, le chemin $f_1 f_2 \dots f_k$ dans $R$ de source $v_1$,
-    de cible $v_2$ et étiqueté sur $\orbit{o}$ n'existe pas dans la règle de départ.
-    Ce qui est contradictoire avec l'hypothèse. Donc il existe un chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le
-    motif droit de la règle instanciée ayant les propriétés attendues.
-    Donc $R(O)\orbit{o}((v_1,v'))$ et $R(O)\orbit{o}((v_2,v'))$ sont bien une seule et même $\orbit{o}$-orbite.
+	Supposons que pour tout nœud $v'$ de l'orbite d'instanciation $O$, il n'existe pas de chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le motif droit de la règle instanciée $R(O)$ dont la source
+	est $(s(f_1),v') = (v_1,v')$, la cible est $(t(f_k),v') = (v_2, v')$ et étiqueté sur $\orbit{o}$.
+	Alors, par construction de l'instanciation, le chemin $f_1 f_2 \dots f_k$ dans $R$ de source $v_1$,
+	de cible $v_2$ et étiqueté sur $\orbit{o}$ n'existe pas dans la règle de départ.
+	Ce qui est contradictoire avec l'hypothèse. Donc il existe un chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le
+	motif droit de la règle instanciée ayant les propriétés attendues.
+	Donc $R(O)\orbit{o}((v_1,v'))$ et $R(O)\orbit{o}((v_2,v'))$ sont bien une seule et même $\orbit{o}$-orbite.
 
-    Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{o}(v_1)$ et donc $L(O)\orbit{o}((v_1,v'))$ est entièrement filtrée, alors les orbites $G\orbit{o}(m((v_1,v')))$ et
-    $G\orbit{o}(m((v_2,v')))$ sont fusionnées en une orbite $H\orbit{o}(m'((v_1,v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite
-    d'instanciation $O$.
-    \\
+	Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{o}(v_1)$ et donc $L(O)\orbit{o}((v_1,v'))$ est entièrement filtrée, alors les orbites $G\orbit{o}(m((v_1,v')))$ et
+	$G\orbit{o}(m((v_2,v')))$ sont fusionnées en une orbite $H\orbit{o}(m'((v_1,v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite
+	d'instanciation $O$.
+	\\
 
-    Cas 2~:
+	Cas 2~:
 
-    Supposons que $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
+	Supposons que $\underline{L}\orbit{o}(v_1)$ et $\underline{L}\orbit{o}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{o}(v_1)$ dans la règle du à des arcs explicites.
 
-    Pour les mêmes raisons que dans le cas $1$, $L(O)\orbit{o}((v_1,v'))$ et $L(O)\orbit{o}((v_2,v'))$ sont deux $\orbit{o}$-orbites distinctes dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+	Pour les mêmes raisons que dans le cas $1$, $L(O)\orbit{o}((v_1,v'))$ et $L(O)\orbit{o}((v_2,v'))$ sont deux $\orbit{o}$-orbites distinctes dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
 
-    Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{o}(v_1)$ et donc $L(O)\orbit{o}((v_1,v'))$ est partiellement filtrée, alors les orbites
-    $G\orbit{o}(m((v_1,v')))$ et $G\orbit{o}(m((v_2,v')))$ sont soit fusionnées en une orbite $H\orbit{o}(m'((v_1,v')))$, soit modifiées, dans la transformation directe
-    $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
-    \\
+	Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{o}(v_1)$ et donc $L(O)\orbit{o}((v_1,v'))$ est partiellement filtrée, alors les orbites
+	$G\orbit{o}(m((v_1,v')))$ et $G\orbit{o}(m((v_2,v')))$ sont soit fusionnées en une orbite $H\orbit{o}(m'((v_1,v')))$, soit modifiées, dans la transformation directe
+	$G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+	\\
 
-    Cas 3~:
+	Cas 3~:
 
-    Supposons que $\underline{L}\orbit{o}(v_1)$ est fusionnée due au $k$-ème arc implicite. Soit $v_1'$ un nœud de l'orbite d'ins\-tan\-cia\-tion
-    $O = G\orbit{l(h)}(\underline{m}(h))$ et $v_2'$ le $i$-voisin de $v_1'$ dans $O$, avec $i$ la $k$-ème dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
+	Supposons que $\underline{L}\orbit{o}(v_1)$ est fusionnée due au $k$-ème arc implicite. Soit $v_1'$ un nœud de l'orbite d'ins\-tan\-cia\-tion
+	$O = G\orbit{l(h)}(\underline{m}(h))$ et $v_2'$ le $i$-voisin de $v_1'$ dans $O$, avec $i$ la $k$-ème dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
 
-    Par hypothèse, tous les noeuds de $\underline{L}\orbit{o}(v_1)$ ont une k-ième dimension soit supprimée, soit renommée hors de $\orbit{o}$.
-    Au contraire, il existe un nœud $v$ de $\underline{R}\orbit{o}(v_1)$ dont la k-ième dimension est renommée en $j$ dans $\orbit{o}$. Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $R(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{o}$-orbite dans $R(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
+	Par hypothèse, tous les noeuds de $\underline{L}\orbit{o}(v_1)$ ont une k-ième dimension soit supprimée, soit renommée hors de $\orbit{o}$.
+	Au contraire, il existe un nœud $v$ de $\underline{R}\orbit{o}(v_1)$ dont la k-ième dimension est renommée en $j$ dans $\orbit{o}$. Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $R(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{o}$-orbite dans $R(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
 
-Nous avons plusieurs cas :
-\begin{itemize}
-    \item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont deux $\orbit{o}$-orbites différentes de $L(O)$, d'après la proposition \ref{prop:base-rule_split},
-    selon les cas, $G\orbit{o}(m((v_1, v'_1)))$ et $G\orbit{o}(m((v_1,v'_2)))$ sont dans deux orbites différentes ou non de $G$ ;
-    autrement dit $G\orbit{o}(m((v_1, v'_1))$ et $G\orbit{o}(m((v_2, v'_2))$ sont fusionnées en une orbite $H\orbit{o}(m'((v_1, v'_1)))$ ou l'unique orbite $G\orbit{o}(m((v_1, v'_1)) = G\orbit{o}(m((v_2, v'_2))$ est juste modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
+	Nous avons plusieurs cas :
+	\begin{itemize}
+		\item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont deux $\orbit{o}$-orbites différentes de $L(O)$, d'après la proposition \ref{prop:base-rule_split},
+		      selon les cas, $G\orbit{o}(m((v_1, v'_1)))$ et $G\orbit{o}(m((v_1,v'_2)))$ sont dans deux orbites différentes ou non de $G$ ;
+		      autrement dit $G\orbit{o}(m((v_1, v'_1))$ et $G\orbit{o}(m((v_2, v'_2))$ sont fusionnées en une orbite $H\orbit{o}(m'((v_1, v'_1)))$ ou l'unique orbite $G\orbit{o}(m((v_1, v'_1)) = G\orbit{o}(m((v_2, v'_2))$ est juste modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
 
-    \item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même $\orbit{o}$-orbites de $L(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$ de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce chemin est réécrit un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $L(O)$ dont toutes les étiquettes sont dans $\orbit{o}$),
-    d'après la proposition \ref{prop:base-rule-modify}, alors $G\orbit{o}(m((v_1, v'_1))$ est modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
-\end{itemize}
+		\item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même $\orbit{o}$-orbites de $L(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$ de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce chemin est réécrit un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $L(O)$ dont toutes les étiquettes sont dans $\orbit{o}$),
+		      d'après la proposition \ref{prop:base-rule-modify}, alors $G\orbit{o}(m((v_1, v'_1))$ est modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
+	\end{itemize}
 
 \end{proof}
 
@@ -1161,56 +1157,56 @@ Nous avons plusieurs cas :
 \subsection{Modification}
 
 \begin{proposition}
-Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite $\orbit{o}$.
-Soit $v$ un nœud conservé de $L$ et $R$.
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite $\orbit{o}$.
+	Soit $v$ un nœud conservé de $L$ et $R$.
 
-L'orbite $\underline{L}\orbit{o}(v)$ est modifiée dans la règle si et seulement si on à la fois :
-\begin{itemize}
-    \item la $\orbit{o}$-orbite incidente à $v$ est modifiée entre $\underline{L}$ et $\underline{R}$,
-    \item pour toute position $k$ des étiquettes de nœud de la règle, il existe un nœud $v_1$ de $\underline{L}\orbit{o}(v)$ dont la k-ième dimension appartient à $\orbit{o}$ si et seulement si il existe un nœud $v_2$ de $\underline{R}\orbit{o}(v)$ dont la k-ième dimension appartient à~$\orbit{o}$.
-\end{itemize}
+	L'orbite $\underline{L}\orbit{o}(v)$ est modifiée dans la règle si et seulement si on à la fois :
+	\begin{itemize}
+		\item la $\orbit{o}$-orbite incidente à $v$ est modifiée entre $\underline{L}$ et $\underline{R}$,
+		\item pour toute position $k$ des étiquettes de nœud de la règle, il existe un nœud $v_1$ de $\underline{L}\orbit{o}(v)$ dont la k-ième dimension appartient à $\orbit{o}$ si et seulement si il existe un nœud $v_2$ de $\underline{R}\orbit{o}(v)$ dont la k-ième dimension appartient à~$\orbit{o}$.
+	\end{itemize}
 
 
-Si l'orbite $\underline{L}\orbit{o}(v)$ est modifiée dans la règle $r$, alors
-$G\orbit{o}(m((v,v')))$ est modifiée dans la transformation directe
-$G \xlongrightarrow{r,\underline{m}} H$ pour tous les nœuds $v'$ de l'orbite d'instanciation
-$G\orbit{l(h)}(\underline{m}(h))$. Réciproquement, si une orbite
-$G\orbit{o}(m((v,v')))$ est modifiée dans la transformation directe
-$G \xlongrightarrow{r,\underline{m}} H$, alors $\underline{L}\orbit{o}(v)$ est modifiée,
-scindée ou fusionnée dans la règle.
+	Si l'orbite $\underline{L}\orbit{o}(v)$ est modifiée dans la règle $r$, alors
+	$G\orbit{o}(m((v,v')))$ est modifiée dans la transformation directe
+	$G \xlongrightarrow{r,\underline{m}} H$ pour tous les nœuds $v'$ de l'orbite d'instanciation
+	$G\orbit{l(h)}(\underline{m}(h))$. Réciproquement, si une orbite
+	$G\orbit{o}(m((v,v')))$ est modifiée dans la transformation directe
+	$G \xlongrightarrow{r,\underline{m}} H$, alors $\underline{L}\orbit{o}(v)$ est modifiée,
+	scindée ou fusionnée dans la règle.
 \end{proposition}
 
 \begin{proof}
-Soit $v$ un nœud conservé de $L$ et $R$. Soit $O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
-\\
+	Soit $v$ un nœud conservé de $L$ et $R$. Soit $O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
+	\\
 
-Supposons que l'orbite $\underline{L}\orbit{o}(v)$ est modifiée dans la règle.
-Soit $w$ un nœud de l'orbite $\underline{L}\orbit{o}(v)$ conservé par la règle.
-Par définition, $w$ est un nœud de $\underline{R}\orbit{o}(v)$.
+	Supposons que l'orbite $\underline{L}\orbit{o}(v)$ est modifiée dans la règle.
+	Soit $w$ un nœud de l'orbite $\underline{L}\orbit{o}(v)$ conservé par la règle.
+	Par définition, $w$ est un nœud de $\underline{R}\orbit{o}(v)$.
 
-Notons $e_1...e_i$ un chemin de $\underline{L}\orbit{o}(v)$ de source $v$ et de cible $w$, $f_1...f_j$ un chemin de $\underline{R}\orbit{o}(v)$ de source $v$ et de cible $w$, et $e'_1...e'_l$ un chemin de $O$. Notons $v'_{m_1}$ la source de $e'_m$ et $v'_m$ sa cible.
+	Notons $e_1...e_i$ un chemin de $\underline{L}\orbit{o}(v)$ de source $v$ et de cible $w$, $f_1...f_j$ un chemin de $\underline{R}\orbit{o}(v)$ de source $v$ et de cible $w$, et $e'_1...e'_l$ un chemin de $O$. Notons $v'_{m_1}$ la source de $e'_m$ et $v'_m$ sa cible.
 
 
 
-\agnes{en cours}
+	\agnes{en cours}
 \end{proof}
 
 
 \subsection{Origine des orbites lors des applications des règles}
 
 \begin{definition}
-Soit une règle $r~: L \longrightarrow R$, $n$ un nœud de $R$ et $\orbit{o}$ un type d'orbite.
+	Soit une règle $r~: L \longrightarrow R$, $n$ un nœud de $R$ et $\orbit{o}$ un type d'orbite.
 
-Une \emph{orbite d'origine} de $\underline{R}\orbit{o}(n)$ dans $L$ est une orbite $\underline{L}\orbit{o'}(n')$ où :
-\begin{itemize}
-    \item où $n'$ est un nœud de $L$,
+	Une \emph{orbite d'origine} de $\underline{R}\orbit{o}(n)$ dans $L$ est une orbite $\underline{L}\orbit{o'}(n')$ où :
+	\begin{itemize}
+		\item où $n'$ est un nœud de $L$,
 
-    \item $\orbit{o'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $n'$ ; c'est-à-dire que $(l_L(n') \mapsto l_R(n))(i) = j \in \orbit{o}$
+		\item $\orbit{o'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $n'$ ; c'est-à-dire que $(l_L(n') \mapsto l_R(n))(i) = j \in \orbit{o}$
 
-\end{itemize}
-Soit un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $G \xlongrightarrow{r, \underline{m}} H$ la transformation directe correspondante et $O$ l'orbite d'instanciation. Soit $v'$ un nœud de $O$.
+	\end{itemize}
+	Soit un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $G \xlongrightarrow{r, \underline{m}} H$ la transformation directe correspondante et $O$ l'orbite d'instanciation. Soit $v'$ un nœud de $O$.
 
-Une {\em origine} de l'orbite $H\orbit{o}((n,v'))$ est une orbite $G\orbit{o'}((n',v'))$.
+	Une {\em origine} de l'orbite $H\orbit{o}((n,v'))$ est une orbite $G\orbit{o'}((n',v'))$.
 \end{definition}
 
 Remarquons que lorsqu'une règle n'a pas de membre gauche ($L = \emptyset$), alors toutes les orbites de $R$ sont créées et aucune n'a d'origine.

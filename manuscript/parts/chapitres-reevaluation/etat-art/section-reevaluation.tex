@@ -25,44 +25,45 @@
 % Puis~: classification des méthodes de nommage persistant
 % Enfin~: réévaluation à base de règles
 
-\david{ %
-	Proposition : un truc du genre : les système paramétriques sont utilisés
-	depuis plusieurs années dans le domaine de la CAO \todo{citer des outils qui
-		proposent déjà de procéder à la réévaluation de modèle paramétrique, [revit,
-				autocad, catia, siemensNX,…]}. %
-	Après avoir enregistré un processus constructif (i.e. une liste d'opérations
-	ou de contraintes posées sur sur des entités géométriques plus ou moins
-	élémentaires permettant de modéliser l'objet) , ces systèmes permettent la
-	génération de différentes variations de l'objet modélisé en modifiant certains
-	paramètres de la construction et/ou en ajoutant, déplaçant ou supprimant des
-	opérations ou des contraintes, puis en rejouant (i.e. réévaluant)
-	automatiquement le processus constructif. %
-	Dans cette section, nous commençons par définir plus précisément la notion de
-	système paramétrique et en particulier sa structure ainsi que les concepts
-	permettant de réévaluer ces modèles puis présentons une solution (cf remarque
-	ci dessous), largement présentée dans la littérature, qui est l'identification
-	persistante des entités topologiques. %
-}
+% \david{ %
+% 	Proposition : un truc du genre : les système paramétriques sont utilisés
+% 	depuis plusieurs années dans le domaine de la CAO \todo{citer des outils qui
+% 		proposent déjà de procéder à la réévaluation de modèle paramétrique, [revit,
+% 				autocad, catia, siemensNX,…]}. %
+% 	Après avoir enregistré un processus constructif (i.e. une liste d'opérations
+% 	ou de contraintes posées sur sur des entités géométriques plus ou moins
+% 	élémentaires permettant de modéliser l'objet) , ces systèmes permettent la
+% 	génération de différentes variations de l'objet modélisé en modifiant certains
+% 	paramètres de la construction et/ou en ajoutant, déplaçant ou supprimant des
+% 	opérations ou des contraintes, puis en rejouant (i.e. réévaluant)
+% 	automatiquement le processus constructif. %
+% 	Dans cette section, nous commençons par définir plus précisément la notion de
+% 	système paramétrique et en particulier sa structure ainsi que les concepts
+% 	permettant de réévaluer ces modèles puis présentons une solution (cf remarque
+% 	ci dessous), largement présentée dans la littérature, qui est l'identification
+% 	persistante des entités topologiques. %
+% }
+
 
 \maxime{ %
-	Le domaine de la CAO présente de nombreux outils de modélisation dont les
+	Le domaine de la CAO présente de nombreux outils de modélisation, dont les
 	systèmes paramétriques qui permettent la génération de variations d'un modèle
 	à l'aide d'un mécanisme dit de rejeu, ou
 	réévaluation~\cite{dassaultCATIA,dassaultSOLIDWORKS,autodeskAUTOCAD,autodeskREVIT,siemensNX}. %
 	Tout d'abord, un tel système enregistre le processus constructif, c'est-à-dire
-	une liste d'opérations ou de contraintes posée sur des entités géométriques
-	(points, droites, caractéristiques de formes,\dots) permettant de modéliser
+	une liste d'opérations ou de contraintes posées sur des entités géométriques
+	(points, droites, caractéristiques de formes\dots) permettant de modéliser
 	l'objet. %
 	Ensuite, l'utilisateur a la possibilité de modifier certains paramètres de la
 	construction et/ou d'ajouter, déplacer voire supprimer des opérations ou des
 	contraintes. %
-	Enfin, le processus constructif et rejoué, ou réévalué, automatiquement ce qui
-	génère une variation, selon les modifications effectuées, d'un objet
-	initialement construit. %
+	Enfin, le processus constructif est rejoué, ou réévalué, automatiquement ce qui
+	génère une variation, d'un objet
+	initialement construit, selon les modifications effectuées. %
 	Dans cette section, nous commençons par définir plus précisément la notion de
-	système paramétrique et plus particulièrement sa structure ainsi que les
-	concepts permettant de réévaluer ces modèles puis présentons une solution à
-	l'identification des entités topologiques qui est la nomination persistante. %
+	\textit{système paramétrique} et plus particulièrement sa structure, ainsi que les
+	concepts permettant de réévaluer ces modèles, puis présentons une solution à
+	l'identification des entités topologiques~: la nomination persistante. %
 }
 
 % En CAO, et plus particulièrement en modélisation paramétrique, le mécanisme
@@ -73,38 +74,38 @@
 % grâce auxquels il est possible de réévaluer des modèles puis présentons une
 % solution \david{Une solution à quoi ?}, largement présentée dans la littérature, qui est l'identification
 % persistante des entités topologiques. %
+%%%
+%%%
+% %% Paragraphe : système de modélisation à deux couches
+% \david{these dago à partir de page 33} Un système de modélisation paramétrique est composé de deux couches. %
+% La première couche, dite \emph{couche géométrique}, a pour objet la
+% représentation explicite d'un modèle avec sa géométrie. %
+% La deuxième couche, appelée \emph{spécification paramétrique} ou plus simplement
+% \emph{spécification}, contient l'ensemble des \david{contraintes ou des opérations et leurs} paramètres permettant de caractériser le modèle. %
+% Ce sont ces mêmes paramètres \david{, ces contraintes ou ces opérations} qui peuvent être modifiés puis réévalués pour générer
+% un modèle variant. %
 
+\begin{definition}[Système paramétrique]
+	\maxime{%
+		Un système paramétrique peut être considéré comme une structure duale avec
+		d'une part la représentation explicite, ou \emph{couche géométrique}, d'un
+		objet et, d'autre part, une représentation implicite, ou \emph{spécification
+			paramétrique} (ou simplement \emph{spécification}). %
+		Cette dernière contient un processus, avec l'ensemble de ses paramètres ou
+		\xavierSupp{un ensemble} de contraintes pouvant être réévalués, afin de
+		générer de nouvelles représentations explicites selon les modifications
+		effectuées. %
+	}
+\end{definition}
 
+% \xavierSupp{Il existe deux approches de la modélisation paramétriques où la couche de
+% 	spécification paramétrique prend une forme différente}\xavierAdd{On distingue deux principaux types de spécifications paramétriques.}. %
+% La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
+% La seconde est l'approche \emph{fonctionnelle}. %
 
-
-
-%% Paragraphe : système de modélisation à deux couches
-\david{these dago à partir de page 33} Un système de modélisation paramétrique est composé de deux couches. %
-La première couche, dite \emph{couche géométrique}, a pour objet la
-représentation explicite d'un modèle avec sa géométrie. %
-La deuxième couche, appelée \emph{spécification paramétrique} ou plus simplement
-\emph{spécification}, contient l'ensemble des \david{contraintes ou des opérations et leurs} paramètres permettant de caractériser le modèle. %
-Ce sont ces mêmes paramètres \david{, ces contraintes ou ces opérations} qui peuvent être modifiés puis réévalués pour générer
-un modèle variant. %
-
-~
-
-\maxime{%
-	Un système paramétrique peut-être vu comme une structure duale avec d'une part
-	la représentation explicite, ou \emph{couche géométrique}, d'un objet et,
-	d'autre part, une représentation implicite, ou \emph{spécification
-		paramétrique} (ou simplement \emph{spécification}) contenant un processus, avec
-	l'ensemble de ses paramètres, ou un ensemble de contraintes pouvant être
-	réévalués afin de générer de nouvelles représentations explicites selon les
-	modifications effectuées. %
-}
-
-\xavierSupp{Il existe deux approches de la modélisation paramétriques où la couche de
-	spécification paramétrique prend une forme différente}\xavierAdd{On distingue deux principaux types de spécifications paramétriques.}. %
-La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
-La seconde est l'approche \emph{fonctionnelle}. %
-
-\maxime{On distingue principales approches de la modélisation paramétrique chacune avec son type de spécification paramétrique. %
+\maxime{On distingue deux principales approches \xavierAdd{dans le cadre} de la
+	modélisation paramétrique, chacune avec son type de
+	spécification\xavierSupp{paramétrique}. %
 	La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
 	La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
 }
@@ -112,11 +113,14 @@ La seconde est l'approche \emph{fonctionnelle}. %
 \subsection[Approche variationnelle]{Approche variationnelle}
 \label{sec:etat-art-reevaluation-concepts-model-param}
 
-Dans la première approche, la spécification paramétrique est présentée comme
-un système de contraintes (parallélisme, tangence, angle, longueur) sur les
-entités topologiques \xavier{entité \textbf{géométriques} plutôt, non ? Toutes les contraintes citées sont géométriques...} d'un modèle. %
+Dans la première approche, la spécification paramétrique est présentée comme un
+système de contraintes (parallélisme, tangence, angle, longueur) sur les entités
+géométriques d'un modèle. %
 Ainsi, lorsque l'on souhaite réévaluer la spécification paramétrique, c'est un
-système de contrainte qu'il est nécessaire de résoudre \david{à l'aide d'un solveur. Rem : partie à détailler un peu plus, en particulier pour arriver à dire que ces systèmes ont des limites (cf thèse de Dago) et qu'ils sont utilisés principalement pour des sketcheurs 2D.}. %
+système de contrainte qu'il est nécessaire de résoudre \david{à l'aide d'un
+	solveur. Rem : partie à détailler un peu plus, en particulier pour arriver à
+	dire que ces systèmes ont des limites (cf thèse de Dago) et qu'ils sont
+	utilisés principalement pour des sketcheurs 2D.}. %
 \todo{citer des solveurs}
 
 \subsection{Approche fonctionnelle, ou \textit{history-based}}
@@ -156,7 +160,7 @@ et longueur sont des paramètres géométriques. \david{l'opération ne s'appell
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=.7\textwidth]{persistent-naming-pb-1}
+	\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube}
 	\caption{Évaluation d'un modèle}
 	\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel}
 \end{figure}

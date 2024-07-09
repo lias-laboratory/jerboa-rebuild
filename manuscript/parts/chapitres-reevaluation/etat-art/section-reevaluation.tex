@@ -23,16 +23,7 @@ Nous verrons que la réévaluation peut poser problème lorsque le système ne g
 pas correctement les références faites aux entités topologiques et qu'il
 convient, dans ce cas, d'intégrer un mécanisme de nomination persistante. %
 
-\begin{definition}[Système paramétrique]
-	Un système paramétrique peut être considéré comme une structure duale avec
-	d'une part la représentation explicite, ou \emph{couche géométrique}, d'un
-	objet et, d'autre part, une représentation implicite, ou \emph{spécification
-		paramétrique} (ou simplement \emph{spécification}). %
-	Cette dernière contient la liste des contraintes ou des opérations
-	successives avec leurs paramètres. %
-	Elle peut être modifiée et réévaluée, afin de générer de nouvelles
-	représentations explicites selon les modifications effectuées. %
-\end{definition}
+~
 
 Un système paramétrique peut être considéré comme une structure duale avec
 d'une part la représentation explicite, ou \emph{couche géométrique}, d'un
@@ -43,36 +34,40 @@ avec leurs paramètres. %
 Elle peut être modifiée et réévaluée, afin de générer de nouvelles
 représentations explicites selon les modifications effectuées. %
 
+~
+
+On distingue deux principales approches dans le cadre de la modélisation
+paramétrique, chacune avec son type de spécification. %
+La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
+La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
 
 \subsection[Approche équationnelle (ou variationnelle)]{Approche équationnelle (ou variationnelle)}
 \label{sec:etat-art-reevaluation-concepts-model-param}
 
-
 Dans cette première approche, un objet est conçu avec, d'une part, un ensemble
-de contraintes géométriques (parallélisme, tangence, longueur, angle) ou
-numériques, pour sa représentation implicite et d'autre part d'une description
-topologiques (ou une description géométrique approchée), pour sa représentation
-explicite %
-Intuitivement, un utilisateur ne connaîtra l'ensemble des solutions existantes
-pour l'ensemble des contraintes, ni même s'il en existe une. %
-Un solveur est alors nécessaire pour trouver une solution, si elle existe, au
-système de contraintes défini et permettre, automatiquement, une représentation
+de contraintes géométriques (parallélisme, tangence, longueur, angle) pour sa représentation implicite et d'autre part d'une description
+topologique (ou une description géométrique approchée), pour sa représentation
+explicite. %
+% \xavier{Intuitivement, un utilisateur ne connaîtra l'ensemble des solutions existantes
+% pour l'ensemble des contraintes, ni même s'il en existe une \textit{=> phrase mal formulée}} . %
+Un solveur est alors nécessaire pour trouver une solution \xavierSupp{, si elle existe,} au
+système de contraintes défini \xavierAdd{(si une telle solution existe)} et \xavierSupp{permettre,} \xavierAdd{produire} automatiquement une représentation
 explicite d'un objet. %
 
 ~
 
 Nous pouvons exprimer l'approche équationnelle de manière plus
 formelle~\cite{pierra1996general}. %
-La spécification peut-être exprimée par $P$ l'ensemble des paramètres définis
-sur un domaine $\mathcal{D}$ tel que $P$ est un sous-ensemble de $\mathcal{D}$ et où $P$ est souvent
-équivalent à $\mathbb{R}^{n}$. %
-La couche géométrique peut-être exprimée comme l'ensemble $E$ des entités
-(entités géométriques et valeurs numériques) décrivant une représentation
+La spécification peut être exprimée par $P$, l'ensemble des paramètres définis
+sur un domaine $\mathcal{D}$ \xavierSupp{tel que $\mathcal{P}$ est un sous-ensemble de $\mathcal{D}$ et},  où $\mathcal{D}$ est souvent égal à $\mathbb{R}^{n}$. %
+La couche géométrique peut être exprimée comme l'ensemble $E$ des \xavierSupp{entités}
+entités géométriques et valeurs numériques décrivant une représentation
 explicite d'un objet. %
 $E$ appartient à l'ensemble $\mathcal{E}$ de toutes les représentations explicites pouvant
 être calculées. %
-Ainsi, un système paramétrique équationnel est une équation telle que
-$A(P,E) = 0;$ avec $P \in \mathcal{D}$, $E \in \mathcal{E}$ et où $A$ est un opérateur qui n'est,
+Ainsi, un système paramétrique équationnel est une équation \xavierSupp{telle que} \xavierAdd{définie par:}
+\[ A(P,E) = 0 \]
+\xavierSupp{$A(P,E) = 0;$} avec $P \in \mathcal{D}$, $E \in \mathcal{E}$ et où $A$ est un opérateur qui n'est,
 généralement, ni linéaire ni convexe. %
 
 ~
@@ -82,55 +77,54 @@ présente plusieurs avantages tels que la simplicité de concevoir un objet «~�
 main~», c'est-à-dire en dessinant d'abord une esquisse «~à main levée~» avant
 d'assigner des contraintes géométriques une à une. %
 
-D'un autre côté, nous relevons plusieurs limitations de cette approches. %
+D'un autre côté, nous relevons plusieurs limitations de cette approche: %
 \begin{itemize}
-	\item Le nombre de solutions pour un système est, en général, exponentiel dû
-	      au nombre de contraintes non-linéaires. %
-	\item La recherche de solutions devient impossible dès lors que le degré de
-	      l'équation à résoudre est supérieur à $4$. %
-	\item Il est nécessaire de définir une approximation initiale pour les calculs
-	      de convergence et des heuristiques pour discriminer plusieurs solutions.
-	\item L'usage exclusif de contraintes non-orienté empêche la réalisation
-	      d'actions orientés telles que l'extrusion, les opérations booléenne,
-	      \dots
-	\item Les contraintes étant librement introduites, il est difficile~: (1) pour
-	      l'utilisateur, de savoir quand et pourquoi une pièce est sous ou
-	      sur-contrainte~; (2) pour l'ordinateur, de donner une solution dans le
+	\item le nombre de solutions pour un système est en général exponentiel, dû
+	      au nombre de contraintes non linéaires~; %
+	\item il est nécessaire de définir une approximation initiale pour les calculs
+	      de convergence et des heuristiques pour discriminer plusieurs solutions~;
+	\item l'usage exclusif de contraintes non orientées empêche la réalisation
+	      d'actions orientées telles que l'extrusion, les opérations booléennes\dots
+	\item les contraintes étant librement introduites, il est difficile~: 1) pour
+	      l'utilisateur, de savoir quand et pourquoi une \xavierSupp{pièce} \xavierAdd{entité} est sous- ou
+	      sur-contrainte~; 2) pour l'ordinateur, de donner une solution dans le
 	      premier cas, ou bien, de montrer les conflits de contraintes dans le
-	      second.
-	\item Les solutions sont très souvent calculées de manière approximative par
+	      second~;
+	\item les solutions sont très souvent calculées de manière approximative par
 	      des méthodes de résolution numérique.
 \end{itemize}
 
-En somme,
-
-% Dans la première approche, la spécification paramétrique est présentée comme un
-% système de contraintes (parallélisme, tangence, angle, longueur) sur les entités
-% géométriques d'un modèle. %
-% Ainsi, lorsque l'on souhaite réévaluer la spécification paramétrique, c'est un
-% système de contrainte qu'il est nécessaire de résoudre \david{à l'aide d'un
-% 	solveur. Rem : partie à détailler un peu plus, en particulier pour arriver à
-% 	dire que ces systèmes ont des limites (cf thèse de Dago) et qu'ils sont
-% 	utilisés principalement pour des sketcheurs 2D.}. %
-% \todo{citer des solveurs}
-
 \subsection{Approche fonctionnelle, ou \textit{history-based}}
+\label{sec:etat-art-modelisation-parametric-approche-fonctionnelle}
+
 Dans cette deuxième approche, la spécification paramétrique d'un objet est un
 processus constructif (ou historique), c'est-à-dire un enregistrement de
-l'ensemble des opérations de modélisation et de leurs paramètres successivement
+l'ensemble des opérations de modélisation et de leurs paramètres, successivement
 appliquées tout au long d'une procédure de modélisation. %
-Dans ces opérations, les paramètres sont soit des valeurs géométrique, soit des
-entités topologique existantes avant leur enregistrement dans une opération. %
+Dans ces opérations, les paramètres sont soit des valeurs géométriques, soit des références à des entités topologiques existantes. %
 La représentation explicite d'un objet, quant à elle, est entièrement générée à
-l'issue d'un processus constructif et est donc déterministe. %
+l'issue du processus constructif et est donc déterministe. %
 
-Nous pouvons exprimer cette approche aussi d'une manière plus formelle~\cite{pierra1996general}. %
-En utilisant les notations précédentes, $F : \mathcal{D} \mapsto \mathcal{E}$ avec $E = F(P)$, où $F$ est la fonction qui définit une instance à partir de ses paramètres. %
-Un modèle paramétrique est systématiquement exprimée comme une composition de fonctions $F = f_{n}\circ f_{n-1} \ldots \circ f_{1}$ (qui peut être réduite au singleton). Les $f_{i}$ sont appelés fonctions paramétriques. %
+~
 
-Cette approche, la représentation d'un modèle paramétrique comme une fonction, présente plusieurs avantages~: le système est déterministe et produit ainsi un unique résultat~; elle fonctionne aussi bien en 2D qu'en 3D pour les modèles basés sur la construction géométrique solide (CSG) et ceux basé sur la représentation par frontières (BRep)~; elle supporte des opérations de haut niveau telles que les opérations booléennes sur des modèles BRep ou bien les opérations basée sur les caractéristiques de forme (extrusion, révolutions,\dots). %
+Nous pouvons aussi exprimer cette approche d'une manière plus
+formelle~\cite{pierra1996general}. %
+En utilisant les notations précédentes, $F : \mathcal{D} \mapsto \mathcal{E}$ avec $E = F(P)$, où $F$ est
+la fonction qui définit une instance à partir de ses paramètres. %
+Un modèle paramétrique est systématiquement exprimé comme une composition de
+fonctions $F = f_{n}\circ f_{n-1} \ldots \circ f_{1}$. %
+Les $f_{i}$ sont appelées \emph{fonctions paramétriques}. %
+\david{tu devrais mettre ce qui est dessus dans une définition, de même que
+	l'équivalent dans la partie equationnelle}
 
-Toutefois, ce système présente quelques limitations~: chaque fonction dispose d'un nombre limité de paramètres ce qui limite le nombre de contraintes pouvant être appliquée à une entité géométrique~; l'utilisation de fonctions est plus contraignantes puisque l'application de contraintes ne peut être effectué à aucun autre moment que lors de l'application de la fonction associée~;
+~
+
+\xavierSupp{Cette approche, la représentation d'} \xavierAdd{Représenter} un modèle paramétrique comme une fonction présente plusieurs avantages~: le système est déterministe et produit ainsi un unique résultat~; elle fonctionne aussi bien en 2D qu'en 3D pour les modèles basés sur la \xavierAdd{\textit{CSG} (Constructive Solid Geometry)} \xavierSupp{construction géométrique solide (CSG)} et ceux basés sur la représentation par frontières (\textit{Boundary Representation, B-Rep})~; elle supporte des opérations de haut niveau telles que les opérations booléennes \xavierSupp{sur des modèles B-Rep}, extrusion, chanfrein, rainure\dots %
+
+~
+
+chaque fonction dispose d'un nombre fixe de paramètres ce qui limite le nombre de contraintes pouvant être appliquées à une entité géométrique \xavierAdd{Trop de "limitations" dans cette phrase}~; \xavier{l'utilisation de fonctions est plus contraignante puisque l'application de contraintes ne peut être effectuée à aucun autre moment que lors de l'application de la fonction associée \textit{=> cette phrase ne vient pas dire grand-chose}}~;
+\maxime{Oui et oui… le premier argument c'est que les opérations de modélisation ont un nombre de contraintes défini, autrement dit, un utilisateur ne peut pas ajouter plus contraintes sur la géométrie que ce que les opérations du système de modélisation en proposent. Le second argument est que l'approche fonctionnelle est plus restrictive les contraintes faisant partie des opération, il est donc impossible de changer les contraintes déjà appliquées pendant le processus de construction.}
 
 \begin{figure}[!htb]
 	\begin{subfigure}{1.0\linewidth}
@@ -145,47 +139,44 @@ Toutefois, ce système présente quelques limitations~: chaque fonction dispose 
 		\caption{Réévaluation de la spécification}
 		\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}
 	\end{subfigure}
-	\caption{Évaluation et réévaluation d'un modèle}
+	\caption{Représentation explicite~: Évaluation et réévaluation d'un modèle}
 \end{figure}
 
-Pour illustrer cette approche, prenons l'exemple
-(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init})
-d'un objet et de sa réévaluation. %
-La spécification paramétrique associée à l'objet initialement évaluation est la suivante~:
-
+Prenons l'exemple d'une spécification paramétrique (représentation implicite)~: %
 \begin{itemize}
 	\item \texttt{1-Cube(1,1,1)}
-	\item \texttt{2-Rainure($f1$,longueur\_rainure,largeur\_rainure)} où $f1$ désigne la face avant du cube et
-	\item \texttt{3-Congé($e$,valeur\_arrondi)} où $e$ désigne l'arête vertical à arrondir
+	\item \texttt{2-Rainure($f_1$,longueur\_rainure,largeur\_rainure)} où $f_1$ désigne la face avant du cube
+	\item \texttt{3-Arrondi($e$,valeur\_arrondi)} où $e$ désigne l'arête verticale à arrondir
 \end{itemize}
 
-Dans cet exemple, on observe que chacun des paramètres topologique $f1$ et $e4$
-sont défini à l'étape, au moins, $n-1$ par rapport aux opérations dans
-lesquelles elles sont référencées. %
+Le résultat (représentation explicite) est illustré sur la figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}). %
 
-Une difficulté liée à cette approche est justement le référencement de ces
-entités qui, lors de la réévaluation, peuvent ne plus exister ou exister
-différemment. %
+\david{pourquoi n'avoir des valeurs numériques que pour la création du cube ? Mets aussi pour le cube hauteur, largeur...}
 
-Cette fois, nous allons nous intéresser à la version réévaluée
-(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}).
-La spécification paramétrique associée à cette variation est la suivante~:
+
+Dans cet exemple, on observe que chacun des paramètres topologiques $f_1$ et $e$ doivent exister à l'étape courante. %
+C'est l'un des inconvénients de cette approche~:  on ne peut utiliser que les fonctions pré-définies par le système. La rigidité du système, son aspect séquentiel, limite le nombre de contraintes pouvant être appliquées sur des entités. Par exemple, l'arête $e_2$ n'existant plus à l'étape $3$, si l'on souhaitait appliquer une opération … \todo{etape 4 on pourrait pas}
+
+~
+
+D'autre part, Une difficulté liée à cette approche est le référencement d'entités qui, lors de la réévaluation, peuvent ne plus exister. %
+Considérons, par exemple, le rejeu de la spécification paramétrique légèrement modifiée
+(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval})~:
 \begin{itemize}
 	\item \texttt{1-Cube(1,1,1)}
-	\item \texttt{2-Rainure($f1$,longueur\_rainure2,largeur\_rainure)} où la rainure traverse la face de part en part
-	\item \texttt{3-Congé($ex$,rayon)} où $ex$ est une référence à l'une des
+	\item \texttt{2-Rainure($f_1$,longueur\_rainure2,largeur\_rainure)} où la rainure traverse la face de part en part
+	\item \texttt{3-Arrondi($e_x$,rayon)} où $e_x$ est une référence à l'une des
 	      arêtes scindées
 \end{itemize}
 
-Lors de l'évaluation initiale, la rainure ne traversait pas la face $f1$ de part
+Lors de l'évaluation initiale, la rainure ne traversait pas la face $f_1$ de part
 en part et l'arête $e$ était donc identifiée sans difficulté. %
 Or, avec la nouvelle spécification paramétrique, cette arête est scindée et il
 est devenu impossible d'utiliser $e$ comme référence pour désigner simplement l'une ou
 l'autre des arêtes scindées identifiées $e_{x}$ et $e_{y}$. %
 Pour cela, nous avons besoin d'une méthode robuste permettant d'identifier des entités topologiques. %
 Une telle solution est proposée avec la nomination persistante des entités
-topologiques que nous verrons dans la
-section~\ref{sec:etat-art-reevaluation-concepts-identification}. %
+topologiques\xavierSupp{ que nous verrons dans la section~2.3} %
 
 \subsection[Nomination persistante]{Nomination persistante}
 \label{sec:etat-art-reevaluation-concepts-identification}
@@ -206,7 +197,7 @@ paramètres topologiques, l'ajout, la suppression ainsi que le déplacement
 d'opération dans cette même spécification. %
 À la suite d'une modification et lors de la réévaluation de la spécification, le
 processus de construction est lui-même modifié et peut conduire à des
-changements de toutes sorte (création, scission, fusion,\dots) dans la topologie
+changements de toutes sortes (création, scission, fusion\dots) dans la topologie
 de l'objet. %
 Dans certains cas, la spécification ne suffit plus générer objet tel que
 l'utilisateur le souhaitait. %
@@ -242,10 +233,10 @@ Cependant, suite à la réévaluation, nous constatons qu'il n'y a pas que la
 longueur de la rainure qui change. %
 La rainure découpe désormais la face $f_{1}$ ainsi que l'arête $e$ en deux. %
 S'il n'y a pas de problème apparent pour la face, parce qu'elle n'est plus
-référencé comme paramètre par la suite, ce n'est pas le cas de $e$ qui est le
+référencée comme paramètre par la suite, ce n'est pas le cas de $e$ qui est le
 paramètre topologique de la troisième opération. %
-Dans cet exemple, les entités topologiques sont référencée dans la spécification
-paramétrique par un identifiant, ou nom, propre arbitraire. %
+Dans cet exemple, les entités topologiques sont référencées dans la spécification
+paramétrique par un identifiant ou nom, propre arbitraire. %
 Le problème posé par un tel référencement est que, par exemple dans le cas
 présenté ici,
 (Figure~\ref{fig:etat-art-reevaluation-modelisation-nomination-persistante-reeval}),

@@ -115,7 +115,6 @@ En somme,
 % \todo{citer des solveurs}
 
 \subsection{Approche fonctionnelle, ou \textit{history-based}}
-
 Dans cette deuxième approche, la spécification paramétrique d'un objet est un
 processus constructif (ou historique), c'est-à-dire un enregistrement de
 l'ensemble des opérations de modélisation et de leurs paramètres successivement
@@ -125,30 +124,28 @@ entités topologique existantes avant leur enregistrement dans une opération. %
 La représentation explicite d'un objet, quant à elle, est entièrement générée à
 l'issue d'un processus constructif et est donc déterministe. %
 
-Nous pouvons aussi exprimer cette approche d'une manière plus formelle~\cite{pierra1996general}. %
-Un modèle paramétrique peut-être défini par $F = f_{n}\circ f_{n-1} \ldots \circ f_{1}$ qui
-est une composition de fonctions, c'est-à-dire que pour tout $i$, avec
-$ 0 < i < n$, $f_{i}$ est la fonction appliquée sur le modèle défini par la
-composition à l'étape $i-1$ ainsi les paramètres de $f_{i}$ sont définis dans
-$f_{i-1}$. %
+Nous pouvons exprimer cette approche aussi d'une manière plus formelle~\cite{pierra1996general}. %
+En utilisant les notations précédentes, $F : \mathcal{D} \mapsto \mathcal{E}$ avec $E = F(P)$, où $F$ est la fonction qui définit une instance à partir de ses paramètres. %
+Un modèle paramétrique est systématiquement exprimée comme une composition de fonctions $F = f_{n}\circ f_{n-1} \ldots \circ f_{1}$ (qui peut être réduite au singleton). Les $f_{i}$ sont appelés fonctions paramétriques. %
+
+Cette approche, la représentation d'un modèle paramétrique comme une fonction, présente plusieurs avantages~: le système est déterministe et produit ainsi un unique résultat~; elle fonctionne aussi bien en 2D qu'en 3D pour les modèles basés sur la construction géométrique solide (CSG) et ceux basé sur la représentation par frontières (BRep)~; elle supporte des opérations de haut niveau telles que les opérations booléennes sur des modèles BRep ou bien les opérations basée sur les caractéristiques de forme (extrusion, révolutions,\dots). %
+
+Toutefois, ce système présente quelques limitations~: chaque fonction dispose d'un nombre limité de paramètres ce qui limite le nombre de contraintes pouvant être appliquée à une entité géométrique~; l'utilisation de fonctions est plus contraignantes puisque l'application de contraintes ne peut être effectué à aucun autre moment que lors de l'application de la fonction associée~;
 
 \begin{figure}[!htb]
 	\begin{subfigure}{1.0\linewidth}
 		\centering
 		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-init}
-		\caption{}
+		\caption{Évaluation de la spécification}
 		\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}
 	\end{subfigure}
-
-	~
-
 	\begin{subfigure}{1.0\linewidth}
 		\centering
 		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-reeval}
-		\caption{}
+		\caption{Réévaluation de la spécification}
 		\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}
 	\end{subfigure}
-	\caption{Évaluation d'un modèle}
+	\caption{Évaluation et réévaluation d'un modèle}
 \end{figure}
 
 Pour illustrer cette approche, prenons l'exemple
@@ -159,7 +156,7 @@ La spécification paramétrique associée à l'objet initialement évaluation es
 \begin{itemize}
 	\item \texttt{1-Cube(1,1,1)}
 	\item \texttt{2-Rainure($f1$,longueur\_rainure,largeur\_rainure)} où $f1$ désigne la face avant du cube et
-	\item \texttt{3-Congé($e$,valeur_arrondi)} où $e$ désigne l'arête vertical à arrondir
+	\item \texttt{3-Congé($e$,valeur\_arrondi)} où $e$ désigne l'arête vertical à arrondir
 \end{itemize}
 
 Dans cet exemple, on observe que chacun des paramètres topologique $f1$ et $e4$
@@ -183,50 +180,88 @@ La spécification paramétrique associée à cette variation est la suivante~:
 Lors de l'évaluation initiale, la rainure ne traversait pas la face $f1$ de part
 en part et l'arête $e$ était donc identifiée sans difficulté. %
 Or, avec la nouvelle spécification paramétrique, cette arête est scindée et il
-est impossible avec $e$ comme référence de désigner formellement l'une ou
-l'autre des arêtes scindées. %
-Pour cela, une solution est proposée avec la nomination persistante des entités
+est devenu impossible d'utiliser $e$ comme référence pour désigner simplement l'une ou
+l'autre des arêtes scindées identifiées $e_{x}$ et $e_{y}$. %
+Pour cela, nous avons besoin d'une méthode robuste permettant d'identifier des entités topologiques. %
+Une telle solution est proposée avec la nomination persistante des entités
 topologiques que nous verrons dans la
 section~\ref{sec:etat-art-reevaluation-concepts-identification}. %
 
 \subsection[Nomination persistante]{Nomination persistante}
 \label{sec:etat-art-reevaluation-concepts-identification}
 
-Avec la modélisation paramétrique et la possibilité de modifier les paramètres
-contenus dans les spécifications paramétriques sont arrivés plusieurs
-problèmes. %
-Nous noterons, entre autre, l'historisation des changements géométriques et
-topologiques (échange de modèle entre différents systèmes, modélisation
-collaborative) et la réévaluation de spécifications paramétriques modifiées
-(génération de modèles variants, changements de design). %
+Les systèmes de modélisation paramétrique, quelle que soit l'approche, offre la
+possibilité de modifier la spécification puis d'en recalculer les paramètres et
+contraintes en vue de générer de nouvelles représentations explicites. %
+Toutefois, cette fonctionnalité présente des difficultés. %
+Pour l'approche équationnelle, la modification, l'ajout et la suppression de
+contraintes peut entraîner des conflits, sous ou sur-contraindre le modèle ce
+qui va empêcher le solveur de résoudre le système. %
 
-Pour répondre à ces problèmes, une solution a été proposée, c'est le nommage des
-entités topologiques d'un modèle.
+Pour l'approche fonctionnelle, qui est celle qui nous intéresse dans ce
+manuscrit, le problème se présente autrement. %
+La modification d'une spécification peut impliquer, outre la modification des
+valeurs numériques passées en paramètres des opérations, le changement de
+paramètres topologiques, l'ajout, la suppression ainsi que le déplacement
+d'opération dans cette même spécification. %
+À la suite d'une modification et lors de la réévaluation de la spécification, le
+processus de construction est lui-même modifié et peut conduire à des
+changements de toutes sorte (création, scission, fusion,\dots) dans la topologie
+de l'objet. %
+Dans certains cas, la spécification ne suffit plus générer objet tel que
+l'utilisateur le souhaitait. %
 
-\todo{exemple + illustration + description RAPIDE}
+\begin{figure}[!htb]
+	\begin{subfigure}{1.0\linewidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-init}
+		\caption{Évaluation de la spécification}
+		\label{fig:etat-art-reevaluation-modelisation-nomination-persistante-init}
+	\end{subfigure}
+	\begin{subfigure}{1.0\linewidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-reeval}
+		\caption{Réévaluation de la spécification}
+		\label{fig:etat-art-reevaluation-modelisation-nomination-persistante-reeval}
+	\end{subfigure}
+	\caption{Évaluation et réévaluation d'un modèle}
+\end{figure}
 
-%% autres problématiques comme le transfert qui s'appuie sur un nommage des entités
-%% mais ne rencontre pas les mêmes contraintes de robustesses
-Nommer une entité topologique est le fait d'attribuer un identifiant unique à
-une entité topologique dans un modèle CAO. %
+Reprenons l'exemple d'évaluation vu dans la section précédente
+(Figure~\ref{fig:etat-art-reevaluation-modelisation-nomination-persistante-init}). %
+L'objet généré par l'évaluation est construit à partir d'un cube. %
+Une rainure a été creusée dans la face $f_{1}$ et, enfin, l'arête $e$ a été
+arrondie. %
+À cette étape, la spécification présente deux entités topologiques référencées
+qui sont $f_{1}$ et $e$. %
 
-\todo{Ici, justifier que nommer c'est pas suffisant $\to$ exemple + illustration + description}
+Lors de la modification de la spécification, seule la valeur géométrique
+\texttt{longueur\_rainure} a été modifiée et est devenue
+\texttt{longueur\_rainure2}. %
+Cependant, suite à la réévaluation, nous constatons qu'il n'y a pas que la
+longueur de la rainure qui change. %
+La rainure découpe désormais la face $f_{1}$ ainsi que l'arête $e$ en deux. %
+S'il n'y a pas de problème apparent pour la face, parce qu'elle n'est plus
+référencé comme paramètre par la suite, ce n'est pas le cas de $e$ qui est le
+paramètre topologique de la troisième opération. %
+Dans cet exemple, les entités topologiques sont référencée dans la spécification
+paramétrique par un identifiant, ou nom, propre arbitraire. %
+Le problème posé par un tel référencement est que, par exemple dans le cas
+présenté ici,
+(Figure~\ref{fig:etat-art-reevaluation-modelisation-nomination-persistante-reeval}),
+$e$ n'existe plus dans la configuration qu'à l'initiale et il devient impossible
+de désigner l'une et/ou l'autre des deux arêtes découpées par la rainure. %
 
-%% problématique : Réévaluation de spécification paramétrique
-Seulement, dans le cadre de la réévaluation, le nommage n'est pas suffisamment
-robuste, car sensible au changement de la topologie, lorsque l'on modifie les
-paramètres des opérations, voire lors de l'ajout, la suppression et le
-déplacement d'opération dans une spécification paramétrique. %
-
-\todo{ajouter illustration et expliquer}
-
-%% solution :  Nommage persistant d'entités pour la réévaluation
-Le nommage persistant est une propriété qui garantie un nommage permettant
-l'appariement de toute entité une ou plusieurs entités équivalentes,
-c'est-à-dire qui respectent les mêmes contraintes, schémas et intentions de
-construction, lors de la réévaluation. %
-
-\todo{\cite{kripac1995mechanism,CAPOYLEAS199617,chen1995editability,wang2005geometry,wu2001face,farjana2016implementation},\dots}
+Comme avancé dans la section précédente, ce problème est celui de la nomination
+persistante des entités topologiques, c'est-à-dire le fait de construire, pour
+toute entité topologique, un nom unique permettant l'identification formelle
+d'une entité topologique au travers de la réévaluation d'une spécification. %
+De nombreuses
+études~\cite{kripac1995mechanism,CAPOYLEAS199617,chen1995editability,wu2001face,agbodan2002nomination,wang2005geometry,babaali2010systeme,farjana2016implementation,cardot2019}
+se sont penchées sur ce problème. %
+Dans la section~\ref{sec:etat-art-reevaluation-approches-nommages}, nous nous
+intéresserons à la classification des différentes méthodes de nomination
+persistante. %
 
 \subsection{Classification des méthodes de nommage persistant}
 \label{sec:etat-art-reevaluation-approches-nommages}

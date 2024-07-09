@@ -125,7 +125,7 @@ entités topologique existantes avant leur enregistrement dans une opération. %
 La représentation explicite d'un objet, quant à elle, est entièrement générée à
 l'issue d'un processus constructif et est donc déterministe. %
 
-Nous pouvons aussi exprimer cette approche d'une manière plus formelle. %
+Nous pouvons aussi exprimer cette approche d'une manière plus formelle~\cite{pierra1996general}. %
 Un modèle paramétrique peut-être défini par $F = f_{n}\circ f_{n-1} \ldots \circ f_{1}$ qui
 est une composition de fonctions, c'est-à-dire que pour tout $i$, avec
 $ 0 < i < n$, $f_{i}$ est la fonction appliquée sur le modèle défini par la
@@ -136,11 +136,16 @@ $f_{i-1}$. %
 	\begin{subfigure}{1.0\linewidth}
 		\centering
 		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-init}
+		\caption{}
 		\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}
 	\end{subfigure}
+
+	~
+
 	\begin{subfigure}{1.0\linewidth}
 		\centering
 		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-reeval}
+		\caption{}
 		\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}
 	\end{subfigure}
 	\caption{Évaluation d'un modèle}
@@ -154,7 +159,7 @@ La spécification paramétrique associée à l'objet initialement évaluation es
 \begin{itemize}
 	\item \texttt{1-Cube(1,1,1)}
 	\item \texttt{2-Rainure($f1$,longueur\_rainure,largeur\_rainure)} où $f1$ désigne la face avant du cube et
-	\item \texttt{3-Congé($e$,rayon)} où $e$ désigne l'arête vertical à arrondir
+	\item \texttt{3-Congé($e$,valeur_arrondi)} où $e$ désigne l'arête vertical à arrondir
 \end{itemize}
 
 Dans cet exemple, on observe que chacun des paramètres topologique $f1$ et $e4$

@@ -44,19 +44,14 @@ La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
 \subsection[Approche équationnelle (ou variationnelle)]{Approche équationnelle (ou variationnelle)}
 \label{sec:etat-art-reevaluation-concepts-model-param}
 
-Dans cette première approche, un objet est conçu avec, d'une part, un ensemble
-de contraintes géométriques (parallélisme, tangence, longueur, angle) pour sa représentation implicite et d'autre part d'une description
-topologique (ou une description géométrique approchée), pour sa représentation
-explicite. %
-% \xavier{Intuitivement, un utilisateur ne connaîtra l'ensemble des solutions existantes
-% pour l'ensemble des contraintes, ni même s'il en existe une \textit{=> phrase mal formulée}} . %
-Un solveur est alors nécessaire pour trouver une solution au système de
-contraintes défini (si une telle solution existe) et produire automatiquement
-une représentation explicite d'un objet. %
-
-~
-
-Une définition de l'approche équationnelle est la suivante~\cite{pierra1996general}~:
+Dans cette première approche, la représentation implicite (ou spécification
+paramétrique) d'un modèle est un système de contraintes géométriques (angle,
+distance, longueur, parallélisme, tangence\dots) appliquées sur des entités
+géométriques. %
+Un solveur doit alors être utilisé pour trouver une solution au système de
+contraintes défini (si une telle solution existe) afin de calculer une représentation
+explicite du modèle, c'est-à-dire un objet. %
+Une définition du point de vue mathématique est proposée ci-dessous~\cite{pierra1996general}~:
 \begin{definition}[Système paramétrique équationnel]
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, où
 	$\mathcal{D}$ est souvent égal à $\mathbb{R}^{n}$. %
@@ -105,9 +100,6 @@ appliquées tout au long d'une procédure de modélisation. %
 Dans ces opérations, les paramètres sont soit des valeurs géométriques, soit des références à des entités topologiques existantes. %
 La représentation explicite d'un objet, quant à elle, est entièrement générée à
 l'issue du processus constructif et est donc déterministe. %
-
-~
-
 L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~:
 \begin{definition}[Système paramétrique fonctionnel]
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, où
@@ -117,11 +109,9 @@ L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~:
 	avec $E = F(P)$, où $F$ est la fonction qui définit une instance à partir de
 	ses paramètres. %
 	Un modèle paramétrique est systématiquement exprimé comme une composition de
-	fonctions $F = f_{n}\circ f_{n-1} \ldots \circ f_{1}$. %
+	fonctions~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
 	Les $f_{i}$ sont appelées \emph{fonctions paramétriques}. %
 \end{definition}
-
-~
 
 Représenter un modèle paramétrique comme une fonction présente plusieurs
 avantages~: le système est déterministe et produit ainsi un unique résultat~;
@@ -151,23 +141,22 @@ opérations de haut niveau telles que les opérations booléennes, extrusion, ch
 
 Prenons l'exemple d'une spécification paramétrique (représentation implicite)~: %
 \begin{itemize}
-	\item \texttt{1-Cube(largeur\_cube,hauteur\_cube,profondeur\_cube)}
-	\item \texttt{2-Rainure($f_1$,longueur\_rainure,largeur\_rainure)} où $f_1$ désigne la face avant du cube
-	\item \texttt{3-Arrondi($e$,valeur\_arrondi)} où $e$ désigne l'arête verticale à arrondir
+	\item \texttt{1-Cube(largeur\_cube, hauteur\_cube, profondeur\_cube)}
+	\item \texttt{2-Rainure($f_{1}$,longueur\_rainure,largeur\_rainure)} où $f_{1}$ désigne la face avant du cube
+	\item \texttt{3-Arrondi($e_{1}$,valeur\_arrondi)} où $e_{1}$ désigne l'arête verticale à arrondir
 \end{itemize}
-
-~
 
 Le résultat (représentation explicite) est illustré sur la
 figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}). %
-Dans cet exemple, on observe que chacun des paramètres topologiques $f_1$ et $e$
-doivent exister à l'étape courante. %
+Dans cet exemple, on observe que chacun des paramètres topologiques $f_{1}$ et
+$e_{1}$ doivent exister à l'étape courante. %
 Il s'agit de l'un des inconvénients de cette approche~: on ne peut utiliser que
-les fonctions pré-définies par le système. La rigidité du système, son aspect
-séquentiel, limite le nombre de contraintes pouvant être appliquées sur des
-entités. Par exemple, à l'étape $3$ de l'évaluation, l'arête $e_2$ n'existe plus
-et il sera alors impossible d'appliquer une fonction sur cette arête à l'étape
-$4$. %
+les fonctions pré-définies par le système. %
+La rigidité du système, son aspect séquentiel, limite le nombre de contraintes
+pouvant être appliquées sur des entités. %
+Par exemple, suite à l'application de la fonction \texttt{rainure} à l'étape
+$3$, l'arête $e_{2}$ n'existe plus, il devient alors impossible d'appliquer une
+fonction sur $e_{2}$ à partir d'une éventuelle étape $4$. %
 
 ~
 
@@ -175,16 +164,16 @@ D'autre part, Une difficulté liée à cette approche est le référencement d'e
 Considérons, par exemple, le rejeu de la spécification paramétrique légèrement modifiée
 (Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval})~:
 \begin{itemize}
-	\item \texttt{1-Cube(1,1,1)}
-	\item \texttt{2-Rainure($f_1$,longueur\_rainure2,largeur\_rainure)} où la rainure traverse la face de part en part
-	\item \texttt{3-Arrondi($e_x$,rayon)} où $e_x$ est une référence à l'une des
+	\item \texttt{1-Cube(largeur\_cube, hauteur\_cube, profondeur\_cube)}
+	\item \texttt{2-Rainure($f_{1}$, longueur\_rainure2, largeur\_rainure)} où la rainure traverse la face de part en part
+	\item \texttt{3-Arrondi($e_{x}$,rayon)} où $e_{x}$ est une référence à l'une des
 	      arêtes scindées
 \end{itemize}
 
-Lors de l'évaluation initiale, la rainure ne traversait pas la face $f_1$ de part
-en part et l'arête $e$ était donc identifiée sans difficulté. %
+Lors de l'évaluation initiale, la rainure ne traversait pas la face $f_{1}$ de part
+en part et l'arête $e_{1}$ était donc identifiée sans difficulté. %
 Or, avec la nouvelle spécification paramétrique, cette arête est scindée et il
-est devenu impossible d'utiliser $e$ comme référence pour désigner simplement l'une ou
+est devenu impossible d'utiliser $e_{1}$ comme référence pour désigner simplement l'une ou
 l'autre des arêtes scindées identifiées $e_{x}$ et $e_{y}$. %
 Pour cela, nous avons besoin d'une méthode robuste permettant d'identifier des entités topologiques. %
 Une telle solution est proposée avec la nomination persistante des entités
@@ -193,26 +182,21 @@ topologiques. %
 \subsection[Nomination persistante]{Nomination persistante}
 \label{sec:etat-art-reevaluation-concepts-identification}
 
-Les systèmes de modélisation paramétrique, quelle que soit l'approche, offre la
-possibilité de modifier la spécification puis d'en recalculer les paramètres et
-contraintes en vue de générer de nouvelles représentations explicites. %
-Toutefois, cette fonctionnalité présente des difficultés. %
-Pour l'approche équationnelle, la modification, l'ajout et la suppression de
-contraintes peut entraîner des conflits, sous ou sur-contraindre le modèle ce
-qui va empêcher le solveur de résoudre le système. %
-
-Pour l'approche fonctionnelle, qui est celle qui nous intéresse dans ce
-manuscrit, le problème se présente autrement. %
-La modification d'une spécification peut impliquer, outre la modification des
-valeurs numériques passées en paramètres des opérations, le changement de
-paramètres topologiques, l'ajout, la suppression ainsi que le déplacement
-d'opération dans cette même spécification. %
-À la suite d'une modification et lors de la réévaluation de la spécification, le
-processus de construction est lui-même modifié et peut conduire à des
-changements de toutes sortes (création, scission, fusion\dots) dans la topologie
-de l'objet. %
-Dans certains cas, la spécification ne suffit plus générer objet tel que
-l'utilisateur le souhaitait. %
+Les systèmes de modélisation paramétrique permettent la modification d'une
+spécification paramétrique pour la réévaluer et ainsi générer une nouvelle
+représentation explicite ou variation d'un objet. %
+Toutefois, cette fonctionnalité peut présenter certaines limitations notamment
+en ce qui concerne l'approche fonctionnelle. %
+Une spécification paramétrique peut être modifiée des façons suivantes~: (1) par
+la modification des valeurs numériques et/ou des références aux entités
+topologiques dans les opérations~; (2) par l'ajout, la suppression ainsi que le
+déplacement d'opération. %
+Une fois la spécification paramétrique modifiée et lors de sa réévaluation, le
+nouveau processus de construction peut conduire à des changements de toutes
+sortes (création, scission, fusion\dots) dans la topologie par rapport à l'objet
+initial. %
+Dans certains cas, la réévaluation de cette nouvelle spécification paramétrique
+ne permet plus de produire de représentation explicite. %
 
 \begin{figure}[!htb]
 	\begin{subfigure}{1.0\linewidth}
@@ -233,26 +217,26 @@ l'utilisateur le souhaitait. %
 Reprenons l'exemple d'évaluation vu dans la section précédente
 (Figure~\ref{fig:etat-art-reevaluation-modelisation-nomination-persistante-init}). %
 L'objet généré par l'évaluation est construit à partir d'un cube. %
-Une rainure a été creusée dans la face $f_{1}$ et, enfin, l'arête $e$ a été
+Une rainure a été creusée dans la face $f_{1}$ et, enfin, l'arête $e_{1}$ a été
 arrondie. %
 À cette étape, la spécification présente deux entités topologiques référencées
-qui sont $f_{1}$ et $e$. %
+qui sont $f_{1}$ et $e_{1}$. %
 
 Lors de la modification de la spécification, seule la valeur géométrique
 \texttt{longueur\_rainure} a été modifiée et est devenue
 \texttt{longueur\_rainure2}. %
 Cependant, suite à la réévaluation, nous constatons qu'il n'y a pas que la
 longueur de la rainure qui change. %
-La rainure découpe désormais la face $f_{1}$ ainsi que l'arête $e$ en deux. %
+La rainure découpe désormais la face $f_{1}$ ainsi que l'arête $e_{1}$ en deux. %
 S'il n'y a pas de problème apparent pour la face, parce qu'elle n'est plus
-référencée comme paramètre par la suite, ce n'est pas le cas de $e$ qui est le
+référencée comme paramètre par la suite, ce n'est pas le cas de $e_{1}$ qui est le
 paramètre topologique de la troisième opération. %
 Dans cet exemple, les entités topologiques sont référencées dans la spécification
 paramétrique par un identifiant ou nom, propre arbitraire. %
 Le problème posé par un tel référencement est que, par exemple dans le cas
 présenté ici,
 (Figure~\ref{fig:etat-art-reevaluation-modelisation-nomination-persistante-reeval}),
-$e$ n'existe plus dans la configuration qu'à l'initiale et il devient impossible
+$e_{1}$ n'existe plus dans la configuration qu'à l'initiale et il devient impossible
 de désigner l'une et/ou l'autre des deux arêtes découpées par la rainure. %
 
 Comme avancé dans la section précédente, ce problème est celui de la nomination
@@ -261,10 +245,11 @@ toute entité topologique, un nom unique permettant l'identification formelle
 d'une entité topologique au travers de la réévaluation d'une spécification. %
 De nombreuses
 études~\cite{kripac1995mechanism,CAPOYLEAS199617,chen1995editability,wu2001face,agbodan2002nomination,wang2005geometry,babaali2010systeme,farjana2016implementation,cardot2019}
-se sont penchées sur ce problème. %
-Dans la section~\ref{sec:etat-art-reevaluation-approches-nommages}, nous nous
-intéresserons à la classification des différentes méthodes de nomination
-persistante. %
+se sont penchées sur ce problème. % %
+% Dans la section~\ref{sec:etat-art-reevaluation-approches-nommages}, nous nous
+% intéresserons à la classification des différentes méthodes de nomination
+% persistante.
+%
 
 \subsection{Classification des méthodes de nommage persistant}
 \label{sec:etat-art-reevaluation-approches-nommages}
@@ -277,12 +262,13 @@ persistante. %
 	donc j'ai repris ces définitions. Je ne pense à pas réinventer les defs mais
 	je ne veux pas non plus tomber dans la catégorie plagiat, donc là, c'est au minimum pour avancer.}
 
-(Une phrase dans ce style) Des définitions précises de ces concepts sont
-proposées par Agbodan et al. \cite{agbodan1999data}. %
+(Une phrase dans ce style) Les définitions précises de ces concepts sont
+proposées par Agbodan~et~al. \cite{agbodan1999data}. %
 
 \todo{découper ces item pour insérer les définitions}
 \begin{itemize}
-	\item distinction des entités invariantes et contingentes ( intégrer : nomination basée sur les entités invariantes )
+	\item distinction des entités invariantes et contingentes (intégrer :
+	      nomination basée sur les entités invariantes)
 	\item distinction des entités avec et sans sources
 	\item utilisation d'un historique de noms
 	\item nomination hétérogène des entités

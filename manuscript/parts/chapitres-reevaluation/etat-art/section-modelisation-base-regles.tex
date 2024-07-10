@@ -10,10 +10,9 @@
 % Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
 % opérations de modélisation à l'aide de ce que l'on appelle des règles de
 % transformation de graphe. %
-% %
-Cette section commence avec des définitions liées aux graphes et à leurs
-transformations avant de présenter les outils utilisés dans le reste de ce
-manuscrit.
+% Cette section commence avec des définitions liées aux graphes et à leurs
+% transformations avant de présenter les outils utilisés dans le reste de ce
+% manuscrit.
 
 \subsection[Graphe et transformation de graphe]{Graphe et transformation de graphe}
 \label{sec:etat-art-model-regles-graphe-et-transfo}
@@ -48,8 +47,6 @@ manuscrit.
 	$l_{E}(e)$ sont respectivement les étiquettes de $v$ et $e$.
 \end{definition}
 
-\todo{élaborer le commentaire, reprendre in extenso la définition de $G$ -> Cv = Ce = {couleurs} }
-
 \begin{figure}[htb]
 	\centering
 	\includegraphics[height=90pt]{graphe-etiquete}
@@ -57,13 +54,20 @@ manuscrit.
 	\label{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}
 \end{figure}
 
-Une illustration de graphe étiqueté peut-être trouvé dans la
-Figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs} où les
-nœuds $a,b,c,d$ et arcs $e1,e2,e3,e4$ sont étiquetés par des couleurs. %
-Par exemple, le nœud $a$ est étiqueté par la couleur jaune et l'arête $e2$ est
-étiqueté par la couleur verte. %
-Notons que $a, b,\dots$ pour les nœuds et $e1,e2,\dots$ pour les arêtes sont des
-noms d'usages et non des étiquettes. %
+\maxime{%
+	Prenons l'exemple du graphe étiqueté illustré dans la
+	figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}. %
+	Pour ce graphe, les ensembles d'étiquettes pour les nœuds $\mathcal{C}_{V}$ et pour les
+	arcs $\mathcal{C}_{E}$ sont définis sur le même ensemble de couleurs
+	$\{{\color{orange}orange},{\color{Chartreuse4}vert},{\color{DodgerBlue1}bleu},{\color{purple}violet}\}$. %
+	L'ensemble $V$ des nœuds est constitué des nœuds $a,b,c$ et $d$ et l'ensemble
+	$E$ des arcs est constitué des arcs $e_{1}, e_{2}, e_{3}$ et $e_{4}$. %
+	Ce graphe est construit de telle sorte que $e_{1}$ a respectivement pour source
+	et cible les nœuds $a$ et $b$. %
+	Enfin, les nœuds $a$ et $b$ sont respectivement étiquetés par les couleurs
+	${\color{orange}orange}$ et ${\color{purple}violet}$ et l'arc $e_{1}$ est étiqueté par
+	la couleur ${\color{Chartreuse4}vert}$. %
+}%
 
 \begin{definition}[Morphisme]
 	\label{def:morphismes-graphes}
@@ -152,11 +156,13 @@ noms d'usages et non des étiquettes. %
 La Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes} illustre
 chacun des morphismes présentés dans la définition~\ref{def:morphismes-graphes}~:
 \begin{description}
-	\item[Morphisme] \todo{expression exhaustive de mv et me} Dans la
+	\item[Morphisme]  dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-normal}
-	      les fonctions $m_{v}$ et $m_{E}$ entraînent la fusion des nœuds $c$ et
-	      $d$ et produisent les applications suivantes~: $c \mapsto j$, $d \mapsto j$ et
-	      $e4 \mapsto e8$.
+	      par la fonction $m_{V}$, pour les nœuds issus de $G$, nous avons
+	      $a \mapsto e$, $b \mapsto f$, $c \mapsto j$ et $d \mapsto j$ dans $G'$. %
+	      Par la fonction $m_{E}$, pour les arcs issus de $G$, nous avons
+	      $e_{1} \mapsto e_{5}$, $e_{2} \mapsto e_{6}$, $e_{3} \mapsto e_{7}$ et
+	      $e_{4} \mapsto e_{8}$ dans $G'$. %
 	\item[Morphisme injectif] Dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-injectif},
 	      les nœuds $e,f,g,h$ sont respectivement les images de $a,b,c,d$
@@ -223,7 +229,7 @@ la différence entre deux graphes. %
 		\label{fig:etat-art-model-regle-ensemble-graphe-gseconde}
 	\end{subfigure}
 
-	~\todo{ensembles simples et non pas des morphismes, je gardes les mêmes noms de nœuds et d'arcs}
+	~
 
 	\begin{subfigure}[t]{.24\textwidth}
 		\centering
@@ -259,7 +265,6 @@ la différence entre deux graphes. %
 	\label{fig:etat-art-model-regle-ensemble-graphes}
 \end{figure}
 
-\todo{à corriger à cause des noms de nœuds et d'arcs}
 De tels graphes, issus de l'union, l'intersection de deux graphes distincts sont
 présentés dans la Figure~\ref{fig:etat-art-model-regle-ensemble-graphes}. %
 Dans le cas de l'union de $G$ avec $G'$
@@ -306,7 +311,7 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 		\label{fig:etat-art-model-regles-sous-graphe-genere}
 	\end{subfigure}
 	\caption{Génération du sous-graphe
-		$G' = G\orbit{{\color[HTML]{00c000}-},{\color[HTML]{ff8000}-}}({\color[HTML]{ffdb00}\circ})$}
+		$G' = G\orbit{{\color{Chartreuse4}vert},{\color{orange}orange}}({\color{orange}orange})$}
 	\label{fig:etat-art-model-regles-sous-graphe}
 \end{figure}
 
@@ -399,17 +404,15 @@ du nœud $d$ de revenir à ce même nœud en traversant les arcs $e1,e2,e3,e4$. 
 		\includegraphics[height=50pt]{regle-transformation-graphe}
 		\caption{Règle $r : L \longrightarrow R$}
 	\end{subfigure}
-	\caption{Règle de transformation de graphe $r$\todo{renommer e4 en e5 dans R}}
+	\caption{Règle de transformation de graphe $r$}
 	\label{fig:etat-art-model-regle-regle-transformation-graphe}
 \end{figure}
-
-% \todo{commentaire/paragraphe exemple de figure}
 
 Une telle règle est illustrée dans la
 Figure~\ref{fig:etat-art-model-regle-regle-transformation-graphe} où le membre
 gauche ($L$) filtre tout ou partie d'un graphe et le membre droit ($R$)
 transforme l'élément filtré par le membre gauche. %
-Une manière simple d'assurer que l'intersection $L \cap R$ est un graphe est que
+Une manière simple d'assurer que l'intersection $L \cap R$ (ou $K$) est un graphe est que
 $L$ et $R$ n'aient pas d'arête commune. %
 
 L'application d'une règle peut être définie formellement dans la théorie des
@@ -438,8 +441,6 @@ $m'(R \setminus L)$ est ajouté pour produire la transformation directe~$H$. %
 	morphisme de filtrage $m$. %
 \end{definition}
 
-% \todo{ajouter l'exemple de la règle suivante}
-
 Le morphisme $m'$ est construit de telle manière que la partie ajoutée est disjointe de $G$,
 \textit{i.e.} les nouveaux nœuds et arcs ont des noms «~frais~» (disjoints de
 ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
@@ -454,16 +455,22 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=\textwidth]{application-regle-v4-transfo-graphe}
-	\caption{Application d'une règle de transformation de graphe\todo{renommer e4 en e5 dans R et H}}
+	\caption{Application d'une règle de transformation de graphe}
 	\label{fig:etat-art-model-regles-inst-application}
 \end{figure}
 
-Dans la Figure~\ref{fig:etat-art-model-regles-inst-application}, illustrant
+Dans la figure~\ref{fig:etat-art-model-regles-inst-application} qui illustre
 l'application d'une règle de transformation de graphe, les morphismes $m$ et
-$m'$ sont des inclusions mais en pratique, ce n'est pas le cas et la partie ajoutée
-dans $H$ est ajoutée avec des noms frais. %
-\todo{compléter commentaire de figure}
-
+$m'$ sont des inclusions, mais en pratique ce n'est pas le cas et la partie
+ajoutée dans $H$ est ajoutée avec des noms frais. %
+\maxime{%
+	Cette règle de transformation de graphe est la règle qui contracte un arc et ses
+	nœuds source et cible en un seul nœud tout en préservant cet arc sous la forme
+	d'une boucle. %
+	Plus particulièrement, dans la transformation directe présentée, les nœuds $c$
+	et $d$ incidents à l'arc $e_{3}$ sont fusionnés en $c$ et $e_{3}$ est transformé
+	en une boucle $e_{5}$. %
+}%
 
 \subsection[Les cartes généralisées]{Les cartes généralisées}
 \label{sec:etat-art-model-regles-gcartes}
@@ -607,8 +614,8 @@ Les G-cartes représentent les cellules et plus généralement les orbites à l'
 Par exemple, la Figure~\ref{fig:etat-art-model-regle-gcarte-orbites} illustre un
 panel de cellules présentes dans une G-carte de dimension $3$. %
 On retrouve, dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-012}, le
-volume incident au brin $a$, noté $\orbit{0,1,2}(a)$, contenant le brin $a$, les
-brins atteignables à partir de $a$ par les liaisons $0,1$ et $2$ ainsi que ces
+volume incident au brin $b$, noté $\orbit{0,1,2}(a)$, contenant le brin $b$, les
+brins atteignables à partir de $b$ par les liaisons $0,1$ et $2$ ainsi que ces
 liaisons. %
 Le sommet (Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-123}) est noté
 $\orbit{0,1,2}(a)$, la face
@@ -709,11 +716,12 @@ D'autres conditions permettent de préserver la cohérence géométrique \cite{b
 En pratique, les morphismes de filtrage ne sont pas donnés \textit{in extenso},
 mais à partir de l'association d'un sous-ensemble de brins de $L$ appelés brins
 d'accroche (\emph{hooks} en anglais) à leur image dans $G$. %
-Par exemple, dans la Figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}, le
-nœud $h$ de $L$ est son brin d'accroche. \todo{ajouter cercle autour du brin d'accroche + préciser dans le texte}% noté par un double cercle. %
-Son association au brin $h$ de $G$ défini un unique morphisme de filtrage $m$
+Par exemple, dans la
+Figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}, le nœud $b$
+de $L$ est son brin d'accroche (en surbrillance en orange). %
+Son association au brin $b$ de $G$ défini un unique morphisme de filtrage $m$
 grâce à la condition d'arcs incidents. %
-Pour cela, les règles comportent un brin d'accroche par composante connexe de
+Pour cela, chaque règle comporte un brin d'accroche par composante connexe de
 $L$.
 
 \subsubsection[Règles Jerboa]{Règles Jerboa}
@@ -771,12 +779,12 @@ leur nombre d'arêtes. %
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m4}
 	\end{subfigure}
 	\caption{Motifs}
-	\label{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}
+	\label{fig:etat-art-model-base-regle-motifs-triangulation}
 \end{figure}
 
 Pour bien saisir ce qu'est un motif avec orbite, nous allons travailler avec les
 motifs illustrés dans la
-Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation} où tous les nœuds sont étiquetés avec des orbites de longueur 3. %
+Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation} où tous les nœuds sont étiquetés avec des orbites de longueur 3. %
 Commençons avec le motif $M1$
 (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m1}). %
 Ce motif comporte un unique nœud $n0$ étiqueté par l'orbite face $\orbit{0,1,3}$, il désigne donc une face. %
@@ -820,7 +828,7 @@ nœuds dont $n0$ et $n2$ que nous venons de voir. %
 \end{definition}
 
 À l'aide des motifs de la
-Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}, nous
+Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}, nous
 pouvons définir la fonction de renommage $\orbit{0,1,3}\mapsto\orbit{0,\_,3}$ entre les motifs $M1$ et $M2$. Elle permet de supprimer toutes les liaisons $1$ (noté par le souligné en deuxième position) et laisse inchangées les liaisons $0$ et $3$ (respectivement en première et troisième positions). %
 Les motifs $M1$ et $M3$ permettent de définir la fonction de renommage $\orbit{0,1,3} \mapsto \orbit{1,2,3}$. %
 Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en première et deuxième positions) et laisse inchangées les liaisons $3$ (en troisième position). %
@@ -849,122 +857,125 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 	\end{itemize}
 \end{definition}
 
-
 \begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.3\textwidth]{g-carte-instanciation-motif}
-	\caption{$G$}
-	\label{fig:etat-art-modelisation-base-regle-instanciation-objet}
+	\begin{minipage}{.28\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{g-carte-instanciation-quad-motif}
+		\caption{$G$}
+		\label{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{.7\textwidth}
+		\centering
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{inst-quad-face-v2.pdf}
+			\caption{\centering Instanciation de $M1$}
+			\label{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{inst-quad-triangulation-step1-v2.pdf}
+			\caption{\centering Instanciation de $M2$}
+			\label{fig:etat-art-modelisation-base-regle-quad-motif-m2}
+		\end{minipage}
+
+		~
+
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=.5\textwidth]{instanciation-motif-m3}
+			\caption{\centering Instanciation de $M3$}
+			\label{fig:etat-art-modelisation-base-regle-inst-quad-motif-m3}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{inst-quad-triangulation-step-final-v2.pdf}
+			\caption{\centering Instanciation de $M4$}
+			\label{fig:etat-art-modelisation-base-regle-instanciation-quad-motif-m4}
+		\end{minipage}
+	\end{minipage}
+	\caption{Instanciation des motifs de la Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation} par l'orbite $G\orbit{0,1,3}(a)$}
+	\label{fig:etat-art-modelisation-base-regle-instanciation-quad}
 \end{figure}
 
-\begin{figure}[!htbp]
-	\begin{subfigure}[t]{0.4\textwidth}
-		\centering
-		\includegraphics[width=0.9\linewidth]{inst-quad-face-v2.pdf}
-		\caption{Instanciation de $M1$}
-		\label{fig:jerboa-quad-before-triangulation}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.4\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{inst-quad-triangulation-step1-v2.pdf}
-		\caption{Instanciation de $M2$}
-		\label{fig:inst-quad-triangulation-1}
-	\end{subfigure}%
+La Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad} illustre l'instanciation des
+motifs de la
+Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation} par la
+face incidente au brin $a$ de la G-carte
+figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet} (la face
+$G\orbit{0,1,3}(b)$). %
+L'instanciation de $M1$ Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1} est
+isomorphe à la face d'instanciation, car le renommage est l'identité. %
+Pour rappel, les liaisons $3$ sont toutes des boucles non représentées dans la
+figure, car la face d'instanciation est un bord de la G-carte. %
+L'instanciation de $M2$ Figure~\ref{fig:etat-art-modelisation-base-regle-quad-motif-m2} est isomorphe
+au quatre arêtes de la face d'instanciation, car le renommage supprime les
+liaisons $1$ qui relient les arêtes deux-à-deux. %
+L'instanciation de $M3$ Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m3} est un sommet
+dual de la face d'instanciation, car les liaisons $0$ et $1$ sont renommées
+respectivement en $1$ et $2$. %
+L'instanciation de $M4$ Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-motif-m4} est une
+triangulation de la face d'instanciation, où les brins $a_0, b_0\dots$ en jaune
+sont les instanciations du nœud $n0$, les brins $a_1,b_1,\dots$ en vert sont les
+instanciation du nœud $n1$ et les brins $a_2,b_2,\dots$ en bleu sont les
+instanciations du nœud $n2$. L'arc explicite entre $n0$ et $n1$ dans le motif
+$M4$ produit les $1$-liaisons entre les brins jaune et vert et l'arc explicite
+entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 
-	\begin{subfigure}[t]{0.4\textwidth}
+
+\begin{figure}[!htbp]
+	\begin{minipage}{.28\textwidth}
 		\centering
-		\includegraphics[width=.9\linewidth]{instanciation-motif-m2}
-		\caption{Instanciation de $M3$}
-		\label{fig:inst-quad-triangulation-5}
-	\end{subfigure}
+		\includegraphics[width=\textwidth]{g-carte-instanciation-tri-motif}
+		\caption{$G$}
+		\label{fig:etat-art-modelisation-base-regle-instanciation-tri-objet}
+	\end{minipage}
 	\hfill
-	\begin{subfigure}[t]{0.4\textwidth}
+	\begin{minipage}{.7\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{inst-quad-triangulation-step-final-v2.pdf}
-		\caption{Instanciation de $M4$}
-		\label{fig:inst-quad-triangulation-final}
-	\end{subfigure}
-	\caption{Instanciation des motifs de la Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation} par l'orbite $G\orbit{0,1,3}(a)$}
-	\label{fig:before-after-quad-triangulation}
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=0.9\linewidth]{inst-tri-face.pdf}
+			\caption{\centering Instanciation de $M1$}
+			\label{fig:jerboa-tri-before-triangulation}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step1-v2.pdf}
+			\caption{\centering Instanciation de $M2$}
+			\label{fig:inst-tri-triangulation-1}
+		\end{minipage}
+
+		~
+
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=.5\textwidth]{inst-tri-motif-m3}
+			\caption{\centering Instanciation de $M3$}
+			\label{fig:etat-art-modelisation-base-regle-inst-tri-motif-m3}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{.34\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{inst-tri-triangulation-step-final-v2.pdf}
+			\caption{\centering Instanciation de $M4$}
+			\label{fig:inst-tri-triangulation-final}
+		\end{minipage}
+	\end{minipage}
+	\caption{Instanciation des motifs de la Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation} par l'orbite $G\orbit{0,1,3}(a)$}
+	\label{fig:etat-art-modelisation-base-regle-instanciation-motifs-tri}
 \end{figure}
 
-
-La Figure~\ref{fig:before-after-quad-triangulation} illustre l'instanciation des motifs de la Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation} par la face incidente au brin $a$ de la G-carte Figure~\todo{mettre ref} (la face $G\orbit{0,1,3}(a)$). %
-L'instanciation de $M1$ Figure~\ref{fig:jerboa-quad-before-triangulation} est isomorphe à la face d'instanciation, car le renommage est l'identité. %
-Pour rappel, les liaisons $3$ sont toutes des boucles non représentées dans la figure, car la face d'instanciation est un bord de la G-carte. %
-L'instanciation de $M2$ Figure~\ref{fig:inst-quad-triangulation-1} est isomorphe au quatre arêtes de la face d'instanciation, car le renommage supprime les liaisons $1$ qui relient les arêtes deux-à-deux. %
-L'instanciation de $M3$ Figure~\ref{fig:inst-quad-triangulation-5} est un sommet dual de la face d'instanciation, car les liaisons $0$ et $1$ sont renommées respectivement en $1$ et $2$. %
-L'instanciation de $M4$ Figure~\ref{fig:inst-quad-triangulation-final} est une triangulation de la face d'instanciation, où les brins $a_0, b_0\dots$ en jaune sont les instanciations du nœud $n0$, les brins $a_1,b_1,\dots$ en vert sont les instanciation du nœud $n1$ et les brins $a_2,b_2,\dots$ en bleu sont les instanciations du nœud $n2$.
-L'arc explicite entre $n0$ et $n1$ dans le motif $M4$ produit les $1$-liaisons entre les brins jaune et vert et l'arc explicite entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
-
-\todo{mettre à jour figure d'instanciation face triangulaire + commentaire rapide}
-
-\todo{figure, instancier à partir des motifs de la figure 1.11}
-\begin{figure}[!htbp]
-	\centering
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=0.9\linewidth]{inst-tri-face.pdf}
-		\caption{}
-		\label{fig:jerboa-tri-before-triangulation}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step1.pdf}
-		\caption{}
-		\label{fig:inst-tri-triangulation-1}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step2.pdf}
-		\caption{}
-		\label{fig:inst-tri-triangulation-2}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step3.pdf}
-		\caption{}
-		\label{fig:inst-tri-triangulation-3}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step4.pdf}
-		\caption{}
-		\label{fig:inst-tri-triangulation-4}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step5.pdf}
-		\caption{}
-		\label{fig:inst-tri-triangulation-5}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.3\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{inst-tri-triangulation-step-final.pdf}
-		\caption{}
-		\label{fig:inst-tri-triangulation-final}
-	\end{subfigure}
-	\caption{Instanciation du motif de triangulation (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}) sur une face triangulaire.
-		(\subref{fig:jerboa-tri-before-triangulation}) Orbite face d'instanciation,
-		(\subref{fig:inst-tri-triangulation-1}) Nœuds d'instanciation $0$,
-		(\subref{fig:inst-tri-triangulation-2})  Instanciation des $1$-arcs explicite incidents aux nœuds d'instanciation $0$,
-		(\subref{fig:inst-tri-triangulation-3}) Nœuds d'instanciation $1$,
-		(\subref{fig:inst-tri-triangulation-4})  Instanciation des $0$-arcs incidents aux nœuds d'instanciation $1$ et
-		(\subref{fig:inst-tri-triangulation-5}) Nœuds d'instanciation $2$.
-		(\subref{fig:inst-tri-triangulation-final}) Résultat final de l'instanciation.}
-	\label{fig:before-after-tri-triangulation}
-\end{figure}
-
-\todo{rentrer les brins verts dans l'intérieur du triangle et faire des surlignages plutôt que de la coloration de brin}
-
-Le processus est identique Figure~\ref{fig:before-after-tri-triangulation} pour le triangle Figure~\ref{fig:jerboa-tri-before-triangulation}.
+Les instanciations des motifs $M1, M2, M3$ et $M4$
+(Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}) pour la face
+triangulaire de $G$ incidente au brin $j$
+(Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-tri-objet})
+présentées dans la figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-motifs-tri}
+se déroule de la même manière pour la face carrée (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad}). %
 
 \begin{definition}[Règle transformation de graphe Jerboa]\label{def:regle-transfo-graphe-jerboa}%
 	Une \emph{règle} Jerboa  $r: L \longrightarrow R$  est définie par un couple  de motifs avec
@@ -978,11 +989,14 @@ Le processus est identique Figure~\ref{fig:before-after-tri-triangulation} pour 
 	\centering
 	\includegraphics[height=50pt]{rule-face-triangulation-3D}
 	\caption{Règle de triangulation}
-	\label{fig:etat-art-model-regle-regle-jerboa-regle-triangulation}
+	\label{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}
 \end{figure}
 
-La Figure~\ref{fig:etat-art-model-regle-regle-jerboa-regle-triangulation} représente la règle Jerboa de triangulation qui reprend les motifs de la Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motifs-triangulation}. %
-Le nœud $n0$, dans le motif gauche, est le nœud d'accroche représenté graphiquement par un double cercle. %
+La Figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}
+représente la règle Jerboa de triangulation qui reprend les motifs de la
+Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}. %
+Le nœud $n0$, dans le motif gauche, est le nœud d'accroche représenté
+graphiquement par un double cercle. %
 
 L'application d'une règle Jerboa est l'application de son instanciation, qui est
 une règle instanciée. %
@@ -1003,7 +1017,7 @@ directe. %
 	c'est-à-dire que $(l(h') \mapsto l(h))(O')$ est isomorphe à~$O$.
 \end{definition}
 
-Par exemple, le morphisme de filtrage qui associe l'unique nœud $n0$ du motif gauche de la règle de triangulation (Figure~\ref{fig:etat-art-model-regle-regle-jerboa-regle-triangulation}) au brin $a$ de la G-carte $G$ (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-quad-before-triangulation}. %
+Par exemple, le morphisme de filtrage qui associe l'unique nœud $n0$ du motif gauche de la règle de triangulation (Figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}) au brin $a$ de la G-carte $G$ (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}. %
 Le morphisme de filtrage qui associe le même nœud $n0$ au brin $i$ de la G-carte $G$ définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-tri-before-triangulation}.
 
 \todo{donner la règle de couture entre deux faces et commenter la contrainte d'isomorphisme (cube + pyramide).}
@@ -1062,7 +1076,7 @@ Le morphisme de filtrage qui associe le même nœud $n0$ au brin $i$ de la G-car
 % nœud d'accroche. %
 % Dans le membre droit, on retrouve l'instanciation du motif Figure~\ref{fig:inst-quad-triangulation-final}. %
 
-L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée $r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié $m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation désigné par le nœud d'accroche.
+L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée $r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié $m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation désignée par le nœud d'accroche.
 Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ est la transformation directe $G \xlongrightarrow{r(\underline{m}), m} H$.
 
 \todo{Donner l'exemple de la transformation directe de l'objet de départ G-carte G ---> H avec brins annotés a0,b0… (que la triangulation du carré)}

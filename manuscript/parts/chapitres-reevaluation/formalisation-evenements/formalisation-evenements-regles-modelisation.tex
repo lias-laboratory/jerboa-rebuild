@@ -1,4 +1,3 @@
-
 \chapter[Formalisation des évènements]{Formalisation des évènements}
 \label{cha:formalisation-evenements}
 
@@ -15,9 +14,12 @@ On parle dans ce cas d'événements survenus sur les orbites.
 
 
 \begin{definition}[Création d'orbite]
-	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $H$.
+	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
+	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $H$.
 
-	L'orbite $H\orbit{\omega}(v)$ est \emph{créée} si et seulement si $G \cap H\orbit{\omega}{v} = \emptyset$.
+	L'orbite $H\orbit{\omega}(v)$ est \emph{créée} si et seulement si l'orbite
+	$\orbit{\omega}$ incidente au brin $v$ ainsi que $v$ existent uniquement
+	dans $H$, \textit{i.e.} $G \cap H\orbit{\omega}(v) = \emptyset$. %
 \end{definition}
 
 \todo{Ajouter illustration triangulation création avant/après}
@@ -37,12 +39,19 @@ En particulier, aucuns des brins $a_2,b_2,\dots,h_2$ de $H$ n'existent dans $G$.
 \begin{definition}[Scission d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
 
-	L'orbite $G\orbit{\omega}(v)$ est \emph{scindée} si et seulement si il existe deux brins $v_1$ et $v_2$ de $G\orbit{\omega}(v)$ tels que $v_1$ et $v_2$ sont des nœuds de $H$
-	d'orbites différentes, \textit{i.e.} $H\orbit{\omega}(v_1) \neq H\orbit{\omega}(v_2)$.
+	L'orbite $G\orbit{\omega}(v)$ est \emph{scindée} si et seulement si il
+	existe deux brins $v_1$ et $v_2$ de $G\orbit{\omega}(v)$ tels que $v_1$ et
+	$v_2$ sont aussi des brins de $H$ et qu'ils appartiennent à des orbites
+	$\orbit{\omega}$ différentes, \textit{i.e.}
+	$H\orbit{\omega}(v_1) \neq H\orbit{\omega}(v_2)$.
 \end{definition}
 
 Reprenons l'exemple Figure~\ref{??}. %
-La face $G\orbit{0,1,3}(a_0)$ est scindée en quatre faces $H\orbit{0,1,3}(a_0)$, $H\orbit{0,1,3}(c_0)$, $H\orbit{0,1,3}(e_0)$, $H\orbit{0,1,3}(g_0)$. %
+La face $G\orbit{0,1,3}(a_0)$ est scindée en quatre faces~:
+\[H\orbit{0,1,3}(a_0),
+	H\orbit{0,1,3}(c_0),
+	H\orbit{0,1,3}(e_0),
+	H\orbit{0,1,3}(g_0)\] %
 
 ~
 
@@ -52,7 +61,9 @@ La suppression est l'inverse de la création. %
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
 
-	L'orbite $G\orbit{\omega}(v)$ est \emph{supprimée} si et seulement si $H \cap G\orbit{\omega}(v) = \emptyset$.
+	L'orbite $G\orbit{\omega}(v)$ est \emph{supprimée} si et seulement si
+	l'orbite $\orbit{\omega}$ incidente à $v$ ainsi que $v$ existent uniquement
+	dans $G$, \textit{i.e.} $H \cap G\orbit{\omega}(v) = \emptyset$. %
 \end{definition}
 
 Reprenons l'exemple de la Figure~\ref{??}, cette fois de $H$ vers $G$. %
@@ -64,7 +75,12 @@ La fusion est l'inverse de la scission. %
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ et $v'$ deux brins de $G$. %
 
-	Les orbites $G\orbit{\omega}(v)$ et $G\orbit{\omega}(v')$ sont \emph{fusionnées} si et seulement si il existes deux brins respectivement $v_{1}$ de $G\orbit{\omega}(v)$ et $v_{2}$ de $G\orbit{\omega}(v')$ tel que $v_{1}$ et $v_{2}$ sont des nœuds $H$ de la même orbite, \textit{i.e.} $H\orbit{\omega}(v_{1}) = H\orbit{\omega}(v_{2})$. %
+	Les orbites $G\orbit{\omega}(v)$ et $G\orbit{\omega}(v')$ sont
+	\emph{fusionnées} si et seulement si il existes deux brins respectivement
+	$v_{1}$ de $G\orbit{\omega}(v)$ et $v_{2}$ de $G\orbit{\omega}(v')$ tel que
+	$v_{1}$ et $v_{2}$ sont des aussi des brins de $H$ et qu'ils appartiennent à
+	la même orbite $\orbit{\omega}$, \textit{i.e.}
+	$H\orbit{\omega}(v_{1}) = H\orbit{\omega}(v_{2})$. %
 
 \end{definition}
 
@@ -87,7 +103,15 @@ sont \emph{fusionnées} s'il existe deux nœuds $v_1$ et $v_2$ appartenant respe
 
 
 
-\subsection{Non-changement}\label{sec:suivi-non-changement}
+% \subsection{Non-changement}\label{sec:suivi-non-changement}
+
+\begin{definition}[Non-changement d'orbite]
+	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
+	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $H$.
+
+	L'orbite $G\orbit{\omega}(v)$ est \emph{inchangée} si et seulement si elle
+	est aussi une orbite dans $H$, \textit{i.e.} $G\orbit{v} \subset H$.
+\end{definition}
 
 \todo{Ajouter illustration non-changement avant/après}
 
@@ -107,7 +131,18 @@ est défini de la façon suivante~:
 
 Une orbite $G\orbit{o}(v)$ est \emph{inchangée} si l'orbite $G\orbit{o}(v)$ est aussi une orbite de $H$, c'est-à-dire si $G\orbit{o}(v) \subset H$.
 
-\subsection{Modification}
+% \subsection{Modification}
+
+\begin{definition}[Modification d'orbite]
+	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
+	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $H$. %
+
+	L'orbite $G\orbit{\omega}(v)$ si et seulement si il existe un brin $v'$ de
+	$G\orbit{\omega}(v)$ et $H$ tel que tout brin préservé $v''$ de
+	$G\orbit{\omega}(v')$ appartient à $H\orbit{\omega}(v')$ et réciproquement
+	tout brin préservé $v''$ de $H\orbit{\omega}(v')$ appartient à
+	$G\orbit{\omega}(v')$. %
+\end{definition}
 
 \maxime{Ajouter l'exemple d'insertion de sommet en entourant la face modifiée}
 La figure ? reprend l'exemple de l'insertion d'un sommet sur une arête du cube. La face entourée en rouge dans $G$ est modifiée dans $H$, car tous ses brins préservés appartiennent à la même face entourée en rouge. Cette face contient des brins supplémentaires du sommet ajouté.\\

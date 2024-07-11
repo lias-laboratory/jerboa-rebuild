@@ -12,7 +12,6 @@ On veut qualifier les modifications d'orbites de type $\orbit{\omega}$ entre $G$
 Ces dernières peuvent être créées, supprimées, scindées, fusionnées, inchangées ou modifiées.
 On parle dans ce cas d'événements survenus sur les orbites.
 
-
 \begin{definition}[Création d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $H$.
@@ -22,19 +21,24 @@ On parle dans ce cas d'événements survenus sur les orbites.
 	dans $H$, \textit{i.e.} $G \cap H\orbit{\omega}(v) = \emptyset$. %
 \end{definition}
 
-\todo{Ajouter illustration triangulation création avant/après}
+\begin{figure}[H]
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{g-carte-triangulation-avant}
+		\caption{\label{fig:formalisation-evenements-g-carte-evenement-triangulation-g}$G$}
+	\end{subfigure}
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{g-carte-triangulation-apres}
+		\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-h}$H$}
+	\end{subfigure}
+	\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation}Triangulation dans une G-carte}
+\end{figure}
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=.8\linewidth]{{figures/}jerboa-create-then-now}
-%   \caption{Insertion d'un sommet sur une arête d'un cube}
-%   \label{fig:jerboa-create-then-now}
-% \end{figure}
-
-\maxime{Faire des sous-figures et nommer les graphes G et H}
-
-L'orbite sommet $H\orbit{1,2,3}(a_2)$ est créée. %
-En particulier, aucuns des brins $a_2,b_2,\dots,h_2$ de $H$ n'existent dans $G$. %
+L'orbite sommet $H\orbit{1,2,3}(a_2)$ est créée à l'issue de la transformation
+du graphe $G$ vers $H$
+(Figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation}). %
+En particulier, aucuns des brins $a_2,b_2\ldots h_2$ de $H$ n'existent dans $G$. %
 
 \begin{definition}[Scission d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
@@ -46,7 +50,7 @@ En particulier, aucuns des brins $a_2,b_2,\dots,h_2$ de $H$ n'existent dans $G$.
 	$H\orbit{\omega}(v_1) \neq H\orbit{\omega}(v_2)$.
 \end{definition}
 
-Reprenons l'exemple Figure~\ref{??}. %
+Reprenons l'exemple figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation} %
 La face $G\orbit{0,1,3}(a_0)$ est scindée en quatre faces~:
 \[H\orbit{0,1,3}(a_0),
 	H\orbit{0,1,3}(c_0),

@@ -14,9 +14,8 @@
 \usepackage[switch*,pagewise,mathlines]{lineno}
 
 %% Pour causer français
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
+\frenchsetup{StandardItemLabels=true}
 \usepackage[style=french]{csquotes}
 
 %% Pour la bibliographie
@@ -33,12 +32,6 @@
 \usepackage{framed}
 \usepackage{listings}
 
-%% jumping refs (and urls), must be called last
-% \usepackage{hyperref}
-%%
-
-% \frenchbsetup{FrenchFootnotes=false}
-
 
 \def\gResourcesPath{../resources-figures-jerboa}
 \graphicspath{{../logos/}%
@@ -49,7 +42,6 @@
 
 \input{commands}
 
-% \AtBeginDocument{\def\labelitemi{\(\bullet\)}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
@@ -63,10 +55,11 @@
 \titlelogoright{lias-logo.png}
 
 \title{%
-	Rejeu et modélisation spatio-temporelle basée sur les règles d'éléments archéologiques}
+  Modélisation et rejeu basés sur des règles~: application à la modélisation spatio-temporelle}
 %
 \author{%
-	Maxime GAIDE} %
+	Maxime GAIDE}
+%
 \institute{%
 	École Nationale Supérieure de Mécanique et d'Aérotechnique}
 %

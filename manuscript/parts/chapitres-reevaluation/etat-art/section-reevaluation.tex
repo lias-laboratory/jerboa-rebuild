@@ -174,8 +174,9 @@ D'un autre côté, nous relevons plusieurs limitations de cette approche: %
 \end{itemize}
 
 \subsection{\color{orange}(corrections) Approche fonctionnelle, ou \textit{history-based}}
+\label{sec:etat-art-modelisation-parametric-approche-fonctionnelle}
 
-Dans cette seconde approche, la spécification paramétrique d'un objet est son
+Dans cette seconde approche, la spécification paramétrique d'un objet est un
 processus constructif (ou historique), c'est-à-dire un enregistrement de
 l'ensemble des opérations de modélisation et de leurs paramètres, successivement
 appliquées tout au long d'une procédure de modélisation. %
@@ -184,15 +185,12 @@ La représentation explicite d'un objet, quant à elle, est entièrement génér
 l'issue du processus constructif et est donc déterministe. %
 L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
 \begin{definition}[Modèle paramétrique fonctionnel]
-	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, et $V$ une
-	instance explicite, où $V$ appartient à $\mathcal{V}$ l'ensemble de toutes les formes
-	possibles. Un modèle paramétrique est une fonction~:
+	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, et $V$ une instance explicite, où $V$ appartient à $\mathcal{V}$ l'ensemble de toutes les formes possibles.
+	Un modèle paramétrique est une fonction~:
 	\[F : \mathcal{D} \mapsto \mathcal{V}\] %
-	avec $V = F(P)$, et $F$ est définie comme une composition de fonctions $f_{i}$
-	appelées \emph{fonctions paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ
-		f_{1}\] %
+	avec $V = F(P)$, et $F$ est définie comme une composition de
+	fonctions $f_{i}$ appelées \emph{fonctions paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
 \end{definition}
-
 
 Représenter un modèle paramétrique par une fonction présente plusieurs
 avantages~: le système est déterministe et produit ainsi un unique résultat~;
@@ -202,6 +200,9 @@ par frontières (\textit{Boundary Representation, B-Rep})~; elle supporte des
 opérations de haut niveau telles que les opérations booléennes, extrusion, chanfrein, rainure\dots %
 
 ~
+
+% chaque fonction dispose d'un nombre fixe de paramètres ce qui limite le nombre de contraintes pouvant être appliquées à une entité géométrique \xavierAdd{Trop de "limitations" dans cette phrase}~; \xavier{l'utilisation de fonctions est plus contraignante puisque l'application de contraintes ne peut être effectuée à aucun autre moment que lors de l'application de la fonction associée \textit{=> cette phrase ne vient pas dire grand-chose}}~;
+% \maxime{Oui et oui… le premier argument c'est que les opérations de modélisation ont un nombre de contraintes défini, autrement dit, un utilisateur ne peut pas ajouter plus contraintes sur la géométrie que ce que les opérations du système de modélisation en proposent. Le second argument est que l'approche fonctionnelle est plus restrictive les contraintes faisant partie des opération, il est donc impossible de changer les contraintes déjà appliquées pendant le processus de construction.}
 
 \begin{figure}[!htb]
 	\begin{subfigure}{1.0\linewidth}
@@ -229,47 +230,40 @@ Prenons l'exemple d'une spécification paramétrique (représentation implicite)
 	      % verticale à arrondir
 \end{itemize}
 
+\xavier{=> faire apparaître les 3 paramètres "largeur\_cube, hauteur\_cube, profondeur\_cube" sur la partie gauche de la figure ; éventuellement, tu peux les renommer si cela prend trop de place. Par exemple, "largeur\_cube" devient "largeur\_c" ('c' pour "cube" ; mais si tu suis ce format de nommage, il faudra l'appliquer aussi pour les rainures: par exemple, "longueur\_rainure" => "longueur\_r" }
+
 ~
 
 Le résultat (représentation explicite) est illustré sur la
 figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}). %
 
-\maxime{%
-	Tout d'abord, la première opération crée un cube paramétré par les trois valeurs
-	\texttt{largeur\_cube}, \texttt{hauteur\_cube} et \texttt{profondeur\_cube}. %
-	On relève trois entités topologiques nommées $f_{1}$, $e_{1}$ et $e_{2}$ qui
-	sont respectivement la face avant du cube et ses arêtes verticales gauche
-	($e_{1}$) et droite ($e_{2}$). %
-	La deuxième opération est appliquée sur $f_{1}$. %
-	Cette opération creuse une rainure dans la face $f_{1}$ et coupe l'arête $e_{2}$
-	en deux. %
-	Enfin, la troisième opération crée un arrondi sur l'arête $e_{1}$. %
-	\\
-	\\
-	La spécification paramétrique ci-dessus (et sa représentation explicite
-	figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init})
-	présente plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
-	(1) les opérations sont pré-définies par le modeleur, ce qui limite
-	l'utilisateur dans les contraintes qu'il peut appliquer~; (2) l'approche est
-	séquentielle, ce qui implique que tout paramètre topologique doit exister à
-	l'étape courante de la modélisation.
-	%
-	Un exemple de difficulté lié à l'aspect séquentiel est le suivant~: suite à
-	l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de
-	la face avant du cube initial n'existe plus~: elle a été "remplacée" par une
-	succession de nouvelles arêtes. Il devient impossible d'appliquer une fonction
-	sur la référence $e_{2}$ à partir d'une éventuelle étape $4$. %
-}
+Tout d'abord, la première opération crée un cube paramétré par les trois valeurs
+\texttt{largeur\_cube}, \texttt{hauteur\_cube} et \texttt{profondeur\_cube}. %
+On s'intéresse en particulier à trois entités topologiques nommées $f_{1}$, $e_{1}$ et $e_{2}$, qui
+sont respectivement la face avant du cube et ses arêtes verticales gauche
+($e_{1}$) et droite ($e_{2}$). %
+La deuxième opération, appliquée sur $f_{1}$, creuse une rainure dans cette face et coupe l'arête $e_{2}$
+en deux. %
+Enfin, la troisième opération crée un arrondi sur l'arête $e_{1}$. %
 
-% Dans cet exemple, on observe que chacun des paramètres topologiques $f_{1}$ et
-% $e_{1}$ doit exister à l'étape courante. %
-% \david{je ne vois pas le lien entre cette phrase "chacun des paramètres
-% 	topologiques doit exister à l'étape courante" et la suivante "on ne peut
-% 	utiliser que les fonctions pré-définies". Je pense que cette seconde phrase
-% 	doit être mise après ce paragraphe, comme une autre limitation : le fait que
-% 	seules les opérations prévues par le système peuvent être utilisées.} Il
-% s'agit de l'un des inconvénients de cette approche~: on ne peut utiliser que les
-% fonctions pré-définies par le système. %
+~
+
+La spécification paramétrique ci-dessus (et sa représentation explicite
+figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init})
+présente plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
+(1) les opérations sont pré-définies par le modeleur, ce qui limite
+l'utilisateur dans les contraintes qu'il peut appliquer~; (2) l'approche est
+séquentielle, ce qui implique que tout paramètre topologique doit exister à
+l'étape courante de la modélisation.
+
+Un exemple de difficulté lié à l'aspect séquentiel est le suivant~: suite à
+l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de
+la face avant du cube initial n'existe plus~: elle a été "remplacée" par une
+succession de nouvelles arêtes. Il devient impossible d'appliquer une fonction
+sur la référence $e_{2}$ à partir d'une éventuelle étape $4$. %
+
+
+~
 
 Une autre difficulté liée à cette approche est le référencement d'entités qui, lors de la réévaluation, peuvent ne plus exister. %
 Considérons, par exemple, le rejeu de la spécification paramétrique légèrement modifiée
@@ -284,135 +278,189 @@ Considérons, par exemple, le rejeu de la spécification paramétrique légèrem
 	      % problème d'identification au rejeu.}
 \end{itemize} %
 
-\maxime{%
-	Dans cette nouvelle spécification paramétrique, la valeur
-	\texttt{longueur\_rainure} de la deuxième opération est remplacée par
-	\texttt{longueur\_rainure2}. %
-	Lors de l'évaluation initiale, la rainure ne traversait pas la face $f_{1}$ de
-	part en part et l'arête $e_{1}$ était donc identifiée sans difficulté. %
-	Or, à la réévaluation, la rainure traverse $f_{1}$ de part en part et l'arête
-	$e_{1}$ est scindée en $e_{x}$ et $e_{y}$. %
-	Autrement dit, puisque l'arête $e_{1}$ n'existe plus, il n'est plus possible
-	d'appliquer l'opération d'arrondi sur la référence $e_{1}$. %
-	\\
-	Cette dernière difficulté illustre une limitation de l'approche fonctionnelle
-	pour les modèles paramétriques. %
-	Lors de la réévaluation et lorsqu'une entité référencée dans la spécification
-	paramétrique cesse d'exister, il devient alors impossible d'utiliser sa
-	référence et ainsi produire une nouvelle représentation explicite du modèle %
-}
+Dans cette nouvelle spécification paramétrique, la valeur
+\texttt{longueur\_rainure} de la deuxième opération est remplacée par
+\texttt{longueur\_rainure2}. %
+Lors de l'évaluation initiale, la rainure ne traversait pas la face $f_{1}$ de
+part en part et l'arête $e_{1}$ était donc identifiée sans difficulté. %
+Or, à la réévaluation, la rainure traverse $f_{1}$ de part en part et l'arête
+$e_{1}$ est scindée en $e_{x}$ et $e_{y}$. %
+Autrement dit, puisque l'arête $e_{1}$ n'existe plus, il n'est plus possible
+d'appliquer l'opération d'arrondi sur la référence $e_{1}$. %
+
+Cette dernière difficulté illustre une limitation de l'approche fonctionnelle
+pour les modèles paramétriques. %
+Lors de la réévaluation et lorsqu'une entité référencée dans la spécification
+paramétrique cesse d'exister, il devient alors impossible d'utiliser sa
+référence et ainsi produire une	nouvelle représentation explicite du modèle. %
+
 
 \subsection{\color{red}(à lire) Nomination persistante}
-\label{sec:etat-art-reevaluation-concepts-identification}
+\label{sec:etat-art-reevaluation-nomination-persistante}
 
-%% Ce paragraphe est une idée, il faut la re-écrire pour introduire les concepts
-%% suivants qui sont liés à la nomination
-%% persistante: %
+L'exemple précédent illustre le problème principal que doit résoudre la nomination persistante~:
+ne pas pouvoir régénérer un modèle à cause de références invalides. %
+Ainsi, permettre la réévaluation d'une spécification paramétrique nécessite,
+dans un premier temps, que chacune des entités topologiques d'un modèle paramétrique
+puisse être identifiée à l'aide d'un identifiant unique et robuste, appelé
+\emph{nom persistant}. %
+Ensuite, le nom attribué à chacune des entités topologiques doit permettre de
+procéder à leur \emph{appariement} dans le modèle paramétrique régénéré,
+c'est-à-dire retrouver dans le nouveau modèle les entités qui avaient été
+initialement désignées pour appliquer les opérations de modélisation. %
 
-%%% - Il faut identifier les entités de manière unique, ces identifiants sont
-%% appelés noms
-
-%% - If faut que le nommage permette de retrouver l'entité au rejeu, cette phase
-%% s'appelle l'appariement
-
-La réévaluation d'une spécification est conditionnée par l'identification persistante des entités topologiques référencées. %
-L'identification d'une entité c'est lui donner un nom unique et robuste qui
-permette de la retrouver au cours de la réévaluation. %
 
 \subsubsection{Nomination des entités}
 \label{sec:etat-art-modelisation-parametric-nomination-utilisation-nom}
 
-La \emph{nomination persistante} d'entités topologiques doit répondre à
-plusieurs besoins~: un nom doit être unique et robuste. %
-Un nom persistant est unique lorsqu'il identifie une unique entité topologique
-dans un modèle paramétrique. %
+% \xavier{La phrase suivante est redondante par rapport au texte précédent.}
+% \xavierSupp{Cette démarche d'attribuer des noms persistants répond à la nécessité que toute
+% référence faite à une entité topologique doit rester valide lors de la
+% réévaluation de la spécification paramétrique.} %
 
-Reprenons l'exemple précédent
-(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite}). %
-Dans cet exemple,
+En dehors de tout concept de réévaluation, il est possible de désigner une
+entité par un numéro d'apparition dans le modèle ou encore à l'aide d'un
+pointeur. %
+Toutefois, lorsque l'on se place dans le cadre de la modélisation paramétrique
+avec réévaluation, ces méthodes de référencement ne sont plus
+applicables. %
+En effet, de telles références sont particulièrement sensibles aux changements
+subis par le modèle lors de la réévaluation de la spécification paramétrique. %
+Ainsi, un numéro d'ordre d'apparition pourrait désigner une autre entité
+topologique incompatible avec l'opération qui la référence. %
+Pour un pointeur, si l'entité initialement référencée disparaît, le
+programme va échouer avec une erreur de pointeur nul. %
+
+Reprenons l'exemple précédent. %
+Lors de l'évaluation initiale
+(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}),
+$e_{1}$ désigne l'arête qui doit être arrondie à la troisième étape de la
+modélisation. %
+Suite à la réévaluation
+(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}),
+la rainure, dont la longueur a changé, scinde $e_{1}$ en deux et n'existe plus
+telle quelle. %
+En conséquence, utiliser le nom $e_{1}$ comme référence n'est pas adapté, car sensible aux changements dans le modèle. %
+
+Le nommage persistant doit donc être un mécanisme d'identification robuste,
+c'est-à-dire dont les références restent valides au cours de la réévaluation
+d'une spécification paramétrique.
+Ce mécanisme s'impose alors comme une troisième couche dans les systèmes de
+modélisation paramétrique, entre la spécification paramétrique et la
+représentation explicite. %
 
 \subsubsection{Appariement des entités}
 \label{sec:etat-art-modelisation-parametrique-nomination-appariement}
 
+Lors de la réévaluation, l'appariement des entités découle directement du mécanisme
+de nomination persistante. %
+En effet, puisque qu'un modèle paramétrique est supposé changer lors de la
+réévaluation de sa spécification, les entités référencées sont
+elles-mêmes susceptibles d'être modifiées. %
+Dans le cas le plus simple, lorsqu'une entité est préservée, il faut pouvoir
+mettre cette entité du modèle initial en correspondance avec son équivalent dans
+le modèle régénéré. %
+En revanche, dans d'autres configurations, les changements provoqués peuvent
+conduire à plus ou moins d'options pour la mise en correspondance. %
+
+Reprenons encore une fois l'exemple de la
+figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite}. %
+Suite à la réévaluation, la scission de l'arête $e_{1}$ produit les arêtes
+$e_{x}$ et $e_{y}$. %
+Avec simplement $e_{1}$ comme référence, il est impossible de poursuivre la
+réévaluation avec l'application de l'opération d'arrondi sur l'une et/ou l'autre
+des deux arêtes scindées. %
+Dans cette situation, avec un nom permettant d'identifier l'arête $e_{1}$ malgré
+sa scission, un mécanisme d'appariement doit permettre de mettre $e_{1}$ en
+correspondance avec $e_{x}$ et $e_{y}$ et d'appliquer l'opération d'arrondi sur
+l'une et/ou l'autre de ces deux arêtes. %
+
+% \xavier{Le paragraphe suivant me semble redondant avec ce qui précède. Pour le moment, je suggère de le retirer. Mais il pourrait servir, en le complétant, à introduire la section suivante sur la classification des méthodes de nommage. Donc à voir si on le conserve finalement ou pas...}
+
+% ~
+
+% \xavierSupp{
+% Ainsi, un mécanisme de nomination persistante a un double objectif vis-à-vis de
+% la réévaluation. %
+% La nomination doit permettre une identification unique de chacune des entités
+% topologiques, mais elle doit aussi permettre la mise en \oe{}uvre d'un mécanisme
+% d'appariement.} %
 
 
-% \subsection{Classification des méthodes de nommage persistant}
-% \label{sec:etat-art-reevaluation-approches-nommages}
+\subsection{Classification des méthodes de nomination persistante}
+\label{sec:etat-art-modelisation-parametrique-classification-nomination}
 
-% \subsubsection[Concepts communs de la nomination persistante]{Concepts communs de la nomination persistante}
-% \label{sec:etat-art-reevaluation-classification-props}
+De nombreuses méthodes ont été proposées ces dernières années dans le but de
+répondre au problème de la nomination persistante. %
+Dans cette section, dans le but est de proposer une classification de ces
+méthodes, nous exprimons les concepts qui leurs communs et ceux qui permet de
+les distinguer. %
 
-% \highlight{J'ai vu que, dans leurs thèses, Anaïs Cardot et Mehdi Baba-ali
-% 	utilisent les mêmes définitions au mot près en citant \cite{agbodan1999data}
-% 	donc j'ai repris ces définitions. Je ne pense à pas réinventer les defs mais
-% 	je ne veux pas non plus tomber dans la catégorie plagiat, donc là, c'est au minimum pour avancer.}
+\subsubsection[Concepts communs de la nomination persistante]{Concepts communs de la nomination persistante}
+\label{sec:etat-art-modelisation-parametrique-classification-nomination-concepts}
 
-% (Une phrase dans ce style) Des définitions précises de ces concepts sont
-% proposées par Agbodan et al. \cite{agbodan1999data}. %
+\paragraph{Distinction des entités invariantes et contingentes}
 
-% \todo{découper ces item pour insérer les définitions}
-% \begin{itemize}
-% 	\item distinction des entités invariantes et contingentes ( intégrer : nomination basée sur les entités invariantes )
-% 	\item distinction des entités avec et sans sources
-% 	\item utilisation d'un historique de noms
-% 	\item nomination hétérogène des entités
-% \end{itemize}
+\begin{definition}[Entité invariante]\label{def:entite-invariante}%
+	Une entité invariante est une entité géométrique ou topologique qui peut être,
+	complètement et sans ambiguïté, caractérisée par la structure d'une opération
+	de modélisation et ses paramètres d'entrée, indépendamment des valeurs
+	impliquées. %
+\end{definition}
 
-% \paragraph{Distinction des entités invariantes et contingentes}
+\begin{definition}[Entité contingente]\label{def:entite-contingente}%
+	Une entité contingente est une entité topologique ou géométrique qui résulte
+	de l'interaction entre le modèle géométrique pré-existant et les entités
+	invariantes issues de la dernière opération de modélisation. %
+\end{definition}
 
-% \todo{exemple avec illustration + description}
+\paragraph{Entités issues d'extrusion ou de révolution}
 
-% \begin{definition}[Entité invariante]\label{def:entite-invariante}%
-% 	Une entité invariante est une entité géométrique ou topologique qui peut être,
-% 	complètement et sans ambiguïté, caractérisée par la structure d'une opération
-% 	de modélisation et ses paramètres d'entrée, indépendamment des valeurs
-% 	impliquées. %
-% \end{definition}
+\cite{chen1995editability,wu2001face,agbodan2003topological}
 
-% \todo{exemple avec illustration + description}
+\paragraph{Distinction des entités avec et sans sources}
 
-% \begin{definition}[Entité contingente]\label{def:entite-contingente}%
-% 	Une entité contingente est une entité topologique ou géométrique qui résulte
-% 	de l'interaction entre le modèle géométrique pré-existant et les entités
-% 	invariantes issues de la dernière opération de modélisation. %
-% \end{definition}
+\begin{definition}[Entité avec source]\label{def:entite-avec-source}%
+	Une entité avec source est une entité topologique résultant d'une autre entité
+	topologique de même dimension, et ayant une partie du plongement en commun
+	avec cette dernière, suite à l'application d'une opération de modélisation.
+\end{definition}
 
-% \paragraph{Entités issues d'extrusion ou de révolution}
+\cite{wu2001face}
 
-% \todo{exemples avec illustrations et descriptions}
+\paragraph{Utilisation d'un historique de noms}
 
-% \paragraph{Entités avec et sans sources}
+\cite{chen1995editability,kripac1995mechanism,agbodan2000persistent,wu2001face}
 
-% \todo{exemple avec illustration + description (pour les deux)}
+\paragraph{Nomination hétérogène des entités}
 
-% \begin{definition}[Entité avec source]\label{def:entite-avec-source}%
-% 	Une entité avec source est une entité topologique résultant d'une autre entité
-% 	topologique de même dimension, et ayant une partie du plongement en commun
-% 	avec cette dernière, suite à l'application d'une opération de modélisation.
-% \end{definition}
+\cite{chen1995editability,kripac1995mechanism,agbodan2000persistent,wu2001face,bidarra2005feature,wang2005geometry}
+
+\paragraph{Architecture à trois couches}
+
+\subsubsection{Concepts distincts}
 
 
 
-
-% \subsubsection[Systèmes de nommage persistant]{Systèmes de nommage persistants}
-% \label{sec:etat-art-reevaluation-classification-nommage}
-
-
-% Présentation, par auteurs, des méthodes utilisées~:
-% \begin{itemize}
-% 	\item Cascaval 2023
-% 	\item dai 2024
-% 	\item \dots
-% \end{itemize}
+\subsubsection[Systèmes de nommage persistant]{Systèmes de nommage persistants}
+\label{sec:etat-art-reevaluation-classification-nommage}
 
 
-% \subsection{Synthèse des méthodes (par auteurs)}
+Présentation, par auteurs, des méthodes utilisées~:
+\begin{itemize}
+	\item Cascaval 2023
+	\item dai 2024
+	\item \dots
+\end{itemize}
+
+
+\subsubsection{Synthèse des méthodes (par auteurs)}
 % \label{sec:etat-art-reevaluation-synthese}
 
 % Faire un tableau de comparatif des méthodes utilisées par chaque publication.
 
-% \subsection[Réévaluation à base de règles]{Réévaluation à base de règles}
-% \label{sec:etat-art-reevaluation-reevaluation-regles}
+\subsection[Réévaluation à base de règles]{Réévaluation à base de règles}
+\label{sec:etat-art-reevaluation-reevaluation-regles}
 
 % Ici, présenter les apports issus des travaux d'Anaïs Cardot. (Objectif) placer
 % les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux

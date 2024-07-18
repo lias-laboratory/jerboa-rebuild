@@ -173,7 +173,7 @@ D'un autre côté, nous relevons plusieurs limitations de cette approche: %
 	      des méthodes de résolution numérique.
 \end{itemize}
 
-\subsection{\color{orange}(corrections) Approche fonctionnelle, ou \textit{history-based}}
+\subsection{Approche fonctionnelle, ou \textit{history-based}}
 \label{sec:etat-art-modelisation-parametric-approche-fonctionnelle}
 
 Dans cette seconde approche, la spécification paramétrique d'un objet est un
@@ -188,7 +188,7 @@ L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, et $V$ une instance explicite, où $V$ appartient à $\mathcal{V}$ l'ensemble de toutes les formes possibles.
 	Un modèle paramétrique est une fonction~:
 	\[F : \mathcal{D} \mapsto \mathcal{V}\] %
-	avec $V = F(P)$, et $F$ est définie comme une composition de
+	avec $V = F(P)$, où $F$ est définie comme une composition de
 	fonctions $f_{i}$ appelées \emph{fonctions paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
 \end{definition}
 
@@ -223,22 +223,18 @@ opérations de haut niveau telles que les opérations booléennes, extrusion, ch
 
 Prenons l'exemple d'une spécification paramétrique (représentation implicite)~: %
 \begin{itemize}
-	\item \texttt{1-Cube(largeur\_cube, hauteur\_cube, profondeur\_cube)}
-	\item \texttt{2-Rainure($f_{1}$,longueur\_rainure, hauteur\_rainure)}%  où
-	      % $f_{1}$ désigne la face avant du cube
-	\item \texttt{3-Arrondi($e_{1}$,valeur\_arrondi)} % où $e_{1}$ désigne l'arête
-	      % verticale à arrondir
+	\item \texttt{1-Cube(larg\_c, haut\_c, prof\_c)}
+	\item \texttt{2-Rainure($f_{1}$,long\_r, larg\_r)}
+	\item \texttt{3-Arrondi($e_{1}$,valeur\_arrondi)}
 \end{itemize}
-
-\xavier{=> faire apparaître les 3 paramètres "largeur\_cube, hauteur\_cube, profondeur\_cube" sur la partie gauche de la figure ; éventuellement, tu peux les renommer si cela prend trop de place. Par exemple, "largeur\_cube" devient "largeur\_c" ('c' pour "cube" ; mais si tu suis ce format de nommage, il faudra l'appliquer aussi pour les rainures: par exemple, "longueur\_rainure" => "longueur\_r" }
 
 ~
 
 Le résultat (représentation explicite) est illustré sur la
 figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}). %
 
-Tout d'abord, la première opération crée un cube paramétré par les trois valeurs
-\texttt{largeur\_cube}, \texttt{hauteur\_cube} et \texttt{profondeur\_cube}. %
+La première opération crée un cube paramétré par les trois valeurs
+\texttt{larg\_c}, \texttt{haut\_c} et \texttt{prof\_c}. %
 On s'intéresse en particulier à trois entités topologiques nommées $f_{1}$, $e_{1}$ et $e_{2}$, qui
 sont respectivement la face avant du cube et ses arêtes verticales gauche
 ($e_{1}$) et droite ($e_{2}$). %
@@ -250,27 +246,23 @@ Enfin, la troisième opération crée un arrondi sur l'arête $e_{1}$. %
 
 La spécification paramétrique ci-dessus (et sa représentation explicite
 figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init})
-présente plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
-(1) les opérations sont pré-définies par le modeleur, ce qui limite
-l'utilisateur dans les contraintes qu'il peut appliquer~; (2) l'approche est
-séquentielle, ce qui implique que tout paramètre topologique doit exister à
-l'étape courante de la modélisation.
-
-Un exemple de difficulté lié à l'aspect séquentiel est le suivant~: suite à
-l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de
+illustre plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
+(1) l'utilisateur est restreint à l'utilisation du pool d'opérations prédéfinies dans le modeleur~; (2) l'approche est
+séquentielle, ce qui implique que toute entité doit exister à l'étape courante de la modélisation pour pouvoir être référencée.
+Par exemple, suite à l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de
 la face avant du cube initial n'existe plus~: elle a été "remplacée" par une
-succession de nouvelles arêtes. Il devient impossible d'appliquer une fonction
+succession de nouvelles arêtes. Il devient alors impossible d'appliquer une fonction
 sur la référence $e_{2}$ à partir d'une éventuelle étape $4$. %
 
 
 ~
 
-Une autre difficulté liée à cette approche est le référencement d'entités qui, lors de la réévaluation, peuvent ne plus exister. %
-Considérons, par exemple, le rejeu de la spécification paramétrique légèrement modifiée
+Une autre difficulté liée à cette approche est le référencement d'entités qui peuvent ne plus exister ou être modifiées lors de la réévaluation. %
+Considérons, par exemple, le rejeu de la spécification paramétrique précédente légèrement modifiée
 (Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval})~:
 \begin{itemize}
-	\item \texttt{1-Cube(largeur\_cube, hauteur\_cube, profondeur\_cube)}
-	\item \texttt{2-Rainure($f_{1}$, longueur\_rainure2, hauteur\_rainure)}
+	\item \texttt{1-Cube(larg\_c, haut\_c, prof\_c)}
+	\item \texttt{2-Rainure($f_{1}$, long\_r2, larg\_r)}
 	\item \texttt{3-Arrondi($e_{1}$,rayon)} % \david{je pense que tu dois laisser
 	      % e1 dans ta spec au
 	      % rejeu. La seule chose que tu changes c'est la longueur de ta rainure.
@@ -278,28 +270,25 @@ Considérons, par exemple, le rejeu de la spécification paramétrique légèrem
 	      % problème d'identification au rejeu.}
 \end{itemize} %
 
-Dans cette nouvelle spécification paramétrique, la valeur
-\texttt{longueur\_rainure} de la deuxième opération est remplacée par
-\texttt{longueur\_rainure2}. %
+Dans cette nouvelle spécification, la valeur
+\texttt{long\_r} de la deuxième opération est remplacée par
+\texttt{long\_r2}. %
 Lors de l'évaluation initiale, la rainure ne traversait pas la face $f_{1}$ de
 part en part et l'arête $e_{1}$ était donc identifiée sans difficulté. %
 Or, à la réévaluation, la rainure traverse $f_{1}$ de part en part et l'arête
 $e_{1}$ est scindée en $e_{x}$ et $e_{y}$. %
-Autrement dit, puisque l'arête $e_{1}$ n'existe plus, il n'est plus possible
+L'arête $e_{1}$ n'existant plus, il n'est alors plus possible
 d'appliquer l'opération d'arrondi sur la référence $e_{1}$. %
 
-Cette dernière difficulté illustre une limitation de l'approche fonctionnelle
-pour les modèles paramétriques. %
+Cette dernière difficulté illustre une limitation importante de l'approche fonctionnelle. %
 Lors de la réévaluation et lorsqu'une entité référencée dans la spécification
 paramétrique cesse d'exister, il devient alors impossible d'utiliser sa
-référence et ainsi produire une	nouvelle représentation explicite du modèle. %
+référence et ainsi produire une	nouvelle représentation explicite du modèle sans utiliser un mécanisme de nommage plus robuste. %
 
-
-\subsection{\color{red}(à lire) Nomination persistante}
+\subsection{Nomination persistante}
 \label{sec:etat-art-reevaluation-nomination-persistante}
 
-L'exemple précédent illustre le problème principal que doit résoudre la nomination persistante~:
-ne pas pouvoir régénérer un modèle à cause de références invalides. %
+L'exemple précédent illustre le besoin auquel doit répondre un mécanisme de nomination persistante~: pouvoir régénérer un modèle malgré des références invalides. %
 Ainsi, permettre la réévaluation d'une spécification paramétrique nécessite,
 dans un premier temps, que chacune des entités topologiques d'un modèle paramétrique
 puisse être identifiée à l'aide d'un identifiant unique et robuste, appelé
@@ -319,13 +308,13 @@ initialement désignées pour appliquer les opérations de modélisation. %
 % réévaluation de la spécification paramétrique.} %
 
 En dehors de tout concept de réévaluation, il est possible de désigner une
-entité par un numéro d'apparition dans le modèle ou encore à l'aide d'un
+entité par un simple identifiant, comme par exemple un numéro d'apparition dans le modèle ou encore à l'aide d'un
 pointeur. %
 Toutefois, lorsque l'on se place dans le cadre de la modélisation paramétrique
 avec réévaluation, ces méthodes de référencement ne sont plus
 applicables. %
-En effet, de telles références sont particulièrement sensibles aux changements
-subis par le modèle lors de la réévaluation de la spécification paramétrique. %
+En effet, de telles références sont particulièrement sensibles aux changements topologiques
+subis par le modèle lors de la réévaluation de la spécification. %
 Ainsi, un numéro d'ordre d'apparition pourrait désigner une autre entité
 topologique incompatible avec l'opération qui la référence. %
 Pour un pointeur, si l'entité initialement référencée disparaît, le
@@ -340,9 +329,9 @@ Suite à la réévaluation
 (Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}),
 la rainure, dont la longueur a changé, scinde $e_{1}$ en deux et n'existe plus
 telle quelle. %
-En conséquence, utiliser le nom $e_{1}$ comme référence n'est pas adapté, car sensible aux changements dans le modèle. %
+En conséquence, utiliser le nom $e_{1}$ ou un identifiant correspondant à $e_{1}$ comme référence n'est pas adapté, car sensible aux changements dans le modèle. %
 
-Le nommage persistant doit donc être un mécanisme d'identification robuste,
+Le nomination persistante doit donc être un mécanisme d'identification robuste,
 c'est-à-dire dont les références restent valides au cours de la réévaluation
 d'une spécification paramétrique.
 Ce mécanisme s'impose alors comme une troisième couche dans les systèmes de
@@ -392,14 +381,18 @@ l'une et/ou l'autre de ces deux arêtes. %
 
 De nombreuses méthodes ont été proposées ces dernières années dans le but de
 répondre au problème de la nomination persistante. %
-Dans cette section, dans le but est de proposer une classification de ces
-méthodes, nous exprimons les concepts qui leurs communs et ceux qui permet de
-les distinguer. %
+Dans cette section nous proposons une classification de ces méthodes, nous
+exprimons les concepts qui leurs communs et ceux qui permet de les distinguer. %
 
 \subsubsection[Concepts communs de la nomination persistante]{Concepts communs de la nomination persistante}
 \label{sec:etat-art-modelisation-parametrique-classification-nomination-concepts}
 
 \paragraph{Distinction des entités invariantes et contingentes}
+
+Le premier de ces concepts est la distinction des entités \emph{invariantes} et
+\emph{contingentes}. %
+Nous les illustrons à l'aide de la
+figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite}. %
 
 \begin{definition}[Entité invariante]\label{def:entite-invariante}%
 	Une entité invariante est une entité géométrique ou topologique qui peut être,
@@ -408,13 +401,29 @@ les distinguer. %
 	impliquées. %
 \end{definition}
 
+Nous pouvons voir, dans le modèle, un ensemble d'entités topologique dites
+invariantes créées lors de la création du cube, suite à la première opération. %
+Quels que soient les paramètres de création du cube, nous savons que l'ensemble
+de ses entités seront créées car elles sont caractéristiques de l'opération. %
+
+
 \begin{definition}[Entité contingente]\label{def:entite-contingente}%
 	Une entité contingente est une entité topologique ou géométrique qui résulte
 	de l'interaction entre le modèle géométrique pré-existant et les entités
 	invariantes issues de la dernière opération de modélisation. %
 \end{definition}
 
-\paragraph{Entités issues d'extrusion ou de révolution}
+Pour les entités contingentes, en exemple peut être trouvé avec l'application de
+la rainure. %
+En effet, les faces créées, et même transformées, par l'application de la
+rainure sont dépendantes de ses paramètres. %
+Par exemple, à l'évaluation, la rainure modifie $f_{1}$ et crée quatre autres
+faces. %
+Lors de la réévaluation, la longueur de la rainure change. %
+Cette fois, l'opération scinde $f_{1}$ en deux et crée trois autres faces dans
+la rainure. %
+
+\paragraph{Nomination des entités invariantes issues d'extrusion ou de révolution}
 
 \cite{chen1995editability,wu2001face,agbodan2003topological}
 

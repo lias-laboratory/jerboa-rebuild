@@ -59,50 +59,54 @@
   Modélisation et rejeu basés sur des règles~: application à la modélisation spatio-temporelle}
 %
 \author{%
-	Maxime GAIDE}
+  Maxime GAIDE}
 %
 \institute{%
-	École Nationale Supérieure de Mécanique et d'Aérotechnique}
+  École Nationale Supérieure de Mécanique et d'Aérotechnique}
 %
 \doctoralschool{%
-	Mathématiques Informatique Matériaux Mécanique Énergétique}
+  Mathématiques Informatique Matériaux Mécanique Énergétique}
 %
 \researchfield{%
-	Informatique et Applications}
+  Informatique et Applications}
 %
 \supervisor{%
-  David MARCHEIX,
-	Xavier SKAPIN {\normalfont\footnotesize et}
-	Stéphane JEAN}
+  David MARCHEIX, Xavier SKAPIN {\normalfont\footnotesize et} Stéphane JEAN}
 %
 \laboratory{%
-	Laboratoire d'Informatique et d'Automatique pour les Systèmes}
+  Laboratoire d'Informatique et d'Automatique pour les Systèmes}
 
 %
 \jury{%
-		\raggedright
-		\color{red}
-		\underline{Président(e) :}\\[1mm]
-		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
-		\vspace{2em}%
-		\underline{Rapporteurs :}\\[1mm]
-		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
-		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
-		\vspace{2em}%
-		\underline{Membres du jury :}\\[1mm]
-		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
-		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
-		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
-		Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville, Pays}\\%
+  \raggedright \color{red}
+  \underline{Président(e) :}\\[1mm]
+  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
+    Pays}\\%
+  \vspace{2em}%
+  \underline{Rapporteurs :}\\[1mm]
+  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
+    Pays}\\%
+  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
+    Pays}\\%
+  \vspace{2em}%
+  \underline{Membres du jury :}\\[1mm]
+  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
+    Pays}\\%
+  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
+    Pays}\\%
+  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
+    Pays}\\%
+  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
+    Pays}\\%
 }
 %
 \date{%
-  \color{red}
-	DD décembre 2024}
+  \color{red} DD décembre 2024}
 
 \begin{document}
 
 \maketitle
+\pagestyle{ruled}
 \frontmatter
 \dominitoc
 \tableofcontents*
@@ -111,26 +115,33 @@
 \else
 	\linenumbers
 \fi
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Style options : take a look at LaTeX memoir manual if you want %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapterstyle{gaide}
-\pagestyle{ruled}
 
 % \subfile{parts/introduction/introduction}
 
 %%%%%%%%%% Chapitre etat art %%%%%%%%%%
 \subfile{parts/chapitres-reevaluation/etat-art/etat-art-reevaluation}
-% \subfile{parts/chapitres-reevaluation/etat-art/section-modelisation-base-regles}
+\subfile{parts/chapitres-reevaluation/etat-art/section-modelisation-base-regles}
 \subfile{parts/chapitres-reevaluation/etat-art/section-reevaluation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre formalisation évènements %%%%%%%%%%
-% \subfile{parts/chapitres-reevaluation/formalisation-evenements/formalisation-evenements-regles-modelisation}
+\subfile{parts/chapitres-reevaluation/formalisation-evenements/formalisation-evenements-regles-modelisation}
+\subfile{parts/chapitres-reevaluation/formalisation-evenements/section-transformation-objets}
+\subfile{parts/chapitres-reevaluation/formalisation-evenements/section-regles-transformation-graphe}
+\subfile{parts/chapitres-reevaluation/formalisation-evenements/section-regles-jerboa}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre réévaluation règles %%%%%%%%%%
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/systeme-modelisation-base-regles}
+\subfile{parts/chapitres-reevaluation/reevaluation-regles/systeme-modelisation-base-regles}
+\subfile{parts/chapitres-reevaluation/reevaluation-regles/section-specification-parametrique}
+\subfile{parts/chapitres-reevaluation/reevaluation-regles/section-nomination-persistante-brins}
+\subfile{parts/chapitres-reevaluation/reevaluation-regles/section-nomination-persistante-orbites}
+\subfile{parts/chapitres-reevaluation/reevaluation-regles/section-reevaluation-regles-jerboa}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre réévaluation scripts %%%%%%%%%%

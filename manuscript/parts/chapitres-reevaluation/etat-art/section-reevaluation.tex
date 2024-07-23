@@ -188,8 +188,9 @@ L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, et $V$ une instance explicite, où $V$ appartient à $\mathcal{V}$ l'ensemble de toutes les formes possibles.
 	Un modèle paramétrique est une fonction~:
 	\[F : \mathcal{D} \mapsto \mathcal{V}\] %
-	avec $V = F(P)$, où $F$ est définie comme une composition de
-	fonctions $f_{i}$ appelées \emph{fonctions paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
+	avec $V = F(P)$, où $F$ est définie comme une composition de fonctions
+	$f_{i}$ appelées \emph{fonctions
+		paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
 \end{definition}
 
 Représenter un modèle paramétrique par une fonction présente plusieurs
@@ -423,6 +424,7 @@ Lors de la réévaluation, la longueur de la rainure change. %
 Cette fois, l'opération scinde $f_{1}$ en deux et crée trois autres faces dans
 la rainure. %
 
+
 \paragraph{Nomination des entités invariantes issues d'extrusion ou de révolution}
 
 Utilisation d'entités géométriques 2D comme paramètres d'opérations. %
@@ -439,6 +441,10 @@ Dans ses travaux, Wu propose une identification des entités topologiques géné
 par extrusion (ou révolution) tel que~:
 
 \[(ID,ID_{p},ID_{element},ID_{chemin},ID_{trajectoire})\]
+
+
+\paragraph{Nomination basée sur les entités invariantes}
+
 
 \paragraph{Distinction des entités avec et sans sources}
 
@@ -468,16 +474,22 @@ Utilisation des noms d'ancêtres invariants. %
 
 \paragraph{Nomination hétérogène des entités}
 
-\cite{chen1995editability,kripac1995mechanism,agbodan2000persistent,wu2001face,bidarra2005feature,wang2005geometry}
+Définition d'un système de nomination pour chaque dimension
+\cite{chen1995editability,kripac1995mechanism,agbodan2000persistent,wu2001face,bidarra2005feature,wang2005geometry} %
 
-\paragraph{Architecture à trois couches}
+\paragraph{Structure des plateformes intégrant la nomination persistante}
 
-Le dernier de ces concepts est l'architecture à trois couches pour les systèmes de modélisation paramétriques.
-
+Le dernier de ces concepts est l'intégration de la nomination persistante dans l'architecture logicielle que nous appelons l'architecture à trois couches~:
 \begin{itemize}
-	\item Explicite
-	\item Nomination
-	\item Implicite
+	\item la couche de spécification paramétrique contient l'ensemble des
+	      opérations de modélisations, issues du processus constructif,
+	      définissant un objet~; %
+
+	\item la couche de nomination permet une identification sans ambiguïté des
+	      entités topologiques et leur appariement lors de la réévaluation~; %
+
+	\item la couche géométrique est l'instanciation d'un objet étant donné les
+	      opérations de modélisation et leurs paramètres. %
 \end{itemize}
 
 \subsubsection{Concepts distincts}

@@ -1,17 +1,26 @@
-\section[Suivi des évènements dans les règles de transformation de graphe]{Les
-  évènements dans les règles de transformation de graphe}
+\section{Les évènements dans les règles de transformation de graphe}
 \label{sec:formalisation-evenement-regles-transfo-graphe}
 
-\maxime{Motiver que l'on vient de caractériser les évènements dans les objets dans le cas d'une transformation de $G$ vers $H$ et quand $G$ vers $H$ est une transformation directe on peut caractériser les évènements à partir des seules règles (et de leur syntaxe). Si on arrive à suivre les évènements sur les règles, alors on les aura pour toutes les application indépendemment des objets sur lesquels on les applique. On pourra ainsi faire le suivi des évènements.}
+\maxime{Motiver que l'on vient de caractériser les évènements dans les objets
+	dans le cas d'une transformation de $G$ vers $H$ et quand $G$ vers $H$ est une
+	transformation directe on peut caractériser les évènements à partir des seules
+	règles (et de leur syntaxe). Si on arrive à suivre les évènements sur les
+	règles, alors on les aura pour toutes les application indépendemment des
+	objets sur lesquels on les applique. On pourra ainsi faire le suivi des
+	évènements.}
 
-Soient $G$ une G-carte, $r : L \longrightarrow R$ une règle, $m : L \to G$ un morphisme de filtrage et $H$ la transformation directe $G \xlongrightarrow{(r,m)} H$.
-Étudions l'évolution d'une orbite d'intérêt $G\orbit{\omega}(v)$ dans $H$ en fonction de la règle $r$.
+Soient $G$ une G-carte, $r : L \longrightarrow R$ une règle, $m : L \to G$ un morphisme de
+filtrage et $H$ la transformation directe $G \xlongrightarrow{(r,m)} H$.
+Étudions l'évolution d'une orbite d'intérêt $G\orbit{\omega}(v)$ dans $H$ en
+fonction de la règle $r$.
 
-Toutes les définitions des évènements entre deux G-cartes $G$ et $H$ s'étendent naturellement entre deux motifs $L$ et $R$. %
+Toutes les définitions des évènements entre deux G-cartes $G$ et $H$ s'étendent
+naturellement entre deux motifs $L$ et $R$. %
 
-L'orbite $G\orbit{\omega}(v)$ peut être \emph{entièrement filtrée} par $m$ si $G\orbit{\omega}(v) \subset m(L)$,
-\emph{non filtrée} par $m$ si $G\orbit{\omega}(v) \cap m(L) = \emptyset$,
-ou \emph{partiellement filtrée} par $m$ dans les autres cas.
+L'orbite $G\orbit{\omega}(v)$ peut être \emph{entièrement filtrée} par $m$ si
+$G\orbit{\omega}(v) \subset m(L)$, \emph{non filtrée} par $m$ si
+$G\orbit{\omega}(v) \cap m(L) = \emptyset$, ou \emph{partiellement filtrée} par $m$ dans les
+autres cas.
 
 \subsection{Création}
 
@@ -24,23 +33,36 @@ ou \emph{partiellement filtrée} par $m$ dans les autres cas.
 % \end{figure}
 
 
-La figure \textbf{fig:base-rule-create} représente l'\emph{insertion} d'un sommet sur une arête. Comme défini dans la section
-\textbf{sec:suivi-creation}, le sommet $R\orbit{1,2,3}(n6)$ est créé dans $R$.
-Nous allons montrer que ce sommet est également créé lors de la transformation directe entre $G$ et $H$.
+La figure \textbf{fig:base-rule-create} représente l'\emph{insertion} d'un
+sommet sur une arête. Comme défini dans la section \textbf{sec:suivi-creation},
+le sommet $R\orbit{1,2,3}(n6)$ est créé dans $R$. Nous allons montrer que ce
+sommet est également créé lors de la transformation directe entre $G$ et $H$.
 
-\begin{proposition}[Création d'orbite]
-	\label{prop:base-rule-create}
-	Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et $v$ un nœud de $R$.
+\begin{proposition}[Création d'orbite]\label{prop:base-rule-create}
+	Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la
+	transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite
+	$\orbit{\omega}$ et $v$ un nœud de $R$.
 
-	Une orbite $R\orbit{\omega}(v)$ est créée dans la règle $r$, c'est-à-dire entre L et R, si et seulement si $H\orbit{\omega}(m'(v))$ est créée dans la transformation directe, c'est-à-dire entre $G$ et $H$.
+	Une orbite $R\orbit{\omega}(v)$ est créée dans la règle $r$, c'est-à-dire entre L
+	et R, si et seulement si $H\orbit{\omega}(m'(v))$ est créée dans la
+	transformation directe, c'est-à-dire entre $G$ et $H$.
 \end{proposition}
 
 \begin{proof}
-	Supposons que l'orbite $R\orbit{\omega}(v)$ est créée dans la règle $r: L \longrightarrow R$. D'après la condition d'arcs incidents sur la règle $r$, tout nœud créé de $R$ et donc tout nœud de l'orbite $R\orbit{\omega}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{\omega}$. %
-	Notons que les arcs incidents aux nœuds créés sont nécessairement eux-même créés. %
-	Donc l'orbite $H\orbit{\omega}(m'(v))$ est entièrement filtrée par la règle, c'est-à-dire $H\orbit{\omega}(m'(v)) = m'(R\orbit{\omega}(v))$. Et donc $H\orbit{\omega}(m'(v))$ est une orbite créée.
+	Supposons que l'orbite $R\orbit{\omega}(v)$ est créée dans la règle $r: L \longrightarrow R$.
+	D'après la condition d'arcs incidents sur la règle $r$, tout nœud créé de $R$
+	et donc tout nœud de l'orbite $R\orbit{\omega}(v)$ est la source d'un $i$-arc, pour
+	tout $i$ de $\orbit{\omega}$. %
+	Notons que les arcs incidents aux nœuds créés sont nécessairement eux-même
+	créés. %
+	Donc l'orbite $H\orbit{\omega}(m'(v))$ est entièrement filtrée par la règle,
+	c'est-à-dire $H\orbit{\omega}(m'(v)) = m'(R\orbit{\omega}(v))$. Et donc
+	$H\orbit{\omega}(m'(v))$ est une orbite créée.
 
-	Supposons que l'orbite $H\orbit{\omega}(m'(v))$ est créée dans $H$. Alors par définition de la transformation directe, $H\orbit{\omega}(m'(v))$ est l'image de l'orbite $R\orbit{\omega}(v)$ par $m'$. Et donc $R\orbit{\omega}(v)$ est une orbite créée par la règle $r$.
+	Supposons que l'orbite $H\orbit{\omega}(m'(v))$ est créée dans $H$. Alors par
+	définition de la transformation directe, $H\orbit{\omega}(m'(v))$ est l'image de
+	l'orbite $R\orbit{\omega}(v)$ par $m'$. Et donc $R\orbit{\omega}(v)$ est une orbite
+	créée par la règle $r$.
 \end{proof}
 
 

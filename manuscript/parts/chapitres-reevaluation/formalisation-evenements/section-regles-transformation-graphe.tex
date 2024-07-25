@@ -3,9 +3,9 @@
 
 \maxime{Motiver que l'on vient de caractériser les évènements dans les objets
 	dans le cas d'une transformation de $G$ vers $H$ et quand $G$ vers $H$ est une
-	transformation directe on peut caractériser les évènements à partir des seules
+	transformation directe, on peut caractériser les évènements à partir des seules
 	règles (et de leur syntaxe). Si on arrive à suivre les évènements sur les
-	règles, alors on les aura pour toutes les application indépendemment des
+	règles, alors on les aura pour toutes les applications indépendamment des
 	objets sur lesquels on les applique. On pourra ainsi faire le suivi des
 	évènements.}
 
@@ -24,24 +24,30 @@ autres cas.
 
 \subsection{Création}
 
-\todo{Ajouter illustration règle instanciée création avant/après + commentaire}
-% \begin{figure}[H]
-%   \includegraphics[scale=0.5]{{figures/}jerboa-base-rule-create}
-%   \centering
-%   \caption{Règle $L \longrightarrow R$ d'insertion d'un sommet sur une arête}
-%   \label{fig:base-rule-create}
-% \end{figure}
+\todo{Ajouter commentaire}
+\begin{figure}[htbp!]
+	\includegraphics[width=.8\textwidth]{regle-expl-triangulation-quad}
+	\centering
+	\caption{Règle $L \longrightarrow R$ de triangulation d'une face carrée}
+	\label{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
+\end{figure}
 
 
-La figure \textbf{fig:base-rule-create} représente l'\emph{insertion} d'un
-sommet sur une arête. Comme défini dans la section \textbf{sec:suivi-creation},
-le sommet $R\orbit{1,2,3}(n6)$ est créé dans $R$. Nous allons montrer que ce
-sommet est également créé lors de la transformation directe entre $G$ et $H$.
+% La figure \textbf{fig:base-rule-create} représente l'\emph{insertion} d'un
+% sommet sur une arête. Comme défini dans la section \textbf{sec:suivi-creation},
+% le sommet $R\orbit{1,2,3}(n6)$ est créé dans $R$. Nous allons montrer que ce
+% sommet est également créé lors de la transformation directe entre $G$ et $H$.
+
+La règle, dans la figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}, est la règle de triangulation d'une face
+carrée. %
+Comme défini dans la section précédente, le sommet $R\orbit{1,2,3}(a_{2})$ est
+créé dans $H$. Nous allons montrer que ce sommet est également créé lors de la
+transformation directe entre $G$ et $H$.
 
 \begin{proposition}[Création d'orbite]\label{prop:base-rule-create}
 	Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la
 	transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite
-	$\orbit{\omega}$ et $v$ un nœud de $R$.
+	$\orbit{\omega}$ et $v$ un n\oe ud de $R$.
 
 	Une orbite $R\orbit{\omega}(v)$ est créée dans la règle $r$, c'est-à-dire entre L
 	et R, si et seulement si $H\orbit{\omega}(m'(v))$ est créée dans la
@@ -50,10 +56,10 @@ sommet est également créé lors de la transformation directe entre $G$ et $H$.
 
 \begin{proof}
 	Supposons que l'orbite $R\orbit{\omega}(v)$ est créée dans la règle $r: L \longrightarrow R$.
-	D'après la condition d'arcs incidents sur la règle $r$, tout nœud créé de $R$
-	et donc tout nœud de l'orbite $R\orbit{\omega}(v)$ est la source d'un $i$-arc, pour
+	D'après la condition d'arcs incidents sur la règle $r$, tout n\oe ud créé de $R$
+	et donc tout n\oe ud de l'orbite $R\orbit{\omega}(v)$ est la source d'un $i$-arc, pour
 	tout $i$ de $\orbit{\omega}$. %
-	Notons que les arcs incidents aux nœuds créés sont nécessairement eux-même
+	Notons que les arcs incidents aux n\oe uds créés sont nécessairement eux-même
 	créés. %
 	Donc l'orbite $H\orbit{\omega}(m'(v))$ est entièrement filtrée par la règle,
 	c'est-à-dire $H\orbit{\omega}(m'(v)) = m'(R\orbit{\omega}(v))$. Et donc
@@ -68,19 +74,26 @@ sommet est également créé lors de la transformation directe entre $G$ et $H$.
 
 \subsection{Suppression}
 
-\todo{Ajouter illustration règle instanciée suppression avant/après}
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[scale=0.4]{{figures/}jerboa-base-rule-delete}
-%   \caption{Règle $L \longrightarrow R$ de suppression d'une face quadrangulaire isolée}
-%   \label{fig:base-rule-delete}
-% \end{figure}
+\todo{Ajouter commentaire}
 
-La figure \textbf{fig:base-rule-delete} représente la suppression d'une face quadrangulaire isolée, c'est-à-dire qui n'est connectée à aucun autre objet. Comme défini dans la section \textbf{sec:suivi-suppression}, l'orbite $R\orbit{0,1,3}(n0)$ est supprimée dans $R$. Nous allons montrer que cette face est également supprimée lors de la transformation directe entre $G$ et $H$.
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=.8\textwidth]{regle-expl-dissolution-sommet-quad}
+	\caption{Règle $L \longrightarrow R$ de dissolution de sommet dans une face carrée}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}
+\end{figure}
+
+% La figure \textbf{fig:base-rule-delete} représente la suppression d'une face quadrangulaire isolée, c'est-à-dire qui n'est connectée à aucun autre objet. Comme défini dans la section \textbf{sec:suivi-suppression}, l'orbite $R\orbit{0,1,3}(n0)$ est supprimée dans $R$. Nous allons montrer que cette face est également supprimée lors de la transformation directe entre $G$ et $H$.
+
+La règle, dans la figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}, est la règle inverse de la triangulation
+d'une face carrée, c'est-à-dire celle qui dissout un sommet. %
+Comme défini dans la section précédente, l'orbite $L\orbit{1,2,3}(a_{2})$ est supprimée dans $R$. %
+Nous allons montrer que ce sommet est également supprimé lors de la
+transformation directe entre $G$ et $H$. %
 
 \begin{proposition}
 	\label{prop:base-rule-delete}
-	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et $v$ un nœud de $L$.
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et $v$ un n\oe ud de $L$.
 
 	Une orbite $L\orbit{\omega}(v)$ est \emph{supprimée} dans la règle $r$,
 	c'est-à-dire entre $L$ et $R$, si est seulement si $G\orbit{\omega}(m(v))$ est \emph{supprimée} dans
@@ -89,8 +102,8 @@ La figure \textbf{fig:base-rule-delete} représente la suppression d'une face qu
 
 \begin{proof}
 	Supposons que l'orbite $L\orbit{\omega}(v)$ est supprimée dans la règle $r : L \longrightarrow R$.
-	D'après la condition d'arcs incidents sur la règle $r$, tout nœud supprimé de $L$ et donc tout
-	nœud de l'orbite $L\orbit{\omega}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{\omega}$.
+	D'après la condition d'arcs incidents sur la règle $r$, tout n\oe ud supprimé de $L$ et donc tout
+	n\oe ud de l'orbite $L\orbit{\omega}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{\omega}$.
 	Donc l'orbite $G\orbit{\omega}(m(v))$ est entièrement filtrée par la règle, c'est-à-dire
 	$G\orbit{\omega}(m(v)) =  m(L\orbit{\omega}(v))$. Et donc $G\orbit{\omega}(m(v))$ est une orbite supprimée.
 
@@ -107,13 +120,25 @@ La figure \textbf{fig:base-rule-delete} représente la suppression d'une face qu
 
 \maxime{le non-changement dans la transformation directe peut venir d'un non changement dans la règle soit d'une partie non filtrée par la règle}
 
-Dans la figure~\textbf{fig:base-rule-create} à la page~\textbf{pageref!fig:base-rule-create}, comme défini dans la section \textbf{sec:suivi-non-changement}, le sommet extrémité d'arête $L\orbit{1,2,3}(n0)$ est inchangé entre $L$ et $R$. Nous allons montrer que ce sommet est également inchangé lors de la transformation directe entre $G$ et $H$.
+% Dans la figure~\textbf{fig:base-rule-create} à la
+% page~\textbf{pageref!fig:base-rule-create}, comme défini dans la section
+% \textbf{sec:suivi-non-changement}, le sommet extrémité d'arête
+% $L\orbit{1,2,3}(n0)$ est inchangé entre $L$ et $R$. Nous allons montrer que ce
+% sommet est également inchangé lors de la transformation directe entre $G$ et
+% $H$.
+
+Reprenons la règle de triangulation (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
+Comme défini dans la section précédente, l'arête $L\orbit{0}(a_{0})$ est
+inchangée entre $L$ et $R$ (et il en va de même pour les arêtes incidentes aux
+n\oe uds $c_{0}$, $e_{0}$ et $g_{0}$). %
+Nous allons montrer que cette arête est également inchangée lors de la
+transformation directe entre $G$ et $H$. %
 
 \todo{Ajouter illustration règle instanciée non-changement avant/après}
 
 \begin{proposition}[Non-changement d'orbite]
 	\label{prop:base-rule-unchange}
-	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$,  $v$ un nœud de $K = L \cap R$.
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$,  $v$ un n\oe ud de $K = L \cap R$.
 
 	Une orbite $L\orbit{\omega}(v)$ est \emph{inchangée}
 	dans la règle $r$, c'est-à-dire entre $L$ et $R$, si et seulement si $G\orbit{\omega}(m(v))$ est
@@ -150,17 +175,32 @@ Remarquons qu'en plus des orbites (partiellement) filtrées, les orbites de $G$ 
 %   \label{fig:base-rule-split}
 % \end{figure}
 
-La figure \textbf{fig:base-rule-split} présente la règle de triangulation d'une face quadrangulaire isolée, qui scinde cette face en quatre triangles.
-Comme défini dans la section \textbf{sec:suivi-scission}, la face $L\orbit{0,1,3}(n0)$ est scindée quatre faces dont $R\orbit{0,1,3}(n0)$.
-Inversement $R\orbit{0,1,3}(n0)$ est issue de la scission de la face $L\orbit{0,1,3}(n0)$ localisée par l'arête $L\orbit{0,2,3}(n0)$.
-Cette dernière est l'\emph{origine} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que $R\orbit{0,1,3}(n0)$ est l'unique face issue de la scission de $L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$ (inchangée par la règle) est non-vide.
+% La figure \textbf{fig:base-rule-split} présente la règle de triangulation d'une
+% face quadrangulaire isolée, qui scinde cette face en quatre triangles. Comme
+% défini dans la section \textbf{sec:suivi-scission}, la face $L\orbit{0,1,3}(n0)$
+% est scindée quatre faces dont $R\orbit{0,1,3}(n0)$. Inversement
+% $R\orbit{0,1,3}(n0)$ est issue de la scission de la face $L\orbit{0,1,3}(n0)$
+% localisée par l'arête $L\orbit{0,2,3}(n0)$. Cette dernière est l'\emph{origine}
+% de $R\orbit{0,1,3}(n0)$, c'est-à-dire que $R\orbit{0,1,3}(n0)$ est l'unique face
+% issue de la scission de $L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête
+% $L\orbit{0,2,3}(n0)$ (inchangée par la règle) est non-vide.
+
+Reprenons la règle de triangulation (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
+Comme défini dans la section précédente, la face $L\orbit{0,1,3}(n_{0})$ est
+scindée en quatre faces distinctes dont $R\orbit{0,1,3}(n_{0})$. %
+Réciproquement, la face $R\orbit{0,1,3}(n_{0})$ est issue de la scission de la face
+$L\orbit{0,1,3}(n_{0})$ localisée par l'arête $L\orbit{0,2,3}(n_{0})$. %
+Cette dernière est l'\emph{\highlight{origine}} de $R\orbit{0,1,3}(n_{0})$, c'est-à-dire que
+$R\orbit{0,1,3}(n_{0})$ est l'unique face issue de la scission de
+$L\orbit{0,1,3}(n_{0})$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n_{0})$
+(inchangée par la règle) est non-vide. %
 
 \begin{proposition}[Scission d'orbite]
 	\label{prop:base-rule_split}
-	Soit une règle $r~: L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et deux nœuds préservés $v_1$ et $v_2$ de $K = L \cap R$.
+	Soit une règle $r~: L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et deux n\oe uds préservés $v_1$ et $v_2$ de $K = L \cap R$.
 
 	\begin{enumerate}
-		\item Si l'orbite $R\orbit{\omega}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout nœud $v$ de $R\orbit{\omega}(v_1)$ et toute dimension $i$ de $\orbit{\omega}$, $R\orbit{\omega}(v_1)$ possède un arc de dimension $i$ et de source~$v$,
+		\item Si l'orbite $R\orbit{\omega}(v_1)$ est entièrement filtrée, c'est-à-dire que pour tout n\oe ud $v$ de $R\orbit{\omega}(v_1)$ et toute dimension $i$ de $\orbit{\omega}$, $R\orbit{\omega}(v_1)$ possède un arc de dimension $i$ et de source~$v$,
 
 		      si l'orbite $L\orbit{\omega}(v_1)$ est scindée en deux orbites $R\orbit{\omega}(v_1)$ et $R\orbit{\omega}(v_2)$ dans la règle, alors $G\orbit{\omega}(m(v_1))$ est scindée en deux orbites $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$ dans la transformation directe.
 
@@ -184,7 +224,7 @@ Cette dernière est l'\emph{origine} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que 
 	entièrement filtrée, c'est-à-dire que $m(L\orbit{\omega}(v_1)) \subset G\orbit{\omega}(m(v_1))$. De même, $m'(R\orbit{\omega}(v_2)) \subset H\orbit{\omega}(m'(v_2))$.
 	Par hypothèse, l'orbite $R\orbit{\omega}(v_1)$ est entièrement filtrée, donc $H\orbit{\omega}(m'(v_1)) = m'(R\orbit{\omega}(v_1))$, et est distincte de $R\orbit{\omega}(v_2))$, donc $m'(R\orbit{\omega}(v_1)) \cap m'(R\orbit{\omega}(v_2)) = \emptyset$.
 	Donc $H\orbit{\omega}(m'(v_1)) \cap m'(R\orbit{\omega}(v_2)) = \emptyset$.
-	Or $m'(v_2)$ n'est pas un nœud de $H\orbit{\omega}(m'(v_1))$, donc $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$ sont des orbites distinctes.
+	Or $m'(v_2)$ n'est pas un n\oe ud de $H\orbit{\omega}(m'(v_1))$, donc $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$ sont des orbites distinctes.
 	Et donc $G\orbit{\omega}(m(v_1))$ est une orbite
 	scindée.
 
@@ -202,7 +242,7 @@ Cette dernière est l'\emph{origine} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que 
 
 	Supposons que l'orbite $G\orbit{\omega}(m(v_1))$ est scindée dans $H$ en $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$, c'est-à-dire que $G\orbit{\omega}(m(v_1)) = G\orbit{\omega}(m(v_2))$ et $H\orbit{\omega}(m'(v_1)) \neq H\orbit{\omega}(m'(v_2))$. %
 	Résonnons par l'absurde. %
-	Supposons que pour tout couple de nœuds préservés $k_1$ et $k_2$ de $K = L \cap R$, $L\orbit{\omega}(k_1)$ n'est pas scindée en $R\orbit{\omega}(k_1)$ et $R\orbit{\omega}(k_2)$.
+	Supposons que pour tout couple de n\oe uds préservés $k_1$ et $k_2$ de $K = L \cap R$, $L\orbit{\omega}(k_1)$ n'est pas scindée en $R\orbit{\omega}(k_1)$ et $R\orbit{\omega}(k_2)$.
 	Alors pour tout chemin $c$ dans $G$ de $m(v_1)$ à $m(v_2)$ étiqueté dans $\orbit{\omega}^*$ ( \textit{i.e.}, $c$ est un chemin de $G\orbit{\omega}(m(v_1))$), $c$ n'existe pas dans $H$. %
 	Donc par définition de la transformation directe, il existe un sous-chemin filtré $m(c')$ de $c$ tel que $c'$ est un chemin de $L$ mais pas de $R$. %
 
@@ -278,38 +318,44 @@ joint deux faces sans provoquer de scission.
 \maxime{Choisir l'exemple de la contraction d'une arête}
 
 \todo{Ajouter illustration règle instanciée de \st{contraction face triangulaire} contraction arête d'après les commentaires !}
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[scale=0.25]{{figures/}jerboa-base-rule-merge}
-%   \caption{Règle de contraction d'une face triangulaire}
-%   \label{fig:base-rule-merge}
-% \end{figure}
+%
 
-Le cas de la fusion est symétrique par rapport à la scission.
-La figure \textbf{fig:base-rule-merge} représente la contraction d'une face triangulaire en un sommet. Ainsi, elle fusionne les trois sommets de la face initiale en un seul.
-Comme le montre la proposition \textbf{prop:base-rule-merge}, puisque la règle filtre entièrement les orbites sommet $\orbit{1,2,3}$ des 3 sommets à gauche, alors quel que soit l'objet transformé, les sommets de la face contractée seront fusionnés en un unique sommet.
+% Le cas de la fusion est symétrique par rapport à la scission.
+% La figure \textbf{fig:base-rule-merge} représente la contraction d'une face triangulaire en un sommet. Ainsi, elle fusionne les trois sommets de la face initiale en un seul.
+% Comme le montre la proposition \textbf{prop:base-rule-merge}, puisque la règle filtre entièrement les orbites sommet $\orbit{1,2,3}$ des 3 sommets à gauche, alors quel que soit l'objet transformé, les sommets de la face contractée seront fusionnés en un unique sommet.
+
+Reprenons la règle de dissolution de sommet (Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}). %
+Comme défini dans la section précédente, le cas de la fusion est symétrique par
+rapport à la fusion. %
+Ainsi, les faces incidentes aux n\oe uds $n_{0}$, $n_{2}$, $n_{4}$ et $n_{6}$
+dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n_{0})$. %
+Réciproquement, la face $R\orbit{0,1,3}(n_{0})$ est issue de la fusion des faces
+incidentes aux n\oe uds $n_{0}$, $n_{2}$, $n_{4}$ et $n_{6}$ localisées par le
+sommet $L\orbit{1,2,3}(n_{16})$. %
+Ce sommet est l'\highlight{origine} de $R\orbit{0,1,3}(n_{0})$ car sa
+suppression (par dissolution) entraîne la fusion de ses faces adjacentes. %
 
 \begin{proposition}[Fusion d'orbites]
 	\label{prop:base-rule-merge}
 	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, et un type d'orbite $\orbit{\omega}$.
 
 	\begin{enumerate}
-		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que l'orbite $L\orbit{\omega}(v_1)$ est entièrement
-		      filtrée, c'est-à-dire que pour tout nœud $v$ de $L\orbit{\omega}(v_1)$ et toute dimension $i$ de $\orbit{\omega}$,
+		\item Soit deux n\oe uds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que l'orbite $L\orbit{\omega}(v_1)$ est entièrement
+		      filtrée, c'est-à-dire que pour tout n\oe ud $v$ de $L\orbit{\omega}(v_1)$ et toute dimension $i$ de $\orbit{\omega}$,
 		      $L\orbit{\omega}(v_1)$ possède un arc de dimension $i$ et de source~$v$.
 
 		      Si les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont fusionnées en une orbite $R\orbit{\omega}(v_1)$ dans la règle,
 		      alors $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$ sont fusionnées en une orbite $H\orbit{\omega}(m'(v_1))$ dans la
 		      transformation directe.
 
-		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont partiellement
+		\item Soit deux n\oe uds préservés $v_1$ et $v_2$ de $L$ et $R$ tels que les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont partiellement
 		      filtrées.
 
 		      Si les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont fusionnées en une orbite $R\orbit{\omega}(v_1)$ dans la règle,
 		      alors $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$ sont soit fusionnées en une orbite $H\orbit{\omega}(m'(v_1))$ dans
 		      la transformation directe, soit modifiées et alors $G\orbit{\omega}(m(v_1)) = G\orbit{\omega}(m(v_2))$.
 
-		\item Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
+		\item Soit deux n\oe uds préservés $v_1$ et $v_2$ de $L$ et $R$.
 
 		      Si les orbites $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$ sont fusionnées en une orbite $H\orbit{\omega}(m'(v_1))$ dans
 		      la transformation directe, alors les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont fusionnées en une orbite
@@ -325,7 +371,7 @@ Comme le montre la proposition \textbf{prop:base-rule-merge}, puisque la règle 
 	entièrement filtrée, c'est-à-dire que $m'(R\orbit{\omega}(v_1)) \subset H\orbit{\omega}(m'(v_1))$. De même, $m(L\orbit{\omega}(v_2)) \subset G\orbit{\omega}(m(v_2))$.
 	Par hypothèse, l'orbite $L\orbit{\omega}(v_1)$ est entièrement filtrée, donc $G\orbit{\omega}(m(v_1))= m(L\orbit{\omega}(v_1))$, et est distincte de $L\orbit{\omega}(v_2))$, donc $m(L\orbit{\omega}(v_1)) \cap m(L\orbit{\omega}(v_2)) = \emptyset$.
 	Donc $G\orbit{\omega}(m(v_1)) \cap m(L\orbit{\omega}(v_2)) = \emptyset$.
-	Or si $m(v_2)$ n'est pas un nœud de $G\orbit{\omega}(m(v_1))$, alors $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$ sont des orbites distinctes.
+	Or si $m(v_2)$ n'est pas un n\oe ud de $G\orbit{\omega}(m(v_1))$, alors $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$ sont des orbites distinctes.
 	Et donc $H\orbit{\omega}(m'(v_1))$ est une orbite scindée.
 
 	Point 2 :
@@ -457,7 +503,7 @@ Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En pa
 
 \begin{proposition}[Modification d'orbite]
 	\label{prop:base-rule-modify}
-	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et $v$ un nœud préservé de $K = L \cap R$.
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et $v$ un n\oe ud préservé de $K = L \cap R$.
 
 	Si une orbite $L\orbit{\omega}(v)$ est modifiée
 	dans la règle $r$, alors $G\orbit{\omega}(m(v))$ est
@@ -467,18 +513,18 @@ Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En pa
 \end{proposition}
 
 \begin{proof}
-	Soit $v$ un nœud préservé de $K = L \cap R$ tel que l'orbite $L\orbit{\omega}(v)$ est modifiée dans la règle $r$.
+	Soit $v$ un n\oe ud préservé de $K = L \cap R$ tel que l'orbite $L\orbit{\omega}(v)$ est modifiée dans la règle $r$.
 	Donc par définition :
 	\begin{itemize}
 		\item $L\orbit{\omega}(v) \neq R\orbit{\omega}(v)$ ; et donc par transformation directe, $G\orbit{\omega}(m(v)) \neq H\orbit{\omega}(m'(v))$ ;
 
-		\item pour tout nœud préservé $v'$ de $K = L \cap R$, $v'$ est un nœud de $L\orbit{\omega}(v)$ si et seulement si c'est un nœud de $R\orbit{\omega}(v)$~; donc $m(v')$ est un nœud de $G\orbit{\omega}(m(v))$ si et seulement si c'est un nœud de $H\orbit{\omega}(m'(v))$~; par ailleurs, les nœuds non filtrés de $G\orbit{\omega}(m(v))$ sont nécessairement des nœuds non filtrés dans $H\orbit{\omega}(m'(v))$ ; par conséquent, pour tout nœud $v^{\prime\prime}$ conservé de $G \cap H$, $v^{\prime\prime}$ est un nœud de $G\orbit{\omega}(m(v))$ si et seulement si c'est un nœud de $H\orbit{\omega}(m'(v))$~;
+		\item pour tout n\oe ud préservé $v'$ de $K = L \cap R$, $v'$ est un n\oe ud de $L\orbit{\omega}(v)$ si et seulement si c'est un n\oe ud de $R\orbit{\omega}(v)$~; donc $m(v')$ est un n\oe ud de $G\orbit{\omega}(m(v))$ si et seulement si c'est un n\oe ud de $H\orbit{\omega}(m'(v))$~; par ailleurs, les n\oe uds non filtrés de $G\orbit{\omega}(m(v))$ sont nécessairement des n\oe uds non filtrés dans $H\orbit{\omega}(m'(v))$ ; par conséquent, pour tout n\oe ud $v^{\prime\prime}$ conservé de $G \cap H$, $v^{\prime\prime}$ est un n\oe ud de $G\orbit{\omega}(m(v))$ si et seulement si c'est un n\oe ud de $H\orbit{\omega}(m'(v))$~;
 	\end{itemize}
 
-	De manière réciproque, soit $v$ un nœud conservé de $K = L\cap R$ tel que l'orbite $G\orbit{\omega}(m(v))$ est modifiée dans la transformation directe $G \xlongrightarrow{r,m} H$.
+	De manière réciproque, soit $v$ un n\oe ud conservé de $K = L\cap R$ tel que l'orbite $G\orbit{\omega}(m(v))$ est modifiée dans la transformation directe $G \xlongrightarrow{r,m} H$.
 
 	Par définition $G\orbit{\omega}(m(v)) \neq H\orbit{\omega}(m'(v))$ et pour tout brin $v'$ de $G \cup H$, $v'$ appartient à $G\orbit{\omega}(m(v))$ si et seulement si il appartient à $H\orbit{\omega}(m'(v))$. %
-	Soit $v'$ est filtré, c'est-à-dire qu'il existe un nœud $w$ de $K$ tel que $m(w) = v'$. Dans ce cas  \todo{a reprendre}
+	Soit $v'$ est filtré, c'est-à-dire qu'il existe un n\oe ud $w$ de $K$ tel que $m(w) = v'$. Dans ce cas  \todo{a reprendre}
 	% Or d'après les propositions précédentes, il est impossible que $L\orbit{\omega}(v)$ soit inchangée ou supprimée dans la règle $r$, de même $R\orbit{\omega}(v)$ ne peut pas être créée dans $r$. En revanche, $L\orbit{\omega}(v)$ peut être scindée, fusionnée ou modifiée dans la règle~$r$.
 \end{proof}
 

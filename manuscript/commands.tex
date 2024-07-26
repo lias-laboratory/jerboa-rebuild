@@ -1,86 +1,93 @@
-\newenvironment{roundedframe}{%
-	\def\FrameCommand{%
-		\cornersize*{20pt}%
-		\setlength{\fboxsep}{5pt}%
-		\ovalbox}%
-	\MakeFramed{\advance\hsize-\width \FrameRestore}}%
-{\endMakeFramed}
-
-\renewenvironment{leftbar}[1][]{% %
-	\setlength{\OuterFrameSep}{0pt}
-	\def\FrameCommand{%
-		{\color{#1}\vrule width 2pt} \hspace{1em}%
-		% \fboxsep=\FrameSep\colorbox{white}%
-	}%
-	\MakeFramed{ \advance\hsize - \width\FrameRestore}
-	\noindent\ignorespaces
-}%
-{\endMakeFramed}
-
+%%%%% Environnements théorèmes,etc. %%%%%
 {
-	\theoremstyle{break}
-	\theoremheaderfont{\normalfont\bfseries}
-	\theorembodyfont{\upshape}
-	\theoremseparator{}
-	\newtheorem{thmi}{Théorème}[subsection]
-	\newtheorem{defi}{Définition}[subsection]
-	\newtheorem{propi}{Proposition}[subsection]
-	\newtheorem*{exmpi}{Exemple}[subsection]
+\theoremstyle{break}
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\upshape}
+\theoremseparator{}
+\newtheorem{thmi}{Théorème}% [subsection]
+\newtheorem{defi}{Définition}% [subsection]
+\newtheorem{propi}{Proposition}% [subsection]
+\newtheorem*{exmpi}{Exemple}% [subsection]
 }
 
 {
-	\theoremstyle{change}
-	\theoremheaderfont{\normalfont\bfseries}
-	\theorembodyfont{\upshape}
-	\theoremseparator{~:}
-	\newtheorem*{remarki}{Remarque}
+\theoremstyle{change}
+\theoremheaderfont{\normalfont\bfseries}
+\theorembodyfont{\upshape}
+\theoremseparator{~:}
+\newtheorem*{remarki}{Remarque}
+{
+	\theoremsymbol{$\square$}
+	\newtheorem*{proofi}{Preuve}
+	\newtheorem*{proofii}{Idée de preuve}
+}
 }
 
-\newenvironment{proof}{\noindent\textbf{Preuve~:}}{\hfill$\square$\newline}
-\newenvironment{proofidea}{\noindent\textbf{Idée de preuve~:}}{\hfill\(\square\newline\)}
+\newtcolorbox{tcbleftbar}[1][]{blanker,breakable,left=5mm, before skip=10pt, after
+	skip=10pt,borderline west={3pt}{0pt}{#1}}
 
 \newenvironment{theoreme}[1][]{%
-	\begin{thmi}[#1]
-		\begin{leftbar}[nord7]
+	\begin{tcbleftbar}[nord7]
+		\begin{thmi}[#1]
 			}{%
-		\end{leftbar}
-	\end{thmi}
+		\end{thmi}
+	\end{tcbleftbar}
+}
+
+\newenvironment{proof}{%
+	\begin{tcbleftbar}[nord12]
+		\begin{proofi}
+			}{%
+		\end{proofi}
+	\end{tcbleftbar}
+}
+
+\newenvironment{proofidea}{%
+	\begin{proofii}
+		}{%
+	\end{proofii}
 }
 
 \newenvironment{proposition}[1][]{%
-	\begin{propi}[#1]
-		\begin{leftbar}[nord8]
+	\begin{tcbleftbar}[nord8]
+		\begin{propi}[#1]
 			}{%
-		\end{leftbar}
-	\end{propi}
+		\end{propi}
+	\end{tcbleftbar}
 }
 
 \newenvironment{definition}[1][]{%
-	\begin{defi}[#1]
-		\begin{leftbar}[nord9]
+	\begin{tcbleftbar}[nord9]
+		\begin{defi}[#1]
 			}{%
-		\end{leftbar}
-	\end{defi}
+		\end{defi}
+	\end{tcbleftbar}
 }
 
 \newenvironment{remarque}[1][]{%
 	\begin{remarki}
-		% \begin{leftbar}[nord12]
 		}{%
-		% \end{leftbar}
 	\end{remarki}
 }
 
 \newenvironment{exemple}[1][]{%
 	\begin{exmpi}[#1]
-		% \begin{leftbar}[nord15]
 		}{%
-		% \end{leftbar}
 	\end{exmpi}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% math mode only %%%%%
+%% Les emphasis sont en gras dans les environnements suivants
+% \AtBeginEnvironment{document}{\renewcommand\em{\bfseries}}
+\AtBeginEnvironment{definition}{\renewcommand\em{\bfseries}}
+\AtBeginEnvironment{proposition}{\renewcommand\em{\bfseries}}
+\AtBeginEnvironment{theoreme}{\renewcommand\em{\bfseries}}
+\AtBeginEnvironment{exemple}{\renewcommand\em{\bfseries}}
+\AtBeginEnvironment{remarque}{\renewcommand\em{\bfseries}}
+\AtBeginEnvironment{proof}{\renewcommand\em{\bfseries}}
+\AtBeginEnvironment{proofidea}{\renewcommand\em{\bfseries}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% math mode uniquement %%%%%
 \newcommand{\orbit}[1]{%
 	\langle#1\rangle
 }
@@ -90,8 +97,9 @@
 \newcommand{\pnfull}[2]{%
 	PN_{#1}=[#2]
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% commandes co-auteurs %%%%%
 
 \newcommand{\commentout}[1]{}
 
@@ -142,10 +150,6 @@
 	{\color{mylightblue}#1}%
 }
 
-\AtBeginEnvironment{definition}{\renewcommand\em{\bfseries}}
-\AtBeginEnvironment{theoreme}{\renewcommand\em{\bfseries}}
-\AtBeginEnvironment{exemple}{\renewcommand\em{\bfseries}}
-\AtBeginEnvironment{remarque}{\renewcommand\em{\bfseries}}
 
 
 %%% Local Variables:

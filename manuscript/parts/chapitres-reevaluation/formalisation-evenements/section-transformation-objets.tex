@@ -1,6 +1,11 @@
 \section{Les évènements dans les transformations d'objets}
 \label{sec:formalisation-evenement-transfo-objets}
 
+
+\subsection{Création}
+\label{sec:formalisation-evenement-transfo-objets-creation}
+
+
 Considérons deux G-cartes $G$ et $H$. %
 On veut qualifier les modifications d'orbites de type $\orbit{\omega}$ entre $G$ et $H$.
 Ces dernières peuvent être créées, supprimées, scindées, fusionnées, inchangées ou modifiées.
@@ -16,23 +21,29 @@ On parle dans ce cas d'événements survenus sur les orbites.
 \end{definition}
 
 \begin{figure}[H]
-	\begin{subfigure}{.5\textwidth}
+	\centering
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.6\textwidth]{g-carte-triangulation-creation-G}
-		\caption{\label{fig:formalisation-evenements-g-carte-evenement-triangulation-g}$G$}
+		\caption{\label{fig:formalisation-evenements-g-carte-evenement-triangulation-sommet-g}$G$}
 	\end{subfigure}
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.6\textwidth]{g-carte-triangulation-creation-H}
-		\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-h}$H$}
+		\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet-h}$H$}
 	\end{subfigure}
-	\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation}Triangulation dans une G-carte}
+	\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet}Triangulation dans une G-carte~: création d'un sommet}
 \end{figure}
 
 L'orbite sommet $H\orbit{1,2,3}(a_2)$ est créée à l'issue de la transformation
 du graphe $G$ vers $H$
-(Figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation}). %
+(Figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet}). %
 En particulier, aucuns des brins $a_2,b_2\ldots h_2$ de $H$ n'existent dans $G$. %
+
+
+\subsection{Scission}
+\label{sec:formalisation-evenement-transfo-objets-scission}
+
 
 \begin{definition}[Scission d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
@@ -45,27 +56,32 @@ En particulier, aucuns des brins $a_2,b_2\ldots h_2$ de $H$ n'existent dans $G$.
 \end{definition}
 
 \begin{figure}[H]
-	\begin{subfigure}{.5\textwidth}
+	\centering
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-G}
-		% \caption{\label{fig:formalisation-evenements-g-carte-evenement-triangulation-g}$G$}
+		\caption{\label{fig:formalisation-evenements-g-carte-evenement-triangulation-face-g}$G$}
 	\end{subfigure}
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-H}
-		% \caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-h}$H$}
+		\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-face-h}$H$}
 	\end{subfigure}
-	% \caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation}Triangulation dans une G-carte}
+	\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-face}Triangulation
+		dans une G-carte~: scission d'une face}
 \end{figure}
 
-Reprenons l'exemple figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation} %
+Reprenons l'exemple figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet} %
 La face $G\orbit{0,1,3}(a_0)$ est scindée en quatre faces distinctes~:
 $H\orbit{0,1,3}(a_0)$,
 $H\orbit{0,1,3}(c_0)$,
 $H\orbit{0,1,3}(e_0)$,
 $H\orbit{0,1,3}(g_0)$ %
 
-~
+
+\subsection{Suppression}
+\label{sec:formalisation-evenement-transfo-objets-suppression}
+
 
 La suppression est l'inverse de la création. %
 
@@ -77,10 +93,16 @@ La suppression est l'inverse de la création. %
 	aucun élément de l'orbite $\orbit{\omega}$ incidente à $v$ dans $G$  n'existe dans $H$, \textit{i.e.} $H \cap G\orbit{\omega}(v) = \emptyset$. %
 \end{definition}
 
-Reprenons l'exemple de la Figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation}, cette fois de $H$ vers $G$. %
-Le sommet $H\orbit{1,2,3}(a_{2})$ est supprimé dans $G$ car aucun des brins $a_2,b_2\ldots h_2$ dans $H$ n'existe dans $G$. %
+Reprenons l'exemple de la
+Figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet},
+cette fois de $H$ vers $G$. %
+Le sommet $H\orbit{1,2,3}(a_{2})$ est supprimé dans $G$ car aucun des brins
+$a_2,b_2\ldots h_2$ dans $H$ n'existe dans $G$. %
 
-~
+
+\subsection{Fusion}
+\label{sec:formalisation-evenement-transfo-objets-fusion}
+
 
 La fusion est l'inverse de la scission. %
 
@@ -103,7 +125,7 @@ La fusion est l'inverse de la scission. %
 %   \label{fig:jerboa-merge-then-now}
 % \end{figure}
 
-Reprenons l'exemple de la figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation}, toujours de $H$ vers $G$.
+Reprenons l'exemple de la figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet}, toujours de $H$ vers $G$.
 Les quatre faces $H\orbit{0,1,3}(a_0)$, $H\orbit{0,1,3}(c_0)$, $H\orbit{0,1,3}(e_0)$ et $H\orbit{0,1,3}(g_0)$ sont fusionnées dans $G$. %
 En effet, les brins $a_0$, $c_0, e_0$ et $g_0$ appartiennent à la même face dans $G$. %
 
@@ -117,9 +139,9 @@ En effet, les brins $a_0$, $c_0, e_0$ et $g_0$ appartiennent à la même face da
 % sont \emph{fusionnées} s'il existe deux nœuds $v_1$ et $v_2$ appartenant respectivement à $G\orbit{\omega}(v)$ et $G\orbit{\omega}(v')$ et tous les deux nœuds de $H$, tels que $H\orbit{\omega}(v_1) = H\orbit{\omega}(v_2)$.
 
 
+\subsection{Non-changement}
+\label{sec:formalisation-evenement-transfo-objets-non-changement}
 
-
-% \subsection{Non-changement}\label{sec:suivi-non-changement}
 
 \begin{definition}[Non-changement d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
@@ -128,7 +150,7 @@ En effet, les brins $a_0$, $c_0, e_0$ et $g_0$ appartiennent à la même face da
 	L'orbite $G\orbit{\omega}(v)$ est \emph{inchangée} si et seulement si elle identique à $H\orbit{\omega}(v)$, \textit{i.e.} $G\orbit{\omega}(v) = H\orbit{\omega}(v)$.
 \end{definition}
 
-Dans la figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation}, l'arête incidente au brin $a_0$ est inchangée, puisqu'elle est identique dans $G$ et $H$. %
+Dans la figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet}, l'arête incidente au brin $a_0$ est inchangée, puisqu'elle est identique dans $G$ et $H$. %
 
 % \begin{figure}[H]
 %   \centering
@@ -146,7 +168,10 @@ Dans la figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation}
 
 % Une orbite $G\orbit{\omega}(v)$ est \emph{inchangée} si l'orbite $G\orbit{\omega}(v)$ est aussi une orbite de $H$, c'est-à-dire si $G\orbit{\omega}(v) \subset H$.
 
-% \subsection{Modification}
+
+\subsection{Modification}
+\label{sec:formalisation-evenement-transfo-objets-modification}
+
 
 \begin{definition}[Modification d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
@@ -156,8 +181,10 @@ Dans la figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation}
 	$G\orbit{\omega}(v)$ et $H$ tel que tout brin préservé (de $G \cap H$) $v''$ appartient à $G\orbit{\omega}(v')$ si et seulement si $v''$ appartient à $H\orbit{\omega}(v')$%
 \end{definition}
 
-\todo{explication sur les sommets}
-
+Dans la
+figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-face},
+le sommet $G\orbit{1,2,3}(a_{0})$ est modifié dans $H$, puisque
+$G\orbit{1,2,3}(a_{0}) \neq H\orbit{1,2,3}(a_{0})$. %
 
 % \maxime{Ajouter l'exemple d'insertion de sommet en entourant la face modifiée}
 % La figure ? reprend l'exemple de l'insertion d'un sommet sur une arête du cube. La face entourée en rouge dans $G$ est modifiée dans $H$, car tous ses brins préservés appartiennent à la même face entourée en rouge. Cette face contient des brins supplémentaires du sommet ajouté.\\

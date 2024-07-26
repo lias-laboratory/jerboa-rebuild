@@ -142,8 +142,7 @@ supprimée.
 
 	Donc toutes les orbites $L(O)\orbit{\omega}((v,v'))$ pour tous les nœuds $v'$ de
 	l'orbite d'instanciation $O$ sont des orbites supprimées dans la règle
-	instanciée $r(\underline{m})$. Et donc, d'après le théorème
-	\ref{theo:topo-coherence-base-rule}, toutes les orbites
+	instanciée $r(\underline{m})$. Et donc, d'après le théorème~\ref{thm:preservation-coherence-topo-gcarte}, toutes les orbites
 	$G\orbit{\omega}(m((v,v')))$ sont supprimées dans la transformation directe
 	$G \xlongrightarrow{r,\underline{m}} H$, pour tous les nœuds $v'$ de l'orbite
 	d'instanciation $O$.
@@ -452,59 +451,61 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 
 \begin{proof}
 	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$
-	\\
+	\begin{enumerate}
+		\item Supposons que $\underline{L}\orbit{\omega}(v_1)$ et
+		      $\underline{L}\orbit{\omega}(v_2)$ sont fusionnées en une orbite
+		      $\underline{R}\orbit{\omega}(v_1)$ dans la règle du à des arcs
+		      explicites. Alors, par définition, il n'existe pas de chemin
+		      $e_1 e_2 \dots e_j$ dans $L$ de source $v_1$, de cible $v_2$ et
+		      étiqueté par $i_1 i_2 \dots i_j$ sur $\orbit{\omega}$, mais il existe un
+		      chemin $f_1 f_2 \dots f_k$ dans $R$ de source $v_1$, de cible $v_2$
+		      et étiqueté sur $\orbit{\omega}$.
 
-	Cas 1~:
+		      Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il n'existe pas de chemin $(e_1, v')(e_2, v')\dots(e_j,v')$ dans le
+		      motif gauche de la règle instanciée $L(O)$ dont la source est $(s(e_1),v') = (v_1,v')$, la cible est $(t(e_j),v') = (v_2,v')$ et étiqueté par le même mot $i_1 i_2 \dots i_j$ sur $\orbit{\omega}$.
 
-	Supposons que $\underline{L}\orbit{\omega}(v_1)$ et $\underline{L}\orbit{\omega}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{\omega}(v_1)$ dans la règle du à des arcs explicites.
-	Alors, par définition, il n'existe pas de chemin $e_1 e_2 \dots e_j$ dans $L$ de source $v_1$, de cible $v_2$ et étiqueté par $i_1 i_2 \dots i_j$ sur $\orbit{\omega}$, mais il existe un chemin
-	$f_1 f_2 \dots f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{\omega}$.
+		      Supposons que pour tout nœud $v'$ de l'orbite d'instanciation $O$, il n'existe pas de chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le motif droit de la règle instanciée $R(O)$ dont la source
+		      est $(s(f_1),v') = (v_1,v')$, la cible est $(t(f_k),v') = (v_2, v')$ et étiqueté sur $\orbit{\omega}$.
+		      Alors, par construction de l'instanciation, le chemin $f_1 f_2 \dots f_k$ dans $R$ de source $v_1$,
+		      de cible $v_2$ et étiqueté sur $\orbit{\omega}$ n'existe pas dans la règle de départ.
+		      Ce qui est contradictoire avec l'hypothèse. Donc il existe un chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le
+		      motif droit de la règle instanciée ayant les propriétés attendues.
+		      Donc $R(O)\orbit{\omega}((v_1,v'))$ et $R(O)\orbit{\omega}((v_2,v'))$ sont bien une seule et même $\orbit{\omega}$-orbite.
 
-	Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il n'existe pas de chemin $(e_1, v')(e_2, v')\dots(e_j,v')$ dans le
-	motif gauche de la règle instanciée $L(O)$ dont la source est $(s(e_1),v') = (v_1,v')$, la cible est $(t(e_j),v') = (v_2,v')$ et étiqueté par le même mot $i_1 i_2 \dots i_j$ sur $\orbit{\omega}$.
+		      Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{\omega}(v_1)$ et donc $L(O)\orbit{\omega}((v_1,v'))$ est entièrement filtrée, alors les orbites $G\orbit{\omega}(m((v_1,v')))$ et
+		      $G\orbit{\omega}(m((v_2,v')))$ sont fusionnées en une orbite $H\orbit{\omega}(m'((v_1,v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite
+		      d'instanciation $O$.
 
-	Supposons que pour tout nœud $v'$ de l'orbite d'instanciation $O$, il n'existe pas de chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le motif droit de la règle instanciée $R(O)$ dont la source
-	est $(s(f_1),v') = (v_1,v')$, la cible est $(t(f_k),v') = (v_2, v')$ et étiqueté sur $\orbit{\omega}$.
-	Alors, par construction de l'instanciation, le chemin $f_1 f_2 \dots f_k$ dans $R$ de source $v_1$,
-	de cible $v_2$ et étiqueté sur $\orbit{\omega}$ n'existe pas dans la règle de départ.
-	Ce qui est contradictoire avec l'hypothèse. Donc il existe un chemin $(f_1,v')(f_2,v')\dots(f_k,v')$ dans le
-	motif droit de la règle instanciée ayant les propriétés attendues.
-	Donc $R(O)\orbit{\omega}((v_1,v'))$ et $R(O)\orbit{\omega}((v_2,v'))$ sont bien une seule et même $\orbit{\omega}$-orbite.
+		\item Supposons que $\underline{L}\orbit{\omega}(v_1)$ et
+		      $\underline{L}\orbit{\omega}(v_2)$ sont fusionnées en une orbite
+		      $\underline{R}\orbit{\omega}(v_1)$ dans la règle du à des arcs
+		      explicites.
 
-	Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{\omega}(v_1)$ et donc $L(O)\orbit{\omega}((v_1,v'))$ est entièrement filtrée, alors les orbites $G\orbit{\omega}(m((v_1,v')))$ et
-	$G\orbit{\omega}(m((v_2,v')))$ sont fusionnées en une orbite $H\orbit{\omega}(m'((v_1,v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite
-	d'instanciation $O$.
-	\\
+		      Pour les mêmes raisons que dans le cas $1$, $L(O)\orbit{\omega}((v_1,v'))$ et $L(O)\orbit{\omega}((v_2,v'))$ sont deux $\orbit{\omega}$-orbites distinctes dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
 
-	Cas 2~:
+		      Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{\omega}(v_1)$ et donc $L(O)\orbit{\omega}((v_1,v'))$ est partiellement filtrée, alors les orbites
+		      $G\orbit{\omega}(m((v_1,v')))$ et $G\orbit{\omega}(m((v_2,v')))$ sont soit fusionnées en une orbite $H\orbit{\omega}(m'((v_1,v')))$, soit modifiées, dans la transformation directe
+		      $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
 
-	Supposons que $\underline{L}\orbit{\omega}(v_1)$ et $\underline{L}\orbit{\omega}(v_2)$ sont fusionnées en une orbite $\underline{R}\orbit{\omega}(v_1)$ dans la règle du à des arcs explicites.
+		\item Supposons que $\underline{L}\orbit{\omega}(v_1)$ est fusionnée due au
+		      $k$-ème arc implicite. Soit $v_1'$ un nœud de l'orbite
+		      d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$ et
+		      $v_2'$ le $i$-voisin de $v_1'$ dans $O$, avec $i$ la $k$-ème
+		      dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
 
-	Pour les mêmes raisons que dans le cas $1$, $L(O)\orbit{\omega}((v_1,v'))$ et $L(O)\orbit{\omega}((v_2,v'))$ sont deux $\orbit{\omega}$-orbites distinctes dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+		      Par hypothèse, tous les noeuds de $\underline{L}\orbit{\omega}(v_1)$ ont une k-ième dimension soit supprimée, soit renommée hors de $\orbit{\omega}$.
+		      Au contraire, il existe un nœud $v$ de $\underline{R}\orbit{\omega}(v_1)$ dont la k-ième dimension est renommée en $j$ dans $\orbit{\omega}$. Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $R(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{\omega}$-orbite dans $R(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
 
-	Donc d'après la proposition \ref{prop:base-rule-merge}, si $\underline{L}\orbit{\omega}(v_1)$ et donc $L(O)\orbit{\omega}((v_1,v'))$ est partiellement filtrée, alors les orbites
-	$G\orbit{\omega}(m((v_1,v')))$ et $G\orbit{\omega}(m((v_2,v')))$ sont soit fusionnées en une orbite $H\orbit{\omega}(m'((v_1,v')))$, soit modifiées, dans la transformation directe
-	$G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
-	\\
+		      Nous avons plusieurs cas :
+		      \begin{itemize}
+			      \item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont deux $\orbit{\omega}$-orbites différentes de $L(O)$, d'après la proposition \ref{prop:base-rule_split},
+			            selon les cas, $G\orbit{\omega}(m((v_1, v'_1)))$ et $G\orbit{\omega}(m((v_1,v'_2)))$ sont dans deux orbites différentes ou non de $G$ ;
+			            autrement dit $G\orbit{\omega}(m((v_1, v'_1))$ et $G\orbit{\omega}(m((v_2, v'_2))$ sont fusionnées en une orbite $H\orbit{\omega}(m'((v_1, v'_1)))$ ou l'unique orbite $G\orbit{\omega}(m((v_1, v'_1)) = G\orbit{\omega}(m((v_2, v'_2))$ est juste modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
 
-	Cas 3~:
-
-	Supposons que $\underline{L}\orbit{\omega}(v_1)$ est fusionnée due au $k$-ème arc implicite. Soit $v_1'$ un nœud de l'orbite d'ins\-tan\-cia\-tion
-	$O = G\orbit{l(h)}(\underline{m}(h))$ et $v_2'$ le $i$-voisin de $v_1'$ dans $O$, avec $i$ la $k$-ème dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
-
-	Par hypothèse, tous les noeuds de $\underline{L}\orbit{\omega}(v_1)$ ont une k-ième dimension soit supprimée, soit renommée hors de $\orbit{\omega}$.
-	Au contraire, il existe un nœud $v$ de $\underline{R}\orbit{\omega}(v_1)$ dont la k-ième dimension est renommée en $j$ dans $\orbit{\omega}$. Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $R(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{\omega}$-orbite dans $R(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
-
-	Nous avons plusieurs cas :
-	\begin{itemize}
-		\item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont deux $\orbit{\omega}$-orbites différentes de $L(O)$, d'après la proposition \ref{prop:base-rule_split},
-		      selon les cas, $G\orbit{\omega}(m((v_1, v'_1)))$ et $G\orbit{\omega}(m((v_1,v'_2)))$ sont dans deux orbites différentes ou non de $G$ ;
-		      autrement dit $G\orbit{\omega}(m((v_1, v'_1))$ et $G\orbit{\omega}(m((v_2, v'_2))$ sont fusionnées en une orbite $H\orbit{\omega}(m'((v_1, v'_1)))$ ou l'unique orbite $G\orbit{\omega}(m((v_1, v'_1)) = G\orbit{\omega}(m((v_2, v'_2))$ est juste modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
-
-		\item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même $\orbit{\omega}$-orbites de $L(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$ de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce chemin est réécrit un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $L(O)$ dont toutes les étiquettes sont dans $\orbit{\omega}$),
-		      d'après la proposition \ref{prop:base-rule-modify}, alors $G\orbit{\omega}(m((v_1, v'_1))$ est modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
-	\end{itemize}
-
+			      \item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même $\orbit{\omega}$-orbites de $L(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$ de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce chemin est réécrit un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $L(O)$ dont toutes les étiquettes sont dans $\orbit{\omega}$),
+			            d'après la proposition \ref{prop:base-rule-modify}, alors $G\orbit{\omega}(m((v_1, v'_1))$ est modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
+		      \end{itemize}
+	\end{enumerate}
 \end{proof}
 
 \todo{Ajouter illustration règle suppression arête}

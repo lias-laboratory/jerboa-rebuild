@@ -9,10 +9,10 @@
 	objets sur lesquels on les applique. On pourra ainsi faire le suivi des
 	évènements.}
 
-Soient $G$ une G-carte, $r : L \longrightarrow R$ une règle, $m : L \to G$ un morphisme de
-filtrage et $H$ la transformation directe $G \xlongrightarrow{(r,m)} H$.
-Étudions l'évolution d'une orbite d'intérêt $G\orbit{\omega}(v)$ dans $H$ en
-fonction de la règle $r$.
+Soient $G$ une G-carte, $r : L \longrightarrow R$ une règle, $m : L \to G$ un morphisme de
+filtrage et $H$ la transformation directe $G \xlongrightarrow{(r,m)} H$. %
+Étudions l'évolution d'une orbite d'intérêt $G\orbit{\omega}(v)$ dans $H$ en fonction
+de la règle $r$. %
 
 Toutes les définitions des évènements entre deux G-cartes $G$ et $H$ s'étendent
 naturellement entre deux motifs $L$ et $R$. %
@@ -20,11 +20,11 @@ naturellement entre deux motifs $L$ et $R$. %
 L'orbite $G\orbit{\omega}(v)$ peut être \emph{entièrement filtrée} par $m$ si
 $G\orbit{\omega}(v) \subset m(L)$, \emph{non filtrée} par $m$ si
 $G\orbit{\omega}(v) \cap m(L) = \emptyset$, ou \emph{partiellement filtrée} par $m$ dans les
-autres cas.
+autres cas. %
 
 \subsection{Création}
+\label{sec:formalisation-evenement-regles-transfo-graphe-creation}
 
-\todo{Ajouter commentaire}
 \begin{figure}[htbp!]
 	\includegraphics[width=.8\textwidth]{regle-expl-triangulation-quad}
 	\centering
@@ -38,142 +38,42 @@ autres cas.
 % le sommet $R\orbit{1,2,3}(n6)$ est créé dans $R$. Nous allons montrer que ce
 % sommet est également créé lors de la transformation directe entre $G$ et $H$.
 
-La règle, dans la figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}, est la règle de triangulation d'une face
-carrée. %
-Comme défini dans la section précédente, le sommet $R\orbit{1,2,3}(a_{2})$ est
+La règle, dans la
+figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation},
+est la règle de triangulation d'une face carrée. %
+Comme défini dans la section précédente, le sommet $R\orbit{1,2,3}(n16)$ est
 créé dans $H$. Nous allons montrer que ce sommet est également créé lors de la
-transformation directe entre $G$ et $H$.
+transformation directe entre $G$ et $H$. %
 
 \begin{proposition}[Création d'orbite]\label{prop:base-rule-create}
 	Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la
 	transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite
-	$\orbit{\omega}$ et $v$ un n\oe ud de $R$.
+	$\orbit{\omega}$ et $v$ un n\oe ud de $R$. %
 
 	Une orbite $R\orbit{\omega}(v)$ est créée dans la règle $r$, c'est-à-dire entre L
 	et R, si et seulement si $H\orbit{\omega}(m'(v))$ est créée dans la
-	transformation directe, c'est-à-dire entre $G$ et $H$.
+	transformation directe, c'est-à-dire entre $G$ et $H$. %
 \end{proposition}
 
 \begin{proof}
-	Supposons que l'orbite $R\orbit{\omega}(v)$ est créée dans la règle $r: L \longrightarrow R$.
-	D'après la condition d'arcs incidents sur la règle $r$, tout n\oe ud créé de $R$
-	et donc tout n\oe ud de l'orbite $R\orbit{\omega}(v)$ est la source d'un $i$-arc, pour
-	tout $i$ de $\orbit{\omega}$. %
+	Supposons que l'orbite $R\orbit{\omega}(v)$ est créée dans la règle $r: L \longrightarrow
+		R$. %
+	D'après la condition d'arcs incidents sur la règle $r$, tout n\oe ud créé de
+	$R$ et donc tout n\oe ud de l'orbite $R\orbit{\omega}(v)$ est la source d'un
+	$i$-arc, pour tout $i$ de $\orbit{\omega}$. %
 	Notons que les arcs incidents aux n\oe uds créés sont nécessairement eux-même
 	créés. %
 	Donc l'orbite $H\orbit{\omega}(m'(v))$ est entièrement filtrée par la règle,
-	c'est-à-dire $H\orbit{\omega}(m'(v)) = m'(R\orbit{\omega}(v))$. Et donc
-	$H\orbit{\omega}(m'(v))$ est une orbite créée.
+	c'est-à-dire $H\orbit{\omega}(m'(v)) = m'(R\orbit{\omega}(v))$. %
+	Et donc $H\orbit{\omega}(m'(v))$ est une orbite créée. %
 
 	Supposons que l'orbite $H\orbit{\omega}(m'(v))$ est créée dans $H$. Alors par
 	définition de la transformation directe, $H\orbit{\omega}(m'(v))$ est l'image de
-	l'orbite $R\orbit{\omega}(v)$ par $m'$. Et donc $R\orbit{\omega}(v)$ est une orbite
-	créée par la règle $r$.
+	l'orbite $R\orbit{\omega}(v)$ par $m'$. %
+	Et donc $R\orbit{\omega}(v)$ est une orbite créée par la règle $r$. %
 \end{proof}
-
-
-\subsection{Suppression}
-
-\todo{Ajouter commentaire}
-
-\begin{figure}[htbp!]
-	\centering
-	\includegraphics[width=.8\textwidth]{regle-expl-dissolution-sommet-quad}
-	\caption{Règle $L \longrightarrow R$ de dissolution de sommet dans une face carrée}
-	\label{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}
-\end{figure}
-
-% La figure \textbf{fig:base-rule-delete} représente la suppression d'une face quadrangulaire isolée, c'est-à-dire qui n'est connectée à aucun autre objet. Comme défini dans la section \textbf{sec:suivi-suppression}, l'orbite $R\orbit{0,1,3}(n0)$ est supprimée dans $R$. Nous allons montrer que cette face est également supprimée lors de la transformation directe entre $G$ et $H$.
-
-La règle, dans la figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}, est la règle inverse de la triangulation
-d'une face carrée, c'est-à-dire celle qui dissout un sommet. %
-Comme défini dans la section précédente, l'orbite $L\orbit{1,2,3}(a_{2})$ est supprimée dans $R$. %
-Nous allons montrer que ce sommet est également supprimé lors de la
-transformation directe entre $G$ et $H$. %
-
-\begin{proposition}
-	\label{prop:base-rule-delete}
-	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et $v$ un n\oe ud de $L$.
-
-	Une orbite $L\orbit{\omega}(v)$ est \emph{supprimée} dans la règle $r$,
-	c'est-à-dire entre $L$ et $R$, si est seulement si $G\orbit{\omega}(m(v))$ est \emph{supprimée} dans
-	la transformation directe, c'est-à-dire entre $G$ et $H$.
-\end{proposition}
-
-\begin{proof}
-	Supposons que l'orbite $L\orbit{\omega}(v)$ est supprimée dans la règle $r : L \longrightarrow R$.
-	D'après la condition d'arcs incidents sur la règle $r$, tout n\oe ud supprimé de $L$ et donc tout
-	n\oe ud de l'orbite $L\orbit{\omega}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{\omega}$.
-	Donc l'orbite $G\orbit{\omega}(m(v))$ est entièrement filtrée par la règle, c'est-à-dire
-	$G\orbit{\omega}(m(v)) =  m(L\orbit{\omega}(v))$. Et donc $G\orbit{\omega}(m(v))$ est une orbite supprimée.
-
-	Supposons que l'orbite $G\orbit{\omega}(m(v))$ est supprimée dans $H$. Alors par définition de la
-	transformation directe, $G\orbit{\omega}(m(v))$ est l'image de l'orbite $L\orbit{\omega}(v)$ par $m$.
-	Et donc $L\orbit{\omega}(v)$ est une orbite supprimée par la règle $r$.
-\end{proof}
-
-\todo{commentaire d'exemple}
-
-\subsection{Non-changement}
-
-\todo{illustration}
-
-\maxime{le non-changement dans la transformation directe peut venir d'un non changement dans la règle soit d'une partie non filtrée par la règle}
-
-% Dans la figure~\textbf{fig:base-rule-create} à la
-% page~\textbf{pageref!fig:base-rule-create}, comme défini dans la section
-% \textbf{sec:suivi-non-changement}, le sommet extrémité d'arête
-% $L\orbit{1,2,3}(n0)$ est inchangé entre $L$ et $R$. Nous allons montrer que ce
-% sommet est également inchangé lors de la transformation directe entre $G$ et
-% $H$.
-
-Reprenons la règle de triangulation (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
-Comme défini dans la section précédente, l'arête $L\orbit{0}(a_{0})$ est
-inchangée entre $L$ et $R$ (et il en va de même pour les arêtes incidentes aux
-n\oe uds $c_{0}$, $e_{0}$ et $g_{0}$). %
-Nous allons montrer que cette arête est également inchangée lors de la
-transformation directe entre $G$ et $H$. %
-
-\todo{Ajouter illustration règle instanciée non-changement avant/après}
-
-\begin{proposition}[Non-changement d'orbite]
-	\label{prop:base-rule-unchange}
-	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$,  $v$ un n\oe ud de $K = L \cap R$.
-
-	Une orbite $L\orbit{\omega}(v)$ est \emph{inchangée}
-	dans la règle $r$, c'est-à-dire entre $L$ et $R$, si et seulement si $G\orbit{\omega}(m(v))$ est
-	\emph{inchangée} dans la transformation directe, c'est-à-dire entre $G$ et $H$.
-\end{proposition}
-
-\begin{proof}
-	Supposons que l'orbite $L\orbit{\omega}(v)$ est inchangée dans la règle $r : L \longrightarrow R$.
-	L'orbite $G\orbit{\omega}(m(v))$ n'est pas nécessairement entièrement filtrée,
-	c'est-à-dire
-	$m(L\orbit{\omega}(v)) \subset G\orbit{\omega}(m(v))$ et $m'(R\orbit{\omega}(v)) \subset H\orbit{\omega}(m'(v))$.
-	Par définition de la transformation directe, la partie filtrée de l'orbite est inchangée~: $m(L\orbit{\omega}(v)) = m'(R\orbit{\omega}(v))$. Par ailleurs, la partie non filtrée est aussi inchangée, \textit{i.e.} $G\orbit{\omega}(m(v)) \setminus m(L\orbit{\omega}(v)) = H\orbit{\omega}(m'(v)) \setminus m'(R\orbit{\omega}(v))$.
-	Donc $G\orbit{\omega}(m(v))$ est une orbite inchangée.
-
-	Supposons que l'orbite $G\orbit{\omega}(m(v))$ est inchangée entre $G$ et $H$, c'est-à-dire que $G\orbit{\omega}(m(v)) = H\orbit{\omega}(m'(v))$.
-	Alors par définition de la
-	transformation directe, $L\orbit{\omega}(v)$ est une orbite inchangée par la règle $r$.
-
-\end{proof}
-
-Remarquons qu'en plus des orbites (partiellement) filtrées, les orbites de $G$ non filtrées (telles que $G\orbit{\omega}(v) \cap m(L) = \emptyset$) sont par définition inchangées. On dira que la règle est \emph{sans effet} sur l'orbite.
-
-\todo{exemple sur les deux cas non-changement et sans effet}
-
 \subsection{Scission}
-
-%\maxime{Reprendre ici}
-
-\todo{Ajouter illustration règle instanciée scission avant/après}
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[scale=0.3]{{figures/}jerboa-base-rule-split}
-%   \caption{Règle $L \longrightarrow R$ de triangulation d'un quadrangle isolé}
-%   \label{fig:base-rule-split}
-% \end{figure}
+\label{sec:formalisation-evenement-regles-transfo-graphe-scission}
 
 % La figure \textbf{fig:base-rule-split} présente la règle de triangulation d'une
 % face quadrangulaire isolée, qui scinde cette face en quatre triangles. Comme
@@ -186,13 +86,13 @@ Remarquons qu'en plus des orbites (partiellement) filtrées, les orbites de $G$ 
 % $L\orbit{0,2,3}(n0)$ (inchangée par la règle) est non-vide.
 
 Reprenons la règle de triangulation (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
-Comme défini dans la section précédente, la face $L\orbit{0,1,3}(n_{0})$ est
-scindée en quatre faces distinctes dont $R\orbit{0,1,3}(n_{0})$. %
-Réciproquement, la face $R\orbit{0,1,3}(n_{0})$ est issue de la scission de la face
-$L\orbit{0,1,3}(n_{0})$ localisée par l'arête $L\orbit{0,2,3}(n_{0})$. %
-Cette dernière est l'\emph{\highlight{origine}} de $R\orbit{0,1,3}(n_{0})$, c'est-à-dire que
-$R\orbit{0,1,3}(n_{0})$ est l'unique face issue de la scission de
-$L\orbit{0,1,3}(n_{0})$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n_{0})$
+Comme défini dans la section précédente, la face $L\orbit{0,1,3}(n0)$ est
+scindée en quatre faces distinctes dont $R\orbit{0,1,3}(n0)$. %
+Réciproquement, la face $R\orbit{0,1,3}(n0)$ est issue de la scission de la face
+$L\orbit{0,1,3}(n0)$ localisée par l'arête $L\orbit{0,2,3}(n0)$. %
+Cette dernière est l'\emph{\highlight{origine}} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que
+$R\orbit{0,1,3}(n0)$ est l'unique face issue de la scission de
+$L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$
 (inchangée par la règle) est non-vide. %
 
 \begin{proposition}[Scission d'orbite]
@@ -214,111 +114,166 @@ $L\orbit{0,1,3}(n_{0})$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n_{0})
 	\end{enumerate}
 \end{proposition}
 
-%
-
 \begin{proof}
 
-	Point 1 :
+	~
 
-	Supposons que l'orbite $L\orbit{\omega}(v_1)$ est scindée dans la règle $r : L \longrightarrow R$ avec l'orbite $R\orbit{\omega}(v_1)$ entièrement filtrée. L'orbite $G\orbit{\omega}(m(v_1))$ n'est pas nécessairement
-	entièrement filtrée, c'est-à-dire que $m(L\orbit{\omega}(v_1)) \subset G\orbit{\omega}(m(v_1))$. De même, $m'(R\orbit{\omega}(v_2)) \subset H\orbit{\omega}(m'(v_2))$.
-	Par hypothèse, l'orbite $R\orbit{\omega}(v_1)$ est entièrement filtrée, donc $H\orbit{\omega}(m'(v_1)) = m'(R\orbit{\omega}(v_1))$, et est distincte de $R\orbit{\omega}(v_2))$, donc $m'(R\orbit{\omega}(v_1)) \cap m'(R\orbit{\omega}(v_2)) = \emptyset$.
-	Donc $H\orbit{\omega}(m'(v_1)) \cap m'(R\orbit{\omega}(v_2)) = \emptyset$.
-	Or $m'(v_2)$ n'est pas un n\oe ud de $H\orbit{\omega}(m'(v_1))$, donc $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$ sont des orbites distinctes.
-	Et donc $G\orbit{\omega}(m(v_1))$ est une orbite
-	scindée.
+	\begin{enumerate}
+		\item Supposons que l'orbite $L\orbit{\omega}(v_1)$ est scindée dans la règle
+		      $r : L \longrightarrow R$ avec l'orbite $R\orbit{\omega}(v_1)$ entièrement filtrée.
+		      L'orbite $G\orbit{\omega}(m(v_1))$ n'est pas nécessairement entièrement
+		      filtrée, c'est-à-dire que $m(L\orbit{\omega}(v_1)) \subset G\orbit{\omega}(m(v_1))$.
+		      De même, $m'(R\orbit{\omega}(v_2)) \subset H\orbit{\omega}(m'(v_2))$. Par hypothèse,
+		      l'orbite $R\orbit{\omega}(v_1)$ est entièrement filtrée, donc
+		      $H\orbit{\omega}(m'(v_1)) = m'(R\orbit{\omega}(v_1))$, et est distincte de
+		      $R\orbit{\omega}(v_2))$, donc
+		      $m'(R\orbit{\omega}(v_1)) \cap m'(R\orbit{\omega}(v_2)) = \emptyset$. Donc
+		      $H\orbit{\omega}(m'(v_1)) \cap m'(R\orbit{\omega}(v_2)) = \emptyset$. Or $m'(v_2)$ n'est
+		      pas un n\oe ud de $H\orbit{\omega}(m'(v_1))$, donc $H\orbit{\omega}(m'(v_1))$ et
+		      $H\orbit{\omega}(m'(v_2))$ sont des orbites distinctes. Et donc
+		      $G\orbit{\omega}(m(v_1))$ est une orbite scindée.
+		\item Supposons que l'orbite $L\orbit{\omega}(v_1)$ est scindée dans la règle
+		      $r : L \longrightarrow R$ avec $R\orbit{\omega}(v_1)$ et $R\orbit{\omega}(v_2)$ toutes deux
+		      partiellement filtrées.
 
-	Point 2 :
+		      Si $m'(v_1)$ et $m'(v_2)$ appartiennent à la même $\orbit{\omega}$-orbite
+		      dans $H$, c'est-à-dire $H\orbit{\omega}(m'(v_1)) = H\orbit{\omega}(m'(v_2))$,
+		      alors l'orbite $G\orbit{\omega}(m(v_1))$ est modifiée dans la
+		      transformation directe.
 
-	Supposons que l'orbite $L\orbit{\omega}(v_1)$ est scindée dans la règle $r : L \longrightarrow R$ avec $R\orbit{\omega}(v_1)$ et $R\orbit{\omega}(v_2)$ toutes deux partiellement filtrées.
+		      Si $m'(v_1)$ et $m'(v_2)$ appartiennent à deux $\orbit{\omega}$-orbites
+		      dans $H$, c'est-à-dire
+		      $H\orbit{\omega}(m'(v_1)) \cap H\orbit{\omega}(m'(v_2)) = \emptyset$, alors l'orbite
+		      $G\orbit{\omega}(m(v_1))$ est scindée dans la transformation directe.
+		\item Supposons que l'orbite $G\orbit{\omega}(m(v_1))$ est scindée dans $H$ en
+		      $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$, c'est-à-dire que
+		      $G\orbit{\omega}(m(v_1)) = G\orbit{\omega}(m(v_2))$ et
+		      $H\orbit{\omega}(m'(v_1)) \neq H\orbit{\omega}(m'(v_2))$. %
+		      Résonnons par l'absurde. %
+		      Supposons que pour tout couple de n\oe uds préservés $k_1$ et $k_2$ de
+		      $K = L \cap R$, $L\orbit{\omega}(k_1)$ n'est pas scindée en $R\orbit{\omega}(k_1)$
+		      et $R\orbit{\omega}(k_2)$. Alors pour tout chemin $c$ dans $G$ de $m(v_1)$
+		      à $m(v_2)$ étiqueté dans $\orbit{\omega}^*$ ( \textit{i.e.}, $c$ est un
+		      chemin de $G\orbit{\omega}(m(v_1))$), $c$ n'existe pas dans $H$. %
+		      Donc par définition de la transformation directe, il existe un
+		      sous-chemin filtré $m(c')$ de $c$ tel que $c'$ est un chemin de $L$
+		      mais pas de $R$. %
 
-	Si $m'(v_1)$ et $m'(v_2)$ appartiennent à la même $\orbit{\omega}$-orbite dans $H$, c'est-à-dire
-	$H\orbit{\omega}(m'(v_1)) = H\orbit{\omega}(m'(v_2))$, alors l'orbite $G\orbit{\omega}(m(v_1))$ est modifiée dans la transformation directe.
-
-	Si $m'(v_1)$ et $m'(v_2)$ appartiennent à deux $\orbit{\omega}$-orbites  dans $H$, c'est-à-dire
-	$H\orbit{\omega}(m'(v_1)) \cap H\orbit{\omega}(m'(v_2)) = \emptyset$, alors l'orbite $G\orbit{\omega}(m(v_1))$ est scindée dans la transformation directe.
-
-	Point 3 :
-
-	Supposons que l'orbite $G\orbit{\omega}(m(v_1))$ est scindée dans $H$ en $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$, c'est-à-dire que $G\orbit{\omega}(m(v_1)) = G\orbit{\omega}(m(v_2))$ et $H\orbit{\omega}(m'(v_1)) \neq H\orbit{\omega}(m'(v_2))$. %
-	Résonnons par l'absurde. %
-	Supposons que pour tout couple de n\oe uds préservés $k_1$ et $k_2$ de $K = L \cap R$, $L\orbit{\omega}(k_1)$ n'est pas scindée en $R\orbit{\omega}(k_1)$ et $R\orbit{\omega}(k_2)$.
-	Alors pour tout chemin $c$ dans $G$ de $m(v_1)$ à $m(v_2)$ étiqueté dans $\orbit{\omega}^*$ ( \textit{i.e.}, $c$ est un chemin de $G\orbit{\omega}(m(v_1))$), $c$ n'existe pas dans $H$. %
-	Donc par définition de la transformation directe, il existe un sous-chemin filtré $m(c')$ de $c$ tel que $c'$ est un chemin de $L$ mais pas de $R$. %
-
-	Alors par définition de la transformation directe, $R\orbit{\omega}(v_1) \neq R\orbit{\omega}(v_2)$. Supposons que $L\orbit{\omega}(v_1) \neq L\orbit{\omega}(v_2)$ \todo{reprendre ici: ne pas rentrer trop dans le détail, on ne veut pas énumérer une infinité de chemins}
-
-	est une orbite scindée par la règle $r$.
+		      Alors par définition de la transformation directe, $R\orbit{\omega}(v_1) \neq R\orbit{\omega}(v_2)$. Supposons que $L\orbit{\omega}(v_1) \neq L\orbit{\omega}(v_2)$ \todo{reprendre ici: ne pas rentrer trop dans le détail, on ne veut pas énumérer une infinité de chemins}
+		      est une orbite scindée par la règle $r$. %
+	\end{enumerate}
 \end{proof}
 
-Si les deux orbites scindées ne sont ni l'une ni l'autre entièrement filtrées par la règle, alors selon l'objet transformé, elles peuvent filtrer des orbites différentes ou une seule et même orbite. Donc selon les cas, la scission peut exister ou non dans l'objet.
+Si les deux orbites scindées ne sont ni l'une ni l'autre entièrement filtrées
+par la règle, alors selon l'objet transformé, elles peuvent filtrer des orbites
+différentes ou une seule et même orbite. %
+Donc selon les cas, la scission peut exister ou non dans l'objet. %
 
-\todo{Ajouter illustration règle instanciée insertion arête}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=0.45]{figures/jerboa-partial-base-rule-split.pdf}
-%     \caption{Règle de scission de face par insertion d'une arête}
-%     \label{fig:jerboa-partial-base-rule-split}
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[height=150pt]{regle-expl-insertion-arete}
+	\caption{Règle de scission de face par insertion d'une arête}
+	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete}
+\end{figure}
+\begin{figure}[htbp!]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-G}
+		\caption{Face d'un cube}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-G}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-H}
+		\caption{Face scindée d'un cube}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-H}
+	\end{subfigure}
+
+	~
+
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-G}
+		\caption{Cylindre}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-G}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-H}
+		\caption{Cylindre avec une arête}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-H}
+	\end{subfigure}
+	\caption{Exemples d'application de la règle d'insertion d'arête (figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete})}
+	\label{fig:formalisation-evenement-regles-transfo-graphe-scission-inst}
+\end{figure}
+
+% \begin{figure}[htbp!]
+% 	\centering
+% 	\caption{Application de la règle (figure \ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete}) d'insertion d'arête sur un cylindre}
+% 	\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre}
 % \end{figure}
 
-\todo{Ajouter illustrations insertion arête face cube }
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[scale=0.3]{figures/cube.pdf}
-%         \caption{Face d'un cube}
-%         \label{fig:cube-face-before-insert-edge}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[scale=0.22]{figures/cube-split-face.pdf}
-%         \caption{Face scindée d'un cube}
-%         \label{fig:cube-face-after-insert-edge}
-%     \end{subfigure}
-%     \caption{Application de la règle (figure \ref{fig:jerboa-partial-base-rule-split}) d'insertion d'arête sur un cube}
-%     \label{fig:cube-face-before-after-insert-edge}
-% \end{figure}
-
-\todo{Ajouter illustrations insertion arête «~cylindre~»}
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=.5\linewidth]{figures/cylinder.pdf}
-%         \caption{Cylindre}
-%         \label{fig:cylinder}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=.5\linewidth]{figures/cylinder-with-edge.pdf}
-%         \caption{Cylindre avec une arête}
-%         \label{fig:cylinder-after-insert-edge}
-%     \end{subfigure}
-%     \caption{Application de la règle (figure \ref{fig:jerboa-partial-base-rule-split}) d'insertion d'arête sur un cylindre}
-%     \label{fig:cylinder-before-after-insert-edge}
-% \end{figure}
-
-La figure \textbf{fig:jerboa-partial-base-rule-split} représente une règle
-d'insertion d'arête. Celle-ci ne filtrant que partiellement la face à scinder,
-il est possible mais pas certain que l'application de cette règle résulte en la
-scission d'une face. Les figures \textbf{fig:cube-face-before-after-insert-edge}
-et \textbf{fig:cylinder-before-after-insert-edge} illustrent deux cas de
-figures. En figure~\textbf{fig:cube-face-after-insert-edge}, les deux orbites
-reliées par une arête appartiennent à la même face et donc l'arête insérée
-scinde une face en deux. Dans la figure~\textbf{fig:cylinder-after-insert-edge},
+La figure
+\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete}
+représente une règle d'insertion d'arête. Celle-ci ne filtrant que partiellement
+la face à scinder, il est possible, mais pas certain, que l'application de cette
+règle résulte en la scission d'une face. La figure
+\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-inst} illustre deux
+cas d'application de l'insertion d'arête. %
+En figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-H},
+les deux orbites reliées par une arête appartiennent à la même face et donc
+l'arête insérée scinde une face en deux. Dans la
+figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-H},
 les deux orbites reliées par une arête sont distinctes, donc l'arête insérée
 joint deux faces sans provoquer de scission.
 
 
+\subsection{Suppression}
+\label{sec:formalisation-evenement-regles-transfo-graphe-suppression}
+
+
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=.8\textwidth]{regle-expl-dissolution-sommet-quad}
+	\caption{Règle $L \longrightarrow R$ de dissolution de sommet dans une face carrée}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}
+\end{figure}
+
+% La figure \textbf{fig:base-rule-delete} représente la suppression d'une face quadrangulaire isolée, c'est-à-dire qui n'est connectée à aucun autre objet. Comme défini dans la section \textbf{sec:suivi-suppression}, l'orbite $R\orbit{0,1,3}(n0)$ est supprimée dans $R$. Nous allons montrer que cette face est également supprimée lors de la transformation directe entre $G$ et $H$.
+
+La règle, dans la figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}, est la règle inverse de la triangulation
+d'une face carrée, c'est-à-dire celle qui dissout un sommet. %
+Comme défini dans la section précédente, l'orbite $L\orbit{1,2,3}(n16)$ est supprimée dans $R$. %
+Nous allons montrer que ce sommet est également supprimé lors de la
+transformation directe entre $G$ et $H$. %
+
+\begin{proposition}[Suppression d'orbite]
+	\label{prop:base-rule-delete}
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et $v$ un n\oe ud de $L$.
+
+	Une orbite $L\orbit{\omega}(v)$ est \emph{supprimée} dans la règle $r$,
+	c'est-à-dire entre $L$ et $R$, si est seulement si $G\orbit{\omega}(m(v))$ est \emph{supprimée} dans
+	la transformation directe, c'est-à-dire entre $G$ et $H$.
+\end{proposition}
+
+\begin{proof}
+	Supposons que l'orbite $L\orbit{\omega}(v)$ est supprimée dans la règle $r : L \longrightarrow R$.
+	D'après la condition d'arcs incidents sur la règle $r$, tout n\oe ud supprimé de $L$ et donc tout
+	n\oe ud de l'orbite $L\orbit{\omega}(v)$ est la source d'un $i$-arc, pour tout $i$ de $\orbit{\omega}$.
+	Donc l'orbite $G\orbit{\omega}(m(v))$ est entièrement filtrée par la règle, c'est-à-dire
+	$G\orbit{\omega}(m(v)) =  m(L\orbit{\omega}(v))$. Et donc $G\orbit{\omega}(m(v))$ est une orbite supprimée.
+
+	Supposons que l'orbite $G\orbit{\omega}(m(v))$ est supprimée dans $H$. Alors par définition de la
+	transformation directe, $G\orbit{\omega}(m(v))$ est l'image de l'orbite $L\orbit{\omega}(v)$ par $m$.
+	Et donc $L\orbit{\omega}(v)$ est une orbite supprimée par la règle $r$.
+\end{proof}
+
+
 \subsection{Fusion}
-
-\maxime{Choisir l'exemple de la contraction d'une arête}
-
-\todo{Ajouter illustration règle instanciée de \st{contraction face triangulaire} contraction arête d'après les commentaires !}
-%
+\label{sec:formalisation-evenement-regles-transfo-graphe-fusion}
 
 % Le cas de la fusion est symétrique par rapport à la scission.
 % La figure \textbf{fig:base-rule-merge} représente la contraction d'une face triangulaire en un sommet. Ainsi, elle fusionne les trois sommets de la face initiale en un seul.
@@ -327,12 +282,12 @@ joint deux faces sans provoquer de scission.
 Reprenons la règle de dissolution de sommet (Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}). %
 Comme défini dans la section précédente, le cas de la fusion est symétrique par
 rapport à la fusion. %
-Ainsi, les faces incidentes aux n\oe uds $n_{0}$, $n_{2}$, $n_{4}$ et $n_{6}$
-dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n_{0})$. %
-Réciproquement, la face $R\orbit{0,1,3}(n_{0})$ est issue de la fusion des faces
-incidentes aux n\oe uds $n_{0}$, $n_{2}$, $n_{4}$ et $n_{6}$ localisées par le
-sommet $L\orbit{1,2,3}(n_{16})$. %
-Ce sommet est l'\highlight{origine} de $R\orbit{0,1,3}(n_{0})$ car sa
+Ainsi, les faces incidentes aux n\oe uds $n0$, $n_{2}$, $n_{4}$ et $n_{6}$
+dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n0)$. %
+Réciproquement, la face $R\orbit{0,1,3}(n0)$ est issue de la fusion des faces
+incidentes aux n\oe uds $n0$, $n_{2}$, $n_{4}$ et $n_{6}$ localisées par le
+sommet $L\orbit{1,2,3}(n16)$. %
+Ce sommet est l'\highlight{origine} de $R\orbit{0,1,3}(n0)$ car sa
 suppression (par dissolution) entraîne la fusion de ses faces adjacentes. %
 
 \begin{proposition}[Fusion d'orbites]
@@ -365,139 +320,245 @@ suppression (par dissolution) entraîne la fusion de ses faces adjacentes. %
 
 \begin{proof}
 
-	Point 1 :
+	~
 
-	Supposons que les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont fusionnées dans la règle $r : L \longrightarrow R$ avec l'orbite $L\orbit{\omega}(v_1)$ entièrement filtrée. L'orbite $H\orbit{\omega}(m'(v_1))$ n'est pas nécessairement
-	entièrement filtrée, c'est-à-dire que $m'(R\orbit{\omega}(v_1)) \subset H\orbit{\omega}(m'(v_1))$. De même, $m(L\orbit{\omega}(v_2)) \subset G\orbit{\omega}(m(v_2))$.
-	Par hypothèse, l'orbite $L\orbit{\omega}(v_1)$ est entièrement filtrée, donc $G\orbit{\omega}(m(v_1))= m(L\orbit{\omega}(v_1))$, et est distincte de $L\orbit{\omega}(v_2))$, donc $m(L\orbit{\omega}(v_1)) \cap m(L\orbit{\omega}(v_2)) = \emptyset$.
-	Donc $G\orbit{\omega}(m(v_1)) \cap m(L\orbit{\omega}(v_2)) = \emptyset$.
-	Or si $m(v_2)$ n'est pas un n\oe ud de $G\orbit{\omega}(m(v_1))$, alors $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$ sont des orbites distinctes.
-	Et donc $H\orbit{\omega}(m'(v_1))$ est une orbite scindée.
+	\begin{enumerate}
+		\item Supposons que les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont
+		      fusionnées dans la règle $r : L \longrightarrow R$ avec l'orbite $L\orbit{\omega}(v_1)$
+		      entièrement filtrée. L'orbite $H\orbit{\omega}(m'(v_1))$ n'est pas
+		      nécessairement entièrement filtrée, c'est-à-dire que
+		      $m'(R\orbit{\omega}(v_1)) \subset H\orbit{\omega}(m'(v_1))$. De même,
+		      $m(L\orbit{\omega}(v_2)) \subset G\orbit{\omega}(m(v_2))$. Par hypothèse, l'orbite
+		      $L\orbit{\omega}(v_1)$ est entièrement filtrée, donc
+		      $G\orbit{\omega}(m(v_1))= m(L\orbit{\omega}(v_1))$, et est distincte de
+		      $L\orbit{\omega}(v_2))$, donc
+		      $m(L\orbit{\omega}(v_1)) \cap m(L\orbit{\omega}(v_2)) = \emptyset$. Donc
+		      $G\orbit{\omega}(m(v_1)) \cap m(L\orbit{\omega}(v_2)) = \emptyset$. Or si $m(v_2)$ n'est
+		      pas un n\oe ud de $G\orbit{\omega}(m(v_1))$, alors $G\orbit{\omega}(m(v_1))$ et
+		      $G\orbit{\omega}(m(v_2))$ sont des orbites distinctes. Et donc
+		      $H\orbit{\omega}(m'(v_1))$ est une orbite scindée.
 
-	Point 2 :
+		\item Supposons que les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont
+		      fusionnées dans la règle $r : L \longrightarrow R$ avec $L\orbit{\omega}(v_1)$ et
+		      $L\orbit{\omega}(v_2)$ toutes deux partiellement filtrées.
 
-	Supposons que les orbites $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont fusionnées dans la règle $r : L \longrightarrow R$ avec $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ toutes deux partiellement filtrées.
+		      Si $m(v_1)$ et $m(v_2)$ appartiennent à la même $\orbit{\omega}$-orbite
+		      dans $G$, c'est-à-dire $G\orbit{\omega}(m(v_1)) = G\orbit{\omega}(m(v_2))$,
+		      alors l'orbite $H\orbit{\omega}(m'(v_1))$ est modifiée dans la
+		      transformation directe.
 
-	Si $m(v_1)$ et $m(v_2)$ appartiennent à la même $\orbit{\omega}$-orbite dans $G$, c'est-à-dire
-	$G\orbit{\omega}(m(v_1)) = G\orbit{\omega}(m(v_2))$, alors l'orbite $H\orbit{\omega}(m'(v_1))$ est modifiée dans la transformation directe.
-
-	Si $m(v_1)$ et $m(v_2)$ appartiennent à deux $\orbit{\omega}$-orbites dans $G$, c'est-à-dire
-	$G\orbit{\omega}(m(v_1)) \cap G\orbit{\omega}(m(v_2)) = \emptyset$, alors les orbites $G\orbit{\omega}(m(v_1))$
-	et $G\orbit{\omega}(m(v_2))$ sont fusionnées dans la transformation directe.
-
-	Point 3 :
-
-	Supposons que les orbites $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$ sont fusionnées dans $H$, c'est-à-dire que $G\orbit{\omega}(m(v_1)) \cup G\orbit{\omega}(m(v_2)) \subset H\orbit{\omega}(m'(v_1))$.
-	Alors par définition de la transformation directe, $L\orbit{\omega}(v_1)$ et $L\orbit{\omega}(v_2)$ sont des orbites fusionnées par la règle $r$.
+		      Si $m(v_1)$ et $m(v_2)$ appartiennent à deux $\orbit{\omega}$-orbites dans $G$, c'est-à-dire
+		      $G\orbit{\omega}(m(v_1)) \cap G\orbit{\omega}(m(v_2)) = \emptyset$, alors les orbites $G\orbit{\omega}(m(v_1))$
+		      et $G\orbit{\omega}(m(v_2))$ sont fusionnées dans la transformation directe.
+		\item Supposons que les orbites $G\orbit{\omega}(m(v_1))$ et $G\orbit{\omega}(m(v_2))$
+		      sont fusionnées dans $H$, c'est-à-dire que
+		      $G\orbit{\omega}(m(v_1)) \cup G\orbit{\omega}(m(v_2)) \subset H\orbit{\omega}(m'(v_1))$. Alors,
+		      par définition de la transformation directe, $L\orbit{\omega}(v_1)$ et
+		      $L\orbit{\omega}(v_2)$ sont des orbites fusionnées par la règle $r$. %
+	\end{enumerate}
 \end{proof}
 
-\todo{Ajouter illustration règle instanciée suppression d'arête (fusion de deux faces)}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=0.45]{figures/jerboa-partial-base-rule-merge.pdf}
-%     \caption{Règle de suppression d'une arête}
-%     \label{fig:jerboa-partial-base-rule-merge}
-% \end{figure}
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[height=150pt]{regle-expl-suppression-arete}
+	\caption{Règle de suppression d'une arête}
+	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-H}
+		\caption{Cube}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-g}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-G}
+		\caption{Cube avec une arête supprimée}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-h}
+	\end{subfigure}
+
+	~
+
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-H}
+		\caption{Cylindre avec arête}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-g}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-G}
+		\caption{Cylindre}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h}
+	\end{subfigure}
+	\caption{Application de la règle de suppression d'arête (figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete})}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-inst}
+\end{figure}
 
 Si les deux orbites fusionnées ne sont ni l'une ni l'autre entièrement filtrées
 par la règle, alors selon l'objet transformé, elles peuvent filtrer des orbites
 différentes ou une seule et même orbite. C'est le cas par exemple de la règle de
-suppression d'arête, figure \textbf{fig:jerboa-partial-base-rule-merge} qui peut
-fusionner 2 faces de part et d'autre de l'arête si il s'agit de deux faces
+suppression d'arête, figure \ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete} qui peut
+fusionner 2 faces de part et d'autre de l'arête s'il s'agit de deux faces
 distinctes.
 
-\todo{Ajouter illustrations cube suppression arête verticale}
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=.5\linewidth]{figures/cube.pdf}
-%         \caption{Cube}
-%         \label{fig:cube-before-delete-edge}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=0.5\linewidth]{figures/cube-merge-faces.pdf}
-%         \caption{Cube avec une arête supprimée}
-%         \label{fig:jerboa-cube-edge-removed}
-%     \end{subfigure}
 
-%     \caption{Application de la règle (figure \ref{fig:jerboa-partial-base-rule-merge}) de suppression d'arête sur un cube}
-%     \label{fig:cube-before-after-delete-edge}
-% \end{figure}
+En effet, selon l'objet considéré, la fusion pourra ou non avoir lieu dans
+l'objet. %
+Par exemple, la figure
+\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-inst} montre la
+suppression d'une arête entre deux faces distinctes qui sont donc fusionnées par
+application de la règle
+figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete}. %
 
-En effet, selon l'objet considéré, la fusion pourra ou non avoir lieu dans l'objet. Par exemple, la figure \textbf{fig:cube-before-after-delete-edge} montre la suppression d'une arête entre deux faces distinctes qui sont donc fusionnées par application de la règle figure~\textbf{fig:jerboa-partial-base-rule-merge}.
+Au contraire, dans la
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h},
+l'application de la même règle (figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete})
+supprime une arête incidente à deux cotés opposés de la même face. %
+La face est donc simplement modifiée. %
 
-\todo{Ajouter illustrations suppression arête sur «~cylindre~»}
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=.5\linewidth]{figures/cylinder-with-edge.pdf}
-%         \caption{Cylindre avec arête}
-%         \label{fig:cylinder-plus-edge-before-delete-edge}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=.5\linewidth]{figures/cylinder.pdf}
-%         \caption{Cylindre}
-%         \label{fig:cylinder-example}
-%     \end{subfigure}
-%     \caption{Application de la règle (figure \ref{fig:jerboa-partial-base-rule-merge}) de suppression d'arête sur un cylindre}
-%     \label{fig:cylinder-after-delete-edge}
-% \end{figure}
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[scale=0.4]{regle-expl-rotation-arete}
+	\caption{Règle de rotation d'arête «~edge flip~»}
+	\label{fig:formalisation-evenements-regles-transfo-regle-expl-rotation-arete}
+\end{figure}
 
-Au contraire, dans la figure \textbf{fig:cylinder-after-delete-edge}, l'application de la même règle (figure \textbf{fig:jerboa-partial-base-rule-merge}) supprime une arrête incidente des deux cotés à la même face.
-La face n'est donc pas fusionnée, mais seulement modifiée.
+\begin{remarque}
+	Dans certains cas, il peut y avoir simultanément une fusion et une scission.
+\end{remarque}
 
-\todo{Ajouter illustration règle instanciée de renversement d'arête}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=0.4]{figures/jerboa-base-rule-edge-flip.pdf}
-%     \caption{Règle de «edge flip»}
-%     \label{fig:base-rule-edge-flip}
-% \end{figure}
+Par exemple, la figure
+\ref{fig:formalisation-evenements-regles-transfo-regle-expl-rotation-arete}
+représente une règle de modification de maillage triangulaire appelée «edge
+flip». %
+Cette dernière provoque simultanément la scission (la face incidente à $n2$ est
+scindée en deux faces respectivement incidentes à $n2$ et $n3$) et la fusion de
+deux faces (les faces incidentes respectivement à $n0$ et $n1$ sont
+fusionnées). %
 
-Remarquons que dans certains cas il peut, simultanément, y avoir une fusion et une scission.
-Par exemple, la figure \textbf{fig:base-rule-edge-flip} représente une règle de modification de maillage triangulaire appelée «edge flip». Cette dernière procède de manière simultanée en une scission (la face incidente à $n2$ est scindée en deux faces respectivement incidentes à $n2$ et $n3$) et une fusion de deux faces (les faces incidentes respectivement à $n0$ et $n1$ sont fusionnées).
-
-\todo{Ajouter illustrations patch renversement arête}
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=0.7\linewidth]{figures/triangulated-plan.pdf}
-%         \caption{Plan triangulé}
-%         \label{fig:triangulated-plan}
-%     \end{subfigure}
-%     %\hfill
-%     %\begin{subfigure}{0.3\textwidth}
-%     %    \centering
-%     %    \includegraphics[width=0.5\linewidth]{figures/triangulated-plan-intermediary-edge-flip.pdf}
-%     %    \caption{Étape intermédiaire}
-%     %    \label{fig:edge-flip-middle-step}
-%     %\end{subfigure}
-%     %\hfill
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=0.7\linewidth]{figures/triangulated-plan-with-edge-flip.pdf}
-%         \caption{Étape finale}
-%         \label{fig:triangulated-plan-edge-flipped}
-%     \end{subfigure}
-%     \caption{Application de la règle (figure \ref{fig:base-rule-edge-flip}) de «edge flip» sur un plan triangulé}
-%     \label{fig:before-after-edge-flip}
-% \end{figure}
+\begin{figure}[htbp!]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.7\linewidth]{g-carte-rotation-arete-3D-g}
+		\caption{$G$}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-scission-g}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.7\linewidth]{g-carte-rotation-arete-3D-h}
+		\caption{$H$}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-scission-h}
+	\end{subfigure}
+	\caption{Application de la règle de «edge flip» (figure~\ref{fig:formalisation-evenements-regles-transfo-regle-expl-rotation-arete})}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-scission-inst}
+\end{figure}
 
 \maxime{mettre en évidence les points de scission/fusion avec des brins colorés et/ou numéros}
 
-La figure \textbf{fig:before-after-edge-flip} illustre l'application de cette règle sur un maillage. Les deux faces triangulaires sont à la fois fusionnées et scindée en deux nouvelles faces triangulaires.
+La figure
+\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-scission-inst}
+illustre l'application de cette règle sur un maillage. %
+Les deux faces triangulaires sont à la fois fusionnées et scindées en deux
+nouvelles faces triangulaires. %
 
-Notons que le même phénomène se produit sur l'application figure \textbf{fig:cylinder-after-delete-edge} de la règle de suppression d'arête de la figure \textbf{fig:jerboa-partial-base-rule-merge}. En effet, la suppression de la seule arête qui relie le haut et la bas de la face, déconnecte la G-carte en deux composantes connexes, et donc la face en deux nouvelles faces carrées. Mais cet exemple est un cas particulier dégénéré.\xavier{(2022-04-04) Es-tu sûr qu'il s'agit du même phénomène ? Il y a bien une scission, mais où est la fusion~?}
+Notons que le même phénomène se produit sur l'application
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h}
+de la règle de suppression d'arête de la
+figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete}. %
+En effet, la suppression de la seule arête qui relie le haut et le bas de la
+face, déconnecte la G-carte en deux composantes connexes, et donc la face en
+deux nouvelles faces carrées. %
+Mais cet exemple est un cas particulier dégénéré.\xavier{(2022-04-04) Es-tu sûr
+	qu'il s'agit du même phénomène ? Il y a bien une scission, mais où est la
+	fusion~?}
 
+
+\subsection{Non-changement}
+\label{sec:formalisation-evenement-regles-transfo-graphe-non-changement}
+
+% Dans la figure~\textbf{fig:base-rule-create} à la
+% page~\textbf{pageref!fig:base-rule-create}, comme défini dans la section
+% \textbf{sec:suivi-non-changement}, le sommet extrémité d'arête
+% $L\orbit{1,2,3}(n0)$ est inchangé entre $L$ et $R$. Nous allons montrer que ce
+% sommet est également inchangé lors de la transformation directe entre $G$ et
+% $H$.
+
+Reprenons la règle de triangulation (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
+Comme défini dans la section précédente, l'arête $L\orbit{0}(n0)$ est
+inchangée entre $L$ et $R$ (et il en va de même pour les arêtes incidentes aux
+n\oe uds $n_{2}$, $n_{4}$ et $n_{6}$). %
+Nous allons montrer que cette arête est également inchangée lors de la
+transformation directe entre $G$ et $H$. %
+
+\begin{proposition}[Non-changement d'orbite]
+	\label{prop:base-rule-unchange}
+	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$,  $v$ un n\oe ud de $K = L \cap R$.
+
+	Une orbite $L\orbit{\omega}(v)$ est \emph{inchangée}
+	dans la règle $r$, c'est-à-dire entre $L$ et $R$, si et seulement si $G\orbit{\omega}(m(v))$ est
+	\emph{inchangée} dans la transformation directe, c'est-à-dire entre $G$ et $H$.
+\end{proposition}
+
+\begin{proof}
+	Supposons que l'orbite $L\orbit{\omega}(v)$ est inchangée dans la règle
+	$r : L \longrightarrow R$. %
+	L'orbite $G\orbit{\omega}(m(v))$ n'est pas nécessairement entièrement filtrée,
+	c'est-à-dire $m(L\orbit{\omega}(v)) \subset G\orbit{\omega}(m(v))$ et
+	$m'(R\orbit{\omega}(v)) \subset H\orbit{\omega}(m'(v))$. %
+	Par définition de la transformation directe, la partie filtrée de l'orbite est
+	inchangée~: $m(L\orbit{\omega}(v)) = m'(R\orbit{\omega}(v))$. %
+	Par ailleurs, la partie non filtrée est aussi inchangée, \textit{i.e.}
+	$G\orbit{\omega}(m(v)) \setminus m(L\orbit{\omega}(v)) = H\orbit{\omega}(m'(v)) \setminus
+		m'(R\orbit{\omega}(v))$. %
+	Donc $G\orbit{\omega}(m(v))$ est une orbite inchangée. %
+
+	Supposons que l'orbite $G\orbit{\omega}(m(v))$ est inchangée entre $G$ et $H$,
+	c'est-à-dire que $G\orbit{\omega}(m(v)) = H\orbit{\omega}(m'(v))$. %
+	Alors par définition de la transformation directe, $L\orbit{\omega}(v)$ est une
+	orbite inchangée par la règle $r$. %
+\end{proof}
+
+\begin{remarque}
+	En plus des orbites (partiellement) filtrées, les orbites de $G$ non filtrées
+	(telles que $G\orbit{\omega}(v) \cap m(L) = \emptyset$) sont par définition inchangées. On
+	dira que la règle est \emph{sans effet} sur l'orbite. %
+\end{remarque}
+
+\begin{figure}[htbp!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-G}
+		\caption{\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-g}$G$}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-H}
+		\caption{\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-h}$H$}
+	\end{subfigure}
+	\caption{\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst}Triangulation
+		dans une G-carte~: sans effet}
+\end{figure}
+
+Par exemple, dans la
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst},
+l'application de la règle de triangulation n'a aucun effet sur la parti grisée
+dans $G$
+(Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-g})
+car celle-ci n'est pas filtrée par la règle. %
+Le résultat est que la partie grisée de $G$ est identique à la partie grisée de
+$H$
+(Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-h}). %
 
 \subsection{Modification}
+\label{sec:formalisation-evenement-regles-transfo-graphe-modification}
 
 Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En particulier, une modification dans la règle, même partiellement filtrée, ne peut pas produire une scission ou une fusion dans l'objet transformé.
 
@@ -521,10 +582,16 @@ Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En pa
 		\item pour tout n\oe ud préservé $v'$ de $K = L \cap R$, $v'$ est un n\oe ud de $L\orbit{\omega}(v)$ si et seulement si c'est un n\oe ud de $R\orbit{\omega}(v)$~; donc $m(v')$ est un n\oe ud de $G\orbit{\omega}(m(v))$ si et seulement si c'est un n\oe ud de $H\orbit{\omega}(m'(v))$~; par ailleurs, les n\oe uds non filtrés de $G\orbit{\omega}(m(v))$ sont nécessairement des n\oe uds non filtrés dans $H\orbit{\omega}(m'(v))$ ; par conséquent, pour tout n\oe ud $v^{\prime\prime}$ conservé de $G \cap H$, $v^{\prime\prime}$ est un n\oe ud de $G\orbit{\omega}(m(v))$ si et seulement si c'est un n\oe ud de $H\orbit{\omega}(m'(v))$~;
 	\end{itemize}
 
-	De manière réciproque, soit $v$ un n\oe ud conservé de $K = L\cap R$ tel que l'orbite $G\orbit{\omega}(m(v))$ est modifiée dans la transformation directe $G \xlongrightarrow{r,m} H$.
+	De manière réciproque, soit $v$ un n\oe ud conservé de $K = L\cap R$ tel que
+	l'orbite $G\orbit{\omega}(m(v))$ est modifiée dans la transformation directe
+	$G \xlongrightarrow{r,m} H$. %
 
-	Par définition $G\orbit{\omega}(m(v)) \neq H\orbit{\omega}(m'(v))$ et pour tout brin $v'$ de $G \cup H$, $v'$ appartient à $G\orbit{\omega}(m(v))$ si et seulement si il appartient à $H\orbit{\omega}(m'(v))$. %
-	Soit $v'$ est filtré, c'est-à-dire qu'il existe un n\oe ud $w$ de $K$ tel que $m(w) = v'$. Dans ce cas  \todo{a reprendre}
+	Par définition $G\orbit{\omega}(m(v)) \neq H\orbit{\omega}(m'(v))$ et pour tout brin $v'$
+	de $G \cup H$, $v'$ appartient à $G\orbit{\omega}(m(v))$ si et seulement si il
+	appartient à $H\orbit{\omega}(m'(v))$. %
+	Soit $v'$ est filtré, c'est-à-dire qu'il existe un n\oe ud $w$ de $K$ tel que
+	$m(w) = v'$. %
+	Dans ce cas \todo{a reprendre}
 	% Or d'après les propositions précédentes, il est impossible que $L\orbit{\omega}(v)$ soit inchangée ou supprimée dans la règle $r$, de même $R\orbit{\omega}(v)$ ne peut pas être créée dans $r$. En revanche, $L\orbit{\omega}(v)$ peut être scindée, fusionnée ou modifiée dans la règle~$r$.
 \end{proof}
 

@@ -1,6 +1,8 @@
-\section[Suivi et origine des évènements dans les règles Jerboa]{Les évènements dans
-  les règles Jerboa (suivi, origine et chemin)}
+\section{Les évènements dans les règles Jerboa }
 \label{sec:formalisation-evenement-regles-jerboa}
+
+\highlight{chapeau}
+
 \subsection{Suivi des orbites lors des applications des règles}
 \label{sec:suivi-regles-evenmnts}
 
@@ -8,34 +10,25 @@
 
 \subsection{Création}
 
-\todo{Ajouter illustration règle insertion sommet avec couleurs}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=.65]{figures/colored-rule-insert-vertex.pdf}
-%     \caption{Règle $L \longrightarrow R$ d'insertion d'un sommet sur une arête}
-%     \label{fig:rule-insert-vertex}
-% \end{figure}
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[height=50pt]{rule-face-triangulation-3D-no-color}
+	\caption{Règle de triangulation de face}
+	\label{fig:formalisation-evenement-regles-jerboa-regle-triangulation}
+\end{figure}
 
-\todo{Ajouter illustrations cube insertion sommet}
-% \begin{figure}[H]
-%     \centering
-%      \begin{subfigure}{.4\linewidth}
-%         \centering
-%         \includegraphics[width=.8\textwidth]{figures/inst-insert-vertex-filter-left.pdf}
-%         \caption{}
-%     \end{subfigure}
-%     \begin{subfigure}{.4\linewidth}
-%         \centering
-%         \includegraphics[width=.8\textwidth]{figures/inst-insert-vertex-step-final.pdf}
-%         \caption{}
-%     \end{subfigure}
-%     \caption{\maxime{remplir légendes et labels + description + repliement}}
-%     \label{fig:colored-rule-insert-vertex}
-% \end{figure}
+% La figure \textbf{fig:rule-insert-vertex} représente une règle d'insertion
+% d'un sommet sur une arête où les nœuds $n_2$ et $n_3$ (en rouge) dans $R$
+% filtrent l'orbite du sommet créé. \maxime{à refaire}
 
-La figure \textbf{fig:rule-insert-vertex} représente une règle d'insertion d'un sommet sur une arête où les nœuds $n_2$ et $n_3$ (en rouge) dans $R$ filtrent l'orbite du sommet créé. \maxime{à refaire}
+Continuons avec la règle de triangulation, cette fois sous la forme d'une règle
+Jerboa
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}). %
+Comme défini dans la section précédente un sommet est créé par règle de
+transformation de graphe. %
+Nous exprimons maintenant la création du sommet $R\orbit{1,2,3}(n2)$ dans $H$.
 
-\begin{proposition}
+\begin{proposition}[Création d'orbite]
 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
 	filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type
 	d'orbite $\orbit{\omega}$.
@@ -83,40 +76,26 @@ de brins.
 
 \subsection{Suppression}
 
-\todo{Ajouter illustration règle suppression face isolée}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=.65]{figures/inst-rule-isolated-face-delete.pdf}
-%     \caption{Règle de suppression d'une face isolée}
-%     \label{fig:inst-rule-isolated-face-delete}
-% \end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=50pt]{rule-dissolve-vertex-in-face-3D-no-color}
+	\caption{Règle de dissolution de sommet dans une face}
+	\label{fig:formalisation-evenement-regles-jerboa-regle-dissolution-sommet}
+\end{figure}
 
-\todo{Ajouter illustration suppression face isolée}
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}{.45\linewidth}
-%         \centering
-%         \includegraphics[width=.75\linewidth]{figures/inst-face-delete-isolated-face-left-filter.pdf}
-%         \caption{}
-%         \label{fig:inst-cube-delete-face-left-filter}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{.45\linewidth}
-%         \centering
-%         \includegraphics[width=.75\linewidth]{figures/inst-face-delete-isolated-face-final.pdf}
-%         \caption{}
-%         \label{fig:inst-cube-delete-face-final}
-%     \end{subfigure}
-%     \caption{Suppression d'une face carrée isolée}
-% \end{figure}
 
-La figure \textbf{fig:inst-rule-isolated-face-delete} représente une règle de
-suppression de face isolée où le nœud $n0$ dans $L$ filtre l'orbite de l'arête
-supprimée.
+% La figure \textbf{fig:inst-rule-isolated-face-delete} représente une règle de
+% suppression de face isolée où le nœud $n0$ dans $L$ filtre l'orbite de l'arête
+% supprimée.
 
-\maxime{Instanciation + description}
+Reprenons la règle de dissolution d'un sommet dans une face
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-dissolution-sommet}). %
+Comme défini dans la section précédente, un sommet est supprimé par la règle de
+transformation de graphe. %
+Nous exprimons maintenant la suppression du sommet $L\orbit{1,2,3}(n2)$ dans
+$H$. %
 
-\begin{proposition}
+\begin{proposition}[Suppression d'orbite]
 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
 	filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type
 	d'orbite $\orbit{\omega}$.
@@ -162,12 +141,20 @@ supprimée.
 
 \subsection{Non-changement}
 
-Dans l'insertion de sommet figure \textbf{fig:rule-insert-vertex}, le nœud $n0$
-(en noir) filtre partiellement les orbites sommet aux extrémités de l'arête sur
-laquelle est inséré le nouveau sommet. Ces orbites sont inchangées par
-l'insertion du nouveau sommet.
+% Dans l'insertion de sommet figure \textbf{fig:rule-insert-vertex}, le nœud $n0$
+% (en noir) filtre partiellement les orbites sommet aux extrémités de l'arête sur
+% laquelle est inséré le nouveau sommet. Ces orbites sont inchangées par
+% l'insertion du nouveau sommet.
 
-\begin{proposition} Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$,
+La règle de triangulation
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}),
+réécrit les étiquettes du n\oe ud $n0$, qui étaient $\orbit{0,\_,3}$ dans $L$ et
+deviennent $\orbit{0,1,3}$ dans $R$, l'étiquette $0$ est préservée. %
+Le n\oe ud $n0$ filtre ainsi des arêtes qui restent inchangées suite à la
+réécriture des étiquettes du n\oe ud. %
+
+\begin{proposition}[Non-changement d'orbite]
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$,
 	un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte
 	$G$, et un type d'orbite $\orbit{\omega}$.
 
@@ -210,14 +197,14 @@ l'insertion du nouveau sommet.
 
 \maxime{Instanciation + description}
 
-\subsection{Sans effet}
+\subsection{Sans effet \maxime{fusionner avec non-changement ?}}
 
 \maxime{appliquer la règle d'insertion de sommet sur un carré}
 
-Dans la figure ? le brin $a$ de $G$ n'est pas filtré, mais l'orbite sommet $G\orbit{1,2,3}(a)$ est partiellement filtrée par la règle\maxime{à continuer en fonction du dessin} […] donc l'orbite sommet $G\orbit{1,2,3}(a)$ est inchangée.
+Dans la figure ? le brin $a$ de $G$ n'est pas filtré, mais l'orbite sommet $G\orbit{1,2,3}(a)$ est partiellement filtrée par la règle \maxime{à continuer en fonction du dessin} […] donc l'orbite sommet $G\orbit{1,2,3}(a)$ est inchangée.
 Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas filtrée non plus, donc l'orbite sommet $G\orbit{1,2,3}(b)$ n'est pas affectée par l'application de la règle.
 
-\begin{definition}
+\begin{definition}[Orbite non affectée]
 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage
 	$\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite
 	$\orbit{\omega}$.
@@ -228,21 +215,66 @@ Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas f
 
 \subsection{Scission}
 
-\todo{Ajouter illustration règle de triangulation coloriée}
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale=.65]{figures/colored-rule-triangulate-face.pdf}
-%     \caption{Règle $L \longrightarrow R$ de triangulation d'une face}
-%     \label{fig:inst-rule-split-triangulation}
-% \end{figure}
+\begin{figure}[htbp!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-G}
+		\caption{\label{fig:formalisation-evenements-regles-jerboa-triangulation-face-g}$G$}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-H}
+		\caption{\label{fig:formalisation-evenement-regles-jerboa-triangulation-face-h}$H$}
+	\end{subfigure}
+	\caption{\label{fig:formalisation-evenement-regle-jerboa-triangulation-face}Triangulation
+		dans une G-carte~: scission d'une face}
+\end{figure}
 
-La figure \textbf{fig:inst-rule-split-triangulation} représente la règle de triangulation d'une face.
-Dans le membre gauche $L$ filtre une orbite face.
-Dans le membre droit $R$ construit la triangulation de la face.
 
-\maxime{instanciation et description nécessaire + règle de scission "explicite"}.
+Reprenons la règle de triangulation
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}) et son instanciation (Figure~\ref{fig:formalisation-evenement-regle-jerboa-triangulation-face}). %
+La règle filtre une face $L\orbit{0,1,3}(n0)$ puis construit sa triangulation
+$R\orbit{0,1,3}(n0)$. %
+On peut observer, dans la règle, que l'orbite $L\orbit{0,1,3}(n0)$ présente
+toutes les étiquettes de $\orbit{0,1,3}$, on s'intéresse particulièrement au
+$1$-étiquettes puisque la face filtrée est scindée au niveau de ses
+sommets. %
+Dans l'orbite $R\orbit{0,1,3}(n0)$, aucun des n\oe uds ne présente de
+$1$-étiquette. %
+Dans cette règle, cette réécriture d'étiquettes caractérise la scission d'une face.
 
-\begin{proposition}
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[height=50pt]{rule-unsew-a3}
+	\caption{Règle de décousure de deux faces liées par des $3$-liaisons}
+	\label{fig:formalisation-evenement-regles-jerboa-regle-decousure-faces}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.85\textwidth]{g-carte-decousure-3-G}
+		\caption{\label{fig:formalisation-evenements-regles-jerboa-evenement-scission-explicite-g}$G$}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.85\textwidth]{g-carte-decousure-3-H}
+		\caption{\label{fig:formalisation-evenement-regles-jerboa-evenement-scission-explicite-face-h}$H$}
+	\end{subfigure}
+	\caption{\label{fig:formalisation-evenement-regle-evenement-scission-explicite}Triangulation
+		dans une G-carte~: scission d'une face}
+\end{figure}
+
+Prenons un autre exemple de scission avec la règle de décousure de deux volumes
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-decousure-faces}). %
+Ici, la face $L\orbit{0,1,3}(n0)$ est scindée en deux dans $R$ puisque l'arc les
+reliant est découpé et forme une boucle auprès de chaque n\oe ud. %
+Cette scission est dite \emph{explicite}, à l'inverse des scission par réécritures des
+étiquettes qui sont dites \emph{implicites}
+
+\begin{proposition}[Scission d'orbite]
 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
 	filtrage $\underline{m}~: \underline{L} \rightarrow R$ sur une G-carte $G$, et un type d'orbite
 	$\orbit{\omega}$.
@@ -270,8 +302,8 @@ Dans le membre droit $R$ construit la triangulation de la face.
 		      $H\orbit{\omega}(m((v_1, v')))$ et $H\orbit{\omega}(m((v_2,v')))$, soit l'orbite est modifiée, dans la transformation directe
 		      $G \xlongrightarrow{r, \underline{m}} H$.
 
-		\item Si l'orbite $\underline{L}\orbit{\omega}(v_1)$ est scindée dans la règle du au k-ième arc implicite.
-		      Alors pour tout nœud $v'_1$ de l'orbite d'instanciation $O$ et $v'_2$ le $i$-voisin de $v'_1$ dans $O$ avec $i$ la dimension à la k-ième position de $l(h)$, $G\orbit{\omega}(m((v_1,v'_1)))$ est soit scindée en deux orbites
+		\item Si l'orbite $\underline{L}\orbit{\omega}(v_1)$ est scindée dans la règle du au $k$-ième arc implicite.
+		      Alors pour tout nœud $v'_1$ de l'orbite d'instanciation $O$ et $v'_2$ le $i$-voisin de $v'_1$ dans $O$ avec $i$ la dimension à la $k$-ième position de $l(h)$, $G\orbit{\omega}(m((v_1,v'_1)))$ est soit scindée en deux orbites
 		      $H\orbit{\omega}(m((v_1, v'_1)))$ et $H\orbit{\omega}(m((v_1,v'_2)))$, soit modifiée en une orbite unique $H\orbit{\omega}(m((v_1, v'_1))) = H\orbit{\omega}(m((v_1,v'_2)))$ dans la transformation directe
 		      $G \xlongrightarrow{r, \underline{m}} H$.
 	\end{enumerate}
@@ -280,50 +312,93 @@ Dans le membre droit $R$ construit la triangulation de la face.
 
 \begin{proof}
 	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$.
-	\\
+	\begin{enumerate}
+		\item Supposons que $\underline{L}\orbit{\omega}(v_1)$ est scindée en deux
+		      orbites $\underline{R}\orbit{\omega}(v_1)$ et $\underline{R}\orbit{\omega}(v_2)$ dans la
+		      règle du à des arcs explicites. Alors, par définition, il existe un chemin
+		      $e_1 e_2 ... e_j$ dans $L$ de source $v_1$, de cible $v_2$ et étiqueté par
+		      $i_1 i_2 ... i_j$ sur $\orbit{\omega}$, mais il n'existe pas de tel chemin
+		      $f_1 f_2 ... f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur
+		      $\orbit{\omega}$.
 
-	Cas 1 :
+		      Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite
+		      d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il existe un chemin
+		      $(e_1,v') (e_2,v') ... (e_j,v')$ dans le motif gauche de la règle instanciée
+		      $L(O)$ dont la source est $(s(e_1),v') = (v_1, v')$, la cible est
+		      $(t(e_j), v') = (v_2, v')$ et étiqueté par le même mot $i_1 i_2 ... i_j$ sur
+		      $\orbit{\omega}$.
 
-	Supposons que $\underline{L}\orbit{\omega}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{\omega}(v_1)$ et $\underline{R}\orbit{\omega}(v_2)$ dans la règle du à des arcs explicites.
-	Alors, par définition, il existe un chemin $e_1 e_2 ... e_j$ dans $L$ de source $v_1$, de cible $v_2$ et étiqueté par $i_1 i_2 ... i_j$ sur $\orbit{\omega}$, mais il n'existe pas de tel chemin $f_1 f_2 ... f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{\omega}$.
+		      Supposons que pour un nœud $v'$ de l'orbite d'instanciation $O$, il
+		      existe un chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la
+		      règle instanciée $R(O)$ dont la source est $(s(f_1),v') = (v_1, v')$, la cible
+		      est $(t(e_j), v') = (v_2, v')$ et étiqueté sur $\orbit{\omega}$. Alors, par
+		      construction de l'instanciation, le chemin $f_1 f_2 ... f_k$ dans $R$ de source
+		      $v_1$, de cible $v_2$ et étiqueté sur $\orbit{\omega}$ existe dans la règle de
+		      départ. Ce qui est contradictoire avec l'hypothèse. Donc il n'existe pas de
+		      chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la règle
+		      instanciée ayant les propriétés attendues. Donc $R(O)\orbit{\omega}((v_1,v'))$ et
+		      $R(O)\orbit{\omega}((v_2,v'))$ sont deux $\orbit{\omega}$-orbites distinctes.
 
-	Donc dans la règle instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$, il existe un chemin $(e_1,v') (e_2,v') ... (e_j,v')$ dans le motif gauche de la règle instanciée $L(O)$ dont la source est $(s(e_1),v') = (v_1, v')$, la cible est $(t(e_j), v') = (v_2, v')$ et étiqueté par le même mot $i_1 i_2 ... i_j$ sur $\orbit{\omega}$.
+		      Donc d'après la proposition \ref{prop:base-rule_split}, si
+		      $\underline{R}\orbit{\omega}(v_1)$ et donc $R(O)\orbit{\omega}((v_1, v'))$ est entièrement
+		      filtrée, alors l'orbite $G\orbit{\omega}(m((v_1,v')))$ est scindée en deux orbites
+		      $H\orbit{\omega}(m'((v_1, v')))$ et $H\orbit{\omega}(m'((v_2, v')))$ dans la
+		      transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud
+		      $v'$ de l'orbite d'instanciation $O$. %
 
-	Supposons que pour un nœud $v'$ de l'orbite d'instanciation $O$, il existe un chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la règle instanciée $R(O)$ dont la source est $(s(f_1),v') = (v_1, v')$, la cible est $(t(e_j), v') = (v_2, v')$ et étiqueté sur $\orbit{\omega}$.
-	Alors, par construction de l'instanciation, le chemin $f_1 f_2 ... f_k$ dans $R$ de source $v_1$, de cible $v_2$ et étiqueté sur $\orbit{\omega}$ existe dans la règle de départ. Ce qui est contradictoire avec l'hypothèse. Donc il n'existe pas de chemin $(f_1,v') (f_2,v') ... (f_k,v')$ dans le motif droit de la règle instanciée ayant les propriétés attendues.
-	Donc $R(O)\orbit{\omega}((v_1,v'))$ et $R(O)\orbit{\omega}((v_2,v'))$ sont deux $\orbit{\omega}$-orbites distinctes.
+		\item
+		      Supposons que $\underline{L}\orbit{\omega}(v_1)$ est scindée en deux orbites
+		      $\underline{R}\orbit{\omega}(v_1)$ et $\underline{R}\orbit{\omega}(v_2)$ dans la règle du
+		      à des arcs explicites.
 
-	Donc d'après la proposition \ref{prop:base-rule_split}, si $\underline{R}\orbit{\omega}(v_1)$ et donc $R(O)\orbit{\omega}((v_1, v'))$ est entièrement filtrée, alors l'orbite $G\orbit{\omega}(m((v_1,v')))$ est scindée en deux orbites $H\orbit{\omega}(m'((v_1, v')))$ et $H\orbit{\omega}(m'((v_2, v')))$ dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
-	\\
+		      Pour les mêmes raisons que dans le cas 1, $R(O)\orbit{\omega}((v_1,v'))$ et
+		      $R(O)\orbit{\omega}((v_2,v'))$ sont deux $\orbit{\omega}$-orbites distinctes dans la
+		      règles instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
 
-	Cas 2 :
+		      Donc d'après la proposition \ref{prop:base-rule_split}, si $R\orbit{\omega}(v_1)$
+		      et donc $R(O)\orbit{\omega}((v_1, v'))$ est partiellement filtrée, alors l'orbite
+		      $G\orbit{\omega}(m((v_1,v')))$ est soit scindée en deux orbites
+		      $H\orbit{\omega}(m'((v_1, v')))$ et $H\orbit{\omega}(m'((v_2, v')))$, soit modifiée, dans
+		      la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud
+		      $v'$ de l'orbite d'instanciation $O$. %
 
-	Supposons que $\underline{L}\orbit{\omega}(v_1)$ est scindée en deux orbites $\underline{R}\orbit{\omega}(v_1)$ et $\underline{R}\orbit{\omega}(v_2)$ dans la règle du à des arcs explicites.
+		\item
+		      Supposons que $\underline{L}\orbit{\omega}(v_1)$ est scindée due au $k$-ième arc
+		      implicite. Soit $v'_1$ un nœud de l'orbite d'instanciation
+		      $O = G\orbit{l(h)}(\underline{m}(h))$ et $v'_2$ le $i$-voisin de $v'_1$ dans
+		      $O$, avec $i$ la $k$-ième dimension de l'étiquette $l(h)$ du nœud d'accroche $h$
+		      de $L$.
 
-	Pour les mêmes raisons que dans le cas 1, $R(O)\orbit{\omega}((v_1,v'))$ et $R(O)\orbit{\omega}((v_2,v'))$ sont deux $\orbit{\omega}$-orbites distinctes dans la règles instanciée, pour tout nœud $v'$ de l'orbite d'instanciation $O$.
+		      Par hypothèse, l'un des nœuds $v$ de $\underline{L}\orbit{\omega}(v_1)$ a une
+		      $k$-ième dimension $j$ dans l'orbite $\orbit{\omega}$ ($j \in \orbit{\omega}$), alors que tous
+		      des n\oe uds de $\underline{R}\orbit{\omega}(v_1)$ ont leur $k$-ième dimension hors de
+		      $\orbit{\omega}$. Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans
+		      l'instanciation $L(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même
+		      $\orbit{\omega}$-orbite dans $L(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
 
-	Donc d'après la proposition \ref{prop:base-rule_split}, si $R\orbit{\omega}(v_1)$ et donc $R(O)\orbit{\omega}((v_1, v'))$ est partiellement filtrée, alors l'orbite $G\orbit{\omega}(m((v_1,v')))$ est soit scindée en deux orbites $H\orbit{\omega}(m'((v_1, v')))$ et $H\orbit{\omega}(m'((v_2, v')))$, soit modifiée, dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$ pour tout nœud $v'$ de l'orbite d'instanciation $O$.
-	\\
+		      Nous avons plusieurs cas :
+		      \begin{itemize}
+			      \item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans deux $\orbit{\omega}$-orbites
+			            différentes de $R(O)$, d'après la proposition \ref{prop:base-rule_split}, selon
+			            les cas, $H\orbit{\omega}(m'((v_1, v'_1)))$ et $H\orbit{\omega}(m'((v_1,v'_2)))$ sont dans
+			            deux orbites différentes ou non de $H$, avec $H$ le résultat de la
+			            transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ; autrement dit
+			            $G\orbit{\omega}(m((v_1, v'_1))$ est scindée en $H\orbit{\omega}(m'((v_1, v'_1)))$ et
+			            $H\orbit{\omega}(m'((v_1,v'_2)))$ ou juste modifiée par la transformation directe
+			            $G \xlongrightarrow{r, \underline{m}} H$ ;
 
-	Cas 3 :
-
-	Supposons que $\underline{L}\orbit{\omega}(v_1)$ est scindée due au k-ième arc implicite. Soit $v'_1$ un nœud de l'orbite d'instanciation $O = G\orbit{l(h)}(\underline{m}(h))$ et $v'_2$ le $i$-voisin de $v'_1$ dans $O$, avec $i$ la k-ième dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
-
-	Par hypothèse, l'un des nœuds $v$ de $\underline{L}\orbit{\omega}(v_1)$ a une k-ième dimension $j$ dans l'orbite $\orbit{\omega}$ ($j \in \orbit{\omega}$), alors que tous des noeuds de $\underline{R}\orbit{\omega}(v_1)$ ont leur k-ième dimension hors de $\orbit{\omega}$.
-	Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $L(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{\omega}$-orbite dans $L(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
-
-	Nous avons plusieurs cas :
-	\begin{itemize}
-		\item si $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans deux $\orbit{\omega}$-orbites différentes de $R(O)$, d'après la proposition \ref{prop:base-rule_split},
-		      selon les cas, $H\orbit{\omega}(m'((v_1, v'_1)))$ et $H\orbit{\omega}(m'((v_1,v'_2)))$ sont dans deux orbites différentes ou non de $H$, avec $H$ le résultats de la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
-		      autrement dit $G\orbit{\omega}(m((v_1, v'_1))$ est scindée en $H\orbit{\omega}(m'((v_1, v'_1)))$ et $H\orbit{\omega}(m'((v_1,v'_2)))$ ou juste modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ ;
-
-		\item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même $\orbit{\omega}$-orbites de $R(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$ de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce chemin est réécrit en un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $R(O)$ dont toutes les étiquettes sont dans $\orbit{\omega}$),
-		      d'après la proposition \ref{prop:base-rule-modify}, alors $G\orbit{\omega}(m((v_1, v'_1))$ est modifiée par la transformation directe $G \xlongrightarrow{r, \underline{m}} H$.
-	\end{itemize}
+			      \item si au contraire $(v_1, v'_1)$ et $(v_2, v'_2)$ sont dans la même
+			            $\orbit{\omega}$-orbites de $R(O)$ (car il existe un chemin $e_1 e_2 ... e_l$ de $O$
+			            de source $v'_1$ et de cible $v'_2$ qui ne comprend pas l'étiquette $j$, ce
+			            chemin est réécrit en un chemin $(w, e_1) (w,e_2) ... (w, e_l)$ de $R(O)$ dont
+			            toutes les étiquettes sont dans $\orbit{\omega}$), d'après la proposition
+			            \ref{prop:base-rule-modify}, alors $G\orbit{\omega}(m((v_1, v'_1))$ est modifiée par
+			            la transformation directe $G \xlongrightarrow{r, \underline{m}} H$. %
+		      \end{itemize}
+	\end{enumerate}
 \end{proof}
 
-\begin{definition}
+\begin{definition}[Orbite d'origine]
 	Soit une règle $r~: L \longrightarrow R$, $v_1$ et $v_2$ deux nœuds préservés de $L$ et $R$ et $\orbit{\omega}$ un type d'orbite, tels que l'orbite $L\orbit{\omega}(v_1) = L\orbit{\omega}(v_2)$ de $L$ soit scindée en deux orbites distinctes $R\orbit{\omega}(v_1)$ et $R\orbit{\omega}(v_2)$ dans $R$.
 
 	Une \emph{orbite d'origine} de $R\orbit{\omega}(v_1)$ dans $L$ (et de manière symétrique l'orbite d'origine de $R\orbit{\omega}(v_2)$ dans $L$) est une orbite $L\orbit{o'}(w)$ où :
@@ -416,7 +491,7 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 \maxime{instanciation et description nécessaire + règle de fusion "explicite"}.
 
 
-\begin{proposition}
+\begin{proposition}[Fusion d'orbites]
 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow R$ sur une G-carte $G$, et un type d'orbite $\orbit{\omega}$.
 
 	Soit deux nœuds préservés $v_1$ et $v_2$ de $L$ et $R$, $\underline{L}\orbit{\omega}(v_1)$ et $\underline{L}\orbit{\omega}(v_2)$ sont fusionnées dans la règle~:
@@ -493,8 +568,8 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 		      $v_2'$ le $i$-voisin de $v_1'$ dans $O$, avec $i$ la $k$-ème
 		      dimension de l'étiquette $l(h)$ du nœud d'accroche $h$ de $L$.
 
-		      Par hypothèse, tous les noeuds de $\underline{L}\orbit{\omega}(v_1)$ ont une k-ième dimension soit supprimée, soit renommée hors de $\orbit{\omega}$.
-		      Au contraire, il existe un nœud $v$ de $\underline{R}\orbit{\omega}(v_1)$ dont la k-ième dimension est renommée en $j$ dans $\orbit{\omega}$. Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $R(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{\omega}$-orbite dans $R(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
+		      Par hypothèse, tous les n\oe uds de $\underline{L}\orbit{\omega}(v_1)$ ont une $k$-ième dimension soit supprimée, soit renommée hors de $\orbit{\omega}$.
+		      Au contraire, il existe un nœud $v$ de $\underline{R}\orbit{\omega}(v_1)$ dont la $k$-ième dimension est renommée en $j$ dans $\orbit{\omega}$. Donc les nœuds $(v, v'_1)$ et $(v, v'_2)$ sont $j$-voisins dans l'instanciation $R(O)$, donc $(v, v'_1)$ et $(v, v'_2)$ sont dans la même $\orbit{\omega}$-orbite dans $R(O)$, et donc $(v_1, v'_1)$ et $(v_2, v'_2)$ aussi.
 
 		      Nous avons plusieurs cas :
 		      \begin{itemize}
@@ -554,14 +629,14 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 
 \subsection{Modification}
 
-\begin{proposition}
+\begin{proposition}[Modification d'orbite]
 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite $\orbit{\omega}$.
 	Soit $v$ un nœud conservé de $L$ et $R$.
 
 	L'orbite $\underline{L}\orbit{\omega}(v)$ est modifiée dans la règle si et seulement si on à la fois :
 	\begin{itemize}
 		\item la $\orbit{\omega}$-orbite incidente à $v$ est modifiée entre $\underline{L}$ et $\underline{R}$,
-		\item pour toute position $k$ des étiquettes de nœud de la règle, il existe un nœud $v_1$ de $\underline{L}\orbit{\omega}(v)$ dont la k-ième dimension appartient à $\orbit{\omega}$ si et seulement si il existe un nœud $v_2$ de $\underline{R}\orbit{\omega}(v)$ dont la k-ième dimension appartient à~$\orbit{\omega}$.
+		\item pour toute position $k$ des étiquettes de nœud de la règle, il existe un nœud $v_1$ de $\underline{L}\orbit{\omega}(v)$ dont la $k$-ième dimension appartient à $\orbit{\omega}$ si et seulement si il existe un nœud $v_2$ de $\underline{R}\orbit{\omega}(v)$ dont la $k$-ième dimension appartient à~$\orbit{\omega}$.
 	\end{itemize}
 
 
@@ -576,7 +651,8 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 
 \begin{proof}
 	Soit $v$ un nœud conservé de $L$ et $R$. Soit $O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
-	\\
+
+	~
 
 	Supposons que l'orbite $\underline{L}\orbit{\omega}(v)$ est modifiée dans la règle.
 	Soit $w$ un nœud de l'orbite $\underline{L}\orbit{\omega}(v)$ conservé par la règle.
@@ -584,15 +660,14 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 
 	Notons $e_1...e_i$ un chemin de $\underline{L}\orbit{\omega}(v)$ de source $v$ et de cible $w$, $f_1...f_j$ un chemin de $\underline{R}\orbit{\omega}(v)$ de source $v$ et de cible $w$, et $e'_1...e'_l$ un chemin de $O$. Notons $v'_{m_1}$ la source de $e'_m$ et $v'_m$ sa cible.
 
-
-
 	\agnes{en cours}
 \end{proof}
 
 
 \subsection{Origine des orbites lors des applications des règles}
 
-\begin{definition}
+\maxime{Choisir entre ici et scission pour la définition d'origine}
+\begin{definition}[Orbite d'origine]
 	Soit une règle $r~: L \longrightarrow R$, $n$ un nœud de $R$ et $\orbit{\omega}$ un type d'orbite.
 
 	Une \emph{orbite d'origine} de $\underline{R}\orbit{\omega}(n)$ dans $L$ est une orbite $\underline{L}\orbit{o'}(n')$ où :

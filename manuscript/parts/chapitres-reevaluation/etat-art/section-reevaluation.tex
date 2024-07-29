@@ -264,7 +264,7 @@ Considérons, par exemple, le rejeu de la spécification paramétrique précéde
 \begin{itemize}
 	\item \texttt{1-Cube(larg\_c, haut\_c, prof\_c)}
 	\item \texttt{2-Rainure($f_{1}$, long\_r2, larg\_r)}
-	\item \texttt{3-Arrondi($e_{1}$,rayon)} % \david{je pense que tu dois laisser
+	\item \texttt{3-Arrond$e_{1}$,rayon)} % \david{je pense que tu dois laisser
 	      % e1 dans ta spec au
 	      % rejeu. La seule chose que tu changes c'est la longueur de ta rainure.
 	      % Dans la fig 1.26-b tu ne rejoues pas l'arrondi, ce qui illustre bien le
@@ -380,9 +380,9 @@ l'une et/ou l'autre de ces deux arêtes. %
 \subsection{Classification des méthodes de nomination persistante}
 \label{sec:etat-art-modelisation-parametrique-classification-nomination}
 
-De nombreuses méthodes ont été proposées ces dernières années dans le but de
-répondre au problème de la nomination persistante. %
-Dans cette section nous proposons une classification de ces méthodes, nous
+De nombreuses méthodes ont été proposées ces dernières années afin de répondre
+au problème de la nomination persistante. %
+Dans cette section, nous proposons une classification de ces méthodes, nous
 exprimons les concepts qui leurs communs et ceux qui permet de les distinguer. %
 
 \subsubsection[Concepts communs de la nomination persistante]{Concepts communs de la nomination persistante}
@@ -427,24 +427,32 @@ la rainure. %
 
 \paragraph{Nomination des entités invariantes issues d'extrusion ou de révolution}
 
-Utilisation d'entités géométriques 2D comme paramètres d'opérations. %
-Ces entités sont un \emph{profil} extrudé le long d'une \emph{trajectoire} qui peut
-être une ligne. %
-Dans le cas d'une révolution, il est aussi possible de procéder à une extrusion
-du profil autour d'un axe de rotation. %
-Dans ces opérations, le nommage d'entités est effectué au préalable de
-l'application de l'opération. %
-
+Le deuxième concept est un mécanisme de nomination des entités invariantes
+issues d'opérations d'extrusion ou de révolution. %
+Ces opérations prennent des entités topologiques 2D comme paramètres. %
+Par exemple, dans le cas d'une extrusion, ces entités sont un \emph{profil} à
+extruder le long d'une \emph{trajectoire}. %
+Dans le cas d'une révolution, le profile peut être extrudé autour d'un axe. %
+Un pré-requis est que chacune de ces structures 2D dispose d'un nom robuste,
+c'est-à-dire qui persiste indépendamment des changements de la topologie. %
+Cette méthode produit ensuite des noms pour les entités invariantes en utilisant
+ceux entités intervenant dans leurs constructions. %
 \cite{chen1995editability,wu2001face,agbodan2003topological}
 
 Dans ses travaux, Wu propose une identification des entités topologiques générée
-par extrusion (ou révolution) tel que~:
+par extrusion (ou révolution tel que~:
 
 \[(ID,ID_{p},ID_{element},ID_{chemin},ID_{trajectoire})\]
 
+\begin{figure}[htbp!]
+	\centering
+	\includegraphics[width=\textwidth]{extrusion-exemple}
+	\caption{Nomination des entités lors d'une extrusion}
+	\label{fig:etat-art-modelisation-parametrique-concepts-extrusion}
+\end{figure}
+
 
 \paragraph{Nomination basée sur les entités invariantes}
-
 
 \paragraph{Distinction des entités avec et sans sources}
 
@@ -467,10 +475,12 @@ leur plongement (géométrie) avec une autre entité. %
 
 \paragraph{Utilisation d'un historique de noms}
 
-Utilisation des noms d'ancêtres invariants. %
+Le cinquième concept est celui d'une structure d'historique permettant de suivre
+l'évolution des entités créées au cours de la modélisation d'un objet 3D. %
 
+Méthode de structure dédiée \cite{kripac1995mechanism,agbodan2000persistent}. %
 
-\cite{chen1995editability,kripac1995mechanism,agbodan2000persistent,wu2001face}
+Méthode par propagation d'attribut \cite{chen1995editability,wu2001face}. %
 
 \paragraph{Nomination hétérogène des entités}
 

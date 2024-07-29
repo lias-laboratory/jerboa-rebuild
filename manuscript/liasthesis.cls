@@ -308,7 +308,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Chapter Style %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newlength{\numberheight} \setlength{\numberheight}{80pt}
+\newlength{\numberheight} \setlength{\numberheight}{50pt}
 \newlength{\barlength} \setlength{\barlength}{25pt}
 
 \makechapterstyle{gaide}{%
@@ -328,7 +328,7 @@
 		\makebox[.4\numberheight][l]{\hspace{1em}%
 			\resizebox{!}{\numberheight}{\chapnumfont \thechapter}%
 			\hspace{0.35em}%
-			\rule{.8\barlength}{\numberheight}%
+			\rule{1.2\barlength}{\numberheight}%
 		}
 	}%
 	% \renewcommand*{\printchaptertitle}{%

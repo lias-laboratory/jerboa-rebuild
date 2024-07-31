@@ -434,20 +434,19 @@ Lors de la réévaluation, la longueur de la rainure change. %
 Cette fois, l'opération scinde $f_{1}$ en deux et crée trois autres faces dans
 la rainure. %
 
-Cette distinction permet d'émettre le constat suivant~: les entités contingentes
-ne représentes pas des entités suffisamment stable pour les utiliser pour la
-nomination persistante. %
-À partir de ce constat, les méthodes existantes utilisent uniquement des entités
-invariantes pour la nomination. %
-\todo{reprendre ici}
+% Cette distinction met en avant une propriété des entités contingente~: celles-ci
+% ne sont pas suffisamment stables et ne peuvent donc pas être utilisées dans la
+% nomination persistante. %
+% Avec ce constat, la plupart des méthodes existantes utilisent uniquement des
+% entités invariantes pour la nomination. %
+% Ainsi, la principale difficulté est de proposer nomination des entités
+% topologiques ne dépendant pas des entités contingentes. %
 
-Pour faire simple, la difficulté sera alors de nommer les entités sans utiliser
-les entités contingentes. Pour cela on pourrait utiliser le voisinage qui
-pourrait contenir des entités invariantes mais aussi des entités contingentes,
-ce qui ne répond pas totalement au problème. %
-Pour cela, les méthodes existantes s'appuient sur les ancêtres invariants
-\maxime{(est on sûr que les entités contingentes soient forcément créées à
-	partir d'entités invariantes hors opérations booléennes ?)}. %
+% Une approche pourrait être de caractériser une entité topologique en fonction
+% des entités invariantes dans son voisinage. %
+% Toutefois, comme pour les faces $f' _{4}$, $f'_{5}$ et $f'_{6}$, ce voisinage
+% peut lui-même comporter des entités contingentes, ce qui ne permet pas de
+% résoudre le problème. %
 
 \paragraph{Nomination des entités invariantes issues d'extrusion ou de révolution}
 
@@ -455,7 +454,7 @@ Le deuxième concept est un mécanisme de nomination des entités invariantes
 issues d'opérations d'extrusion ou de révolution. %
 Ces opérations prennent des entités topologiques 2D comme paramètres. %
 Par exemple, dans le cas d'une extrusion, ces entités sont un \emph{profil} à
-extruder le long d'une \emph{trajectoire}. %
+extruder et une \emph{trajectoire} (ou \emph{guide}) d'extrusion. %
 Dans le cas d'une révolution, le profile peut être extrudé autour d'un axe. %
 Un pré-requis est que chacune de ces structures 2D dispose d'un nom robuste,
 c'est-à-dire qui persiste indépendamment des changements de la topologie. %
@@ -464,18 +463,43 @@ ceux entités intervenant dans leurs constructions. %
 \cite{chen1995editability,wu2001face,agbodan2003topological}
 
 Dans ses travaux, Wu propose une identification des entités topologiques générée
-par extrusion (ou révolution) tel que~:
+par extrusion (ou révolution)
 
-\[(ID,ID_{p},ID_{element},ID_{chemin},ID_{trajectoire})\]
+\[[ID,ID_{p},ID_{element},ID_{chemin},ID_{trajectoire}]\]
+
+où $ID$ est l'identifiant de l'opération, $ID_{p}$ et $ID_{c}$ sont les
+respectivement les identifiants du profil et de son chemin d'extrusion,
+$ID_{element}$ est l'identifiant d'une entité à extruder du profil à extruder en
+suivant la direction d'une arête identifiée par $ID_{trajectoire}$. %
+
+Dans le cadre d'une extrusion d'une face le long de sa normale, $ID_{chemin}$ et
+$ID_{trajectoire}$ sont initialisés à $0$. %
+En prenant l'exemple présenté dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-concepts-extrusion},
+l'identifiant de la face $e_{1}e'_{3}$ a pour identifiant \([1,4,3,3,1]\) avec
+$ID_{p}$ est le profile d'identifiant $4$, $ID_{element}$ et l'arête $e'_{3}$
+d'identifiant $3$, $ID_{chemin}$ est le chemin d'extrusion identifié par $3$ et
+où la $ID_{trajectoire}$, l'arête $e_{1}$ est identifiée par $1$. %
+
 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=\textwidth]{extrusion-exemple}
+
+	~
+
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		Entité      & P & C & $e_{1}$ & $e_{2}$ & $e_{3}$ & $v_{1}$ & $v_{2}$ & $v_{3}$ & $v_{4}$ & $e'_{1}$ & $e'_{2}$ & $e'_{3}$ & $e'_{4}$ \\
+		\hline
+		Identifiant & 4 & 3 & 1       & 2       & 3       & 4       & 5       & 6       & 7       & 1        & 2        & 3        & 4        \\
+		\hline
+	\end{tabular}
 	\caption{Nomination des entités lors d'une extrusion}
 	\label{fig:etat-art-modelisation-parametrique-concepts-extrusion}
 \end{figure}
 
-\todo{dérouler l'exemple}
+
 
 \paragraph{Distinction des entités avec et sans sources}
 
@@ -487,23 +511,33 @@ Le troisième concept est celui des entités avec et sans sources~\cite{wu2001fa
 	avec cette dernière, suite à l'application d'une opération de modélisation.
 \end{definition}
 
-Une entité avec source est alors une entité topologique générée à l'issue d'une
-opération booléenne entre deux objets $O_{1}$ et $O_{2}$. %
-Une entité possède une source si et seulement s'il existe une autre entité
-topologique dans $O_{1}$ ou $O_{2}$ tel que ces deux entités partagent le même
-plongement géométrique. %
+D'après Wu, une entité topologique $E$ issue d'une opération booléenne entre
+deux objets $O_{1}$ et $O_{2}$, est une entité avec source s'il existe une
+entité topologique $E'$ appartenant à $O_{1}$ ou $O_{2}$ telle que $E$ et $E'$
+ont au moins une partie de leur plongement géométrique en commun et dans ce cas
+$E'$ et la source de $E$. %
+C'est-à-dire, que pour deux ensembles de points $s$ de $E$ et $s'$ de $E'$, si
+$s \subseteq s'$, alors $E'$ est la source de $E$. %
 
-\todo{expliquer à l'aide du même exemple que pour les entités contingentes et invariantes}
+Par exemple, dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-concepts-extrusion}, le face
+$f'_{1}$, modifiée lors de l'opération booléenne, partage une partie de son
+plongement géométrique avec $f_{1}$ qui est donc sa source. %
+De la même manière, $f'_{5}$ a pour source $f_{5}$. %
+Pour les sommets et arêtes créés, ces entités sont créées par l'intersection de
+plusieurs faces et ne partagent donc le plongement géométrique d'aucune autre
+arête, elles sont sans sources. %
 
-En substance, partager le même plongement, ça veut dire que pour une entité
-topologique $E'$, au moment de l'application d'une opération booléenne entre $O1$
-et $O2$, s'il existe un sous-ensemble $s'$ de $E'$ et un sous-ensemble $s$ de $E$
-dans $O1$ ou $O2$ (avant l'application) tel que $s \subset s'$ ou $s' \subset s$, alors $E$
-est la source de $E'$. %
+Par ailleurs, les face, en 3D, ne peuvent être issues que de la création,
+scission ou fusion, ce qui implique qu'elles ont systématiquement une source. %
+À l'inverse, ce n'est pas forcément le cas pour les sommets et arêtes. %
+Ainsi, la plupart des modeleurs s'appuient sur les faces pour construire leurs
+mécanismes de nomination car celles-ci semblent plus stables. %
 
-\todo{finir avec le fait que dans un système de modélisation 3D, les faces ne
-	peuvent être produites qu'avec source, ce qui en fait de facto le choix
-	d'entité topo préférée comme pour la nomination persistante.}
+
+% \todo{finir avec le fait que dans un système de modélisation 3D, les faces ne
+% 	peuvent être produites qu'avec source, ce qui en fait de facto le choix
+% 	d'entité topo préférée comme pour la nomination persistante.}
 
 
 \paragraph{Utilisation d'un historique de noms}
@@ -512,6 +546,7 @@ Le cinquième concept est celui d'une structure d'historique permettant de suivr
 l'évolution des entités créées au cours de la modélisation d'un objet 3D. %
 
 Méthode de structure dédiée \cite{kripac1995mechanism,agbodan2000persistent}. %
+FaceGraph pour Kripac et ShellGraph pour Agbodan et al.%
 
 Méthode par propagation d'attribut \cite{chen1995editability,wu2001face}. %
 

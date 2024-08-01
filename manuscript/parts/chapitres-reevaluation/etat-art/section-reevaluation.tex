@@ -528,27 +528,29 @@ Pour les sommets et arêtes créés, ces entités sont créées par l'intersecti
 plusieurs faces et ne partagent donc le plongement géométrique d'aucune autre
 arête, elles sont sans sources. %
 
-Par ailleurs, les face, en 3D, ne peuvent être issues que de la création,
+Par ailleurs,  les faces 3D ne peuvent être issues que de la création,
 scission ou fusion, ce qui implique qu'elles ont systématiquement une source. %
 À l'inverse, ce n'est pas forcément le cas pour les sommets et arêtes. %
 Ainsi, la plupart des modeleurs s'appuient sur les faces pour construire leurs
-mécanismes de nomination car celles-ci semblent plus stables. %
-
-
-% \todo{finir avec le fait que dans un système de modélisation 3D, les faces ne
-% 	peuvent être produites qu'avec source, ce qui en fait de facto le choix
-% 	d'entité topo préférée comme pour la nomination persistante.}
+mécanismes de nomination, car celles-ci semblent plus stables. %
 
 
 \paragraph{Utilisation d'un historique de noms}
 
-Le cinquième concept est celui d'une structure d'historique permettant de suivre
-l'évolution des entités créées au cours de la modélisation d'un objet 3D. %
+Utilisation des ancêtres invariants dans les noms. %
+Requiert le suivi des entités topologiques. %
+Utilisation au choix d'une structure dédiée type FaceGraph ou ShellGraph
+\cite{kripac1995mechanism,agbodan2000persistent} ou bien d'un mécanisme de
+propagation d'attributs associés à chaque cellule
+\cite{chen1995editability,wu2001face}. %
 
-Méthode de structure dédiée \cite{kripac1995mechanism,agbodan2000persistent}. %
-FaceGraph pour Kripac et ShellGraph pour Agbodan et al.%
+La plupart des méthodes font uniquement le suivi des faces. %
+Les autres entités sont définies par des faces. %
+Les faces en 3D sont toujours des entités avec sources invariantes. Les sommets
+et arêtes ne sont pas forcément des entités avec sources invariantes (par
+exemple l'intersection de deux faces produit des arêtes contingentes sans
+sources). %
 
-Méthode par propagation d'attribut \cite{chen1995editability,wu2001face}. %
 
 \paragraph{Nomination hétérogène des entités}
 
@@ -584,13 +586,144 @@ Le dernier de ces concepts est l'intégration de la nomination persistante dans 
 \paragraph{Baba-Ali (2010)}
 \paragraph{Farjana (2016)}
 \paragraph{Cascaval (2023)}
+%% Contexte
 
-Présentation, par auteurs, des méthodes utilisées~:
+Dans Cascaval (2023), les auteurs proposent de répondre au problème du
+référencement d'éléments géométriques dans les opérations de modélisation
+et placent leurs travaux dans un contexte défini par les concepts suivants :
 \begin{itemize}
-	\item Cascaval 2023
-	\item dai 2024
-	\item \dots
+	\item Un modèle paramétrique est une fonction prenant des paramètres
+	      géométriques et scalaires.
+	\item Une référence peut être obtenue grâce à une requête sur un élément
+	      géométrique.
+	\item Les types géométriques traités sont les point, segment (ligne ou
+	      arc), polygone (conceptuellement une face sans trou) et face (un
+	      élément produit à partir d'un ou plusieurs polygones).
 \end{itemize}
+
+Dans ce contexte, un langage conçu pour la CAO doit respecter trois propriétés :
+\begin{itemize}
+	\item il ne doit pas introduire de discontinuité dans le référencement d'une
+	      géométrie,
+	\item il doit permettre la sélection de tout ou partie d'un ensemble d'éléments
+	      géométrique résultant de la partition d'une géométrie passée en entrée d'une
+	      opération,
+	\item l'utilisateur doit pouvoir exclure des configurations topologiques des modèles
+	      en sortie du programme afin de saisir \todo{l'intention de conception}
+\end{itemize}
+
+%% Contribution
+
+Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
+conception de modèles paramétriques mettant en œuvre un système de généalogie
+avec une sémantique permettant de décrire avec une certaine précision les
+relations entre divers éléments géométrique respectivement en entrées et en
+sortie d'une opération. Dans ce langage, une référence est définie par un
+utilisateur qui crée une requête sur un élément géométrique. Ces requêtes
+peuvent présenter, de manière explicite, des contraintes liées à cette
+généalogie afin de capturer précisément les intentions de modélisation de
+l'utilisateur.
+
+%% Explication de la sémantique
+
+À cette fin, trois relations sont définies : la relation de transformation, de sous-ensemble et de dérivation.
+\begin{itemize}
+	\item  La relation de transformation établie un lien direct entre un élément en
+	      entrée et en sortie à travers une opération. En effet, les opérations
+	      telles que la rotation et la translation ne créent rien de nouveau que
+	      ce soit en termes de géométrie ou de topologie. Seuls les paramètres
+	      géométriques (grandeur, position, …) sont modifiés.
+	      {\color{red}accompagner d'une illustration pour servir d'exemple}
+	\item La relation de sous-ensemble établie un lien entre un ensemble
+	      d'éléments en entrée d'une opération et un élément en sortie. Il s'agit,
+	      typiquement dans les opérations de CSG, de faire le lien entre, par
+	      exemple deux arêtes qui s'intersectent et un sommet résultat de cette
+	      intersection.
+		      {\color{red}accompagner d'une illustration pour servir d'exemple}
+	\item La relation de dérivation, elle, établie plusieurs liens entre de la
+	      géométrie existante et de la géométrie nouvellement créée. Prenons le
+	      cas du chanfrein sur un sommet présenté par les auteurs. Lorsque
+	      l'opération de chanfrein est appliquée, une arête est créée à partir
+	      d'un sommet, il s'agit du premier lien établi. Il faut ensuite faire la
+	      distinction entre les deux sommets aux extrémités de cette arête. Pour
+	      cela, la relation de dérivation établit un lien entre l'un des deux
+	      sommets une arête adjacente pré-existante.
+	      {\color{red}accompagner d'une illustration pour servir d'exemple}
+\end{itemize}
+
+%% Principe et fonctionnement des requêtes
+
+\todo{Dire qu'ils travaillent sur des objets principalement 2D avec des
+	opérations principalement 2D; ambiguité topologiques réduite en 2D; passage en
+	3D implique voisinages topologiques plus complexes -> problème de nommage plus
+	complexe aussi => par exemple en 2D le bord d'un objet est délimité par des
+	arêtes, en 3D il s'agit d'un ensemble d'éléments et le mapping n'est pas «tout
+	ou rien» on peut se retrouver avec la trace de seulement une partie d'un objet
+	en cas, par exemple, d'une intersection entre deux objets.}
+
+Une requête, un ensemble de clauses logiques avec des notions d'ensembles,
+permet de définir une référence à partir d'un élément géométrique. %
+On peut, par exemple, récupérer tout (\texttt{all}) ou partie (\texttt{from(e)})
+d'un élément e, de tous les éléments du modèle (\texttt{fromAll(e)}), d'un
+élément parmi un ou plusieurs ensembles (\texttt{fromAny((e | \{e\})*)}). Il est
+également possible de créer des conjonctions de requêtes q (\texttt{and(q,q)}),
+des disjonctions (\texttt{or{q,q}}) et même en inclure (\texttt{contains(q)}) et
+en exclure (\texttt{not(q)}). %
+L'utilisateur peut s'appuyer sur la sémantique de généalogie pour décrire au
+mieux ses intentions de modélisation. À ce moment là, les requêtes expriment,
+explicitement, les relations de généalogie décrites plus tôt. Par exemple, les
+éléments dérivés d'une géométrie lors d'une opération peuvent être obtenues en
+remplaçant \texttt{from} par \texttt{derivedFrom} dans toutes les clauses
+d'ensembles (\texttt{from, fromAll, fromAny} deviennent \texttt{derivedFrom,
+	derivedFromAll, derivedFromAny}). %
+	{\color{red}accompagner d'illustrations pour servir d'exemples}
+
+%%% Continuité des références et gestion de l'ambiguïté
+
+Dans les cas de l'ambiguïté est créée, par exemple, de l'intersection de
+segments, des propriétés géométriques peuvent être ajoutées aux éléments
+géométriques pour lever cette ambiguïté. %
+Dans le cas de l'intersection de lignes, chacun des points créés doit être
+considéré comme l'extrémité \texttt{end} de l'une des deux lignes. %
+Pour l’intersection d'une ligne avec un arc, la distance entre les points de la
+ligne est normalisée, et les points d'intersections sont enrichis avec leur
+distance au sommet de départ (\texttt{start}) de la ligne. %
+Dans le cas de l’intersection de deux arcs, Cascaval et al. reprennent les
+travaux de Bidarra. Une ligne traversant les deux arcs en leur centre crée un
+domaine positif et un domaine négatif pour enrichir les intersections, notons
+que ces domaines ne varient pas, peu importe les transformations sur le modèle. %
+
+%% Comparaison avec Cascaval
+
+Ici, Cascaval et al. proposent un langage spécifique pour la conception de
+modèles paramétriques. Ce langage présente diverses fonctionnalités telles que
+la définition de références géométrique à partir de requêtes utilisateurs, les
+éléments géométriques étant enrichis d'informations géométrique et généalogique
+pour garantir le respect des intentions de modélisation de l'utilisateur.
+Néanmoins, cette approche a plusieurs inconvénients :
+\begin{itemize}
+	\item Les éléments géométriques utilisés pour les références ne sont pas généralisables en toutes dimensions \todo{opérations spécifiques 2D + traitement plongements courbe supplémentaires quand on monte en dimensions.}
+	\item Pour la sémantique pour la généalogie, bien que les auteurs aient mis en
+	      place un système pour tracer une forme d'origine pour distinguer une
+	      géométrie d'une autre, cela ne leur permet en fin de compte de ne
+	      distinguer que la création, la suppression et la modification au sens
+	      large de la topologie d'une géométrie.
+	\item Les opérations de modélisation sont responsables de l'annotation de la
+	      géométrie pour le suivi. Ce qui implique que l'implantation du code de
+	      ces opérations peut être source d'erreur dans le suivi.
+	\item L'utilisateur est contraint de définir lui-même les requêtes de
+	      définition d'une référence, cela peut compliquer l'automatisation du
+	      processus de réévaluation notamment lorsqu'il y a ajout, suppression,
+	      déplacement d'opération.
+\end{itemize}
+
+
+% Présentation, par auteurs, des méthodes utilisées~:
+% \begin{itemize}
+% 	\item Cascaval 2023
+% 	\item dai 2024
+% 	\item \dots
+% \end{itemize}
 
 
 \subsubsection{Synthèse des méthodes (par auteurs)}
@@ -601,9 +734,9 @@ Présentation, par auteurs, des méthodes utilisées~:
 \subsection[Réévaluation à base de règles]{Réévaluation à base de règles}
 \label{sec:etat-art-reevaluation-reevaluation-regles}
 
-% Ici, présenter les apports issus des travaux d'Anaïs Cardot. (Objectif) placer
-% les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux
-% par rapport aux siens.
+Une autre approche propose une extension du problème de la nomination
+persistante aux systèmes de modélisation à base de règles de transformation de
+graphe\cite{cardot2019}. %
 
 %%% Local Variables:
 %%% mode: latex

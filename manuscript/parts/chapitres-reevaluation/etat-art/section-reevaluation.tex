@@ -460,7 +460,7 @@ Un pré-requis est que chacune de ces structures 2D dispose d'un nom robuste,
 c'est-à-dire qui persiste indépendamment des changements de la topologie. %
 Cette méthode produit ensuite des noms pour les entités invariantes en utilisant
 ceux entités intervenant dans leurs constructions. %
-\cite{chen1995editability,wu2001face,agbodan2003topological}
+\cite{chen1995representation,wu2001face,agbodan2003topological}
 
 Dans ses travaux, Wu propose une identification des entités topologiques générée
 par extrusion (ou révolution)
@@ -537,12 +537,18 @@ mécanismes de nomination, car celles-ci semblent plus stables. %
 
 \paragraph{Utilisation d'un historique de noms}
 
-Utilisation des ancêtres invariants dans les noms. %
-Requiert le suivi des entités topologiques. %
-Utilisation au choix d'une structure dédiée type FaceGraph ou ShellGraph
-\cite{kripac1995mechanism,agbodan2000persistent} ou bien d'un mécanisme de
-propagation d'attributs associés à chaque cellule
-\cite{chen1995editability,wu2001face}. %
+Le quatrième concepts concerne l'utilisation d'un historique pour la nomination
+persistante. %
+Ce concept propose d'identifier les entités topologiques par leurs ancêtres
+invariants ce qui nécessite de mettre un \oe uvre le suivi de ces entités et de
+leurs évolutions. %
+Ainsi, lors de la réévaluation il est possible d'effectuer l'appariement des
+entités par rapports à leurs ancêtres. %
+
+Pour cela, il est possible d'avoir recours à une structure de
+graphe~\cite{kripac1995mechanism,agbodan2000persistent} ou bien à mécanisme de
+propagation d'attributs associés à chaque cellule~
+\cite{chen1995representation,wu2001face}. %
 
 La plupart des méthodes font uniquement le suivi des faces. %
 Les autres entités sont définies par des faces. %
@@ -551,11 +557,29 @@ et arêtes ne sont pas forcément des entités avec sources invariantes (par
 exemple l'intersection de deux faces produit des arêtes contingentes sans
 sources). %
 
+Kripac~\cite{kripac1995mechanism}, par exemple, propose un graphe permettant de
+suivre l'évolution des faces d'une construction et d'effectuer leurs appariement
+lors de la réévaluation. %
+
+\begin{figure}[htpb!]
+	\centering
+	\includegraphics[width=.5\textwidth]{kripac-faceid-graph}
+	\caption{Suivi de faces~\cite{kripac1995mechanism}}
+\end{figure}
+
+Chen~\cite{chen1995representation} propose un mécanisme qui propage
+l'identification d'une entités à celles qui en dérivent lors, par exemple, d'une
+scission. %
+
 
 \paragraph{Nomination hétérogène des entités}
 
-Définition d'un système de nomination pour chaque dimension
-\cite{chen1995editability,kripac1995mechanism,agbodan2000persistent,wu2001face,bidarra2005feature,wang2005geometry} %
+Le cinquième concept identifié l'hétérogénéité dans la nomination des entités. %
+On observe dans la littérature que la plupart des mécanismes de nomination
+persistante s'appuient sur la
+topologie~\cite{chen1995representation,kripac1995mechanism,agbodan2000persistent}
+et parfois sur la
+géométrie~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
 
 \paragraph{Structure des plateformes intégrant la nomination persistante}
 
@@ -579,18 +603,17 @@ Le dernier de ces concepts est l'intégration de la nomination persistante dans 
 \subsubsection[Systèmes de nommage persistant]{Systèmes de nommage persistants}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
-\paragraph{Capoyleas (1994)}
+\paragraph{Capoyleas (1994) (étendu par Chen et Dai)}
 \paragraph{Kripac (1995)}
-\paragraph{Wu (2001)}
+\paragraph{Wu (2001) (étendu par Farjana ?)}
 \paragraph{Agbodan (2003)}
 \paragraph{Baba-Ali (2010)}
-\paragraph{Farjana (2016)}
+% \paragraph{Farjana (2016)}
 \paragraph{Cascaval (2023)}
-%% Contexte
 
-Dans Cascaval (2023), les auteurs proposent de répondre au problème du
-référencement d'éléments géométriques dans les opérations de modélisation
-et placent leurs travaux dans un contexte défini par les concepts suivants :
+Cascaval propose de répondre au problème du référencement d'éléments
+géométriques dans les opérations de modélisation et placent leurs travaux dans
+un contexte défini par les concepts suivants :
 \begin{itemize}
 	\item Un modèle paramétrique est une fonction prenant des paramètres
 	      géométriques et scalaires.

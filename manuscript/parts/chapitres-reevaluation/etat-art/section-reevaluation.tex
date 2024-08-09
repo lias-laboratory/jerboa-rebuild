@@ -251,7 +251,7 @@ illustre plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
 (1) l'utilisateur est restreint à l'utilisation du pool d'opérations prédéfinies dans le modeleur~; (2) l'approche est
 séquentielle, ce qui implique que toute entité doit exister à l'étape courante de la modélisation pour pouvoir être référencée.
 Par exemple, suite à l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de
-la face avant du cube initial n'existe plus~: elle a été "remplacée" par une
+la face avant du cube initial n'existe plus~: elle a été «~remplacée~» par une
 succession de nouvelles arêtes. Il devient alors impossible d'appliquer une fonction
 sur la référence $e_{2}$ à partir d'une éventuelle étape $4$. %
 
@@ -332,7 +332,7 @@ la rainure, dont la longueur a changé, scinde $e_{1}$ en deux et n'existe plus
 telle quelle. %
 En conséquence, utiliser le nom $e_{1}$ ou un identifiant correspondant à $e_{1}$ comme référence n'est pas adapté, car sensible aux changements dans le modèle. %
 
-Le nomination persistante doit donc être un mécanisme d'identification robuste,
+La nomination persistante doit donc être un mécanisme d'identification robuste,
 c'est-à-dire dont les références restent valides au cours de la réévaluation
 d'une spécification paramétrique.
 Ce mécanisme s'impose alors comme une troisième couche dans les systèmes de
@@ -380,55 +380,77 @@ l'une et/ou l'autre de ces deux arêtes. %
 \subsection{Classification des méthodes de nomination persistante}
 \label{sec:etat-art-modelisation-parametrique-classification-nomination}
 
-De nombreuses méthodes ont été proposées ces dernières années afin de répondre
-au problème de la nomination persistante. %
-Dans cette section, nous proposons une classification de ces méthodes, nous
-exprimons les concepts qui leurs communs et ceux qui permet de les distinguer. %
+La nomination persistante, avec l'identification et l'appariement des entités
+topologiques, est un problème avec un enjeu fort pour la réévaluation d'un
+modèle paramétrique. %
+Au cours des années, de nombreuses méthodes ont été proposées pour mettre en \oe
+uvre un système permettant de réévaluation des modèles paramétriques. %
+Dans cette section, nous proposons tout d'abord une classification de ces
+méthodes sous la forme d'approches communes et distinctes. %
+Ensuite, nous passons en revue certains des systèmes proposés pour résoudre le
+problème de la nomination persistante et, enfin, nous proposons une synthèse de
+ces méthodes. %
 
 \subsubsection[Concepts communs de la nomination persistante]{Concepts communs de la nomination persistante}
 \label{sec:etat-art-modelisation-parametrique-classification-nomination-concepts}
+
+Les différents systèmes de nomination persistante s'appuient, explicitement ou
+non, sur un ensemble de concepts. %
+Ces concepts définissent des propriétés sur les entités topologiques permettant
+de les classer dans des catégories distinctes. %
+Cela permet de mettre en \oe uvre des mécanismes spécifiques pour la nomination
+et l'appariement. %
 
 \paragraph{Distinction des entités invariantes et contingentes}
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[height=100pt]{entites-invariantes-contingentes}
+	\includegraphics[height=120pt]{entites-invariantes-contingentes}
 	\caption{Opération booléenne entre deux objets}
 	\label{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}
 \end{figure}
 
-Le premier de ces concepts est la distinction des entités \emph{invariantes} et
-\emph{contingentes}. %
-Nous les illustrons à l'aide de la
+Le premier concept que nous abordons est celui qui propose de distinguer les
+entités dites \emph{invariantes} de celles dites \emph{contingentes}. %
+Pour présenter ces entités, nous nous appuyons sur l'illustration
 figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}. %
 
 \begin{definition}[Entité invariante]\label{def:entite-invariante}%
-	Une entité invariante est une entité géométrique ou topologique qui peut être,
+	Une \emph{entité invariante} est une entité géométrique ou topologique qui peut être,
 	complètement et sans ambiguïté, caractérisée par la structure d'une opération
 	de modélisation et ses paramètres d'entrée, indépendamment des valeurs
 	impliquées. %
 \end{definition}
 
-Nous pouvons voir, dans le modèle, un ensemble d'entités topologique dites
-invariantes créées lors de la création des deux pavés, l'ensemble de leurs
-faces, par exemples, sont des entités invariantes. %
-Quels que soient les paramètres des opérations créant les deux pavés, nous
-savons que l'ensemble de ses entités seront créées, car elles sont
-caractéristiques de l'opération. %
+Nous pouvons voir, lors des étapes $1$ et $2$ de la modélisation, un ensemble
+d'entités topologique dites invariantes générées lors de la création des deux
+pavés. %
+Quels que soient les paramètres des opérations créant ces deux pavés, nous
+savons que l'ensemble de ses entités seront systématiquement générées, car elles
+sont caractéristiques de l'opération. %
+Ainsi, l'ensemble des entités topologiques des pavés sont invariantes comme, par exemple, les
+faces $f_{1}$ et $f_{5}$. %
 
 \begin{definition}[Entité contingente]\label{def:entite-contingente}%
-	Une entité contingente est une entité topologique ou géométrique qui résulte
+	Une \emph{entité contingente} est une entité topologique ou géométrique qui résulte
 	de l'interaction entre le modèle géométrique pré-existant et les entités
 	invariantes issues de la dernière opération de modélisation. %
 \end{definition}
 
-Pour les entités contingentes, par exemple, l'opération booléenne en crée un
-certain nombre parmi lesquelles on trouve les faces $f'_{1}, f'_{2}, f'_{3}$,
-$f'_{4}$, $f'_{5}$ et $f'_{6}$. %
-En effet, les faces créées, et même transformées, par l'application de la
-rainure sont dépendantes de ses paramètres. %
-Pour donner un autre exemple, l'objet que l'on réévalue avec la rainure qui
-modifie $f_{1}$ et crée quatre faces
+Dans l'étape $3$ de la modélisation, l'opération booléenne entre les deux pavés
+crée un nouvel ensemble d'entités topologiques dites contingentes. %
+Cette fois, les entités générées dépendent des paramètres de l'opération, ce qui
+signifient qu'elles ne sont pas systématiquement créées selon les paramètres de
+l'opération. %
+Parmi ces entités, on trouve les faces $f'_{1}$, $f'_{2}$, $f'_{3}$, $f'_{4}$,
+$f'_{5}$ et $f'_{6}$. %
+En effet, les faces créées, et même transformées, par l'opération booléenne sont
+dépendantes de ses paramètres. %
+Pour exprimer cette dépendance, si nous déplaçons le second pavé sans créer
+d'intersection avec le premier, alors aucune nouvelle entité topologique ne peut
+résulter de l'opération booléenne. %
+Pour donner un autre exemple, reprenons l'objet que l'on réévalue avec la
+rainure sur $f_{1}$ qui crée quatre faces
 (Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite}). %
 Lors de la réévaluation, la longueur de la rainure change. %
 Cette fois, l'opération scinde $f_{1}$ en deux et crée trois autres faces dans
@@ -451,19 +473,29 @@ la rainure. %
 \paragraph{Nomination des entités invariantes issues d'extrusion ou de révolution}
 
 Le deuxième concept est un mécanisme de nomination des entités invariantes
-issues d'opérations d'extrusion ou de révolution. %
-Ces opérations prennent des entités topologiques 2D comme paramètres. %
-Par exemple, dans le cas d'une extrusion, ces entités sont un \emph{profil} à
-extruder et une \emph{trajectoire} (ou \emph{guide}) d'extrusion. %
-Dans le cas d'une révolution, le profile peut être extrudé autour d'un axe. %
-Un pré-requis est que chacune de ces structures 2D dispose d'un nom robuste,
-c'est-à-dire qui persiste indépendamment des changements de la topologie. %
-Cette méthode produit ensuite des noms pour les entités invariantes en utilisant
-ceux entités intervenant dans leurs constructions. %
-\cite{chen1995representation,wu2001face,agbodan2003topological}
+générées lors d'opérations d'extrusion ou de révolution. %
+Ces opérations génèrent des volumes à partir d'entités topologiques 2D. %
+Ces entités 2D sont les paramètres des opérations d'extrusion et de
+révolution. %
+Dans le cas d'une extrusion, par exemple, l'opération nécessite deux paramètres
+qui sont un \emph{profil} à extruder et une \emph{trajectoire} (ou \emph{guide})
+d'extrusion. %
+Dans le cas d'une révolution, un profil peut être extrudé autour d'un axe selon
+un angle de rotation. %
+Un pré-requis à ces opérations est que chacune des structures 2D dispose d'un
+nom robuste, c'est-à-dire qui persiste indépendamment des changements de la
+topologie. %
+Différentes méthodes ont été proposées pour procéder à la nomination persistante
+des entités générées lors d'une
+extrusion~\cite{chen1995representation,wu2001face,agbodan2003topological}. %
+Toutefois, ces méthodes suivent à peu près toutes le même procédé, c'est-à-dire
+que les noms des entités générées sont produits en utilisant ceux des entités
+invariantes intervenant dans leurs constructions. %
 
-Dans ses travaux, Wu propose une identification des entités topologiques générée
-par extrusion (ou révolution)
+
+Prenons l'exemple des travaux de Wu~\cite{wu2001face}. %
+Wu propose une identification des entités topologiques générée par extrusion (ou
+révolution) basée sur le schéma de nomination suivant
 
 \[[ID,ID_{p},ID_{element},ID_{chemin},ID_{trajectoire}]\]
 
@@ -484,7 +516,7 @@ où la $ID_{trajectoire}$, l'arête $e_{1}$ est identifiée par $1$. %
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=\textwidth]{extrusion-exemple}
+	\includegraphics[width=.8\textwidth]{extrusion-exemple}
 
 	~
 
@@ -503,7 +535,8 @@ où la $ID_{trajectoire}$, l'arête $e_{1}$ est identifiée par $1$. %
 
 \paragraph{Distinction des entités avec et sans sources}
 
-Le troisième concept est celui des entités avec et sans sources~\cite{wu2001face}. %
+Le troisième concept propose lui aussi de distinguer les entités selon si elles
+possèdent une source ou non, ce sont les entités avec et sans source. %
 
 \begin{definition}[Entité avec source]\label{def:entite-avec-source}%
 	Une entité avec source est une entité topologique résultant d'une autre entité
@@ -511,75 +544,109 @@ Le troisième concept est celui des entités avec et sans sources~\cite{wu2001fa
 	avec cette dernière, suite à l'application d'une opération de modélisation.
 \end{definition}
 
-D'après Wu, une entité topologique $E$ issue d'une opération booléenne entre
-deux objets $O_{1}$ et $O_{2}$, est une entité avec source s'il existe une
-entité topologique $E'$ appartenant à $O_{1}$ ou $O_{2}$ telle que $E$ et $E'$
-ont au moins une partie de leur plongement géométrique en commun et dans ce cas
-$E'$ et la source de $E$. %
-C'est-à-dire, que pour deux ensembles de points $s$ de $E$ et $s'$ de $E'$, si
-$s \subseteq s'$, alors $E'$ est la source de $E$. %
+D'après Wu~\cite{wu2001face}, une entité topologique $E$ issue d'une opération
+booléenne entre deux objets $O_{1}$ et $O_{2}$, est une entité avec source s'il
+existe une entité topologique $E'$, de même dimension, appartenant à $O_{1}$ ou
+$O_{2}$ telle que $E$ et $E'$ ont au moins une partie de leur plongement
+géométrique en commun et dans ce cas $E'$ et la source de $E$. %
+Considérons, par exemple, que $E$ et $E'$ sont deux faces dont un sous-ensemble
+$s$ et $s'$ de leurs sommets et d'arêtes respectifs partagent les mêmes
+propriétés géométriques (position dans l'espace). %
+Si $s \subseteq s'$, ou inversement si $s' \subseteq s$, alors $E'$ est la
+source de $E$. %
 
 Par exemple, dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-extrusion}, le face
 $f'_{1}$, modifiée lors de l'opération booléenne, partage une partie de son
 plongement géométrique avec $f_{1}$ qui est donc sa source. %
 De la même manière, $f'_{5}$ a pour source $f_{5}$. %
-Pour les sommets et arêtes créés, ces entités sont créées par l'intersection de
-plusieurs faces et ne partagent donc le plongement géométrique d'aucune autre
-arête, elles sont sans sources. %
+Dans le cas des sommets et arêtes créées, en 3D, ces entités sont créées par
+l'intersection de plusieurs faces. %
+Ainsi, et ne partageant le plongement géométrique
+d'aucune autre entité de même dimension, elles sont donc sans sources. %
 
-Par ailleurs,  les faces 3D ne peuvent être issues que de la création,
-scission ou fusion, ce qui implique qu'elles ont systématiquement une source. %
-À l'inverse, ce n'est pas forcément le cas pour les sommets et arêtes. %
-Ainsi, la plupart des modeleurs s'appuient sur les faces pour construire leurs
-mécanismes de nomination, car celles-ci semblent plus stables. %
-
+Nous pouvons observer que, de manière générale pour les modeleurs de dimension
+$n$, les entités de dimension $n-1$ sont créées, scindées ou fusionnées à partir
+d'entités de même dimension et ont systématiquement une source. %
+Ainsi, en 3D les faces sont toutes créées avec source. %
+À l'inverse, ce n'est pas forcément le cas pour les arêtes et sommets qui
+peuvent être créées par l'intersection de plusieurs entités de dimension
+supérieures. %
+Cette propriété implique que dans la plupart des modeleurs 3D, le mécanisme de
+nomination est basé sur les faces, car le fait d'avoir systématiquement une
+source les rend plus stables. %
 
 \paragraph{Utilisation d'un historique de noms}
 
-Le quatrième concepts concerne l'utilisation d'un historique pour la nomination
-persistante. %
-Ce concept propose d'identifier les entités topologiques par leurs ancêtres
-invariants ce qui nécessite de mettre un \oe uvre le suivi de ces entités et de
-leurs évolutions. %
-Ainsi, lors de la réévaluation il est possible d'effectuer l'appariement des
-entités par rapports à leurs ancêtres. %
+Le quatrième concept commun dans la littérature concerne l'utilisation d'un
+historique pour la nomination. %
+Ce concept propose de construire un historique basé sur les ancêtres invariants
+pour chacune des entités topologiques. %
+Un tel système permettre grâce au suivi des entités et de leurs évolutions de les
+identifier et de les apparier par rapport à leurs ancêtres lors de la
+réévaluation. %
 
-Pour cela, il est possible d'avoir recours à une structure de
-graphe~\cite{kripac1995mechanism,agbodan2000persistent} ou bien à mécanisme de
-propagation d'attributs associés à chaque cellule~
-\cite{chen1995representation,wu2001face}. %
+La littérature présente deux principales approches pour construire un historique
+pour la nomination persistante. %
+La première approche est de construire un
+graphe~\cite{kripac1995mechanism,agbodan2000persistent} où chaque nœud est une
+entité topologique précédée de ses ancêtres et suivie de ses évolutions. %
+La seconde approche consiste en un mécanisme de propagation des informations
+d'une entité dans les noms des entités dont elle est
+l'ancêtre~\cite{CAPOYLEAS199617,wu2001face}. %
 
-La plupart des méthodes font uniquement le suivi des faces. %
-Les autres entités sont définies par des faces. %
-Les faces en 3D sont toujours des entités avec sources invariantes. Les sommets
-et arêtes ne sont pas forcément des entités avec sources invariantes (par
-exemple l'intersection de deux faces produit des arêtes contingentes sans
-sources). %
+Kripac~\cite{kripac1995mechanism} a proposé une historisation des faces d'un
+objet à l'aide d'un graphe orienté acyclique (\emph{DAG} en anglais) pour
+représenter l'ensemble des changements topologiques intervenant lors de la
+modélisation. %
+Dans ce DAG, un nœud,appelé un \textit{FaceIdNode}, représente une face
+étiquetée $f_{m.n}$ où $m$ est l'étape de modélisation et $n$ l'index de la face
+à l'étape $m$. %
 
-Kripac~\cite{kripac1995mechanism}, par exemple, propose un graphe permettant de
-suivre l'évolution des faces d'une construction et d'effectuer leurs appariement
-lors de la réévaluation. %
-
-\begin{figure}[htpb!]
+\begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=.5\textwidth]{kripac-faceid-graph}
-	\caption{Suivi de faces~\cite{kripac1995mechanism}}
+	\includegraphics[width=.6\textwidth]{kripac-faceid-graph}
+	\caption{DAG de suivi de face dans un modèle~\cite{kripac1995mechanism}}
+	\label{fig:etat-art-modelisation-parametrique-concepts-historique-kripac}
 \end{figure}
 
-Chen~\cite{chen1995representation} propose un mécanisme qui propage
-l'identification d'une entités à celles qui en dérivent lors, par exemple, d'une
-scission. %
+Le DAG, illustré dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-kripac},
+représente l'évolution des faces d'un pavé dont la face frontale a été creusée
+par une rainure. %
+Ce DAG montre que les faces $f_{1.1}$, $f_{1.2}$ et $f_{1.3}$ ont été créées
+avec une première opération et les faces $f_{2.1}$ et $f_{2.2}$ avec l'opération
+suivante. %
+Au cours des opérations suivantes, $f_{1.2}$ est scindée en deux faces $f_{3.1}$
+et $f_{3.2}$ et $f_{1.3}$ et $f_{2.1}$ sont fusionnées en une face $f_{3.3}$. %
+La face $f_{2.2}$ est supprimée puis $f_{3.2}$ et $f_{3.3}$ sont fusionnées en
+$f_{4.1}$. %
+Au terme de la modélisation et parmi les faces du DAG, seules les faces
+$f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle final. %
+
+
+Capoyleas~\cite{CAPOYLEAS199617} propose un mécanisme nomination dans lequel une
+entité est explicitement identifié par une autre et qui, par construction,
+propage l'information liée à cette entité à celles qui en dérivent. %
+Dans cette démarche, Capoyleas propose un schéma de nomination persistante où
+une entité créée par l'extrusion d'une autre entité porte explicitement son nom. %
+Par exemple, la face issue de l'extrusion d'une arête nommée $e1$ est nommée
+$f(e1)$. \todo{reprendre ici}%
 
 
 \paragraph{Nomination hétérogène des entités}
 
-Le cinquième concept identifié l'hétérogénéité dans la nomination des entités. %
-On observe dans la littérature que la plupart des mécanismes de nomination
-persistante s'appuient sur la
-topologie~\cite{chen1995representation,kripac1995mechanism,agbodan2000persistent}
-et parfois sur la
-géométrie~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
+Le cinquième concept que nous identifions est celui de l'hétérogénéité dans la
+nomination des entités. %
+La plupart des méthodes, dans la littérature, s'appuient sur les concepts
+précédents en lien avec la
+topologie~\cite{chen1995representation,kripac1995mechanism,agbodan2000persistent}. %
+Ces méthodes peuvent nommer des entités sur la base de leur voisinage
+topologique avec des entités contingentes et/ou invariantes. %
+D'autres méthodes proposent d'utiliser la géométrie pour compléter leur approche
+de nomination des
+entités~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
+
 
 \paragraph{Structure des plateformes intégrant la nomination persistante}
 

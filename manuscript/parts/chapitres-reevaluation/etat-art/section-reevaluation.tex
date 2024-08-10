@@ -591,9 +591,9 @@ pour la nomination persistante. %
 La première approche est de construire un
 graphe~\cite{kripac1995mechanism,agbodan2000persistent} où chaque nœud est une
 entité topologique précédée de ses ancêtres et suivie de ses évolutions. %
-La seconde approche consiste en un mécanisme de propagation des informations
-d'une entité dans les noms des entités dont elle est
-l'ancêtre~\cite{CAPOYLEAS199617,wu2001face}. %
+La seconde approche consiste en un mécanisme de nomination basé sur la
+propagation des informations d'une entité
+topologique~\cite{CAPOYLEAS199617,wu2001face}. %
 
 Kripac~\cite{kripac1995mechanism} a proposé une historisation des faces d'un
 objet à l'aide d'un graphe orienté acyclique (\emph{DAG} en anglais) pour
@@ -625,27 +625,43 @@ Au terme de la modélisation et parmi les faces du DAG, seules les faces
 $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle final. %
 
 
-Capoyleas~\cite{CAPOYLEAS199617} propose un mécanisme nomination dans lequel une
-entité est explicitement identifié par une autre et qui, par construction,
-propage l'information liée à cette entité à celles qui en dérivent. %
-Dans cette démarche, Capoyleas propose un schéma de nomination persistante où
-une entité créée par l'extrusion d'une autre entité porte explicitement son nom. %
-Par exemple, la face issue de l'extrusion d'une arête nommée $e1$ est nommée
-$f(e1)$. \todo{reprendre ici}%
+Capoyleas~\cite{CAPOYLEAS199617} propose un mécanisme de nomination dans lequel
+une entité est nommée par rapport à ancêtre invariant ce qui, par construction,
+propage des information de modélisation. %
+Ce mécanisme distingue trois cas de figure pour la nomination de nouvelles entités topologiques~:
+\begin{itemize}
+	\item La nomination d'entités issue d'une extrusion. %
+	      De cette manière, une face issue de l'extrusion d'une arête nommée $e1$
+	      sera elle-même nommée $f(e1)$~; %
+	\item La fusion d'entités déjà nommées. %
+	      Lorsque deux entités fusionnent, par
+	      exemple avec la création d'une protrusion cylindrique sur un pavé, les
+	      sommets et arêtes d'intersections sont nommés $I_{v}$ et $I_{e}$
+	      respectivement, les autres entités étant nommées normalement~;
+	\item La modification d'une forme. %
+	      Dans ce dernier cas de figure, un chanfrein
+	      appliqué sur une arête $e1$ crée l'entité nommée $c(e1)$. %
+\end{itemize}
 
 
 \paragraph{Nomination hétérogène des entités}
+
+\todo{Nomination d'entités topologiques de différentes dimensions}
 
 Le cinquième concept que nous identifions est celui de l'hétérogénéité dans la
 nomination des entités. %
 La plupart des méthodes, dans la littérature, s'appuient sur les concepts
 précédents en lien avec la
 topologie~\cite{chen1995representation,kripac1995mechanism,agbodan2000persistent}. %
-Ces méthodes peuvent nommer des entités sur la base de leur voisinage
-topologique avec des entités contingentes et/ou invariantes. %
+L'application de ces concepts permet de nommer et apparier des entités sur la
+base de leur voisinage topologique. %
 D'autres méthodes proposent d'utiliser la géométrie pour compléter leur approche
 de nomination des
 entités~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
+Dans ses travaux, Wu~\cite{wu2001face} propose d'intégrer des informations
+géométriques dans les noms d'entités pour lever l'ambiguïté lorsque la topologie
+ne suffit pas. %
+
 
 
 \paragraph{Structure des plateformes intégrant la nomination persistante}

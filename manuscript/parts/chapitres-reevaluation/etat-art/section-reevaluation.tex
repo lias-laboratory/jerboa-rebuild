@@ -627,7 +627,7 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle final. %
 
 Capoyleas~\cite{CAPOYLEAS199617} propose un mécanisme de nomination dans lequel
 une entité est nommée par rapport à ancêtre invariant ce qui, par construction,
-propage des information de modélisation. %
+propage des informations de modélisation. %
 Ce mécanisme distingue trois cas de figure pour la nomination de nouvelles entités topologiques~:
 \begin{itemize}
 	\item La nomination d'entités issue d'une extrusion. %
@@ -666,17 +666,19 @@ ne suffit pas. %
 
 \paragraph{Structure des plateformes intégrant la nomination persistante}
 
-Le dernier de ces concepts est l'intégration de la nomination persistante dans l'architecture logicielle que nous appelons l'architecture à trois couches~:
+Le dernier des concepts communs que nous présentons concerne l'extension de
+l'architecture logicielle des modeleurs paramétriques sous la forme d'une
+architecture à trois couches. %
+Une couche de nom s'intercale entre les couches paramétrique et géométrique~:
 \begin{itemize}
 	\item la couche de spécification paramétrique contient l'ensemble des
 	      opérations de modélisations, issues du processus constructif,
 	      définissant un objet~; %
-
 	\item la couche de nomination permet une identification sans ambiguïté des
 	      entités topologiques et leur appariement lors de la réévaluation~; %
-
-	\item la couche géométrique est l'instanciation d'un objet étant donné les
-	      opérations de modélisation et leurs paramètres. %
+	\item la couche géométrique contient la représentation géométriques d'un
+	      objet, c'est-à-dire ses entités géométriques et topologiques, après
+	      évaluation de la spécification paramétrique. %
 \end{itemize}
 
 \subsubsection{Concepts distincts}

@@ -4,11 +4,11 @@
 \highlight{chapeau}
 
 \subsection{Suivi des orbites lors des applications des règles}
-\label{sec:suivi-regles-evenmnts}
+\label{sec:formalisation-evenements-regles-jerboa-suivi}
 
 %\maxime { adapter les propositions aux schémas: wip}
 
-\subsection{Création}
+\subsubsection{Création}
 
 \begin{figure}[htbp!]
 	\centering
@@ -74,7 +74,7 @@ quatre brins ainsi le sommet créé a aussi quatre brins. Si l'arête sur laquel
 on applique la règle est incidente à deux cubes, le sommet aura deux fois plus
 de brins.
 
-\subsection{Suppression}
+\subsubsection{Suppression}
 
 \begin{figure}[ht]
 	\centering
@@ -139,81 +139,7 @@ $H$. %
 
 \maxime{Instanciation + description}
 
-\subsection{Non-changement}
-
-% Dans l'insertion de sommet figure \textbf{fig:rule-insert-vertex}, le nœud $n0$
-% (en noir) filtre partiellement les orbites sommet aux extrémités de l'arête sur
-% laquelle est inséré le nouveau sommet. Ces orbites sont inchangées par
-% l'insertion du nouveau sommet.
-
-La règle de triangulation
-(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}),
-réécrit les étiquettes du n\oe ud $n0$, qui étaient $\orbit{0,\_,3}$ dans $L$ et
-deviennent $\orbit{0,1,3}$ dans $R$, l'étiquette $0$ est préservée. %
-Le n\oe ud $n0$ filtre ainsi des arêtes qui restent inchangées suite à la
-réécriture des étiquettes du n\oe ud. %
-
-\begin{proposition}[Non-changement d'orbite]
-	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$,
-	un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte
-	$G$, et un type d'orbite $\orbit{\omega}$.
-
-	Soit $v$ un nœud de $L$. L'orbite $\underline{L}\orbit{\omega}(v)$ est inchangée dans
-	la règle si et seulement si toutes les orbites $G\orbit{\omega}(m((v,v')))$ sont
-	inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
-	les nœuds $v'$ de l'orbite d'instanciation $G\orbit{l(h)}(\underline{m}(h))$.
-\end{proposition}
-
-\begin{proof} Soit $v$ un nœud préservé de $L \cap R$ tel que l'orbite
-	$\underline{L}\orbit{\omega}(v)$ est inchangée dans la règle $r~: L \longrightarrow R$. Soit
-	$O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
-
-	Soit $w$ un nœud quelconque de l'orbite $\underline{L}\orbit{\omega}(v)$. $w$ est un
-	nœud inchangé de la règle de $L \cap R$. Donc, par construction de la règle
-	instanciée, tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite
-	d'instanciation $O$, sont des nœuds inchangés dans la règle instanciée
-	$r(\underline{m})$. Or une orbite $G\orbit{\omega}(m((v,v')))$ n'est pas
-	nécessairement entièrement filtrée, c'est-à-dire
-	$L(O)\orbit{\omega}((v,v')) \subset G\orbit{\omega}(m((v,v')))$ et
-	$R(O)\orbit{\omega}((v,v')) \subset H\orbit{\omega}(m'((v,v')))$. Par définition, la partie non
-	filtrée est aussi inchangée
-	$G\orbit{\omega}(m((v,v'))) \setminus L(O)\orbit{\omega}((v,v')) = H\orbit{\omega}(m'((v,v'))) \setminus R(O)\orbit{\omega}((v,v'))$.
-	Donc toutes les orbites $L(O)\orbit{\omega}((v,v'))$ pour tous les nœuds $v'$ de
-	l'orbite d'instanciation $O$ sont des orbites inchangées dans la règle
-	instanciée $r(\underline{m})$. Et donc, d'après la proposition
-	\ref{prop:base-rule-unchange}, toutes les orbites $G\orbit{\omega}(m((v,v')))$ sont
-	inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
-	les nœuds $v'$ de l'orbite d'instanciation $O$. \\
-
-	Réciproquement, supposons que toutes les orbites $G\orbit{\omega}(m((v,v')))$ sont
-	inchangées dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous
-	les nœuds $v'$ de l'orbite d'instanciation $O$. Donc d'après la proposition
-	\ref{prop:base-rule-unchange}, toutes les orbites $L(O)\orbit{\omega}((v,v'))$ pour
-	tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites inchangées
-	dans la règle instanciée $r(\underline{m})$. Donc par construction de
-	l'instanciation, $\underline{L}\orbit{\omega}(v)$ est une orbite inchangée dans la
-	règle $r$.
-\end{proof}
-
-\maxime{Instanciation + description}
-
-\subsection{Sans effet \maxime{fusionner avec non-changement ?}}
-
-\maxime{appliquer la règle d'insertion de sommet sur un carré}
-
-Dans la figure ? le brin $a$ de $G$ n'est pas filtré, mais l'orbite sommet $G\orbit{1,2,3}(a)$ est partiellement filtrée par la règle \maxime{à continuer en fonction du dessin} […] donc l'orbite sommet $G\orbit{1,2,3}(a)$ est inchangée.
-Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas filtrée non plus, donc l'orbite sommet $G\orbit{1,2,3}(b)$ n'est pas affectée par l'application de la règle.
-
-\begin{definition}[Orbite non affectée]
-	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage
-	$\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite
-	$\orbit{\omega}$.
-
-	Soit $b$ un brin de $G$ non filtré. L'orbite $G\orbit{\omega}(b)$ n'est \emph{pas affectée} par l'application de $r$ si $G\orbit{\omega}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée} sinon.
-
-\end{definition}
-
-\subsection{Scission}
+\subsubsection{Scission}
 
 \begin{figure}[htbp!]
 	\centering
@@ -401,16 +327,16 @@ Cette scission est dite \emph{explicite}, à l'inverse des scission par réécri
 \begin{definition}[Orbite d'origine]
 	Soit une règle $r~: L \longrightarrow R$, $v_1$ et $v_2$ deux nœuds préservés de $L$ et $R$ et $\orbit{\omega}$ un type d'orbite, tels que l'orbite $L\orbit{\omega}(v_1) = L\orbit{\omega}(v_2)$ de $L$ soit scindée en deux orbites distinctes $R\orbit{\omega}(v_1)$ et $R\orbit{\omega}(v_2)$ dans $R$.
 
-	Une \emph{orbite d'origine} de $R\orbit{\omega}(v_1)$ dans $L$ (et de manière symétrique l'orbite d'origine de $R\orbit{\omega}(v_2)$ dans $L$) est une orbite $L\orbit{o'}(w)$ où :
+	Une \emph{orbite d'origine} de $R\orbit{\omega}(v_1)$ dans $L$ (et de manière symétrique l'orbite d'origine de $R\orbit{\omega}(v_2)$ dans $L$) est une orbite $L\orbit{\omega'}(w)$ où :
 	\begin{itemize}
 		\item où $w$ est un nœud de $\underline{L}\orbit{\omega}(v_1)$,
 
-		\item $\orbit{o'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $w$ ; c'est-à-dire que $(l_L(w) \mapsto l_R(v_1))(i) = j \in \orbit{\omega}$
+		\item $\orbit{\omega'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $w$ ; c'est-à-dire que $(l_L(w) \mapsto l_R(v_1))(i) = j \in \orbit{\omega}$
 
 	\end{itemize}
 	Soit un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $G \xlongrightarrow{r, \underline{m}} H$ la transformation directe correspondante et $O$ l'orbite d'instanciation. Soit $v'$ un nœud de $O$.
 
-	Une {\em origine} de l'orbite $H\orbit{\omega}((v_1,v'))$ est une orbite $G\orbit{o'}((w,v'))$.
+	Une {\em origine} de l'orbite $H\orbit{\omega}((v_1,v'))$ est une orbite $G\orbit{\omega'}((w,v'))$.
 \end{definition}
 
 \todo{Ajouter illustration règle insertion d'arête coloriée (dans le document il s'agit de la règle dépliée, je mettrai la règle repliée)}
@@ -460,7 +386,7 @@ Cette scission est dite \emph{explicite}, à l'inverse des scission par réécri
 \maxime{Instanciation + description}
 
 
-\subsection{Fusion}
+\subsubsection{Fusion}
 
 \todo{Ajouter illustration règle contraction de face}
 % \begin{figure}[H]
@@ -627,7 +553,83 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 
 \maxime{Instanciation + description}
 
-\subsection{Modification}
+
+\subsubsection{Non-changement}
+
+% Dans l'insertion de sommet figure \textbf{fig:rule-insert-vertex}, le nœud $n0$
+% (en noir) filtre partiellement les orbites sommet aux extrémités de l'arête sur
+% laquelle est inséré le nouveau sommet. Ces orbites sont inchangées par
+% l'insertion du nouveau sommet.
+
+La règle de triangulation
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}),
+réécrit les étiquettes du n\oe ud $n0$, qui étaient $\orbit{0,\_,3}$ dans $L$ et
+deviennent $\orbit{0,1,3}$ dans $R$, l'étiquette $0$ est préservée. %
+Le n\oe ud $n0$ filtre ainsi des arêtes qui restent inchangées suite à la
+réécriture des étiquettes du n\oe ud. %
+
+\begin{proposition}[Non-changement d'orbite]
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$,
+	un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte
+	$G$, et un type d'orbite $\orbit{\omega}$.
+
+	Soit $v$ un nœud de $L$. L'orbite $\underline{L}\orbit{\omega}(v)$ est inchangée dans
+	la règle si et seulement si toutes les orbites $G\orbit{\omega}(m((v,v')))$ sont
+	inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
+	les nœuds $v'$ de l'orbite d'instanciation $G\orbit{l(h)}(\underline{m}(h))$.
+\end{proposition}
+
+\begin{proof} Soit $v$ un nœud préservé de $L \cap R$ tel que l'orbite
+	$\underline{L}\orbit{\omega}(v)$ est inchangée dans la règle $r~: L \longrightarrow R$. Soit
+	$O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
+
+	Soit $w$ un nœud quelconque de l'orbite $\underline{L}\orbit{\omega}(v)$. $w$ est un
+	nœud inchangé de la règle de $L \cap R$. Donc, par construction de la règle
+	instanciée, tous les nœuds $(w,v')$ pour tous les nœuds $v'$ de l'orbite
+	d'instanciation $O$, sont des nœuds inchangés dans la règle instanciée
+	$r(\underline{m})$. Or une orbite $G\orbit{\omega}(m((v,v')))$ n'est pas
+	nécessairement entièrement filtrée, c'est-à-dire
+	$L(O)\orbit{\omega}((v,v')) \subset G\orbit{\omega}(m((v,v')))$ et
+	$R(O)\orbit{\omega}((v,v')) \subset H\orbit{\omega}(m'((v,v')))$. Par définition, la partie non
+	filtrée est aussi inchangée
+	$G\orbit{\omega}(m((v,v'))) \setminus L(O)\orbit{\omega}((v,v')) = H\orbit{\omega}(m'((v,v'))) \setminus R(O)\orbit{\omega}((v,v'))$.
+	Donc toutes les orbites $L(O)\orbit{\omega}((v,v'))$ pour tous les nœuds $v'$ de
+	l'orbite d'instanciation $O$ sont des orbites inchangées dans la règle
+	instanciée $r(\underline{m})$. Et donc, d'après la proposition
+	\ref{prop:base-rule-unchange}, toutes les orbites $G\orbit{\omega}(m((v,v')))$ sont
+	inchangées dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$, pour tous
+	les nœuds $v'$ de l'orbite d'instanciation $O$. \\
+
+	Réciproquement, supposons que toutes les orbites $G\orbit{\omega}(m((v,v')))$ sont
+	inchangées dans la transformation directe $G \xlongrightarrow{r, \underline{m}} H$, pour tous
+	les nœuds $v'$ de l'orbite d'instanciation $O$. Donc d'après la proposition
+	\ref{prop:base-rule-unchange}, toutes les orbites $L(O)\orbit{\omega}((v,v'))$ pour
+	tous les nœuds $v'$ de l'orbite d'instanciation $O$ sont des orbites inchangées
+	dans la règle instanciée $r(\underline{m})$. Donc par construction de
+	l'instanciation, $\underline{L}\orbit{\omega}(v)$ est une orbite inchangée dans la
+	règle $r$.
+\end{proof}
+
+\maxime{Instanciation + description}
+
+
+\subsubsection{Sans effet}
+
+\maxime{appliquer la règle d'insertion de sommet sur un carré}
+
+Dans la figure ? le brin $a$ de $G$ n'est pas filtré, mais l'orbite sommet $G\orbit{1,2,3}(a)$ est partiellement filtrée par la règle \maxime{à continuer en fonction du dessin} […] donc l'orbite sommet $G\orbit{1,2,3}(a)$ est inchangée.
+Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas filtrée non plus, donc l'orbite sommet $G\orbit{1,2,3}(b)$ n'est pas affectée par l'application de la règle.
+
+\begin{definition}[Orbite non affectée]
+	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage
+	$\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite
+	$\orbit{\omega}$.
+
+	Soit $b$ un brin de $G$ non filtré. L'orbite $G\orbit{\omega}(b)$ n'est \emph{pas affectée} par l'application de $r$ si $G\orbit{\omega}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée} sinon.
+
+\end{definition}
+
+\subsubsection{Modification}
 
 \begin{proposition}[Modification d'orbite]
 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite $\orbit{\omega}$.
@@ -670,26 +672,88 @@ La figure \textbf{fig:colored-rule-face-collapse} représente la règle de contr
 \begin{definition}[Orbite d'origine]
 	Soit une règle $r~: L \longrightarrow R$, $n$ un nœud de $R$ et $\orbit{\omega}$ un type d'orbite.
 
-	Une \emph{orbite d'origine} de $\underline{R}\orbit{\omega}(n)$ dans $L$ est une orbite $\underline{L}\orbit{o'}(n')$ où :
+	Une \emph{orbite d'origine} de $\underline{R}\orbit{\omega}(n)$ dans $L$ est une orbite $\underline{L}\orbit{\omega'}(n')$ où :
 	\begin{itemize}
 		\item où $n'$ est un nœud de $L$,
 
-		\item $\orbit{o'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $n'$ ; c'est-à-dire que $(l_L(n') \mapsto l_R(n))(i) = j \in \orbit{\omega}$
+		\item $\orbit{\omega'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $n'$ ; c'est-à-dire que $(l_L(n') \mapsto l_R(n))(i) = j \in \orbit{\omega}$
 
 	\end{itemize}
 	Soit un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $G \xlongrightarrow{r, \underline{m}} H$ la transformation directe correspondante et $O$ l'orbite d'instanciation. Soit $v'$ un nœud de $O$.
 
-	Une {\em origine} de l'orbite $H\orbit{\omega}((n,v'))$ est une orbite $G\orbit{o'}((n',v'))$.
+	Une {\em origine} de l'orbite $H\orbit{\omega}((n,v'))$ est une orbite $G\orbit{\omega'}((n',v'))$.
 \end{definition}
 
 Remarquons que lorsqu'une règle n'a pas de membre gauche ($L = \emptyset$), alors toutes les orbites de $R$ sont créées et aucune n'a d'origine.
 
 \agnes{Donner les origines pour les principales orbites de la règle précédente (celles qui ne sont pas des suivis) + montrer ce que cela donne sur l'exemple}
 
-Quand l'origine le type $\orbit{o'}$ de l'origine est confondu avec l'orbite d'intérêt ($\orbit{o'} = \orbit{\omega}$), alors l'orbite d'origine est identique à celle de suivi (voir la section \ref{sec:suivi-regles-evenmnts}).
+Quand le type d'orbite $\orbit{\omega'}$ de l'origine est confondu avec l'orbite
+d'intérêt ($\orbit{\omega'} = \orbit{\omega}$), alors l'orbite d'origine est identique à
+celle de suivi (voir la section \ref{sec:formalisation-evenements-regles-jerboa-suivi}).
 
 \agnes{Compléter l'exemple précédent pour les origines qui sont aussi des suivis + faire le lien avec la section précédente et les évènements correspondants}
 
+\begin{table*}[htbp]
+	\centering
+
+	\caption{\label{tab:formalisation-evenement-regle-jerboa-tableau-detection}
+		Extrait des évènement détectés lors de l'application de la règle de triangulation
+		(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation})
+		sur la face d'un cube
+		(Figure~\ref{fig:formalisation-evenement-regle-jerboa-triangulation-face})}
+
+	\begin{tabular}{|p{0.1\textwidth}|p{0.35\textwidth}||p{0.1\textwidth}|p{0.35\textwidth}|}
+		\hline
+		\centering Type d'orbite & Évènement détecté                                                                                                                       & \centering Type d'orbite & Évènement détecté \\
+		\hline\hline
+		\centering $\orbit{0}$
+		                         & Création $H\orbit{0}(a_{1})$
+		\par Création~$H\orbit{0}(b_{1})$ \ldots
+		\vspace{0.1 cm}
+		\par Non-changement~$H\orbit{0}(a_{0})$
+		\par Non-changement~$H\orbit{0}(c_{0})$~\ldots
+		                         & \centering $\orbit{1}$
+		                         & Création $H\orbit{0}(a_{2})$
+		\par Création~$H\orbit{1}(c_{2})$ \ldots
+		\vspace{0.1 cm}
+		\par Scission~$G\orbit{1}(a_{0}) \rightarrow \{$$H\orbit{1}(a_{0})$, $H\orbit{1}(h_{0})\}$
+		\par Scission~$G\orbit{1}(c_{0}) \rightarrow \{$$H\orbit{1}(c_{0})$, $H\orbit{1}(b_{0})\}$~\ldots                                                                                                                 \\
+				\hline
+				\centering $\orbit{2}$
+		                         & Création $H\orbit{2}(a_{1})$
+				\par Création~$H\orbit{2}(a_{2})$
+				\par Création~$H\orbit{2}(b_{1})$
+				\par Création~$H\orbit{2}(b_{2})$ \ldots
+				\vspace{0.1 cm}
+				\par Non-changement~$H\orbit{2}(a_{0})$
+				\par Non-changement~$H\orbit{2}(b_{0})$
+				\par Non-changement~$H\orbit{2}(c_{0})$
+				\par Non-changement~$H\orbit{2}(d_{0})$~\ldots
+		                         & \centering $\orbit{0,2}$
+		                         & Création $H\orbit{0,2}(a_{1})$
+				\par Création~$H\orbit{0,2}(b_{1})$\ldots
+				\vspace{0.1 cm}
+				\par Non-changement~$H\orbit{0,2}(a_{0})$
+		\par Non-changement~$H\orbit{0,2}(c_{0})$~\ldots                                                                                                                                                                  \\
+				\hline
+				\centering $\orbit{0,1,2}$
+		                         & Modification~$H\orbit{0,1,2}(a_{0})$
+		                         & \centering $\orbit{0,1}$
+		                         & Scission~$G\orbit{0,1}(a_{0}) \rightarrow \{H\orbit{0,1}(a_{0})$, $H\orbit{0,1}(c_{0})$, $H\orbit{0,1}(e_{0})$, $H\orbit{0,1}(g_{0})\}$                                                \\
+				\hline
+				\centering $\orbit{1,2}$
+		                         & Création $H\orbit{1,2}(a_{0})$
+				\par Modification~$H\orbit{1,2}(b_{0})$\ldots
+				\vspace{0.1 cm}
+				\par Création~$H\orbit{1,2}(a_{2})$
+		                         &
+		                         &                                                                                                                                                                                        \\
+		\hline
+	\end{tabular}
+	\normalsize
+
+\end{table*}
 
 %%% Local Variables:
 %%% mode: latex

@@ -1,85 +1,6 @@
 \section[Modélisation paramétrique]{Modélisation paramétrique}
 \label{sec:etat-art-modelisation-parametrique}
 
-% Paragraphe : (Rapidement sur) les systèmes de modélisation géométriques pour la
-% CAO. (Principalement) les systèmes de modélisation paramétriques, (Concentrer
-% sur) la famille fonctionnelle, c'est-à-dire, avec spécification paramétrique.
-% (Aborder) les initiatives pour l'identification de la topologie et leurs
-% objectifs. Ça concerne entre autres, (rapidement) l'échange entre systèmes de
-% modélisation (échange de modèles entre systèmes,…) et (plus longuement) les besoins de générations de modèles
-% par réévaluation. (Motiver rapidement avec) les coûts (en temps humain, entre
-% autres) de changements dans les designs.
-
-% Systèmes de modélisation de solides~:
-% \begin{itemize}
-% 	\item Modélisation paramétrique,
-% 	\item Modélisation géométrique directe (ou explicite),
-% 	\item Modélisation par assemblage
-% \end{itemize}
-
-% Cette section est dédiée aux concepts et définitions nécessaires à la
-% compréhension des systèmes de réévaluation de leurs mécanismes, notamment celui
-% du nommage persistent d'entités topologiques.
-
-% Dans un premier temps~: concepts, définitions et propriétés. %
-% Puis~: classification des méthodes de nommage persistant
-% Enfin~: réévaluation à base de règles
-
-% \david{Proposition : un truc du genre :  les système paramétriques sont utilisés depuis plusieurs années dans le domaine de la CAO \todo{citer des outils qui proposent déjà de procéder à la réévaluation de modèle
-% 	paramétrique, [revit, autocad, catia, siemensNX,…]}. Après avoir enregistré un processus constructif (i.e. une liste d'opérations ou de contraintes posées sur sur des entités géométriques plus ou moins élémentaires permettant de modéliser l'objet), ces systèmes permettent la génération de différentes variations de l'objet modélisé en modifiant certains paramètres de la construction et/ou en ajoutant, déplaçant ou supprimant des opérations ou des contraintes, puis en rejouant (i.e. réévaluant)  automatiquement le processus constructif. Dans cette section, nous commençons par définir plus précisément la notion de système paramétrique et en particulier sa structure ainsi que les concepts permettant de réévaluer ces modèles puis présentons une solution (cf remarque ci dessous), largement présentée dans la littérature, qui est l'identification persistante des entités topologiques.}.
-
-% En CAO, et plus particulièrement en modélisation paramétrique, le mécanisme
-% permettant la génération de variations à partir d'un modèle pré-existant,
-% mécanisme dit de réévaluation ou rejeu, repose sur un certain nombre de concepts
-% et définitions. %
-% Dans cette section, nous commençons par décrire les systèmes paramétriques,
-% grâce auxquels il est possible de réévaluer des modèles puis présentons une
-% solution \david{Une solution à quoi ?}, largement présentée dans la littérature, qui est l'identification
-% persistante des entités topologiques. %
-
-% \maxime{ %
-% 	Le domaine de la CAO présente de nombreux outils de modélisation, dont les
-% 	systèmes paramétriques qui permettent la génération de variations d'un modèle
-% 	à l'aide d'un mécanisme dit de rejeu, ou
-% 	réévaluation~\cite{dassaultCATIA,dassaultSOLIDWORKS,autodeskAUTOCAD,autodeskREVIT,siemensNX}. %
-% 	Tout d'abord, un tel système enregistre le processus constructif, c'est-à-dire
-% 	une liste d'opérations ou de contraintes posées sur des entités géométriques
-% 	(points, droites, caractéristiques de formes\dots) permettant de modéliser
-% 	l'objet. %
-% 	Ensuite, l'utilisateur a la possibilité de modifier certains paramètres de la
-% 	construction et/ou d'ajouter, déplacer voire supprimer des opérations ou des
-% 	contraintes. %
-% 	Enfin, le processus constructif est rejoué, ou réévalué, automatiquement ce qui
-% 	génère une variation, d'un objet
-% 	initialement construit, selon les modifications effectuées. %
-% 	Dans cette section, nous commençons par définir plus précisément la notion de
-% 	\textit{système paramétrique} et plus particulièrement sa structure, ainsi que les
-% 	concepts permettant de réévaluer ces modèles\david{. Nous verrons que la réévaluation peut poser problème lorsque le système ne gère pas correctement les références faites aux entités topologiques et qu'il convient, dans ce cas, d'intégrer un mécanisme de nomination persistante.} \davidSupp{puis présentons une solution à l'identification des entités topologiques~: la nomination persistante.} %
-% }
-
-%% Paragraphe : système de modélisation à deux couches
-% \david{these dago à partir de page 33} Un système de modélisation paramétrique est composé de deux couches. %
-% La première couche, dite \emph{couche géométrique}, a pour objet la
-% représentation explicite d'un modèle avec sa géométrie. %
-% La deuxième couche, appelée \emph{spécification paramétrique} ou plus simplement
-% \emph{spécification}, contient l'ensemble des \david{contraintes ou des opérations et leurs} paramètres permettant de caractériser le modèle. %
-% Ce sont ces mêmes paramètres \david{, ces contraintes ou ces opérations} qui peuvent être modifiés puis réévalués pour générer
-% un modèle variant. %
-
-% \maxime{%
-% 	Un système paramétrique peut être considéré comme une structure duale avec d'une part	la représentation explicite, ou \emph{couche géométrique}, d'un objet et, d'autre part, une représentation implicite, ou \emph{spécification paramétrique} (ou simplement \emph{spécification}). Cette dernière contient \david{la liste des contraintes ou des opérations successives avec leurs paramètres. Elle peut être modifiée et réévaluée, afin de générer de nouvelles représentations explicites selon les modifications effectuées.}
-% }
-
-% \xavierSupp{Il existe deux approches de la modélisation paramétriques où la couche de
-% spécification paramétrique prend une forme différente}\xavierAdd{On distingue deux principaux types de spécifications paramétriques.}. %
-% La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
-% La seconde est l'approche \emph{fonctionnelle}. %
-
-% \maxime{On distingue deux principales approches \xavierAdd{dans le cadre} de la modélisation paramétrique\davidSupp{, chacune avec son type de spécification}. %
-% 	La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
-% 	La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
-% }
-
 Le domaine de la CAO présente de nombreux outils de modélisation, dont les
 systèmes paramétriques qui permettent la génération de variations d'un modèle à
 l'aide d'un mécanisme dit de rejeu, ou
@@ -142,7 +63,6 @@ ci-dessous~\cite{pierra1996general}~: %
 % 	chose d'un peu plus large (le système contient le modèle paramètrique, mais
 % 	aussi une IHM, etc.). Même si par abus de langage, on parle de système
 % 	paramétrique pour parler du modèle.}
-
 \begin{definition}[Modèle paramétrique équationnel]
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, où
 	$\mathcal{D}$ est souvent égal à $\mathbb{R}^{n}$. %
@@ -181,16 +101,14 @@ processus constructif (ou historique), c'est-à-dire un enregistrement de
 l'ensemble des opérations de modélisation et de leurs paramètres, successivement
 appliquées tout au long d'une procédure de modélisation. %
 Dans ces opérations, les paramètres sont soit des valeurs géométriques, soit des références à des entités topologiques existantes. %
-La représentation explicite d'un objet, quant à elle, est entièrement générée à
-l'issue du processus constructif et est donc déterministe. %
+La représentation explicite d'un objet, quant à elle, est entièrement générée au fur et à mesure de l'application du processus constructif et est donc déterministe. %
 L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
 \begin{definition}[Modèle paramétrique fonctionnel]
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, et $V$ une instance explicite, où $V$ appartient à $\mathcal{V}$ l'ensemble de toutes les formes possibles.
 	Un modèle paramétrique est une fonction~:
 	\[F : \mathcal{D} \mapsto \mathcal{V}\] %
-	avec $V = F(P)$, où $F$ est définie comme une composition de fonctions
-	$f_{i}$ appelées \emph{fonctions
-		paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
+	avec $V = F(P)$, où $F$ est définie comme une composition de
+	fonctions $f_{i}$ appelées \emph{fonctions paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
 \end{definition}
 
 Représenter un modèle paramétrique par une fonction présente plusieurs
@@ -249,7 +167,7 @@ La spécification paramétrique ci-dessus (et sa représentation explicite
 figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init})
 illustre plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
 (1) l'utilisateur est restreint à l'utilisation du pool d'opérations prédéfinies dans le modeleur~; (2) l'approche est
-séquentielle, ce qui implique que toute entité doit exister à l'étape courante de la modélisation pour pouvoir être référencée.
+séquentielle, ce qui implique que toute entité doit exister à l'étape courante de la modélisation pour pouvoir être référencée (i.e. pouvoir être utilisée comme paramètre d'entrée de l'opération de modélisation courante).
 Par exemple, suite à l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de
 la face avant du cube initial n'existe plus~: elle a été «~remplacée~» par une
 succession de nouvelles arêtes. Il devient alors impossible d'appliquer une fonction
@@ -264,7 +182,7 @@ Considérons, par exemple, le rejeu de la spécification paramétrique précéde
 \begin{itemize}
 	\item \texttt{1-Cube(larg\_c, haut\_c, prof\_c)}
 	\item \texttt{2-Rainure($f_{1}$, long\_r2, larg\_r)}
-	\item \texttt{3-Arrond$e_{1}$,rayon)} % \david{je pense que tu dois laisser
+	\item \texttt{3-Arrondi($e_{1}$,rayon)} % \david{je pense que tu dois laisser
 	      % e1 dans ta spec au
 	      % rejeu. La seule chose que tu changes c'est la longueur de ta rainure.
 	      % Dans la fig 1.26-b tu ne rejoues pas l'arrondi, ce qui illustre bien le
@@ -378,42 +296,53 @@ l'une et/ou l'autre de ces deux arêtes. %
 
 
 \subsection{Classification des méthodes de nomination persistante}
-\label{sec:etat-art-modelisation-parametrique-classification-nomination}
+\label{sec:etat-art-reevaluation-approches-nommages}
+
 
 La nomination persistante, avec l'identification et l'appariement des entités
 topologiques, est un problème avec un enjeu fort pour la réévaluation d'un
 modèle paramétrique. %
 Au cours des années, de nombreuses méthodes ont été proposées pour mettre en \oe
-uvre un système permettant de réévaluation des modèles paramétriques. %
+uvre un système permettant de réévaluer des modèles paramétriques. %
 Dans cette section, nous proposons tout d'abord une classification de ces
 méthodes sous la forme d'approches communes et distinctes. %
-Ensuite, nous passons en revue certains des systèmes proposés pour résoudre le
-problème de la nomination persistante et, enfin, nous proposons une synthèse de
-ces méthodes. %
+Ensuite, nous passons en revue de manière plus détaillée les systèmes proposés
+les plus significatifs pour résoudre le problème de la nomination persistante
+et, enfin, nous proposons une synthèse de ces méthodes. %
+
 
 \subsubsection[Concepts communs de la nomination persistante]{Concepts communs de la nomination persistante}
-\label{sec:etat-art-modelisation-parametrique-classification-nomination-concepts}
+\label{sec:etat-art-reevaluation-classification-props}
 
 Les différents systèmes de nomination persistante s'appuient, explicitement ou
 non, sur un ensemble de concepts. %
-Ces concepts définissent des propriétés sur les entités topologiques permettant
+Ces concepts définissent principalement des propriétés sur les entités topologiques permettant
 de les classer dans des catégories distinctes. %
 Cela permet de mettre en \oe uvre des mécanismes spécifiques pour la nomination
 et l'appariement. %
 
-\paragraph{Distinction des entités invariantes et contingentes}
+% \todo{découper ces item pour insérer les définitions}
+% \begin{itemize}
+% 	\item distinction des entités invariantes et contingentes ( intégrer : nomination basée sur les entités invariantes )
+% 	\item distinction des entités avec et sans sources
+% 	\item utilisation d'un historique de noms
+% 	\item nomination hétérogène des entités
+% \end{itemize}
+
+
+\paragraph{\color{red}{Distinction des entités invariantes et contingentes}}
+
+
 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[height=120pt]{entites-invariantes-contingentes}
-	\caption{Opération booléenne entre deux objets}
+	\caption{Opération booléenne (différence) entre deux objets}
 	\label{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}
 \end{figure}
 
 Le premier concept que nous abordons est celui qui propose de distinguer les
-entités dites \emph{invariantes} de celles dites \emph{contingentes}. %
-Pour présenter ces entités, nous nous appuyons sur l'illustration
-figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}. %
+entités dites \emph{invariantes} de celles dites \emph{contingentes}~\cite{agbodan1999data}. %
 
 \begin{definition}[Entité invariante]\label{def:entite-invariante}%
 	Une \emph{entité invariante} est une entité géométrique ou topologique qui peut être,
@@ -422,39 +351,39 @@ figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invari
 	impliquées. %
 \end{definition}
 
+Pour illustrer cela, observons la
+figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}. %
 Nous pouvons voir, lors des étapes $1$ et $2$ de la modélisation, un ensemble
 d'entités topologique dites invariantes générées lors de la création des deux
 pavés. %
 Quels que soient les paramètres des opérations créant ces deux pavés, nous
 savons que l'ensemble de ses entités seront systématiquement générées, car elles
 sont caractéristiques de l'opération. %
-Ainsi, l'ensemble des entités topologiques des pavés sont invariantes comme, par exemple, les
-faces $f_{1}$ et $f_{5}$. %
+Ainsi, l'ensemble des entités topologiques des pavés, telles que les faces
+$f_{1}$ et $f_{5}$, sont invariantes. %
 
 \begin{definition}[Entité contingente]\label{def:entite-contingente}%
 	Une \emph{entité contingente} est une entité topologique ou géométrique qui résulte
 	de l'interaction entre le modèle géométrique pré-existant et les entités
-	invariantes issues de la dernière opération de modélisation. %
+	invariantes issues d'un geste constructif particulier. %
 \end{definition}
 
-Dans l'étape $3$ de la modélisation, l'opération booléenne entre les deux pavés
-crée un nouvel ensemble d'entités topologiques dites contingentes. %
-Cette fois, les entités générées dépendent des paramètres de l'opération, ce qui
-signifient qu'elles ne sont pas systématiquement créées selon les paramètres de
-l'opération. %
-Parmi ces entités, on trouve les faces $f'_{1}$, $f'_{2}$, $f'_{3}$, $f'_{4}$,
-$f'_{5}$ et $f'_{6}$. %
-En effet, les faces créées, et même transformées, par l'opération booléenne sont
-dépendantes de ses paramètres. %
-Pour exprimer cette dépendance, si nous déplaçons le second pavé sans créer
-d'intersection avec le premier, alors aucune nouvelle entité topologique ne peut
-résulter de l'opération booléenne. %
-Pour donner un autre exemple, reprenons l'objet que l'on réévalue avec la
-rainure sur $f_{1}$ qui crée quatre faces
-(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite}). %
-Lors de la réévaluation, la longueur de la rainure change. %
-Cette fois, l'opération scinde $f_{1}$ en deux et crée trois autres faces dans
-la rainure. %
+Dans l'étape $3$ de la modélisation, la différence entre les deux pavés génère
+un ensemble de nouvelles entités topologiques dites contingentes. %
+Ces entités dépendent des paramètres des opérations (ici la taille ou la
+position des deux pavés) et ne sont donc pas systématiquement créées. %
+Parmi ces entités, on trouve par exemple les faces $f'_{1}$, $f'_{2}$, $f'_{3}$,
+$f'_{4}$, $f'_{5}$ et $f'_{6}$ ou bien l'arête $e'_{1}$. %
+En effet, la création ou la modification de ces entités dépend des paramètres
+des opérations. %
+Si, par exemple, nous déplaçons le second pavé de façon à ne créer aucune
+intersection entre les deux objets, ou si nous modifions sa taille de façon à ce
+que la face $f_{1}$ se retrouve scindée en deux, alors certaines entités
+contingentes ne seront plus créées ou au contraire d'autres apparaîtront. %
+De même si l'on reprend l'exemple sur la
+Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite},
+au rejeu, le changement de la longueur de la rainure scinde la face $f_{1}$ et
+crée deux nouvelles faces contingentes. %
 
 % Cette distinction met en avant une propriété des entités contingente~: celles-ci
 % ne sont pas suffisamment stables et ne peuvent donc pas être utilisées dans la
@@ -470,7 +399,9 @@ la rainure. %
 % peut lui-même comporter des entités contingentes, ce qui ne permet pas de
 % résoudre le problème. %
 
-\paragraph{Nomination des entités invariantes issues d'extrusion ou de révolution}
+
+\paragraph{\color{red}{Entités issues d'extrusion ou de révolution}}
+
 
 Le deuxième concept est un mécanisme de nomination des entités invariantes
 générées lors d'opérations d'extrusion ou de révolution. %
@@ -497,9 +428,9 @@ Prenons l'exemple des travaux de Wu~\cite{wu2001face}. %
 Wu propose une identification des entités topologiques générée par extrusion (ou
 révolution) basée sur le schéma de nomination suivant
 
-\[[ID,ID_{p},ID_{element},ID_{chemin},ID_{trajectoire}]\]
+\[[ID_{operation},ID_{profil},ID_{element},ID_{chemin},ID_{trajectoire}]\]
 
-où $ID$ est l'identifiant de l'opération, $ID_{p}$ et $ID_{c}$ sont les
+où $ID_{operation}$ est l'identifiant de l'opération, $ID_{profil}$ et $ID_{chemin}$ sont les
 respectivement les identifiants du profil et de son chemin d'extrusion,
 $ID_{element}$ est l'identifiant d'une entité à extruder du profil à extruder en
 suivant la direction d'une arête identifiée par $ID_{trajectoire}$. %
@@ -508,15 +439,15 @@ Dans le cadre d'une extrusion d'une face le long de sa normale, $ID_{chemin}$ et
 $ID_{trajectoire}$ sont initialisés à $0$. %
 En prenant l'exemple présenté dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-extrusion},
-l'identifiant de la face $e_{1}e'_{3}$ a pour identifiant \([1,4,3,3,1]\) avec
-$ID_{p}$ est le profile d'identifiant $4$, $ID_{element}$ et l'arête $e'_{3}$
+l'identifiant de la face $e_{1}e'_{3}$ a pour identifiant \([1,4,3,3,1]\) où
+$ID_{profil}$ est le profil d'identifiant $4$, $ID_{element}$ est l'arête $e'_{3}$
 d'identifiant $3$, $ID_{chemin}$ est le chemin d'extrusion identifié par $3$ et
-où la $ID_{trajectoire}$, l'arête $e_{1}$ est identifiée par $1$. %
+où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=.8\textwidth]{extrusion-exemple}
+	\includegraphics[width=\textwidth]{extrusion-exemple}
 
 	~
 
@@ -532,11 +463,14 @@ où la $ID_{trajectoire}$, l'arête $e_{1}$ est identifiée par $1$. %
 \end{figure}
 
 
+\paragraph{\color{red}{Entités avec et sans sources}}
 
-\paragraph{Distinction des entités avec et sans sources}
 
-Le troisième concept propose lui aussi de distinguer les entités selon si elles
-possèdent une source ou non, ce sont les entités avec et sans source. %
+Le troisième concept commun que l'on retrouve dans la plupart des approches,
+même s'il n'est pas toujours défini de manière explicite, propose de distinguer
+les entités selon si elles possèdent une source ou non, en définissant les
+entités avec source de la façon suivante~\cite{wu2001face}. %
+
 
 \begin{definition}[Entité avec source]\label{def:entite-avec-source}%
 	Une entité avec source est une entité topologique résultant d'une autre entité
@@ -556,50 +490,50 @@ Si $s \subseteq s'$, ou inversement si $s' \subseteq s$, alors $E'$ est la
 source de $E$. %
 
 Par exemple, dans la
-figure~\ref{fig:etat-art-modelisation-parametrique-concepts-extrusion}, le face
-$f'_{1}$, modifiée lors de l'opération booléenne, partage une partie de son
-plongement géométrique avec $f_{1}$ qui est donc sa source. %
+figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}
+, la face $f'_{1}$, modifiée lors de l'opération booléenne, partage une partie
+de son plongement géométrique avec $f_{1}$ qui est donc sa source. %
 De la même manière, $f'_{5}$ a pour source $f_{5}$. %
-Dans le cas des sommets et arêtes créées, en 3D, ces entités sont créées par
-l'intersection de plusieurs faces. %
-Ainsi, et ne partageant le plongement géométrique
-d'aucune autre entité de même dimension, elles sont donc sans sources. %
+L'arête $e_1$ résultant de l'intersection de deux faces et ne partageant le
+plongement géométrique d'aucune autre entité de même dimension est en revanche
+une entité sans source. %
 
-Nous pouvons observer que, de manière générale pour les modeleurs de dimension
-$n$, les entités de dimension $n-1$ sont créées, scindées ou fusionnées à partir
-d'entités de même dimension et ont systématiquement une source. %
-Ainsi, en 3D les faces sont toutes créées avec source. %
+Nous pouvons observer que lorsque l'on travaille avec un modeleur en dimension
+$n$, les entités de dimension $n-1$ sont toujours des entités avec sources. %
+Ainsi, en 3D les faces sont toutes issues d'entités de même dimension et sont
+donc toutes avec source. %
 À l'inverse, ce n'est pas forcément le cas pour les arêtes et sommets qui
 peuvent être créées par l'intersection de plusieurs entités de dimension
 supérieures. %
-Cette propriété implique que dans la plupart des modeleurs 3D, le mécanisme de
-nomination est basé sur les faces, car le fait d'avoir systématiquement une
-source les rend plus stables. %
+La conséquence de cette remarque est qu'ajourd'hui, dans la plupart des
+modeleurs 3D, les mécanismes de nomination sont basés sur les faces, car le fait
+d'avoir systématiquement une source les rend plus facilement identifiables. %
 
-\paragraph{Utilisation d'un historique de noms}
+
+\paragraph{\color{red}{Utilisation d'un historique de noms}}
 
 Le quatrième concept commun dans la littérature concerne l'utilisation d'un
 historique pour la nomination. %
-Ce concept propose de construire un historique basé sur les ancêtres invariants
-pour chacune des entités topologiques. %
-Un tel système permettre grâce au suivi des entités et de leurs évolutions de les
-identifier et de les apparier par rapport à leurs ancêtres lors de la
-réévaluation. %
+Ce concept propose de construire, d'une manière ou d'une autre, un historique
+permettant de tracer l'évolution des ancêtres invariants. %
+Un tel système permet alors d'identifier et d'apparier de façon plus robuste les
+entités par rapport à leurs ancêtres lors de la réévaluation. %
 
 La littérature présente deux principales approches pour construire un historique
 pour la nomination persistante. %
-La première approche est de construire un
-graphe~\cite{kripac1995mechanism,agbodan2000persistent} où chaque nœud est une
-entité topologique précédée de ses ancêtres et suivie de ses évolutions. %
-La seconde approche consiste en un mécanisme de nomination basé sur la
-propagation des informations d'une entité
-topologique~\cite{CAPOYLEAS199617,wu2001face}. %
+La première approche consiste à construire un graphe
+explicite~\cite{kripac1995mechanism,agbodan2000persistent,baba2007generic,cardot2019persistent}
+où chaque n\oe ud est une entité topologique précédée de ses ancêtres et suivie
+de ses évolutions. %
+La seconde approche consiste en un mécanisme implicite de propagation des noms
+des ancêtres invariants sur entités~\cite{CAPOYLEAS199617,wu2001face}. %
 
-Kripac~\cite{kripac1995mechanism} a proposé une historisation des faces d'un
-objet à l'aide d'un graphe orienté acyclique (\emph{DAG} en anglais) pour
-représenter l'ensemble des changements topologiques intervenant lors de la
-modélisation. %
-Dans ce DAG, un nœud,appelé un \textit{FaceIdNode}, représente une face
+Un exemple de construction explicite de graphe d'historique est celui proposé
+par Kripac~\cite{kripac1995mechanism}. %
+Il propose une historisation des faces d'un objet à l'aide d'un graphe orienté
+acyclique (\emph{DAG} en anglais) pour représenter l'ensemble des changements
+topologiques intervenant lors de la modélisation. %
+Dans ce DAG, un n\oe ud, appelé un \textit{FaceIdNode}, représente une face
 étiquetée $f_{m.n}$ où $m$ est l'étape de modélisation et $n$ l'index de la face
 à l'étape $m$. %
 
@@ -624,47 +558,47 @@ $f_{4.1}$. %
 Au terme de la modélisation et parmi les faces du DAG, seules les faces
 $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle final. %
 
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{capoyleas-exemple}
+	\caption{Pavé creusé par une rainure arrondie de Capoyleas}
+	\label{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas}
+\end{figure}
 
-Capoyleas~\cite{CAPOYLEAS199617} propose un mécanisme de nomination dans lequel
-une entité est nommée par rapport à ancêtre invariant ce qui, par construction,
-propage des informations de modélisation. %
-Ce mécanisme distingue trois cas de figure pour la nomination de nouvelles entités topologiques~:
-\begin{itemize}
-	\item La nomination d'entités issue d'une extrusion. %
-	      De cette manière, une face issue de l'extrusion d'une arête nommée $e1$
-	      sera elle-même nommée $f(e1)$~; %
-	\item La fusion d'entités déjà nommées. %
-	      Lorsque deux entités fusionnent, par
-	      exemple avec la création d'une protrusion cylindrique sur un pavé, les
-	      sommets et arêtes d'intersections sont nommés $I_{v}$ et $I_{e}$
-	      respectivement, les autres entités étant nommées normalement~;
-	\item La modification d'une forme. %
-	      Dans ce dernier cas de figure, un chanfrein
-	      appliqué sur une arête $e1$ crée l'entité nommée $c(e1)$. %
-\end{itemize}
+Un exemple de construction implicite d'un historique par héritage des noms des ancêtres invariants est celui proposé par Capoyleas~\cite{CAPOYLEAS199617}.
+% Il propose un mécanisme de nomination dans lequel
+% une entité est nommée par rapport à son ancêtre invariant  ce qui, par construction,
+% propage des informations de modélisation. \david{bof bof la dernière phrase. %
+% C'est assez répétitif avec la phrase que j'ai ajouté juste avant.} %
+Dans son système de nomination persistante, Capoyleas propose que les entités
+générée par extrusion/révolution comportent les noms de leurs ancêtres dans les
+leurs. %
+Par exemple, dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas},
+le pavé est extrudé à partir de la face $f$, sa face $f(e2)$ est générée par
+l'extrusion de l'arête $e2$ et l'arête $e(v2)$ provient du sommet $v2$. %
+Par construction d'un nom, l'historique d'une entité se propage dans les noms
+des entités qui en dérivent. %
 
-
-\paragraph{Nomination hétérogène des entités}
-
-\todo{Nomination d'entités topologiques de différentes dimensions}
-
-Le cinquième concept que nous identifions est celui de l'hétérogénéité dans la
-nomination des entités. %
-La plupart des méthodes, dans la littérature, s'appuient sur les concepts
-précédents en lien avec la
-topologie~\cite{chen1995representation,kripac1995mechanism,agbodan2000persistent}. %
-L'application de ces concepts permet de nommer et apparier des entités sur la
-base de leur voisinage topologique. %
-D'autres méthodes proposent d'utiliser la géométrie pour compléter leur approche
-de nomination des
-entités~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
-Dans ses travaux, Wu~\cite{wu2001face} propose d'intégrer des informations
-géométriques dans les noms d'entités pour lever l'ambiguïté lorsque la topologie
-ne suffit pas. %
+Les entités issues de l'intersection de deux objets disposent de noms
+non-uniques $I_{e}$ (pour les arêtes) et $I_{v}$ (pour les sommets). %
+Par exemple, à l'issue de la différence entre le pavé et un cylindre, on peut
+observer que des entités d'intersection sont créées. %
+Dans ce cas, Capoyleas propose d'une part de discriminer les entités par leurs
+voisinages topologiques, lorsque c'est possible et, d'autre part, de leur
+attribuer un nom d'après le schéma suivant~:
+\[[C_{i}, L_{i}, F_{i}]\]
+où $C_{i}$ est l'ensemble des faces adjacentes à une entité d'intersection $i$,
+$L_{i}$ est l'orientation de l'entité par rapport à son voisinage direct et où
+$F_{i}$ est l'orientation de la caractéristique de forme à laquelle appartient
+l'entité. %
+% \david{Que se passe t-il si une face est scindée en deux ? comment son propagés les noms ? C'est me semble t-il le plus important pour parler de propagation et tu ne l'abordes pas ici dans ta liste d'item.}
 
 
+\paragraph{\color{purple}{(brouillon) Nomination hétérogène des entités}}
 
-\paragraph{Structure des plateformes intégrant la nomination persistante}
+
+\paragraph{\color{red}{Structure des plateformes intégrant la nomination persistante}}
 
 Le dernier des concepts communs que nous présentons concerne l'extension de
 l'architecture logicielle des modeleurs paramétriques sous la forme d'une
@@ -681,24 +615,29 @@ Une couche de nom s'intercale entre les couches paramétrique et géométrique~:
 	      évaluation de la spécification paramétrique. %
 \end{itemize}
 
-\subsubsection{Concepts distincts}
-
-
-
-\subsubsection[Systèmes de nommage persistant]{Systèmes de nommage persistants}
+\subsubsection[Systèmes de nomination persistante]{Systèmes de nomination persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
-\paragraph{Capoyleas (1994) (étendu par Chen et Dai)}
 \paragraph{Kripac (1995)}
-\paragraph{Wu (2001) (étendu par Farjana ?)}
-\paragraph{Agbodan (2003)}
-\paragraph{Baba-Ali (2010)}
-% \paragraph{Farjana (2016)}
-\paragraph{Cascaval (2023)}
 
-Cascaval propose de répondre au problème du référencement d'éléments
-géométriques dans les opérations de modélisation et placent leurs travaux dans
-un contexte défini par les concepts suivants :
+
+
+\paragraph{Wu (2001)}
+
+\paragraph{Agbodan (2002)}
+
+\paragraph{Bidarra (2005)}
+
+\paragraph{Baba-Ali (2010)}
+
+\paragraph{Farjana (2019)}
+
+\paragraph{Cascaval (2023) {\color{purple} à corriger}}
+%% Contexte
+
+Dans Cascaval (2023), les auteurs proposent de répondre au problème du
+référencement d'éléments géométriques dans les opérations de modélisation
+et placent leurs travaux dans un contexte défini par les concepts suivants :
 \begin{itemize}
 	\item Un modèle paramétrique est une fonction prenant des paramètres
 	      géométriques et scalaires.
@@ -762,17 +701,17 @@ l'utilisateur.
 %% Principe et fonctionnement des requêtes
 
 \todo{Dire qu'ils travaillent sur des objets principalement 2D avec des
-	opérations principalement 2D; ambiguité topologiques réduite en 2D; passage en
-	3D implique voisinages topologiques plus complexes -> problème de nommage plus
-	complexe aussi => par exemple en 2D le bord d'un objet est délimité par des
-	arêtes, en 3D il s'agit d'un ensemble d'éléments et le mapping n'est pas «tout
-	ou rien» on peut se retrouver avec la trace de seulement une partie d'un objet
+	opérations principalement 2D~; ambiguïté topologique réduite en 2D~; passage en
+	3D implique voisinages topologiques plus complexes $\to$ problème de nommage plus
+	complexe aussi $\Rightarrow$ par exemple en 2D le bord d'un objet est délimité par des
+	arêtes, en 3D, il s'agit d'un ensemble d'éléments et l'appariement n'est pas «~tout
+	ou rien~» on peut se retrouver avec la trace de seulement une partie d'un objet
 	en cas, par exemple, d'une intersection entre deux objets.}
 
 Une requête, un ensemble de clauses logiques avec des notions d'ensembles,
 permet de définir une référence à partir d'un élément géométrique. %
 On peut, par exemple, récupérer tout (\texttt{all}) ou partie (\texttt{from(e)})
-d'un élément e, de tous les éléments du modèle (\texttt{fromAll(e)}), d'un
+d'un élément ore, de tous les éléments du modèle (\texttt{fromAll(e)}), d'un
 élément parmi un ou plusieurs ensembles (\texttt{fromAny((e | \{e\})*)}). Il est
 également possible de créer des conjonctions de requêtes q (\texttt{and(q,q)}),
 des disjonctions (\texttt{or{q,q}}) et même en inclure (\texttt{contains(q)}) et
@@ -810,7 +749,10 @@ la définition de références géométrique à partir de requêtes utilisateurs
 pour garantir le respect des intentions de modélisation de l'utilisateur.
 Néanmoins, cette approche a plusieurs inconvénients :
 \begin{itemize}
-	\item Les éléments géométriques utilisés pour les références ne sont pas généralisables en toutes dimensions \todo{opérations spécifiques 2D + traitement plongements courbe supplémentaires quand on monte en dimensions.}
+	\item Les éléments géométriques utilisés pour les références ne sont pas
+	      généralisables en toutes dimensions \todo{opérations spécifiques 2D +
+		      traitement plongements courbe supplémentaires quand on monte en
+		      dimensions}.
 	\item Pour la sémantique pour la généalogie, bien que les auteurs aient mis en
 	      place un système pour tracer une forme d'origine pour distinguer une
 	      géométrie d'une autre, cela ne leur permet en fin de compte de ne
@@ -825,26 +767,97 @@ Néanmoins, cette approche a plusieurs inconvénients :
 	      déplacement d'opération.
 \end{itemize}
 
+\paragraph{Dai (2024) {\color{purple} Brouillon}}
+Dans Dai (2024), les auteurs proposent d'enrichir le nommage persistant avec une
+méthode permettant d'identifier et trier des entités topologiques symétriques. Ces entités étant des invariantes distinctes générées
+lors d'une extrusion par balayage. Cette contribution propose ainsi de respecter le sens de balayage comme étant une intention de modélisation
+de l'utilisateur. Les travaux s'inscrivent dans un contexte défini par les concepts suivants :
+\begin{itemize}
+	\item Modélisation paramétrique dite «feature-based»
+	\item Un système de modélisation avec une architecture à 3 couches :
+	      \begin{itemize}
+		      \item Représentation géométrique
+		      \item Spécification paramétrique
+		      \item Nommage persistant
+	      \end{itemize}
+	\item Résolution de l'ambiguïté symétrique lors de la génération d'entités invariantes
+	      suivant une extrusion
+\end{itemize}
 
-% Présentation, par auteurs, des méthodes utilisées~:
-% \begin{itemize}
-% 	\item Cascaval 2023
-% 	\item dai 2024
-% 	\item \dots
-% \end{itemize}
+Notons que, d'après les auteurs, le sens du balayage d'une entité invariante le
+long d'une courbe, dans le but de créer un objet, est un choix explicitement
+formulé par l'utilisateur et que ce choix doit être respecté lors de la
+réévaluation.
+
+Cette contribution propose d'enrichir le nommage persistant à l'aide d'une
+information d'ordonnancement lorsqu'une entité invariante est générée par
+balayage.
+
+Pour cela, Dai et al. proposent une méthode pour d'abord classifier les
+courbures sur la surface de l'objet balayé puis de les ordonner afin de les
+distinguer.
+
+Cette approche s'appuie sur les travaux de Capoyleas et Wu (puis Han) pour
+catégoriser les courbures puis extraire des informations sur ces courbures
+depuis un espace paramétrique. Ainsi,issu des travaux de Capoyleas, les
+catégories de courbes suivantes sont définies.
+\begin{itemize}
+	\item courbe qui coupe/ouvre une surface permettant de la dérouler
+	\item courbe qui scinde une surface en deux
+	\item courbe qui découpe un disque dans une surface et crée un trou (exposant l'intérieur)
+\end{itemize}
+Une quatrième catégorie de courbe est définie par Dai et al.
+\begin{itemize}
+	\item courbe n'appartenant à aucune des trois autres catégorie.
+\end{itemize}
+
+Pour leur extension, Dai et al. proposent de distinguer les courbures selon deux
+classes, les courbure enveloppantes (surrounding contours) et les
+non-enveloppantes (non-surrounding contours).
+
+Les contours enveloppants sont ceux qui découpent une surface en deux de même
+genre topologique et plus particulièrement de genre 1. Les contours
+non-enveloppants sont ceux qui découpent une surface en deux dont l'une est de
+genre 2 et l'autre de genre 0.
+
+Ces contours sont ensuite représentés à l'aide de NURBS dans un espace de
+paramètres (u,v) pour pouvoir d'abord les catégoriser puis les ordonner.
+
+La classification des contours se fait de la façon suivante. En admettant que:
+\begin{itemize}
+	\item une v ligne peut être déterminée à partir du guide d'extrusion
+	\item une u ligne peut être déterminée à partir de la forme à balayer le long du guide
+\end{itemize}
+Alors, le nombre d'intersections entre une u ligne et un contour permet de
+catégoriser le classe de contour:
+\begin{itemize}
+	\item Si le nombre d'intersection est impair, alors le contour est enveloppant
+	\item Au contraire, s'il est pair, alors le contour est non-enveloppant.
+\end{itemize}
+
+L'ordonnancement est déterminé selon l'intersection d'une courbe avec une v
+ligne. Dai et al. expriment qu'il est difficile de classer des contours
+non-enveloppant car instables.
+
+Leur méthode se concentre alors sur l'ordonnancement des contours enveloppants.
+
+Dans leurs travaux, Dai et al. proposent d'enrichir le nommage persistant des entités invariantes (symétriques) issues d'extrusion à l'aide d'une méthode basée sur la classification de courbes intersectant la surface de l'objet 3D étudié. Cette approche leur permet de maintenir une référence sur une entité parmi plusieurs étant symétriques.
+Toutefois, l'approche proposée reste dans la lignée des travaux de Wu et al. et concerne un cas spécifique où deux entités symétriques sont générées à l'issue d'une seule opération booléenne.
+De plus, la méthode n'aborde que question où l'appariement semble trivial (un unique appariement possible pour chaque entité topologique) au rejeu, c'est à dire qu'il n'y a toujours qu'une seule est uniquement possibilité d'appariement pour une entité identifier. Par exemple, (ajouter illustration) la différence entre deux cylindres peut générer des entités dont l'appariement est de l'ordre de n pour m entre l'évaluation et la réévaluation respectivement (À réécrire à partir de l'illustration discutée à la réunion)
 
 
-\subsubsection{Synthèse des méthodes (par auteurs)}
-% \label{sec:etat-art-reevaluation-synthese}
 
-% Faire un tableau de comparatif des méthodes utilisées par chaque publication.
+\subsection{Synthèse des méthodes (par auteurs)}
+\label{sec:etat-art-reevaluation-synthese}
+
+Faire un tableau de comparatif des méthodes utilisées par chaque publication.
 
 \subsection[Réévaluation à base de règles]{Réévaluation à base de règles}
 \label{sec:etat-art-reevaluation-reevaluation-regles}
 
-Une autre approche propose une extension du problème de la nomination
-persistante aux systèmes de modélisation à base de règles de transformation de
-graphe\cite{cardot2019}. %
+Ici, présenter les apports issus des travaux d'Anaïs Cardot. (Objectif) placer
+les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux
+par rapport aux siens.
 
 %%% Local Variables:
 %%% mode: latex

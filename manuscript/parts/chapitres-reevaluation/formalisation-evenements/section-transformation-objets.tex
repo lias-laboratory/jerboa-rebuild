@@ -1,15 +1,15 @@
 \section{Les évènements dans les transformations d'objets}
 \label{sec:formalisation-evenement-transfo-objets}
 
+Considérons deux G-cartes $G$ et $H$. %
+On veut qualifier les modifications d'orbites de type $\orbit{\omega}$ entre $G$ et $H$.
+Ces dernières peuvent être créées, supprimées, scindées, fusionnées, inchangées ou modifiées.
+On parle dans ce cas d'événements survenus sur les orbites.
 
 \subsection{Création}
 \label{sec:formalisation-evenement-transfo-objets-creation}
 
 
-Considérons deux G-cartes $G$ et $H$. %
-On veut qualifier les modifications d'orbites de type $\orbit{\omega}$ entre $G$ et $H$.
-Ces dernières peuvent être créées, supprimées, scindées, fusionnées, inchangées ou modifiées.
-On parle dans ce cas d'événements survenus sur les orbites.
 
 \begin{definition}[Création d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
@@ -32,7 +32,7 @@ On parle dans ce cas d'événements survenus sur les orbites.
 		\includegraphics[width=.6\textwidth]{g-carte-triangulation-creation-H}
 		\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet-h}$H$}
 	\end{subfigure}
-	\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet}Triangulation dans une G-carte~: création d'un sommet}
+	\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet}Triangulation dans une G-carte~: création d'un sommet \todo{metttre tous les brins}}
 \end{figure}
 
 L'orbite sommet $H\orbit{1,2,3}(a_2)$ est créée à l'issue de la transformation
@@ -68,7 +68,7 @@ En particulier, aucuns des brins $a_2,b_2\ldots h_2$ de $H$ n'existent dans $G$.
 		\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-face-h}$H$}
 	\end{subfigure}
 	\caption{\label{fig:formalisation-evenement-g-carte-evenement-triangulation-face}Triangulation
-		dans une G-carte~: scission d'une face}
+		dans une G-carte~: scission d'une face \todo{remettre les brins dans le même ordre que pour l'état de l'art}}
 \end{figure}
 
 Reprenons l'exemple figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet} %
@@ -183,7 +183,7 @@ Dans la figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-
 
 Dans la
 figure~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-face},
-le sommet $G\orbit{1,2,3}(a_{0})$ est modifié dans $H$, puisque
+le sommet $G\orbit{1,2,3}(a_{0})$ est modifié dans $H$, sans fusion ni scission, puisque
 $G\orbit{1,2,3}(a_{0}) \neq H\orbit{1,2,3}(a_{0})$. %
 
 % \maxime{Ajouter l'exemple d'insertion de sommet en entourant la face modifiée}

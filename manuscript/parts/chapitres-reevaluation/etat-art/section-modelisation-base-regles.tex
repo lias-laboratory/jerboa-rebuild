@@ -54,20 +54,18 @@
 	\label{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}
 \end{figure}
 
-\maxime{%
-	Prenons l'exemple du graphe étiqueté illustré dans la
-	figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}. %
-	Pour ce graphe, les ensembles d'étiquettes pour les n\oe uds $\mathcal{C}_{V}$ et pour les
-	arcs $\mathcal{C}_{E}$ sont définis sur le même ensemble de couleurs
-	$\{{\color{orange}orange},{\color{Chartreuse4}vert},{\color{DodgerBlue1}bleu},{\color{purple}violet}\}$. %
-	L'ensemble $V$ des n\oe uds est constitué des n\oe uds $a,b,c$ et $d$ et l'ensemble
-	$E$ des arcs est constitué des arcs $e_{1}, e_{2}, e_{3}$ et $e_{4}$. %
-	Ce graphe est construit de telle sorte que $e_{1}$ a respectivement pour source
-	et cible les n\oe uds $a$ et $b$. %
-	Enfin, les n\oe uds $a$ et $b$ sont respectivement étiquetés par les couleurs
-	${\color{orange}orange}$ et ${\color{purple}violet}$ et l'arc $e_{1}$ est étiqueté par
-	la couleur ${\color{Chartreuse4}vert}$. %
-}%
+Prenons l'exemple du graphe étiqueté illustré dans la
+figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}. %
+Pour ce graphe, les ensembles d'étiquettes pour les n\oe uds $\mathcal{C}_{V}$ et pour les
+arcs $\mathcal{C}_{E}$ sont définis sur le même ensemble de couleurs
+$\{{\color{orange}orange},{\color{Chartreuse4}vert},{\color{DodgerBlue1}bleu},{\color{purple}violet}\}$. %
+L'ensemble $V$ des n\oe uds est constitué des n\oe uds $a,b,c$ et $d$ et l'ensemble
+$E$ des arcs est constitué des arcs $e_{1}, e_{2}, e_{3}$ et $e_{4}$. %
+Ce graphe est construit de telle sorte que $e_{1}$ a respectivement pour source
+et cible les n\oe uds $a$ et $b$. %
+Enfin, les n\oe uds $a$ et $b$ sont respectivement étiquetés par les couleurs
+${\color{orange}orange}$ et ${\color{purple}violet}$ et l'arc $e_{1}$ est étiqueté par
+la couleur ${\color{Chartreuse4}verte}$. %
 
 \begin{definition}[Morphisme]
 	\label{def:morphismes-graphes}
@@ -158,16 +156,16 @@ chacun des morphismes présentés dans la définition~\ref{def:morphismes-graphe
 \begin{description}
 	\item[Morphisme]  dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-normal}
-	      par la fonction $m_{V}$, pour les n\oe uds issus de $G$, nous avons
+	      par la fonction $ma_{V}$, pour les n\oe uds issus de $G$, nous avons
 	      $a \mapsto e$, $b \mapsto f$, $c \mapsto j$ et $d \mapsto j$ dans $G'$. %
-	      Par la fonction $m_{E}$, pour les arcs issus de $G$, nous avons
+	      Par la fonction $ma_{E}$, pour les arcs issus de $G$, nous avons
 	      $e_{1} \mapsto e_{5}$, $e_{2} \mapsto e_{6}$, $e_{3} \mapsto e_{7}$ et
 	      $e_{4} \mapsto e_{8}$ dans $G'$. %
 	\item[Morphisme injectif] Dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-injectif},
 	      les n\oe uds $e,f,g,h$ sont respectivement les images de $a,b,c,d$
-	      tout arc (respectivement n\oe ud) de $G'$ est l'image à un arc
-	      (respectivement n\oe ud) de $G$.
+	      tout arc (respectivement n\oe ud) de $G'$ est l'image d'un arc
+	      (respectivement à un n\oe ud) de $G$.
 	\item[Isomorphisme] Dans la
 	      Figure~\ref{fig:etat-art-model-regles-regles-concepts-morphismes-iso},
 	      les arcs et n\oe uds de $G$ sont identiques à ceux de $G'$ au renommage
@@ -261,10 +259,11 @@ la différence entre deux graphes. %
 	% 	\caption{$G \cap G''$}
 	% 	\label{fig:etat-art-model-regle-ensemble-graphe-vide}
 	% \end{subfigure}
-	\caption{Ensemble de graphes}
+	\caption{Opérations ensemblistes sur les graphes}
 	\label{fig:etat-art-model-regle-ensemble-graphes}
 \end{figure}
 
+\todo{réadapter le paragraphe à la figure + commentaire pour union disjointe}
 De tels graphes, issus de l'union, l'intersection de deux graphes distincts sont
 présentés dans la Figure~\ref{fig:etat-art-model-regle-ensemble-graphes}. %
 Dans le cas de l'union de $G$ avec $G'$
@@ -290,10 +289,10 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 	\label{def:sous-graphe}
 	Soient deux graphes $G=(V,E,s,t,l_{V},l_{E})$ et
 	$G'=(V',E',s',t',l'_{V},l'_{E})$, $\omega$ un mot sur $l_{E}$
-	et $v \in V$. %
+	et $v$ un n\oe ud de $V$. %
 
 	$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G' \subset G$.
-	On note $G\orbit{\omega}(v)$ le sous-graphe qui contient le n\oe ud $v$, tous les n\oe uds atteignables par des arcs étiquetés par des lettres de $\omega$ et ces arcs eux-mêmes. %
+	On note $G\orbit{\omega}(v)$ le plus petit sous-graphe qui contient le n\oe ud $v$, tous les n\oe uds atteignables par des arcs étiquetés par des lettres de $\omega$ et ces arcs eux-mêmes. %
 
 \end{definition}
 
@@ -311,7 +310,7 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 		\label{fig:etat-art-model-regles-sous-graphe-genere}
 	\end{subfigure}
 	\caption{Génération du sous-graphe
-		$G' = G\orbit{{\color{Chartreuse4}vert},{\color{orange}orange}}({\color{orange}orange})$}
+		$G' = G\orbit{{\color{Chartreuse4}vert},{\color{orange}orange}}(a)$}
 	\label{fig:etat-art-model-regles-sous-graphe}
 \end{figure}
 
@@ -321,12 +320,11 @@ définissons $G'$ comme un sous-graphe de $G$ généré à partir du n\oe ud $a$
 Le sous-graphe illustré dans la
 Figure~\ref{fig:etat-art-model-regles-sous-graphe-genere} est généré
 à partir du n\oe ud $a$, les n\oe uds $b$ et $c$ sont atteint au travers des arcs
-$e_{2}$ et $e_{3}$ respectivement. %
-En fin de compte, $G'$ comporte les n\oe uds $a, b, c$ et les arcs $e_{2}, e_{3}$. %
+$e_{1}$ et $e_{2}$ respectivement à travers {\color{Chartreuse4}vert} et {\color{orange}orange}. %
+En fin de compte, $G'$ comporte les n\oe uds $a, b, c$ et les arcs $e_{1}, e_{2}$. %
 
-Un dernier concept essentiel pour l'utilisation des graphes et celui du chemin. %
-Intuitivement, un chemin est une suite d'arcs traversée, à la suite, lors d'un
-parcours depuis un n\oe ud $v_{i}$ jusqu'à un n\oe ud $v_{k}$. %
+Un dernier concept essentiel pour l'utilisation des graphes et celui de chemin. %
+Intuitivement, un chemin est une suite d'arcs consécutif. %
 
 \begin{definition}[Chemin et cycle]
 	\label{def:chemin-et-cycle}
@@ -336,7 +334,7 @@ parcours depuis un n\oe ud $v_{i}$ jusqu'à un n\oe ud $v_{k}$. %
 	étiquette est le mot $\alpha(e_{1}) \alpha(e_{2}) \dots \alpha(e_{k})$.
 
 	\noindent Un \emph{cycle} est un chemin $e_1,e_2,\dots e_k$ pour lequel la
-	source est également la cible du dernier arc, \textit{i.e.} $s(e_{1}) = t(e_{k})$.
+	source est également la cible, \textit{i.e.} $s(e_{1}) = t(e_{k})$.
 \end{definition}
 
 \begin{figure}[htb]
@@ -357,19 +355,12 @@ parcours depuis un n\oe ud $v_{i}$ jusqu'à un n\oe ud $v_{k}$. %
 	\label{fig:etat-art-model-regle-chemin-cycle}
 \end{figure}
 
-La Figure~\ref{fig:etat-art-model-regle-chemin-cycle} illustre d'un
-part (Figure~\ref{fig:etat-art-model-regle-chemin}) un graphe
-comportant deux chemins et d'autre part
-(Figure~\ref{fig:etat-art-model-regle-cycle}) d'un graphe comportant
-un cycle. %
-En effet, le graphe Figure~\ref{fig:etat-art-model-regle-chemin}
-présente deux chemin à partir du n\oe ud $d$ jusqu'au n\oe ud $c$. %
-Le premier traverse les n\oe uds $a$, $b$ et enfin $c$ au travers des arcs
-$e_{1},e_{2},e_{3}$. %
-Le deuxième atteint le n\oe ud $c$ au travers de l'arc $e_{4}$. %
-Enfin, la Figure~\ref{fig:etat-art-model-regle-chemin-cycle}
-présente un cas particulier de chemin, un cycle, puisqu'il est possible, partir
-du n\oe ud $d$ de revenir à ce même n\oe ud en traversant les arcs $e_{1},e_{2},e_{3},e_{4}$. %
+Dans la Figure~\ref{fig:etat-art-model-regle-chemin-cycle}, nous illustrons à partir de $G$ (Figure~\ref{fig:etat-art-model-regle-chemin}) et $G'$
+(Figure~\ref{fig:etat-art-model-regle-cycle}) ce que sont un chemin et un cycle. %
+Le graphe $G$ présente plusieurs chemins dont $e_{1},e_{2}$ dont les n\oe ud $a$ et $b$ sont la source et la cible respectivement. %
+Ce chemin est lui-même compris dans le chemin $e_{4}, e_{1}, e_{2}$ dont le n\oe ud $d$ est la source. %
+Le graphe $G'$ contient la boucle $e_{1},e_{2},e_{3},e_{4}$ dont le n\oe ud $a$ est à la fois la source et la cible. %
+\todo{$G'$ remettre les mêmes couleurs et noms de dans $G$}
 
 
 % Un morphisme $m$ entre deux graphes $G$ et $G'$, est une application
@@ -449,7 +440,8 @@ ceux de $G$) donc $m'$ et $H$ sont définis à isomorphisme près. %
 	La transformation directe $H$ existe à la condition que $D$ existe,
 	c'est-à-dire que pour tout arc $e$ de $G$, si $e$ relie un n\oe ud $v$ filtré
 	(qui appartient à $m(L)$) et un n\oe ud $v'$ non filtré (qui n'appartient pas
-	$m(L)$), alors $v$ est filtré par l'interface (qui appartient à $m(K)$).
+	$m(L)$), alors $v$ est filtré par l'interface (qui appartient à $m(K)$). %
+	Dans la littérature, cette condition s'appelle la condition d'arc pendant~\cite{ehrig2006fundamentals}. %
 \end{remarque}
 
 \begin{figure}[!htbp]
@@ -463,14 +455,9 @@ Dans la figure~\ref{fig:etat-art-model-regles-inst-application} qui illustre
 l'application d'une règle de transformation de graphe, les morphismes $m$ et
 $m'$ sont des inclusions, mais en pratique ce n'est pas le cas et la partie
 ajoutée dans $H$ est ajoutée avec des noms frais. %
-\maxime{%
-	Cette règle de transformation de graphe est la règle qui contracte un arc et ses
-	n\oe uds source et cible en un seul n\oe ud tout en préservant cet arc sous la forme
-	d'une boucle. %
-	Plus particulièrement, dans la transformation directe présentée, les n\oe uds $c$
-	et $d$ incidents à l'arc $e_{3}$ sont fusionnés en $c$ et $e_{3}$ est transformé
-	en une boucle $e_{5}$. %
-}%
+Dans la transformation directe présentée, le n\oe ud $d$ est l'arc $e_{3}$
+sont supprimés et remplacés par la boucle $e_{5}$. %
+
 
 \subsection[Les cartes généralisées]{Les cartes généralisées}
 \label{sec:etat-art-model-regles-gcartes}
@@ -534,7 +521,7 @@ topologiques cellulaires de dimension quelconque.
 		\caption{\centering 0-liaisons (\textbf{—})}
 		\label{fig:etat-art-model-regle-gcarte-0-cell}
 	\end{subfigure}
-	\caption[Décomposition par dimension d'un objet]{Décompositions successives par dimension d'un objet}
+	\caption[Décomposition par dimension d'un objet]{Décompositions d'un objet par dimensions successives}
 	\label{fig:etat-art-model-regle-gcarte-decomp}
 \end{figure}
 
@@ -544,7 +531,7 @@ Figure~\ref{fig:etat-art-model-regle-gcarte-decomp}. %
 Par exemple, un objet (Figure~\ref{fig:etat-art-model-regle-gcarte-nodecomp})
 peut être décomposé en volumes connectés par des \emph{3-liaisons}, en vert
 (Figure~\ref{fig:etat-art-model-regle-gcarte-3-cell}). %
-Ces Volumes peuvent se décomposent en faces, connectées par des
+Ces volumes peuvent se décomposer en faces, connectées par des
 \emph{2-liaisons}, en bleu
 (Figure~\ref{fig:etat-art-model-regle-gcarte-2-cell}). %
 Les faces se décomposent en arêtes connectées par des \emph{1-liaisons}, en
@@ -561,7 +548,7 @@ Par soucis de visibilité, nous masquons ces boucles dans les illustrations. %
 \begin{remarque}
 	Ici, on a défini la structure topologique, sans étiqueter les brins. Mais en
 	pratique, les objets sont représentés par des structures topologiques plongées
-	où les étiquettes des brins représentent des propriétés géométriques et
+	où les étiquettes des brins représentent leurs propriétés géométriques et
 	physiques.
 \end{remarque}
 
@@ -719,7 +706,7 @@ d'accroche (\emph{hooks} en anglais) à leur image dans $G$. %
 Par exemple, dans la
 Figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}, le n\oe ud $b$
 de $L$ est son brin d'accroche (en surbrillance en orange). %
-Son association au brin $b$ de $G$ défini un unique morphisme de filtrage $m$
+Son association au brin $b$ de $G$ définit un unique morphisme de filtrage $m$
 grâce à la condition d'arcs incidents. %
 Pour cela, chaque règle comporte un brin d'accroche par composante connexe de
 $L$.
@@ -731,7 +718,7 @@ $L$.
 La règle que nous avons vu plus tôt
 (Figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}) est dite
 instanciée, c'est-à-dire que ses membres représentent des parties des objets
-transformées. %
+transformées.
 % Comme nous l'avons vu, les motifs des règles instanciées sont des parties des
 % objets transformés.
 Ainsi, les règles instanciées déterminent complètement la topologie des parties
@@ -748,6 +735,7 @@ leur nombre d'arêtes. %
 	et le symbole "$\_$", telle que toutes les étiquettes des n\oe uds du motif
 	soient des mots de la même longueur.
 
+	Pour toute dimension $i$, on dira qu'un nœud $v$ est source d’un arc \emph{implicite} si l’étiquette d’orbite de $v$ comprend $i$.
 	% La \emph{structure} $\underline{M} = (V, E, s, t, \alpha)$ du motif $M$ est le graphe topologique correspondant au motif $M$ privé de ses étiquettes de n\oe uds.
 \end{definition}
 
@@ -861,7 +849,7 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 	\begin{minipage}{.28\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{g-carte-instanciation-quad-motif}
-		\caption{$G$}
+		\subcaption{$G$}
 		\label{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}
 	\end{minipage}
 	\hfill
@@ -870,14 +858,14 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{inst-quad-face-v2.pdf}
-			\caption{\centering Instanciation de $M1$}
+			\subcaption{\centering Instanciation de $M1$}
 			\label{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{inst-quad-triangulation-step1-v2.pdf}
-			\caption{\centering Instanciation de $M2$}
+			\subcaption{\centering Instanciation de $M2$}
 			\label{fig:etat-art-modelisation-base-regle-quad-motif-m2}
 		\end{minipage}
 
@@ -886,14 +874,14 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=.5\textwidth]{instanciation-motif-m3}
-			\caption{\centering Instanciation de $M3$}
+			\subcaption{\centering Instanciation de $M3$}
 			\label{fig:etat-art-modelisation-base-regle-inst-quad-motif-m3}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{inst-quad-triangulation-step-final-v2.pdf}
-			\caption{\centering Instanciation de $M4$}
+			\subcaption{\centering Instanciation de $M4$}
 			\label{fig:etat-art-modelisation-base-regle-instanciation-quad-motif-m4}
 		\end{minipage}
 	\end{minipage}
@@ -904,13 +892,13 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 La Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad} illustre l'instanciation des
 motifs de la
 Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation} par la
-face incidente au brin $a$ de la G-carte
+face incidente au brin $b$ de la G-carte
 figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet} (la face
 $G\orbit{0,1,3}(b)$). %
 L'instanciation de $M1$ Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1} est
 isomorphe à la face d'instanciation, car le renommage est l'identité. %
-Pour rappel, les liaisons $3$ sont toutes des boucles non représentées dans la
-figure, car la face d'instanciation est un bord de la G-carte. %
+Pour rappel, les liaisons $3$ sont toutes des boucles car la face d'instanciation est un bord de la G-carte. %
+Elles ne sont pas représentées dans les figures. %
 L'instanciation de $M2$ Figure~\ref{fig:etat-art-modelisation-base-regle-quad-motif-m2} est isomorphe
 au quatre arêtes de la face d'instanciation, car le renommage supprime les
 liaisons $1$ qui relient les arêtes deux-à-deux. %
@@ -930,7 +918,7 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 	\begin{minipage}{.28\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{g-carte-instanciation-tri-motif}
-		\caption{$G$}
+		\subcaption{$G$}
 		\label{fig:etat-art-modelisation-base-regle-instanciation-tri-objet}
 	\end{minipage}
 	\hfill
@@ -939,14 +927,14 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=0.9\linewidth]{inst-tri-face.pdf}
-			\caption{\centering Instanciation de $M1$}
+			\subcaption{\centering Instanciation de $M1$}
 			\label{fig:jerboa-tri-before-triangulation}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=.9\linewidth]{inst-tri-triangulation-step1-v2.pdf}
-			\caption{\centering Instanciation de $M2$}
+			\subcaption{\centering Instanciation de $M2$}
 			\label{fig:inst-tri-triangulation-1}
 		\end{minipage}
 
@@ -955,14 +943,14 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=.5\textwidth]{inst-tri-motif-m3}
-			\caption{\centering Instanciation de $M3$}
+			\subcaption{\centering Instanciation de $M3$}
 			\label{fig:etat-art-modelisation-base-regle-inst-tri-motif-m3}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{inst-tri-triangulation-step-final-v2.pdf}
-			\caption{\centering Instanciation de $M4$}
+			\subcaption{\centering Instanciation de $M4$}
 			\label{fig:inst-tri-triangulation-final}
 		\end{minipage}
 	\end{minipage}
@@ -973,14 +961,13 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 Les instanciations des motifs $M1, M2, M3$ et $M4$
 (Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}) pour la face
 triangulaire de $G$ incidente au brin $j$
-(Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-tri-objet})
 présentées dans la figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-motifs-tri}
 se déroule de la même manière pour la face carrée (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad}). %
 
 \begin{definition}[Règle transformation de graphe Jerboa]\label{def:regle-transfo-graphe-jerboa}%
 	Une \emph{règle} Jerboa  $r: L \longrightarrow R$  est définie par un couple  de motifs avec
 	orbites $L$ et $R$ dont toutes  les étiquettes d'orbites ont la même longueur,
-	tels    que   $\underline{L} \longrightarrow \underline{R} $ est une règle de transformation de graphe, dont un sous-ensemble des
+	tels que $\underline{L} \longrightarrow \underline{R} $ est une règle de transformation de graphe, dont un sous-ensemble des
 	n\oe uds  de $L$  sont  appelés  n\oe uds d'accroche  (\emph{hooks}  en anglais)  et
 	portent des étiquettes d'orbites pleines, c'est-à-dire sans~"$\_$".
 \end{definition}
@@ -1017,8 +1004,8 @@ directe. %
 	c'est-à-dire que $(l(h') \mapsto l(h))(O')$ est isomorphe à~$O$.
 \end{definition}
 
-Par exemple, le morphisme de filtrage qui associe l'unique n\oe ud $n0$ du motif gauche de la règle de triangulation (Figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}) au brin $a$ de la G-carte $G$ (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}. %
-Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $i$ de la G-carte $G$ définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-tri-before-triangulation}.
+Par exemple, le morphisme de filtrage qui associe l'unique n\oe ud $n0$ du motif gauche de la règle de triangulation (Figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}) au brin $b$ de la G-carte $G$ (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}. %
+Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-carte $G$ définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-tri-before-triangulation}.
 
 \todo{donner la règle de couture entre deux faces et commenter la contrainte d'isomorphisme (cube + pyramide).}
 
@@ -1044,8 +1031,8 @@ Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $i$ de la G-c
 
 \begin{remarque}
 	Si le morphisme de filtrage $m$ existe, il est unique en raison de la
-	contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte}) et
-	de la condition d'arc incident du motif $L$ (Théorème~\ref{thm:preservation-coherence-topo-regles}).
+	contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte} page~\pageref{def:gcarte}) et
+	de la condition d'arc incident du motif $L$ comme nous le verrons dans le Théorème~\ref{thm:preservation-coherence-topo-regles}.
 \end{remarque}
 
 \todo{Donner les deux morphismes de filtrage sur les exemples carré + triangle}
@@ -1065,7 +1052,7 @@ Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $i$ de la G-c
 	\label{fig:etat-art-model-regle-regle-jerboa-inst-quad-triangulation}
 \end{figure}
 
-\todo{uniformiser a0,b0,… dans le membre gauche + petit commentaire en reprenant les instanciations précédentes + instanciation avec les triangles }
+\todo{petit commentaire en reprenant les instanciations précédentes + instanciation avec les triangles }
 
 % La face à gauche de la flèche, dans la
 % Figure~\ref{fig:etat-art-model-regle-regle-jerboa-inst-quad-triangulation}
@@ -1081,19 +1068,17 @@ Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H
 
 \todo{Donner l'exemple de la transformation directe de l'objet de départ G-carte G ---> H avec brins annotés a0,b0… (que la triangulation du carré)}
 
-Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation de contraintes des G-cartes lors des transformations directes \cite{belle2012}.
+Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation des contraintes des G-cartes lors des transformations directes~\cite{pascual2022topological}.
 
-\begin{theoreme}[Préservation de la cohérence topologique~: Règles
+\begin{theoreme}[Préservation de la cohérence topologique des règles
 		Jerboa]\label{thm:preservation-coherence-topo-regles}%
-	Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$.
+	Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$ un morphisme de filtrage.
 
 	La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit
 	une G-carte si les conditions de préservation de la cohérence suivantes sont
 	vérifiées :
 	\begin{itemize}
 		\item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
-		\item pour toute dimension $i$, un n\oe ud $v$ est source d'un arc implicite
-		      si l'étiquette d'orbite de $v$ comprend $i$~;
 		\item \emph{condition d'arcs incidents} : pour toute dimension
 		      $i \in [0, n]$, la condition d'arcs incidents est celle des règles de
 		      base en considérant simultanément les arcs implicites et
@@ -1106,24 +1091,10 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 			            $R \setminus L$ est la source d'exactement un $i$-arc (implicite
 			            ou explicite) ;
 		      \end{itemize}
-		\item un n\oe ud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
-		      \begin{itemize}
-			      \item $v$ est un n\oe ud de $L$ qui contient $i$ et $j$ dans son
-			            étiquette d'orbite ;
-			      \item $v$ est un n\oe ud de $R$ qui contient $i$ et $j$ dans son
-			            étiquette d'orbite et que ces dernières renomment un cycle
-			            de $L$, c'est-à-dire tel qu'il existe un n\oe ud $v'$ de $L$
-			            avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
-			            $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
-			      \item $v$ est la source d'un $i$-arc de cible $v'$ (dans $L$ ou
-			            $R$) tel que les deux n\oe uds $v$ et $v'$ ont $j$ dans leurs
-			            étiquettes d'orbite non renommé, c'est-à-dire tel que
-			            $l(v) \mapsto l(v') (j) = j$ ;
-			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$
-			            tel que les deux n\oe uds $v$ et $v'$ ont $i$ dans leurs
-			            étiquettes d'orbites non renommés ;
-		      \end{itemize}
-
+		      \vspace{3pt}
+		      où pour toute dimension $i$, un n\oe ud $v$ est source d'un arc implicite d'étiquette $i$
+		      si l'étiquette d'orbite de $v$ comprend $i$~;
+		      \vspace{3pt}
 		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que
 		      $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les
 		      cycles ayant des arcs implicites ou explicites :
@@ -1134,6 +1105,24 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 			      \item si un n\oe ud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle
 			            dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont
 			            préservés dans $R$.
+		      \end{itemize}
+		      \vspace{3pt}
+		      où un n\oe ud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
+		      \begin{itemize}
+			      \item $v$ est un n\oe ud de $L$ qui contient $i$ et $j$ dans son
+			            étiquette d'orbite ;
+			      \item $v$ est un n\oe ud de $R$ qui contient $i$ et $j$ dans son
+			            étiquette d'orbite et que ces dernières renomment un cycle
+			            de $L$, c'est-à-dire tel qu'il existe un n\oe ud $v'$ de $L$
+			            avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
+			            $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
+			      \item $v$ est la source d'un $i$-arc explicite de cible $v'$ (dans $L$ ou
+			            $R$) tel que les deux n\oe uds $v$ et $v'$ ont $j$ dans leurs
+			            étiquettes d'orbite non renommé, c'est-à-dire tel que
+			            $l(v) \mapsto l(v') (j) = j$ ;
+			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$
+			            tel que les deux n\oe uds $v$ et $v'$ ont $i$ dans leurs
+			            étiquettes d'orbites non renommés ;
 		      \end{itemize}
 	\end{itemize}
 \end{theoreme}

@@ -1,13 +1,16 @@
 \section{Les évènements dans les règles de transformation de graphe}
 \label{sec:formalisation-evenement-regles-transfo-graphe}
 
-\maxime{Motiver que l'on vient de caractériser les évènements dans les objets
-	dans le cas d'une transformation de $G$ vers $H$ et quand $G$ vers $H$ est une
-	transformation directe, on peut caractériser les évènements à partir des seules
-	règles (et de leur syntaxe). Si on arrive à suivre les évènements sur les
-	règles, alors on les aura pour toutes les applications indépendamment des
-	objets sur lesquels on les applique. On pourra ainsi faire le suivi des
-	évènements.}
+Dans la section précédente, nous avons caractérisé les évènements entre deux
+objets suite à une transformation de $G$ vers $H$. %
+Dans le cas d'une transformation directe, nous pouvons caractériser les
+évènements à partir des seules règles de transformation de graphe et plus
+précisément grâce à leur analyse syntaxique. %
+Une telle analyse nous permet alors de connaître l'ensemble des évènements
+produits par l'application d'une règle indépendamment des objets sur laquelle
+elle est appliquée. %
+De cette manière, nous pouvons réaliser le suivi des évènements pour toute règle
+et tout objet. %
 
 Soient $G$ une G-carte, $r : L \longrightarrow R$ une règle, $m : L \to G$ un morphisme de
 filtrage et $H$ la transformation directe $G \xlongrightarrow{(r,m)} H$. %
@@ -26,7 +29,7 @@ autres cas. %
 \label{sec:formalisation-evenement-regles-transfo-graphe-creation}
 
 \begin{figure}[htbp!]
-	\includegraphics[width=.8\textwidth]{regle-expl-triangulation-quad}
+	\includegraphics[width=\textwidth]{regle-expl-triangulation-quad}
 	\centering
 	\caption{Règle $L \longrightarrow R$ de triangulation d'une face carrée}
 	\label{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
@@ -42,8 +45,7 @@ La règle, dans la
 figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation},
 est la règle de triangulation d'une face carrée. %
 Comme défini dans la section précédente, le sommet $R\orbit{1,2,3}(n16)$ est
-créé dans $H$. Nous allons montrer que ce sommet est également créé lors de la
-transformation directe entre $G$ et $H$. %
+créé dans $H$. Nous allons montrer que ce sommet est également créé pour toute transformation directe. %
 
 \begin{proposition}[Création d'orbite]\label{prop:base-rule-create}
 	Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la
@@ -90,7 +92,7 @@ Comme défini dans la section précédente, la face $L\orbit{0,1,3}(n0)$ est
 scindée en quatre faces distinctes dont $R\orbit{0,1,3}(n0)$. %
 Réciproquement, la face $R\orbit{0,1,3}(n0)$ est issue de la scission de la face
 $L\orbit{0,1,3}(n0)$ localisée par l'arête $L\orbit{0,2,3}(n0)$. %
-Cette dernière est l'\emph{\highlight{origine}} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que
+Cette dernière est l'\emph{origine} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que
 $R\orbit{0,1,3}(n0)$ est l'unique face issue de la scission de
 $L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$
 (inchangée par la règle) est non-vide. %
@@ -110,7 +112,9 @@ $L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$
 
 		\item Réciproquement,
 
-		      si l'orbite $G\orbit{\omega}(m(v_1))$ est scindée en deux orbites $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}~(m'(v_2))$ dans la transformation directe, alors l'orbite $L\orbit{\omega}(v_1)$ est scindée en deux orbites $R\orbit{\omega}(v_1)$ et $R\orbit{\omega}(v_2)$ dans la règle.
+		      si l'orbite $G\orbit{\omega}(m(v_1))$ est scindée en deux orbites $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}~(m'(v_2))$ dans la transformation directe, alors il existe $k_1$ et $k_2$, tous deux dans $K = L \cap R$, tel que $G\orbit{\omega}(m(k_1))$ est scindée en deux orbites $H\orbit{\omega}(m'(k_1))$ et $H\orbit{\omega}~(m'(k_2))$ dans la transformation directe avec $m'(k_1) \in H\orbit{\omega}(m'(v_1))$ et $m'(k_2) \in H\orbit{\omega}(m'(v_2))$. %
+
+		      %l'orbite $L\orbit{\omega}(v_1)$ est scindée en deux orbites $R\orbit{\omega}(v_1)$ et $R\orbit{\omega}(v_2)$ dans la règle.
 	\end{enumerate}
 \end{proposition}
 
@@ -145,21 +149,50 @@ $L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$
 		      dans $H$, c'est-à-dire
 		      $H\orbit{\omega}(m'(v_1)) \cap H\orbit{\omega}(m'(v_2)) = \emptyset$, alors l'orbite
 		      $G\orbit{\omega}(m(v_1))$ est scindée dans la transformation directe.
+
+
 		\item Supposons que l'orbite $G\orbit{\omega}(m(v_1))$ est scindée dans $H$ en
 		      $H\orbit{\omega}(m'(v_1))$ et $H\orbit{\omega}(m'(v_2))$, c'est-à-dire que
 		      $G\orbit{\omega}(m(v_1)) = G\orbit{\omega}(m(v_2))$ et
 		      $H\orbit{\omega}(m'(v_1)) \neq H\orbit{\omega}(m'(v_2))$. %
 		      Résonnons par l'absurde. %
+
 		      Supposons que pour tout couple de n\oe uds préservés $k_1$ et $k_2$ de
-		      $K = L \cap R$, $L\orbit{\omega}(k_1)$ n'est pas scindée en $R\orbit{\omega}(k_1)$
-		      et $R\orbit{\omega}(k_2)$. Alors pour tout chemin $c$ dans $G$ de $m(v_1)$
+		      $K = L \cap R$ tel que $m(k_1) \in G\orbit{\omega}(m(v_1))$ et $m(k_2) \in G\orbit{\omega}(m(v_1))$, $L\orbit{\omega}(k_1)$ n'est pas scindée en $R\orbit{\omega}(k_1)$ et $R\orbit{\omega}(k_2)$. %
+		      Alors pour tout chemin $c$ dans $G$ de $m(v_1)$
 		      à $m(v_2)$ étiqueté dans $\orbit{\omega}^*$ ( \textit{i.e.}, $c$ est un
 		      chemin de $G\orbit{\omega}(m(v_1))$), $c$ n'existe pas dans $H$. %
+
+
+		      Notons $c = c_0 c_1 c_2 \ldots c_p$ tel que tout sous-chemin $c_i$ ait une source et une cible filtrés par $K$ et aucun autre n\oe ud filtré par $K$. %
+		      Tout sous-chemin $c_i$ est donc soit entièrement filtré par la règle, soit pas du tout. %
+		      Si $c_i$ n'est pas filtré par la règle, alors il appartient à $H$ et donc sa source et sa cible sont dans la même $\orbit{\omega}$-orbite de $H$. %
+		      Si $c_i$ est (entièrement) filtré par la règle, alors la source et la cible sont nécessairement filtrés par deux n\oe uds de la même $\orbit{\omega}$-orbite de $L$. %
+		      Et par hypothèse, la source et la cibles sont filtrés par deux n\oe uds de la même $\orbit{\omega}$-orbite de $R$. %
+		      Et donc, la source et la cibles sont dans la même $\orbit{\omega}$-orbite dans $H$. %
+		      Donc, par transitivité, $v_1$ et $v_2$ sont dans la même $\orbit{\omega}$-orbite de $H$ ce qui est contraire à l'hypothèse. %
+
+		      En conclusion, il existe $k_1$ et $k_2$ dans $K$ tels que $m(k_1) \in G\orbit{\omega}(m(v_1))$, $m(k_2) \in G\orbit{\omega}(m(v_1))$ et $L\orbit{\omega}(k_1)$ est scindée en $R\orbit{\omega}(k_1)$ et $R\orbit{\omega}(k_2)$. %
+
+
+		      Soit $c'$ un sous-chemin de $c$ entièrement filtré dont la source et la cible sont filtrés par $K$ (par hypothèse $m(k_1)$ et $m(k_2)$). %
+		      Comme $c'$ est entièrement filtré, $k1$ et $k2$ appartiennent à la même $\orbit{\omega}$-orbite dans $L$. %
+		      Et donc, par hypothèse, ils appartiennent à la même $\orbit{\omega}$-orbite dans $R$. %
+		      Donc aucun sous-chemin $c'$ ne provoque de scission. %
+
+		      % Posons $c = c_0 c_1 c_2$ avec $c_0$ et $c_2$ préservés dans $H$ et $c_1$ le plus petit sous-chemin non-préservé dans $H$. %
+		      % Par définition, les sources et cibles de $c_1$ sont $m(k_1)$ et $m(k_2)$ avec les propriétés définies ci-dessus. %
+
+		      % Notons $c'$ un sous-chemin de $c$ dont aucune arête n'est préservée dans $H$ mais dont les n\oe uds sont préservés. %
+		      % Les source et cible de $c'$ sont les $m'(k_1)$ et $m'(k_2)$ définis précédemment.
+
+
 		      Donc par définition de la transformation directe, il existe un
 		      sous-chemin filtré $m(c')$ de $c$ tel que $c'$ est un chemin de $L$
 		      mais pas de $R$. %
 
-		      Alors par définition de la transformation directe, $R\orbit{\omega}(v_1) \neq R\orbit{\omega}(v_2)$. Supposons que $L\orbit{\omega}(v_1) \neq L\orbit{\omega}(v_2)$ \todo{reprendre ici: ne pas rentrer trop dans le détail, on ne veut pas énumérer une infinité de chemins}
+		      Alors par définition de la transformation directe, $R\orbit{\omega}(v_1) \neq R\orbit{\omega}(v_2)$. Supposons que $L\orbit{\omega}(v_1) \neq L\orbit{\omega}(v_2)$
+		      \todo{reprendre ici: ne pas rentrer trop dans le détail, on ne veut pas énumérer une infinité de chemins}
 		      est une orbite scindée par la règle $r$. %
 	\end{enumerate}
 \end{proof}
@@ -171,7 +204,7 @@ Donc selon les cas, la scission peut exister ou non dans l'objet. %
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[height=150pt]{regle-expl-insertion-arete}
+	\includegraphics[height=180pt]{regle-expl-insertion-arete}
 	\caption{Règle de scission de face par insertion d'une arête}
 	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete}
 \end{figure}
@@ -237,7 +270,7 @@ joint deux faces sans provoquer de scission.
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=.8\textwidth]{regle-expl-dissolution-sommet-quad}
+	\includegraphics[width=\textwidth]{regle-expl-dissolution-sommet-quad}
 	\caption{Règle $L \longrightarrow R$ de dissolution de sommet dans une face carrée}
 	\label{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}
 \end{figure}
@@ -247,8 +280,8 @@ joint deux faces sans provoquer de scission.
 La règle, dans la figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}, est la règle inverse de la triangulation
 d'une face carrée, c'est-à-dire celle qui dissout un sommet. %
 Comme défini dans la section précédente, l'orbite $L\orbit{1,2,3}(n16)$ est supprimée dans $R$. %
-Nous allons montrer que ce sommet est également supprimé lors de la
-transformation directe entre $G$ et $H$. %
+Nous allons montrer que ce sommet est également supprimé pour toute
+transformation directe. %
 
 \begin{proposition}[Suppression d'orbite]
 	\label{prop:base-rule-delete}
@@ -287,7 +320,7 @@ dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n0)$. %
 Réciproquement, la face $R\orbit{0,1,3}(n0)$ est issue de la fusion des faces
 incidentes aux n\oe uds $n0$, $n_{2}$, $n_{4}$ et $n_{6}$ localisées par le
 sommet $L\orbit{1,2,3}(n16)$. %
-Ce sommet est l'\emph{\highlight{origine}} de $R\orbit{0,1,3}(n0)$ car sa
+Ce sommet est l'\emph{origine} de $R\orbit{0,1,3}(n0)$ car sa
 suppression (par dissolution) entraîne la fusion de ses faces adjacentes. %
 
 \begin{proposition}[Fusion d'orbites]
@@ -360,7 +393,7 @@ suppression (par dissolution) entraîne la fusion de ses faces adjacentes. %
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[height=150pt]{regle-expl-suppression-arete}
+	\includegraphics[height=180pt]{regle-expl-suppression-arete}
 	\caption{Règle de suppression d'une arête}
 	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete}
 \end{figure}
@@ -494,8 +527,8 @@ Reprenons la règle de triangulation (Figure~\ref{fig:formalisation-evenement-re
 Comme défini dans la section précédente, l'arête $L\orbit{0}(n0)$ est
 inchangée entre $L$ et $R$ (et il en va de même pour les arêtes incidentes aux
 n\oe uds $n_{2}$, $n_{4}$ et $n_{6}$). %
-Nous allons montrer que cette arête est également inchangée lors de la
-transformation directe entre $G$ et $H$. %
+Nous allons montrer que cette arête est également inchangée pour toute
+transformation directe. %
 
 \begin{proposition}[Non-changement d'orbite]
 	\label{prop:base-rule-unchange}
@@ -535,12 +568,12 @@ transformation directe entre $G$ et $H$. %
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\centering
-		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-G}
+		\includegraphics[width=.7\textwidth]{g-carte-triangulation-scission-G}
 		\caption{\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-g}$G$}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
-		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-H}
+		\includegraphics[width=.7\textwidth]{g-carte-triangulation-scission-H}
 		\caption{\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-h}$H$}
 	\end{subfigure}
 	\caption{\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst}Triangulation

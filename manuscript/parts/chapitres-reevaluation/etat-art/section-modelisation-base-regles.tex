@@ -659,7 +659,7 @@ des G-cartes. %
 	\begin{itemize}
 		\item \emph{Condition de non-orientation}~: $L$ et $R$ sont
 		      \emph{non-orientés}.
-		\item \emph{Conditions d'arcs incidents}~: pour toute dimension
+		\item \emph{Condition d'arcs incidents}~: pour toute dimension
 		      $i \in [0,n]$,
 		      \begin{itemize}
 			      \item un n\oe ud préservé de $L \cap R$ est la source d'un arc
@@ -711,6 +711,25 @@ grâce à la condition d'arcs incidents. %
 Pour cela, chaque règle comporte un brin d'accroche par composante connexe de
 $L$.
 
+Grâce à la condition d'arcs incidents, nous pouvons déterminer si une orbite de
+la règle filtre entièrement, ou non, l'orbite correspondante dans l'objet, et
+ce, indépendamment de l'objet. %
+
+\begin{definition}[Orbite complète et entièrement filtrée]\label{def:etat-art-modelisation-base-regle-orbite-complete}
+	Soient $G$ une G-carte, $m : L \to G$ un morphisme de filtrage, $n$ un n\oe ud de $L$ et $v = m(n)$ le brin filtré par $n$ dans $G$. %
+
+	L'orbite $G\orbit{\omega}(v)$ est \emph{entièrement filtrée} par $m$ si
+	$G\orbit{\omega}(v) \subset m(L)$, \emph{non filtrée} par $m$ si
+	$G\orbit{\omega}(v) \cap m(L) = \emptyset$, ou \emph{partiellement filtrée} par $m$ dans les
+	autres cas. %
+
+	L'orbite $L\orbit{\omega}(n)$ est \emph{complète} si pour tout n\oe ud $n'$ de $L\orbit{\omega}(n)$ et toute étiquette $i$ de $\orbit{\omega}$, $n'$ est la source d'un $i$-arc \maxime{\st{implicite ou explicite}}. %
+\end{definition}
+
+\begin{remarque}
+	Grâce à la condition d'arc incident, l'orbite $L\orbit{\omega}(n)$ est complète si et seulement si $G\orbit{\omega}(m(n))$ est entièrement filtrée. %
+\end{remarque}
+
 \subsubsection[Règles Jerboa]{Règles Jerboa}
 \label{sec:etat-art-model-regles-regles-jerboa}
 
@@ -734,9 +753,6 @@ leur nombre d'arêtes. %
 	fonction d'étiquetage des n\oe uds par des mots sur les dimensions topologiques
 	et le symbole "$\_$", telle que toutes les étiquettes des n\oe uds du motif
 	soient des mots de la même longueur.
-
-	Pour toute dimension $i$, on dira qu'un nœud $v$ est source d’un arc \emph{implicite} si l’étiquette d’orbite de $v$ comprend $i$.
-	% La \emph{structure} $\underline{M} = (V, E, s, t, \alpha)$ du motif $M$ est le graphe topologique correspondant au motif $M$ privé de ses étiquettes de n\oe uds.
 \end{definition}
 
 \begin{figure}[ht]
@@ -873,7 +889,7 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
-			\includegraphics[width=.5\textwidth]{instanciation-motif-m3}
+			)			\includegraphics[width=.5\textwidth]{instanciation-motif-m3}
 			\subcaption{\centering Instanciation de $M3$}
 			\label{fig:etat-art-modelisation-base-regle-inst-quad-motif-m3}
 		\end{minipage}
@@ -927,7 +943,7 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=0.9\linewidth]{inst-tri-face.pdf}
-			\subcaption{\centering Instanciation de $M1$}
+			\subcaption{\centering Instanciation de $M1$\todo{indices 0 pour les brins}}
 			\label{fig:jerboa-tri-before-triangulation}
 		\end{minipage}
 		\hfill
@@ -1129,7 +1145,29 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 
 \begin{remarque}
 	Les règles instanciées sont aussi des règles Jerboa sur l'orbite vide $\orbit{}$.
-	% \highlight{ou : les règles Jerboa sur l'orbite vide $\orbit{}$ expriment explicitement des règles instanciées}
+\end{remarque}
+
+La définition~\ref{def:etat-art-modelisation-base-regle-orbite-complete} s'étend naturellement sur les règles Jerboa. %
+
+\begin{definition}[Orbite complète et entièrement filtrée]
+	Soient $G$ une G-carte, $\underline{m} : \underline{L} \to G$ un morphisme de
+	filtrage Jerboa, $O$ une orbite d'instanciation, $v$ un n\oe ud de $L$, $v'$
+	un brin de $O$ et $b = m(v,v')$ un brin de $G$ filtré par $v$ par le morphisme
+	instanciée $m : L(O) \to G$. %
+
+	L'orbite $G\orbit{\omega}(b)$ est \emph{entièrement filtrée} par $\underline{m}$ si
+	$G\orbit{\omega}(b) \subset m(L(O)$, \emph{non filtrée} par $\underline{m}$ si
+	$G\orbit{\omega}(b) \cap m(L(O) = \emptyset$, ou \emph{partiellement filtrée} par
+	$\underline{m}$ dans les autres cas. %
+
+	L'orbite $L\orbit{\omega}(v)$ est \emph{complète} si pour tout n\oe ud $w$ de
+	$L\orbit{\omega}(v)$ et toute étiquette $i$ de $\orbit{\omega}$, $w$ est la source d'un
+	$i$-arc implicite ou explicite. %
+\end{definition}
+
+\begin{remarque}
+	Grâce à la condition d'arc incident, l'orbite $L\orbit{\omega}(v)$ est complète si
+	et seulement si $G\orbit{\omega}(b)$ est entièrement filtrée. %
 \end{remarque}
 
 \subsubsection[Scripts de règles]{Scripts de règles}

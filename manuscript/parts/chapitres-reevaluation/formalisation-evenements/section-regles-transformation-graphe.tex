@@ -44,14 +44,14 @@ naturellement entre deux motifs $L$ et $R$. %
 % Comme défini dans la section précédente, le sommet $R\orbit{1,2,3}(n16)$ est
 % créé dans $H$. Nous allons montrer que ce sommet est également créé pour toute transformation directe. %
 
-\maxime{Comme nous l'avons vu plus tôt, la triangulation d'une face crée un sommet en
-	son centre. %
+\maxime{Comme nous l'avons vu plus tôt, la triangulation d'une face crée un
+	sommet en son centre. %
 	La règle illustrée dans la
 	figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
 	triangule une face carrée. %
 	Celle-ci crée le sommet $R\orbit{1,2,3}(n16)$. %
-	Nous allons montrer que ce sommet est également créé pour tout objet dans la
-	transformation directe. %
+	Nous allons montrer que pour toute face carrée filtrée par cette règle ce
+	sommet est également créé pour tout objet dans la transformation directe. %
 }
 
 \begin{proposition}[Création d'orbite]\label{prop:base-rule-create}
@@ -113,17 +113,10 @@ naturellement entre deux motifs $L$ et $R$. %
 Reprenons la règle de triangulation
 (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
 Cette règle scinde une face carrée $L\orbit{0,1,3}(n0)$ en quatre faces
-triangulaires $R\orbit{0,1,3}(n0)$, $R\orbit{0,1,3}(n2)$, $R\orbit{0,1,3}(n4)$ et $R\orbit{0,1,3}(n6)$. %
-
-
-Comme défini dans la section précédente, la face $L\orbit{0,1,3}(n0)$ est
-scindée en quatre faces distinctes dont $R\orbit{0,1,3}(n0)$. %
-Réciproquement, la face $R\orbit{0,1,3}(n0)$ est issue de la scission de la face
-$L\orbit{0,1,3}(n0)$ localisée par l'arête $L\orbit{0,2,3}(n0)$. %
-Cette dernière est l'\emph{origine} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que
-$R\orbit{0,1,3}(n0)$ est l'unique face issue de la scission de
-$L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$
-(inchangée par la règle) est non-vide. %
+triangulaires $R\orbit{0,1,3}(n0)$, $R\orbit{0,1,3}(n2)$, $R\orbit{0,1,3}(n4)$
+et $R\orbit{0,1,3}(n6)$. %
+\maxime{Nous allons montrer que toute face carrée filtrée par cette règle est également
+	scindée dans la transformation directe.} %
 
 \begin{proposition}[Scission d'orbite]
 	\label{prop:base-rule_split}
@@ -228,7 +221,20 @@ $L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$
 	\end{enumerate}
 \end{proof}
 
-\todo{commentaire sur l'exemple de la triangulation}
+\maxime{Nous pouvons voir dans la règle que la face $L\orbit{0,1,3}(n0)$ est
+	scindée en quatre faces distinctes dont $R\orbit{0,1,3}(n0)$. %
+	Réciproquement, la face $R\orbit{0,1,3}(n0)$ est issue de la scission de la
+	face $L\orbit{0,1,3}(n0)$ localisée par l'arête $L\orbit{0,2,3}(n0)$. %
+	Cette dernière est l'\emph{origine} de $R\orbit{0,1,3}(n0)$, c'est-à-dire que
+	$R\orbit{0,1,3}(n0)$ est l'unique face issue de la scission de
+	$L\orbit{0,1,3}(n0)$ dont l'intersection avec l'arête $L\orbit{0,2,3}(n0)$
+	(inchangée par la règle) est non-vide. %
+	Remarquons que dans la règle, la face $L\orbit{0,1,3}(n0)$ est complète. %
+	Cela signifie que dans la transformation directe, la face est entièrement
+	filtrée et est donc bien scindée en quatre faces distinctes. %
+	De même, chacune de ces faces est incidente à une arête préservée, que nous
+	appelons leurs origines. %
+}
 
 Si aucune des orbites concernées n'est entièrement filtrée par la règle, alors
 la scission peut exister ou non selon l'objet. %
@@ -293,12 +299,12 @@ la déconnexion locale provoque une scission de la face bien que celle-ci ne soi
 Dans les
 figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-g}~et~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-h},
 la déconnexion locale ne provoque pas de scission de la face. %
-En effet, les deux parties déconnectées dans la règles restent connectées dans la partie non-filtrée de l'objet. %
+En effet, les deux parties déconnectées dans la règle restent connectées dans la partie non-filtrée de l'objet. %
 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[height=150pt]{regle-expl-cas-particulier-1.pdf}
-	\caption{Règle de déconnexion d'une arête}
+	\caption{Règle de décousure des sommets d'une arête}
 	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}
 \end{figure}
 \begin{figure}[htbp!]
@@ -319,32 +325,61 @@ En effet, les deux parties déconnectées dans la règles restent connectées da
 	\caption{\todo{commentaire et légende de figure}}
 \end{figure}
 
+Dans certains cas, et lorsque plusieurs composantes sont filtrées par une règle,
+une scission peut être détectée au sein d'une seule composante dans la règle et
+pourtant scinder les deux composantes filtrées dans l'objet. %
+Par exemple, la règle
+(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1})
+filtre deux arêtes dont l'une avec ses sommets . %
+Seule la seconde arête est transformée car la règle la découd de ses sommets
+incidents. %
+Pourtant, si cette règle est appliquée et que ses deux composantes dans $L$ sont
+appliquées sur deux arête d'une seule et même face dans $G$, la transformation
+crée bien une scission entre les deux composantes filtrée. %
+Par exemple, dans les
+figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-G}~et~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-H},
+la composante incidente à $n0$ filtre l'arête incidente au brin $v$ et la
+seconde composante filtre l'arête et les sommets atteignables à partir du brin
+$k_{2}$ et qui comprend le brin $k_{1}$. %
+Suite à l'application de la règle, nous pouvons observer qu'il n'existe plus de
+sous-chemin dans $\orbit{0,1}$ permettant de relier $v$ à $k_{2}$ alors que dans
+la règle, les seules scissions détectées sont celle qui déconnecte une arête de
+ses sommets. %
 
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[height=150pt]{regle-expl-cas-particulier-2.pdf}
-	\caption{Règle de double découture}
+	\caption{Règle de double décousure}
 	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-2}
 \end{figure}
+
 \begin{figure}[htbp!]
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-G.pdf}
 		\caption{Ruban}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-G}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-G}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-H.pdf}
 		\caption{Ruban découpé}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-H}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-H}
 	\end{subfigure}
 	\caption{\todo{commentaire et légende de figure}}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-scission-inst}
+	\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2}
 \end{figure}
 
-
+Un autre exemple peut être trouvé avec la règle
+(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-2})
+qui découd les $2$-arcs de deux arêtes mais qui n'exprime aucune scission entre
+les deux composantes. %
+Tout comme dans l'exemple précédent, nous pouvons observer dans les
+figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-G}~et~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-H}
+que dans la transformation directe, il n'existe plus de sous-chemin dans $\orbit{0,1,2}$ permettant de relier $v_{1}$ à $v_{2}$. %
+Notons toutefois, qu'une seule des deux scission suffirait pour déconnecter la
+$\orbit{0,1,2}$ incidente à $v_{1}$ de celle incidente à $v_{2}$. %
 
 \subsection{Suppression}
 \label{sec:formalisation-evenement-regles-transfo-graphe-suppression}
@@ -359,9 +394,15 @@ En effet, les deux parties déconnectées dans la règles restent connectées da
 
 % La figure \textbf{fig:base-rule-delete} représente la suppression d'une face quadrangulaire isolée, c'est-à-dire qui n'est connectée à aucun autre objet. Comme défini dans la section \textbf{sec:suivi-suppression}, l'orbite $R\orbit{0,1,3}(n0)$ est supprimée dans $R$. Nous allons montrer que cette face est également supprimée lors de la transformation directe entre $G$ et $H$.
 
-La règle, dans la figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}, est l'inverse de la triangulation
-d'une face carrée, c'est-à-dire celle qui supprime un sommet dans une face. %
-Comme défini dans la section précédente, l'orbite $L\orbit{1,2,3}(n16)$ est supprimée dans $R$. %
+\maxime{La règle, dans la
+	figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet},
+	est l'inverse de la triangulation d'une face carrée, c'est-à-dire celle qui
+	supprime un sommet dans une face. %
+	Ici, nous pouvons voir que l'orbite $L\orbit{1,2,3}(n16)$ est supprimée dans
+	$R$. %
+	Nous allons montrer que pour tout sommet au centre d'une face carrée, celui-ci
+	est supprimé dans la transformation directe. %
+}
 
 \begin{proposition}[Suppression d'orbite]
 	\label{prop:base-rule-delete}
@@ -373,7 +414,7 @@ Comme défini dans la section précédente, l'orbite $L\orbit{1,2,3}(n16)$ est s
 \end{proposition}
 
 \begin{proof}
-	La preuve est le symétrique de la preuve de la création (voir la proposition~\ref{prop:base-rule-create}).
+	Cette preuve est le symétrique de la preuve de la création (voir la proposition~\ref{prop:base-rule-create}).
 \end{proof}
 
 % \begin{proof}
@@ -391,8 +432,12 @@ Comme défini dans la section précédente, l'orbite $L\orbit{1,2,3}(n16)$ est s
 
 % \end{proof}
 
-Comme pour la création, les orbites supprimées sont toujours entièrement filtrée. %
-Donc, quelque soit l'objet transformé, ses suppressions sont toujours détectées dans la règle. %
+Comme pour la création, les orbites supprimées sont toujours entièrement
+filtrées. %
+\maxime{%
+	Ainsi, quel que soit l'objet transformé, ses suppressions sont toujours
+	détectées dans la règle et appliquées dans les objets au cours de la
+	transformation directe.} %
 
 
 \subsection{Fusion}
@@ -402,17 +447,11 @@ Donc, quelque soit l'objet transformé, ses suppressions sont toujours détecté
 % La figure \textbf{fig:base-rule-merge} représente la contraction d'une face triangulaire en un sommet. Ainsi, elle fusionne les trois sommets de la face initiale en un seul.
 % Comme le montre la proposition \textbf{prop:base-rule-merge}, puisque la règle filtre entièrement les orbites sommet $\orbit{1,2,3}$ des 3 sommets à gauche, alors quel que soit l'objet transformé, les sommets de la face contractée seront fusionnés en un unique sommet.
 
-Reprenons la règle de suppression de sommet (Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}). %
-Comme défini dans la section précédente, le cas de la fusion est symétrique par
-rapport à la scission. %
-Ainsi, les faces incidentes aux n\oe uds $n0$, $n2$, $n4$ et $n6$
-dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n0)$. %
-Réciproquement, la face $R\orbit{0,1,3}(n0)$ est issue de la fusion des faces
-incidentes aux n\oe uds $n0$, $n2$, $n4$ et $n6$ localisées par le
-sommet $L\orbit{1,2,3}(n{16})$. %
-Ce sommet est l'\emph{origine} de la face fusionnée $R\orbit{0,1,3}(n0)$ car sa
-suppression (par dissolution) entraîne la fusion de ses faces incidentes. %
-
+\maxime{Reprenons la règle de suppression de sommet (Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}). %
+	Du point de vue de la fusion, les faces incidentes aux n\oe uds $n0$, $n2$, $n4$ et $n6$
+	dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n0)$. %
+	Nous allons montrer que cette règle provoque la fusion des faces autour d'un sommet dans la transformation directe. %
+}
 \begin{proposition}[Fusion d'orbites]
 	\label{prop:base-rule-merge}
 	Soit une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la transformation directe $G \xlongrightarrow{(r,m)} H$, un type d'orbite $\orbit{\omega}$ et deux n\oe uds préservés $v_1$ et $v_2$ de $K = L \cap R$.
@@ -517,6 +556,18 @@ suppression (par dissolution) entraîne la fusion de ses faces incidentes. %
 % \end{enumerate}
 % \end{proof}
 
+\maxime{Nous pouvons voir dans la règle que la face $R\orbit{0,1,3}(n0)$ est
+	issue de la fusion des faces incidentes aux n\oe uds $n0$, $n2$, $n4$ et
+	$n6$. %
+	Le sommet $L\orbit{1,2,3}(n{16})$ est l'\emph{origine} de la face fusionnée
+	$R\orbit{0,1,3}(n0)$ car sa suppression (par dissolution) entraîne la fusion
+	de ses faces incidentes. %
+	Puisque les sommet et les faces sont complets, cela signifie que toutes les
+	faces incidentes à ce sommets sont distinctes les unes-des-autres. %
+	Ainsi, au cours de la transformation directe, cette règle fusionne les faces
+	incidentes à un sommet supprimé. %
+}
+
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[height=180pt]{regle-expl-suppression-arete}
@@ -589,8 +640,8 @@ La face est donc simplement modifiée. %
 \end{figure}
 
 
-Remarquons que dans certains cas, il peut y avoir simultanément une fusion et une scission. %
-
+Remarquons que dans certains cas, il peut y avoir simultanément une fusion et
+une scission. %
 Par exemple, la figure
 \ref{fig:formalisation-evenements-regles-transfo-regle-expl-rotation-arete}
 représente une règle de modification de maillage triangulaire appelée «~edge
@@ -650,12 +701,15 @@ deux nouvelles faces carrées. %
 % sommet est également inchangé lors de la transformation directe entre $G$ et
 % $H$.
 
-Reprenons la règle de triangulation (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation} page~\pageref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
-Comme défini dans la section précédente, l'arête $L\orbit{0,2,3}(n0)$ est
-inchangée entre $L$ et $R$ (et il en va de même pour les arêtes incidentes aux
-n\oe uds $n2$, $n4$ et $n6$). %
-Nous allons montrer que cette arête est également inchangée pour toute
-transformation directe. %
+\maxime{Reprenons la règle de triangulation
+	(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
+	page~\pageref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
+	Nous pouvons voir que l'arête $L\orbit{0,2,3}(n0)$ est inchangée entre $L$ et
+	$R$ (et il en va de même pour les arêtes incidentes aux n\oe uds $n2$, $n4$ et
+	$n6$). %
+	Nous allons montrer que cette arête est également inchangée pour toute
+	transformation directe. %
+}
 
 \begin{proposition}[Non-changement d'orbite]
 	\label{prop:base-rule-unchange}
@@ -685,8 +739,6 @@ transformation directe. %
 	orbite inchangée par la règle $r$. %
 \end{proof}
 
-
-
 \begin{remarque}
 	En plus des orbites (partiellement) filtrées, les orbites de $G$ non filtrées
 	(telles que $G\orbit{\omega}(v) \cap m(L) = \emptyset$) sont par définition inchangées. On
@@ -709,10 +761,11 @@ transformation directe. %
 		dans une G-carte}
 \end{figure}
 
-Par exemple, dans la figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst}, la triangulation laisse l'arête incidente au brin $b_0$ inchangée. %
-
-Par ailleurs l'application de la règle de triangulation n'a aucun effet sur la parti grisée
-dans $G$
+Par exemple, dans la
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst},
+la triangulation laisse l'arête incidente au brin $b_0$ inchangée. %
+Par ailleurs l'application de la règle de triangulation n'a aucun effet sur la
+partie grisée dans $G$
 (Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-g})
 car celle-ci n'est pas filtrée par la règle. %
 Le résultat est que la partie grisée de $G$ est identique à la partie grisée de
@@ -722,7 +775,19 @@ $H$
 \subsection{Modification}
 \label{sec:formalisation-evenement-regles-transfo-graphe-modification}
 
-Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En particulier, une modification dans la règle, même partiellement filtrée, ne peut pas produire une scission ou une fusion dans l'objet transformé.
+% Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En particulier, une modification dans la règle, même partiellement filtrée, ne peut pas produire une scission ou une fusion dans l'objet transformé.
+
+\maxime{La règle de triangulation
+	(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation})
+	produit un certain nombre de transformations lors de son application sur un
+	objet. %
+	Parmi ces transformations se trouve la modification des sommets. %
+	Nous pouvons voir que les sommets $L\orbit{1,2,3}(n0)$, $L\orbit{1,2,3}(n2)$,
+	$L\orbit{1,2,3}(n4)$ et $L\orbit{1,2,3}(n6)$ ne sont ni créés, supprimés,
+	inchangés, scindés ou encore fusionnés. %
+	Nous allons montrer l'application de cette règle modifie bien les sommets
+	incidents à la face filtrée dans la transformation directe. %
+}
 
 \begin{proposition}[Modification d'orbite]
 	\label{prop:base-rule-modify}
@@ -749,37 +814,35 @@ Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En pa
 
 \end{proof}
 
-\todo{Ajouter illustrations modifications faces cube insertion sommet}
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}{.45\textwidth}
-%         \centering
-%         \includegraphics[scale=.22]{figures/cube.pdf}
-%         \caption{Cube}
-%         \label{fig:base-rule-before-modify-cube}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{.45\textwidth}
-%         \centering
-%         \includegraphics[scale=.22]{figures/cube-modified.pdf}
-%         \caption{Cube avec insertion d'un sommet}
-%         \label{fig:base-rule-after-modify-cube}
-%     \end{subfigure}
-%     \caption{Modification de faces d'un cube par insertion d'un sommet}
-%     \label{fig:base-rule-modify-cube}
-% \end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{g-carte-triangulation-modification-G}
+		\caption{Cube}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-modification-g}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{g-carte-triangulation-modification-H}
+		\caption{Cube avec insertion d'un sommet}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-modification-h}
+	\end{subfigure}
+	\caption{Modification de faces d'un cube par insertion d'un sommet}
+	\label{fig:formalisation-evenement-regles-transfo-graphe-modification}
+\end{figure}
 
-La figure \textbf{fig:base-rule-modify-cube} illustre une modification d'orbite
-face provoquée par l'insertion d'un sommet (encerclé en rouge) sur un cube.
-Cette transformation résulte de l'application de la règle d'insertion de sommet
-illustrée figure \textbf{fig:base-rule-create} en
-page~\textbf{pageref!fig:base-rule-create} qui crée un sommet le long de deux
-arcs étiquetés $0$. Les deux faces carrées incidentes au sommet inséré sont
-modifiées en pentagones.
+% La figure \textbf{fig:base-rule-modify-cube} illustre une modification d'orbite
+% face provoquée par l'insertion d'un sommet (encerclé en rouge) sur un cube.
+% Cette transformation résulte de l'application de la règle d'insertion de sommet
+% illustrée figure \textbf{fig:base-rule-create} en
+% page~\textbf{pageref!fig:base-rule-create} qui crée un sommet le long de deux
+% arcs étiquetés $0$. Les deux faces carrées incidentes au sommet inséré sont
+% modifiées en pentagones.
 
-Lorsque l'orbite d'intérêt est non filtrée, alors elle est inchangée.
-Lorsqu'elle est entièrement filtrée, l'évènement peut être déterminé localement et statiquement à partir de la règle, indépendamment de la G-carte sur laquelle elle est appliquée.
-Mais dans les autres cas, si l'orbite d'intérêt n'est que partiellement filtrée, alors l'évènement dépend du reste de la G-carte et donc doit être déterminé globalement et dynamiquement lors de l'application de la règle.
+% Lorsque l'orbite d'intérêt est non filtrée, alors elle est inchangée.
+% Lorsqu'elle est entièrement filtrée, l'évènement peut être déterminé localement et statiquement à partir de la règle, indépendamment de la G-carte sur laquelle elle est appliquée.
+% Mais dans les autres cas, si l'orbite d'intérêt n'est que partiellement filtrée, alors l'évènement dépend du reste de la G-carte et donc doit être déterminé globalement et dynamiquement lors de l'application de la règle.
 
 %%% Local Variables:
 %%% mode: latex

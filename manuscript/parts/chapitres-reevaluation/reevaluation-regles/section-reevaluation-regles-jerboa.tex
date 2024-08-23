@@ -1,4 +1,28 @@
-\section[Réévaluation]{Réévaluation} \label{sec:reevaluation-reevaluation}
+\section[Réévaluation]{Réévaluation}
+\label{sec:reevaluation-base-regles-reevaluation}
+
+Ici, je présente la méthode de réévaluation.
+
+J'explique que je fais ça à partir du nom persistant d'une orbite (arbre
+d'évaluation) et ce pour chacune des orbites identifiées dans la spec à
+réévaluer.
+
+\subsection{Reconstruction à partir d'un DAG d'évaluation}
+\label{sec:reevaluation-base-regles-reevaluation-reconstruction}
+
+(du début jusqu'à la fin)
+Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
+topologiques, ceux-ci ne contiennent non pas des nœuds de règles, mais des brins
+issus de l'objet en cours de reconstruction.
+
+\subsection{Stratégies de réévaluation}
+\label{sec:reevaluation-base-regles-reevaluation-strategies}
+
+\begin{itemize}
+	\item Scission d'un paramètre topologique : évaluation de tout ou partie des paramètres éligibles
+	\item Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètre (potentiellement de l'objet)
+\end{itemize}
+
 
 %%% Local Variables:
 %%% mode: LaTeX

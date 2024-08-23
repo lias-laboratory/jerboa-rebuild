@@ -565,14 +565,15 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle final. %
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas}
 \end{figure}
 
-Un exemple de construction implicite d'un historique par héritage des noms des ancêtres invariants est celui proposé par Capoyleas~\cite{CAPOYLEAS199617}.
+Un exemple de construction implicite d'un historique par héritage des noms des
+ancêtres invariants est celui développé par Capoyleas, complété par Chen et
+intégré dans le système EREP~\cite{hoffmann1992erep,chen1995representation,CAPOYLEAS199617}.
 % Il propose un mécanisme de nomination dans lequel
 % une entité est nommée par rapport à son ancêtre invariant  ce qui, par construction,
 % propage des informations de modélisation. \david{bof bof la dernière phrase. %
 % C'est assez répétitif avec la phrase que j'ai ajouté juste avant.} %
-Dans son système de nomination persistante, Capoyleas propose que les entités
-générée par extrusion/révolution comportent les noms de leurs ancêtres dans les
-leurs. %
+Dans ce système de nomination persistante, les entités générées par
+extrusion/révolution comportent les noms de leurs ancêtres dans les leurs. %
 Par exemple, dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas},
 le pavé est extrudé à partir de la face $f$, sa face $f(e2)$ est générée par
@@ -581,14 +582,14 @@ Par construction d'un nom, l'historique d'une entité se propage dans les noms
 des entités qui en dérivent. %
 
 Les entités issues de l'intersection de deux objets disposent de noms
-non-uniques $I_{e}$ (pour les arêtes) et $I_{v}$ (pour les sommets). %
+non uniques $I_{e}$ (pour les arêtes) et $I_{v}$ (pour les sommets). %
 Par exemple, à l'issue de la différence entre le pavé et un cylindre, on peut
 observer que des entités d'intersection sont créées. %
 Dans ce cas, Capoyleas propose d'une part de discriminer les entités par leurs
 voisinages topologiques, lorsque c'est possible et, d'autre part, de leur
 attribuer un nom d'après le schéma suivant~:
 \[[C_{i}, L_{i}, F_{i}]\]
-où $C_{i}$ est l'ensemble des faces adjacentes à une entité d'intersection $i$,
+où $C_{i}$ est l'ensemble des noms des faces adjacentes à une entité d'intersection $i$,
 $L_{i}$ est l'orientation de l'entité par rapport à son voisinage direct et où
 $F_{i}$ est l'orientation de la caractéristique de forme à laquelle appartient
 l'entité. %

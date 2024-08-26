@@ -688,18 +688,45 @@ Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas f
 \end{proposition}
 
 \begin{proof}
-	\todo{reprendre ici}
-	Soit $v$ un nœud conservé de $L$ et $R$. Soit $O = G\orbit{l(h)}(\underline{m}(h))$, l'orbite d'instanciation.
+		Supposons que l'orbite $\underline{L}\orbit{\omega}(v)$ est modifiée dans la règle due à des arcs explicites. %
+    Montrons que pour tout brin $v'$ de l'orbite d'instanciation $O$, l'orbite $L(O)\orbit{\omega}((v, v'))$ est modifié dans la règle instanciée. %
 
-	~
+    D'après le premier point, les orbites $L(O)\orbit{\omega}((v, v'))$ et $R(O)\orbit{\omega}((v, v'))$ sont différentes. %
+    Elles ne peuvent donc pas être inchangées. %
+    Il nous reste donc à montrer qu'elles ne sont ni scindées ni fusionnées. %
 
-	Supposons que l'orbite $\underline{L}\orbit{\omega}(v)$ est modifiée dans la règle.
-	Soit $w$ un nœud de l'orbite $\underline{L}\orbit{\omega}(v)$ conservé par la règle.
-	Par définition, $w$ est un nœud de $\underline{R}\orbit{\omega}(v)$.
+    Soit un nœud préservé $w$ de $\underline{K} = \underline{L} \cap \underline{R}$ et deux brins $v'_1$ et $v'_2$ de l'orbite d'instanciation $O$. %
+    Supposons que $(w, v'_1)$ et $(v, v'_2)$ soient dans la même $\orbit{\omega}$-orbite. %
+    Alors, il existe un chemin $c(O)$ dans $L(O)$ étiqueté sur $\orbit{\omega}$ de source $(w, v'_1)$ et de cible $(v, v'_2)$. %
+    Les arcs de ce chemin issus d'arcs explicites de $L$, forment un chemin $c$ de $L$ entre $w$ et $v$ qui s'instancie en un chemin entre $(w, v'_1)$ et $(v, v'_1)$ dans $L(O)$. %
+    Or par hypothèse, il existe un chemin issu d'arcs explicites de $R$, qui forment un chemin de $R$ entre $w$ et $v$ qui s'instancie en un chemin entre $(w, v'_1)$ et $(v, v'_1)$ dans $R(O)$. %
+    Les arcs de $c(O)$ issus d'arcs implicites de $L$ forment un chemin de $O$ entre $v'_1$ et $v'_2$. %
+    Or pour chacun de ces arcs de $v'_i$ à $v'_j$ correspond un arc implicite de $L\orbit{\omega}(v)$, et il existe un arc implicite dans $R\orbit{\omega}(v)$ étiqueté sur $\orbit{\omega}$, éventuellement sur un autre nœud $w' \in \underline{R}\orbit{\omega}(v)$. %
+    On peut donc construire un chemin dans $R(O)$ qui utilise l'instanciation d'arcs explicites de $(w, v'_i)$ à $(w', v'_i)$, puis l'instanciation de l'arc implicite pour passer à $(w', v'_j)$, puis à nouveau l'instanciation d'arcs explicites pour passer à $(w, v'_j)$. %
+    On peut donc construire un chemin de $(w, v'_1)$ à $(w, v'_2)$ dans $R(O)$. %
+    Nous avons donc construit un chemin de $(w, v'_1)$ à $(v, v'_2)$ dans $R(O)$ étiqueté sur $\orbit{\omega}$.
 
-	Notons $e_1...e_i$ un chemin de $\underline{L}\orbit{\omega}(v)$ de source $v$ et de cible $w$, $f_1...f_j$ un chemin de $\underline{R}\orbit{\omega}(v)$ de source $v$ et de cible $w$, et $e'_1...e'_l$ un chemin de $O$. Notons $v'_{m_1}$ la source de $e'_m$ et $v'_m$ sa cible.
+    La construction inverse d'un chemin de $R(O)$ vers un chemin de $L(O)$ peut se faire de la même manière. %
+    Donc pour tout nœud $v'$ de l'orbite d'instanciation $O$, l'orbite $L(O)\orbit{\omega}((v, v'))$ est modifiée dans la règle instanciée.
+    \\ %
 
-	\agnes{en cours}
+    Supposons que l'orbite $\underline{L}\orbit{\omega}(v)$ est modifiée dans la règle due à des arcs implicites. %
+    Montrons que pour tout nœud $v'$ de l'orbite d'instanciation $O$, l'orbite $L(O)\orbit{\omega}((v, v'))$ est modifiée dans la règle instanciée. %
+
+    Certains arcs implicites des orbites considérées sont différentes dans $L$ et $R$, donc pour tout nœud $v'$ de l'orbite d'instanciation $O$, les orbites $L(O)\orbit{\omega}((v, v'))$ et $R(O)\orbit{\omega}((v, v'))$ sont différentes. %
+    Il nous reste donc à montrer qu'il n'y a ni scission ni fusion. %
+
+    Cela se fait de la même manière que dans le cas explicite, avec la partie de chemin issue des arcs explicites identiques dans $L(O)$ et $R(O)$, puisque les structures $\underline{L}\orbit{\omega}(v)$ et $\underline{R}\orbit{\omega}(v)$ sont identiques. %
+    \\ %
+
+    Donc, d'après la proposition \ref{prop:base-rule-modify}, pour tout brin $v'$ de $O$,
+	$G\orbit{\omega}(m((v,v')))$ est modifiée dans la transformation directe
+	$G \xlongrightarrow{r,\underline{m}} H$. %
+    \\ %
+
+    Réciproquement, soit un brin $v'$ de $O$, supposons que $G\orbit{\omega}(m((v,v')))$ est modifiée dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$. %
+    D'après les propositions précédentes, l'orbite $L\orbit{\omega}(v)$ ne peut être ni inchangée, ni scindée, ni fusionnée (et bien sûr ni crée, ni supprimée). %
+    Elle est donc nécessairement modifiée.
 \end{proof}
 
 

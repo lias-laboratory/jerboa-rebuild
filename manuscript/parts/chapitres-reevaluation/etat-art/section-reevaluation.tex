@@ -99,7 +99,7 @@ D'un autre côté, nous relevons plusieurs limitations de cette approche: %
 Dans cette seconde approche, la spécification paramétrique d'un objet est un
 processus de construction (ou historique), c'est-à-dire un enregistrement de
 l'ensemble des opérations de modélisation et de leurs paramètres, successivement
-appliquées tout au long d'une procédure de modélisation. %
+appliquées tout au long d'un processus de modélisation. %
 Dans ces opérations, les paramètres sont soit des valeurs géométriques, soit des références à des entités topologiques existantes. %
 La représentation explicite d'un objet, quant à elle, est entièrement générée au fur et à mesure de l'application du processus constructif et est donc déterministe. %
 L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
@@ -355,11 +355,11 @@ Pour illustrer cela, observons la
 figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}. %
 Nous pouvons voir, lors des étapes $1$ et $2$ de la modélisation, un ensemble
 d'entités topologique dites invariantes générées lors de la création des deux
-pavés. %
-Quels que soient les paramètres des opérations créant ces deux pavés, nous
+blocs. %
+Quels que soient les paramètres des opérations créant ces deux blocs, nous
 savons que l'ensemble de ses entités seront systématiquement générées, car elles
 sont caractéristiques de l'opération. %
-Ainsi, l'ensemble des entités topologiques des pavés, telles que les faces
+Ainsi, l'ensemble des entités topologiques des blocs, telles que les faces
 $f_{1}$ et $f_{5}$, sont invariantes. %
 
 \begin{definition}[Entité contingente]\label{def:entite-contingente}%
@@ -368,15 +368,15 @@ $f_{1}$ et $f_{5}$, sont invariantes. %
 	invariantes issues d'un geste constructif particulier. %
 \end{definition}
 
-Dans l'étape $3$ de la modélisation, la différence entre les deux pavés génère
+Dans l'étape $3$ de la modélisation, la différence entre les deux blocs génère
 un ensemble de nouvelles entités topologiques dites contingentes. %
 Ces entités dépendent des paramètres des opérations (ici la taille ou la
-position des deux pavés) et ne sont donc pas systématiquement créées. %
+position des deux blocs) et ne sont donc pas systématiquement créées. %
 Parmi ces entités, on trouve par exemple les faces $f'_{1}$, $f'_{2}$, $f'_{3}$,
 $f'_{4}$, $f'_{5}$ et $f'_{6}$ ou bien l'arête $e'_{1}$. %
 En effet, la création ou la modification de ces entités dépend des paramètres
 des opérations. %
-Si, par exemple, nous déplaçons le second pavé de façon à ne créer aucune
+Si, par exemple, nous déplaçons le second bloc de façon à ne créer aucune
 intersection entre les deux objets, ou si nous modifions sa taille de façon à ce
 que la face $f_{1}$ se retrouve scindée en deux, alors certaines entités
 contingentes ne seront plus créées ou au contraire d'autres apparaîtront. %
@@ -425,7 +425,7 @@ invariantes intervenant dans leurs constructions. %
 
 
 Prenons l'exemple des travaux de Wu~\cite{wu2001face}. %
-Wu propose une identification des entités topologiques générée par extrusion (ou
+Wu propose une identification des entités topologiques générées par extrusion (ou
 révolution) basée sur le schéma de nomination suivant
 
 \[[ID_{operation},ID_{profil},ID_{element},ID_{chemin},ID_{trajectoire}]\]
@@ -499,23 +499,21 @@ plongement géométrique d'aucune autre entité de même dimension est en revanc
 une entité sans source. %
 
 Nous pouvons observer que lorsque l'on travaille avec un modeleur en dimension
-$n$, les entités de dimension $n-1$ sont toujours des entités avec sources. %
-Ainsi, en 3D les faces sont toutes issues d'entités de même dimension et sont
-donc toutes avec source. %
+$n$, les entités contingentes de dimension $n-1$ sont toujours des entités avec sources. %
+Ainsi, en 3D les faces contingentes avec source. %
 À l'inverse, ce n'est pas forcément le cas pour les arêtes et sommets qui
 peuvent être créées par l'intersection de plusieurs entités de dimension
 supérieures. %
-La conséquence de cette remarque est qu'ajourd'hui, dans la plupart des
-modeleurs 3D, les mécanismes de nomination sont basés sur les faces, car le fait
-d'avoir systématiquement une source les rend plus facilement identifiables. %
+La conséquence de cette remarque est qu'aujourd'hui, dans la plupart des modeleurs 3D, les mécanismes de nomination s'appuient sur les faces. %
+En effet, le fait qu'elles soient invariantes ou qu'elles aient systématiquement
+une source les rend plus facilement identifiables et permet par voie de
+conséquence une nomination plus robuste des autres entités. %
 
 
 \paragraph{\color{red}{Utilisation d'un historique de noms}}
 
 Le quatrième concept commun dans la littérature concerne l'utilisation d'un
-historique pour la nomination. %
-Ce concept propose de construire, d'une manière ou d'une autre, un historique
-permettant de tracer l'évolution des ancêtres invariants. %
+historique permettant de tracer l'évolution des ancêtres invariants. %
 Un tel système permet alors d'identifier et d'apparier de façon plus robuste les
 entités par rapport à leurs ancêtres lors de la réévaluation. %
 
@@ -526,7 +524,7 @@ explicite~\cite{kripac1995mechanism,agbodan2000persistent,baba2007generic,cardot
 où chaque n\oe ud est une entité topologique précédée de ses ancêtres et suivie
 de ses évolutions. %
 La seconde approche consiste en un mécanisme implicite de propagation des noms
-des ancêtres invariants sur entités~\cite{CAPOYLEAS199617,wu2001face}. %
+des ancêtres invariants sur les entités descendantes~\cite{CAPOYLEAS199617,wu2001face}. %
 
 Un exemple de construction explicite de graphe d'historique est celui proposé
 par Kripac~\cite{kripac1995mechanism}. %
@@ -546,7 +544,7 @@ Dans ce DAG, un n\oe ud, appelé un \textit{FaceIdNode}, représente une face
 
 Le DAG, illustré dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-kripac},
-représente l'évolution des faces d'un pavé dont la face frontale a été creusée
+représente l'évolution des faces d'un bloc dont la face frontale a été creusée
 par une rainure. %
 Ce DAG montre que les faces $f_{1.1}$, $f_{1.2}$ et $f_{1.3}$ ont été créées
 avec une première opération et les faces $f_{2.1}$ et $f_{2.2}$ avec l'opération
@@ -556,44 +554,44 @@ et $f_{3.2}$ et $f_{1.3}$ et $f_{2.1}$ sont fusionnées en une face $f_{3.3}$. %
 La face $f_{2.2}$ est supprimée puis $f_{3.2}$ et $f_{3.3}$ sont fusionnées en
 $f_{4.1}$. %
 Au terme de la modélisation et parmi les faces du DAG, seules les faces
-$f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle final. %
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.5\textwidth]{capoyleas-exemple}
-	\caption{Pavé creusé par une rainure arrondie de Capoyleas}
-	\label{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas}
-\end{figure}
+$f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
 
 Un exemple de construction implicite d'un historique par héritage des noms des
-ancêtres invariants est celui développé par Capoyleas, complété par Chen et
-intégré dans le système EREP~\cite{hoffmann1992erep,chen1995representation,CAPOYLEAS199617}.
-% Il propose un mécanisme de nomination dans lequel
-% une entité est nommée par rapport à son ancêtre invariant  ce qui, par construction,
-% propage des informations de modélisation. \david{bof bof la dernière phrase. %
-% C'est assez répétitif avec la phrase que j'ai ajouté juste avant.} %
-Dans ce système de nomination persistante, les entités générées par
-extrusion/révolution comportent les noms de leurs ancêtres dans les leurs. %
-Par exemple, dans la
-figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas},
-le pavé est extrudé à partir de la face $f$, sa face $f(e2)$ est générée par
-l'extrusion de l'arête $e2$ et l'arête $e(v2)$ provient du sommet $v2$. %
-Par construction d'un nom, l'historique d'une entité se propage dans les noms
-des entités qui en dérivent. %
+ancêtres invariants est celui développé par Wu et al.~\cite{wu2001face}. %
+\todo{terminer avec Wu propagation de nom}
 
-Les entités issues de l'intersection de deux objets disposent de noms
-non uniques $I_{e}$ (pour les arêtes) et $I_{v}$ (pour les sommets). %
-Par exemple, à l'issue de la différence entre le pavé et un cylindre, on peut
-observer que des entités d'intersection sont créées. %
-Dans ce cas, Capoyleas propose d'une part de discriminer les entités par leurs
-voisinages topologiques, lorsque c'est possible et, d'autre part, de leur
-attribuer un nom d'après le schéma suivant~:
-\[[C_{i}, L_{i}, F_{i}]\]
-où $C_{i}$ est l'ensemble des noms des faces adjacentes à une entité d'intersection $i$,
-$L_{i}$ est l'orientation de l'entité par rapport à son voisinage direct et où
-$F_{i}$ est l'orientation de la caractéristique de forme à laquelle appartient
-l'entité. %
-% \david{Que se passe t-il si une face est scindée en deux ? comment son propagés les noms ? C'est me semble t-il le plus important pour parler de propagation et tu ne l'abordes pas ici dans ta liste d'item.}
+% \begin{figure}
+% 	\centering
+% 	\includegraphics[width=.5\textwidth]{capoyleas-exemple}
+% 	\caption{Bloc creusé par une rainure arrondie de Capoyleas}
+% 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas}
+% \end{figure}
+
+% Un exemple de construction implicite d'un historique par héritage des noms des
+% ancêtres invariants est celui développé par Capoyleas, complété par Chen et
+% intégré dans le système EREP~\cite{hoffmann1992erep,chen1995representation,CAPOYLEAS199617}.
+% Dans ce système de nomination persistante, les entités générées par
+% extrusion/révolution comportent les noms de leurs ancêtres dans les leurs. %
+% Par exemple, dans la
+% figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas},
+% le bloc est extrudé à partir de la face $f$, sa face $f(e2)$ est générée par
+% l'extrusion de l'arête $e2$ et l'arête $e(v2)$ provient du sommet $v2$. %
+% Par construction d'un nom, l'historique d'une entité se propage dans les noms
+% des entités qui en dérivent. %
+
+% Les entités issues de l'intersection de deux objets disposent de noms
+% non uniques $I_{e}$ (pour les arêtes) et $I_{v}$ (pour les sommets). %
+% Par exemple, à l'issue de la différence entre le bloc et un cylindre, on peut
+% observer que des entités d'intersection sont créées. %
+% Dans ce cas, Capoyleas propose d'une part de discriminer les entités par leurs
+% voisinages topologiques, lorsque c'est possible et, d'autre part, de leur
+% attribuer un nom d'après le schéma suivant~:
+% \[[C_{i}, L_{i}, F_{i}]\]
+% où $C_{i}$ est l'ensemble des noms des faces adjacentes à une entité d'intersection $i$,
+% $L_{i}$ est l'orientation de l'entité par rapport à son voisinage direct et où
+% $F_{i}$ est l'orientation de la caractéristique de forme à laquelle appartient
+% l'entité. %
+% % \david{Que se passe t-il si une face est scindée en deux ? comment son propagés les noms ? C'est me semble t-il le plus important pour parler de propagation et tu ne l'abordes pas ici dans ta liste d'item.}
 
 
 \paragraph{\color{purple}{(brouillon) Nomination hétérogène des entités}}
@@ -619,11 +617,79 @@ Une couche de nom s'intercale entre les couches paramétrique et géométrique~:
 \subsubsection[Systèmes de nomination persistante]{Systèmes de nomination persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
+\todo{chapeau}
+
 \paragraph{Kripac (1995)}
 
+Dans ses travaux, Kripac propose un système pour répondre au problème de la
+nomination persistante et permettre la réévaluation de modèles
+3D~\cite{kripac1995mechanism}. %
+Les modèles sont présentés comme des «~volumes 3D délimités par des faces~» et
+les arêtes et les sommets sont considérés comme des intersections de faces. %
+Ainsi les faces sont utilisées comme éléments principaux de la nomination
+persistante. %
 
+Le nom d'une face, \(faceId\), est défini par~:
+\[FaceId(f) = [stepId,faceIndex,surfaceType]\] %
+où \(stepId\) est le numéro d'application de l'opération qui crée \(f\),
+\(faceIndex\) l'index de \(f\) et \(surfaceType\) le type de surface de \(f\). %
 
-\paragraph{Wu (2001)}
+Le nom d'une arête, \(edgeId\), est défini par~:
+\[EdgeId(e) = [adjFaceIds,endFaceIds_{0,1},edgeIntersCode]\] %
+où \(adjFaceIds\) est une liste des faces incidentes à \(e\), cette liste est
+ordonnée selon un parcours de voisinage~; \(endFaceIds_{0}\) (respectivement
+\(endFaceIds_{1}\)) est l'ensemble des faces à l'extrémité \(0\) (respectivement
+\(1\)) de \(e\)~; et \(edgeIntersCode\) un code d'intersection basé sur la
+position relative, et non absolue, des faces incidentes à \(e\), ce qui rend le
+code insensible aux transformations telles que le déplacement et le changement
+d'échelle. %
+
+Le nom d'un sommet, \(vertexId\), est défini par~:
+\[VertexId(v) = [adjFaceIds,vertexIntersCodes]\] %
+où \(adjFaceIds\) est une liste des faces incidentes à \(v\), cette liste est
+ordonnée selon un parcours de voisinage~; et \(vertexIntersCodes\) est
+l'ensemble des codes d'intersections de \(v\) par rapport à chacune des faces de
+son voisinage. %
+
+Le suivi des faces est réalisé à l'aide d'un DAG, présenté plus tôt (voir
+figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-kripac}). %
+Ce DAG permet de tracer l'évolution de chacune des faces, c'est-à-dire leur
+création, suppression, scission ou encore leurs fusions, dans le modèle
+initial. %
+Lors de la réévaluation, ce graphe est réutilisé et mis à jour pour effectuer
+l'appariement des entités topologiques entre le modèle initial et le modèle
+réévalué. %
+L'appariement des entités est effectuée en cherchant d'abord une correspondance
+exacte des identifiants. %
+Pour les faces, lorsqu'il n'existe pas de correspondance exacte, la procédure
+d'appariement remonte le DAG du modèle initial jusqu'à trouver une face qui
+existe aussi dans le DAG du modèle réévalué. %
+Lorsque qu'une correspondance est trouvée, le DAG du modèle réévalué est
+parcouru depuis la face trouvée jusqu'aux dernières faces. %
+Si le parcours se termine avec plusieurs faces, alors l'ensemble de ces faces
+est utilisé pour l'appariement. %
+Pour les arêtes et les sommets, lorsqu'un appariement exact ne peut être trouvé,
+alors une recherche de similarité est effectuée entre les entités du modèle
+initial et celles du modèle réévaluée. %
+Cette procédure consiste en une estimation de ressemblance basée sur les faces
+du voisinage et les codes d'intersections, entre les deux modèles. %
+De cette logique, Kripac propose un système de requêtes pour définir le degré de
+similarité devant être atteint pour effectuer l'appariement entre plusieurs
+entités topologiques. %
+
+Les travaux de Kripac sont parmi les premiers à présenter une solution à la
+réévaluation de modèle paramétrique 3D. %
+Il propose un système de nomination persistante, un DAG pour suivre l'évolution
+des faces et un mécanisme d'appariement des entités. %
+Toutefois, ce système présente des inconvénients. %
+Chaque type d'entité topologique à un schéma de nomination différent, ce qui en fait un système compliqué à mettre en \oe uvre et qui n'est pas généralisable en dimensions. %
+En effet, pour les dimensions d'ordre supérieur, il faudrait changer tout le
+schéma de nomination. %
+L'appariement s'appuie en partie sur le voisinage (pour rappel des faces) pour estimer la similitude entre deux entités. %
+Une limite de cette approche est le cas où tout le voisinage d'une entité serait modifié. %
+Dans ce cas, il n'est pas certain qu'il soit possible de poursuivre la réévaluation. %
+
+\paragraph{Wu et al. (2001)}
 
 \paragraph{Agbodan (2002)}
 

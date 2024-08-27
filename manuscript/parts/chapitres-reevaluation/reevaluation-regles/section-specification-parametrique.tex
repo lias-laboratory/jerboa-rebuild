@@ -3,25 +3,34 @@
 
 
 Ici, je présente une spécification paramétrique et son édition/sa modification.
+\maxime{1. On refait le point sur qu'est une spécification paramétrique est quel
+	but elle sert~: enregistrement du processus constructif d'une modélisation. %
+	C'est une structure qui doit contenir différents éléments.}
 \begin{enumerate}
-	\item Une identification des opérations
-	\item Des paramètres géométriques
-	\item Des paramètres topologiques
+	\item opération et numéro d'application
+	\item liste de paramètres géométriques
+	\item liste de paramètres topologiques
+	\item des tags pour les application (INIT, ADD, DELETE)
 \end{enumerate}
 
 % Comme énoncé plus tôt, la spécification paramétrique est un historique des
 % opérations et de leurs paramètres appliqués lors de la conception d'un objet
 % 3D. %
+%
+\maxime{2. Présenter la structure de donnée (?)}
 % Il est donc attendu de cette structure qu'elle contienne un ensemble de règles
 % ainsi que leurs paramètres topologique et géométrique aux moments de leurs
 % applications. %
+
+\maxime{3. Présenter la spec de l'évaluation du fil rouge} %
+
 % Tout au long de ce chapitre, nous présenterons notre approche de la réévaluation
 % à base de règles à l'aide d'un objet qui au travers de son évaluation
 % (Figure~\ref{fig:evaluation}) puis de sa réévaluation
 % (Figure~\ref{fig:reevaluation}) nous servira de fil rouge. %
-
+%
 {\footnotesize\ttfamily
-\begin{lstlisting}[label=lst:reevaluation-regles-specification-parametrique-spec-init,caption=Spécification paramétrique initiale]
+	\begin{lstlisting}[label=lst:reevaluation-regles-specification-parametrique-spec-init,caption=Spécification paramétrique initiale]
 1-square(pos)
 2-extrude(PN1=[1n6], vec)
 3-insert(PN2=[1n5;2n5])
@@ -31,9 +40,12 @@ Ici, je présente une spécification paramétrique et son édition/sa modificati
 7-chamfer(PN6=[1n5;2n6;3n0;4n4;6n2])
 8-colour(PN7=[1n3;2n4;5n0])
 \end{lstlisting}}
+\maxime{4. Amorcer une discussion sur la modification/l'édition d'une spec} %
+\maxime{4.5. Présenter la spec de la réévaluation du fil rouge (suite à
+	l'édition)} %
 
 {\footnotesize\ttfamily
-\begin{lstlisting}[label=lst:reevaluation-regles-specification-parametrique-spec-modif,caption=Spécification paramétrique modifiée]
+	\begin{lstlisting}[label=lst:reevaluation-regles-specification-parametrique-spec-modif,caption=Spécification paramétrique modifiée]
 1-square(pos)
 ADD1-insert(3)
 2-extrude(PN1=[1n6], vec)
@@ -44,6 +56,7 @@ DELETE 3-insert(PN2=[1n5;2n4])
 7-chamfer(PN6=[1n5;2n6;3n0;4n4;6n2])
 8-colour(PN7=[1n3;2n4;5n0])
 \end{lstlisting}}
+
 
 %%% Local Variables:
 %%% mode: LaTeX

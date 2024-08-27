@@ -10,19 +10,56 @@ réévaluer.
 \subsection{Reconstruction à partir d'un DAG d'évaluation}
 \label{sec:reevaluation-base-regles-reevaluation-reconstruction}
 
-(du début jusqu'à la fin)
-Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
-topologiques, ceux-ci ne contiennent non pas des nœuds de règles, mais des brins
-issus de l'objet en cours de reconstruction.
+\maxime{idée de plan~:\\
+	(du début jusqu'à la fin)
+	Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
+	topologiques, ceux-ci ne contiennent non pas des nœuds de règles, mais des brins
+	issus de l'objet en cours de reconstruction. }
+
+\maxime{Ici, c'est le fil rouge côté réévaluation. Pour remettre en contexte,
+	il s'agit de construire l'histoire «~révisée~» d'une entité topologique
+	(préalablement suivie lors de l'évaluation initiale) à partir d'un DAG
+	d'évaluation (l'histoire de cette même entité, donc).}
+
+\maxime{Il faut alors distinguer les deux structures de données, l'une pour
+	l'évaluation, l'autre pour la réévaluation. %
+	Les besoins ne sont pas les mêmes, à l'évaluation, les orbites sont
+	représentées statiquement par les opérations. %
+	Au contraire, lors de la réévaluation, par l'appariement, on sait
+	précisément quel brin est incident à l'orbite et donc identifier avec
+	certitude la ou les entités topologiques avec la/lesquelle(s) on travaille}
+
+\maxime{À chaque étape, l'objectif est de présenter un appariement progressif
+	entre l'entité initiale, l'objet et l'entité réévaluée. %
+	Ces étapes d'appariement comprennent la prise en charge des scissions
+	(symétriques) d'entités topologiques avec la gestion de branches parallèles
+	dans les DAGs de réévaluations.}
+
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}
 
 \begin{itemize}
 	\item Scission d'un paramètre topologique : évaluation de tout ou partie des paramètres éligibles
+	\item Sélection d'une branche prédominante en cas de fusion
 	\item Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètre (potentiellement de l'objet)
 \end{itemize}
 
+\maxime{Dans cette section, expliquer que l'on peut, à l'aide de ces DAGs,
+	mettre en \oe uvre des stratégies pour la réévaluation.} \maxime{Expliciter le
+	terme de stratégie, c'est-à-dire, lorsqu'il y a plusieurs branches (dues à des
+	scissions ajoutées par l'édition de la spec), on peut proposer à l'utilisateur
+	de choisir parmi un ensemble de branches pour la réévaluation. %
+	D'autres stratégies sont possibles, comme (lors d'une fusion ajoutée ou une
+	annulation de scission) choisir qu'elle branche, parmi celles fusionnées, est
+	prédominante.}
+
+\maxime{Je ne vois trop ce qui pourrait être ajouté, certainement des
+	illustrations}
+
+\maxime{1. illustration stratégie scission rééval branche 1\\
+	2. stratégie scission rééval branch 2\\
+	3. stratégie suppression arrêt rééval}
 
 %%% Local Variables:
 %%% mode: LaTeX

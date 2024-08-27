@@ -1,10 +1,64 @@
 \section{Nomination persistante des orbites}
 \label{sec:reevaluation-nomination-persistante-orbites}
 
-Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
-complète d'un évènement à chaque application de règles. Formalisation de l'usage
-de chemins pour préciser une origine lorsque celle-ci n'est pas directement liée
-à un nœud d'accroche dans une règle.
+\maxime{idée plan~:\\
+	Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
+	complète d'un évènement à chaque application de règles. Formalisation de l'usage
+	de chemins pour préciser une origine lorsque celle-ci n'est pas directement liée
+	à un nœud d'accroche dans une règle. }
+
+Pour la deuxième étape de notre nomination, nous représentons l'histoire de
+chacune des entités topologiques, désignées par des noms persistants de brins,
+dans la spécification paramétrique. %
+Cette histoire, nous la représentons à l'aide d'un graphe orienté acyclique
+(DAG en anglais) qui retrace les changements subis par les ancêtres d'une
+entité. %
+
+\maxime{Ici, il y a plusieurs concepts qui interviennent~:\\
+	\begin{itemize}
+		\item les entrées pour la construction du DAG sont~: un nom persistant de
+		      brin, le type d'orbite de l'entité topologique, une spécification
+		      paramétrique (pour associer numéro d'opération et opération)
+		\item les notions de suivi (flèche noire) et d'origine (flèche rouge)
+		      d'une orbite (au travers d'une opération)
+	\end{itemize}
+}
+
+\maxime{On ressort la construction fil rouge, et on illustre l'histoire de la
+	face coloriée à l'issue de la dernière opération du processus de modélisation}
+
+\maxime{1. On commence par désigner le nom persistant de brin à partir duquel on
+	va représenter une entité topologique} \maxime{2. On montre le type d'orbite
+	associé au hook de la règle $\to$ désignation d'une entité topologique}
+
+\maxime{3. Tracé de l'histoire à partir de l'entité désignée à l'étape
+	précédente (étape finale du processus de modélisation) jusqu'aux ancêtres les
+	plus anciens (potentiellement la première étape du processus de modélisation)}
+
+\maxime{4. étapes successives de restitution de l'histoire d'une entité
+	topologique à partir d'illustrations. Faire attention de bien présenter qu'il
+	y a à la fois le suivi et les origines. Faire attention à bien expliquer que
+	la notion d'origine a une signification dans la restitution et la lecture de
+	l'histoire}
+
+\maxime{5. On ajoute une notion qui est celle de chemin~: parfois, le lien entre
+	une orbite et son origine ne peut être fait de manière directe parce que
+	l'origine a été supprimée dans l'opération. %
+	Dans ce cas, on peut annoter une orbite avec un chemin qui fait le lien entre
+	l'origine et les ancêtres directs d'une orbite.}
+
+À terme, un DAG d'évaluation représente l'histoire d'une unique entité topologique. %
+Les apports de cette approche sont~:
+\begin{itemize}
+	\item la détection statique des évènements (formalisés dans le chapitre
+	      précédent) permet de reconstituer l'histoire d'une entité
+	\item pas de besoin de réappliquer les règles, c'est-à-dire que pas besoin
+	      de reproduire la représentation explicite
+	\item uniquement la spécification paramétrique
+	\item uniquement pour les entités calculée à partir du type d'orbite d'un
+	      hook et du nom persistant de brin associé dans la spécification paramétrique.
+\end{itemize}
+
 
 %%% Local Variables:
 %%% mode: LaTeX

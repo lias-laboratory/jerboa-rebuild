@@ -556,9 +556,45 @@ $f_{4.1}$. %
 Au terme de la modélisation et parmi les faces du DAG, seules les faces
 $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
 
-Un exemple de construction implicite d'un historique par héritage des noms des
-ancêtres invariants est celui développé par Wu et al.~\cite{wu2001face}. %
-\todo{terminer avec Wu propagation de nom}
+\begin{figure}[htbp!]
+	\begin{subfigure}[t]{.45\textwidth}
+	\centering
+	\includegraphics[height=180pt]{wu-exemple-propagation-scission}
+	\caption{Scission}
+	\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
+	\end{subfigure}
+	\begin{subfigure}[t]{.45\textwidth}
+	\centering
+	\includegraphics[height=160pt]{wu-exemple-propagation-fusion}
+	\caption{Fusion}
+	\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
+	\end{subfigure}
+	\caption{Propagation de nom persistant, Wu}
+	\label{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
+\end{figure}
+
+{\color{purple} Un exemple de construction implicite d'un historique par
+	héritage des noms des ancêtres invariants est celui développé par Wu et
+	al.~\cite{wu2001face}. %
+	Wu et al. propose plusieurs schémas de nominations, par exemple celui pour les
+	entités extrudées, qui intègre les ancêtres invariants de l'entité nommée. %
+	Une telle nomination crée, de manière implicite, une forme d'historique dans
+	la mesure où, pour toute entité topologique, celle-ci permet de remonter
+	l'histoire à son ancêtre invariant et ainsi de suite. %
+	Le système de Wu et al. propose également des mécanismes de propagation des
+	noms persistants
+	(Figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
+	qui, lors d'une scission par exemple, propage le nom d'une entité à chacune
+	des deux entités scindées. %
+	Un tel exemple est illustré dans la
+	figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
+	où nous pouvons voir que, suite à la différence entre les deux blocs, la face
+	désignée par $F$ est scindée en deux faces $F1$ et $F2$. %
+	$F$ porte un nom, désigné $ON$ (pour \textit{Original Name}) qui est propagé
+	aux faces $F1$ et $F2$ qui ont alors le même nom persistant. %
+	Une procédure symétrique, pour la fusion, est illustrée dans la
+	figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}.
+}
 
 % \begin{figure}
 % 	\centering

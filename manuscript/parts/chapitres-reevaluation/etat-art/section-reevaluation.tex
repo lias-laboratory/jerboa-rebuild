@@ -311,7 +311,7 @@ les plus significatifs pour résoudre le problème de la nomination persistante
 et, enfin, nous proposons une synthèse de ces méthodes. %
 
 
-\subsubsection[Concepts communs de la nomination persistante]{Concepts communs de la nomination persistante}
+\subsubsection{{\color{red}(à lire) Concepts communs de la nomination persistante}}
 \label{sec:etat-art-reevaluation-classification-props}
 
 Les différents systèmes de nomination persistante s'appuient, explicitement ou
@@ -330,7 +330,7 @@ et l'appariement. %
 % \end{itemize}
 
 
-\paragraph{\color{red}{Distinction des entités invariantes et contingentes}}
+\paragraph{Distinction des entités invariantes et contingentes}
 
 
 
@@ -400,7 +400,7 @@ crée deux nouvelles faces contingentes. %
 % résoudre le problème. %
 
 
-\paragraph{\color{red}{Entités issues d'extrusion ou de révolution}}
+\paragraph{Entités issues d'extrusion ou de révolution}
 
 
 Le deuxième concept est un mécanisme de nomination des entités invariantes
@@ -463,7 +463,7 @@ où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 \end{figure}
 
 
-\paragraph{\color{red}{Entités avec et sans sources}}
+\paragraph{Entités avec et sans sources}
 
 
 Le troisième concept commun que l'on retrouve dans la plupart des approches,
@@ -510,7 +510,7 @@ une source les rend plus facilement identifiables et permet par voie de
 conséquence une nomination plus robuste des autres entités. %
 
 
-\paragraph{\color{red}{Utilisation d'un historique de noms}}
+\paragraph{Utilisation d'un historique de noms}
 
 Le quatrième concept commun dans la littérature concerne l'utilisation d'un
 historique permettant de tracer l'évolution des ancêtres invariants. %
@@ -558,43 +558,47 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
 
 \begin{figure}[htbp!]
 	\begin{subfigure}[t]{.45\textwidth}
-	\centering
-	\includegraphics[height=180pt]{wu-exemple-propagation-scission}
-	\caption{Scission}
-	\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
+		\centering
+		\includegraphics[height=180pt]{wu-exemple-propagation-scission}
+		\caption{Scission}
+		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
 	\end{subfigure}
 	\begin{subfigure}[t]{.45\textwidth}
-	\centering
-	\includegraphics[height=160pt]{wu-exemple-propagation-fusion}
-	\caption{Fusion}
-	\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
+		\centering
+		\includegraphics[height=160pt]{wu-exemple-propagation-fusion}
+		\caption{Fusion}
+		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
 	\end{subfigure}
 	\caption{Propagation de nom persistant, Wu}
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
 \end{figure}
 
-{\color{purple} Un exemple de construction implicite d'un historique par
-	héritage des noms des ancêtres invariants est celui développé par Wu et
-	al.~\cite{wu2001face}. %
-	Wu et al. propose plusieurs schémas de nominations, par exemple celui pour les
-	entités extrudées, qui intègre les ancêtres invariants de l'entité nommée. %
-	Une telle nomination crée, de manière implicite, une forme d'historique dans
-	la mesure où, pour toute entité topologique, celle-ci permet de remonter
-	l'histoire à son ancêtre invariant et ainsi de suite. %
-	Le système de Wu et al. propose également des mécanismes de propagation des
-	noms persistants
-	(Figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
-	qui, lors d'une scission par exemple, propage le nom d'une entité à chacune
-	des deux entités scindées. %
-	Un tel exemple est illustré dans la
-	figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
-	où nous pouvons voir que, suite à la différence entre les deux blocs, la face
-	désignée par $F$ est scindée en deux faces $F1$ et $F2$. %
-	$F$ porte un nom, désigné $ON$ (pour \textit{Original Name}) qui est propagé
-	aux faces $F1$ et $F2$ qui ont alors le même nom persistant. %
-	Une procédure symétrique, pour la fusion, est illustrée dans la
-	figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}.
-}
+Un exemple de construction implicite d'un historique par héritage des noms des
+ancêtres invariants est celui développé par Wu et al.~\cite{wu2001face}. %
+Wu et al. propose plusieurs schémas de nominations, par exemple celui pour les
+entités extrudées, qui intègre les ancêtres invariants de l'entité nommée. %
+Une telle nomination crée, de manière implicite, une forme d'historique dans la
+mesure où, pour toute entité topologique, celle-ci permet de remonter l'histoire
+à son ancêtre invariant et ainsi de suite. %
+Le système de Wu et al. propose également des mécanismes de propagation des noms
+persistants
+(Figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu})
+qui, lors d'une scission par exemple, propage le nom d'une entité à chacune des
+deux entités scindées. %
+Un tel exemple est illustré dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}. %
+Suite à la différence entre les deux blocs, une pièce (\textit{part body}) et
+une caractéristique (\textit{feature body}), la face désignée par $F$ est
+scindée en deux faces $F1$ et $F2$. %
+$F$ porte un nom, désigné $ON$ (pour \textit{Original Name}) qui est propagé aux
+faces $F1$ et $F2$ qui ont alors le même nom persistant. %
+Pour la fusion, illustrée dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion},
+les faces \(F1\) et \(F2\) nommées \(ON1\) et \(ON2\) respectivement, sont
+fusionnées. %
+Dans cette approche, puisque \(ON2\) est associé à une face de la \textit{part
+	body}, c'est ce nom qui est propagé et qui devient \(ON3\) dans la pièce
+finale. %
 
 % \begin{figure}
 % 	\centering
@@ -630,7 +634,7 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
 % % \david{Que se passe t-il si une face est scindée en deux ? comment son propagés les noms ? C'est me semble t-il le plus important pour parler de propagation et tu ne l'abordes pas ici dans ta liste d'item.}
 
 
-\paragraph{\color{purple}{(brouillon) Nomination hétérogène des entités}}
+\paragraph{Nomination hétérogène des entités}
 
 Le cinquième concept commun que nous présentons est l'hétérogénéité des schémas
 de nomination dans les systèmes de réévaluation. %
@@ -652,7 +656,7 @@ L'inconvénient de cette approche, celle de définir un schéma de nomination po
 chaque type d'entité, est que chaque système est définit pour une dimension de modélisation précise et que la généralisation vers d'autres dimension est au minimum complexe et au pire impossible. %
 
 
-\paragraph{\color{red}{Structure des plateformes intégrant la nomination persistante}}
+\paragraph{Structure des plateformes intégrant la nomination persistante}
 
 Le dernier des concepts communs que nous présentons concerne l'extension de
 l'architecture logicielle des modeleurs paramétriques sous la forme d'une
@@ -669,7 +673,7 @@ Une couche de nom s'intercale entre les couches paramétrique et géométrique~:
 	      évaluation de la spécification paramétrique. %
 \end{itemize}
 
-\subsubsection[Systèmes de nomination persistante]{Systèmes de nomination persistantes}
+\subsubsection{Systèmes de nominations persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
 
@@ -736,8 +740,8 @@ alors une recherche de similarité est effectuée entre les entités du modèle
 initial et celles du modèle réévaluée. %
 Cette procédure consiste en une estimation de ressemblance basée sur les faces
 du voisinage et les codes d'intersections, entre les deux modèles. %
-De cette logique, Kripac propose un système de requêtes pour définir le degré de
-similarité devant être atteint pour effectuer l'appariement entre plusieurs
+Dans cette logique, Kripac propose un système de requêtes pour définir le degré
+de similarité devant être atteint pour effectuer l'appariement entre plusieurs
 entités topologiques. %
 
 Les travaux de Kripac sont parmi les premiers à présenter une solution à la
@@ -891,9 +895,9 @@ pour garantir le respect des intentions de modélisation de l'utilisateur.
 Néanmoins, cette approche a plusieurs inconvénients :
 \begin{itemize}
 	\item Les éléments géométriques utilisés pour les références ne sont pas
-				généralisables en toutes dimensions, les opérations sont spécifiques à
-				la 2D et les plongements courbes nécessitent des traitements
-				supplémentaires en dimensions supérieures.
+	      généralisables en toutes dimensions, les opérations sont spécifiques à
+	      la 2D et les plongements courbes nécessitent des traitements
+	      supplémentaires en dimensions supérieures.
 	\item Pour la sémantique pour la généalogie, bien que les auteurs aient mis en
 	      place un système pour tracer une forme d'origine pour distinguer une
 	      géométrie d'une autre, cela ne leur permet en fin de compte de ne

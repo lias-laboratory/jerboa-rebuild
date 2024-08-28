@@ -639,24 +639,31 @@ réécriture des étiquettes du n\oe ud. %
 
 \maxime{Instanciation + description}
 
+\begin{remarque}
+	L'orbite \(G\orbit{\omega}(b)\), où \(b\) est un brin non filtré de \(G\), n'est \emph{pas affectée} par l'application de $r$ si
+	$G\orbit{\omega}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée}
+	sinon.
+\end{remarque}
 
-\subsection{Sans effet \todo{redéfinir comme une remarque dans non-changement}}
+\todo{illustration + commentaire}
 
-\maxime{appliquer la règle d'insertion de sommet sur un carré}
+% \subsection{Sans effet \todo{redéfinir comme une remarque dans non-changement}}
 
-Dans la figure ? le brin $a$ de $G$ n'est pas filtré, mais l'orbite sommet $G\orbit{1,2,3}(a)$ est partiellement filtrée par la règle \maxime{à continuer en fonction du dessin} […] donc l'orbite sommet $G\orbit{1,2,3}(a)$ est inchangée.
-Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas filtrée non plus, donc l'orbite sommet $G\orbit{1,2,3}(b)$ n'est pas affectée par l'application de la règle.
+% \maxime{appliquer la règle d'insertion de sommet sur un carré}
 
-\todo{référence en avant : on sera amené à faire la distinction entre les orbites au moins partiellement filtrées et ce qui n'est pas filtré du tout.}
+% Dans la figure ? le brin $a$ de $G$ n'est pas filtré, mais l'orbite sommet $G\orbit{1,2,3}(a)$ est partiellement filtrée par la règle \maxime{à continuer en fonction du dessin} […] donc l'orbite sommet $G\orbit{1,2,3}(a)$ est inchangée.
+% Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas filtrée non plus, donc l'orbite sommet $G\orbit{1,2,3}(b)$ n'est pas affectée par l'application de la règle.
 
-\begin{definition}[Orbite non affectée]
-	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage
-	$\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite
-	$\orbit{\omega}$.
+% \todo{référence en avant : on sera amené à faire la distinction entre les orbites au moins partiellement filtrées et ce qui n'est pas filtré du tout.}
 
-	Soit $b$ un brin de $G$ non filtré. L'orbite $G\orbit{\omega}(b)$ n'est \emph{pas affectée} par l'application de $r$ si $G\orbit{\omega}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée} sinon.
+% \begin{definition}[Orbite non affectée]
+% 	Soit une règle $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage
+% 	$\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, et un type d'orbite
+% 	$\orbit{\omega}$.
 
-\end{definition}
+% 	Soit $b$ un brin de $G$ non filtré. L'orbite $G\orbit{\omega}(b)$ n'est \emph{pas affectée} par l'application de $r$ si $G\orbit{\omega}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée} sinon.
+
+% \end{definition}
 
 \subsection{Modification}
 
@@ -734,7 +741,7 @@ Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas f
 
 \subsection{Exemples de détections d'évènements}
 
-\begin{table*}[htbp!]
+\begin{table}[htbp!]
 	\caption{\label{tab:formalisation-evenement-regle-jerboa-tableau-detection}
 		Extrait des évènements détectés lors de l'application de la règle de triangulation
 		(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation})
@@ -767,7 +774,7 @@ Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas f
 															 \par Non-changement~$H\orbit{2}(d_{0})$~\ldots                                                                                  \\
 
 		\hline
-		\centering $\orbit{1,2}$ & Création $H\orbit{1,2}(a_{0})$
+		\centering $\orbit{1,2}$ & Modification $H\orbit{1,2}(a_{0})$
 															 \par Modification~$H\orbit{1,2}(b_{0})$\ldots
 															 \vspace{0.1 cm}
 															 \par Création~$H\orbit{1,2}(a_{2})$                                                                                        \\
@@ -785,7 +792,7 @@ Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas f
 	\end{tabular}
 	\normalsize
 
-\end{table*}
+\end{table}
 
 %%% Local Variables:
 %%% mode: latex

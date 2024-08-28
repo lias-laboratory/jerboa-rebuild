@@ -632,6 +632,25 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
 
 \paragraph{\color{purple}{(brouillon) Nomination hétérogène des entités}}
 
+Le cinquième concept commun que nous présentons est l'hétérogénéité des schémas
+de nomination dans les systèmes de réévaluation. %
+La plupart des systèmes développés ont en commun le fait de proposer un schéma
+de nomination différent pour chaque type d'entité topologique. %
+Le fait de désigner un type d'entité topologique, généralement une entité de
+dimension \(n-1\) pour désigner les autres entités. %
+Ce choix est souvent justifié par le fait ces autres entités peuvent être
+entièrement définies comme des intersections d'entités de dimensions \(n-1\), en
+3D par exemple, une arête est une intersection de deux faces, un sommet une
+intersection de trois faces. %
+Un tel choix mène à nommer les entités topologiques en fonction de leur
+voisinage~\cite{CAPOYLEAS199617,chen1995representation,kripac1995mechanism,agbodan2000persistent}, voire à ajouter des informations
+géométriques~\cite{wu2001face,bidarra2005feature,wang2005geometry} (espace
+paramétrique, orientation, gradient, …) lorsque la topologie seule ne suffit
+plus à lever les ambiguïtés, deux arêtes issues d'une opération de différence
+qui auraient un voisinage identique. %
+L'inconvénient de cette approche, celle de définir un schéma de nomination pour
+chaque type d'entité, est que chaque système est définit pour une dimension de modélisation précise et que la généralisation vers d'autres dimension est au minimum complexe et au pire impossible. %
+
 
 \paragraph{\color{red}{Structure des plateformes intégrant la nomination persistante}}
 
@@ -653,9 +672,17 @@ Une couche de nom s'intercale entre les couches paramétrique et géométrique~:
 \subsubsection[Systèmes de nomination persistante]{Systèmes de nomination persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
-\todo{chapeau}
 
-\paragraph{Kripac (1995)}
+\maxime{Dans cette section, nous proposons de décrire les différents systèmes
+	publiés et de présenter leurs avantages et limitations dans le cadre de la
+	réévaluation.} %
+
+
+\paragraph{Capoyleas et al. (1996)}
+
+
+\paragraph{\color{purple}{(brouillon) Kripac (1995)}}
+
 
 Dans ses travaux, Kripac propose un système pour répondre au problème de la
 nomination persistante et permettre la réévaluation de modèles
@@ -759,7 +786,7 @@ Dans ce contexte, un langage conçu pour la CAO doit respecter trois propriété
 	      géométrique résultant de la partition d'une géométrie passée en entrée d'une
 	      opération,
 	\item l'utilisateur doit pouvoir exclure des configurations topologiques des modèles
-	      en sortie du programme afin de saisir \todo{l'intention de conception}
+	      en sortie du programme afin de saisir l'intention de conception
 \end{itemize}
 
 %% Contribution
@@ -803,13 +830,24 @@ l'utilisateur.
 
 %% Principe et fonctionnement des requêtes
 
-\todo{Dire qu'ils travaillent sur des objets principalement 2D avec des
-	opérations principalement 2D~; ambiguïté topologique réduite en 2D~; passage en
-	3D implique voisinages topologiques plus complexes $\to$ problème de nommage plus
-	complexe aussi $\Rightarrow$ par exemple en 2D le bord d'un objet est délimité par des
-	arêtes, en 3D, il s'agit d'un ensemble d'éléments et l'appariement n'est pas «~tout
-	ou rien~» on peut se retrouver avec la trace de seulement une partie d'un objet
-	en cas, par exemple, d'une intersection entre deux objets.}
+% \todo{Dire qu'ils travaillent sur des objets principalement 2D avec des
+% 	opérations principalement 2D~; ambiguïté topologique réduite en 2D~; passage en
+% 	3D implique voisinages topologiques plus complexes $\to$ problème de nommage plus
+% 	complexe aussi $\Rightarrow$ par exemple en 2D le bord d'un objet est délimité par des
+% 	arêtes, en 3D, il s'agit d'un ensemble d'éléments et l'appariement n'est pas «~tout
+% 	ou rien~» on peut se retrouver avec la trace de seulement une partie d'un objet
+% 	en cas, par exemple, d'une intersection entre deux objets.}
+
+L'outil développé par Cascaval et al. permet de travailler principalement sur
+des objets 2D avec des opérations principalement 2D. %
+Le passage à la 3D implique que le traitement des voisinages topologiques sera
+nécessairement plus complexe. %
+Prenons, par exemple, le bord d'un objet. %
+En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
+peut être délimité par un ensemble d'éléments (des arêtes, des faces, …) et
+l'appariement n'est pas «~tout ou rien~», c'est-à-dire que l'on peut se
+retrouver avec la trace de seulement une partie d'un objet en cas, par exemple,
+d'une intersection entre deux objets. %
 
 Une requête, un ensemble de clauses logiques avec des notions d'ensembles,
 permet de définir une référence à partir d'un élément géométrique. %
@@ -853,9 +891,9 @@ pour garantir le respect des intentions de modélisation de l'utilisateur.
 Néanmoins, cette approche a plusieurs inconvénients :
 \begin{itemize}
 	\item Les éléments géométriques utilisés pour les références ne sont pas
-	      généralisables en toutes dimensions \todo{opérations spécifiques 2D +
-		      traitement plongements courbe supplémentaires quand on monte en
-		      dimensions}.
+				généralisables en toutes dimensions, les opérations sont spécifiques à
+				la 2D et les plongements courbes nécessitent des traitements
+				supplémentaires en dimensions supérieures.
 	\item Pour la sémantique pour la généalogie, bien que les auteurs aient mis en
 	      place un système pour tracer une forme d'origine pour distinguer une
 	      géométrie d'une autre, cela ne leur permet en fin de compte de ne
@@ -924,23 +962,24 @@ non-enveloppants sont ceux qui découpent une surface en deux dont l'une est de
 genre 2 et l'autre de genre 0.
 
 Ces contours sont ensuite représentés à l'aide de NURBS dans un espace de
-paramètres (u,v) pour pouvoir d'abord les catégoriser puis les ordonner.
+paramètres \((u,v)\) pour pouvoir d'abord les catégoriser puis les ordonner.
 
 La classification des contours se fait de la façon suivante. En admettant que:
 \begin{itemize}
-	\item une v ligne peut être déterminée à partir du guide d'extrusion
-	\item une u ligne peut être déterminée à partir de la forme à balayer le long du guide
+	\item une \(v\) ligne peut être déterminée à partir du guide d'extrusion
+	\item une \(u\) ligne peut être déterminée à partir du profil à balayer le long du guide
 \end{itemize}
-Alors, le nombre d'intersections entre une u ligne et un contour permet de
+Alors, le nombre d'intersections entre une \(u\) ligne et un contour permet de
 catégoriser le classe de contour:
 \begin{itemize}
 	\item Si le nombre d'intersection est impair, alors le contour est enveloppant
 	\item Au contraire, s'il est pair, alors le contour est non-enveloppant.
 \end{itemize}
 
-L'ordonnancement est déterminé selon l'intersection d'une courbe avec une v
-ligne. Dai et al. expriment qu'il est difficile de classer des contours
-non-enveloppant car instables.
+L'ordonnancement est déterminé selon l'intersection d'une courbe avec une \(v\)
+ligne. %
+Dai et al. expriment qu'il est difficile de classer des contours non-enveloppant
+car instables.
 
 Leur méthode se concentre alors sur l'ordonnancement des contours enveloppants.
 

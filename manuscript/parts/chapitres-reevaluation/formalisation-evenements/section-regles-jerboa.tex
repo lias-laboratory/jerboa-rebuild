@@ -21,7 +21,9 @@
 Continuons avec la règle de triangulation, cette fois sous la forme d'une règle
 Jerboa
 (Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}). %
-Dans la section~\ref{sec:formalisation-evenement-regles-transfo-graphe}, un sommet est créé dans la règle instanciée, ce qui implique qu'il est créé dans la transformation directe. %
+Dans la section~\ref{sec:formalisation-evenement-regles-transfo-graphe}, un
+sommet est créé dans la règle instanciée, ce qui implique qu'il est créé dans la
+transformation directe. %
 % Nous exprimons maintenant la création du sommet $R\orbit{1,2,3}(n2)$ dans $H$.
 Nous allons maintenant montrer que la création du sommet $R\orbit{1,2,3}(n2)$ dans la règle Jerboa détermine la création d'un sommet dans la transformation directe. %
 
@@ -730,14 +732,13 @@ Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas f
 \end{proof}
 
 
-\subsection{Exemples d'évènements détectés}
+\subsection{Exemples de détections d'évènements}
 
 \begin{table*}[htbp!]
 	\caption{\label{tab:formalisation-evenement-regle-jerboa-tableau-detection}
 		Extrait des évènements détectés lors de l'application de la règle de triangulation
 		(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation})
-		sur la face d'un cube
-		(Figure~\ref{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation})}
+		sur la face d'un cube (Figure~\ref{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation})}
 
 	\begin{tabular}{|p{0.1\textwidth}|p{0.846\textwidth}|}
 		\hline
@@ -771,18 +772,15 @@ Le brin $b$ de $G$ n'est pas filtré et l'orbite $G\orbit{1,2,3}(b)$ n'est pas f
 															 \vspace{0.1 cm}
 															 \par Création~$H\orbit{1,2}(a_{2})$                                                                                        \\
 		\hline
-		\centering $\orbit{0,1}$
-		                         & Scission~$G\orbit{0,1}(a_{0})$ $\rightarrow \{H\orbit{0,1}(a_{0})$, $H\orbit{0,1}(c_{0})$, $H\orbit{0,1}(e_{0})$, $H\orbit{0,1}(g_{0})\}$ \\
+		\centering $\orbit{0,1}$ & Scission~$G\orbit{0,1}(a_{0})$ $\rightarrow \{H\orbit{0,1}(a_{0})$, $H\orbit{0,1}(c_{0})$, $H\orbit{0,1}(e_{0})$, $H\orbit{0,1}(g_{0})\}$ \\
 		\hline
-		\centering $\orbit{0,2}$
-		                         & Création $H\orbit{0,2}(a_{1})$
+		\centering $\orbit{0,2}$ & Création $H\orbit{0,2}(a_{1})$
 															 \par Création~$H\orbit{0,2}(b_{1})$\ldots
 															 \vspace{0.1 cm}
 															 \par Non-changement~$H\orbit{0,2}(a_{0})$
 															 \par Non-changement~$H\orbit{0,2}(c_{0})$~\ldots                                                                                 \\
 		\hline
-		\centering $\orbit{0,1,2}$
-		                         & Modification~$H\orbit{0,1,2}(a_{0})$                                                                                        \\
+		\centering $\orbit{0,1,2}$ & Modification~$H\orbit{0,1,2}(a_{0})$                                                                                        \\
 		\hline
 	\end{tabular}
 	\normalsize

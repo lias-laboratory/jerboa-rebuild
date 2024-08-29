@@ -283,7 +283,7 @@ sa scission, un mécanisme d'appariement doit permettre de mettre $e_{1}$ en
 correspondance avec $e_{x}$ et $e_{y}$ et d'appliquer l'opération d'arrondi sur
 l'une et/ou l'autre de ces deux arêtes. %
 
-% \xavier{Le paragraphe suivant me semble redondant avec ce qui précède. Pour le moment, je suggère de le retirer. Mais il pourrait servir, en le complétant, à introduire la section suivante sur la classification des méthodes de nommage. Donc à voir si on le conserve finalement ou pas...}
+% \xavier{Le subsubsection*e suivant me semble redondant avec ce qui précède. Pour le moment, je suggère de le retirer. Mais il pourrait servir, en le complétant, à introduire la section suivante sur la classification des méthodes de nommage. Donc à voir si on le conserve finalement ou pas...}
 
 % ~
 
@@ -312,7 +312,7 @@ et, enfin, nous proposons une synthèse de ces méthodes. %
 
 
 \subsubsection{{\color{red}(à lire) Concepts communs de la nomination persistante}}
-\label{sec:etat-art-reevaluation-classification-props}
+\label{sec:etat-art-reevaluation-classification-concepts-communs}
 
 Les différents systèmes de nomination persistante s'appuient, explicitement ou
 non, sur un ensemble de concepts. %
@@ -330,7 +330,7 @@ et l'appariement. %
 % \end{itemize}
 
 
-\paragraph{Distinction des entités invariantes et contingentes}
+\subsubsection*{Distinction des entités invariantes et contingentes}
 
 
 
@@ -400,7 +400,7 @@ crée deux nouvelles faces contingentes. %
 % résoudre le problème. %
 
 
-\paragraph{Entités issues d'extrusion ou de révolution}
+\subsubsection*{Entités issues d'extrusion ou de révolution}
 
 
 Le deuxième concept est un mécanisme de nomination des entités invariantes
@@ -463,7 +463,7 @@ où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 \end{figure}
 
 
-\paragraph{Entités avec et sans sources}
+\subsubsection*{Entités avec et sans sources}
 
 
 Le troisième concept commun que l'on retrouve dans la plupart des approches,
@@ -510,7 +510,7 @@ une source les rend plus facilement identifiables et permet par voie de
 conséquence une nomination plus robuste des autres entités. %
 
 
-\paragraph{Utilisation d'un historique de noms}
+\subsubsection*{Utilisation d'un historique de noms}
 
 Le quatrième concept commun dans la littérature concerne l'utilisation d'un
 historique permettant de tracer l'évolution des ancêtres invariants. %
@@ -634,7 +634,7 @@ finale. %
 % % \david{Que se passe t-il si une face est scindée en deux ? comment son propagés les noms ? C'est me semble t-il le plus important pour parler de propagation et tu ne l'abordes pas ici dans ta liste d'item.}
 
 
-\paragraph{Nomination hétérogène des entités}
+\subsubsection*{Nomination hétérogène des entités}
 
 Le cinquième concept commun que nous présentons est l'hétérogénéité des schémas
 de nomination dans les systèmes de réévaluation. %
@@ -658,22 +658,80 @@ modélisation précise et que la généralisation vers d'autres dimensions est a
 minimum complexe et au pire impossible. %
 
 
-\paragraph{Structure des plateformes intégrant la nomination persistante}
+\subsubsection*{Structure des plateformes intégrant la nomination persistante}
+
 
 Le dernier des concepts communs que nous présentons concerne l'extension de
-l'architecture logicielle des modeleurs paramétriques sous la forme d'une
-architecture à trois couches. %
-Une couche de nom s'intercale entre les couches paramétrique et géométrique~:
+l'architecture logicielle des modeleurs paramétriques avec l'ajout d'une couche
+pour la nomination et l'appariement des entités topologiques. %
+Cette extension, issues des différentes contributions pour la réévaluation,
+donne l'architecture à trois couches suivante~:
 \begin{itemize}
 	\item la couche de spécification paramétrique contient l'ensemble des
 	      opérations de modélisations, issues du processus constructif,
 	      définissant un objet~; %
 	\item la couche de nomination permet une identification sans ambiguïté des
 	      entités topologiques et leur appariement lors de la réévaluation~; %
-	\item la couche géométrique contient la représentation géométriques d'un
+	\item la couche géométrique contient la représentation géométrique d'un
 	      objet, c'est-à-dire ses entités géométriques et topologiques, après
 	      évaluation de la spécification paramétrique. %
 \end{itemize}
+
+\subsubsection{(en cours) Concepts distinctifs de la nomination persistante}
+\label{sec:etat-art-reevaluation-classification-concepts-distinctifs}
+
+Dans les contributions présentées dans ce manuscrit, un certain nombre d'entre
+elles font état de concepts spécifiques à leurs systèmes de nomination et
+d'appariement des entités topologiques. %
+
+
+\subsubsection*{(en cours) Appariement global ou local des entités topologiques}
+
+Appariement global~\cite{kripac1995mechanism,agbodan2003topological} : appariement de toutes les entités par comparaison du modèle initiale avec le modèle réévalué
+
+Appariement local~\cite{chen1995representation,wu2001face} : appariement des
+seules entités référencées dans la spécification paramétrique
+Pour Chen, c'est une recherche de candidats, pour Wu c'est une intégration des ancêtres dans les noms.
+
+Arguments %
+Un appariement global est fiable, mais sensible aux gros changements de
+topologie, par exemple, la modification de tout le voisinage d'une entité qui
+pourrait l'empêcher.
+Un appariement local est moins coûteux sur le calcul d'appariement, selon
+comment il est effectué, il pourrait passer à côté du bon appariement. %
+
+Pour nos travaux, on fonctionne avec un appariement local mais on a l'avantage
+de pouvoir calculer l'origine de toute entité topologique à l'aide de l'analyse
+statique des règles, donc on va cogner sur les deux en insistant qu'il manque,
+pour l'appariement local dans les méthodes précédentes, un outil pour le rendre
+fiable. %
+Si l'approche de Mehdi Baba-Ali fait ça, local + origine ou similaire, le
+prendre en exemple. %
+
+
+\subsubsection*{Nomination des entités avec un plongement courbe}
+
+Ce concept correspond aux intersections d'entités topologiques dont la géométrie
+est courbe. %
+Dans ce cas-là, il peut y avoir intersection de deux entités non-planaires et la
+topologie seule ne suffit plus pour nommer les entités et proposer un
+appariement fiable. %
+
+C'est complètement hors du cadre de nos travaux, à la limite ça pourrait être
+évoqué en perspectives de travaux futurs. %
+Voir avec David si je le fais, j'ai un doute. %
+
+Cette partie là, c'est pour citer Bidarra, Wang et Wu. %
+
+Bidarra intègre le concept d'un demi-espace positif/négatif pour distinguer deux
+entités symétriques selon l'orientation de celle-ci dans l'objet modélisé (à vérifier, c'est flou)
+
+Wu utilise un espace paramétrique (u,v) pour calculer les intersections d'entités
+et les distinguer les unes des autres dans la représentation géométrique. %
+
+Wang (à lire) semble utiliser, entre autre, un calcul de gradient pour procéder
+à une caractérisation, puis une distinction, des entités topologiques dans la
+représentation géométrique. %
 
 \subsubsection{Systèmes de nominations persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
@@ -684,10 +742,10 @@ Une couche de nom s'intercale entre les couches paramétrique et géométrique~:
 	réévaluation.} %
 
 
-\paragraph{Capoyleas et al. (1996)}
+\subsubsection*{Capoyleas et al.}
 
 
-\paragraph{\color{purple}{(brouillon) Kripac (1995)}}
+\subsection*{\color{purple}{(brouillon) Kripac}}
 
 
 Dans ses travaux, Kripac propose un système pour répondre au problème de la
@@ -758,17 +816,17 @@ L'appariement s'appuie en partie sur le voisinage (pour rappel des faces) pour e
 Une limite de cette approche est le cas où tout le voisinage d'une entité serait modifié. %
 Dans ce cas, il n'est pas certain qu'il soit possible de poursuivre la réévaluation. %
 
-\paragraph{Wu et al. (2001)}
+\subsubsection*{Wu et al. }
 
-\paragraph{Agbodan (2002)}
+\subsubsection*{Agbodan }
 
-\paragraph{Bidarra (2005)}
+\subsubsection*{Bidarra }
 
-\paragraph{Baba-Ali (2010)}
+\subsubsection*{Baba-Ali }
 
-\paragraph{Farjana (2019)}
+\subsubsection*{Farjana }
 
-\paragraph{Cascaval (2023) {\color{purple} à corriger}}
+\subsubsection*{Cascaval  {\color{purple} à corriger}}
 %% Contexte
 
 Dans Cascaval (2023), les auteurs proposent de répondre au problème du
@@ -914,7 +972,7 @@ Néanmoins, cette approche a plusieurs inconvénients :
 	      déplacement d'opération.
 \end{itemize}
 
-\paragraph{Dai (2024) {\color{purple} Brouillon}}
+\subsubsection*{Dai (2024) {\color{purple} Brouillon}}
 Dans Dai (2024), les auteurs proposent d'enrichir le nommage persistant avec une
 méthode permettant d'identifier et trier des entités topologiques symétriques. Ces entités étant des invariantes distinctes générées
 lors d'une extrusion par balayage. Cette contribution propose ainsi de respecter le sens de balayage comme étant une intention de modélisation

@@ -638,22 +638,24 @@ finale. %
 
 Le cinquième concept commun que nous présentons est l'hétérogénéité des schémas
 de nomination dans les systèmes de réévaluation. %
-La plupart des systèmes développés ont en commun le fait de proposer un schéma
-de nomination différent pour chaque type d'entité topologique. %
-Le fait de désigner un type d'entité topologique, généralement une entité de
-dimension \(n-1\) pour désigner les autres entités. %
-Ce choix est souvent justifié par le fait ces autres entités peuvent être
-entièrement définies comme des intersections d'entités de dimensions \(n-1\), en
-3D par exemple, une arête est une intersection de deux faces, un sommet une
-intersection de trois faces. %
+La plupart des systèmes développés représentent les différents types d'entités
+topologiques avec une entité d'un autre type, généralement de dimension \(n-1\),
+et proposent donc un schéma de nomination différent pour chaque dimension. %
+Ce choix est expliqué par le fait que les autres entités topologiques d'un objet
+peuvent être entièrement définies comme des intersections d'entités de
+dimensions \(n-1\), en 3D par exemple, une arête est une intersection de deux
+faces, un sommet une intersection de trois faces. %
 Un tel choix mène à nommer les entités topologiques en fonction de leur
-voisinage~\cite{CAPOYLEAS199617,chen1995representation,kripac1995mechanism,agbodan2000persistent}, voire à ajouter des informations
+voisinage~\cite{CAPOYLEAS199617,chen1995representation,kripac1995mechanism,agbodan2000persistent},
+voire à ajouter des informations
 géométriques~\cite{wu2001face,bidarra2005feature,wang2005geometry} (espace
 paramétrique, orientation, gradient, …) lorsque la topologie seule ne suffit
 plus à lever les ambiguïtés, deux arêtes issues d'une opération de différence
 qui auraient un voisinage identique. %
 L'inconvénient de cette approche, celle de définir un schéma de nomination pour
-chaque type d'entité, est que chaque système est définit pour une dimension de modélisation précise et que la généralisation vers d'autres dimension est au minimum complexe et au pire impossible. %
+chaque type d'entité, est que chaque système est défini pour une dimension de
+modélisation précise et que la généralisation vers d'autres dimensions est au
+minimum complexe et au pire impossible. %
 
 
 \paragraph{Structure des plateformes intégrant la nomination persistante}

@@ -21,11 +21,11 @@
 Continuons avec la règle de triangulation, cette fois sous la forme d'une règle
 Jerboa
 (Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}). %
-Dans la section~\ref{sec:formalisation-evenement-regles-transfo-graphe}, un
-sommet est créé dans la règle instanciée, ce qui implique qu'il est créé dans la
+Dans la section~\ref{sec:formalisation-evenement-regles-transfo-graphe}
+(page~\pageref{sec:formalisation-evenement-regles-transfo-graphe}), nous avons étudié la création d'un sommet dans une face carrée suite à sa transformation directe par la règle instanciée de triangulation (Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation} page~\pageref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}) . %
+Nous allons maintenant montrer que la création du sommet $R\orbit{1,2,3}(n2)$
+dans la règle Jerboa détermine elle aussi la création d'un sommet dans la
 transformation directe. %
-% Nous exprimons maintenant la création du sommet $R\orbit{1,2,3}(n2)$ dans $H$.
-Nous allons maintenant montrer que la création du sommet $R\orbit{1,2,3}(n2)$ dans la règle Jerboa détermine la création d'un sommet dans la transformation directe. %
 
 \begin{proposition}[Création d'orbite]\label{prop:formalisation-evenement-regles-jerboa-creation}
 	Soit une règle Jerboa $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de
@@ -63,56 +63,111 @@ Nous allons maintenant montrer que la création du sommet $R\orbit{1,2,3}(n2)$ d
 	Donc par construction de l'instanciation, $\underline{R}\orbit{\omega}(v)$ est une orbite créée dans la règle $r$.
 \end{proof}
 
+\begin{figure}[ht]
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-instanciation-carre-G}
+		\caption{Instanciation d'une face de \(G_{quad}\)}
+		\label{fig:formalisation-evenement-regles-jerboa-instanciation-quad-triangulation-G}
+	\end{subfigure}
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-instanciation-carre-H}
+		\caption{Instanciation d'une face de \(H_{quad}\)}
+		\label{fig:formalisation-evenement-regles-jerboa-instanciation-quad-triangulation-H}
+	\end{subfigure}
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-instanciation-triangle-G}
+		\caption{Instanciation d'une face de \(G_{tri}\)}
+		\label{fig:formalisation-evenement-regles-jerboa-instanciation-tri-triangulation-G}
+	\end{subfigure}
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-instanciation-triangle-H}
+		\caption{Instanciation d'une face de \(H_{tri}\)}
+		\label{fig:formalisation-evenement-regles-jerboa-instanciation-tri-triangulation-H}
+	\end{subfigure}
+	\caption{Instanciations de la règle de triangulation pour différents polygones}
+	\label{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=120pt]{g-carte-triangulation-face-triangle-G}
+		\caption{\(G_{tri}\)}
+		\label{fig:formalisation-evenements-regle-jerboa-creation-triangulation-tri-G}
+	\end{subfigure}
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=120pt]{g-carte-triangulation-face-triangle-H}
+		\caption{\(H_{tri}\)}
+		\label{fig:formalisation-evenements-regle-jerboa-creation-triangulation-tri-H}
+	\end{subfigure}
+	\caption{Triangulation d'une face triangulaire}
+	\label{fig:formalisation-evenements-regle-jerboa-creation-triangulation-tri}
+\end{figure}
+% Création de l'orbite dans la règle
+Dans la règle de triangulation
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}),
+l'orbite \(R\orbit{1,2,3}(n2)\) contient uniquement le n\oe ud \(n2\). %
+Puisque celui-ci n'appartient pas à \(L\), nous pouvons en déduire qu'il est
+créé et donc l'orbite est créée dans \(R\). %
+% Création de l'orbite dans la règle instanciée, on reprendre la quad
+Dans la transformation directe, pour une face carrée, la règle est instanciée
+sous la forme de la
+règle~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}. %
+Nous avons montré dans la section précédente que l'application de cette règle
+instanciée sur une face carrée de \(G\) crée bien un sommet dans \(H\). %
+% Création du sommet dans les faces instanciées
+Toutefois, ici, cette règle peut être appliquée sur tout type de face peu
+importe le nombre de côtés comme une face carrée
+(Figures~\ref{fig:formalisation-evenement-regles-jerboa-instanciation-quad-triangulation-G}\ref{fig:formalisation-evenement-regles-jerboa-instanciation-quad-triangulation-H})
+ou
+triangulaire~\ref{fig:formalisation-evenement-regles-jerboa-instanciation-tri-triangulation-G}\ref{fig:formalisation-evenement-regles-jerboa-instanciation-tri-triangulation-H}. %
+Pour chacune des deux instanciations, le sommet est bien créé
+\(M(G_{quad}\orbit{1,2,3}(a_{2}))\) et \(M(G_{tri}\orbit{1,2,3}(m_{2}))\) ainsi
+que dans la transformation directe avec, par exemple, la face
+triangulaire (Figures~\ref{fig:formalisation-evenement-regles-jerboa-instanciation-tri-triangulation-H}
+et \ref{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation}). %
+% Création du sommet dans Hquad et Htri
+Enfin, puisque le sommet est créé dans la règle Jerboa et ses instanciations,
+celui-ci est créé dans \(H_{tri}\)
+(Figures~\ref{fig:formalisation-evenements-regle-jerboa-creation-triangulation-tri-G}
+et \ref{fig:formalisation-evenements-regle-jerboa-creation-triangulation-tri-H})
+
+~
+
+L'analyse des règles Jerboa nous permet de définir ce que nous appelons les
+orbites d'origines. %
+Pour le présenter simplement, une orbite d'origine est l'ancêtre invariant d'une
+entité topologique. %
+
 \begin{definition}[Orbite d'origine]
 	Soit une règle $r~: L \longrightarrow R$, $n$ un nœud de $R$ et $\orbit{\omega}$ un type d'orbite.
 
-	Une \emph{orbite d'origine} de $\underline{R}\orbit{\omega}(n)$ dans $L$ est une orbite $\underline{L}\orbit{\omega'}(n')$ où :
+	Une \emph{orbite d'origine} de $\underline{R}\orbit{\omega}(n)$ dans $L$ est une orbite $\underline{L}\orbit{\omega'}(n')$ où~:
 	\begin{itemize}
-		\item où $n'$ est un nœud de $L$,
+		\item $n'$ est un nœud de $L$,
 
 		\item $\orbit{\omega'}$ est l'ensemble des dimensions  $i$, où $i$ est renommé dans un arc implicite de $n'$ ; c'est-à-dire que $(l_L(n') \mapsto l_R(n))(i) = j \in \orbit{\omega}$
 
 	\end{itemize}
 	Soit un morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$ sur une G-carte $G$, $G \xlongrightarrow{r, \underline{m}} H$ la transformation directe correspondante et $O$ l'orbite d'instanciation. Soit $v'$ un nœud de $O$.
 
-	Une {\em origine} de l'orbite $H\orbit{\omega}((n,v'))$ est une orbite $G\orbit{\omega'}((n',v'))$.
+	Une {\em origine} de l'orbite $R(O)\orbit{\omega}((n,v'))$ est une orbite $L(O)\orbit{\omega'}((n',v'))$.
 \end{definition}
 
-\maxime{Instanciation sur plusieurs formes + description}
-
-Lorsque $L \neq \emptyset$, une orbite créée l'est à partir du renommage d'une orbite
-incidente au nœud d'accroche. Par exemple la règle d'insertion de sommet figure
-\textbf{fig:rule-insert-vertex} crée un sommet dont la topologie dépend de celle
-de l'arête d'origine. Dans l'application figure
-\textbf{fig:colored-rule-insert-vertex}, l'arête incidente à un seul cube comprend
-quatre brins ainsi le sommet créé a aussi quatre brins. Si l'arête sur laquelle
-on applique la règle est incidente à deux cubes, le sommet aura deux fois plus
-de brins.
+Dans notre exemple, le sommet créé est le dual de la face triangulée et donc,
+intuitivement, la face est l'origine du sommet. %
+Plus formellement, dans l'orbite \(R\orbit{1,2,3}(n2)\), l'étiquette \(1\) (resp.)
+\(2\) et \(3\)) est une réécriture de l'étiquette \(0\) (resp. \(1\) et \(3\))
+du n\oe ud \(n0\) dans $L$. %
+L'ensemble des étiquettes réécrites désignent alors une face \(\orbit{0,1,3}\)
+comme origine du sommet. %
 
 \subsection{Scission}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=.8\textwidth]{inst-quad-triangulation-before-after}
-	\caption{Instanciation de la règle de triangulation sur une face carrée}
-	\label{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation}
-\end{figure}
-% \begin{figure}[htbp!]
-% 	\centering
-% 	\begin{subfigure}{.45\textwidth}
-% 		\centering
-% 		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-G}
-% 		\caption{\label{fig:formalisation-evenements-regles-jerboa-triangulation-face-g}$G$}
-% 	\end{subfigure}
-% 	\begin{subfigure}{.45\textwidth}
-% 		\centering
-% 		\includegraphics[width=.6\textwidth]{g-carte-triangulation-scission-H}
-% 		\caption{\label{fig:formalisation-evenement-regles-jerboa-triangulation-face-h}$H$}
-% 	\end{subfigure}
-% 	\caption{\label{fig:formalisation-evenement-regle-jerboa-triangulation-face}Triangulation
-% 		dans une G-carte~: scission d'une face}
-% \end{figure}
-
 
 Reprenons la règle de triangulation
 (Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}) et son instanciation (Figure~\ref{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation}). %
@@ -749,45 +804,45 @@ réécriture des étiquettes du n\oe ud. %
 
 	\begin{tabular}{|p{0.1\textwidth}|p{0.846\textwidth}|}
 		\hline
-		\centering Type d'orbite & Évènements détectés                                                                                                      \\
+		\centering Type d'orbite   & Évènements détectés                                                                                                                       \\
 		\hline
-		\centering $\orbit{0}$   & Création $H\orbit{0}(a_{1})$
-															 \par Création~$H\orbit{0}(b_{1})$ \ldots
-															 \vspace{0.1 cm}
-															 \par Non-changement~$H\orbit{0}(a_{0})$
-															 \par Non-changement~$H\orbit{0}(c_{0})$~\ldots                                                                                 \\
+		\centering $\orbit{0}$     & Création $H\orbit{0}(a_{1})$
+		\par Création~$H\orbit{0}(b_{1})$ \ldots
+		\vspace{0.1 cm}
+		\par Non-changement~$H\orbit{0}(a_{0})$
+		\par Non-changement~$H\orbit{0}(c_{0})$~\ldots                                                                                                                         \\
 		\hline
-		\centering $\orbit{1}$   & Création $H\orbit{0}(a_{2})$
-															 \par Création~$H\orbit{1}(c_{2})$ \ldots
-															 \vspace{0.1 cm}
-															 \par Scission~$G\orbit{1}(a_{0})$ $\rightarrow\{H\orbit{1}(a_{0})$, $H\orbit{1}(h_{0})\}$
-															 \par Scission~$G\orbit{1}(c_{0})$ $\rightarrow \{H\orbit{1}(c_{0})$, $H\orbit{1}(b_{0})\}$~\ldots                                                           \\
+		\centering $\orbit{1}$     & Création $H\orbit{0}(a_{2})$
+		\par Création~$H\orbit{1}(c_{2})$ \ldots
+		\vspace{0.1 cm}
+		\par Scission~$G\orbit{1}(a_{0})$ $\rightarrow\{H\orbit{1}(a_{0})$, $H\orbit{1}(h_{0})\}$
+		\par Scission~$G\orbit{1}(c_{0})$ $\rightarrow \{H\orbit{1}(c_{0})$, $H\orbit{1}(b_{0})\}$~\ldots                                                                      \\
 		\hline
-		\centering $\orbit{2}$   & Création $H\orbit{2}(a_{1})$
-															 \par Création~$H\orbit{2}(a_{2})$
-															 \par Création~$H\orbit{2}(b_{1})$
-															 \par Création~$H\orbit{2}(b_{2})$ \ldots
-															 \vspace{0.1 cm}
-															 \par Non-changement~$H\orbit{2}(a_{0})$
-															 \par Non-changement~$H\orbit{2}(b_{0})$
-															 \par Non-changement~$H\orbit{2}(c_{0})$
-															 \par Non-changement~$H\orbit{2}(d_{0})$~\ldots                                                                                  \\
+		\centering $\orbit{2}$     & Création $H\orbit{2}(a_{1})$
+		\par Création~$H\orbit{2}(a_{2})$
+		\par Création~$H\orbit{2}(b_{1})$
+		\par Création~$H\orbit{2}(b_{2})$ \ldots
+		\vspace{0.1 cm}
+		\par Non-changement~$H\orbit{2}(a_{0})$
+		\par Non-changement~$H\orbit{2}(b_{0})$
+		\par Non-changement~$H\orbit{2}(c_{0})$
+		\par Non-changement~$H\orbit{2}(d_{0})$~\ldots                                                                                                                         \\
 
 		\hline
-		\centering $\orbit{1,2}$ & Modification $H\orbit{1,2}(a_{0})$
-															 \par Modification~$H\orbit{1,2}(b_{0})$\ldots
-															 \vspace{0.1 cm}
-															 \par Création~$H\orbit{1,2}(a_{2})$                                                                                        \\
+		\centering $\orbit{1,2}$   & Modification $H\orbit{1,2}(a_{0})$
+		\par Modification~$H\orbit{1,2}(b_{0})$\ldots
+		\vspace{0.1 cm}
+		\par Création~$H\orbit{1,2}(a_{2})$                                                                                                                                    \\
 		\hline
-		\centering $\orbit{0,1}$ & Scission~$G\orbit{0,1}(a_{0})$ $\rightarrow \{H\orbit{0,1}(a_{0})$, $H\orbit{0,1}(c_{0})$, $H\orbit{0,1}(e_{0})$, $H\orbit{0,1}(g_{0})\}$ \\
+		\centering $\orbit{0,1}$   & Scission~$G\orbit{0,1}(a_{0})$ $\rightarrow \{H\orbit{0,1}(a_{0})$, $H\orbit{0,1}(c_{0})$, $H\orbit{0,1}(e_{0})$, $H\orbit{0,1}(g_{0})\}$ \\
 		\hline
-		\centering $\orbit{0,2}$ & Création $H\orbit{0,2}(a_{1})$
-															 \par Création~$H\orbit{0,2}(b_{1})$\ldots
-															 \vspace{0.1 cm}
-															 \par Non-changement~$H\orbit{0,2}(a_{0})$
-															 \par Non-changement~$H\orbit{0,2}(c_{0})$~\ldots                                                                                 \\
+		\centering $\orbit{0,2}$   & Création $H\orbit{0,2}(a_{1})$
+		\par Création~$H\orbit{0,2}(b_{1})$\ldots
+		\vspace{0.1 cm}
+		\par Non-changement~$H\orbit{0,2}(a_{0})$
+		\par Non-changement~$H\orbit{0,2}(c_{0})$~\ldots                                                                                                                       \\
 		\hline
-		\centering $\orbit{0,1,2}$ & Modification~$H\orbit{0,1,2}(a_{0})$                                                                                        \\
+		\centering $\orbit{0,1,2}$ & Modification~$H\orbit{0,1,2}(a_{0})$                                                                                                      \\
 		\hline
 	\end{tabular}
 	\normalsize

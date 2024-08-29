@@ -1061,9 +1061,46 @@ Faire un tableau de comparatif des méthodes utilisées par chaque publication.
 \subsection[Réévaluation à base de règles]{Réévaluation à base de règles}
 \label{sec:etat-art-reevaluation-reevaluation-regles}
 
-Ici, présenter les apports issus des travaux d'Anaïs Cardot. (Objectif) placer
-les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux
-par rapport aux siens.
+% Ici, présenter les apports issus des travaux d'Anaïs Cardot. (Objectif) placer
+% les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux
+% par rapport aux siens.
+
+Les travaux de Cardot et al. sont les premiers à proposer une solution à la nomination
+persistante basée sur des règles de transformation de graphe.
+Son schéma de nomination est en deux étapes~: (1) la première étape consiste à
+définir un identifiant persistant, pour chaque brin d'une G-carte, sous la forme
+d'un historique opérations et n\oe uds qui interviennent dans l'évolution d'un
+brin~; (2) la nomination persistante des entités qui est composé d'un ensemble
+d'identifiants persistants tel que cet ensemble référence l'ensemble des
+opérations qui ont impacté une entité précise. %
+
+Ces travaux présentent deux outils qui sont utilisés, en plus des noms
+persistants, pour l'appariement des entités. %
+Il s'agit des journaux de bords, une base de données des changements
+topologiques (créations, suppression, non-changement, modification, scission,
+fusion) provoqués par une règle et compilée par l'utilisateur~; et du journal
+d'historique, un ensemble d'entrées construites à l'aide de journaux de bords
+pour représenter l'évolution d'une entité tout au long du processus de
+modélisation. %
+
+%% Blabla sur les journaux de bord
+
+%% Blabla sur les journaux d'historiques
+
+Le système de réévaluation proposé Cardot et al. propose, en plus de la
+modification des paramètres géométriques des opérations, de permettre l'édition
+d'une spécification paramétrique en ajoutant, supprimant et en déplaçant des
+opérations de modélisations dans les spécifications paramétriques. %
+
+%% À revoir, il semblerait que les arbres virtuels soient construit en
+%% complément des arbres d'appariement dans le but de représenter les éventuels
+%% changements supplémentaires induits par les opérations ajoutées. Autrement
+%% dit, les arbres virtuels ne sont pas créés pour directement d'arbres
+%% d'appariement.
+Enfin, l'appariement est effectué à l'aide d'arbres virtuels est de représenter
+les évolutions d'une entité topologique précise et d'y intégrer les changements
+dus à l'édition de la spécification paramétrique afin de la retrouver dans le
+modèle réévalué. %
 
 %%% Local Variables:
 %%% mode: latex

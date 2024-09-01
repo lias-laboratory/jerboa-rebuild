@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>ExempleNonDetectionScission1</openRules>
+	<openRules>ExempleScissionReplie2</openRules>
 	<openRules>ExempleNonDetectionScission2</openRules>
+	<openRules>ExempleScissionReplie1</openRules>
+	<openRules>ExempleNonDetectionScission1</openRules>
 <modeler name="explicit_examples_manuscript" module="" dimension="3" destDir="." projectDir=".">
     <comment></comment>
     <header></header>
@@ -9,7 +11,7 @@
     <embeddings count="1">
         <embedding name="Ebd0" type="" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="2">
+    <rules count="4">
         <rule name="ExempleNonDetectionScission1" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -228,6 +230,110 @@
             <paramstopo>
                 <paramtopo name="n0" order="0" />
                 <paramtopo name="n2" order="1" />
+            </paramstopo>
+        </rule>
+        <rule name="ExempleScissionReplie1" module="" category="" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="3">
+                    <node name="n0" x="300" y="30" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="210" y="210" orbit="0" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="390" y="210" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="7">
+                    <arcloop dim="3" node="n0" angle="1.9236627053538513" >
+                    </arcloop>
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arcloop dim="3" node="n1" angle="5.422663311990576" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="3.5403578310808874" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="4.112675847221511" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="5.906165285971435" >
+                    </arcloop>
+                    <arcloop dim="2" node="n0" angle="7.398995156736064" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="3">
+                    <node name="n0" x="210" y="30" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="120" y="210" orbit="0" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="300" y="210" orbit="-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="8">
+                    <arcloop dim="1" node="n1" angle="6.249157078588215" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="5.6063740916131515" >
+                    </arcloop>
+                    <arcloop dim="1" node="n2" angle="3.2292361984131697" >
+                    </arcloop>
+                    <arcloop dim="2" node="n2" angle="3.780807442899007" >
+                    </arcloop>
+                    <arcloop dim="2" node="n0" angle="0.9779467514499348" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="2.125000136263474" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="5.138501028983085" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="4.216635458705806" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+                <paramtopo name="n1" order="1" />
+            </paramstopo>
+        </rule>
+        <rule name="ExempleScissionReplie2" module="" category="" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="2">
+                    <node name="n0" x="240" y="60" orbit="0,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="240" y="210" orbit="0,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="2">
+                    <arcloop dim="3" node="n0" angle="8.209436614030315" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="4.998939312971785" >
+                    </arcloop>
+                </arcs>
+            </left>
+            <right>
+                <nodes count="2">
+                    <node name="n0" x="150" y="60" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="150" y="210" orbit="0,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="4">
+                    <arcloop dim="2" node="n0" angle="1.9448253869760255" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="2.343996542435258" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="5.0145083823047" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="5.397176478983618" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="n0" order="0" />
+                <paramtopo name="n1" order="1" />
             </paramstopo>
         </rule>
     </rules>

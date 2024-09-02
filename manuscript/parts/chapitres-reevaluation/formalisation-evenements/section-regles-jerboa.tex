@@ -173,7 +173,7 @@ Reprenons la règle de triangulation
 (Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-triangulation}) et son instanciation (Figure~\ref{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation}). %
 La règle filtre une face $L\orbit{0,1,3}(n0)$ puis la scinde en plusieurs faces triangulaires. %
 On peut observer, dans la règle, que l'orbite $L\orbit{0,1,3}(n0)$ présente
-toutes les étiquettes de $\orbit{0,1,3}$, on s'intéresse particulièrement au
+toutes les étiquettes de $\orbit{0,1,3}$, on s'intéresse particulièrement aux
 $1$-étiquettes puisque la face filtrée est scindée au niveau de ses
 sommets. %
 Dans l'orbite $R\orbit{0,1,3}(n0)$, aucun des n\oe uds ne présente de
@@ -205,7 +205,7 @@ Dans cette règle, cette réécriture d'étiquettes caractérise la scission d'u
 Prenons un autre exemple de scission avec la règle de décousure de deux volumes
 (Figure~\ref{fig:formalisation-evenement-regles-jerboa-regle-decousure-faces}). %
 Ici, la face $L\orbit{0,1,3}(n0)$ est scindée en deux dans $R$ puisque le $3$-arc explicite dans $L$ est remplacé par deux boucles dans $R$. %
-Cette scission est dite \emph{explicite}, à l'inverse des scission par réécritures
+Cette scission est dite \emph{explicite}, à l'inverse des scissions par réécritures
 des étiquettes qui sont dites \emph{implicites}.
 
 \begin{proposition}[Scission d'orbite]\label{prop:formalisation-evenement-regles-jerboa-scission}
@@ -359,32 +359,95 @@ des étiquettes qui sont dites \emph{implicites}.
 	\end{enumerate}
 \end{proof}
 
-\todo{commentaires triangulation (orbite complète) + insertion arête (orbite
-	incomplète) + les deux règles bizarres (orbites incomplètes) + décousure a2
-	d'une face isolé}
+%% 1/ Orbites complètes scission explicite
+Illustrons le premier cas avec la règle de décousure entre deux faces de
+volumes. %
+L'orbite \(L\orbit{0,1,3}(n0)\) est complète, de même, les deux orbites scindées
+sont, elles aussi, complètes. %
+Puisque dans la règle au moins l'une des \(\orbit{0,1,3}\)-orbites est complète,
+alors tous les chemins entre les deux faces à séparer sont représenté. %
+Donc la scission du \(3\)-arc explicite dans la règle provoque, comme nous
+pouvons le voir dans la transformation
+directe(Figure~\ref{fig:formalisation-evenement-regle-evenement-scission-explicite}),
+la scission de toutes les \(3\)-liaisons entre les deux faces. %
 
+%% 2/ Orbites incomplètes
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=50pt]{rule-insert-edge}
 \end{figure}
 
-\begin{figure}[htb!]
-	\begin{subfigure}{.6\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{rule-cas-particulier-scission-1}
-		\caption{}
-	\end{subfigure}
-	\begin{subfigure}{.4\textwidth}
-		\centering
-		\includegraphics[width=.8\textwidth]{rule-cas-particulier-scission-2}
-		\caption{}
-	\end{subfigure}
-\end{figure}
+% Pour le deuxième cas, prenons la règle d'insertion d'arête dont l'application, comme nous
+% l'avons dans la
+% section~\ref{sec:formalisation-evenement-regles-transfo-graphe-scission}, peut
+% provoquer ou non la scission d'une face dans la transformation directe. %
 
+%% 3a/ Orbite complète scission implicite
+Étudions le troisième cas, tout d'abord avec la règle de triangulation. %
+La scission est due aux arcs implicites et plus particulièrement à la réécriture
+des \(1\)-arcs. %
+Dans chaque n\oe ud de \(R\orbit{0,1,3}(n0)\), les arcs implicites réécris à
+partir du \(1\)-arc de \(L\orbit{0,1,3}(n0)\) sont soit supprimés, soit réécris
+en \(2\)-arcs. %
+Dans les instanciations de la règle
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation}),
+nous pouvons voir que les arêtes des faces filtrées sont séparées par la
+suppression des \(1\)-liaisons et que les faces issues de la scission sont
+elles-mêmes distinctes, car il n'existe pas de \(1\)-chemin qui connecte deux
+faces. %
+
+%% 3b/ orbite complète scission implicite => idempotence
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=50pt]{rule-decousure-faces-a2}
 \end{figure}
+
+Étudions ce même cas, mais avec la règle de décousure des \(2\)-liaisons dans un
+volume, c'est-à-dire une \(0,1,2\)-orbite. %
+Dans cette règle, la scission est due à la suppression des \(2\)-arcs
+implicites %
+Ici, l'orbite est complète et son application déconnecte toutes les faces d'un
+volume (Figure~\todo{découdre les faces d'un cube}). %
+Toutefois, si le volume correspond à une unique face, la scission sera tout de
+même détectée. %
+Dans une telle configuration, vérifier localement qu'il existe au moins une
+\(2\)-liaisons qui n'est pas une boucle permet de confirmer qu'une scission a
+bien eu lieu dans la transformation directe. %
+
+
+\begin{figure}[htb!]
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{rule-cas-particulier-scission-1}
+		\caption{Règle de décousure des sommets d'une arête}
+		\label{fig:formalisation-evenement-regles-jerboa-scission-regle-cas-particulier-1}
+	\end{subfigure}
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[width=.8\textwidth]{rule-cas-particulier-scission-2}
+		\caption{Règle de double décousure}
+		\label{fig:formalisation-evenement-regles-jerboa-scission-regle-cas-particulier-2}
+	\end{subfigure}
+		\label{fig:formalisation-evenement-regles-jerboa-scission-regle-cas-particuliers}
+\end{figure}
+
+%% 4/ Deux composantes, une scission => scission entre les composantes
+Étudions enfin le quatrième cas avec deux règles de décousure. %
+Dans la première règle
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-scission-cas-particulier-1}),
+deux composantes, incomplètes sur le type \(\orbit{0,1}\), sont filtrées et
+seule l'orbite \(L\orbit{0,1}(n1)\) est scindée. %
+Puisqu'aucune des orbites n'est complètes, il est possible qu'elles
+appartiennent à la même face. %
+Si les deux orbites appartiennent à la même face, alors il y peut y avoir une
+scission ou non entre les deux orbites filtrées. %
+Au contraire, si les deux orbites sont filtrées dans deux faces distinctes,
+alors il peut y avoir ou non une scission qui ne sépare pas les deux orbites
+filtrées. %
+
+Le principe est le même pour la règle qui fait une double décousure (Figure~\ref{fig:formalisation-evenement-regles-jerboa-scission-cas-particulier-2}). %
+Il peut y avoir, dans la transformation directe, une scission \todo{reprendre ici}
+
 
 \subsection{Suppression}
 

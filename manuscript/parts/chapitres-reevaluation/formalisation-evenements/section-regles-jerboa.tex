@@ -1,9 +1,13 @@
 \section{Les évènements dans les règles Jerboa }
 \label{sec:formalisation-evenement-regles-jerboa}
 
-\highlight{chapeau}
-
-%\maxime { adapter les propositions aux schémas: wip}
+Dans la section précédente, nous avons formalisé la détection des évènements à
+l'aide de l'analyse syntaxique des règles de transformation de graphe. %
+Dans cette section, nous proposons d'étendre cette analyse aux règles Jerboa
+ainsi que de formaliser la notion d'origine d'une orbite. %
+À l'aide de cette notion d'origine, nous pouvons enrichir le suivi des orbites
+distinguer chacune des orbites créées, scindées ou encore fusionnées à l'aide
+d'une entité qui est alors un ancêtre. %
 
 \subsection{Création}
 
@@ -154,6 +158,8 @@ entité topologique. %
 
 	Une {\em origine} de l'orbite $R(O)\orbit{\omega}((n,v'))$ est une orbite $L(O)\orbit{\omega'}((n',v'))$.
 \end{definition}
+
+\todo{règle de triangulation surlignage origine du sommet + surlignage gcarte}
 
 Dans notre exemple, le sommet créé est le dual de la face triangulée et donc,
 intuitivement, la face est l'origine du sommet. %
@@ -356,7 +362,7 @@ transformation directe. %
 \end{figure}
 
 %% 1/ Orbites complètes scission explicite
-Pour illustrer le premier cas, une scission explicite où il existe au moins une
+Pour illustrer le premier point, une scission explicite où il existe au moins une
 \(\orbit{\omega}\)-orbite complète, étudions la règle de décousure des \(3\)-arcs
 d'une face. %
 L'orbite \(L\orbit{0,1,3}(n0)\) est complète, de même, les deux orbites scindées
@@ -368,38 +374,44 @@ pouvons le voir dans la transformation
 directe(Figure~\ref{fig:formalisation-evenement-regle-evenement-scission-explicite}),
 la scission de toutes les \(3\)-liaisons entre les deux faces. %
 
-%% 2/ Orbites incomplètes
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=50pt]{rule-insert-edge}
-	\caption{Règle d'insertion d'arête entre deux sommets}
-	\label{fig:formalisation-evenement-regles-jerboa-scission-rule-insert-edge}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=160pt]{g-carte-unsew-a3-0123-G}
+		\caption{\(G\)}
+		\label{fig:formalisation-evenement-regles-jerboa-scission-explicite-incomplete-G}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=160pt]{g-carte-unsew-a3-0123-H}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenement-regles-jerboa-scission-explicite-incomplete-H}
+	\end{subfigure}
+	\caption{Absence de scission de composante connexe}
+	\label{fig:formalisation-evenement-regles-jerboa-scission-explicite-incomplete}
 \end{figure}
-
-Pour le deuxième cas, où il n'existe pas d'\(\orbit{\omega}\)-orbite complète,
-prenons la règle d'insertion d'arête
-(Figure~\ref{fig:formalisation-evenement-regles-jerboa-scission-rule-insert-edge}). %
-Une scission est détectés dans l'orbite \(R\orbit{0,1,3}(n0)\) due à la
-suppression des \(1\)-arcs implicites. %
-Toutefois, dans cette règle, il n'existe aucune \(\orbit{0,1,3}\)-orbite
-complète. %
-Donc la scission n'est pas certaines. %
-Dans ce cas précis, il ne peut pas y avoir de scission si les orbites filtrées
-appartiennent à deux faces distinctes. %
-Le résultat de la transformation directe produit alors le résultat vu dans la
-section~\ref{sec:formalisation-evenement-regles-transfo-graphe-scission} avec
-l'exemple du cylindre
-(Figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-g}\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-h}). %
-
-
+%% 2/ Orbites incomplètes
+Pour le deuxième point, une scission explicite où il n'y a aucune
+\(\orbit{\omega}\)-orbite complète, nous gardons la même règle mais nous
+étudions cette fois une \(\orbit{0,1,2,3}\)-orbite, c'est-à-dire toute la
+composante connexe. %
+Dans cette règle, comme dans le point précédent, la coupure du \(3\)-arc nous permet de détecter une scission même pour \(L\orbit{0,1,2,3}(n0)\). %
+Cependant cette orbite là est incomplète donc la règle ne provoque pas forcément de scission dans la transformation directe. %
+Par exemple, dans la transformation illustrée figures~\ref{fig:formalisation-evenement-regles-jerboa-scission-explicite-incomplete-G}
+et
+\ref{fig:formalisation-evenement-regles-jerboa-scission-explicite-incomplete-H}), la scission d'une face ne suffit pas à scinder toute la composante. %
+Nous pouvons encore y voir au moins un chemin qui relie les deux volumes par des
+arcs étiquetés dans \(\orbit{0,1,2,3}\). %
 
 %% 3a/ Orbite complète scission implicite
-Pour le troisième cas, commençons avec la règle de triangulation. %
+Pour le troisième point, commençons avec la règle de triangulation dont les
+\(\orbit{0,1,3}\)-orbites sont complètes. %
 La scission est due aux arcs implicites et plus particulièrement à la réécriture
 des \(1\)-arcs. %
-Dans chaque n\oe ud de \(R\orbit{0,1,3}(n0)\), les arcs implicites sont réécris à
-partir du \(1\)-arc de \(L\orbit{0,1,3}(n0)\) sont soit supprimés, soit réécris
-en \(2\)-arcs. %
+Dans chaque n\oe ud de \(R\orbit{0,1,3}(n0)\), les arcs implicites sont réécrit
+à partir du \(1\)-arc de \(L\orbit{0,1,3}(n0)\) sont soit supprimés, soit
+réécris en \(2\)-arcs. %
 Dans les instanciations de la règle
 (Figure~\ref{fig:formalisation-evenement-regles-jerboa-inst-quad-triangulation}),
 nous pouvons voir que les arêtes des faces filtrées sont séparées par la
@@ -407,7 +419,27 @@ suppression des \(1\)-liaisons et que les faces issues de la scission sont
 elles-mêmes distinctes, car il n'existe pas de \(1\)-chemin qui connecte deux
 faces. %
 
-%% 3b/ orbite complète scission implicite => idempotence
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=50pt]{rule-insert-edge}
+	\caption{Règle d'insertion d'arête entre deux sommets}
+	\label{fig:formalisation-evenement-regles-jerboa-scission-rule-insert-edge}
+\end{figure}
+
+%% 3b/ Pas d'orbite complète, scission implicite
+Prenons maintenant la règle d'insertion d'arête
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-scission-rule-insert-edge}). %
+Une scission est détecté dans l'orbite \(R\orbit{0,1,3}(n0)\) due à la
+suppression des \(1\)-arcs implicites. %
+Toutefois, cette règle n'a aucune \(\orbit{0,1,3}\)-orbite complète. %
+Donc il est nécessaire de vérifier si la règle provoque une scission dans la
+transformation directe. %
+Dans ce cas, Si les orbites filtrées appartiennent à deux faces distinctes,
+alors la règle ne provoque pas scission dans la transformation directe, comme
+dans l'exemple du cylindre
+(Figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-g}\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-h}). %
+
+%% 3c/ orbite complète scission implicite => idempotence
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=50pt]{rule-unsew-volume-a2}
@@ -434,7 +466,7 @@ faces. %
 \end{figure}
 
 Étudions ce même cas, mais avec la règle de décousure des \(2\)-liaisons dans un
-volume, c'est-à-dire une \(0,1,2\)-orbite. %
+volume, c'est-à-dire une \(\orbit{0,1,2}\)-orbite. %
 Dans cette règle, la scission est due à la suppression des \(2\)-arcs
 implicites %
 Ici, l'orbite est complète et son application déconnecte toutes les faces d'un
@@ -560,7 +592,7 @@ Reprenons la règle supprime un sommet et son étoile
 (Figure~\ref{fig:formalisation-evenement-regles-jerboa-suppression-regle-dissolution-sommet}). %
 Dans la section~\ref{sec:formalisation-evenement-regles-transfo-graphe-suppression} (page~\pageref{sec:formalisation-evenement-regles-transfo-graphe-suppression}), nous
 avons vu qu'un sommet est supprimé dans la transformation si et seulement si il
-est supprimé dans la règle de transformation. %
+est supprimé dans la règle instanciée. %
 Nous allons montrer que la suppression du sommet $L\orbit{1,2,3}(n2)$ dans la
 règle Jerboa exprime la suppression d'un sommet dans la transformation
 directe. %
@@ -777,8 +809,9 @@ implique une fusion de faces dans la transformation directe. %
 % 	\end{enumerate}
 % \end{proof}
 
-La fusion est l'évènement symétrique de la scission. %
-Ainsi la méthode de détection d'une fusion est la même. %
+L'approche pour détecter la fusion est symétrique à celle de la scission. %
+Ainsi, nous retrouvons les mêmes cas de figure. %
+
 
 \begin{figure}[htb!]
 	\centering
@@ -805,17 +838,37 @@ Ainsi la méthode de détection d'une fusion est la même. %
 	\label{fig:formalisation-evenement-regle-evenement-fusion-explicite}
 \end{figure}
 
-Pour illustrer le premier cas, une fusion explicite où il existe au moins une
-\(\orbit{\omega}\)-orbite complète, étudions la règle de couture de deux faces par
-des \(3\)-arcs. %
-Dans cette règle, les orbites faces sont toutes complètes, leur connexion par le
-\(3\)-arc provoque leur fusion dans la règle. %
-Donc, dans la transformation directe, deux faces, entièrement filtrées, sont
-connectés par des \(3\)-liaisons et donc fusionnées en une
-\(\orbit{0,1,3}\)-orbite
+Lorsqu'une fusion est explicite et que la règle possède au moins une
+\(\orbit{\omega}\)-orbite complète, par exemple la règle de couture de deux
+faces par des \(3\)-arcs. %
+Les deux faces fusionnées dans la règle sont aussi fusionnées dans la
+transformation directe
 (Figures~\ref{fig:formalisation-evenements-regles-jerboa-evenement-fusion-explicite-g}
 et
 \ref{fig:formalisation-evenement-regles-jerboa-evenement-fusion-explicite-face-h}). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=160pt]{g-carte-sew-a3-0123-G}
+		\caption{\(G\)}
+		\label{fig:formalisation-evenement-regles-jerboa-fusion-explicite-incomplete-G}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=160pt]{g-carte-unsew-a3-0123-G}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenement-regles-jerboa-fusion-explicite-incomplete-H}
+	\end{subfigure}
+	\caption{Absence de scission de composante connexe}
+	\label{fig:formalisation-evenement-regles-jerboa-fusion-explicite-incomplete}
+\end{figure}
+
+Si, au contraire, cette même règle ne possède aucune \(\orbit{\omega}\)-orbite
+complète, par exemple pour \(\orbit{\omega} = \orbit{0,1,2,3}\), alors il est
+nécessaire de vérifier si cette règle provoque une scission dans la
+transformation directe. %
 
 \begin{figure}[htb!]
 	\centering
@@ -824,16 +877,50 @@ et
 	\label{fig:formalisation-evenement-regles-jerboa-fusion-regle-suppression-arete}
 \end{figure}
 
-Pour le deuxième cas, une fusion où il n'existe pas de \(\orbit{\omega}\)-complète,
-prenons la règle fusionne deux face incidentes à une même arête. %
-Dans cette règle, aucun n\oe ud de l'orbite \(L\orbit{0,1,3}(n0)\) n'a de
-deuxième arc implicite étiqueté dans \(\orbit{0,1,3}\), mais il y en a un dans
-\(R\orbit{0,1,3}(n1)\). %
-Nous détectons donc une fusion par des \(1\)-arcs implicites dans la règle
-néanmoins les orbites sont toutes deux incomplètes. %
-Il est donc nécessaire de vérifier si la règle provoque une scission dans la
-transformation directe. %
+Pour les fusions implicites, la fusion des faces dans la règle de suppression
+d'une étoile
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-suppression-regle-dissolution-sommet})
+est garantie (\(\orbit{0,1,3}\)-orbite complète)~; la fusion des faces
+incidentes à une arête
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-fusion-regle-suppression-arete})
+est incertaine (\(\orbit{0,1,3}\)-orbite incomplète).
 
+Notons que pour la fusion implicite, contrairement à la scission, il n'existe
+pas de règle telle qu'une orbite est strictement identique à son image par la
+transformation directe. %
+En effet, si dans le cadre d'une scission il est possible réécrire des arcs sous
+forme de boucles
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-rule-unsew-a3}, il est en
+revanche impossible de réaliser le procéder inverse sans transgresser les
+conditions de cohérences des règles Jerboa. %
+Par exemple, il est impossible d'inverser le sens de la transformation de cette
+même règle, car elle serait alors invalide~: un n\oe ud d'accroche doit avoir une
+étiquette pleine. %
+
+
+Pour le quatrième point, les règles
+figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}
+et
+\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-2}
+ne sont pas inversibles en utilisant des arcs implicites. %
+Nous utilisons donc leurs versions dépliées, c'est-à-dire sans arc implicite,
+équivalente aux règles instanciées
+figures~\ref{fig:formalisation-evenements-regles-jerboa-fusion-regle-cas-particulier-1}\ref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2}
+(page~\pageref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1}). %
+L'observation est donc la même, le traitement de la fusion est symétrique à la celui de la scission. %
+Pour la règle de couture de sommets, la reconnexion à au moins un sommet est
+suffisant, tandis que pour la double couture d'arêtes, l'ensemble des fusions
+sont nécessaires pour recréer un chemin entre les différentes orbites
+filtrées. %
+
+\todo{règle de suppression de l'étoile surlignage origine face + surlignage gcarte}
+
+Enfin, la fusion est le troisième évènement pour lequel nous pouvons déterminer
+l'origine d'une orbite. %
+Par exemple, dans la règle de suppression d'une étoile, l'origine de la face
+issue de la fusion est le sommet supprimé~: les arcs implicites de
+\(R\orbit{0,1,3}(n0)\) sont des réécritures des arcs \(1\), \(2\) et \(3\) de
+\(n2\) dans \(L\), d'où le type d'origine \(\orbit{1,2,3}\). %
 
 
 \subsection{Non-changement}
@@ -843,12 +930,13 @@ transformation directe. %
 % laquelle est inséré le nouveau sommet. Ces orbites sont inchangées par
 % l'insertion du nouveau sommet.
 
-La règle de triangulation
-(Figure~\ref{fig:formalisation-evenement-regles-jerboa-rule-face-triangulation} page~\pageref{fig:formalisation-evenement-regles-jerboa-rule-face-triangulation}),
-réécrit les étiquettes du n\oe ud $n0$, qui étaient $\orbit{0,\_,3}$ dans $L$ et
-deviennent $\orbit{0,1,3}$ dans $R$, l'étiquette $0$ est préservée. %
-Le n\oe ud $n0$ filtre ainsi des arêtes qui restent inchangées suite à la
-réécriture des étiquettes du n\oe ud. %
+Reprenons la règle de triangulation
+(Figure~\ref{fig:formalisation-evenement-regles-jerboa-rule-face-triangulation}
+page~\pageref{fig:formalisation-evenement-regles-jerboa-rule-face-triangulation}). %
+dans la
+section~\ref{sec:formalisation-evenement-regles-transfo-graphe-non-changement} (page~\pageref{sec:formalisation-evenement-regles-transfo-graphe-non-changement}) nous avons vu que les arêtes filtrées de la face triangulée restent inchangées dans la transformation directe si et seulement si elles restent inchangées dans la règle instanciée. %
+Nous allons montrer que le non-changement d'une orbite filtrée dans la règle
+Jerboa exprime le non-changement d'une orbite dans la transformation directe. %
 
 \begin{proposition}[Non-changement d'orbite]
 	Soit une règle Jerboa $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$,
@@ -881,15 +969,34 @@ réécriture des étiquettes du n\oe ud. %
 	Donc par construction de l'instanciation, l'orbite $\underline{L}\orbit{\omega}(v)$ est inchangée dans la règle Jerboa. %
 \end{proof}
 
-\maxime{Instanciation + description}
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-nomodif-G}
+		\caption{\label{fig:formalisation-evenements-regles-jerboa-sans-effet-g}$G$}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-nomodif-H}
+		\caption{\label{fig:formalisation-evenements-regles-jerboa-sans-effet-h}$H$}
+	\end{subfigure}
+	\caption{Non-changement des arêtes de la face triangulée}
+\label{fig:formalisation-evenements-regles-jerboa-sans-effet}
+\end{figure}
+
+Dans la règle de triangulation, les arêtes de la face à trianguler sont filtrées
+par l'orbite \(L\orbit{0}(n0)\). %
+Or, cette même orbite est préservés dans \(R\) puisqu'aucun de ses \(0\)-arcs
+n'est supprimé ni réécrit en un arc d'une autre dimension. %
+Ainsi, les arêtes de la face sont préservées dans la transformation directe (figures~\ref{fig:formalisation-evenements-regles-jerboa-sans-effet-g} et \ref{fig:formalisation-evenements-regles-jerboa-sans-effet-h}). %
+
 
 \begin{remarque}
 	L'orbite \(G\orbit{\omega}(b)\), où \(b\) est un brin non filtré de \(G\), n'est \emph{pas affectée} par l'application de $r$ si
 	$G\orbit{\omega}(b) \cap \underline{m}(L) = \emptyset$ et \emph{inchangée}
 	sinon.
 \end{remarque}
-
-\todo{illustration + commentaire}
 
 % \subsection{Sans effet \todo{redéfinir comme une remarque dans non-changement}}
 
@@ -911,7 +1018,9 @@ réécriture des étiquettes du n\oe ud. %
 
 \subsection{Modification}
 
-\todo{la modification ce sont tous les autres cas (augmentation, réduction, réécriture des liens topologiques [par exemple transformation d'une face en un sommet,…],…}
+Dans la section~\ref{sec:formalisation-evenement-regles-transfo-graphe-modification}, nous avons vu que les sommets de la face à trianguler sont modifiées dans la transformation directe si et seulement si ils sont modifiés dans la règle instanciée. %
+Nous allons montrer que la modification de ces sommets dans la règle Jerboa
+exprime leur modification dans la transformation directe. %
 
 \begin{proposition}[Modification d'orbite]
 	Soit une règle Jerboa $r~: L \longrightarrow R$, un nœud d'accroche $h$ de $L$, un morphisme de filtrage $\underline{m}~: \underline{L} \rightarrow G$ sur une G-carte $G$, un type d'orbite $\orbit{\omega}$, $v$ un nœud préservé de $\underline{K} = \underline{L} \cap \underline{R}$ et l'orbite d'instanciation	$O = G\orbit{l(h)}(\underline{m}(h))$.
@@ -978,12 +1087,48 @@ réécriture des étiquettes du n\oe ud. %
 	\\ %
 
 	Réciproquement, soit un brin $v'$ de $O$, supposons que $G\orbit{\omega}(m((v,v')))$ est modifiée dans la transformation directe $G \xlongrightarrow{r,\underline{m}} H$. %
-	D'après les propositions précédentes, l'orbite $L\orbit{\omega}(v)$ ne peut être ni inchangée, ni scindée, ni fusionnée (et bien sûr ni crée, ni supprimée). %
+	D'après les propositions précédentes, l'orbite $L\orbit{\omega}(v)$ ne peut être ni inchangée, ni scindée, ni fusionnée (et bien sûr ni créée, ni supprimée). %
 	Elle est donc nécessairement modifiée.
 \end{proof}
 
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-modification-filtre-G}
+		\caption{G}
+		\label{fig:formalisation-evenement-regles-jerboa-modification-g}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-triangulation-modification-filtre-H}
+		\caption{H}
+		\label{fig:formalisation-evenement-regles-jerboa-modification-h}
+	\end{subfigure}
+	\caption{Modification de sommets par triangulation}
+	\label{fig:formalisation-evenement-regles-jerboa-modification}
+\end{figure}
+
+Dans la règle de triangulation de face, l'orbite \(L\orbit{1,2,3}(n0)\) est
+l'orbite qui filtre les sommets incidents aux brins \(a0\), \(c0\), \(e0\) et
+\(g0\). %
+Dans \(R\), cette orbite est modifiée par la créations d'arcs de dimension
+\(1\), \(2\) et \(3\). %
+Dans la transformation directe
+(Figures~\ref{fig:formalisation-evenement-regles-jerboa-modification-g} et
+\ref{fig:formalisation-evenement-regles-jerboa-modification-h}), nous pouvons
+voir que ces sommets possède chacun une \(2\)-liaisons qui les connecte au
+sommet central. %
+
+Enfin, comme définit dans les sections de scission de fusion, une
+\(\orbit{\omega}\)-orbite peut être simplement modifiée malgré la détection
+d'une scission ou d'une fusion parce que la règle ne possède aucune
+\(\orbit{\omega}\)-orbite complète. %
 
 \subsection{Exemples de détections d'évènements}
+
+Dans cette section, nous proposons des exemples de détection pour quelques-unes
+des règles et leurs applications. %
 
 \begin{table}[htbp!]
 	\caption{\label{tab:formalisation-evenement-regle-jerboa-tableau-detection}
@@ -1037,6 +1182,8 @@ réécriture des étiquettes du n\oe ud. %
 	\normalsize
 
 \end{table}
+
+Le tableau~\ref{tab:formalisation-evenement-regle-jerboa-tableau-detection} liste une partie des évènements détecté lors de la triangulation d'une face carrée. 
 
 %%% Local Variables:
 %%% mode: latex

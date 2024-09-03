@@ -630,6 +630,75 @@ La face est donc simplement modifiée. %
 
 \begin{figure}[htb!]
 	\centering
+	\includegraphics[height=150pt]{rule-cas-particulier-fusion-1-depliee}
+	\caption{Couture de sommets aux extrémités d'une arête}
+	\label{fig:formalisation-evenements-regles-jerboa-fusion-regle-cas-particulier-1}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-scission-cas-particulier-1-G.pdf}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1-H}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-scission-cas-particulier-1-H.pdf}
+		\caption{\(G\)}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1-G}
+	\end{subfigure}
+	\caption{Couture de sommets aux extrémités d'une arête}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1}
+\end{figure}
+
+Si l'on inverse la règle
+figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}
+(page~\pageref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}),
+nous obtenons la règle
+figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1-H}. %
+Ici, contrairement à la règle de scission, il apparaît évident qu'il suffit de
+reconnecter un seul des deux sommets pour reconnecter l'arête au reste de la
+face (figures~
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=150pt]{rule-cas-particulier-fusion-2-depliee}
+	\caption{Double couture d'arêtes}
+	\label{fig:formalisation-evenements-regles-jerboa-fusion-regle-cas-particulier-2}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-G.pdf}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-H}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-H.pdf}
+		\caption{\(G\)}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-G}
+	\end{subfigure}
+	\caption{Double couture d'arêtes par leurs \(2\)-arcs}
+		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2}
+\end{figure}
+
+Pour la règle
+figure~\ref{fig:formalisation-evenements-regles-jerboa-fusion-regle-cas-particulier-2},
+en revanche, l'ensemble des fusions sont nécessaire pour obtenir le ruban à
+partir des trois faces
+(Figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-H}
+et
+~\ref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-G}). %
+
+\begin{figure}[htb!]
+	\centering
 	\includegraphics[scale=0.5]{regle-expl-rotation-arete}
 	\caption{Règle de rotation d'arête «~edge flip~»}
 	\label{fig:formalisation-evenements-regles-transfo-regle-expl-rotation-arete}
@@ -671,24 +740,27 @@ illustre l'application de cette règle sur un maillage. %
 Les deux faces triangulaires sont à la fois fusionnées et scindées en deux
 nouvelles faces triangulaires. %
 
-Notons que le même phénomène se produit sur
-% l'application
-%
-% de
-la règle de suppression d'arête de la
-figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete} où on observe une scission entre les faces incidentes à $n0$ et $n2$ et une fusion entre les faces incidentes à $n0$ et $n1$. %
+Notons que le même phénomène se produit sur la règle de suppression d'arête de
+la
+figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete}
+où on observe une scission entre les faces incidentes à $n0$ et $n2$ et une
+fusion entre les faces incidentes à $n0$ et $n1$. %
 Selon l'objet transformé, l'un ou l'autre de ces évènements se produit. %
-Comme vu précédemment (Figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-g} et \ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-h}), la fusion se produit mais il n'y a pas de scission. %
-Au contraire (Figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-g} et \ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h}) la fusion ne se produit pas, mais la suppression de la seule arête qui relie le haut et le bas de la
-face, déconnecte la G-carte en deux composantes connexes, et donc la face en
-deux nouvelles faces carrées. %
-% Mais cet exemple est un cas particulier dégénéré.\xavier{(2022-04-04) Es-tu sûr
-% 	qu'il s'agit du même phénomène ? Il y a bien une scission, mais où est la
-% 	fusion~?}
+Comme vu précédemment
+(Figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-g} et
+\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-h}), la fusion se
+produit mais il n'y a pas de scission. %
+Au contraire
+(Figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-g}
+et \ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h})
+la fusion ne se produit pas, mais la suppression de la seule arête qui relie le
+haut et le bas de la face, déconnecte la G-carte en deux composantes connexes,
+et donc la face en deux nouvelles faces carrées. %
 
 
 \subsection{Non-changement}
 \label{sec:formalisation-evenement-regles-transfo-graphe-non-changement}
+
 
 % Dans la figure~\textbf{fig:base-rule-create} à la
 % page~\textbf{pageref!fig:base-rule-create}, comme défini dans la section

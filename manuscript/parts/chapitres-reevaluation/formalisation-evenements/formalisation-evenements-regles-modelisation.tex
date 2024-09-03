@@ -8,10 +8,9 @@ simplement évènements, que les opérations de modélisation appliques aux
 différentes entités. %
 Ces évènements, qui diffèrent selon les outils, peuvent être catégorisés avec
 une certaine précision. %
-Par exemple, pour OpenCascade, les évènements suivis sont la génération, la
-modification et la destruction d'une entité. %
-\todo{ajouter l'exemple d'un autre noyau où les évènements seraient plus précis,
-  i.e. création, scission, fusion…}
+Par exemple, la génération, la modification et la destruction d'une entité pour
+OCAF~\cite{OCAF} ou encore la création, la modification, la fusion, la
+subdivision et la préservation pour CATIA~\cite{dassaultCATIA} %
 
 Pour effectuer le suivi des entités et enregistrer les évènements, l'ensemble de
 ces outils ont recours~: (1) soit un parcours total de l'objet pour mettre
@@ -25,8 +24,8 @@ erreurs peuvent être introduites lors de la conception de l'opération,
 c'est-à-dire référencer le mauvais évènement pour la mauvaise topologie, voire
 oublier des évènements. %
 
-Dans ce chapitre, nous présentons notre approche qui consiste à utiliser les
-règles Jerboa pour représenter les opérations de modélisation géométrique. %
+Dans ce chapitre, nous présentons notre approche qui consiste à formaliser les
+opérations de modélisation géométrique à l'aide de règles Jerboa. %
 Ainsi, nous tirons avantage de ce formalisme dont l'analyse syntaxique nous
 permet de détecter les évènements appliqués à chaque entité topologique
 représentée dans une règle. %

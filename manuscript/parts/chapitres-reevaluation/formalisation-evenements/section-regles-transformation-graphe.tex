@@ -1,5 +1,5 @@
 \section{Les évènements dans les règles de transformation de graphe}
-\label{sec:formalisation-evenement-regles-transfo-graphe}
+\label{sec:formalisation-evenements-regles-transfo-graphe}
 
 Dans la section précédente, nous avons caractérisé les évènements entre deux
 objets suite à une transformation de $G$ vers $H$. %
@@ -29,17 +29,17 @@ naturellement entre deux motifs $L$ et $R$. %
 % Grâce à la condition d'arc incident, l'orbite $L\orbit{\omega}(n)$ est complète si et seulement si $G\orbit{\omega}(m(n))$ est entièrement filtrée. %
 
 \subsection{Création}
-\label{sec:formalisation-evenement-regles-transfo-graphe-creation}
+\label{sec:formalisation-evenements-regles-transfo-graphe-creation}
 
 \begin{figure}[htb!]
 	\includegraphics[width=\textwidth]{regle-expl-triangulation-quad}
 	\centering
 	\caption{Règle de triangulation d'une face carrée}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-triangulation}
 \end{figure}
 
 % La règle, dans la
-% figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation},
+% figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-triangulation},
 % est la règle de triangulation d'une face carrée. %
 % Comme défini dans la section précédente, le sommet $R\orbit{1,2,3}(n16)$ est
 % créé dans $H$. Nous allons montrer que ce sommet est également créé pour toute transformation directe. %
@@ -47,7 +47,7 @@ naturellement entre deux motifs $L$ et $R$. %
 Comme nous l'avons vu plus tôt, la triangulation d'une face crée un sommet en
 son centre. %
 La règle illustrée dans la
-figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-triangulation}
 triangule une face carrée. %
 Celle-ci crée le sommet $R\orbit{1,2,3}(n16)$. %
 Nous allons montrer que pour toute face carrée filtrée par cette règle ce sommet
@@ -91,12 +91,12 @@ De la même manière, puisque l'orbite est créée elle est nécessairement comp
 page~\pageref{def:etat-art-modelisation-base-regle-orbite-complete}). %
 Ainsi, lors de l'application et par transformation directe, l'orbite
 $R\orbit{1,2,3}(n16)$ crée l'orbite $H\orbit{1,2,3}(b_{2})$
-(Figures~\ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet-g}
-et \ref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet-h}
-page~\pageref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet-g}). %
+(figures~\ref{fig:formalisation-evenements-g-carte-evenement-triangulation-sommet-g}
+et \ref{fig:formalisation-evenements-g-carte-evenement-triangulation-sommet-h}
+page~\pageref{fig:formalisation-evenements-g-carte-evenement-triangulation-sommet-g}). %
 
 \subsection{Scission}
-\label{sec:formalisation-evenement-regles-transfo-graphe-scission}
+\label{sec:formalisation-evenements-regles-transfo-graphe-scission}
 
 % La figure \textbf{fig:base-rule-split} présente la règle de triangulation d'une
 % face quadrangulaire isolée, qui scinde cette face en quatre triangles. Comme
@@ -109,7 +109,7 @@ page~\pageref{fig:formalisation-evenement-g-carte-evenement-triangulation-sommet
 % $L\orbit{0,2,3}(n0)$ (inchangée par la règle) est non-vide.
 
 Reprenons la règle de triangulation
-(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-triangulation}). %
 Cette règle scinde une face carrée $L\orbit{0,1,3}(n0)$ en quatre faces
 triangulaires $R\orbit{0,1,3}(n0)$, $R\orbit{0,1,3}(n2)$, $R\orbit{0,1,3}(n4)$
 et $R\orbit{0,1,3}(n6)$. %
@@ -240,7 +240,7 @@ la scission peut exister ou non selon l'objet. %
 	\centering
 	\includegraphics[height=180pt]{regle-expl-insertion-arete}
 	\caption{Règle d'insertion d'arête}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-insert-arete}
 \end{figure}
 \begin{figure}[htb!]
 	\centering
@@ -248,14 +248,14 @@ la scission peut exister ou non selon l'objet. %
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-G}
 		\caption{Face d'un cube}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-arete-1-g}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-arete-1-g}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-H}
 		\caption{Face scindée d'un cube}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-arete-1-h}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-arete-1-h}
 	\end{subfigure}
 
 	~
@@ -264,37 +264,37 @@ la scission peut exister ou non selon l'objet. %
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-G}
 		\caption{Cylindre}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-g}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cylindre-g}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-H}
 		\caption{Cylindre avec une arête}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-h}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cylindre-h}
 	\end{subfigure}
-	\caption{Exemples d'application de la règle d'insertion d'arête (figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete})}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-scission-inst}
+	\caption{Exemples d'application de la règle d'insertion d'arête (figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-insert-arete})}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-scission-inst}
 \end{figure}
 
 % \begin{figure}[htb!]
 % 	\centering
-% 	\caption{Application de la règle (figure \ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete}) d'insertion d'arête sur un cylindre}
-% 	\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre}
+% 	\caption{Application de la règle (figure \ref{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-insert-arete}) d'insertion d'arête sur un cylindre}
+% 	\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cylindre}
 % \end{figure}
 
 La figure
-\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-insert-arete}
+\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-insert-arete}
 représente une règle d'insertion d'arête. Celle-ci ne filtre que partiellement
 la face à scinder, il est donc possible, mais pas certain, que l'application de cette
 règle provoque la scission d'une face. %
 La figure
-\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-inst} illustre deux
+\ref{fig:formalisation-evenements-regles-transfo-graphe-scission-inst} illustre deux
 cas d'application de l'insertion d'arête. %
-Dans les figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-arete-1-g} et \ref{fig:formalisation-evenement-regles-transfo-graphe-scission-arete-1-h},
+Dans les figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-scission-arete-1-g} et \ref{fig:formalisation-evenements-regles-transfo-graphe-scission-arete-1-h},
 la déconnexion locale provoque une scission de la face bien que celle-ci ne soit pas entièrement filtrée par la règle. %
 Dans les
-figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-g} et \ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cylindre-h},
+figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-scission-cylindre-g} et \ref{fig:formalisation-evenements-regles-transfo-graphe-scission-cylindre-h},
 la déconnexion locale ne provoque pas de scission de la face. %
 En effet, les deux parties déconnectées dans la règle restent connectées dans la partie non-filtrée de l'objet. %
 
@@ -302,22 +302,22 @@ En effet, les deux parties déconnectées dans la règle restent connectées dan
 	\centering
 	\includegraphics[height=150pt]{regle-expl-cas-particulier-1.pdf}
 	\caption{Règle de décousure des sommets d'une arête}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}
 \end{figure}
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{0.45\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-scission-cas-particulier-1-G.pdf}
-		\caption{}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-G}
+		\caption{\(G\)}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-1-G}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}{0.45\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-scission-cas-particulier-1-H.pdf}
-		\caption{}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-H}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-1-H}
 	\end{subfigure}
 	\caption{Décousure d'une arête de face par ses sommets}
 \end{figure}
@@ -326,7 +326,7 @@ Dans certains cas, et lorsque plusieurs composantes sont filtrées par une règl
 une scission peut être détectée au sein d'une seule composante dans la règle et
 pourtant scinder les deux composantes filtrées dans l'objet. %
 Par exemple, la règle
-(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1})
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-cas-particulier-1})
 filtre deux arêtes dont l'une avec ses sommets . %
 Seule la seconde arête est transformée car la règle la découd de ses sommets
 incidents. %
@@ -334,7 +334,7 @@ Pourtant, si cette règle est appliquée et que ses deux composantes dans $L$ so
 appliquées sur deux arête d'une seule et même face dans $G$, la transformation
 crée bien une scission entre les deux composantes filtrée. %
 Par exemple, dans les
-figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-G} et \ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-1-H},
+figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-1-G} et \ref{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-1-H},
 la composante incidente à $n0$ filtre l'arête incidente au brin $v$ et la
 seconde composante filtre l'arête et les sommets atteignables à partir du brin
 $k_{2}$ et qui comprend le brin $k_{1}$. %
@@ -347,42 +347,42 @@ ses sommets. %
 	\centering
 	\includegraphics[height=150pt]{regle-expl-cas-particulier-2.pdf}
 	\caption{Règle de double décousure}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-2}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-cas-particulier-2}
 \end{figure}
 
 \begin{figure}[htb!]
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-G.pdf}
-		\caption{Ruban}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-G}
+		\caption{\(G\)}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-2-G}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-H.pdf}
-		\caption{Ruban découpé}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-H}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-2-H}
 	\end{subfigure}
 	\caption{Double décousure de ruban}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-2}
 \end{figure}
 
 Un autre exemple peut être trouvé avec la règle
-(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-2})
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-cas-particulier-2})
 qui découd les $2$-arcs de deux arêtes, mais qui n'exprime aucune scission entre
 les deux composantes. %
 Tout comme dans l'exemple précédent, nous pouvons observer dans les
-figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-G}
+figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-2-G}
 et
-\ref{fig:formalisation-evenement-regles-transfo-graphe-scission-cas-particulier-2-H}
+\ref{fig:formalisation-evenements-regles-transfo-graphe-scission-cas-particulier-2-H}
 que dans la transformation directe, il n'existe plus de sous-chemin dans
 $\orbit{0,1,2}$ permettant de relier $v_{1}$ à $v_{2}$. %
 Notons toutefois, qu'une seule des deux scissions suffirait pour déconnecter la
 $\orbit{0,1,2}$-orbite incidente à $v_{1}$ de celle incidente à $v_{2}$. %
 
 \subsection{Suppression}
-\label{sec:formalisation-evenement-regles-transfo-graphe-suppression}
+\label{sec:formalisation-evenements-regles-transfo-graphe-suppression}
 
 
 \begin{figure}[htb!]
@@ -439,16 +439,16 @@ transformation directe. %
 
 
 \subsection{Fusion}
-\label{sec:formalisation-evenement-regles-transfo-graphe-fusion}
+\label{sec:formalisation-evenements-regles-transfo-graphe-fusion}
 
 % Le cas de la fusion est symétrique par rapport à la scission.
 % La figure \textbf{fig:base-rule-merge} représente la contraction d'une face triangulaire en un sommet. Ainsi, elle fusionne les trois sommets de la face initiale en un seul.
 % Comme le montre la proposition \textbf{prop:base-rule-merge}, puisque la règle filtre entièrement les orbites sommet $\orbit{1,2,3}$ des 3 sommets à gauche, alors quel que soit l'objet transformé, les sommets de la face contractée seront fusionnés en un unique sommet.
 
-Reprenons la règle de suppression de sommet (Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}). %
-	Du point de vue de la fusion, les faces incidentes aux n\oe uds $n0$, $n2$, $n4$ et $n6$
-	dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n0)$. %
-	Nous allons montrer que cette règle provoque la fusion des faces autour d'un sommet dans la transformation directe. %
+Reprenons la règle de suppression de sommet (figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}). %
+Du point de vue de la fusion, les faces incidentes aux n\oe uds $n0$, $n2$, $n4$ et $n6$
+dans $L$ sont fusionnées en une unique face $R\orbit{0,1,3}(n0)$. %
+Nous allons montrer que cette règle provoque la fusion des faces autour d'un sommet dans la transformation directe. %
 
 \begin{proposition}[Fusion d'orbites]
 	\label{prop:base-rule-merge}
@@ -568,7 +568,7 @@ incidentes à un sommet supprimé. %
 	\centering
 	\includegraphics[height=180pt]{regle-expl-suppression-arete}
 	\caption{Règle de suppression d'une arête}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-regle-expl-suppression-arete}
 \end{figure}
 
 \begin{figure}[htb!]
@@ -576,14 +576,14 @@ incidentes à un sommet supprimé. %
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-H}
-		\caption{Cube}
+		\caption{\(G_{cube}\)}
 		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-g}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-G}
-		\caption{Cube avec une arête supprimée}
+		\caption{\(H_{cube}\)}
 		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-h}
 	\end{subfigure}
 
@@ -592,25 +592,25 @@ incidentes à un sommet supprimé. %
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-H}
-		\caption{Cylindre avec arête}
+		\caption{\(G_{cylindre}\)}
 		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-g}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-insert-arete-cylindre-G}
-		\caption{Cylindre}
+		\caption{\(H_{cylindre}\)}
 		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h}
 	\end{subfigure}
-	\caption{Application de la règle de suppression d'arête (figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete})}
+	\caption{Application de la règle de suppression d'arête (figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-expl-suppression-arete})}
 	\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-inst}
 \end{figure}
 
-Comme pour la scission, lorsqu'au moins une des orbites fusionnées est entièrement filtrée, comme dans l'exemple de la contraction de sommet (Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}), les fusions sont précisément détectées dans les règles. %
+Comme pour la scission, lorsqu'au moins une des orbites fusionnées est entièrement filtrée, comme dans l'exemple de la contraction de sommet (figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-dissolution-sommet}), les fusions sont précisément détectées dans les règles. %
 Dans le cas contraire, selon l'objet transformé, les orbites fusionnées dans la règle peuvent filtrer des orbites
 différentes ou une seule et même orbite dans l'objet. %
 C'est le cas par exemple de la règle de
-suppression d'arête, figure \ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete} qui peut
+suppression d'arête, figure \ref{fig:formalisation-evenements-regles-transfo-graphe-regle-expl-suppression-arete} qui peut
 fusionner 2 faces de part et d'autre de l'arête s'il s'agit de deux faces
 distinctes. %
 
@@ -624,7 +624,7 @@ figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-g} et \re
 
 Au contraire, dans les
 figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-g} et \ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h},
-l'application de la même règle (figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete})
+l'application de la même règle (figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-expl-suppression-arete})
 supprime une arête incidente à deux cotés opposés de la même face. %
 La face est donc simplement modifiée. %
 
@@ -632,70 +632,71 @@ La face est donc simplement modifiée. %
 	\centering
 	\includegraphics[height=150pt]{rule-cas-particulier-fusion-1-depliee}
 	\caption{Couture de sommets aux extrémités d'une arête}
-	\label{fig:formalisation-evenements-regles-jerboa-fusion-regle-cas-particulier-1}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-regle-cas-particulier-1}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\includegraphics[height=100pt]{g-carte-scission-cas-particulier-1-G.pdf}
-		\caption{\(H\)}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1-H}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.45\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-scission-cas-particulier-1-H.pdf}
 		\caption{\(G\)}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1-G}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-1-G}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[height=100pt]{g-carte-scission-cas-particulier-1-G.pdf}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-1-H}
 	\end{subfigure}
 	\caption{Couture de sommets aux extrémités d'une arête}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-1}
 \end{figure}
 
-Si l'on inverse la règle
-figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}
-(page~\pageref{fig:formalisation-evenement-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}),
+Si nous inversons la règle
+figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}
+(page~\pageref{fig:formalisation-evenements-regles-transfo-graphe-regle-scission-expl-cas-particulier-1}),
 nous obtenons la règle
-figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-1-H}. %
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-regle-cas-particulier-1}. %
 Ici, contrairement à la règle de scission, il apparaît évident qu'il suffit de
 reconnecter un seul des deux sommets pour reconnecter l'arête au reste de la
-face (figures~
+face
+(figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-1-G}
+et
+\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-1-H}). %
 
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=150pt]{rule-cas-particulier-fusion-2-depliee}
 	\caption{Double couture d'arêtes}
-	\label{fig:formalisation-evenements-regles-jerboa-fusion-regle-cas-particulier-2}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-regle-cas-particulier-2}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
 	\begin{subfigure}{0.45\textwidth}
 		\centering
-		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-G.pdf}
-		\caption{\(H\)}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-H}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.45\textwidth}
-		\centering
 		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-H.pdf}
 		\caption{\(G\)}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-G}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-2-G}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[height=200pt]{g-carte-scission-cas-particulier-2-G.pdf}
+		\caption{\(H\)}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-2-H}
 	\end{subfigure}
 	\caption{Double couture d'arêtes par leurs \(2\)-arcs}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-2}
 \end{figure}
 
 Pour la règle
-figure~\ref{fig:formalisation-evenements-regles-jerboa-fusion-regle-cas-particulier-2},
-en revanche, l'ensemble des fusions sont nécessaire pour obtenir le ruban à
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-regle-cas-particulier-2},
+en revanche, l'ensemble des fusions sont nécessaires pour obtenir le ruban à
 partir des trois faces
-(Figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-H}
+(figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-2-H}
 et
-~\ref{fig:formalisation-evenement-regles-transfo-graphe-fusion-cas-particulier-2-G}). %
+~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cas-particulier-2-G}). %
 
 \begin{figure}[htb!]
 	\centering
@@ -742,16 +743,16 @@ nouvelles faces triangulaires. %
 
 Notons que le même phénomène se produit sur la règle de suppression d'arête de
 la
-figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-regle-expl-suppression-arete}
+figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-expl-suppression-arete}
 où on observe une scission entre les faces incidentes à $n0$ et $n2$ et une
 fusion entre les faces incidentes à $n0$ et $n1$. %
 Selon l'objet transformé, l'un ou l'autre de ces évènements se produit. %
 Comme vu précédemment
-(Figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-g} et
+(figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-g} et
 \ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-h}), la fusion se
 produit mais il n'y a pas de scission. %
 Au contraire
-(Figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-g}
+(figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-g}
 et \ref{fig:formalisation-evenements-regles-transfo-graphe-fusion-cylindre-h})
 la fusion ne se produit pas, mais la suppression de la seule arête qui relie le
 haut et le bas de la face, déconnecte la G-carte en deux composantes connexes,
@@ -759,7 +760,7 @@ et donc la face en deux nouvelles faces carrées. %
 
 
 \subsection{Non-changement}
-\label{sec:formalisation-evenement-regles-transfo-graphe-non-changement}
+\label{sec:formalisation-evenements-regles-transfo-graphe-non-changement}
 
 
 % Dans la figure~\textbf{fig:base-rule-create} à la
@@ -770,8 +771,8 @@ et donc la face en deux nouvelles faces carrées. %
 % $H$.
 
 Reprenons la règle de triangulation
-(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
-page~\pageref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}). %
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-triangulation}
+page~\pageref{fig:formalisation-evenements-regles-transfo-graphe-triangulation}). %
 Nous pouvons voir que l'arête $L\orbit{0,2,3}(n0)$ est inchangée entre $L$ et
 $R$ (et il en va de même pour les arêtes incidentes aux n\oe uds $n2$, $n4$ et
 $n6$). %
@@ -825,7 +826,7 @@ transformation directe. %
 		\caption{\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-h}$H$}
 	\end{subfigure}
 	\caption{Non-changement des arêtes de la face triangulée}
-\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst}
 \end{figure}
 
 Par exemple, dans la
@@ -833,19 +834,19 @@ figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-inst},
 la triangulation laisse l'arête incidente au brin $b_0$ inchangée. %
 Par ailleurs l'application de la règle de triangulation n'a aucun effet sur la
 partie grisée dans $G$
-(Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-g})
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-g})
 car celle-ci n'est pas filtrée par la règle. %
 Le résultat est que la partie grisée de $G$ est identique à la partie grisée de
 $H$
-(Figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-h}). %
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-sans-effet-h}). %
 
 \subsection{Modification}
-\label{sec:formalisation-evenement-regles-transfo-graphe-modification}
+\label{sec:formalisation-evenements-regles-transfo-graphe-modification}
 
 % Si une orbite est modifiée dans la règle, alors elle l'est dans l'objet. En particulier, une modification dans la règle, même partiellement filtrée, ne peut pas produire une scission ou une fusion dans l'objet transformé.
 
 La règle de triangulation
-(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation})
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-triangulation})
 produit un certain nombre de transformations lors de son application sur un
 objet. %
 Parmi ces transformations se trouve la modification des sommets. %
@@ -885,29 +886,30 @@ filtrés dans $G$ au cours de la transformation directe. %
 		\centering
 		\includegraphics[height=100pt]{g-carte-triangulation-modification-filtre-G}
 		\caption{G}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-modification-g}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-modification-g}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[height=100pt]{g-carte-triangulation-modification-filtre-H}
 		\caption{H}
-		\label{fig:formalisation-evenement-regles-transfo-graphe-modification-h}
+		\label{fig:formalisation-evenements-regles-transfo-graphe-modification-h}
 	\end{subfigure}
 	\caption{Modification de sommets par triangulation}
-	\label{fig:formalisation-evenement-regles-transfo-graphe-modification}
+	\label{fig:formalisation-evenements-regles-transfo-graphe-modification}
 \end{figure}
 
 Nous pouvons voir dans la règle de triangulation
-(Figure~\ref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}
-page~\pageref{fig:formalisation-evenement-regles-transfo-graphe-triangulation}),
+(figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-triangulation}
+page~\pageref{fig:formalisation-evenements-regles-transfo-graphe-triangulation}),
 que les \(\orbit{1,2}\)-orbites de \(L\) incidentes aux n\oe uds \(n0\), \(n2\),
 \(n4\) et \(n6\) sont modifiées par la triangulation dans \(R\) suite à l'ajout
 de \(2\)-arcs dans les orbites. %
-Notons que ces orbites ne sont ni créées puisqu'une partie des n\oe uds ne sont
-pas créés, ni scindées puisqu'il s'agit d'une \(\orbit{1,2}\)-orbite et non d'une \(\orbit{1}\)-orbite. %
+Notons que ces orbites ne sont ni créées, car une partie des n\oe uds ne sont
+pas créés, ni scindées, car il s'agit d'une \(\orbit{1,2}\)-orbite et pas d'une
+\(\orbit{1}\)-orbite. %
 
 Dans la transformation directe
-(Figures~\ref{fig:formalisation-evenement-regles-transfo-graphe-modification-g} et \ref{fig:formalisation-evenement-regles-transfo-graphe-modification-h}),
+(figures~\ref{fig:formalisation-evenements-regles-transfo-graphe-modification-g} et \ref{fig:formalisation-evenements-regles-transfo-graphe-modification-h}),
 nous pouvons voir que les sommets sont bien simplement modifiés. %
 
 % La figure \textbf{fig:base-rule-modify-cube} illustre une modification d'orbite

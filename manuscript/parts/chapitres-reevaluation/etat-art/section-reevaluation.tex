@@ -861,7 +861,7 @@ Suite à l'extrusion, la face de côté générée à partir de \(e_{1}\) est no
 
 \begin{figure}[htb!]
 	\centering
-\includegraphics[height=150pt]{capoyleas-cut-part}
+	\includegraphics[height=150pt]{capoyleas-cut-part}
 	\caption{Résultat d'une différence entre deux objets par Capoyleas}
 	\label{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}
 \end{figure}
@@ -902,17 +902,17 @@ Prenons, par exemple, les deux arêtes \(I_e\) de la
 figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
 À terme, pour la première entité \(I_{e}\), nous obtenons~:
 \begin{flalign*}
-	I_{e}&: \\
-	&[0,I_{e},1],\\
-	&[1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],\\
-	&[2,\mathbf{e(v_{4})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
+	I_{e} & :                                                                                                       \\
+	      & [0,I_{e},1],                                                                                            \\
+	      & [1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],                                                            \\
+	      & [2,\mathbf{e(v_{4})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
 \end{flalign*}
 et pour la seconde~:
 \begin{flalign*}
-	I_{e}&: \\
-	&[0,I_{e},1],\\
-	&[1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],\\
-	&[2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
+	I_{e} & :                                                                                                       \\
+	      & [0,I_{e},1],                                                                                            \\
+	      & [1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],                                                            \\
+	      & [2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
 \end{flalign*}
 Ainsi, la première arête \(I_{e}\) est identifiée par l'arête \(e(v_{4})\) et la
 seconde est identifiée par l'arête \(e(v_{3})\). %
@@ -969,22 +969,20 @@ modélisation et placent leurs travaux dans un contexte défini par les concepts
 suivants :
 \begin{itemize}
 	\item Un modèle paramétrique est une fonction prenant des paramètres
-				topologiques et géométriques.
+	      topologiques et géométriques.
 	\item Un nom persistant peut être obtenu grâce à une requête sur une entité
-				topologique.
+	      topologique.
 	\item Les types géométriques traités sont les point, segment (ligne ou arc),
-				polygone (conceptuellement une face sans trou) et face (un élément bordé
-				par un ou plusieurs polygones).
+	      polygone (conceptuellement une face sans trou) et face (un élément bordé
+	      par un ou plusieurs polygones).
 \end{itemize}
 
 Cascaval et al. présentent les propriétés qu'un langage conçu pour la CAO
 devrait, selon eux, respecter~:
 \begin{itemize}
-	% \item il ne doit pas introduire de discontinuité dans le référencement d'une
-	%       géométrie,
 	\item il doit permettre la sélection de tout ou partie d'un ensemble d'entités
-				topologiques issues de la partition d'une entité passée en entrée
-				d'une opération,
+	      topologiques issues de la partition d'une entité passée en entrée
+	      d'une opération,
 	\item il doit permettre d'exclure des configurations topologiques des modèles
 	      en sortie du programme afin de saisir l'intention de conception
 \end{itemize}
@@ -995,121 +993,136 @@ Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
 modélisation paramétrique qui met en œuvre un système de généalogie permettant
 de décrire les relations ancêtre/descendant entre plusieurs entités topologiques
 en entrées et en sortie d'une opération de modélisation. %
-Dans ce langage, un nom persistant est définie par un utilisateur, pendant la
-conception de spécification paramétrique, à l'aide d'une requête sur une entité
-topologique. %
-Ces requêtes peuvent exprimer des contraintes sur l'évolution d'une entité
-topologique afin de capturer précisément les intentions de modélisation. %
 
 %% Explication de la sémantique
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\textwidth]{cascaval-types-relations}
+	\caption{Types de relations pour le suivi des entités par Cascaval et al.}
+	\label{fig:etat-art-reevaluation-systemes-cascaval-types-relations}
+\end{figure}
 
-À cette fin, trois relations sont définies entre les entités topologiques en
-entrée et en sortie des opérations de modélisation~: (1) la relation de
-transformation~; (2) de sous-ensemble~; (3) de dérivation.
+À cette fin, trois relations sont définies
+(figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations}) entre
+les entités topologiques en entrée et en sortie des opérations de modélisation~:
+(1) la relation de transformation~; (2) de sous-ensemble~; (3) de dérivation.
 \begin{enumerate}
 	\item La relation de transformation établie un lien direct entre deux entités,
-				respectivement en entrée et en sortie, lorsque l'opération ne modifie
-				pas la topologie de l'objet et qu'il existe une bijection entre les
-				éléments en entrée et en sortie, par exemple, dans une translation ou
-				une rotation. %
-				% En effet, les opérations telles que la rotation et la translation ne
-				% créent rien de nouveau que ce soit en termes de géométrie ou de topologie. %
-				% Seuls les paramètres géométriques (grandeur, position, …) sont modifiés. %
-				{\color{red}accompagner d'une illustration pour servir d'exemple}
+	      respectivement en entrée et en sortie, lorsque l'opération ne modifie
+	      pas la topologie de l'objet et qu'il existe une bijection entre les
+	      éléments en entrée et en sortie, par exemple, dans une translation ou
+	      une rotation. %
 	\item La relation de sous-ensemble établie un lien entre deux entités
-				topologiques en entrée et en sortie d'opérations ensemblistes telles que
-				les opérations booléennes. %
-				Il s'agit, typiquement dans les opérations booléennes, de faire le lien
-				entre, par exemple, deux faces et l'arête qui descend de l'intersection
-				de ces deux faces. %
-				{\color{red}accompagner d'une illustration pour servir d'exemple}
+	      topologiques en entrée et en sortie d'opérations ensemblistes telles que
+	      les opérations booléennes. %
+	      Il s'agit, typiquement dans les opérations booléennes, de faire le lien
+	      entre, par exemple, deux faces et l'arête qui descend de l'intersection
+	      de ces deux faces. %
 	\item La relation de dérivation établie un lien entre une entité topologique
-				existante et une entité topologique créée par une opération. %
-				Dans l'exemple du chanfrein de sommet illustré dans la figure~\ref{}, un
-				lien de dérivation est créé entre le sommet de D et l'arête créée sur E. %
-				De la même façon, des liens de dérivation sont créés entre ce sommet et
-				les deux sommets créés sur E. %
-				Ces deux sommets ayant de fait exactement les mêmes liens de dérivation,
-				Cascaval et al. posent deux contraintes sur la construction de ces lien
-				de dérivation~: (1) \todo{voir article}~; (2) \todo{voir article}. %
-				Afin de vérifier la première contrainte, ils proposent donc d'ajouter un
-				lien de dérivation entre les arêtes adjacentes au sommet chanfreiné et
-				les sommets correspondants sur E (figure~\ref{}). %
-				{\color{red}accompagner d'une illustration pour servir d'exemple}
+	      existante et une entité topologique créée par une opération. %
+	      Dans l'exemple du chanfrein de sommet illustré dans la
+	      figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations},
+	      un lien de dérivation est créé entre le sommet de D et l'arête créée sur E. %
+	      De la même façon, des liens de dérivation sont créés entre ce sommet et
+	      les deux sommets créés sur E. %
+	      Ces deux sommets ayant, de fait, exactement les mêmes liens de
+	      dérivation, Cascaval et al. posent deux contraintes sur la construction
+	      de ces liens de dérivation~: (1) Les relations de dérivation entre les
+	      entités en entré et sortie d'une opération sont exprimées de manière
+	      statique de sorte que toute entité créée dans la dérivation puisse être
+	      désignée de manière unique par une ou plusieurs entités passées en
+	      entrée~; (2) Une relation de dérivation entre une entité créée dans la
+	      dérivation et son ancêtre doit être telle que la modification de son
+	      ancêtre a nécessairement un impact sur son entité descendante. %
+	      Afin de vérifier la première contrainte, ils proposent donc d'ajouter un
+	      lien de dérivation entre les arêtes adjacentes au sommet chanfreiné et
+	      les sommets correspondants sur E. %
 \end{enumerate}
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[width=\textwidth]{cascaval-requetes} 
+  \caption{Requêtes de filtrage par Cascaval}
+  \label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
+\end{figure}
+
+Afin de saisir les intentions de conception, les noms persistants sont définis
+par les utilisateurs, pendant la conception du modèle paramétrique, à l'aide de
+requêtes, comme illustré dans la
+figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+Ces requêtes permettent aux utilisateurs de contraindre l'appariement des
+entités topologiques passées en paramètres des opérations. %
+Les entités sont alors identifiées par rapport à un ou plusieurs ancêtres qui
+sont explicitement désignés comme paramètres dans les requêtes. %
+Il est possible, par exemple, de désigner toutes les entités de toute une
+construction, (\texttt{all}), qui font partie d'une autre entité \(e\)
+(\texttt{from(e)}) ou alors plusieurs (\texttt{fromAll((e|{e})*)}, voire de
+spécifier son appartenance à une entité \(e\) dans un ensemble
+(\texttt{fromAny((e | \{e\})*)}). %
+Il est également possible d'organiser les requêtes dans des critères logiques
+(\texttt{and(q,q)}) et (\texttt{or{q,q}}) d'en imposer (\texttt{contains(q)}),
+voire d'en exclure (\texttt{not(q)}). %
+Enfin, l'utilisateur peut s'appuyer sur les relations de transformation, de
+sous-ensemble et de dérivation pour exprimer au mieux ses intentions de
+modélisation, par exemple \texttt{deriveFrom|All|Any}. %
 
 L'outil développé par Cascaval et al. permet de travailler principalement sur
 des objets 2D avec des opérations principalement 2D. %
 Le passage à la 3D implique que le traitement des voisinages topologiques sera
 nécessairement plus complexe. %
-Prenons, par exemple, le bord d'un objet. %
 
+% {\color{red}(pas clair!)%
+% 	En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
+% 	peut être délimité par des faces et des arêtes et l'appariement des entités
+% 	topologiques n'est pas «~tout ou rien~», c'est-à-dire que l'on peut se retrouver
+% 	avec la trace de seulement une partie d'un objet en cas, par exemple, d'une
+% 	intersection entre deux objets. %
+% }
 
-{\color{red}(pas clair!)%
-	En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
-	peut être délimité par des faces et des arêtes et l'appariement des entités
-	topologiques n'est pas «~tout ou rien~», c'est-à-dire que l'on peut se retrouver
-	avec la trace de seulement une partie d'un objet en cas, par exemple, d'une
-	intersection entre deux objets. %
-}
-
-Une requête, un ensemble de clauses logiques avec des notions d'ensembles,
-permet de définir une référence à partir d'un élément géométrique. %
-On peut, par exemple, récupérer tout (\texttt{all}) ou partie (\texttt{from(e)})
-d'un élément ore, de tous les éléments du modèle (\texttt{fromAll(e)}), d'un
-élément parmi un ou plusieurs ensembles (\texttt{fromAny((e | \{e\})*)}). Il est
-également possible de créer des conjonctions de requêtes q (\texttt{and(q,q)}),
-des disjonctions (\texttt{or{q,q}}) et même en inclure (\texttt{contains(q)}) et
-en exclure (\texttt{not(q)}). %
-L'utilisateur peut s'appuyer sur la sémantique de généalogie pour décrire au
-mieux ses intentions de modélisation. À ce moment là, les requêtes expriment,
-explicitement, les relations de généalogie décrites plus tôt. Par exemple, les
-éléments dérivés d'une géométrie lors d'une opération peuvent être obtenues en
-remplaçant \texttt{from} par \texttt{derivedFrom} dans toutes les clauses
-d'ensembles (\texttt{from, fromAll, fromAny} deviennent \texttt{derivedFrom,
-	derivedFromAll, derivedFromAny}). %
-	{\color{red}accompagner d'illustrations pour servir d'exemples}
-
-%%% Continuité des références et gestion de l'ambiguïté
-
-Dans les cas de l'ambiguïté est créée, par exemple, de l'intersection de
-segments, des propriétés géométriques peuvent être ajoutées aux éléments
-géométriques pour lever cette ambiguïté. %
-Dans le cas de l'intersection de lignes, chacun des points créés doit être
-considéré comme l'extrémité \texttt{end} de l'une des deux lignes. %
-Pour l’intersection d'une ligne avec un arc, la distance entre les points de la
-ligne est normalisée, et les points d'intersections sont enrichis avec leur
-distance au sommet de départ (\texttt{start}) de la ligne. %
-Dans le cas de l’intersection de deux arcs, Cascaval et al. reprennent les
-travaux de Bidarra. Une ligne traversant les deux arcs en leur centre crée un
-domaine positif et un domaine négatif pour enrichir les intersections, notons
-que ces domaines ne varient pas, peu importe les transformations sur le modèle. %
+Dans les cas topologiquement ambigus, c'est-à-dire où il devient difficile
+d'identifier formellement une entité parmi plusieurs, comme l'identification
+d'un sommet lorsque deux cercles s'intersectent, les auteurs ont recours à des
+contraintes géométriques semblable à l'approche de
+Bidarra~\cite{bidarra2005feature} avec, par exemple, la mise en \oe uvre d'un
+demi espace pour discriminer plusieurs entités symétriques. %
 
 %% Comparaison avec Cascaval
 
-Ici, Cascaval et al. proposent un langage spécifique pour la conception de
-modèles paramétriques. Ce langage présente diverses fonctionnalités telles que
-la définition de références géométrique à partir de requêtes utilisateurs, les
-éléments géométriques étant enrichis d'informations géométrique et généalogique
-pour garantir le respect des intentions de modélisation de l'utilisateur.
-Néanmoins, cette approche a plusieurs inconvénients :
+Dans cette contribution, Cascaval et al. proposent un langage spécifique pour la
+conception de modèles paramétriques. %
+Ce langage intègre un système de nomination persistante des entités où les noms sont donnés explicitement par l'utilisateur sous forme de requêtes. %
+Pour cela, le modèle est enrichi, d'une part, de trois types de relation qui
+permettent de garder une trace de l'évolution des entités topologiques par
+rapport à leurs ancêtres et, d'autre part, d'informations géométriques lorsque
+les ancêtres et la topologie ne suffisent plus. %
+Néanmoins, cette approche présente plusieurs inconvénients~:
 \begin{itemize}
-	\item Les éléments géométriques utilisés pour les références ne sont pas
-	      généralisables en toutes dimensions, les opérations sont spécifiques à
-	      la 2D et les plongements courbes nécessitent des traitements
-	      supplémentaires en dimensions supérieures.
-	\item Pour la sémantique pour la généalogie, bien que les auteurs aient mis en
-	      place un système pour tracer une forme d'origine pour distinguer une
-	      géométrie d'une autre, cela ne leur permet en fin de compte de ne
-	      distinguer que la création, la suppression et la modification au sens
-	      large de la topologie d'une géométrie.
-	\item Les opérations de modélisation sont responsables de l'annotation de la
-	      géométrie pour le suivi. Ce qui implique que l'implantation du code de
-	      ces opérations peut être source d'erreur dans le suivi.
-	\item L'utilisateur est contraint de définir lui-même les requêtes de
-	      définition d'une référence, cela peut compliquer l'automatisation du
-	      processus de réévaluation notamment lorsqu'il y a ajout, suppression,
-	      déplacement d'opération.
+	\item Il s'agit d'un système de modélisation 2.5D, c'est-à-dire que les
+	      opérations sont essentiellement définies pour la conception 2D avec deux
+	      opérations d'extrusion et de révolution pour passer à la 3D. %
+	      Autrement dit, généraliser les systèmes de contraintes et d'appariement
+	      en toute dimension est au minimum difficile, par exemple, les ambiguïtés
+	      topologiques et géométriques ne nécessitent pas les mêmes traitements,
+	      voire se complexifient lorsqu'il s'agit de monter en dimension~;
+	\item Les opérations de modélisation sont explicitement responsable de la
+	      définition et de la création des relations de transformation, de
+	      sous-ensemble et de dérivation. %
+	      En particulier, il convient de définir manuellement ces relations tout
+	      en garantissant les contraintes posées par le développeur pour éviter
+	      les ambiguïtés. %
+  \item La nomination des entités est à la charge des utilisateurs afin que
+		ceux-ci expriment leurs intentions de modélisation. %
+		Pour cela, il propose une nomination sous la forme de requêtes intégrant
+		des contraintes qui permettent de filtrer certaines parties de l'objet. %
+		Par exemple, une arête ou un sommet créé par l'union ou la différence de
+		deux faces, comme illustrés dans la
+		figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+		Le problème de cette approche est que ces contraintes sont exprimées
+		manuellement par l'utilisateur pour lequel plus un objet ce complexifie,
+		moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
+		Il est alors donc de prévoir et garantir la persistance de la nomination
+		avant que la spécification paramétrique ne soit éditée puis réévaluée et
+		que les problèmes de nomination et d'appariement apparaissent. %
 \end{itemize}
 
 \subsubsection*{Dai (2024) {\color{purple} Brouillon}}

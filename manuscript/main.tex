@@ -1,4 +1,3 @@
-% \documentclass[x11names,framed]{LiasThesis}
 \documentclass[x11names]{LiasThesis}
 
 \usepackage{subfiles}
@@ -51,9 +50,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \publishtrue %% Keep it commented until you have defended
+\publishtrue %% Keep it commented until you have defended
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \jurytrue %% Keep it commented until you have a jury
+\examboardtrue %% Keep it commented until you have a jury
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \titlelogoleft{logo_isae-ensma.pdf}
@@ -75,36 +74,40 @@
   Informatique et Applications}
 %
 \supervisor{%
-  David MARCHEIX, Xavier SKAPIN {\normalfont\footnotesize et} Stéphane JEAN}
+   David MARCHEIX, Xavier SKAPIN {\normalfont\footnotesize et} Stéphane JEAN}
 %
 \laboratory{%
-  Laboratoire d'Informatique et d'Automatique pour les Systèmes}
+  Laboratoire d'Informatique et d'Automatique pour les Systèmes (LIAS)}
 
 %
-\jury{%
-  \raggedright \color{red}
-  \underline{Président(e) :}\\[1mm]
-  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
-    Pays}\\%
-  \vspace{2em}%
-  \underline{Rapporteurs :}\\[1mm]
-  David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de Strasbourg}\\%
-  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
-    Pays}\\%
-  \vspace{2em}%
-  \underline{Membres du jury :}\\[1mm]
-  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
-    Pays}\\%
-  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
-    Pays}\\%
-  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
-    Pays}\\%
-  Prénom NOM \tabto{.35\textwidth} {\mdseries Grade, Établissement, Ville,
-    Pays}\\%
+\examboard{%
+  \raggedright
+  \underline{Présidente~:}\\[2mm]
+  Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
+    CentraleSupélec}\\%
+  \vspace{1em}%
+  \underline{Rapporteurs~:}\\[2mm]
+  David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
+    Strasbourg}\\[1mm]%
+  Guillaume DAMIAND \tabto{.35\textwidth} {\mdseries Directeur de recherche,
+    Université Claude Bernard}\\%
+  \vspace{1em}%
+  \underline{Membres du jury~:}\\[2mm]
+  Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
+    Université}\\[1mm]%
+  Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
+    Université de Poitiers}\\[1mm]%
+  Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de conférences,
+    Université de Poitiers}\\[1mm]%
+  Stéphane JEAN \tabto{.35\textwidth} {\mdseries Professeur, Université de
+    Poitiers}\\[1mm]%
+  David MARCHEIX \tabto{.35\textwidth} {\mdseries Maître de conférences,
+    Université de Poitiers}\\[1mm]%
+  Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de conférences,
+    Université de Poitiers}\\%
 }
 %
-\date{%
-  \color{red} DD décembre 2024}
+\date{\makebox[.2\textwidth]{\dotfill}}
 
 \begin{document}
 \maketitle
@@ -121,7 +124,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Style options : take a look at LaTeX memoir manual if you want %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapterstyle{plain}
+\chapterstyle{gaide}
 
 %%%%%%%%%% Chapitre introduction %%%%%%%%%%
 % \subfile{parts/introduction/introduction}

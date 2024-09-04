@@ -18,6 +18,7 @@
 \RequirePackage{tikz}
 \RequirePackage[french]{minitoc}
 \RequirePackage{tgtermes}
+\RequirePackage{datetime2}
 
 \usetikzlibrary{positioning,calc}
 
@@ -32,8 +33,8 @@
 \newtranslation[to = english]{Diplôme National}{National Degree}
 \newtranslation[to = french]{Decree of}{Arrêté du}
 \newtranslation[to = english]{Arrêté du}{Decree of}
-\newtranslation[to = french]{August 26, 2023}{26 Août 2023}
-\newtranslation[to = english]{26 Août 2023}{August 26, 2023}
+\newtranslation[to = french]{August 26, 2022}{26 Août 2022}
+\newtranslation[to = english]{26 Août 2022}{August 26, 2022}
 \newtranslation[to = french]{Doctoral School}{École Doctorale}
 \newtranslation[to = english]{École Doctorale}{Doctoral School}
 \newtranslation[to = french]{Field of Research}{Secteur de Recherche}
@@ -48,6 +49,8 @@
 \newtranslation[to = english]{Soutenue le}{Defended on}
 \newtranslation[to = french]{before the examination committee}{devant la Commission d'Examen}
 \newtranslation[to = english]{devant la Commission d'Examen}{before the examination committee}
+\newtranslation[to = french]{Examining Board}{Jury}
+\newtranslation[to = english]{Jury}{Examining Board}
 
 % \ifpdftex
 %   % Maybe issue pdftex logs
@@ -162,11 +165,11 @@
 }
 \laboratory{}
 
-%% NOMS et Prénoms membres du jury
-\DeclareRobustCommand\jury[1]{%
-	\gdef\@jury{#1}
+%% NOMS et Prénoms membres du comittee
+\DeclareRobustCommand\examboard[1]{%
+	\gdef\@examboard{#1}
 }
-\jury{}
+\examboard{}
 
 %% Logo établissement
 \DeclareRobustCommand*\titlelogoleft[1]{%
@@ -186,7 +189,7 @@
 
 %%%%%%%%%% Conditionals to make some renderings optional %%%%%%%%%%%%%%%%%%%%%%%
 \newif\ifpublish % This if macro prints defence/viva date
-\newif\ifjury % This if macro prints jury
+\newif\ifexamboard % This if macro prints exam board
 
 %%%%%%%%%% DevMacro to render block frames in you document %%%%%%%%%%%%%%%%%%%%%
 \newif\ifdev
@@ -225,7 +228,8 @@
 			\put(0,-\paperheight)
 			{\TitleFrame\TitleLogos}}
 		\begin{center}
-			\vspace*{.05\paperheight}
+			\vspace*{.02\paperheight}
+			% \vfill
 			{\huge\textbf{\translate{THÈSE}}}
 
 			\vspace{1em}
@@ -237,7 +241,7 @@
 			\textsc{\large\bfseries \translate{Docteur de l'} \@institute}
 
 			{\footnotesize (\translate{Diplôme National} - \translate{Arrêté du}
-				{\color{purple}\translate{26 Août 2023}})}
+			  \translate{26 Août 2022})}
 
 			\vspace{1em}
 
@@ -290,15 +294,16 @@
 
 			\vspace{2em}
 
-			\ifjury
+			\ifexamboard
 
-			{\large\bfseries\underline{JURY}}
+			{\large\bfseries\underline{\translate{Jury}}}
 
 			\vfill
 
-			{\raggedright{\bfseries\normalsize {\@jury}}}
+			{\raggedright{\bfseries\normalsize {\@examboard}}}
 			\fi
-			\vspace*{0.05\paperheight}
+			% \vspace*{0.05\paperheight}
+			% \vfill
 
 		\end{center}
 	\end{titlingpage}

@@ -334,7 +334,7 @@ et l'appariement. %
 
 
 
-\begin{figure}[htbp!]
+\begin{figure}[htb!]
 	\centering
 	\includegraphics[height=120pt]{entites-invariantes-contingentes}
 	\caption{Opération booléenne (différence) entre deux objets}
@@ -445,7 +445,7 @@ d'identifiant $3$, $ID_{chemin}$ est le chemin d'extrusion identifié par $3$ et
 où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 
 
-\begin{figure}[htbp!]
+\begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\textwidth]{extrusion-exemple}
 
@@ -526,7 +526,7 @@ de ses évolutions. %
 La seconde approche consiste en un mécanisme implicite de propagation des noms
 des ancêtres invariants sur les entités descendantes~\cite{CAPOYLEAS199617,wu2001face}. %
 
-Un exemple de construction explicite de graphe d'historique est celui proposé
+Un exemple de construction explicite de graphe d'historique est proposé
 par Kripac~\cite{kripac1995mechanism}. %
 Il propose une historisation des faces d'un objet à l'aide d'un graphe orienté
 acyclique (\emph{DAG} en anglais) pour représenter l'ensemble des changements
@@ -535,7 +535,7 @@ Dans ce DAG, un n\oe ud, appelé un \textit{FaceIdNode}, représente une face
 étiquetée $f_{m.n}$ où $m$ est l'étape de modélisation et $n$ l'index de la face
 à l'étape $m$. %
 
-\begin{figure}[htbp!]
+\begin{figure}[htb!]
 	\centering
 	\includegraphics[width=.6\textwidth]{kripac-faceid-graph}
 	\caption{DAG de suivi de face dans un modèle~\cite{kripac1995mechanism}}
@@ -556,16 +556,16 @@ $f_{4.1}$. %
 Au terme de la modélisation et parmi les faces du DAG, seules les faces
 $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
 
-\begin{figure}[htbp!]
+\begin{figure}[htb!]
 	\begin{subfigure}[t]{.45\textwidth}
 		\centering
-		\includegraphics[height=180pt]{wu-exemple-propagation-scission}
+		\includegraphics[height=150pt]{wu-exemple-propagation-scission}
 		\caption{Scission}
 		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
 	\end{subfigure}
 	\begin{subfigure}[t]{.45\textwidth}
 		\centering
-		\includegraphics[height=160pt]{wu-exemple-propagation-fusion}
+		\includegraphics[height=130pt]{wu-exemple-propagation-fusion}
 		\caption{Fusion}
 		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
 	\end{subfigure}
@@ -733,16 +733,15 @@ Wang (à lire) semble utiliser, entre autre, un calcul de gradient pour procéde
 à une caractérisation, puis une distinction, des entités topologiques dans la
 représentation géométrique. %
 
+
 \subsubsection{Systèmes de nominations persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
 
-\maxime{Dans cette section, nous proposons de décrire les différents systèmes
-	publiés et de présenter leurs avantages et limitations dans le cadre de la
-	réévaluation.} %
-
-
-\subsubsection*{Capoyleas et al.}
+Dans cette section, nous passons en revue certains des systèmes proposés dans la
+littérature comme solutions au problème de la nomination persistante. %
+Nous proposons ainsi, dans le cadre de la réévaluation de modèles paramétriques,
+de discuter de leurs avantages et de leurs limitations. %
 
 
 \subsection*{\color{purple}{(brouillon) Kripac}}
@@ -816,6 +815,141 @@ L'appariement s'appuie en partie sur le voisinage (pour rappel des faces) pour e
 Une limite de cette approche est le cas où tout le voisinage d'une entité serait modifié. %
 Dans ce cas, il n'est pas certain qu'il soit possible de poursuivre la réévaluation. %
 
+\subsubsection*{Capoyleas et al.}
+
+Les travaux de Capoyleas, complétés par Chen et intégrés dans le système
+\textit{Erep}~\cite{hoffmann1992erep,chen1995representation,CAPOYLEAS199617},
+proposent plusieurs schémas de nomination des entités topologiques basés sur les
+opérations~:
+\begin{itemize}
+	\item d'extrusion, de balayage et de révolution~;
+	\item booléennes~;
+	\item de modification d'entités.
+\end{itemize}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=80pt]{capoyleas-main-part}
+		\caption{Profil}
+		\label{fig:etat-art-reevaluation-systemes-capoyleas-main-part}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=130pt]{capoyleas-extruded-part}
+		\caption{Pièce extrudée}
+		\label{fig:etat-art-reevaluation-systemes-capoylease-extruded-part}
+	\end{subfigure}
+	\caption{Exemple de nomination d'entités topologique par Capoyleas}
+	\label{fig:etat-art-reevaluation-systemes-capoylease-generated-entities}
+\end{figure}
+
+Ce système propose que les entités issues d'une extrusion, des entités
+invariantes, soient nommées par rapport à leur ancêtre invariant dans le
+profil. %
+Prenons, l'exemple illustré dans la
+figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-generated-entities} et
+plus particulièrement le profil
+(figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-main-part}) et son
+extrusion
+(figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-extruded-part}). %
+Les entités du profil sont nommées par type d'entité et de manière incrémentale,
+prenons, par exemple, l'arête \(e_{1}\) et le sommet \(v_{3}\). %
+Suite à l'extrusion, la face de côté générée à partir de \(e_{1}\) est nommée
+\(f(e_{1})\) et l'arête générée à partir de \(v_{3}\) est nommée \(e(v_{3})\). %
+
+\begin{figure}[htb!]
+	\centering
+\includegraphics[height=150pt]{capoyleas-cut-part}
+	\caption{Résultat d'une différence entre deux objets par Capoyleas}
+	\label{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}
+\end{figure}
+
+Capoyleas et al. distinguent deux schémas de nomination en fonction de si une
+entité contingente, créées à l'issue d'une opération booléenne, a une source ou
+non. %
+Prenons l'exemple de la différence entre un bloc et un cylindre illustré dans la
+figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
+Si une entité est créée avec source, alors cela signifie qu'elle a déjà un nom
+qu'elle conserve dans l'objet produit par l'opération. %
+Ce cas est illustré par les arêtes \(e_{5}\), \(\hat{e_{5}}\) et la face
+\(f(e_{5})\) issues du cylindre et qui partagent, au moins en partie, les
+plongements géométriques des arêtes \(e_{3}\), \(\hat{e_{3}}\) et \(f(e_{3})\),
+respectivement. %
+Autrement, si une entité est créée sans source (des sommets et des arêtes, en
+3D), alors elles sont nommées avec les noms (non uniques) \(I_v\) pour les
+sommets et \(I_e\) pour les arêtes. %
+
+Enfin, si les entités sont modifiées par des opérations telles que le chanfrein
+ou l'arrondi, celles-ci sont nommées d'après l'opération. %
+Par exemple, \(c(e)\) et \(c(l_{e})\) sont les entités créées l'opération de
+chanfrein où \(e\) est une arête et \(l_{e}\) une liste d'arêtes. %
+De la même manière, \(a(e)\) est une entité créée par l'opération d'arrondi. %
+
+Pour résoudre les collisions dans les noms, les auteurs proposent de
+caractériser chacune des entités qui partagent un même nom à l'aide d'un
+contexte topologique, c'est-à-dire une structure décrivant le voisinage d'une
+entité \(r\). %
+Un contexte contient un ensemble de classes d'équivalences, notés d'après le
+schéma suivant~:
+\[[distance,nomEntite,nbOccurence]\] %
+Précisons que \(nbOccurence\) représente le nombre d'entités qui partagent le
+même nom et la même distance dans le voisinage. %
+Le contexte est étendu de cette manière jusqu'à trouver une classe d'équivalence
+unique qui permette alors de discriminer une entité dont le nom est partagé. %
+Prenons, par exemple, les deux arêtes \(I_e\) de la
+figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
+À terme, pour la première entité \(I_{e}\), nous obtenons~:
+\begin{flalign*}
+	I_{e}&: \\
+	&[0,I_{e},1],\\
+	&[1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],\\
+	&[2,\mathbf{e(v_{4})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
+\end{flalign*}
+et pour la seconde~:
+\begin{flalign*}
+	I_{e}&: \\
+	&[0,I_{e},1],\\
+	&[1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],\\
+	&[2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
+\end{flalign*}
+Ainsi, la première arête \(I_{e}\) est identifiée par l'arête \(e(v_{4})\) et la
+seconde est identifiée par l'arête \(e(v_{3})\). %
+
+Toutefois, cette approche basée sur le voisinage topologique peut ne plus
+suffire, par exemple à cause d'intersections de surfaces non-planaires. %
+Pour répondre à cette problématique, les auteurs proposent un schéma de
+nomination persistante des sommets et arêtes d'après leurs faces adjacentes,
+leur orientation locale (dans leur voisinage) et leur orientation globale (dans
+l'objet). %
+
+Le nom persistant d'une arête d'intersection est~:
+\[E_{a} = [FacesIncidentes_{a}, OrientationLocale_{a}, OrientationGlobale_{a}]\]
+où \(FacesIncidentes_{a}\) est la liste (cyclique) des faces incidentes à
+\(E_{a}\) et où \(OrientationLocale_{a}\) et \(OrientationGlobale_{a}\) sont des
+informations géométriques qui décrivent l'orientation de \(E_{a}\) par rapport à
+ses faces adjacentes dans l'objet.
+
+Le nom persistant d'un sommet d'intersection est~: %
+\[E_{s} = [FacesIncidentes_{s},OrientationLocale_{s},OrientationGlobale]\] %
+où \(\mathit{FacesIncidentes_{s}}\) est la liste (cyclique) des faces incidentes
+à \(E_{s}\) et où \(\mathit{OrientationLocale_{s}}\) et
+\(\mathit{OrientationGlobale_{s}}\) sont des informations géométriques qui
+décrivent l'orientation de \(E_{s}\) dans l'objet à condition que celui-ci soit
+orientable. %
+
+Le système de nomination persistante proposé par Capoyleas et al. est un système
+basé sur les faces puisque celles-ci ont nécessairement un ancêtre invariant. %
+L'inconvénient d'un tel système, comme évoqué précédemment, est qu'il est
+difficile, voire impossible à généraliser pour toutes les dimensions. %
+En dimension supérieure, les faces peuvent être des entités sans source ce qui
+impliquerait de définir un autre type d'entité comme base de la nomination
+persistante. %
+De plus, la nomination des entités n'est pas homogène puisque les faces,
+contrairement aux arêtes et sommets, sont uniquement caractérisées d'après le
+nom de leur ancêtre quand elles en ont un. %
+
 \subsubsection*{Wu et al. }
 
 \subsubsection*{Agbodan }
@@ -829,89 +963,95 @@ Dans ce cas, il n'est pas certain qu'il soit possible de poursuivre la réévalu
 \subsubsection*{Cascaval  {\color{purple} à corriger}}
 %% Contexte
 
-Dans Cascaval (2023), les auteurs proposent de répondre au problème du
-référencement d'éléments géométriques dans les opérations de modélisation
-et placent leurs travaux dans un contexte défini par les concepts suivants :
+Dans leurs travaux~\cite{cascaval2023lineage}, Cascaval et al. proposent de
+répondre au problème de la nomination persistante dans les opérations de
+modélisation et placent leurs travaux dans un contexte défini par les concepts
+suivants :
 \begin{itemize}
 	\item Un modèle paramétrique est une fonction prenant des paramètres
-	      géométriques et scalaires.
-	\item Une référence peut être obtenue grâce à une requête sur un élément
-	      géométrique.
-	\item Les types géométriques traités sont les point, segment (ligne ou
-	      arc), polygone (conceptuellement une face sans trou) et face (un
-	      élément produit à partir d'un ou plusieurs polygones).
+				topologiques et géométriques.
+	\item Un nom persistant peut être obtenu grâce à une requête sur une entité
+				topologique.
+	\item Les types géométriques traités sont les point, segment (ligne ou arc),
+				polygone (conceptuellement une face sans trou) et face (un élément bordé
+				par un ou plusieurs polygones).
 \end{itemize}
 
-Dans ce contexte, un langage conçu pour la CAO doit respecter trois propriétés :
+Cascaval et al. présentent les propriétés qu'un langage conçu pour la CAO
+devrait, selon eux, respecter~:
 \begin{itemize}
-	\item il ne doit pas introduire de discontinuité dans le référencement d'une
-	      géométrie,
-	\item il doit permettre la sélection de tout ou partie d'un ensemble d'éléments
-	      géométrique résultant de la partition d'une géométrie passée en entrée d'une
-	      opération,
-	\item l'utilisateur doit pouvoir exclure des configurations topologiques des modèles
+	% \item il ne doit pas introduire de discontinuité dans le référencement d'une
+	%       géométrie,
+	\item il doit permettre la sélection de tout ou partie d'un ensemble d'entités
+				topologiques issues de la partition d'une entité passée en entrée
+				d'une opération,
+	\item il doit permettre d'exclure des configurations topologiques des modèles
 	      en sortie du programme afin de saisir l'intention de conception
 \end{itemize}
 
 %% Contribution
 
 Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
-conception de modèles paramétriques mettant en œuvre un système de généalogie
-avec une sémantique permettant de décrire avec une certaine précision les
-relations entre divers éléments géométrique respectivement en entrées et en
-sortie d'une opération. Dans ce langage, une référence est définie par un
-utilisateur qui crée une requête sur un élément géométrique. Ces requêtes
-peuvent présenter, de manière explicite, des contraintes liées à cette
-généalogie afin de capturer précisément les intentions de modélisation de
-l'utilisateur.
+modélisation paramétrique qui met en œuvre un système de généalogie permettant
+de décrire les relations ancêtre/descendant entre plusieurs entités topologiques
+en entrées et en sortie d'une opération de modélisation. %
+Dans ce langage, un nom persistant est définie par un utilisateur, pendant la
+conception de spécification paramétrique, à l'aide d'une requête sur une entité
+topologique. %
+Ces requêtes peuvent exprimer des contraintes sur l'évolution d'une entité
+topologique afin de capturer précisément les intentions de modélisation. %
 
 %% Explication de la sémantique
 
-À cette fin, trois relations sont définies : la relation de transformation, de sous-ensemble et de dérivation.
-\begin{itemize}
-	\item  La relation de transformation établie un lien direct entre un élément en
-	      entrée et en sortie à travers une opération. En effet, les opérations
-	      telles que la rotation et la translation ne créent rien de nouveau que
-	      ce soit en termes de géométrie ou de topologie. Seuls les paramètres
-	      géométriques (grandeur, position, …) sont modifiés.
-	      {\color{red}accompagner d'une illustration pour servir d'exemple}
-	\item La relation de sous-ensemble établie un lien entre un ensemble
-	      d'éléments en entrée d'une opération et un élément en sortie. Il s'agit,
-	      typiquement dans les opérations de CSG, de faire le lien entre, par
-	      exemple deux arêtes qui s'intersectent et un sommet résultat de cette
-	      intersection.
-		      {\color{red}accompagner d'une illustration pour servir d'exemple}
-	\item La relation de dérivation, elle, établie plusieurs liens entre de la
-	      géométrie existante et de la géométrie nouvellement créée. Prenons le
-	      cas du chanfrein sur un sommet présenté par les auteurs. Lorsque
-	      l'opération de chanfrein est appliquée, une arête est créée à partir
-	      d'un sommet, il s'agit du premier lien établi. Il faut ensuite faire la
-	      distinction entre les deux sommets aux extrémités de cette arête. Pour
-	      cela, la relation de dérivation établit un lien entre l'un des deux
-	      sommets une arête adjacente pré-existante.
-	      {\color{red}accompagner d'une illustration pour servir d'exemple}
-\end{itemize}
-
-%% Principe et fonctionnement des requêtes
-
-% \todo{Dire qu'ils travaillent sur des objets principalement 2D avec des
-% 	opérations principalement 2D~; ambiguïté topologique réduite en 2D~; passage en
-% 	3D implique voisinages topologiques plus complexes $\to$ problème de nommage plus
-% 	complexe aussi $\Rightarrow$ par exemple en 2D le bord d'un objet est délimité par des
-% 	arêtes, en 3D, il s'agit d'un ensemble d'éléments et l'appariement n'est pas «~tout
-% 	ou rien~» on peut se retrouver avec la trace de seulement une partie d'un objet
-% 	en cas, par exemple, d'une intersection entre deux objets.}
+À cette fin, trois relations sont définies entre les entités topologiques en
+entrée et en sortie des opérations de modélisation~: (1) la relation de
+transformation~; (2) de sous-ensemble~; (3) de dérivation.
+\begin{enumerate}
+	\item La relation de transformation établie un lien direct entre deux entités,
+				respectivement en entrée et en sortie, lorsque l'opération ne modifie
+				pas la topologie de l'objet et qu'il existe une bijection entre les
+				éléments en entrée et en sortie, par exemple, dans une translation ou
+				une rotation. %
+				% En effet, les opérations telles que la rotation et la translation ne
+				% créent rien de nouveau que ce soit en termes de géométrie ou de topologie. %
+				% Seuls les paramètres géométriques (grandeur, position, …) sont modifiés. %
+				{\color{red}accompagner d'une illustration pour servir d'exemple}
+	\item La relation de sous-ensemble établie un lien entre deux entités
+				topologiques en entrée et en sortie d'opérations ensemblistes telles que
+				les opérations booléennes. %
+				Il s'agit, typiquement dans les opérations booléennes, de faire le lien
+				entre, par exemple, deux faces et l'arête qui descend de l'intersection
+				de ces deux faces. %
+				{\color{red}accompagner d'une illustration pour servir d'exemple}
+	\item La relation de dérivation établie un lien entre une entité topologique
+				existante et une entité topologique créée par une opération. %
+				Dans l'exemple du chanfrein de sommet illustré dans la figure~\ref{}, un
+				lien de dérivation est créé entre le sommet de D et l'arête créée sur E. %
+				De la même façon, des liens de dérivation sont créés entre ce sommet et
+				les deux sommets créés sur E. %
+				Ces deux sommets ayant de fait exactement les mêmes liens de dérivation,
+				Cascaval et al. posent deux contraintes sur la construction de ces lien
+				de dérivation~: (1) \todo{voir article}~; (2) \todo{voir article}. %
+				Afin de vérifier la première contrainte, ils proposent donc d'ajouter un
+				lien de dérivation entre les arêtes adjacentes au sommet chanfreiné et
+				les sommets correspondants sur E (figure~\ref{}). %
+				{\color{red}accompagner d'une illustration pour servir d'exemple}
+\end{enumerate}
 
 L'outil développé par Cascaval et al. permet de travailler principalement sur
 des objets 2D avec des opérations principalement 2D. %
 Le passage à la 3D implique que le traitement des voisinages topologiques sera
 nécessairement plus complexe. %
 Prenons, par exemple, le bord d'un objet. %
-En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
-peut être délimité par un ensemble d'éléments (des arêtes, des faces, …) et
-l'appariement n'est pas «~tout ou rien~», c'est-à-dire que l'on peut se
-retrouver avec la trace de seulement une partie d'un objet en cas, par exemple,
-d'une intersection entre deux objets. %
+
+
+{\color{red}(pas clair!)%
+	En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
+	peut être délimité par des faces et des arêtes et l'appariement des entités
+	topologiques n'est pas «~tout ou rien~», c'est-à-dire que l'on peut se retrouver
+	avec la trace de seulement une partie d'un objet en cas, par exemple, d'une
+	intersection entre deux objets. %
+}
 
 Une requête, un ensemble de clauses logiques avec des notions d'ensembles,
 permet de définir une référence à partir d'un élément géométrique. %

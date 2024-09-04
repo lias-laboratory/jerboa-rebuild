@@ -348,7 +348,7 @@ Intuitivement, un chemin est une suite d'arcs consécutif. %
 	\begin{subfigure}[t]{.5\textwidth}
 		\centering
 		\includegraphics[height=90pt]{graphe-etiquete-cycle-v2}
-		\caption{Graphe $G'$ avec un cycle depuis $d$}
+		\caption{Graphe $G'$ avec un cycle}
 		\label{fig:etat-art-model-regle-cycle}
 	\end{subfigure}
 	\caption{Chemin et cycle dans un graphe}
@@ -360,7 +360,6 @@ Dans la Figure~\ref{fig:etat-art-model-regle-chemin-cycle}, nous illustrons à p
 Le graphe $G$ présente plusieurs chemins dont $e_{1},e_{2}$ dont les n\oe ud $a$ et $b$ sont la source et la cible respectivement. %
 Ce chemin est lui-même compris dans le chemin $e_{4}, e_{1}, e_{2}$ dont le n\oe ud $d$ est la source. %
 Le graphe $G'$ contient la boucle $e_{1},e_{2},e_{3},e_{4}$ dont le n\oe ud $a$ est à la fois la source et la cible. %
-\todo{$G'$ remettre les mêmes couleurs et noms de dans $G$}
 
 
 % Un morphisme $m$ entre deux graphes $G$ et $G'$, est une application
@@ -617,10 +616,10 @@ atteignables par des liaisons $0$ et $2$. %
 \subsection[Langage Jerboa]{Langage Jerboa}
 \label{sec:etat-art-model-regles-lang-jerboa}
 
-\todo{Dans cette thèse, on ne s'intéresse qu'à un aspect purement topologique
-	des règles de transformation. Toutefois, j'y présente tout de même la notion
-	de plongement pour que le lecteur comprenne où se pose la géométrie dans tout
-	ça.}
+% \todo{Dans cette thèse, on ne s'intéresse qu'à un aspect purement topologique
+% 	des règles de transformation. Toutefois, j'y présente tout de même la notion
+% 	de plongement pour que le lecteur comprenne où se pose la géométrie dans tout
+% 	ça.}
 
 Dans la section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
 cartes généralisées comme des graphes étiquetés vérifiant certaines
@@ -633,15 +632,15 @@ temps. %
 Tout d'abord, nous présentons les règles de transformation de graphe et les
 concepts nécessaires à leurs mises en \oe uvre. %
 Ensuite, nous étendons ces concepts aux règles de transformation de graphe
-Jerboa \cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological} pour terminer avec les scripts de règles
-\cite{gauth2019}. %
+Jerboa~\cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological}. %
+Enfin, nous terminons avec les scripts de règles~\cite{gauth2019}. %
 
 \subsubsection[Règles de transformation de graphe]{Règles de transformation de graphe}
 \label{sec:etat-art-model-regles-lang-jerboa-regles-inst}
 
 % Les règles de transformation de G-cartes sont les règles instanciées de Jerboa.
 
-Les règles de transformation de graphe (définition~\ref{def:regle-transformation-graphe}) permettent de construire des objets représentés par des G-cartes.
+Les règles de transformation de graphe (définition~\ref{def:regle-transformation-graphe} page~\pageref{def:regle-transformation-graphe}) permettent de construire des objets représentés par des G-cartes.
 
 Des conditions syntaxiques sur les règles définies dans
 \cite{poudr2009,pascual2022topological} permettent de garantir la préservation
@@ -723,7 +722,8 @@ ce, indépendamment de l'objet. %
 	$G\orbit{\omega}(v) \cap m(L) = \emptyset$, ou \emph{partiellement filtrée} par $m$ dans les
 	autres cas. %
 
-	L'orbite $L\orbit{\omega}(n)$ est \emph{complète} si pour tout n\oe ud $n'$ de $L\orbit{\omega}(n)$ et toute étiquette $i$ de $\orbit{\omega}$, $n'$ est la source d'un $i$-arc \maxime{\st{implicite ou explicite}}. %
+	L'orbite $L\orbit{\omega}(n)$ est \emph{complète} si pour tout n\oe ud $n'$ de $L\orbit{\omega}(n)$ et toute étiquette $i$ de $\orbit{\omega}$, $n'$ est la source d'un $i$-arc% \maxime{\st{implicite ou explicite}}
+	. %
 \end{definition}
 
 \begin{remarque}
@@ -733,6 +733,64 @@ ce, indépendamment de l'objet. %
 \subsubsection[Règles Jerboa]{Règles Jerboa}
 \label{sec:etat-art-model-regles-regles-jerboa}
 
+Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation des contraintes des G-cartes lors des transformations directes~\cite{pascual2022topological}.
+
+\begin{theoreme}[Préservation de la cohérence topologique des règles
+		Jerboa]\label{thm:preservation-coherence-topo-regles}%
+	Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$ un morphisme de filtrage.
+
+	La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit
+	une G-carte si les conditions de préservation de la cohérence suivantes sont
+	vérifiées :
+	\begin{itemize}
+		\item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
+		\item \emph{condition d'arcs incidents} : pour toute dimension
+		      $i \in [0, n]$, la condition d'arcs incidents est celle des règles de
+		      base en considérant simultanément les arcs implicites et
+		      explicites~:
+		      \begin{itemize}
+			      \item un n\oe ud préservé de $L \cap R$ est source d'un $i$-arc dans
+			            $L$ (implicite ou explicite) si et seulement s'il est
+			            source d'un $i$-arc dans $R$ (implicite ou explicite)~;
+			      \item tout n\oe ud supprimé de $L \setminus R$ et tout n\oe ud ajouté de
+			            $R \setminus L$ est la source d'exactement un $i$-arc (implicite
+			            ou explicite) ;
+		      \end{itemize}
+		      \vspace{3pt}
+		      où pour toute dimension $i$, un n\oe ud $v$ est source d'un arc implicite d'étiquette $i$
+		      si l'étiquette d'orbite de $v$ comprend $i$~;
+		      \vspace{3pt}
+		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que
+		      $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les
+		      cycles ayant des arcs implicites ou explicites :
+		      \begin{itemize}
+			      \item un n\oe ud créé $v$ de $R \setminus L$ est la source d'un $ijij$-cycle ;
+			      \item si un n\oe ud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans
+			            $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;
+			      \item si un n\oe ud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle
+			            dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont
+			            préservés dans $R$.
+		      \end{itemize}
+		      \vspace{3pt}
+		      où un n\oe ud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
+		      \begin{itemize}
+			      \item $v$ est un n\oe ud de $L$ qui contient $i$ et $j$ dans son
+			            étiquette d'orbite ;
+			      \item $v$ est un n\oe ud de $R$ qui contient $i$ et $j$ dans son
+			            étiquette d'orbite et que ces dernières renomment un cycle
+			            de $L$, c'est-à-dire tel qu'il existe un n\oe ud $v'$ de $L$
+			            avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
+			            $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
+			      \item $v$ est la source d'un $i$-arc explicite de cible $v'$ (dans $L$ ou
+			            $R$) tel que les deux n\oe uds $v$ et $v'$ ont $j$ dans leurs
+			            étiquettes d'orbite non renommé, c'est-à-dire tel que
+			            $l(v) \mapsto l(v') (j) = j$ ;
+			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$
+			            tel que les deux n\oe uds $v$ et $v'$ ont $i$ dans leurs
+			            étiquettes d'orbites non renommés ;
+		      \end{itemize}
+	\end{itemize}
+\end{theoreme}
 
 La règle que nous avons vu plus tôt
 (Figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}) est dite
@@ -884,12 +942,9 @@ Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
 			\subcaption{\centering Instanciation de $M2$}
 			\label{fig:etat-art-modelisation-base-regle-quad-motif-m2}
 		\end{minipage}
-
-		~
-
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
-			)			\includegraphics[width=.5\textwidth]{instanciation-motif-m3}
+			\includegraphics[width=.5\textwidth]{instanciation-motif-m3}
 			\subcaption{\centering Instanciation de $M3$}
 			\label{fig:etat-art-modelisation-base-regle-inst-quad-motif-m3}
 		\end{minipage}
@@ -923,8 +978,7 @@ dual de la face d'instanciation, car les liaisons $0$ et $1$ sont renommées
 respectivement en $1$ et $2$. %
 L'instanciation de $M4$ Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-motif-m4} est une
 triangulation de la face d'instanciation, où les brins $a_0, b_0\dots$ en jaune
-sont les instanciations du n\oe ud $n0$, les brins $a_1,b_1,\dots$ en vert sont les
-instanciation du n\oe ud $n1$ et les brins $a_2,b_2,\dots$ en bleu sont les
+sont les instanciations du n\oe ud $n0$, les brins $a_1,b_1,\dots$ en vert sont les instanciations du n\oe ud $n1$ et les brins $a_2,b_2,\dots$ en bleu sont les
 instanciations du n\oe ud $n2$. L'arc explicite entre $n0$ et $n1$ dans le motif
 $M4$ produit les $1$-liaisons entre les brins jaune et vert et l'arc explicite
 entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
@@ -943,7 +997,7 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=0.9\linewidth]{inst-tri-face.pdf}
-			\subcaption{\centering Instanciation de $M1$\todo{indices 0 pour les brins}}
+			\subcaption{\centering Instanciation de $M1$}
 			\label{fig:jerboa-tri-before-triangulation}
 		\end{minipage}
 		\hfill
@@ -953,9 +1007,6 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 			\subcaption{\centering Instanciation de $M2$}
 			\label{fig:inst-tri-triangulation-1}
 		\end{minipage}
-
-		~
-
 		\begin{minipage}[t]{.34\textwidth}
 			\centering
 			\includegraphics[width=.5\textwidth]{inst-tri-motif-m3}
@@ -1023,7 +1074,41 @@ directe. %
 Par exemple, le morphisme de filtrage qui associe l'unique n\oe ud $n0$ du motif gauche de la règle de triangulation (Figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}) au brin $b$ de la G-carte $G$ (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}. %
 Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-carte $G$ définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-tri-before-triangulation}.
 
-\todo{donner la règle de couture entre deux faces et commenter la contrainte d'isomorphisme (cube + pyramide).}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=50pt]{rule-sewA3}
+	\caption{Règle de coutures de faces}
+	\label{fig:etat-art-modelisation-base-regle-jerboa-regle-couture-faces}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+
+	\caption{Tentative de coudre un cube avec un tétraèdre}
+	\label{fig:etat-art-modelisation-base-regle-jerboa-couture-impossible}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+
+	\caption{Tentative de coudre un cube avec un tétraèdre}
+	\label{fig:etat-art-modelisation-base-regle-jerboa-couture-cube-pyramide}
+\end{figure}
+
+La règle illustrée dans
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-couture-faces})
+connecter deux faces ensemble par leurs \(3\)-arcs. %
+Intuitivement, nous pourrions souhaiter connecter deux faces quelconques
+ensembles. %
+Pourtant, comme nous pouvons le voir dans la
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-impossible}, il
+est impossible de connecter deux faces qui ne seraient pas isomorphes (à
+renommage près). %
+Au contraire, si chacune des faces instanciées sont isomorphes, alors la couture
+est possible, comme dans la
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-cube-pyramide}. %
+
 
 \begin{definition}[Filtrage de l'orbite d'instanciation]\label{def:filtrage-orbite-instanciation}%
 	Le morphisme de filtrage $m : L(O) \rightarrow G$, s'il existe, est le morphisme qui
@@ -1047,11 +1132,21 @@ Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-c
 
 \begin{remarque}
 	Si le morphisme de filtrage $m$ existe, il est unique en raison de la
-	contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte} page~\pageref{def:gcarte}) et
-	de la condition d'arc incident du motif $L$ comme nous le verrons dans le Théorème~\ref{thm:preservation-coherence-topo-regles}.
+	contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte}
+	page~\pageref{def:gcarte}) et de la condition d'arc incident du motif $L$
+	(voir le Théorème~\ref{thm:preservation-coherence-topo-regles} page~\pageref{thm:preservation-coherence-topo-regles}).
 \end{remarque}
 
-\todo{Donner les deux morphismes de filtrage sur les exemples carré + triangle}
+Prenons une face du cube et une face du tétraèdre de la
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-impossible}
+comme exemples. %
+Lorsque nous appliquons la règle de couture à ces faces, conformément à la
+contrainte d'arc incident, pour tout brin appartenant à une même
+\(\orbit{0,1,3}\)-orbite, la face filtrée sera toujours la même. %
+Par exemple, pour tout brin de \(G\orbit{0,1,3}(a_{0})\), nous obtenons le
+morphisme \(n0 \mapsto {a_{0},b_{0}\dots h_{0}}\) et pour tout brin de
+\(G\orbit{0,1,3}(i_{0})\), nous obtenons le morphisme
+\(n0 \mapsto {o_{0},p_{0}\dots t_{0}}\). %
 
 \begin{definition}[Instanciation d'une règle Jerboa]\label{def:instanciation-regle-jerboa}%
 	L'\emph{instanciation} de la règle $r: L \longrightarrow R$ le long d'un morphisme de
@@ -1084,70 +1179,13 @@ Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H
 
 \todo{Donner l'exemple de la transformation directe de l'objet de départ G-carte G ---> H avec brins annotés a0,b0… (que la triangulation du carré)}
 
-Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation des contraintes des G-cartes lors des transformations directes~\cite{pascual2022topological}.
-
-\begin{theoreme}[Préservation de la cohérence topologique des règles
-		Jerboa]\label{thm:preservation-coherence-topo-regles}%
-	Soit une règle $r~: L \longrightarrow R$, $G$ une G-carte et $\underline{m} : \underline{L} \rightarrow G$ un morphisme de filtrage.
-
-	La transformation directe $G \xlongrightarrow{r, \underline{m}} H$ produit
-	une G-carte si les conditions de préservation de la cohérence suivantes sont
-	vérifiées :
-	\begin{itemize}
-		\item \emph{condition de non orientation} : $L$ et $R$ sont non orientés ;
-		\item \emph{condition d'arcs incidents} : pour toute dimension
-		      $i \in [0, n]$, la condition d'arcs incidents est celle des règles de
-		      base en considérant simultanément les arcs implicites et
-		      explicites~:
-		      \begin{itemize}
-			      \item un n\oe ud préservé de $L \cap R$ est source d'un $i$-arc dans
-			            $L$ (implicite ou explicite) si et seulement s'il est
-			            source d'un $i$-arc dans $R$ (implicite ou explicite)~;
-			      \item tout n\oe ud supprimé de $L \setminus R$ et tout n\oe ud ajouté de
-			            $R \setminus L$ est la source d'exactement un $i$-arc (implicite
-			            ou explicite) ;
-		      \end{itemize}
-		      \vspace{3pt}
-		      où pour toute dimension $i$, un n\oe ud $v$ est source d'un arc implicite d'étiquette $i$
-		      si l'étiquette d'orbite de $v$ comprend $i$~;
-		      \vspace{3pt}
-		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que
-		      $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les
-		      cycles ayant des arcs implicites ou explicites :
-		      \begin{itemize}
-			      \item un n\oe ud créé $v$ de $R \setminus L$ est la source d'un $ijij$-cycle ;
-			      \item si un n\oe ud préservé de $L \cap R$ est la source d'un $ijij$-cycle dans
-			            $L$, alors il est la source d'un $ijij$-cycle dans $R$ ;
-			      \item si un n\oe ud préservé de $L \cap R$ n'est pas la source d'un $ijij$-cycle
-			            dans $L$, alors les $i$-arcs et $j$-arcs dont il est la source dans $L$ sont
-			            préservés dans $R$.
-		      \end{itemize}
-		      \vspace{3pt}
-		      où un n\oe ud $v$ est la source d'un $ijij$-cycle avec $i+2 \geq j$ si :
-		      \begin{itemize}
-			      \item $v$ est un n\oe ud de $L$ qui contient $i$ et $j$ dans son
-			            étiquette d'orbite ;
-			      \item $v$ est un n\oe ud de $R$ qui contient $i$ et $j$ dans son
-			            étiquette d'orbite et que ces dernières renomment un cycle
-			            de $L$, c'est-à-dire tel qu'il existe un n\oe ud $v'$ de $L$
-			            avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
-			            $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
-			      \item $v$ est la source d'un $i$-arc explicite de cible $v'$ (dans $L$ ou
-			            $R$) tel que les deux n\oe uds $v$ et $v'$ ont $j$ dans leurs
-			            étiquettes d'orbite non renommé, c'est-à-dire tel que
-			            $l(v) \mapsto l(v') (j) = j$ ;
-			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$
-			            tel que les deux n\oe uds $v$ et $v'$ ont $i$ dans leurs
-			            étiquettes d'orbites non renommés ;
-		      \end{itemize}
-	\end{itemize}
-\end{theoreme}
 
 \begin{remarque}
 	Les règles instanciées sont aussi des règles Jerboa sur l'orbite vide $\orbit{}$.
 \end{remarque}
 
-La définition~\ref{def:etat-art-modelisation-base-regle-orbite-complete} s'étend naturellement sur les règles Jerboa. %
+Enfin, la définition~\ref{def:etat-art-modelisation-base-regle-orbite-complete}
+s'étend naturellement sur les règles Jerboa. %
 
 \begin{definition}[Orbite complète et entièrement filtrée]
 	Soient $G$ une G-carte, $\underline{m} : \underline{L} \to G$ un morphisme de

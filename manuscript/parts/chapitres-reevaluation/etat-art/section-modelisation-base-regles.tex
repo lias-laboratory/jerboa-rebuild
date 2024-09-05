@@ -24,8 +24,19 @@
 % faces, arêtes et sommets lorsque le modèle de représentation est en dimension
 % 3. %
 % De tels graphes sont appelés des graphes topologiques. %
-
-\todo{graphe topo -> étiqueté : étiquettes arcs et n\oe uds $\alpha \to l_{E}$, dans le cadre de cette thèse on s'intéresse exclusivement à la partie topo donc on omet les étiquettes de n\oe uds $l_{V}$ qui représente les plongements (citer Thomas et Romain) }
+Afin de formaliser la représentation et la transformation d'objets issus d'un
+processus de modélisation géométrique, nous nous intéressons à leur
+représentation sous la forme de \emph{graphes
+	topologiques}% ~\cite{pascual2022inference}
+. %
+Les graphes dits topologiques appartiennent à la catégories des graphes
+étiquetés, c'est-à-dire des graphes dont chaque n\oe ud est porteur d'une
+information de dimension, et dont les n\oe uds sont porteurs d'information
+géométrique. %
+Toutefois, les travaux présentés dans cette thèse traitent les objets d'après
+leur topologie. %
+Ainsi, pour le reste de ce manuscrit, nous omettons les étiquettes de n\oe uds \(l_{v}\)
+qui représentent les plongements.
 
 \begin{definition}[Graphe étiqueté]
 	\label{def:graphe-etiquete}
@@ -263,25 +274,29 @@ la différence entre deux graphes. %
 	\label{fig:etat-art-model-regle-ensemble-graphes}
 \end{figure}
 
-\todo{réadapter le paragraphe à la figure + commentaire pour union disjointe}
 De tels graphes, issus de l'union, l'intersection de deux graphes distincts sont
 présentés dans la Figure~\ref{fig:etat-art-model-regle-ensemble-graphes}. %
 Dans le cas de l'union de $G$ avec $G'$
-(Figure~\ref{fig:etat-art-model-regle-ensemble-graphe-union-g-gprime}), les
-n\oe uds $a$ et $b$ de $G$ sont associés respectivement aux n\oe uds $e$ et $f$ de $G'$ et les
-n\oe uds $m, n, o$ de $G'$, sont ajoutés avec leurs arcs $e_{12}, e_{13}$
-dans le graphe résultat $G \cup G'$. %
-L'intersection de $G$ et $G'$
-(Figure~\ref{fig:etat-art-model-regle-ensemble-graphe-inter-g-gprime}), quant a
-elle, retourne un graphe constitué des seuls n\oe uds $a,b$ et arc $e_{2}$ de $G$ car
-ils sont associés, par leurs étiquettes, aux n\oe uds $e,f$ et l'arc $e_{9}$ de
-$G'$. %
-Notons que la différence entre deux graphes peut produire une structure qui
-n'est pas un graphe. %
+(figure~\ref{fig:etat-art-model-regle-ensemble-graphe-union-g-gprime}), les n\oe
+uds $a$ et $b$ de $G$ sont associés respectivement aux n\oe uds $a$ et $e$ de
+$G'$ et les n\oe uds $m, n, o$ de $G'$, sont ajoutés avec leurs arcs $e_{5}$,
+$e_{6}$ et $e_{7}$ dans $G \cup G'$. %
+Le graphe $G \cap G'$
+(figure~\ref{fig:etat-art-model-regle-ensemble-graphe-inter-g-gprime}) est
+constitué uniquement des n\oe uds $a,b$ et de l'arc $e_{2}$ de $G$, car ils sont
+associés, par leurs étiquettes, aux n\oe uds $a,b$ et l'arc $e_{1}$,
+respectivement, de $G'$. %
+La différence entre deux graphes peut produire une structure qui n'est pas un
+graphe. %
 Par exemple, la structure illustrée dans la
 Figure~\ref{fig:etat-art-model-regle-ensemble-graphe-diff-g-gprime} présente
-deux arcs $e_{1}$ et $e_{3}$ dits pendants, c'est-à-dire des arcs auxquels il manque
-au moins un n\oe ud source et/ou cible. %
+deux arcs $e_{1}$ et $e_{3}$ dits pendants, c'est-à-dire des arcs auxquels il
+manque au moins un n\oe ud source et/ou cible. %
+Le graphe $G \sqcup G''$
+(figure~\ref{fig:etat-art-model-regle-ensemble-graphe-squnion-g-gseconde}) est
+constitué de l'union $G$ et $G'$ privée de leurs intersection. %
+Dans ce cas-ci, $G$ et $G''$ sont tous deux entièrement compris dans l'union
+disjointe puisque leur intersection est vide. %
 
 Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 
@@ -355,8 +370,8 @@ Intuitivement, un chemin est une suite d'arcs consécutif. %
 	\label{fig:etat-art-model-regle-chemin-cycle}
 \end{figure}
 
-Dans la Figure~\ref{fig:etat-art-model-regle-chemin-cycle}, nous illustrons à partir de $G$ (Figure~\ref{fig:etat-art-model-regle-chemin}) et $G'$
-(Figure~\ref{fig:etat-art-model-regle-cycle}) ce que sont un chemin et un cycle. %
+Dans la Figure~\ref{fig:etat-art-model-regle-chemin-cycle}, nous illustrons à partir de $G$ (figure~\ref{fig:etat-art-model-regle-chemin}) et $G'$
+(figure~\ref{fig:etat-art-model-regle-cycle}) ce que sont un chemin et un cycle. %
 Le graphe $G$ présente plusieurs chemins dont $e_{1},e_{2}$ dont les n\oe ud $a$ et $b$ sont la source et la cible respectivement. %
 Ce chemin est lui-même compris dans le chemin $e_{4}, e_{1}, e_{2}$ dont le n\oe ud $d$ est la source. %
 Le graphe $G'$ contient la boucle $e_{1},e_{2},e_{3},e_{4}$ dont le n\oe ud $a$ est à la fois la source et la cible. %
@@ -527,16 +542,16 @@ topologiques cellulaires de dimension quelconque.
 Les G-cartes permettent de représenter les objets par leurs décompositions
 successives en dimensions comme illustré dans la
 Figure~\ref{fig:etat-art-model-regle-gcarte-decomp}. %
-Par exemple, un objet (Figure~\ref{fig:etat-art-model-regle-gcarte-nodecomp})
+Par exemple, un objet (figure~\ref{fig:etat-art-model-regle-gcarte-nodecomp})
 peut être décomposé en volumes connectés par des \emph{3-liaisons}, en vert
-(Figure~\ref{fig:etat-art-model-regle-gcarte-3-cell}). %
+(figure~\ref{fig:etat-art-model-regle-gcarte-3-cell}). %
 Ces volumes peuvent se décomposer en faces, connectées par des
 \emph{2-liaisons}, en bleu
-(Figure~\ref{fig:etat-art-model-regle-gcarte-2-cell}). %
+(figure~\ref{fig:etat-art-model-regle-gcarte-2-cell}). %
 Les faces se décomposent en arêtes connectées par des \emph{1-liaisons}, en
-rouge (Figure~\ref{fig:etat-art-model-regle-gcarte-1-cell}). %
+rouge (figure~\ref{fig:etat-art-model-regle-gcarte-1-cell}). %
 Enfin ces arêtes se décomposent en sommets connectés par des \emph{0-liaisons},
-en noir (Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
+en noir (figure~\ref{fig:etat-art-model-regle-gcarte-0-cell}). %
 Le graphe ainsi obtenu Figure~\ref{fig:etat-art-model-regle-gcarte-0-cell} est
 une G-carte de dimension 3. %
 Notons que, en bordure de l'objet, les liaisons bouclent sur elles-mêmes. %
@@ -603,10 +618,10 @@ On retrouve, dans la Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-012}, le
 volume incident au brin $b$, noté $\orbit{0,1,2}(a)$, contenant le brin $b$, les
 brins atteignables à partir de $b$ par les liaisons $0,1$ et $2$ ainsi que ces
 liaisons. %
-Le sommet (Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-123}) est noté
+Le sommet (figure~\ref{fig:etat-art-model-regle-gcarte-orbite-123}) est noté
 $\orbit{0,1,2}(a)$, la face
-(Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-013}) $\orbit{0,1,3}(a)$ et
-l'arête (Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-023})
+(figure~\ref{fig:etat-art-model-regle-gcarte-orbite-013}) $\orbit{0,1,3}(a)$ et
+l'arête (figure~\ref{fig:etat-art-model-regle-gcarte-orbite-023})
 $\orbit{0,2,3}(a)$. %
 Notons qu'il est également possible de représenter des entités topologiques plus
 générales que des cellules, par exemple, l'arête de volume dans la
@@ -793,7 +808,7 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 \end{theoreme}
 
 La règle que nous avons vu plus tôt
-(Figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}) est dite
+(figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}) est dite
 instanciée, c'est-à-dire que ses membres représentent des parties des objets
 transformées.
 % Comme nous l'avons vu, les motifs des règles instanciées sont des parties des
@@ -848,19 +863,19 @@ Pour bien saisir ce qu'est un motif avec orbite, nous allons travailler avec les
 motifs illustrés dans la
 Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation} où tous les n\oe uds sont étiquetés avec des orbites de longueur 3. %
 Commençons avec le motif $M1$
-(Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m1}). %
+(figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m1}). %
 Ce motif comporte un unique n\oe ud $n0$ étiqueté par l'orbite face $\orbit{0,1,3}$, il désigne donc une face. %
-Le motif $M2$ (Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m2}),
+Le motif $M2$ (figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m2}),
 toujours composée du n\oe ud $n0$ mais étiqueté par le
 mot $\orbit{0,\_,3}$, permet de désigner une face dont les $1$-liaisons
 sont supprimées. %
 C'est-à-dire les arêtes déconnectées de la face. %
 Passons maintenant au motif $M3$
-(Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m3}) composé du n\oe ud
+(figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m3}) composé du n\oe ud
 $n2$ et étiqueté par l'orbite sommet $\orbit{1,2,3}$. %
 Ce motif permet de construire le sommet dual d'une face. %
 Enfin, le motif $M4$
-(Figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}) contient trois
+(figure~\ref{fig:etat-art-model-regle-regles-jerboa-motif-m4}) contient trois
 n\oe uds dont $n0$ et $n2$ que nous venons de voir. %
 
 \begin{definition}[Renommage]\label{def:renommage-orbite}%
@@ -889,20 +904,26 @@ n\oe uds dont $n0$ et $n2$ que nous venons de voir. %
 	\end{itemize}
 \end{definition}
 
-À l'aide des motifs de la
-Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}, nous
-pouvons définir la fonction de renommage $\orbit{0,1,3}\mapsto\orbit{0,\_,3}$ entre les motifs $M1$ et $M2$. Elle permet de supprimer toutes les liaisons $1$ (noté par le souligné en deuxième position) et laisse inchangées les liaisons $0$ et $3$ (respectivement en première et troisième positions). %
-Les motifs $M1$ et $M3$ permettent de définir la fonction de renommage $\orbit{0,1,3} \mapsto \orbit{1,2,3}$. %
-Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en première et deuxième positions) et laisse inchangées les liaisons $3$ (en troisième position). %
-% Encore une fois, commençons avec le motif $M1$ dont l'orbite de $n0$ est le mot
-% d'étiquette $\orbit{\omega} = \orbit{0,1,3}$ tel que
-% $\omega_{0} = 0, \omega_{1} = 1, \omega_{2} = 3 $ sont les étiquettes de
-% $\omega$. %
-% Dans le motif $M2$, l'orbite de $n0$ est $\orbit{\omega'} = \orbit{1,2,3}$ où
-% $\omega'_{0} = 1, \omega'_{1} = 2, \omega'_{2} = 3 $, c'est-à-dire que $\omega \mapsto \omega'$ où $\omega_{0} = 0$
-% est renommé en $\omega'_{0} = 1$, $\omega_{1} = 1$ est renommé en $\omega'_{1} = 2$ et
-% $\omega_{2} = 3 = \omega'_{2}$. %
-% \todo{dérouler example de renommage d'orbite}
+% À l'aide des motifs de la
+% Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}, nous
+% pouvons définir la fonction de renommage $\orbit{0,1,3}\mapsto\orbit{0,\_,3}$ entre les motifs $M1$ et $M2$. Elle permet de supprimer toutes les liaisons $1$ (noté par le souligné en deuxième position) et laisse inchangées les liaisons $0$ et $3$ (respectivement en première et troisième positions). %
+% Les motifs $M1$ et $M3$ permettent de définir la fonction de renommage $\orbit{0,1,3} \mapsto \orbit{1,2,3}$. %
+% Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en première et deuxième positions) et laisse inchangées les liaisons $3$ (en troisième position). %
+
+Étudions les motifs illustrés dans la
+figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}. %
+L'observation des étiquettes de $M1$ et $M2$, nous pouvons en déduire que la
+fonction de renommage $\orbit{0,1,3}\mapsto\orbit{0,\_,3}$ est définie entre $M1$ et
+$M2$. %
+Cette fonction permet de supprimer toutes les liaisons $1$ (noté par le
+caractère «~\_~» en deuxième position) et laisse les liaisons $0$ et $3$
+(respectivement en première et troisième positions) inchangées. %
+De même, l'observation des étiquettes de $M1$ et $M3$ nous permet de déduire que
+la fonction de renommage $\orbit{0,1,3} \mapsto \orbit{1,2,3}$ est définie entre $M1$
+et $M3$. %
+Elle permet de renommer les liaisons $0$ et $1$ respectivement en $1$ et $2$ (en
+première et deuxième positions) et laisse inchangées les liaisons $3$ (en
+troisième position). %
 
 \begin{definition}[Instanciation d'un motif]\label{def:instanciation-motif}%
 	Soient $G$ un graphe topologique de dimension $n \in \mathbb{N}$, $v$ un brin de $G$ et $\orbit{\omega}$ un type d'orbite de dimension $n$.
@@ -1026,10 +1047,10 @@ entre $n1$ et $n2$ produit les $0$-liaisons entre les brins vert et bleu. %
 \end{figure}
 
 Les instanciations des motifs $M1, M2, M3$ et $M4$
-(Figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}) pour la face
+(figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}) pour la face
 triangulaire de $G$ incidente au brin $j$
 présentées dans la figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-motifs-tri}
-se déroule de la même manière pour la face carrée (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad}). %
+se déroule de la même manière pour la face carrée (figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad}). %
 
 \begin{definition}[Règle transformation de graphe Jerboa]\label{def:regle-transfo-graphe-jerboa}%
 	Une \emph{règle} Jerboa  $r: L \longrightarrow R$  est définie par un couple  de motifs avec
@@ -1071,7 +1092,7 @@ directe. %
 	c'est-à-dire que $(l(h') \mapsto l(h))(O')$ est isomorphe à~$O$.
 \end{definition}
 
-Par exemple, le morphisme de filtrage qui associe l'unique n\oe ud $n0$ du motif gauche de la règle de triangulation (Figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}) au brin $b$ de la G-carte $G$ (Figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}. %
+Par exemple, le morphisme de filtrage qui associe l'unique n\oe ud $n0$ du motif gauche de la règle de triangulation (figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}) au brin $b$ de la G-carte $G$ (figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) définit l'orbite d'instanciation de la Figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}. %
 Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-carte $G$ définit l'orbite d'instanciation de la Figure~\ref{fig:jerboa-tri-before-triangulation}.
 
 
@@ -1085,14 +1106,14 @@ Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-c
 \begin{figure}[htb!]
 	\centering
 
-	\caption{Tentative de coudre un cube avec un tétraèdre}
+	\caption{\todo{}Tentative de coudre un cube avec un tétraèdre}
 	\label{fig:etat-art-modelisation-base-regle-jerboa-couture-impossible}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
 
-	\caption{Tentative de coudre un cube avec un tétraèdre}
+	\caption{\todo{}Tentative de coudre un cube avec un tétraèdre}
 	\label{fig:etat-art-modelisation-base-regle-jerboa-couture-cube-pyramide}
 \end{figure}
 
@@ -1158,35 +1179,83 @@ morphisme \(n0 \mapsto {a_{0},b_{0}\dots h_{0}}\) et pour tout brin de
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.8\textwidth]{inst-quad-triangulation-before-after}
-	\caption{Instanciation de la règle de triangulation sur une face carrée}
-	\label{fig:etat-art-model-regle-regle-jerboa-inst-quad-triangulation}
+	\begin{subfigure}{1.0\linewidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{regle-instanciee-triangulation-quad}
+		\caption{}
+		\label{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-quad}
+	\end{subfigure}
+	\begin{subfigure}{1.0\linewidth}
+		\centering
+		\includegraphics[width=.7\textwidth]{regle-instanciee-triangulation-tri}
+		\caption{}
+		\label{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-tri}
+	\end{subfigure}
+	\caption{Instanciation de la règle de triangulation sur une face carrée
+		(\subref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-quad})
+		et triangulaire
+		(\subref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-tri})}
+	\label{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation}
 \end{figure}
 
-\todo{petit commentaire en reprenant les instanciations précédentes + instanciation avec les triangles }
-
-% La face à gauche de la flèche, dans la
-% Figure~\ref{fig:etat-art-model-regle-regle-jerboa-inst-quad-triangulation}
-% représente l'instanciation de la règle de triangulation
-% (Figure~\ref{fig:etat-art-model-regle-regle-jerboa-regle-triangulation}) sur une
-% face carrée. %
-% Dans le membre gauche, on retrouve l'orbite d'instanciation de la Figure~\ref{fig:jerboa-quad-before-triangulation} car le membre gauche est réduit au
-% n\oe ud d'accroche. %
-% Dans le membre droit, on retrouve l'instanciation du motif Figure~\ref{fig:inst-quad-triangulation-final}. %
-
-L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage $\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée $r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié $m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite d'instanciation désignée par le n\oe ud d'accroche.
-Autrement dit, la transformation directe $G \xlongrightarrow{r, \underline{m}} H$ est la transformation directe $G \xlongrightarrow{r(\underline{m}), m} H$.
-
-\todo{Donner l'exemple de la transformation directe de l'objet de départ G-carte G ---> H avec brins annotés a0,b0… (que la triangulation du carré)}
-
+Reprenons les instanciations des motifs $M1$ et $M4$ sur une face carrée
+(figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) et
+sur une face triangulaire
+(figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-tri-objet}). %
+Ces deux motifs sont respectivement les motifs $L$ et $R$ de la règle de
+triangulation. %
+Ainsi, pour l'instanciation de la règle de triangulation sur une face carrée,
+nous obtenons la règle instanciée illustrée dans la
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-quad}
+et pour son instanciation sur une face triangulaire, nous obtenons la règle
+instanciée illustrée dans la
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-tri}
 
 \begin{remarque}
-	Les règles instanciées sont aussi des règles Jerboa sur l'orbite vide $\orbit{}$.
+	Les règles instanciées sont aussi des règles Jerboa dont les n\oe uds sont
+	étiquetés par l'orbite vide $\orbit{}$.
 \end{remarque}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=200pt]{triangulation-transformation-directe-G}
+		\caption{\(G\)}
+		\label{fig:etat-art-modelisation-base-regle-jerboa-transformation-directe-g}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=200pt]{triangulation-transformation-directe-H}
+		\caption{\(H\)}
+		\label{fig:etat-art-modelisation-base-regle-jerboa-transformation-directe-h}
+	\end{subfigure}
+	\caption{Triangulation d'une face}
+	\label{fig:etat-art-modelisation-base-regle-jerboa-transformation-directe}
+\end{figure}
+
+L'\emph{application} de la règle $r: L \longrightarrow R$ le long du morphisme de filtrage
+$\underline{m} : \underline{L} \rightarrow G$, est l'application de la règle instanciée
+$r(\underline{m}) : L(O) \longrightarrow R(O)$ sur le morphisme de filtrage instancié
+$m : L(O) \rightarrow G$, où $O = G\orbit{l(h)}(\underline{m}(h))$ est l'orbite
+d'instanciation désignée par le n\oe ud d'accroche. %
+Autrement dit, la transformation directe
+$G \xlongrightarrow{r, \underline{m}} H$ est la transformation directe
+$G \xlongrightarrow{r(\underline{m}), m} H$. %
+Par exemple, l'application de la règle de triangulation nous donne la
+transformation directe de \(G\)
+(figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-transformation-directe-g})
+vers \(H\)
+(figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-transformation-directe-h})
+avec \(G\orbit{0,1,3}(a_{0})\) la face filtrée par la règle est instanciée dans
+la partie gauche de l'instanciation
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-quad}
+et \(H\orbit{0,1,3}(a_{0})\), \(H\orbit{0,1,3}(c_{0})\),
+\(H\orbit{0,1,3}(e_{0})\) et \(H\orbit{0,1,3}(g_{0})\) les faces issues de la
+triangulation. %
 
 Enfin, la définition~\ref{def:etat-art-modelisation-base-regle-orbite-complete}
 s'étend naturellement sur les règles Jerboa. %
-
 \begin{definition}[Orbite complète et entièrement filtrée]
 	Soient $G$ une G-carte, $\underline{m} : \underline{L} \to G$ un morphisme de
 	filtrage Jerboa, $O$ une orbite d'instanciation, $v$ un n\oe ud de $L$, $v'$

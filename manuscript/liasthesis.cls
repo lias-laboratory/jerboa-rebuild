@@ -17,7 +17,7 @@
 \RequirePackage{translator}
 \RequirePackage{tikz}
 \RequirePackage[french]{minitoc}
-\RequirePackage{tgtermes}
+% \RequirePackage{tgtermes}
 \RequirePackage{datetime2}
 
 \usetikzlibrary{positioning,calc}

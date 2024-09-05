@@ -1,4 +1,4 @@
-\documentclass[x11names]{LiasThesis}
+\documentclass[x11names,framed]{LiasThesis}
 
 \usepackage{subfiles}
 \usepackage{subcaption}
@@ -82,17 +82,17 @@
 %
 \examboard{%
   \raggedright
-  \underline{Présidente~:}\\[2mm]
+  \underline{\bfseries Présidente~:}\\[2mm]
   Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
     CentraleSupélec}\\%
-  \vspace{1em}%
-  \underline{Rapporteurs~:}\\[2mm]
+  \vspace{.5em}%
+  \underline{\bfseries Rapporteurs~:}\\[2mm]
   David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
     Strasbourg}\\[1mm]%
   Guillaume DAMIAND \tabto{.35\textwidth} {\mdseries Directeur de recherche,
     Université Claude Bernard}\\%
-  \vspace{1em}%
-  \underline{Membres du jury~:}\\[2mm]
+  \vspace{.5em}%
+  \underline{\bfseries Membres du jury~:}\\[2mm]
   Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
     Université}\\[1mm]%
   Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
@@ -171,6 +171,7 @@
 
 \backmatter
 \chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
+% \printbibliography*
 \printbibliography
 \clearpage
 \pagebreak

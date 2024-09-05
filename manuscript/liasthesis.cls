@@ -17,22 +17,29 @@
 \RequirePackage{translator}
 \RequirePackage{tikz}
 \RequirePackage[french]{minitoc}
-% \RequirePackage{tgtermes}
+\RequirePackage{tgtermes}
 \RequirePackage{datetime2}
+% \RequirePackage[scaled]{helvet}
+% \renewcommand\familydefault{\sfdefault}
 
 \usetikzlibrary{positioning,calc}
+
 
 \usedictionary{translator-basic-dictionnary}
 \newtranslation[to = french]{THESIS}{THÈSE}
 \newtranslation[to = english]{THÈSE}{THESIS}
-\newtranslation[to = french]{submitted for the degree of}{pour l'obtention du Grade de}
-\newtranslation[to = english]{pour l'obtention du Grade de}{submitted for the degree of}
+\newtranslation[to = french]{Submitted for the degree of}{Pour l'obtention du Grade de}
+\newtranslation[to = english]{Pour l'obtention du Grade de}{Submitted for the degree of}
 \newtranslation[to = french]{Doctor of Philosophy from}{Docteur de l'}
 \newtranslation[to = english]{Docteur de l'}{Doctor of Philosophy from}
 \newtranslation[to = french]{National Degree}{Diplôme National}
 \newtranslation[to = english]{Diplôme National}{National Degree}
 \newtranslation[to = french]{Decree of}{Arrêté du}
 \newtranslation[to = english]{Arrêté du}{Decree of}
+\newtranslation[to = french]{Modified by Decree of}{Modifié par l'Arrêté du}
+\newtranslation[to = english]{Modifié par l'Arrêté du}{Modified by Decree of}
+\newtranslation[to = french]{May 25, 2016}{25 mai 2016}
+\newtranslation[to = english]{25 mai 2016}{May 25, 2016}
 \newtranslation[to = french]{August 26, 2022}{26 Août 2022}
 \newtranslation[to = english]{26 Août 2022}{August 26, 2022}
 \newtranslation[to = french]{Doctoral School}{École Doctorale}
@@ -41,6 +48,10 @@
 \newtranslation[to = english]{Secteur de Recherche}{Field of Research}
 \newtranslation[to = french]{Defended by}{Présentée par}
 \newtranslation[to = english]{Présentée par}{Defended by}
+\newtranslation[to = french]{Doctoral Advisor(s)}{Directeur(s) de thèse}
+\newtranslation[to = english]{Directeur(s) de thèse}{Doctoral Advisor(s)}
+\newtranslation[to = french]{Co-advisors}{Co-encadrants}
+\newtranslation[to = english]{Co-encadrant(s)}{Co-advisor(s)}
 \newtranslation[to = french]{Under the supervision of}{Sous la direction de}
 \newtranslation[to = english]{Sous la direction de}{Under the supervision of}
 \newtranslation[to = french]{At}{Au}
@@ -49,8 +60,8 @@
 \newtranslation[to = english]{Soutenue le}{Defended on}
 \newtranslation[to = french]{before the examination committee}{devant la Commission d'Examen}
 \newtranslation[to = english]{devant la Commission d'Examen}{before the examination committee}
-\newtranslation[to = french]{Examining Board}{Jury}
-\newtranslation[to = english]{Jury}{Examining Board}
+\newtranslation[to = french]{Examination Board}{Jury}
+\newtranslation[to = english]{Jury}{Examination Board}
 
 % \ifpdftex
 %   % Maybe issue pdftex logs
@@ -228,7 +239,7 @@
 			\put(0,-\paperheight)
 			{\TitleFrame\TitleLogos}}
 		\begin{center}
-			\vspace*{.02\paperheight}
+			\vspace*{.045\paperheight}
 			% \vfill
 			{\huge\textbf{\translate{THÈSE}}}
 
@@ -300,9 +311,9 @@
 
 			\vfill
 
-			{\raggedright{\bfseries\normalsize {\@examboard}}}
+			{\raggedright{{\@examboard}}}
 			\fi
-			% \vspace*{0.05\paperheight}
+			% \vspace*{-0.05\paperheight}
 			% \vfill
 
 		\end{center}
@@ -321,7 +332,7 @@
 	\renewcommand*{\chapterheadstart}{\vspace*{2cm}}
 	\renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
 	\renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
-	\renewcommand*{\chapnumfont}{\normalfont\bfseries\HUGE\color{nord10}}
+	\renewcommand*{\chapnumfont}{\fontfamily{tgtermes}\normalfont\bfseries\HUGE\color{nord10}}
 	\renewcommand*{\chaptitlefont}{\normalfont\HUGE\bfseries\flushleft}
 	\renewcommand*{\printchaptername}{\chapnamefont\MakeUppercase{\@chapapp}}
 	\renewcommand*{\chapternamenum}{}
@@ -341,3 +352,8 @@
 	%   \chaptitlefont}
 	\renewcommand*{\afterchaptertitle}{\vfill\minitoc\vfill\clearpage}
 }
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

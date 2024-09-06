@@ -252,7 +252,8 @@
 			\textsc{\large\bfseries \translate{Docteur de l'} \@institute}
 
 			{\footnotesize (\translate{Diplôme National} - \translate{Arrêté du}
-			  \translate{26 Août 2022})}
+				\translate{25 mai 2016} \translate{Modifié par l'Arrêté du}
+				\translate{26 Août 2022})}
 
 			\vspace{1em}
 

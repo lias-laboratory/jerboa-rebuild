@@ -687,51 +687,55 @@ d'appariement des entités topologiques. %
 
 \subsubsection*{(en cours) Appariement global ou local des entités topologiques}
 
-Appariement global~\cite{kripac1995mechanism,agbodan2003topological} : appariement de toutes les entités par comparaison du modèle initiale avec le modèle réévalué
+Les systèmes de modélisation paramétrique intègrent tous un mécanisme
+d'appariement des entités topologiques qui est essentiel, et complémentaire à la
+nomination persistante, pour permettre la réévaluation d'une spécification
+paramétrique. %
+Elle peut être soit globale,~\cite{kripac1995mechanism,agbodan2003topological};
+soit
+locale~\cite{chen1995representation,wu2001face,cascaval2023lineage}.
+L'approche globale consiste en un parcours de toutes les entités d'un objet et
+est donc coûteuse en calcul. %
+Le mécanisme d'appariement de Kripac, par exemple, est un appariement global,
+car le DAG qu'il utilise pour maintenir le suivi de l'évolution des faces de ses
+modèles est mis à jour à partir d'une comparaison entre un modèle initial et un
+modèle réévalué. %
 
-Appariement local~\cite{chen1995representation,wu2001face} : appariement des
-seules entités référencées dans la spécification paramétrique
-Pour Chen, c'est une recherche de candidats, pour Wu c'est une intégration des ancêtres dans les noms.
+L'appariement local est une approche moins coûteuse en calcul, car l'appariement
+est effectuée uniquement pour les entités topologiques enregistrées. %
+entités enregistrées dans la spécification est Dans l'approche de Cascaval et
+al.~\cite{cascaval2023lineage}, les entités utilisées comme paramètres
+topologiques sont les seules à avoir un nom sous la forme d'un système de
+contraintes. %
+Ainsi, elles sont de fait comparées à un sous-ensemble restreint d'entités
+compatible. %
+Néanmoins ces contraintes sont définies par les utilisateurs et peuvent trop
+fortes (et empêcher l'appariement) ou trop faible (et proposer des entités
+incompatibles avec les intentions de conception). %
 
-Arguments %
-Un appariement global est fiable, mais sensible aux gros changements de
-topologie, par exemple, la modification de tout le voisinage d'une entité qui
-pourrait l'empêcher.
-Un appariement local est moins coûteux sur le calcul d'appariement, selon
-comment il est effectué, il pourrait passer à côté du bon appariement. %
+% \subsubsection*{Nomination des entités avec un plongement courbe}
 
-Pour nos travaux, on fonctionne avec un appariement local mais on a l'avantage
-de pouvoir calculer l'origine de toute entité topologique à l'aide de l'analyse
-statique des règles, donc on va cogner sur les deux en insistant qu'il manque,
-pour l'appariement local dans les méthodes précédentes, un outil pour le rendre
-fiable. %
-Si l'approche de Mehdi Baba-Ali fait ça, local + origine ou similaire, le
-prendre en exemple. %
+% Ce concept correspond aux intersections d'entités topologiques dont la géométrie
+% est courbe. %
+% Dans ce cas-là, il peut y avoir intersection de deux entités non-planaires et la
+% topologie seule ne suffit plus pour nommer les entités et proposer un
+% appariement fiable. %
 
+% C'est complètement hors du cadre de nos travaux, à la limite ça pourrait être
+% évoqué en perspectives de travaux futurs. %
+% Voir avec David si je le fais, j'ai un doute. %
 
-\subsubsection*{Nomination des entités avec un plongement courbe}
+% Cette partie là, c'est pour citer Bidarra, Wang et Wu. %
 
-Ce concept correspond aux intersections d'entités topologiques dont la géométrie
-est courbe. %
-Dans ce cas-là, il peut y avoir intersection de deux entités non-planaires et la
-topologie seule ne suffit plus pour nommer les entités et proposer un
-appariement fiable. %
+% Bidarra intègre le concept d'un demi-espace positif/négatif pour distinguer deux
+% entités symétriques selon l'orientation de celle-ci dans l'objet modélisé (à vérifier, c'est flou)
 
-C'est complètement hors du cadre de nos travaux, à la limite ça pourrait être
-évoqué en perspectives de travaux futurs. %
-Voir avec David si je le fais, j'ai un doute. %
+% Wu utilise un espace paramétrique (u,v) pour calculer les intersections d'entités
+% et les distinguer les unes des autres dans la représentation géométrique. %
 
-Cette partie là, c'est pour citer Bidarra, Wang et Wu. %
-
-Bidarra intègre le concept d'un demi-espace positif/négatif pour distinguer deux
-entités symétriques selon l'orientation de celle-ci dans l'objet modélisé (à vérifier, c'est flou)
-
-Wu utilise un espace paramétrique (u,v) pour calculer les intersections d'entités
-et les distinguer les unes des autres dans la représentation géométrique. %
-
-Wang (à lire) semble utiliser, entre autre, un calcul de gradient pour procéder
-à une caractérisation, puis une distinction, des entités topologiques dans la
-représentation géométrique. %
+% Wang (à lire) semble utiliser, entre autre, un calcul de gradient pour procéder
+% à une caractérisation, puis une distinction, des entités topologiques dans la
+% représentation géométrique. %
 
 
 \subsubsection{Systèmes de nominations persistantes}
@@ -744,7 +748,7 @@ Nous proposons ainsi, dans le cadre de la réévaluation de modèles paramétriq
 de discuter de leurs avantages et de leurs limitations. %
 
 
-\subsection*{\color{purple}{(brouillon) Kripac}}
+\subsubsection*{Kripac}
 
 
 Dans ses travaux, Kripac propose un système pour répondre au problème de la
@@ -960,7 +964,7 @@ nom de leur ancêtre quand elles en ont un. %
 
 \subsubsection*{Farjana }
 
-\subsubsection*{Cascaval  {\color{purple} à corriger}}
+\subsubsection*{Cascaval}
 %% Contexte
 
 Dans leurs travaux~\cite{cascaval2023lineage}, Cascaval et al. proposent de
@@ -1118,7 +1122,7 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 		deux faces, comme illustrés dans la
 		figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
 		Le problème de cette approche est que ces contraintes sont exprimées
-		manuellement par l'utilisateur pour lequel plus un objet ce complexifie,
+		manuellement par l'utilisateur pour lequel plus un objet se complexifie,
 		moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
 		Il est alors donc de prévoir et garantir la persistance de la nomination
 		avant que la spécification paramétrique ne soit éditée puis réévaluée et

@@ -1105,31 +1105,45 @@ Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-c
 
 \begin{figure}[htb!]
 	\centering
-
-	\caption{\todo{}Tentative de coudre un cube avec un tétraèdre}
-	\label{fig:etat-art-modelisation-base-regle-jerboa-couture-impossible}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.8\textwidth]{g-carte-couture-a3-faces-incompatibles}
+		\caption{Faces non isomorphes}
+		\label{fig:etat-art-modelisation-base-regle-jerboa-couture-non-isomorphes}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.8\textwidth]{g-carte-couture-a3-faces-compatibles}
+		\caption{Faces isomorphes}
+		\label{fig:etat-art-modelisation-base-regle-jerboa-couture-isomorphes}
+	\end{subfigure}
+	\caption{Tentatives de couture de faces}
+	\label{fig:etat-art-modelisation-base-regle-jerboa-couture}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-
-	\caption{\todo{}Tentative de coudre un cube avec un tétraèdre}
+	\includegraphics[height=130pt]{g-carte-couture-a3-faces-compatibles-H}
+	\caption{Résultat de la couture
+	  figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-isomorphes}}
 	\label{fig:etat-art-modelisation-base-regle-jerboa-couture-cube-pyramide}
 \end{figure}
 
 La règle illustrée dans
 figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-couture-faces})
-connecter deux faces ensemble par leurs \(3\)-arcs. %
-Intuitivement, nous pourrions souhaiter connecter deux faces quelconques
-ensembles. %
-Pourtant, comme nous pouvons le voir dans la
-figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-impossible}, il
-est impossible de connecter deux faces qui ne seraient pas isomorphes (à
-renommage près). %
-Au contraire, si chacune des faces instanciées sont isomorphes, alors la couture
-est possible, comme dans la
-figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-cube-pyramide}. %
-
+permet de coudre deux faces par la connexion de leurs liaisons \(3\). %
+Nous pourrions souhaiter connecter deux faces quelconques. %
+Ce n'est pourtant pas toujours possible. %
+Prenons l'exemple d'un cube et d'une pyramide. %
+Connecter une face du cube à une face triangulaire de la pyramide implique de
+connecter un-à-un chacun des brins de deux faces, or celles-ci ne sont pas
+isomorphes. %
+Réaliser cette opération sur ces deux faces sans transgresser la condition
+d'arcs incidents est donc impossible. %
+Au contraire, si chacune des faces sont isomorphes, alors il est possible de les
+coudre ensemble, comme dans la
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-cube-pyramide}
+où nous connectons la face du dessus du cube à la base de la pyramide. %
 
 \begin{definition}[Filtrage de l'orbite d'instanciation]\label{def:filtrage-orbite-instanciation}%
 	Le morphisme de filtrage $m : L(O) \rightarrow G$, s'il existe, est le morphisme qui

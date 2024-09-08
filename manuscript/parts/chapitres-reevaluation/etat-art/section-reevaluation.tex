@@ -311,7 +311,7 @@ les plus significatifs pour résoudre le problème de la nomination persistante
 et, enfin, nous proposons une synthèse de ces méthodes. %
 
 
-\subsubsection{{\color{red}(à lire) Concepts communs de la nomination persistante}}
+\subsubsection{Concepts communs de la nomination persistante}
 \label{sec:etat-art-reevaluation-classification-concepts-communs}
 
 Les différents systèmes de nomination persistante s'appuient, explicitement ou
@@ -677,58 +677,30 @@ donne l'architecture à trois couches suivante~:
 	      évaluation de la spécification paramétrique. %
 \end{itemize}
 
+
 \subsubsection{(en cours) Concepts distinctifs de la nomination persistante}
 \label{sec:etat-art-reevaluation-classification-concepts-distinctifs}
 
+
 Dans les contributions présentées dans ce manuscrit, un certain nombre d'entre
-elles font état de concepts spécifiques à leurs systèmes de nomination et
-d'appariement des entités topologiques. %
+elles font état d'approches spécifiques à leurs systèmes de nomination. %
 
 
-\subsubsection*{(en cours) Appariement global ou local des entités topologiques}
+\subsubsection*{Nomination des entités contingentes issues de }
 
-Les systèmes de modélisation paramétrique intègrent tous un mécanisme
-d'appariement des entités topologiques qui est essentiel, et complémentaire à la
-nomination persistante, pour permettre la réévaluation d'une spécification
-paramétrique. %
-Elle peut être soit globale,~\cite{kripac1995mechanism,agbodan2003topological};
-soit
-locale~\cite{chen1995representation,wu2001face,cascaval2023lineage}.
-L'approche globale consiste en un parcours de toutes les entités d'un objet et
-est donc coûteuse en calcul. %
-Le mécanisme d'appariement de Kripac, par exemple, est un appariement global,
-car le DAG qu'il utilise pour maintenir le suivi de l'évolution des faces de ses
-modèles est mis à jour à partir d'une comparaison entre un modèle initial et un
-modèle réévalué. %
+- Pour les entités contingentes issues de l'intersection de surfaces non-planaires, la topologie peut ne plus suffire
 
-L'appariement local est une approche moins coûteuse en calcul, car l'appariement
-est effectuée uniquement pour les entités topologiques enregistrées. %
-entités enregistrées dans la spécification est Dans l'approche de Cascaval et
-al.~\cite{cascaval2023lineage}, les entités utilisées comme paramètres
-topologiques sont les seules à avoir un nom sous la forme d'un système de
-contraintes. %
-Ainsi, elles sont de fait comparées à un sous-ensemble restreint d'entités
-compatible. %
-Néanmoins ces contraintes sont définies par les utilisateurs et peuvent trop
-fortes (et empêcher l'appariement) ou trop faible (et proposer des entités
-incompatibles avec les intentions de conception). %
+- Donner l'exemple d'une rainure ronde sur un cylindre
+- Donner l'exemple de multiples intersections entre un bloc est une surface non-planaire
+- Donner l'exemple de l'auto-intersection d'un plan (orientable)
 
-% \subsubsection*{Nomination des entités avec un plongement courbe}
+Ainsi, la plupart des systèmes proposent d'ajouter des informations géométriques
+dans les noms persistants pour permettre l'identification des entités issues de
+telles intersections~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
 
-% Ce concept correspond aux intersections d'entités topologiques dont la géométrie
-% est courbe. %
-% Dans ce cas-là, il peut y avoir intersection de deux entités non-planaires et la
-% topologie seule ne suffit plus pour nommer les entités et proposer un
-% appariement fiable. %
-
-% C'est complètement hors du cadre de nos travaux, à la limite ça pourrait être
-% évoqué en perspectives de travaux futurs. %
-% Voir avec David si je le fais, j'ai un doute. %
-
-% Cette partie là, c'est pour citer Bidarra, Wang et Wu. %
-
-% Bidarra intègre le concept d'un demi-espace positif/négatif pour distinguer deux
-% entités symétriques selon l'orientation de celle-ci dans l'objet modélisé (à vérifier, c'est flou)
+Bidarra, par exemple, propose d'ajouter la définition d'un demi-espace
+positif/négatif pour distinguer deux entités symétriques que la topologie seule
+ne permettrait pas distinguer. %
 
 % Wu utilise un espace paramétrique (u,v) pour calculer les intersections d'entités
 % et les distinguer les unes des autres dans la représentation géométrique. %
@@ -737,6 +709,9 @@ incompatibles avec les intentions de conception). %
 % à une caractérisation, puis une distinction, des entités topologiques dans la
 % représentation géométrique. %
 
+\subsubsection*{Nomination des entités de dimension supérieure à 2}
+
+La plupart des auteurs n'abordent pas la nomination des volumes (ou \emph{coques}), qui sont
 
 \subsubsection{Systèmes de nominations persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
@@ -958,11 +933,25 @@ nom de leur ancêtre quand elles en ont un. %
 
 \subsubsection*{Agbodan }
 
-\subsubsection*{Bidarra }
+\subsubsection*{Bidarra}
+
+Les travaux de Bidarra et al.~\cite{bidarra2005feature} estiment qu'une
+difficulté majeure dans les systèmes de nomination existants est le fait nommer
+des entités qui peuvent disparaître lors de la réévaluation. %
+Ainsi, les auteurs proposent un système de nomination basé sur les
+caractéristiques de forme dans lequel un nom persistant est maintenu quelle que
+soit la spécification paramétrique réévaluée. %
+
+Références de classes
+
+Classes de caractéristiques déclaratives
+
+Classes de caractéristiques procédurale
+
+Résolution de l'ambiguïté à l'aide d'un demi-espace
 
 \subsubsection*{Baba-Ali }
 
-\subsubsection*{Farjana }
 
 \subsubsection*{Cascaval}
 %% Contexte
@@ -1129,94 +1118,87 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 		que les problèmes de nomination et d'appariement apparaissent. %
 \end{itemize}
 
-\subsubsection*{Dai (2024) {\color{purple} Brouillon}}
-Dans Dai (2024), les auteurs proposent d'enrichir le nommage persistant avec une
-méthode permettant d'identifier et trier des entités topologiques symétriques. Ces entités étant des invariantes distinctes générées
-lors d'une extrusion par balayage. Cette contribution propose ainsi de respecter le sens de balayage comme étant une intention de modélisation
-de l'utilisateur. Les travaux s'inscrivent dans un contexte défini par les concepts suivants :
-\begin{itemize}
-	\item Modélisation paramétrique dite «feature-based»
-	\item Un système de modélisation avec une architecture à 3 couches :
-	      \begin{itemize}
-		      \item Représentation géométrique
-		      \item Spécification paramétrique
-		      \item Nommage persistant
-	      \end{itemize}
-	\item Résolution de l'ambiguïté symétrique lors de la génération d'entités invariantes
-	      suivant une extrusion
-\end{itemize}
+% \subsubsection*{Dai (2024) {\color{purple} Brouillon}}
+% Dans Dai (2024), les auteurs proposent d'enrichir le nommage persistant avec une
+% méthode permettant d'identifier et trier des entités topologiques symétriques. Ces entités étant des invariantes distinctes générées
+% lors d'une extrusion par balayage. Cette contribution propose ainsi de respecter le sens de balayage comme étant une intention de modélisation
+% de l'utilisateur. Les travaux s'inscrivent dans un contexte défini par les concepts suivants :
+% \begin{itemize}
+% 	\item Modélisation paramétrique dite «feature-based»
+% 	\item Un système de modélisation avec une architecture à 3 couches :
+% 	      \begin{itemize}
+% 		      \item Représentation géométrique
+% 		      \item Spécification paramétrique
+% 		      \item Nommage persistant
+% 	      \end{itemize}
+% 	\item Résolution de l'ambiguïté symétrique lors de la génération d'entités invariantes
+% 	      suivant une extrusion
+% \end{itemize}
 
-Notons que, d'après les auteurs, le sens du balayage d'une entité invariante le
-long d'une courbe, dans le but de créer un objet, est un choix explicitement
-formulé par l'utilisateur et que ce choix doit être respecté lors de la
-réévaluation.
+% Notons que, d'après les auteurs, le sens du balayage d'une entité invariante le
+% long d'une courbe, dans le but de créer un objet, est un choix explicitement
+% formulé par l'utilisateur et que ce choix doit être respecté lors de la
+% réévaluation.
 
-Cette contribution propose d'enrichir le nommage persistant à l'aide d'une
-information d'ordonnancement lorsqu'une entité invariante est générée par
-balayage.
+% Cette contribution propose d'enrichir le nommage persistant à l'aide d'une
+% information d'ordonnancement lorsqu'une entité invariante est générée par
+% balayage.
 
-Pour cela, Dai et al. proposent une méthode pour d'abord classifier les
-courbures sur la surface de l'objet balayé puis de les ordonner afin de les
-distinguer.
+% Pour cela, Dai et al. proposent une méthode pour d'abord classifier les
+% courbures sur la surface de l'objet balayé puis de les ordonner afin de les
+% distinguer.
 
-Cette approche s'appuie sur les travaux de Capoyleas et Wu (puis Han) pour
-catégoriser les courbures puis extraire des informations sur ces courbures
-depuis un espace paramétrique. Ainsi,issu des travaux de Capoyleas, les
-catégories de courbes suivantes sont définies.
-\begin{itemize}
-	\item courbe qui coupe/ouvre une surface permettant de la dérouler
-	\item courbe qui scinde une surface en deux
-	\item courbe qui découpe un disque dans une surface et crée un trou (exposant l'intérieur)
-\end{itemize}
-Une quatrième catégorie de courbe est définie par Dai et al.
-\begin{itemize}
-	\item courbe n'appartenant à aucune des trois autres catégorie.
-\end{itemize}
+% Cette approche s'appuie sur les travaux de Capoyleas et Wu (puis Han) pour
+% catégoriser les courbures puis extraire des informations sur ces courbures
+% depuis un espace paramétrique. Ainsi,issu des travaux de Capoyleas, les
+% catégories de courbes suivantes sont définies.
+% \begin{itemize}
+% 	\item courbe qui coupe/ouvre une surface permettant de la dérouler
+% 	\item courbe qui scinde une surface en deux
+% 	\item courbe qui découpe un disque dans une surface et crée un trou (exposant l'intérieur)
+% \end{itemize}
+% Une quatrième catégorie de courbe est définie par Dai et al.
+% \begin{itemize}
+% 	\item courbe n'appartenant à aucune des trois autres catégorie.
+% \end{itemize}
 
-Pour leur extension, Dai et al. proposent de distinguer les courbures selon deux
-classes, les courbure enveloppantes (surrounding contours) et les
-non-enveloppantes (non-surrounding contours).
+% Pour leur extension, Dai et al. proposent de distinguer les courbures selon deux
+% classes, les courbure enveloppantes (surrounding contours) et les
+% non-enveloppantes (non-surrounding contours).
 
-Les contours enveloppants sont ceux qui découpent une surface en deux de même
-genre topologique et plus particulièrement de genre 1. Les contours
-non-enveloppants sont ceux qui découpent une surface en deux dont l'une est de
-genre 2 et l'autre de genre 0.
+% Les contours enveloppants sont ceux qui découpent une surface en deux de même
+% genre topologique et plus particulièrement de genre 1. Les contours
+% non-enveloppants sont ceux qui découpent une surface en deux dont l'une est de
+% genre 2 et l'autre de genre 0.
 
-Ces contours sont ensuite représentés à l'aide de NURBS dans un espace de
-paramètres \((u,v)\) pour pouvoir d'abord les catégoriser puis les ordonner.
+% Ces contours sont ensuite représentés à l'aide de NURBS dans un espace de
+% paramètres \((u,v)\) pour pouvoir d'abord les catégoriser puis les ordonner.
 
-La classification des contours se fait de la façon suivante. En admettant que:
-\begin{itemize}
-	\item une \(v\) ligne peut être déterminée à partir du guide d'extrusion
-	\item une \(u\) ligne peut être déterminée à partir du profil à balayer le long du guide
-\end{itemize}
-Alors, le nombre d'intersections entre une \(u\) ligne et un contour permet de
-catégoriser le classe de contour:
-\begin{itemize}
-	\item Si le nombre d'intersection est impair, alors le contour est enveloppant
-	\item Au contraire, s'il est pair, alors le contour est non-enveloppant.
-\end{itemize}
+% La classification des contours se fait de la façon suivante. En admettant que:
+% \begin{itemize}
+% 	\item une \(v\) ligne peut être déterminée à partir du guide d'extrusion
+% 	\item une \(u\) ligne peut être déterminée à partir du profil à balayer le long du guide
+% \end{itemize}
+% Alors, le nombre d'intersections entre une \(u\) ligne et un contour permet de
+% catégoriser le classe de contour:
+% \begin{itemize}
+% 	\item Si le nombre d'intersection est impair, alors le contour est enveloppant
+% 	\item Au contraire, s'il est pair, alors le contour est non-enveloppant.
+% \end{itemize}
 
-L'ordonnancement est déterminé selon l'intersection d'une courbe avec une \(v\)
-ligne. %
-Dai et al. expriment qu'il est difficile de classer des contours non-enveloppant
-car instables.
+% L'ordonnancement est déterminé selon l'intersection d'une courbe avec une \(v\)
+% ligne. %
+% Dai et al. expriment qu'il est difficile de classer des contours non-enveloppant
+% car instables.
 
-Leur méthode se concentre alors sur l'ordonnancement des contours enveloppants.
+% Leur méthode se concentre alors sur l'ordonnancement des contours enveloppants.
 
-Dans leurs travaux, Dai et al. proposent d'enrichir le nommage persistant des entités invariantes (symétriques) issues d'extrusion à l'aide d'une méthode basée sur la classification de courbes intersectant la surface de l'objet 3D étudié. Cette approche leur permet de maintenir une référence sur une entité parmi plusieurs étant symétriques.
-Toutefois, l'approche proposée reste dans la lignée des travaux de Wu et al. et concerne un cas spécifique où deux entités symétriques sont générées à l'issue d'une seule opération booléenne.
-De plus, la méthode n'aborde que question où l'appariement semble trivial (un unique appariement possible pour chaque entité topologique) au rejeu, c'est à dire qu'il n'y a toujours qu'une seule est uniquement possibilité d'appariement pour une entité identifier. Par exemple, (ajouter illustration) la différence entre deux cylindres peut générer des entités dont l'appariement est de l'ordre de n pour m entre l'évaluation et la réévaluation respectivement (À réécrire à partir de l'illustration discutée à la réunion)
+% Dans leurs travaux, Dai et al. proposent d'enrichir le nommage persistant des entités invariantes (symétriques) issues d'extrusion à l'aide d'une méthode basée sur la classification de courbes intersectant la surface de l'objet 3D étudié. Cette approche leur permet de maintenir une référence sur une entité parmi plusieurs étant symétriques.
+% Toutefois, l'approche proposée reste dans la lignée des travaux de Wu et al. et concerne un cas spécifique où deux entités symétriques sont générées à l'issue d'une seule opération booléenne.
+% De plus, la méthode n'aborde que question où l'appariement semble trivial (un unique appariement possible pour chaque entité topologique) au rejeu, c'est à dire qu'il n'y a toujours qu'une seule est uniquement possibilité d'appariement pour une entité identifier. Par exemple, (ajouter illustration) la différence entre deux cylindres peut générer des entités dont l'appariement est de l'ordre de n pour m entre l'évaluation et la réévaluation respectivement (À réécrire à partir de l'illustration discutée à la réunion)
 
-
-
-\subsection{Synthèse des méthodes (par auteurs)}
-\label{sec:etat-art-reevaluation-synthese}
-
-Faire un tableau de comparatif des méthodes utilisées par chaque publication.
-
-\subsection[Réévaluation à base de règles]{Réévaluation à base de règles}
-\label{sec:etat-art-reevaluation-reevaluation-regles}
+\subsubsection*{Cardot}
+\label{sec:etat-art-reevaluation-synthese-cardot}
 
 % Ici, présenter les apports issus des travaux d'Anaïs Cardot. (Objectif) placer
 % les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux
@@ -1258,6 +1240,13 @@ Enfin, l'appariement est effectué à l'aide d'arbres virtuels est de représent
 les évolutions d'une entité topologique précise et d'y intégrer les changements
 dus à l'édition de la spécification paramétrique afin de la retrouver dans le
 modèle réévalué. %
+
+
+
+\subsubsection{Synthèse des méthodes}
+\label{sec:etat-art-reevaluation-synthese}
+
+Faire un tableau de comparatif des méthodes utilisées par chaque publication.
 
 %%% Local Variables:
 %%% mode: latex

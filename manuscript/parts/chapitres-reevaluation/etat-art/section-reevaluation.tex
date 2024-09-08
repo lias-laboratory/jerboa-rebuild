@@ -935,20 +935,205 @@ nom de leur ancêtre quand elles en ont un. %
 
 \subsubsection*{Bidarra}
 
-Les travaux de Bidarra et al.~\cite{bidarra2005feature} estiment qu'une
-difficulté majeure dans les systèmes de nomination existants est le fait nommer
-des entités qui peuvent disparaître lors de la réévaluation. %
-Ainsi, les auteurs proposent un système de nomination basé sur les
-caractéristiques de forme dans lequel un nom persistant est maintenu quelle que
-soit la spécification paramétrique réévaluée. %
+% Bidarra et al.~\cite{bidarra2005feature} estiment qu'une difficulté majeure dans
+% les systèmes de nomination existants est le fait nommer des entités qui peuvent
+% disparaître lors de la réévaluation. %
+% Ainsi, les auteurs proposent un système de nomination basé sur les
+% caractéristiques de forme dans lequel un nom persistant est maintenu quelle que
+% soit la spécification paramétrique réévaluée. %
 
-Références de classes
+Bidarra et al.~\cite{bidarra2005feature} suggèrent que le problème de la
+nomination est généralement abordé avec une solution incomplète, voire
+contre-productive. %
+En effet, les auteurs observent que les systèmes de réévaluation existants
+tentent de suivre et maintenir des noms persistants pour des entités
+topologiques susceptibles de disparaître lors de la réévaluation. %
+Ils avancent que procéder ainsi est tout simplement impossible avec une approche
+véritablement générique. %
 
-Classes de caractéristiques déclaratives
+Avec ce constat, les auteurs proposent une méthode basée sur la nomination des caractéristiques de forme et posent deux critères pour garantir le fonctionnement de cette approche~: %
+\begin{enumerate}
+	\item les noms persistants doivent portent exclusivement sur des entités
+	topologiques définies dans la spécification paramétrique du modèle~; %
+	\item garantir, à chaque étape de l'évaluation, que la sémantique (ou
+	l'ensemble des contraintes qui caractérisent une entité), telle que
+	définie dans la spécification paramétrique, est toujours valide. %
+\end{enumerate}
+Ainsi, le premier critère porte sur la nomination persistante d'un ensemble
+d'entités topologiques restreint aux paramètres topologiques définies dans la
+spécification paramétrique. %
+Le second critère porte sur le fait que la validité d'une sémantique garantit
+que le mécanisme d'appariement est en mesure de faire le lien entre des entités
+issues du modèle initial et réévalué. %
 
-Classes de caractéristiques procédurale
+Dans cette démarche, Bidarra et al., considèrent qu'un modèle paramétrique
+consiste en une corrélation entre trois classes d'entités, respectivement les
+\emph{classes de référence}, les \emph{classes de caractéristiques déclaratives}
+et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
+\begin{description}
+	\item[Classe de références] Une \emph{référence} est définie comme une entité
+	      auxiliaire disposant d'un nom unique et d'une structure prédéfinie
+	      (plan, ligne, cercle,~…) et qui peut être associée à tout paramètre
+	      topologique de la spécification paramétrique par le moyen d'un ensemble
+	      de contraintes. %
+	      En outre, les classes de références sont des objets simples à partir
+	      desquelles il est relativement simple de dériver ou composer d'autres
+	      classes. %
+	      Enfin, celles-ci doivent déclarer leurs propres positions et orientation
+	      afin de fixer le degré de liberté d'une entité auxiliaire par rapport
+	      aux entités persistantes du modèle. %
 
-Résolution de l'ambiguïté à l'aide d'un demi-espace
+	      \begin{figure}[htb!]
+		      \centering
+		      \includegraphics[height=100pt]{bidarra-exemple-classes-references}
+		      \caption{Plan de référence}
+		      \label{fig:etat-art-reevaluation-syntheses-bidarra-classes-references}
+	      \end{figure}
+
+	      Afin de produire, par exemple, l'objet illustré dans la
+	      figure~\ref{fig:etat-art-reevaluation-syntheses-bidarra-classes-references},
+	      il est possible de définir un plan de référence dans le modèle
+	      paramétrique sur lequel vont être instanciés une série de trous, tous
+	      positionnés relativement au plan de référence. %
+	      Ainsi, un changement de position du plan implique le déplacement de
+	      chacun des trous placés dessus. %
+
+	\item[Classes de caractéristiques déclaratives] Une \emph{caractéristique
+				déclarative} est définie comme un patron qui permet de créer des
+	      instances d'un type de caractéristique (par exemple une caractéristique
+	      de forme) à partir de la description de ses propriétés. %
+	      Conceptuellement, chaque objet créé à partir d'un patron appartient
+	      ainsi à une même famille. %
+	      De cette manière, tout objet qui appartient à une famille de
+	      caractéristique possède les propriétés liées à cette famille peu importe
+	      ses paramètres d'instanciation. %
+	      \begin{figure}[h!]
+		      \centering
+		      \includegraphics[height=100pt]{bidarra-exemple-classes-declaratives}
+		      \caption{Caractéristique déclarative de bloc}
+		      \label{fig:etat-art-reevaluation-syntheses-bidarra-classes-declaratives}
+	      \end{figure}
+	      Un exemple est présenté dans la
+	      figure~\ref{fig:etat-art-reevaluation-syntheses-bidarra-classes-declaratives}
+	      qui illustre les faces de la caractéristique de forme de bloc (appelées
+	      \emph{faces de caractéristique}) que toute instance possède. %
+	      Ainsi, tout bloc dispose des six faces caractéristiques suivantes, à
+	      savoir, \textit{haut}, \textit{bas}, \textit{avant}, \textit{arrière},
+	      \textit{gauche} et \textit{droite}. %
+	      Ainsi, pour toute instance de cette caractéristique de forme, il est
+	      possible de désigner la face avant de la manière suivante~:
+	      \[[Nom Bloc,Face Avant]\]
+	      %
+	      Les auteurs ajoutent qu'une caractéristique essentielle des
+	      caractéristiques déclaratives est que leurs faces ne sont jamais
+	      scindées, fusionnées ou supprimées, indépendamment de leur
+	      représentation géométrique.
+
+	\item[Classes de caractéristique procédurales] une \emph{caractéristique
+				procédurale}, est une caractéristique dont les paramètres topologiques
+	      sont des arêtes, et non des faces, comme le chanfrein ou l'arrondi. %
+	      Les auteurs justifient l’existence de cette classe par les deux
+	      propriétés suivantes~: (1) Contrairement aux caractéristiques
+	      déclaratives, une caractéristique procédurale dépend de l'existence de
+	      l'arête (ou des arêtes) passée(s) qui lui est (sont) passée(s) en
+	      paramètre~; (2) la forme d'une caractéristique procédurale ne peut être
+	      déterminée qu'après que ses arêtes sont identifiées et localisées. %
+	      Ainsi, les auteurs proposent de nommer les arêtes d'après leurs faces
+	      adjacentes. %
+
+	      \begin{figure}[h!]
+		      \centering
+		      \begin{subfigure}{.45\textwidth}
+			      \centering
+			      \includegraphics[height=100pt]{bidarra-exemple-nomination-arete-1}
+			      \caption{}
+			      \label{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-1}
+		      \end{subfigure}
+		      \begin{subfigure}{.45\textwidth}
+			      \centering
+			      \includegraphics[height=100pt]{bidarra-exemple-nomination-arete-2}
+			      \caption{}
+			      \label{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-2}
+		      \end{subfigure}
+		      \caption{Nomination d'une arête par Bidarra et al.}
+		      \label{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete}
+	      \end{figure}
+
+	      Par exemple, dans la
+				figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete},
+				Bidarra et al. illustrent comment procéder à l'identification d'une des
+				deux arêtes en rouge pour appliquer un chanfrein. %
+	      Tout d'abord
+				(figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-1}),
+				l'arête est définie par ses faces caractéristiques incidentes, la face
+				du dessus et la face de droite. %
+	      Cette sélection filtre deux arêtes de part et d'autre de la rainure. %
+	      Pour discriminer l'arête sur laquelle appliquer le chanfrein, ils
+				proposent d'utiliser un discriminant à l'aide des faces caractéristiques
+				aux extrémités de l'arête à chanfreiner. %
+				Dans cet exemple, il s'agit du couple face avant du bloc et face gauche
+				de la rainure. %
+\end{description}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=150pt]{bidarra-exemple-ambiguite-1}
+		\caption{}
+		\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-1}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[height=150pt]{bidarra-exemple-ambiguite-2}
+		\caption{}
+		\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-2}
+	\end{subfigure}
+	\caption{Résolution de l'ambiguité dans le cas d'une intersection
+		non-planaire par Bidarra et al.}
+	\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite}
+\end{figure}
+
+Toutefois, Bidarra et al. soulèvent que cette méthode d'identification des
+arêtes devient inopérant dans le cas d'une intersection où au moins l'une
+entités n'est pas planaire (par exemple la face de côté d'un cylindre). %
+Le discriminant (et donc le voisinage topologique) ne suffit plus pour désigner
+une arête parmi celles issue de l'intersection puisqu'elles ont toutes le même
+discriminant, comme dans l'exemple illustré
+figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-ambiguite} %
+Pour résoudre ce problème, ils proposent alors d'utiliser un plan de référence
+pour découper la caractéristique déclarative en deux demi-espaces. %
+De cette manière, chaque arête se voit assigner un discriminant supplémentaire
+qui est le domaine de référence auquel il appartient, positif ou négatif. %
+Par exemple, dans là
+figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-1}, les arêtes
+\(e1\) et \(e2\) sont toutes les deux incidentes aux mêmes faces
+caractéristiques. %
+Néanmoins, le demi-espace défini le long de la rainure assigne \(e1\) au domaine
+positif et \(e2\) au domaine négatif. %
+Cette discrimination permet alors, lors de la réévaluation
+(figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-2}), de ne pas
+appliquer de chanfrein sur \(e1\) si \(e2\) était l'arête définie comme
+paramètre dans la spécification paramétrique. %
+
+%% Conclusions sur la méthode
+Ces travaux définissent trois classes de caractéristiques que les auteurs
+utilisent pour développer différents concepts et apporter de la stabilité à la
+nomination persistante des entités et garantir leurs appariements lors de la
+réévaluation d'une spécification paramétrique. %
+Toutefois, leur approche présente plusieurs limitations. %
+Le système de nomination s'appuie sur des faces. %
+Même si celles-ci sont persistantes dans la réévaluation et immuables car
+définies exclusivement à partir de caractéristiques de formes, ce système est
+adapté uniquement à la modélisation 3D, c'est-à-dire que ce système n'est pas
+généralisable aux autres dimensions où, les faces peuvent être issues d'une
+intersection de volumes. %
+Une autre limitation est l'usage d'un plan pour la discrimination des
+différentes arêtes issues d'une intersection avec une entité non-planaire. %
+En effet, un plan ne permet de scinder efficacement l'espace que pour un
+échantillons de structures compatibles avec leurs classes de caractéristiques, à
+savoir les plans, les cylindres, les sphères et les torcs. %
+
 
 \subsubsection*{Baba-Ali }
 
@@ -1033,10 +1218,10 @@ les entités topologiques en entrée et en sortie des opérations de modélisati
 \end{enumerate}
 
 \begin{figure}[htb!]
-  \centering
-  \includegraphics[width=\textwidth]{cascaval-requetes} 
-  \caption{Requêtes de filtrage par Cascaval}
-  \label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
+	\centering
+	\includegraphics[width=\textwidth]{cascaval-requetes}
+	\caption{Requêtes de filtrage par Cascaval}
+	\label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
 \end{figure}
 
 Afin de saisir les intentions de conception, les noms persistants sont définis
@@ -1103,99 +1288,20 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 	      En particulier, il convient de définir manuellement ces relations tout
 	      en garantissant les contraintes posées par le développeur pour éviter
 	      les ambiguïtés. %
-  \item La nomination des entités est à la charge des utilisateurs afin que
-		ceux-ci expriment leurs intentions de modélisation. %
-		Pour cela, il propose une nomination sous la forme de requêtes intégrant
-		des contraintes qui permettent de filtrer certaines parties de l'objet. %
-		Par exemple, une arête ou un sommet créé par l'union ou la différence de
-		deux faces, comme illustrés dans la
-		figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
-		Le problème de cette approche est que ces contraintes sont exprimées
-		manuellement par l'utilisateur pour lequel plus un objet se complexifie,
-		moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
-		Il est alors donc de prévoir et garantir la persistance de la nomination
-		avant que la spécification paramétrique ne soit éditée puis réévaluée et
-		que les problèmes de nomination et d'appariement apparaissent. %
+	\item La nomination des entités est à la charge des utilisateurs afin que
+	      ceux-ci expriment leurs intentions de modélisation. %
+	      Pour cela, il propose une nomination sous la forme de requêtes intégrant
+	      des contraintes qui permettent de filtrer certaines parties de l'objet. %
+	      Par exemple, une arête ou un sommet créé par l'union ou la différence de
+	      deux faces, comme illustrés dans la
+	      figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+	      Le problème de cette approche est que ces contraintes sont exprimées
+	      manuellement par l'utilisateur pour lequel plus un objet se complexifie,
+	      moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
+	      Il est alors donc de prévoir et garantir la persistance de la nomination
+	      avant que la spécification paramétrique ne soit éditée puis réévaluée et
+	      que les problèmes de nomination et d'appariement apparaissent. %
 \end{itemize}
-
-% \subsubsection*{Dai (2024) {\color{purple} Brouillon}}
-% Dans Dai (2024), les auteurs proposent d'enrichir le nommage persistant avec une
-% méthode permettant d'identifier et trier des entités topologiques symétriques. Ces entités étant des invariantes distinctes générées
-% lors d'une extrusion par balayage. Cette contribution propose ainsi de respecter le sens de balayage comme étant une intention de modélisation
-% de l'utilisateur. Les travaux s'inscrivent dans un contexte défini par les concepts suivants :
-% \begin{itemize}
-% 	\item Modélisation paramétrique dite «feature-based»
-% 	\item Un système de modélisation avec une architecture à 3 couches :
-% 	      \begin{itemize}
-% 		      \item Représentation géométrique
-% 		      \item Spécification paramétrique
-% 		      \item Nommage persistant
-% 	      \end{itemize}
-% 	\item Résolution de l'ambiguïté symétrique lors de la génération d'entités invariantes
-% 	      suivant une extrusion
-% \end{itemize}
-
-% Notons que, d'après les auteurs, le sens du balayage d'une entité invariante le
-% long d'une courbe, dans le but de créer un objet, est un choix explicitement
-% formulé par l'utilisateur et que ce choix doit être respecté lors de la
-% réévaluation.
-
-% Cette contribution propose d'enrichir le nommage persistant à l'aide d'une
-% information d'ordonnancement lorsqu'une entité invariante est générée par
-% balayage.
-
-% Pour cela, Dai et al. proposent une méthode pour d'abord classifier les
-% courbures sur la surface de l'objet balayé puis de les ordonner afin de les
-% distinguer.
-
-% Cette approche s'appuie sur les travaux de Capoyleas et Wu (puis Han) pour
-% catégoriser les courbures puis extraire des informations sur ces courbures
-% depuis un espace paramétrique. Ainsi,issu des travaux de Capoyleas, les
-% catégories de courbes suivantes sont définies.
-% \begin{itemize}
-% 	\item courbe qui coupe/ouvre une surface permettant de la dérouler
-% 	\item courbe qui scinde une surface en deux
-% 	\item courbe qui découpe un disque dans une surface et crée un trou (exposant l'intérieur)
-% \end{itemize}
-% Une quatrième catégorie de courbe est définie par Dai et al.
-% \begin{itemize}
-% 	\item courbe n'appartenant à aucune des trois autres catégorie.
-% \end{itemize}
-
-% Pour leur extension, Dai et al. proposent de distinguer les courbures selon deux
-% classes, les courbure enveloppantes (surrounding contours) et les
-% non-enveloppantes (non-surrounding contours).
-
-% Les contours enveloppants sont ceux qui découpent une surface en deux de même
-% genre topologique et plus particulièrement de genre 1. Les contours
-% non-enveloppants sont ceux qui découpent une surface en deux dont l'une est de
-% genre 2 et l'autre de genre 0.
-
-% Ces contours sont ensuite représentés à l'aide de NURBS dans un espace de
-% paramètres \((u,v)\) pour pouvoir d'abord les catégoriser puis les ordonner.
-
-% La classification des contours se fait de la façon suivante. En admettant que:
-% \begin{itemize}
-% 	\item une \(v\) ligne peut être déterminée à partir du guide d'extrusion
-% 	\item une \(u\) ligne peut être déterminée à partir du profil à balayer le long du guide
-% \end{itemize}
-% Alors, le nombre d'intersections entre une \(u\) ligne et un contour permet de
-% catégoriser le classe de contour:
-% \begin{itemize}
-% 	\item Si le nombre d'intersection est impair, alors le contour est enveloppant
-% 	\item Au contraire, s'il est pair, alors le contour est non-enveloppant.
-% \end{itemize}
-
-% L'ordonnancement est déterminé selon l'intersection d'une courbe avec une \(v\)
-% ligne. %
-% Dai et al. expriment qu'il est difficile de classer des contours non-enveloppant
-% car instables.
-
-% Leur méthode se concentre alors sur l'ordonnancement des contours enveloppants.
-
-% Dans leurs travaux, Dai et al. proposent d'enrichir le nommage persistant des entités invariantes (symétriques) issues d'extrusion à l'aide d'une méthode basée sur la classification de courbes intersectant la surface de l'objet 3D étudié. Cette approche leur permet de maintenir une référence sur une entité parmi plusieurs étant symétriques.
-% Toutefois, l'approche proposée reste dans la lignée des travaux de Wu et al. et concerne un cas spécifique où deux entités symétriques sont générées à l'issue d'une seule opération booléenne.
-% De plus, la méthode n'aborde que question où l'appariement semble trivial (un unique appariement possible pour chaque entité topologique) au rejeu, c'est à dire qu'il n'y a toujours qu'une seule est uniquement possibilité d'appariement pour une entité identifier. Par exemple, (ajouter illustration) la différence entre deux cylindres peut générer des entités dont l'appariement est de l'ordre de n pour m entre l'évaluation et la réévaluation respectivement (À réécrire à partir de l'illustration discutée à la réunion)
 
 \subsubsection*{Cardot}
 \label{sec:etat-art-reevaluation-synthese-cardot}

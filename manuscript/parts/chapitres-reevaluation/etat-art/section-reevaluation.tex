@@ -931,7 +931,95 @@ nom de leur ancêtre quand elles en ont un. %
 
 \subsubsection*{Wu et al. }
 
-\subsubsection*{Agbodan }
+Wu et al.~\cite{wu2001face} s'intéressent à la nomination des entités
+topologiques et plus particulièrement à leurs suivis dans le cadre modélisation
+à base d'opérations booléennes. %
+Dans leurs travaux, les auteurs proposent un système de nomination persistante
+en deux parties~: la première partie d'un nom consiste en l'identification à
+base topologique des faces du modèle~: la deuxième partie, une addition à la
+première, est une information géométrique dont le but est de lever
+l'ambiguïté. %
+
+La première partie de ces travaux consiste donc à créer, pour chaque face
+enregistrée dans la spécification paramétrique, à créer un nom unique appelé
+\(ON\) (pour \emph{Original Name}). %
+Wu et al. distingue trois schémas de nominations pour les faces
+issues d'extrusions, les faces dérivées d'entités topologiques les
+faces issues d'autres caractéristiques de formes. %
+
+La nomination des faces issues d'un profil d'extrusion, comme nous l'avons vu
+plus tôt dans les concepts communs, suit le schéma suivant~: %
+%% extrusion vue plus tôt dans les concepts communs sur l'extrusion
+\[ON_{side}(F) = [FeatID, FeatID_{p}, ID_{element},FeatID_{path},ID_{trajectory}]\]
+La nomination des caractéristiques issues d'entités, dérivée de la nomination
+des faces issues d'extrusion, suit le schéma suivant~: %
+%% caractéristique issue d'une entité
+\[ON(F) = [FeatID, FeatID_{FF1}, ID_{element1},FeatID_{FF2},ID_{element2}]\] où
+Pour une face \(F\) issue d'une opération sur entité topologique,
+\(FeatID_{FF1}\) et \(FeatID_{FF2}\) sont les identifiants de deux faces
+adjacentes à l'entité dont est dérivée \(F\), \(FeatID_{element1}\) et
+\(FeatID_{element2}\) les identifiants de \(FF1\) et \(FF2\) dans leurs \(ON\)
+respectifs, c'est-à-dire \(ON(FF1)\) et \(ON(FF2)\). %
+% Prenons, par exemple, d'une face créée par une opération de chanfrein sur une
+% arête. %
+La nomination des caractéristiques de formes est, elle aussi, dérivée de la
+nomination des faces issues d'extrusion. %
+Le schéma est le suivant~:
+%% faces issues de caractéristiques
+\[ON(F) = [FeatID, FeatID_{p}, ID_{element}, FeatID_{path},ID_{trajectory}, InsNum]\]
+Cette fois, seul le dernier élément de nomination est remplacé par \(InsNum\)
+qui correspond à un indice unique de création. %
+Prenons le cas d'une opération qui duplique une caractéristique de forme, par
+exemple un cylindre sur un bloc, le long d'un guide. %
+La valeur \(InsNum\) désigne chacun des cylindres à l'aide d'un numéro
+d'instanciation où \(0\) désigne l'instance d'origine, c'est-à-dire celle qui
+est dupliquée. %
+Comme nous l'avons vu plus tôt, les accompagne leur système de nomination d'un
+mécanisme de propagation de nom lorsque les faces sont scindées, fusionnées et
+supprimées. %
+
+Pour compléter la nomination est permettre la distinction des entités dont le
+nom est ambiguë, Wu et al. proposent d'utiliser une information d'espace
+paramétrique \(PSI\) (pour \emph{Parametric Space Information}). %
+Présenté simplement, les entités portant le même nom sont ordonnancées dans un
+espace normalisé \((u,v)\) puis désignées par le numéro séquentiel qui leur est
+attribué. %
+À terme, le \(PSI\) d'une entité topologique est un couple~:
+\[[Seq, Totle]\] %
+où \(Seq\) est le numéro d'apparition d'une entité dans un espace \((u,v)\) et
+où \(Totle\) est le nombre d'entités qui portent le même nom. %
+
+À l'issue du calcul du PSI, un nom persistant, appelé nom réel \(RN\) (pour
+\emph{Real Name}) est utilisé pour la nomination de chacune des entités
+topologiques~:
+\begin{itemize}
+	\item Une face est nommée %
+	      \[RN(F) = [ON(F), PSI]\]
+	\item Une arête, définie par ses faces adjacente est nommée~:
+	      \[RN(E) = [RN(F1), RN(F2), PSI]\]
+	\item Un sommet, aussi définit par ses faces adjacentes, est nommé~:
+	      \[RN(V) = [RN(F1), RN(F2),RN(F3)], PSI\]
+\end{itemize}
+où \(PSI\) est l'information géométrique permettant de discriminer les entités
+dont le nom est ambiguë, c'est-à-dire pour lesquelles la topologie ne suffit
+plus. %
+
+Les travaux de Wu et al. s'intéressent au problème de la nomination persistante
+du point de vue des opérations booléennes et proposent un système de nomination
+à base de faces enrichi d'une information purement géométrique pour lever
+l'ambiguïté lorsque plusieurs entités portent le même nom. %
+Les auteurs proposent que seules les entités enregistrées dans la spécification
+paramétrique doivent être nommées et le système de nomination proposé permet la
+création de noms uniques, à l'exception des cas ambigus issus d'intersections
+non-planaires. %
+Néanmoins, l'usage des faces comme type d'entité de base pour la nomination des
+autres entités est un facteur limitant. %
+Ajouté au fait que la nomination d'une face dépend de la catégorie d'opération
+qui la crée, ce système de nomination est particulièrement difficile, voire
+impossible, à généraliser dans d'autres dimensions. %
+
+
+\subsubsection*{Agbodan}
 
 \subsubsection*{Bidarra}
 
@@ -954,10 +1042,10 @@ véritablement générique. %
 Avec ce constat, les auteurs proposent une méthode basée sur la nomination des caractéristiques de forme et posent deux critères pour garantir le fonctionnement de cette approche~: %
 \begin{enumerate}
 	\item les noms persistants doivent portent exclusivement sur des entités
-	topologiques définies dans la spécification paramétrique du modèle~; %
+	      topologiques définies dans la spécification paramétrique du modèle~; %
 	\item garantir, à chaque étape de l'évaluation, que la sémantique (ou
-	l'ensemble des contraintes qui caractérisent une entité), telle que
-	définie dans la spécification paramétrique, est toujours valide. %
+	      l'ensemble des contraintes qui caractérisent une entité), telle que
+	      définie dans la spécification paramétrique, est toujours valide. %
 \end{enumerate}
 Ainsi, le premier critère porte sur la nomination persistante d'un ensemble
 d'entités topologiques restreint aux paramètres topologiques définies dans la
@@ -999,7 +1087,7 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 	      chacun des trous placés dessus. %
 
 	\item[Classes de caractéristiques déclaratives] Une \emph{caractéristique
-				déclarative} est définie comme un patron qui permet de créer des
+		      déclarative} est définie comme un patron qui permet de créer des
 	      instances d'un type de caractéristique (par exemple une caractéristique
 	      de forme) à partir de la description de ses propriétés. %
 	      Conceptuellement, chaque objet créé à partir d'un patron appartient
@@ -1030,7 +1118,7 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 	      représentation géométrique.
 
 	\item[Classes de caractéristique procédurales] une \emph{caractéristique
-				procédurale}, est une caractéristique dont les paramètres topologiques
+		      procédurale}, est une caractéristique dont les paramètres topologiques
 	      sont des arêtes, et non des faces, comme le chanfrein ou l'arrondi. %
 	      Les auteurs justifient l’existence de cette classe par les deux
 	      propriétés suivantes~: (1) Contrairement aux caractéristiques
@@ -1060,19 +1148,19 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 	      \end{figure}
 
 	      Par exemple, dans la
-				figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete},
-				Bidarra et al. illustrent comment procéder à l'identification d'une des
-				deux arêtes en rouge pour appliquer un chanfrein. %
+	      figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete},
+	      Bidarra et al. illustrent comment procéder à l'identification d'une des
+	      deux arêtes en rouge pour appliquer un chanfrein. %
 	      Tout d'abord
-				(figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-1}),
-				l'arête est définie par ses faces caractéristiques incidentes, la face
-				du dessus et la face de droite. %
+	      (figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-1}),
+	      l'arête est définie par ses faces caractéristiques incidentes, la face
+	      du dessus et la face de droite. %
 	      Cette sélection filtre deux arêtes de part et d'autre de la rainure. %
 	      Pour discriminer l'arête sur laquelle appliquer le chanfrein, ils
-				proposent d'utiliser un discriminant à l'aide des faces caractéristiques
-				aux extrémités de l'arête à chanfreiner. %
-				Dans cet exemple, il s'agit du couple face avant du bloc et face gauche
-				de la rainure. %
+	      proposent d'utiliser un discriminant à l'aide des faces caractéristiques
+	      aux extrémités de l'arête à chanfreiner. %
+	      Dans cet exemple, il s'agit du couple face avant du bloc et face gauche
+	      de la rainure. %
 \end{description}
 
 \begin{figure}[htb!]

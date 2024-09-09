@@ -686,32 +686,47 @@ Dans les contributions présentées dans ce manuscrit, un certain nombre d'entre
 elles font état d'approches spécifiques à leurs systèmes de nomination. %
 
 
-\subsubsection*{Nomination des entités contingentes issues de }
+\subsubsection*{Nomination des entités issues d'intersections non-planaires}
 
-- Pour les entités contingentes issues de l'intersection de surfaces non-planaires, la topologie peut ne plus suffire
-
-- Donner l'exemple d'une rainure ronde sur un cylindre
-- Donner l'exemple de multiples intersections entre un bloc est une surface non-planaire
-- Donner l'exemple de l'auto-intersection d'un plan (orientable)
+Les intersections d'entités non-planaires sont systématiquement sources
+d'ambiguïtés et compliquent la nomination des entités topologiques. %
+En effet, par définition, les systèmes de nomination basés uniquement sur la
+topologie, donc seul les cas planaires sont entièrement pris en compte. %
+Ainsi, il apparaît naturel la topologie seule ne permet pas de faire la
+distinction entre plusieurs entités, issues d'une intersection où au moins une
+des entités est non-planaire. %
 
 Ainsi, la plupart des systèmes proposent d'ajouter des informations géométriques
-dans les noms persistants pour permettre l'identification des entités issues de
+aux noms persistants pour permettre l'identification des entités issues de
 telles intersections~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
 
-Bidarra, par exemple, propose d'ajouter la définition d'un demi-espace
-positif/négatif pour distinguer deux entités symétriques que la topologie seule
-ne permettrait pas distinguer. %
+Wu et al~\cite{wu2001face}, par exemple, propose de représenter les entités
+topologiquement ambiguës dans un espace paramétrique (u,v) et de les ordonnancer
+pour les distinguer les unes des autres. %
 
-% Wu utilise un espace paramétrique (u,v) pour calculer les intersections d'entités
-% et les distinguer les unes des autres dans la représentation géométrique. %
+Bidarra et al.\cite{bidarra2005feature}, de découper l'espace en deux domaines, positif et négatif, à l'aide d'un plan de référence. %
+L'appartenance d'une entité à un domaine ou un autre par rapport au plan de
+coupe permet alors de distinguer deux entités symétriques. %
 
-% Wang (à lire) semble utiliser, entre autre, un calcul de gradient pour procéder
-% à une caractérisation, puis une distinction, des entités topologiques dans la
-% représentation géométrique. %
 
 \subsubsection*{Nomination des entités de dimension supérieure à 2}
 
-La plupart des auteurs n'abordent pas la nomination des volumes (ou \emph{coques}), qui sont
+
+Cet élément distinctif, énoncé dans les travaux de
+Baba-Ali~\cite{babaali2010systeme} soulève le fait que peu de méthodes dans la
+littérature traitent la nomination des agrégats d'entités, comme les agrégats de
+faces aussi appelées coques. %
+Notons que la plupart des systèmes de nominations persistantes sont basé sur les
+faces pour définir les autres entités, le plus souvent les arêtes et sommets,
+comme des intersections de faces. %
+Ces mêmes systèmes sont donc, par essence, inadaptés à la nomination d'autres
+agrégats que les coques. %
+Il existe donc, dans les systèmes de modélisation paramétrique un manque à
+combler en ce qui concerne la nomination des volumes, agrégats et autres entités
+de dimension supérieures aux faces. %
+Permettre leurs nomination permettrait aux utilisateurs de logiciel CAO d'avoir
+plus de libertés dans leurs processus constructifs. %
+
 
 \subsubsection{Systèmes de nominations persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
@@ -929,6 +944,21 @@ De plus, la nomination des entités n'est pas homogène puisque les faces,
 contrairement aux arêtes et sommets, sont uniquement caractérisées d'après le
 nom de leur ancêtre quand elles en ont un. %
 
+Parmi les travaux publiés récemment, ceux de Dai et al.~\cite{dai2024sweeping}
+proposent d'étendre les derniers travaux de Chen et al. avec une méthode basée
+sur l'orientation d'une extrusion pour distinguer deux entités issues d'une
+intersection d'entités extrudées parmi lesquelles au moins une est
+non-planaire. %
+Pour l'essentiel, Dai et al., s'inspirent des travaux de Wu et
+al.~\cite{wu2001face} en suggérant d'ordonnancer les entités ambiguë par rapport
+au sens d'extrusion des entités d'intersection, ce qui permet de les catégoriser
+par ordre de création. %
+Bien que montrant des résultats intéressants, le système de nomination reste basé sur l'approche de Capoyleas, Chen et Hoffmann. %
+Ainsi, les travaux de Dai présentent les mêmes limitations, à savoir un système
+de nomination basé sur les faces qui n'est pas généralisable en toutes
+dimensions. %
+
+
 \subsubsection*{Wu et al. }
 
 Wu et al.~\cite{wu2001face} s'intéressent à la nomination des entités
@@ -1019,7 +1049,8 @@ qui la crée, ce système de nomination est particulièrement difficile, voire
 impossible, à généraliser dans d'autres dimensions. %
 
 
-\subsubsection*{Agbodan}
+% \subsubsection*{Agbodan}
+
 
 \subsubsection*{Bidarra}
 
@@ -1211,20 +1242,21 @@ nomination persistante des entités et garantir leurs appariements lors de la
 réévaluation d'une spécification paramétrique. %
 Toutefois, leur approche présente plusieurs limitations. %
 Le système de nomination s'appuie sur des faces. %
-Même si celles-ci sont persistantes dans la réévaluation et immuables car
+Même si celles-ci sont persistantes dans la réévaluation et immuables, car
 définies exclusivement à partir de caractéristiques de formes, ce système est
 adapté uniquement à la modélisation 3D, c'est-à-dire que ce système n'est pas
-généralisable aux autres dimensions où, les faces peuvent être issues d'une
+généralisable aux autres dimensions où les faces peuvent être issues d'une
 intersection de volumes. %
 Une autre limitation est l'usage d'un plan pour la discrimination des
 différentes arêtes issues d'une intersection avec une entité non-planaire. %
 En effet, un plan ne permet de scinder efficacement l'espace que pour un
-échantillons de structures compatibles avec leurs classes de caractéristiques, à
-savoir les plans, les cylindres, les sphères et les torcs. %
+échantillon de structures compatibles avec leurs classes de caractéristiques, à
+savoir les plans, les cylindres, les sphères et les tores. %
 
 
-\subsubsection*{Baba-Ali }
+% \subsubsection*{Baba-Ali}
 
+%% système de nomination basé sur les arêtes
 
 \subsubsection*{Cascaval}
 %% Contexte
@@ -1398,43 +1430,148 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 % les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux
 % par rapport aux siens.
 
-Les travaux de Cardot et al. sont les premiers à proposer une solution à la nomination
-persistante basée sur des règles de transformation de graphe.
-Son schéma de nomination est en deux étapes~: (1) la première étape consiste à
-définir un identifiant persistant, pour chaque brin d'une G-carte, sous la forme
-d'un historique opérations et n\oe uds qui interviennent dans l'évolution d'un
-brin~; (2) la nomination persistante des entités qui est composé d'un ensemble
-d'identifiants persistants tel que cet ensemble référence l'ensemble des
-opérations qui ont impacté une entité précise. %
+Dans la littérature, les travaux de Cardot~\cite{cardot2019} sont les premiers à
+proposer une solution à la nomination persistante basée sur des règles de
+transformation de graphe. %
+Ses contributions comprennent la spécification d'un système de nomination, une
+historisation de l'évolution des entités référencées dans une spécification
+paramétrique et l'édition d'une spécification paramétrique. %
+Dans le cadre de ses travaux, Cardot tire parti du formalisme des cartes
+généralisées~\cite{lienhardt1994n,Damiand-Lienhardt14} pour formaliser les
+objets n-dimensionels et les représenter. %
+Elle a également recours aux règles Jerboa~\cite{belhaouari2014jerboa} pour
+formaliser les opérations de modélisation géométriques. %
 
-Ces travaux présentent deux outils qui sont utilisés, en plus des noms
-persistants, pour l'appariement des entités. %
-Il s'agit des journaux de bords, une base de données des changements
-topologiques (créations, suppression, non-changement, modification, scission,
-fusion) provoqués par une règle et compilée par l'utilisateur~; et du journal
-d'historique, un ensemble d'entrées construites à l'aide de journaux de bords
-pour représenter l'évolution d'une entité tout au long du processus de
-modélisation. %
+Pour la première partie de ses travaux, Cardot propose un système de nomination
+en deux couches~: (1) création d'un identifiant persistant pour tout brin d'une
+G-carte~; (2) création d'un nom persistant à partir d'un ensemble minimal
+d'identifiants persistant pour chaque entité topologique, ici une orbite,
+référencée dans la spécification paramétrique. %
 
-%% Blabla sur les journaux de bord
+L'identification persistante des brins est justifiée par les propriétés
+suivantes~:
+\begin{enumerate}
+	\item un brin est l'entité topologique de plus petite dimension, et donc
+				indivisible, dans une G-carte~;
+	\item un brin créé par une règle ne peut qu'être créé \textit{ex nihilo} ou
+	par copie d'un autre brin. %
+\end{enumerate}
+Avec ces propriétés en tête, Cardot propose de définir un identifiant persistant
+(noté \emph{PI}) d'après l'histoire d'un brin, c'est-à-dire l'ensemble des
+règles et de leurs n\oe uds qui expriment de manière unique la création d'un
+brin dans une G-carte. %
+Un Identifiant est alors défini comme une collection de couples
+\(\{numeroEtap - noeud\}\) où \(numeroEtape\) est le numéro d'application d'une
+règle dans la spécification paramétrique et \(n\oe ud\) est le nom d'un n\oe ud
+dans cette même règle.%
+À sa création \textit{ex nihilo}, par exemple suite à l'application de
+la toute première règle de la spécification paramétrique, l'identifiant
+persistant d'un brin est \(\{1 - noeud\}\) et chacune des opérations qui
+réécrivent ce brin, ajoute un couple \(\{i - noeud\}\) à son identifiant
+persistant. %
+Enfin, l'identifiant persistant d'un brin créé par copie est aussi l'identifiant
+persistant du brin copié auquel s'ajoute sa propre histoire. %
 
-%% Blabla sur les journaux d'historiques
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.6\textwidth]{cardot-fil-rouge-court}
+	\caption{Exemple de construction de Cardot}
+	\label{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}
+\end{figure}
 
-Le système de réévaluation proposé Cardot et al. propose, en plus de la
-modification des paramètres géométriques des opérations, de permettre l'édition
-d'une spécification paramétrique en ajoutant, supprimant et en déplaçant des
-opérations de modélisations dans les spécifications paramétriques. %
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+	\centering
+		\includegraphics[width=.8\textwidth]{cardot-regle-carre}
+		\caption{}
+	\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-carre}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+	\centering
+		\includegraphics[width=.6\textwidth]{cardot-regle-triangulation}
+		\caption{}
+	\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-triangulation}
+	\end{subfigure}
+	\caption{Exemples de règles Jerboa par Cardot}
+	\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles}
+\end{figure}
 
-%% À revoir, il semblerait que les arbres virtuels soient construit en
-%% complément des arbres d'appariement dans le but de représenter les éventuels
-%% changements supplémentaires induits par les opérations ajoutées. Autrement
-%% dit, les arbres virtuels ne sont pas créés pour directement d'arbres
-%% d'appariement.
-Enfin, l'appariement est effectué à l'aide d'arbres virtuels est de représenter
-les évolutions d'une entité topologique précise et d'y intégrer les changements
-dus à l'édition de la spécification paramétrique afin de la retrouver dans le
-modèle réévalué. %
+Par exemple, dans l'exemple de construction illustré
+figure~\ref{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}, les
+brins \(a\) et \(b\) sont tous les deux créés par la première règle qui crée une
+face carrée et plus spécifiquement par les n\oe uds \(n_{4}\) et \(n_{3}\)
+respectivement. %
+Leurs identifiants persistants sont \(PI_{a} = \{1 - n_{4}\}\) et
+\(PI_{b} = \{1 - n_{3}\}\). %
+Dans la deuxième étape de la construction, \(a\) et \(b\) sont réécrits à
+l'identique par le n\oe ud \(n_{0}\) de la triangulation. %
+Leurs identifiants persistants sont mis à jour en
+\(PI_{a} = \{1 - n_{4}; 2 - n_{0}\}\) et \(PI_{b} = \{1 - n_{3}; 2 - n_{0}\}\)
 
+Une fois les brins dotés d'un identifiant persistant, Cardot pose le principe
+suivant, une orbite est constitué de brins. %
+Cependant, un identifiant persistant ne représente l'histoire que pour un seul
+brin et une orbite peut-être impacté par plusieurs histoires. %
+Le nom persistant d'une orbite (noté \emph{PN}) est donc défini comme un
+ensemble d'identifiants persistants. %
+Un nom persistant est minimal lorsqu'un nombre minimum d'identifiants persistant
+énumèrent l'ensemble des règles qui ont impacté une orbite donnée. %
+Ainsi, toujours dans l'exemple
+figure~\ref{fig:etat-art-reevaluation-synthese-cardot-fil-rouge}, la deuxième
+règle application a pour paramètre le nom persistant \(PN_{1}\) qui désigne la
+face carrée. %
+D'après la méthode de Cardot, puisque tous les brins de la face sont créés par
+la même règle, l'identifiant persistant du brin \(a\), \(PI_{a1}\) est ajouté au
+nom persistant \(PN_{1}\). %
+De même, la troisième opération est appliquée sur une arête désignée par le nom
+persistant \(PN_{2}\) dont les identifiants persistants sont
+\(PI_{a2} = \{1 - n_{4}; 2 - n_{0}\}\) et
+\(PI_{b2} = \{1 - n_{3}; 2 - n_{0}\}\). %
+Ces deux identifiants persistants sont équivalents. %
+Le nom persistant dépend donc du brin sélectionné par l'utilisateur lors de
+l'évaluation initiale. possibles %
+
+Pour permettre l'appariement des entités topologiques, Cardot propose d'utiliser
+un journal de bord, c'est-à-dire une structure qui référence pour chaque règle
+Jerboa l'ensemble des changements topologiques qui interviennent sur les entités
+lors de l'application d'une règle. %
+Les changements classifiés sont la création, la suppression, la scission, la
+fusion, le non-changement et la modification d'entités topologique. %
+Au cours d'une construction, à chaque application de règle, le journal de bord
+de la règle est consulté pour construire un journal d'historique et ainsi
+permettre le suivi des entités topologiques tout au long d'un processus de
+construction. %
+Ce mécanisme de suivi est lui-même réutilisé lors de l'appariement pour mettre en correspondance une entité du modèle initial avec une entité du modèle réévalué.  %
+Pour cela, le journal d'historique de chaque entité est mis à jour pendant le
+processus de réévaluation. %
+
+Enfin, avec ses travaux, Cardot propose d'étendre l'édition d'une spécification
+paramétrique non plus à la seule édition des paramètres géométriques, mais
+également à l'ajout, la suppression et le déplacement d'opérations dans une
+spécification paramétrique. %
+Cette extension permet de générer une plus grande diversité de modèles
+paramétrique. %
+Avec cette extension, Cardot définit trois types d'éditions supplémentaires sur
+les opérations, c'est-à-dire l'ajout, la suppression et le changement d'ordre. %
+
+Les travaux de Cardot proposent une extension du problème de la nomination
+persistante aux règles de transformation de graphe. %
+Grâce aux formalismes des G-cartes et des règles Jerboa, elle propose un système
+de nomination persistante qui permet l'identification de toute entité
+topologique de manière unique, avec un schéma homogène et généralisable en
+toutes dimensions. %
+Cette contribution apporte également une extension des spécifications
+paramétriques afin d'ajouter, de supprimer et de déplacer des opérations en plus
+des habituelles modifications de paramètres géométriques. %
+L'approche de journal d'historique, basée sur un accès statique à un journal de
+bord pour accéder à tous les changements par orbite, pour réaliser le suivi des
+entités topologiques est intéressante. %
+Néanmoins, ces journaux omettent d'intégrer une origine (et leurs propres
+suivis) pour les entités suivies, ce qui peut conduire à un mauvais appariement
+des entités topologiques lors de la réévaluation et à plus forte raison lorsque
+des opérations ont été ajoutés, supprimées ou encore déplacées dans l'édition
+de la spécification paramétrique. %
 
 
 \subsubsection{Synthèse des méthodes}

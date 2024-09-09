@@ -724,8 +724,8 @@ agrégats que les coques. %
 Il existe donc, dans les systèmes de modélisation paramétrique un manque à
 combler en ce qui concerne la nomination des volumes, agrégats et autres entités
 de dimension supérieures aux faces. %
-Permettre leurs nomination permettrait aux utilisateurs de logiciel CAO d'avoir
-plus de libertés dans leurs processus constructifs. %
+Permettre leur nomination offrirait aux utilisateurs de logiciels CAO
+une plus grande marge de man\oe uvre dans leurs processus constructifs. %
 
 
 \subsubsection{Systèmes de nominations persistantes}
@@ -752,7 +752,8 @@ persistante. %
 Le nom d'une face, \(faceId\), est défini par~:
 \[FaceId(f) = [stepId,faceIndex,surfaceType]\] %
 où \(stepId\) est le numéro d'application de l'opération qui crée \(f\),
-\(faceIndex\) l'index de \(f\) et \(surfaceType\) le type de surface de \(f\). %
+\(faceIndex\) l'index de \(f\) et \(surfaceType\) le type de surface de \(f\) (plan, tore,…).
+\xavier{pour Maxime : donne des exemples de types de surfaces.}%
 
 Le nom d'une arête, \(edgeId\), est défini par~:
 \[EdgeId(e) = [adjFaceIds,endFaceIds_{0,1},edgeIntersCode]\] %
@@ -760,9 +761,8 @@ où \(adjFaceIds\) est une liste des faces incidentes à \(e\), cette liste est
 ordonnée selon un parcours de voisinage~; \(endFaceIds_{0}\) (respectivement
 \(endFaceIds_{1}\)) est l'ensemble des faces à l'extrémité \(0\) (respectivement
 \(1\)) de \(e\)~; et \(edgeIntersCode\) un code d'intersection basé sur la
-position relative, et non absolue, des faces incidentes à \(e\), ce qui rend le
-code insensible aux transformations telles que le déplacement et le changement
-d'échelle. %
+position relative des faces incidentes à \(e\), ce qui rend le code insensible
+aux transformations telles que le déplacement et le changement d'échelle. %
 
 Le nom d'un sommet, \(vertexId\), est défini par~:
 \[VertexId(v) = [adjFaceIds,vertexIntersCodes]\] %
@@ -803,8 +803,6 @@ Il propose un système de nomination persistante, un DAG pour suivre l'évolutio
 des faces et un mécanisme d'appariement des entités. %
 Toutefois, ce système présente des inconvénients. %
 Chaque type d'entité topologique à un schéma de nomination différent, ce qui en fait un système compliqué à mettre en \oe uvre et qui n'est pas généralisable en dimensions. %
-En effet, pour les dimensions d'ordre supérieur, il faudrait changer tout le
-schéma de nomination. %
 L'appariement s'appuie en partie sur le voisinage (pour rappel des faces) pour estimer la similitude entre deux entités. %
 Une limite de cette approche est le cas où tout le voisinage d'une entité serait modifié. %
 Dans ce cas, il n'est pas certain qu'il soit possible de poursuivre la réévaluation. %
@@ -839,9 +837,9 @@ opérations~:
 	\label{fig:etat-art-reevaluation-systemes-capoylease-generated-entities}
 \end{figure}
 
-Ce système propose que les entités issues d'une extrusion, des entités
-invariantes, soient nommées par rapport à leur ancêtre invariant dans le
-profil. %
+Ce système propose que les entités issues d'une extrusion% , des entités
+% invariantes,
+soient nommées par rapport à leur ancêtre invariant dans le profil. %
 Prenons, l'exemple illustré dans la
 figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-generated-entities} et
 plus particulièrement le profil
@@ -849,10 +847,12 @@ plus particulièrement le profil
 extrusion
 (figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-extruded-part}). %
 Les entités du profil sont nommées par type d'entité et de manière incrémentale,
-prenons, par exemple, l'arête \(e_{1}\) et le sommet \(v_{3}\). %
-Suite à l'extrusion, la face de côté générée à partir de \(e_{1}\) est nommée
-\(f(e_{1})\) et l'arête générée à partir de \(v_{3}\) est nommée \(e(v_{3})\). %
-
+prenons, par exemple, la face \(f\), l'arête \(e_{3}\) et le sommet \(v_{2}\). %
+Suite à l'extrusion, la face opposée à \(f\) et notée \(\hat{f}\) et la face
+d'arrivée de l'extrusion, la face de côté générée à partir de \(e_{3}\) est nommée
+\(f(e_{3})\) et l'arête générée à partir de \(v_{2}\) est nommée \(e(v_{2})\). %
+\xavier{3. La figure est FAUSSE ! La face sur le côté droit est étiquetée f(e4)
+	alors qu'elle est issue de e2 => refaire la figure correctement.}
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=150pt]{capoyleas-cut-part}
@@ -894,7 +894,9 @@ Le contexte est étendu de cette manière jusqu'à trouver une classe d'équival
 unique qui permette alors de discriminer une entité dont le nom est partagé. %
 Prenons, par exemple, les deux arêtes \(I_e\) de la
 figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
-À terme, pour la première entité \(I_{e}\), nous obtenons~:
+\xavier{De manière générale, sur la figure, il faudrait faire ressortir les
+	entités que tu évoques. Par exemple, on a du mal à repérer cette arête
+	\(I_e\).} À terme, pour la première entité \(I_{e}\), nous obtenons~:
 \begin{flalign*}
 	I_{e} & :                                                                                                       \\
 	      & [0,I_{e},1],                                                                                            \\
@@ -1054,12 +1056,6 @@ impossible, à généraliser dans d'autres dimensions. %
 
 \subsubsection*{Bidarra}
 
-% Bidarra et al.~\cite{bidarra2005feature} estiment qu'une difficulté majeure dans
-% les systèmes de nomination existants est le fait nommer des entités qui peuvent
-% disparaître lors de la réévaluation. %
-% Ainsi, les auteurs proposent un système de nomination basé sur les
-% caractéristiques de forme dans lequel un nom persistant est maintenu quelle que
-% soit la spécification paramétrique réévaluée. %
 
 Bidarra et al.~\cite{bidarra2005feature} suggèrent que le problème de la
 nomination est généralement abordé avec une solution incomplète, voire
@@ -1348,6 +1344,7 @@ Afin de saisir les intentions de conception, les noms persistants sont définis
 par les utilisateurs, pendant la conception du modèle paramétrique, à l'aide de
 requêtes, comme illustré dans la
 figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+\xavier{Dans la figure 1.28, le "u" de $edges(u)$ devrait être en majuscule.} %
 Ces requêtes permettent aux utilisateurs de contraindre l'appariement des
 entités topologiques passées en paramètres des opérations. %
 Les entités sont alors identifiées par rapport à un ou plusieurs ancêtres qui
@@ -1365,7 +1362,7 @@ sous-ensemble et de dérivation pour exprimer au mieux ses intentions de
 modélisation, par exemple \texttt{deriveFrom|All|Any}. %
 
 L'outil développé par Cascaval et al. permet de travailler principalement sur
-des objets 2D avec des opérations principalement 2D. %
+des objets et des opérations principalement en 2D. %
 Le passage à la 3D implique que le traitement des voisinages topologiques sera
 nécessairement plus complexe. %
 
@@ -1423,12 +1420,10 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 	      que les problèmes de nomination et d'appariement apparaissent. %
 \end{itemize}
 
+
 \subsubsection*{Cardot}
 \label{sec:etat-art-reevaluation-synthese-cardot}
 
-% Ici, présenter les apports issus des travaux d'Anaïs Cardot. (Objectif) placer
-% les fondamentaux de la méthode proposé pour présenter l'apport de mes travaux
-% par rapport aux siens.
 
 Dans la littérature, les travaux de Cardot~\cite{cardot2019} sont les premiers à
 proposer une solution à la nomination persistante basée sur des règles de
@@ -1452,9 +1447,9 @@ L'identification persistante des brins est justifiée par les propriétés
 suivantes~:
 \begin{enumerate}
 	\item un brin est l'entité topologique de plus petite dimension, et donc
-				indivisible, dans une G-carte~;
+	      indivisible, dans une G-carte~;
 	\item un brin créé par une règle ne peut qu'être créé \textit{ex nihilo} ou
-	par copie d'un autre brin. %
+	      par copie d'un autre brin. %
 \end{enumerate}
 Avec ces propriétés en tête, Cardot propose de définir un identifiant persistant
 (noté \emph{PI}) d'après l'histoire d'un brin, c'est-à-dire l'ensemble des
@@ -1482,16 +1477,16 @@ persistant du brin copié auquel s'ajoute sa propre histoire. %
 \begin{figure}[h!]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-	\centering
+		\centering
 		\includegraphics[width=.8\textwidth]{cardot-regle-carre}
 		\caption{}
-	\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-carre}
+		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-carre}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-	\centering
+		\centering
 		\includegraphics[width=.6\textwidth]{cardot-regle-triangulation}
 		\caption{}
-	\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-triangulation}
+		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-triangulation}
 	\end{subfigure}
 	\caption{Exemples de règles Jerboa par Cardot}
 	\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles}
@@ -1574,10 +1569,87 @@ des opérations ont été ajoutés, supprimées ou encore déplacées dans l'éd
 de la spécification paramétrique. %
 
 
-\subsubsection{Synthèse des méthodes}
+\subsubsection*{Synthèse}
 \label{sec:etat-art-reevaluation-synthese}
 
-Faire un tableau de comparatif des méthodes utilisées par chaque publication.
+
+\begin{table}[ht!]
+	\centering
+	\begin{tabular}{|c|p{.28\textwidth}|p{.22\textwidth}|p{.28\textwidth}|}
+		\hline %
+		Auteur                                           & Approches                                                       & Avantages                                                                       & Inconvénients     \\
+		\hline %
+		\hline %
+		Kripac                                           & Nomination à base de faces                                      & Suivi explicite de toutes les faces                                             & Pas généralisable \\
+		\hline %
+		Capoyleas et al.                                 & Discrimination par l'orientation des sommets et arêtes          & c                                                                               & Pas généralisable \\
+		\hline %
+		Wu et al.                                        & Nomination à base de faces                                      & c                                                                               & Pas généralisable \\
+		\hline %
+		Bidarra et al.                                   & Nomination à base de faces                                      & c                                                                               & Pas généralisable \\
+		\hline %
+		Cardot et al.                                    & Formalisation des objets et des opérations
+		\par Suivi statique des changements topologiques & Générique                                                       & Suivi incomplet des entités, il peut subsister des cas topologiquement ambiguës                     \\
+		\hline %
+		Cascaval et al.                                  & Définition d'un langage dédié~;
+		                                                 & Nom et appariement
+		\par explicites                                  & L'utilisateur est responsable de la persistance des contraintes                                                                                                       \\
+		\hline %
+	\end{tabular}
+\end{table}
+
+\subsection{Conclusion}
+
+Dans ce chapitre, nous avons commencé par présenter les outils que nous
+utiliserons tout au long de cette thèse pour formaliser les objets et les
+opérations de modélisation géométrique. Puis, nous avons passé en revue un état
+de l'art des systèmes de réévaluation proposés dans la littérature et des
+problèmes qu'ils tentent de résoudre, parmi lesquels se trouve la nomination
+persistante des entités topologiques, leurs appariements dans la réévaluation
+d'une spécification paramétrique éditée et parfois l'appariement d'entités pour
+lesquelles la topologie est devenue insuffisante pour les distinguer les unes
+des autres . %
+Nous avons pu voir qu'une grande partie de ces systèmes ont développé un système
+de nomination persistante en utilisant les faces comme entités de base pour
+nommer les autres. %
+Ce choix est compréhensible dans la mesure où, pour un modeleur spécialisé dans
+la modélisation 3D, les faces sont des entités qui sont soit crées comme des
+pièces «~élémentaires~» (entité caractéristique, profil d'extrusion, … ) soit
+créées à partir d'autres faces, et donc avec sources, dans des opérations
+booléennes (intersection de volumes, de faces co-planaires) ce qu'il permet de
+suivre aisément leurs évolutions tout au long d'un processus constructif. %
+Néanmoins ces méthodes ont pour inconvénients d'être rigides et d'inciter à
+développer un schéma de nomination différent pour chaque entité topologique. %
+La conséquence étant qu'il est difficile de généraliser de telles méthodes pour
+des modeleurs qui travaillent avec des dimensions supérieures à la 3D. %
+Certains systèmes proposent d'intégrer des informations purement géométriques
+afin de garantir la distinction des entités topologiques partageant un même nom
+basé sur leurs topologies respectives. %
+Certaines approches proposent une distinction basée sur l'orientation des arêtes
+et sommets dans l'objet modélisé ou encore de classer les entités en fonction de
+leur ordre d'apparition dans un espace paramétrique \(u,v\). %
+D'autres systèmes proposent des solutions qui se distinguent l'approche choisie
+comme la création d'un langage spécifique au développement de modèles
+paramétrique avec une nomination persistante définie comme un jeu de contraintes
+ou encore la formalisation d'un objet et des opérations de modélisation
+géométriques pour proposer un suivi de tout type d'entité et un schéma de
+nomination persistante générique. %
+
+Dans cette thèse, nous étendons les travaux de Cardot et al. afin de proposer un
+suivi riche des changements topologiques qui impactent les entités topologiques
+enregistrées dans une spécification paramétrique. %
+D'autre part, Dans la suite de ce manuscrit, nous proposons trois
+contributions. %
+La première contribution est une méthode qui permet la détection des changements
+topologiques pour toutes entités topologiques statiquement à partir des seules
+règles Jerboa. %
+Notre deuxième contribution est la mise en \oe uvre d'un système de réévaluation
+basé sur les règles Jerboa. %
+Enfin, nous étendons ce système de réévaluation à des scripts qui permettent de
+structure des règles Jerboa à l'aide de structures de contrôle et plus
+particulièrement des itérations de sous-orbites et des structures
+conditionnelles. %
+
 
 %%% Local Variables:
 %%% mode: latex

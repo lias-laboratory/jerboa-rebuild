@@ -22,8 +22,6 @@ Nous verrons que la réévaluation peut poser problème lorsque le système ne g
 pas correctement les références faites aux entités topologiques et qu'il
 convient, dans ce cas, d'intégrer un mécanisme de nomination persistante. %
 
-~
-
 Un système paramétrique peut être considéré comme une structure duale avec
 d'une part la représentation explicite, ou \emph{couche géométrique}, d'un
 objet et, d'autre part, une représentation implicite, ou \emph{spécification
@@ -32,8 +30,6 @@ Cette dernière contient la liste des contraintes ou des opérations successives
 avec leurs paramètres. %
 Elle peut être modifiée et réévaluée, afin de générer de nouvelles
 représentations explicites selon les modifications effectuées. %
-
-~
 
 On distingue deux principales approches dans le cadre de la
 modélisation paramétrique, chacune avec son type de
@@ -1575,28 +1571,44 @@ de la spécification paramétrique. %
 
 \begin{table}[ht!]
 	\centering
-	\begin{tabular}{|c|p{.28\textwidth}|p{.22\textwidth}|p{.28\textwidth}|}
+	\caption{Résumé des approches, avantages et inconvénients par système de nomination}
+	\label{tab:etat-art-reevaluation-synthese-table-resume-systemes-pt1}
+	\small
+	\begin{tabular}{|c|p{.28\textwidth}|p{.22\textwidth}|p{.23\textwidth}|}
 		\hline %
-		Auteur                                           & Approches                                                       & Avantages                                                                       & Inconvénients     \\
+		Auteur           & Approches                                                                              & Avantages                                                     & Inconvénients                                                                     \\
 		\hline %
 		\hline %
-		Kripac                                           & Nomination à base de faces                                      & Suivi explicite de toutes les faces                                             & Pas généralisable \\
+		Kripac           & Graphe de suivi des faces~; Appariement de toutes les entités topologiques d'un modèle & Appariement des faces avec différents degrés d'exactitude     & Pas généralisable (nomination à base de faces)~; Coûteux en calculs d'appariement \\
 		\hline %
-		Capoyleas et al.                                 & Discrimination par l'orientation des sommets et arêtes          & c                                                                               & Pas généralisable \\
+		Capoyleas et al. & Discrimination par l'orientation des sommets et arêtes                                 & prise en charge avancée des cas d'intersections non-planaires & Pas généralisable (nomination à base de faces)                                    \\
 		\hline %
-		Wu et al.                                        & Nomination à base de faces                                      & c                                                                               & Pas généralisable \\
-		\hline %
-		Bidarra et al.                                   & Nomination à base de faces                                      & c                                                                               & Pas généralisable \\
-		\hline %
-		Cardot et al.                                    & Formalisation des objets et des opérations
-		\par Suivi statique des changements topologiques & Générique                                                       & Suivi incomplet des entités, il peut subsister des cas topologiquement ambiguës                     \\
-		\hline %
-		Cascaval et al.                                  & Définition d'un langage dédié~;
-		                                                 & Nom et appariement
-		\par explicites                                  & L'utilisateur est responsable de la persistance des contraintes                                                                                                       \\
+		Wu et al.        & Discrimination par ordonnancement dans un espace paramétrique                          & Nomination homogène                                           & Pas généralisable (nomination à base de faces)                                    \\
 		\hline %
 	\end{tabular}
 \end{table}
+
+\begin{table}[ht!]
+	\centering
+	\caption{Résumé des approches, avantages et inconvénients par système de nomination (suite)}
+	\label{tab:etat-art-reevaluation-synthese-table-resume-systemes-pt2}
+	\small
+	\begin{tabular}{|c|p{.28\textwidth}|p{.22\textwidth}|p{.23\textwidth}|}
+		\hline %
+		Auteur                        & Approches                                                                        & Avantages                                               & Inconvénients                                                                  \\
+		\hline %
+		\hline %
+		Bidarra et al.                & Discrimination par définition d'un demi-espace~; définition d'entité persistante & Appariement garantie par le système                     & Pas généralisable~; Méthode de discrimination limité par le plan de découpe    \\
+		\hline %
+		Cardot et al.                 & Formalisation des objets et des opérations~; Modélisation à base de règles       & Générique~; Suivi statique des changements topologiques & Suivi incomplet des entités, il peut subsister des cas topologiquement ambigus \\
+		\hline %
+		Cascaval et al.               & Définition d'un langage dédié~; Nomination par système de contraintes
+		                              & Appariement
+		par résolution de contraintes & L'utilisateur est responsable de la persistance des contraintes                                                                                                                                                             \\
+		\hline %
+	\end{tabular}
+\end{table}
+
 
 \subsection{Conclusion}
 

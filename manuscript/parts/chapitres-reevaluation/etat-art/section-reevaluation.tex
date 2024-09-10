@@ -22,6 +22,8 @@ Nous verrons que la réévaluation peut poser problème lorsque le système ne g
 pas correctement les références faites aux entités topologiques et qu'il
 convient, dans ce cas, d'intégrer un mécanisme de nomination persistante. %
 
+~
+
 Un système paramétrique peut être considéré comme une structure duale avec
 d'une part la représentation explicite, ou \emph{couche géométrique}, d'un
 objet et, d'autre part, une représentation implicite, ou \emph{spécification
@@ -30,6 +32,8 @@ Cette dernière contient la liste des contraintes ou des opérations successives
 avec leurs paramètres. %
 Elle peut être modifiée et réévaluée, afin de générer de nouvelles
 représentations explicites selon les modifications effectuées. %
+
+~
 
 On distingue deux principales approches dans le cadre de la
 modélisation paramétrique, chacune avec son type de
@@ -93,7 +97,7 @@ D'un autre côté, nous relevons plusieurs limitations de cette approche: %
 \label{sec:etat-art-modelisation-parametric-approche-fonctionnelle}
 
 Dans cette seconde approche, la spécification paramétrique d'un objet est un
-processus de construction (ou historique), c'est-à-dire un enregistrement de
+processus constructif (ou historique), c'est-à-dire un enregistrement de
 l'ensemble des opérations de modélisation et de leurs paramètres, successivement
 appliquées tout au long d'un processus de modélisation. %
 Dans ces opérations, les paramètres sont soit des valeurs géométriques, soit des références à des entités topologiques existantes. %
@@ -302,9 +306,9 @@ Au cours des années, de nombreuses méthodes ont été proposées pour mettre e
 uvre un système permettant de réévaluer des modèles paramétriques. %
 Dans cette section, nous proposons tout d'abord une classification de ces
 méthodes sous la forme d'approches communes et distinctes. %
-Ensuite, nous passons en revue de manière plus détaillée les systèmes proposés
-les plus significatifs pour résoudre le problème de la nomination persistante
-et, enfin, nous proposons une synthèse de ces méthodes. %
+Ensuite, nous passons en revue de manière plus détaillée les systèmes proposés les plus significatifs
+pour résoudre le problème de la nomination persistante et, enfin, nous proposons une synthèse de
+ces méthodes. %
 
 
 \subsubsection{Concepts communs de la nomination persistante}
@@ -330,7 +334,7 @@ et l'appariement. %
 
 
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[height=120pt]{entites-invariantes-contingentes}
 	\caption{Opération booléenne (différence) entre deux objets}
@@ -348,10 +352,8 @@ entités dites \emph{invariantes} de celles dites \emph{contingentes}~\cite{agbo
 \end{definition}
 
 Pour illustrer cela, observons la
-figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}. %
-Nous pouvons voir, lors des étapes $1$ et $2$ de la modélisation, un ensemble
-d'entités topologique dites invariantes générées lors de la création des deux
-blocs. %
+figure~\ref{fig:etat-art-modelisation-parametrique-classification-entites-invariantes-contingentes}. Nous pouvons voir, lors des étapes $1$ et $2$ de la modélisation, un ensemble
+d'entités topologique dites invariantes générées lors de la création des deux blocs. %
 Quels que soient les paramètres des opérations créant ces deux blocs, nous
 savons que l'ensemble de ses entités seront systématiquement générées, car elles
 sont caractéristiques de l'opération. %
@@ -421,7 +423,7 @@ invariantes intervenant dans leurs constructions. %
 
 
 Prenons l'exemple des travaux de Wu~\cite{wu2001face}. %
-Wu propose une identification des entités topologiques générées par extrusion (ou
+Wu propose une identification des entités topologiques générée par extrusion (ou
 révolution) basée sur le schéma de nomination suivant
 
 \[[ID_{operation},ID_{profil},ID_{element},ID_{chemin},ID_{trajectoire}]\]
@@ -441,7 +443,7 @@ d'identifiant $3$, $ID_{chemin}$ est le chemin d'extrusion identifié par $3$ et
 où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=\textwidth]{extrusion-exemple}
 
@@ -461,12 +463,10 @@ où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 
 \subsubsection*{Entités avec et sans sources}
 
-
 Le troisième concept commun que l'on retrouve dans la plupart des approches,
 même s'il n'est pas toujours défini de manière explicite, propose de distinguer
 les entités selon si elles possèdent une source ou non, en définissant les
 entités avec source de la façon suivante~\cite{wu2001face}. %
-
 
 \begin{definition}[Entité avec source]\label{def:entite-avec-source}%
 	Une entité avec source est une entité topologique résultant d'une autre entité
@@ -496,15 +496,12 @@ une entité sans source. %
 
 Nous pouvons observer que lorsque l'on travaille avec un modeleur en dimension
 $n$, les entités contingentes de dimension $n-1$ sont toujours des entités avec sources. %
-Ainsi, en 3D les faces contingentes avec source. %
+Ainsi, en 3D les faces contingentes sont toutes avec source. %
 À l'inverse, ce n'est pas forcément le cas pour les arêtes et sommets qui
 peuvent être créées par l'intersection de plusieurs entités de dimension
 supérieures. %
-La conséquence de cette remarque est qu'aujourd'hui, dans la plupart des modeleurs 3D, les mécanismes de nomination s'appuient sur les faces. %
-En effet, le fait qu'elles soient invariantes ou qu'elles aient systématiquement
-une source les rend plus facilement identifiables et permet par voie de
-conséquence une nomination plus robuste des autres entités. %
-
+La conséquence de cette remarque est qu'ajourd'hui, dans la plupart des modeleurs 3D, les mécanismes de nomination s'appuyent sur les faces. %
+En effet, le fait qu'elles soient invariantes ou qu'elles aient systématiquement une source les rend plus facilement identifiables et permet par voie de conséquence une nomination plus robuste des autres entités. %
 
 \subsubsection*{Utilisation d'un historique de noms}
 
@@ -517,21 +514,21 @@ La littérature présente deux principales approches pour construire un historiq
 pour la nomination persistante. %
 La première approche consiste à construire un graphe
 explicite~\cite{kripac1995mechanism,agbodan2000persistent,baba2007generic,cardot2019persistent}
-où chaque n\oe ud est une entité topologique précédée de ses ancêtres et suivie
-de ses évolutions. %
+où chaque n\oe ud est une entité topologique précédée de ses ancêtres et suivie de
+ses évolutions. %
 La seconde approche consiste en un mécanisme implicite de propagation des noms
 des ancêtres invariants sur les entités descendantes~\cite{CAPOYLEAS199617,wu2001face}. %
 
-Un exemple de construction explicite de graphe d'historique est proposé
-par Kripac~\cite{kripac1995mechanism}. %
-Il propose une historisation des faces d'un objet à l'aide d'un graphe orienté
-acyclique (\emph{DAG} en anglais) pour représenter l'ensemble des changements
-topologiques intervenant lors de la modélisation. %
+Un exemple de construction explicite de graphe d'historique est celui proposé
+par Kripac~\cite{kripac1995mechanism}. Il propose une historisation des faces
+d'un objet à l'aide d'un graphe orienté acyclique (\emph{DAG} en anglais) pour
+représenter l'ensemble des changements topologiques intervenant lors de la
+modélisation. %
 Dans ce DAG, un n\oe ud, appelé un \textit{FaceIdNode}, représente une face
 étiquetée $f_{m.n}$ où $m$ est l'étape de modélisation et $n$ l'index de la face
 à l'étape $m$. %
 
-\begin{figure}[htb!]
+\begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=.6\textwidth]{kripac-faceid-graph}
 	\caption{DAG de suivi de face dans un modèle~\cite{kripac1995mechanism}}
@@ -550,18 +547,45 @@ et $f_{3.2}$ et $f_{1.3}$ et $f_{2.1}$ sont fusionnées en une face $f_{3.3}$. %
 La face $f_{2.2}$ est supprimée puis $f_{3.2}$ et $f_{3.3}$ sont fusionnées en
 $f_{4.1}$. %
 Au terme de la modélisation et parmi les faces du DAG, seules les faces
-$f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
+u$f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %\david{il me semble que tu n'utilise pas trop ce terme "modèle final" dans ton texte avant, mais plutôt modèle géométrique ou représentation explicite. Je me trompe ?} %
 
-\begin{figure}[htb!]
+% } Un exemple de construction implicite d'un historique par héritage des noms des
+% ancêtres invariants est celui développé par Capoyleas, complété par Chen et
+% intégré dans le système EREP~\cite{hoffmann1992erep,chen1995representation,CAPOYLEAS199617}.
+% Dans ce système de nomination persistante, les entités
+% générées par extrusion/révolution comportent les noms de leurs ancêtres dans les
+% leurs. %
+% Par exemple, dans la
+% figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas},
+% le bloc est extrudé à partir de la face $f$, sa face $f(e2)$ est générée par
+% l'extrusion de l'arête $e2$ et l'arête $e(v2)$ provient du sommet $v2$. %
+% Par construction d'un nom, l'historique d'une entité se propage dans les noms
+% des entités qui en dérivent. %
+% \par Les entités issues de l'intersection de deux objets disposent de noms
+% non uniques $I_{e}$ (pour les arêtes) et $I_{v}$ (pour les sommets). %
+% Toujours dans le même exemple, à l'issue de la différence entre le bloc et un
+% cylindre, on peut observer que de telles entités sont créée par l'intersection
+% des deux objets. %
+% Dans ce cas, Capoyleas propose d'une part de discriminer les entités par leurs
+% voisinages topologiques lorsque c'est possible et, d'autre part, de leur
+% attribuer un nom d'après le schéma suivant~:
+% \[[C_{i}, L_{i}, F_{i}]\]
+% où $C_{i}$ est l'ensemble des noms des faces adjacentes à une entité d'intersection $i$,
+% $L_{i}$ est l'orientation de l'entité par rapport à son voisinage direct et où
+% $F_{i}$ est l'orientation de la caractéristique de forme à laquelle appartient
+% l'entité. %
+% }
+
+\begin{figure}[htbp!]
 	\begin{subfigure}[t]{.45\textwidth}
 		\centering
-		\includegraphics[height=150pt]{wu-exemple-propagation-scission}
+		\includegraphics[height=180pt]{wu-exemple-propagation-scission}
 		\caption{Scission}
 		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
 	\end{subfigure}
 	\begin{subfigure}[t]{.45\textwidth}
 		\centering
-		\includegraphics[height=130pt]{wu-exemple-propagation-fusion}
+		\includegraphics[height=160pt]{wu-exemple-propagation-fusion}
 		\caption{Fusion}
 		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
 	\end{subfigure}
@@ -569,68 +593,36 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
 \end{figure}
 
-Un exemple de construction implicite d'un historique par héritage des noms des
-ancêtres invariants est celui développé par Wu et al.~\cite{wu2001face}. %
+Un exemple de construction implicite d'un historique par
+héritage des noms des ancêtres invariants est celui développé par Wu et
+al.~\cite{wu2001face}. %
 Wu et al. propose plusieurs schémas de nominations, par exemple celui pour les
 entités extrudées, qui intègre les ancêtres invariants de l'entité nommée. %
-Une telle nomination crée, de manière implicite, une forme d'historique dans la
-mesure où, pour toute entité topologique, celle-ci permet de remonter l'histoire
-à son ancêtre invariant et ainsi de suite. %
-Le système de Wu et al. propose également des mécanismes de propagation des noms
-persistants
+Une telle nomination crée, de manière implicite, une forme d'historique dans
+la mesure où, pour toute entité topologique, celle-ci permet de remonter
+l'histoire à son ancêtre invariant et ainsi de suite. %
+Le système de Wu et al. propose également des mécanismes de propagation des
+noms persistants
 (Figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu})
-qui, lors d'une scission par exemple, propage le nom d'une entité à chacune des
-deux entités scindées. %
+qui, lors d'une scission par exemple, propage le nom d'une entité à chacune
+des deux entités scindées. %
 Un tel exemple est illustré dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}. %
 Suite à la différence entre les deux blocs, une pièce (\textit{part body}) et
 une caractéristique (\textit{feature body}), la face désignée par $F$ est
 scindée en deux faces $F1$ et $F2$. %
-$F$ porte un nom, désigné $ON$ (pour \textit{Original Name}) qui est propagé aux
-faces $F1$ et $F2$ qui ont alors le même nom persistant. %
+$F$ porte un nom, désigné $ON$ (pour \textit{Original Name}) qui est propagé
+aux faces $F1$ et $F2$ qui ont alors le même nom persistant. %
 Pour la fusion, illustrée dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion},
 les faces \(F1\) et \(F2\) nommées \(ON1\) et \(ON2\) respectivement, sont
 fusionnées. %
-Dans cette approche, puisque \(ON2\) est associé à une face de la \textit{part
-	body}, c'est ce nom qui est propagé et qui devient \(ON3\) dans la pièce
-finale. %
-
-% \begin{figure}
-% 	\centering
-% 	\includegraphics[width=.5\textwidth]{capoyleas-exemple}
-% 	\caption{Bloc creusé par une rainure arrondie de Capoyleas}
-% 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas}
-% \end{figure}
-
-% Un exemple de construction implicite d'un historique par héritage des noms des
-% ancêtres invariants est celui développé par Capoyleas, complété par Chen et
-% intégré dans le système EREP~\cite{hoffmann1992erep,chen1995representation,CAPOYLEAS199617}.
-% Dans ce système de nomination persistante, les entités générées par
-% extrusion/révolution comportent les noms de leurs ancêtres dans les leurs. %
-% Par exemple, dans la
-% figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-capoyleas},
-% le bloc est extrudé à partir de la face $f$, sa face $f(e2)$ est générée par
-% l'extrusion de l'arête $e2$ et l'arête $e(v2)$ provient du sommet $v2$. %
-% Par construction d'un nom, l'historique d'une entité se propage dans les noms
-% des entités qui en dérivent. %
-
-% Les entités issues de l'intersection de deux objets disposent de noms
-% non uniques $I_{e}$ (pour les arêtes) et $I_{v}$ (pour les sommets). %
-% Par exemple, à l'issue de la différence entre le bloc et un cylindre, on peut
-% observer que des entités d'intersection sont créées. %
-% Dans ce cas, Capoyleas propose d'une part de discriminer les entités par leurs
-% voisinages topologiques, lorsque c'est possible et, d'autre part, de leur
-% attribuer un nom d'après le schéma suivant~:
-% \[[C_{i}, L_{i}, F_{i}]\]
-% où $C_{i}$ est l'ensemble des noms des faces adjacentes à une entité d'intersection $i$,
-% $L_{i}$ est l'orientation de l'entité par rapport à son voisinage direct et où
-% $F_{i}$ est l'orientation de la caractéristique de forme à laquelle appartient
-% l'entité. %
-% % \david{Que se passe t-il si une face est scindée en deux ? comment son propagés les noms ? C'est me semble t-il le plus important pour parler de propagation et tu ne l'abordes pas ici dans ta liste d'item.}
+Dans cette approche, puisque \(ON2\) est associé à une face de la \textit{part body},
+c'est ce nom qui est propagé et qui devient \(ON3\) dans la pièce finale. %
 
 
 \subsubsection*{Nomination hétérogène des entités}
+
 
 Le cinquième concept commun que nous présentons est l'hétérogénéité des schémas
 de nomination dans les systèmes de réévaluation. %
@@ -654,7 +646,7 @@ modélisation précise et que la généralisation vers d'autres dimensions est a
 minimum complexe et au pire impossible. %
 
 
-\subsubsection*{Structure des plateformes intégrant la nomination persistante}
+\subsubsection*{Structure des plateformes qui intégrent la nomination persistante}
 
 
 Le dernier des concepts communs que nous présentons concerne l'extension de
@@ -674,7 +666,7 @@ donne l'architecture à trois couches suivante~:
 \end{itemize}
 
 
-\subsubsection{(en cours) Concepts distinctifs de la nomination persistante}
+\subsubsection{Concepts distinctifs de la nomination persistante}
 \label{sec:etat-art-reevaluation-classification-concepts-distinctifs}
 
 
@@ -724,32 +716,27 @@ Permettre leur nomination offrirait aux utilisateurs de logiciels CAO
 une plus grande marge de man\oe uvre dans leurs processus constructifs. %
 
 
-\subsubsection{Systèmes de nominations persistantes}
+
+\subsubsection[Systèmes de nomination persistante]{Systèmes de nomination persistantes}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
-
-Dans cette section, nous passons en revue certains des systèmes proposés dans la
-littérature comme solutions au problème de la nomination persistante. %
-Nous proposons ainsi, dans le cadre de la réévaluation de modèles paramétriques,
-de discuter de leurs avantages et de leurs limitations. %
+Dans cette section, nous proposons de décrire les différents systèmes publiés et de présenter leurs avantages et limitations dans le cadre de la réévaluation. %
 
 
-\subsubsection*{Kripac}
-
+\subsubsection*{Kripac \xavier{Lu}}
 
 Dans ses travaux, Kripac propose un système pour répondre au problème de la
 nomination persistante et permettre la réévaluation de modèles
 3D~\cite{kripac1995mechanism}. %
 Les modèles sont présentés comme des «~volumes 3D délimités par des faces~» et
 les arêtes et les sommets sont considérés comme des intersections de faces. %
-Ainsi les faces sont utilisées comme éléments principaux de la nomination
+Ainsi, les faces sont utilisées comme éléments principaux de la nomination
 persistante. %
 
 Le nom d'une face, \(faceId\), est défini par~:
 \[FaceId(f) = [stepId,faceIndex,surfaceType]\] %
 où \(stepId\) est le numéro d'application de l'opération qui crée \(f\),
-\(faceIndex\) l'index de \(f\) et \(surfaceType\) le type de surface de \(f\) (plan, tore,…).
-\xavier{pour Maxime : donne des exemples de types de surfaces.}%
+\(faceIndex\) l'indice de \(f\) et \(surfaceType\) le type de surface de \(f\) (plan, cylindre,…). %\xavier{pour Maxime : donne des exemples de types de surfaces.}%
 
 Le nom d'une arête, \(edgeId\), est défini par~:
 \[EdgeId(e) = [adjFaceIds,endFaceIds_{0,1},edgeIntersCode]\] %
@@ -757,15 +744,17 @@ où \(adjFaceIds\) est une liste des faces incidentes à \(e\), cette liste est
 ordonnée selon un parcours de voisinage~; \(endFaceIds_{0}\) (respectivement
 \(endFaceIds_{1}\)) est l'ensemble des faces à l'extrémité \(0\) (respectivement
 \(1\)) de \(e\)~; et \(edgeIntersCode\) un code d'intersection basé sur la
-position relative des faces incidentes à \(e\), ce qui rend le code insensible
-aux transformations telles que le déplacement et le changement d'échelle. %
+position relative aux surfaces des faces incidentes à \(e\), ce qui rend le
+code insensible aux transformations telles que le déplacement et le changement
+d'échelle. %
 
 Le nom d'un sommet, \(vertexId\), est défini par~:
 \[VertexId(v) = [adjFaceIds,vertexIntersCodes]\] %
 où \(adjFaceIds\) est une liste des faces incidentes à \(v\), cette liste est
 ordonnée selon un parcours de voisinage~; et \(vertexIntersCodes\) est
-l'ensemble des codes d'intersections de \(v\) par rapport à chacune des faces de
-son voisinage. %
+l'ensemble des codes d'intersections qui indiquent la position de \(v\) par rapport à chacune des faces de
+son voisinage.
+%\xavier{Ces intersections sont-elles également relatives ?}%
 
 Le suivi des faces est réalisé à l'aide d'un DAG, présenté plus tôt (voir
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-kripac}). %
@@ -789,8 +778,8 @@ alors une recherche de similarité est effectuée entre les entités du modèle
 initial et celles du modèle réévaluée. %
 Cette procédure consiste en une estimation de ressemblance basée sur les faces
 du voisinage et les codes d'intersections, entre les deux modèles. %
-Dans cette logique, Kripac propose un système de requêtes pour définir le degré
-de similarité devant être atteint pour effectuer l'appariement entre plusieurs
+Dans cette logique, Kripac propose un système de requêtes pour définir le degré de
+similarité devant être atteint pour effectuer l'appariement entre plusieurs
 entités topologiques. %
 
 Les travaux de Kripac sont parmi les premiers à présenter une solution à la
@@ -798,12 +787,14 @@ réévaluation de modèle paramétrique 3D. %
 Il propose un système de nomination persistante, un DAG pour suivre l'évolution
 des faces et un mécanisme d'appariement des entités. %
 Toutefois, ce système présente des inconvénients. %
-Chaque type d'entité topologique à un schéma de nomination différent, ce qui en fait un système compliqué à mettre en \oe uvre et qui n'est pas généralisable en dimensions. %
+À chaque type d'entité topologique correspond un schéma de nomination différent, ce qui en fait un système qui n'est pas généralisable en toutes dimensions. %
 L'appariement s'appuie en partie sur le voisinage (pour rappel des faces) pour estimer la similitude entre deux entités. %
 Une limite de cette approche est le cas où tout le voisinage d'une entité serait modifié. %
 Dans ce cas, il n'est pas certain qu'il soit possible de poursuivre la réévaluation. %
 
-\subsubsection*{Capoyleas et al.}
+
+\subsubsection*{Capoyleas et al. \xavier{Lu}}
+
 
 Les travaux de Capoyleas, complétés par Chen et intégrés dans le système
 \textit{Erep}~\cite{hoffmann1992erep,chen1995representation,CAPOYLEAS199617},
@@ -833,22 +824,23 @@ opérations~:
 	\label{fig:etat-art-reevaluation-systemes-capoylease-generated-entities}
 \end{figure}
 
-Ce système propose que les entités issues d'une extrusion% , des entités
-% invariantes,
-soient nommées par rapport à leur ancêtre invariant dans le profil. %
+Ce système propose que les entités issues d'une extrusion
+% , des entités
+% invariantes \xavier{?? tu es sûr qu'elles sont invariantes ??},
+soient nommées par rapport à leur ancêtre invariant dans le
+profil. %
 Prenons, l'exemple illustré dans la
 figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-generated-entities} et
 plus particulièrement le profil
 (figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-main-part}) et son
 extrusion
 (figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-extruded-part}). %
-Les entités du profil sont nommées par type d'entité et de manière incrémentale,
-prenons, par exemple, la face \(f\), l'arête \(e_{3}\) et le sommet \(v_{2}\). %
-Suite à l'extrusion, la face opposée à \(f\) et notée \(\hat{f}\) et la face
+Les entités du profil sont nommées par type d'entité et de manière incrémentale.
+Prenons, par exemple, l'arête \(e_{1}\) et le sommet \(v_{3}\). %
+Suite à l'extrusion, la face opposée à \(f\) et notée \(\hat{f}\) est la face
 d'arrivée de l'extrusion, la face de côté générée à partir de \(e_{3}\) est nommée
 \(f(e_{3})\) et l'arête générée à partir de \(v_{2}\) est nommée \(e(v_{2})\). %
-\xavier{3. La figure est FAUSSE ! La face sur le côté droit est étiquetée f(e4)
-	alors qu'elle est issue de e2 => refaire la figure correctement.}
+
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=150pt]{capoyleas-cut-part}
@@ -856,12 +848,12 @@ d'arrivée de l'extrusion, la face de côté générée à partir de \(e_{3}\) e
 	\label{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}
 \end{figure}
 
-Capoyleas et al. distinguent deux schémas de nomination en fonction de si une
-entité contingente, créées à l'issue d'une opération booléenne, a une source ou
+Capoyleas et al. distinguent deux schémas de nomination en fonction selon qu'une
+entité contingente, créée à l'issue d'une opération booléenne, possède une source ou
 non. %
 Prenons l'exemple de la différence entre un bloc et un cylindre illustré dans la
 figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
-Si une entité est créée avec source, alors cela signifie qu'elle a déjà un nom
+Si une entité est créée avec source,  cela signifie qu'elle a déjà un nom
 qu'elle conserve dans l'objet produit par l'opération. %
 Ce cas est illustré par les arêtes \(e_{5}\), \(\hat{e_{5}}\) et la face
 \(f(e_{5})\) issues du cylindre et qui partagent, au moins en partie, les
@@ -873,7 +865,7 @@ sommets et \(I_e\) pour les arêtes. %
 
 Enfin, si les entités sont modifiées par des opérations telles que le chanfrein
 ou l'arrondi, celles-ci sont nommées d'après l'opération. %
-Par exemple, \(c(e)\) et \(c(l_{e})\) sont les entités créées l'opération de
+Par exemple, \(c(e)\) et \(c(l_{e})\) sont les entités créées par l'opération de
 chanfrein où \(e\) est une arête et \(l_{e}\) une liste d'arêtes. %
 De la même manière, \(a(e)\) est une entité créée par l'opération d'arrondi. %
 
@@ -881,18 +873,17 @@ Pour résoudre les collisions dans les noms, les auteurs proposent de
 caractériser chacune des entités qui partagent un même nom à l'aide d'un
 contexte topologique, c'est-à-dire une structure décrivant le voisinage d'une
 entité \(r\). %
-Un contexte contient un ensemble de classes d'équivalences, notés d'après le
+Un contexte contient un ensemble de classes d'équivalences, notées d'après le
 schéma suivant~:
-\[[distance,nomEntite,nbOccurence]\] %
+\[[distance,nomEntite,nbOccurences]\] %
 Précisons que \(nbOccurence\) représente le nombre d'entités qui partagent le
 même nom et la même distance dans le voisinage. %
 Le contexte est étendu de cette manière jusqu'à trouver une classe d'équivalence
 unique qui permette alors de discriminer une entité dont le nom est partagé. %
-Prenons, par exemple, les deux arêtes \(I_e\) de la
-figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
-\xavier{De manière générale, sur la figure, il faudrait faire ressortir les
-	entités que tu évoques. Par exemple, on a du mal à repérer cette arête
-	\(I_e\).} À terme, pour la première entité \(I_{e}\), nous obtenons~:
+Prenons, par exemple, les deux arêtes \(I_e\) encadrées en orange dans la
+figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}.
+% \xavier{De manière générale, sur la figure, il faudrait faire ressortir les entités que tu évoques. Par exemple, on a du mal à repérer cette arête \(I_e\).} %
+À terme, pour la première entité \(I_{e}\), nous obtenons~:
 \begin{flalign*}
 	I_{e} & :                                                                                                       \\
 	      & [0,I_{e},1],                                                                                            \\
@@ -907,7 +898,7 @@ et pour la seconde~:
 	      & [2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
 \end{flalign*}
 Ainsi, la première arête \(I_{e}\) est identifiée par l'arête \(e(v_{4})\) et la
-seconde est identifiée par l'arête \(e(v_{3})\). %
+seconde est identifiée par l'arête \(e(v_{3})\) encadré en vert dans la figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
 
 Toutefois, cette approche basée sur le voisinage topologique peut ne plus
 suffire, par exemple à cause d'intersections de surfaces non-planaires. %
@@ -940,54 +931,40 @@ impliquerait de définir un autre type d'entité comme base de la nomination
 persistante. %
 De plus, la nomination des entités n'est pas homogène puisque les faces,
 contrairement aux arêtes et sommets, sont uniquement caractérisées d'après le
-nom de leur ancêtre quand elles en ont un. %
-
-Parmi les travaux publiés récemment, ceux de Dai et al.~\cite{dai2024sweeping}
-proposent d'étendre les derniers travaux de Chen et al. avec une méthode basée
-sur l'orientation d'une extrusion pour distinguer deux entités issues d'une
-intersection d'entités extrudées parmi lesquelles au moins une est
-non-planaire. %
-Pour l'essentiel, Dai et al., s'inspirent des travaux de Wu et
-al.~\cite{wu2001face} en suggérant d'ordonnancer les entités ambiguë par rapport
-au sens d'extrusion des entités d'intersection, ce qui permet de les catégoriser
-par ordre de création. %
-Bien que montrant des résultats intéressants, le système de nomination reste basé sur l'approche de Capoyleas, Chen et Hoffmann. %
-Ainsi, les travaux de Dai présentent les mêmes limitations, à savoir un système
-de nomination basé sur les faces qui n'est pas généralisable en toutes
-dimensions. %
+nom de leur ancêtre, quand elles en ont un. %
 
 
-\subsubsection*{Wu et al. }
+\subsubsection*{Wu et al. }\xavier{Lu}
 
 Wu et al.~\cite{wu2001face} s'intéressent à la nomination des entités
-topologiques et plus particulièrement à leurs suivis dans le cadre modélisation
+topologiques et plus particulièrement à leur suivi, dans le cadre de la modélisation
 à base d'opérations booléennes. %
-Dans leurs travaux, les auteurs proposent un système de nomination persistante
-en deux parties~: la première partie d'un nom consiste en l'identification à
-base topologique des faces du modèle~: la deuxième partie, une addition à la
-première, est une information géométrique dont le but est de lever
-l'ambiguïté. %
+Ces auteurs proposent un système dans lequel
+les noms persistants sont constitués de deux parties~: la première se base sur
+l'identification à base topologique des faces du modèle~: la seconde est une information géométrique
+dont le but est de lever des ambiguïtés potentielles. %
 
-La première partie de ces travaux consiste donc à créer, pour chaque face
-enregistrée dans la spécification paramétrique, à créer un nom unique appelé
+L'identification à base topologique consiste à créer, pour chaque face
+enregistrée dans la spécification paramétrique, un nom unique appelé
 \(ON\) (pour \emph{Original Name}). %
-Wu et al. distingue trois schémas de nominations pour les faces
-issues d'extrusions, les faces dérivées d'entités topologiques les
+Wu et al. distinguent trois schémas de nominations pour, respectivement, les faces
+issues d'extrusions, les faces dérivées d'entités topologiques et les
 faces issues d'autres caractéristiques de formes. %
 
-La nomination des faces issues d'un profil d'extrusion, comme nous l'avons vu
-plus tôt dans les concepts communs, suit le schéma suivant~: %
+La nomination des faces issues d'un profil d'extrusion, comme nous l'avons
+décrit dans les concepts communs, suit le schéma suivant~: %
 %% extrusion vue plus tôt dans les concepts communs sur l'extrusion
 \[ON_{side}(F) = [FeatID, FeatID_{p}, ID_{element},FeatID_{path},ID_{trajectory}]\]
 La nomination des caractéristiques issues d'entités, dérivée de la nomination
-des faces issues d'extrusion, suit le schéma suivant~: %
+des faces issues d'extrusion, est déterminée ainsi~: %
 %% caractéristique issue d'une entité
-\[ON(F) = [FeatID, FeatID_{FF1}, ID_{element1},FeatID_{FF2},ID_{element2}]\] où
-Pour une face \(F\) issue d'une opération sur entité topologique,
+\[ON(F) = [FeatID, FeatID_{FF1}, ID_{element1},FeatID_{FF2},ID_{element2}]\]
+où pour une face \(F\) issue d'une opération sur une entité topologique,
 \(FeatID_{FF1}\) et \(FeatID_{FF2}\) sont les identifiants de deux faces
 adjacentes à l'entité dont est dérivée \(F\), \(FeatID_{element1}\) et
-\(FeatID_{element2}\) les identifiants de \(FF1\) et \(FF2\) dans leurs \(ON\)
-respectifs, c'est-à-dire \(ON(FF1)\) et \(ON(FF2)\). %
+\(FeatID_{element2}\) les identifiants de \(FF1\) et \(FF2\) dans leurs \(ON\) respectifs.\\
+
+%
 % Prenons, par exemple, d'une face créée par une opération de chanfrein sur une
 % arête. %
 La nomination des caractéristiques de formes est, elle aussi, dérivée de la
@@ -995,27 +972,27 @@ nomination des faces issues d'extrusion. %
 Le schéma est le suivant~:
 %% faces issues de caractéristiques
 \[ON(F) = [FeatID, FeatID_{p}, ID_{element}, FeatID_{path},ID_{trajectory}, InsNum]\]
-Cette fois, seul le dernier élément de nomination est remplacé par \(InsNum\)
+Cette fois-ci, seul le dernier élément de nomination est remplacé par \(InsNum\)
 qui correspond à un indice unique de création. %
 Prenons le cas d'une opération qui duplique une caractéristique de forme, par
 exemple un cylindre sur un bloc, le long d'un guide. %
 La valeur \(InsNum\) désigne chacun des cylindres à l'aide d'un numéro
 d'instanciation où \(0\) désigne l'instance d'origine, c'est-à-dire celle qui
 est dupliquée. %
-Comme nous l'avons vu plus tôt, les accompagne leur système de nomination d'un
+Comme nous l'avons vu plus tôt, les accompagne un
 mécanisme de propagation de nom lorsque les faces sont scindées, fusionnées et
 supprimées. %
 
-Pour compléter la nomination est permettre la distinction des entités dont le
-nom est ambiguë, Wu et al. proposent d'utiliser une information d'espace
+Pour compléter la nomination et permettre la distinction des entités dont le
+nom est ambigu, Wu et al. proposent d'utiliser une information d'espace
 paramétrique \(PSI\) (pour \emph{Parametric Space Information}). %
 Présenté simplement, les entités portant le même nom sont ordonnancées dans un
 espace normalisé \((u,v)\) puis désignées par le numéro séquentiel qui leur est
 attribué. %
 À terme, le \(PSI\) d'une entité topologique est un couple~:
-\[[Seq, Totle]\] %
-où \(Seq\) est le numéro d'apparition d'une entité dans un espace \((u,v)\) et
-où \(Totle\) est le nombre d'entités qui portent le même nom. %
+\[[SeqNo, Total]\] %
+où \(SeqNo\) est le numéro d'apparition d'une entité dans un espace \((u,v)\) et
+où \(Total\) est le nombre d'entités qui portent le même nom. %
 
 À l'issue du calcul du PSI, un nom persistant, appelé nom réel \(RN\) (pour
 \emph{Real Name}) est utilisé pour la nomination de chacune des entités
@@ -1023,16 +1000,13 @@ topologiques~:
 \begin{itemize}
 	\item Une face est nommée %
 	      \[RN(F) = [ON(F), PSI]\]
-	\item Une arête, définie par ses faces adjacente est nommée~:
+	\item Une arête, définie par ses faces incidentes est nommée~:
 	      \[RN(E) = [RN(F1), RN(F2), PSI]\]
-	\item Un sommet, aussi définit par ses faces adjacentes, est nommé~:
+	\item Un sommet, également défini par ses faces incidentes, est nommé~:
 	      \[RN(V) = [RN(F1), RN(F2),RN(F3)], PSI\]
 \end{itemize}
-où \(PSI\) est l'information géométrique permettant de discriminer les entités
-dont le nom est ambiguë, c'est-à-dire pour lesquelles la topologie ne suffit
-plus. %
 
-Les travaux de Wu et al. s'intéressent au problème de la nomination persistante
+En résumé, les travaux de Wu et al. s'intéressent au problème de la nomination persistante
 du point de vue des opérations booléennes et proposent un système de nomination
 à base de faces enrichi d'une information purement géométrique pour lever
 l'ambiguïté lorsque plusieurs entités portent le même nom. %
@@ -1042,15 +1016,14 @@ création de noms uniques, à l'exception des cas ambigus issus d'intersections
 non-planaires. %
 Néanmoins, l'usage des faces comme type d'entité de base pour la nomination des
 autres entités est un facteur limitant. %
-Ajouté au fait que la nomination d'une face dépend de la catégorie d'opération
-qui la crée, ce système de nomination est particulièrement difficile, voire
+Ajouté au fait que la nomination d'une face dépend de la catégorie d'opérations
+qui la créent, ce système de nomination est particulièrement difficile, voire
 impossible, à généraliser dans d'autres dimensions. %
 
 
 % \subsubsection*{Agbodan}
 
-
-\subsubsection*{Bidarra}
+\subsubsection*{Bidarra}\xavier{Lu}
 
 
 Bidarra et al.~\cite{bidarra2005feature} suggèrent que le problème de la
@@ -1062,9 +1035,9 @@ topologiques susceptibles de disparaître lors de la réévaluation. %
 Ils avancent que procéder ainsi est tout simplement impossible avec une approche
 véritablement générique. %
 
-Avec ce constat, les auteurs proposent une méthode basée sur la nomination des caractéristiques de forme et posent deux critères pour garantir le fonctionnement de cette approche~: %
+À partir de ce constat, les auteurs proposent une méthode basée sur la nomination des caractéristiques de forme et posent deux critères pour garantir le fonctionnement de cette approche~: %
 \begin{enumerate}
-	\item les noms persistants doivent portent exclusivement sur des entités
+	\item les noms persistants doivent porter exclusivement sur des entités
 	      topologiques définies dans la spécification paramétrique du modèle~; %
 	\item garantir, à chaque étape de l'évaluation, que la sémantique (ou
 	      l'ensemble des contraintes qui caractérisent une entité), telle que
@@ -1077,7 +1050,7 @@ Le second critère porte sur le fait que la validité d'une sémantique garantit
 que le mécanisme d'appariement est en mesure de faire le lien entre des entités
 issues du modèle initial et réévalué. %
 
-Dans cette démarche, Bidarra et al., considèrent qu'un modèle paramétrique
+Dans cette démarche, Bidarra et al. considèrent qu'un modèle paramétrique
 consiste en une corrélation entre trois classes d'entités, respectivement les
 \emph{classes de référence}, les \emph{classes de caractéristiques déclaratives}
 et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
@@ -1088,9 +1061,9 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 	      topologique de la spécification paramétrique par le moyen d'un ensemble
 	      de contraintes. %
 	      En outre, les classes de références sont des objets simples à partir
-	      desquelles il est relativement simple de dériver ou composer d'autres
+	      desquelles il est relativement aisé de dériver ou composer d'autres
 	      classes. %
-	      Enfin, celles-ci doivent déclarer leurs propres positions et orientation
+	      Enfin, celles-ci doivent déclarer leurs propres position et orientation
 	      afin de fixer le degré de liberté d'une entité auxiliaire par rapport
 	      aux entités persistantes du modèle. %
 
@@ -1116,20 +1089,19 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 	      Conceptuellement, chaque objet créé à partir d'un patron appartient
 	      ainsi à une même famille. %
 	      De cette manière, tout objet qui appartient à une famille de
-	      caractéristique possède les propriétés liées à cette famille peu importe
+	      caractéristiques possède les propriétés liées à cette famille, quels que soient
 	      ses paramètres d'instanciation. %
-	      \begin{figure}[h!]
+	      \begin{figure}[ht!]
 		      \centering
 		      \includegraphics[height=100pt]{bidarra-exemple-classes-declaratives}
 		      \caption{Caractéristique déclarative de bloc}
 		      \label{fig:etat-art-reevaluation-syntheses-bidarra-classes-declaratives}
 	      \end{figure}
 	      Un exemple est présenté dans la
-	      figure~\ref{fig:etat-art-reevaluation-syntheses-bidarra-classes-declaratives}
+	      figure~\ref{fig:etat-art-reevaluation-syntheses-bidarra-classes-declaratives},
 	      qui illustre les faces de la caractéristique de forme de bloc (appelées
 	      \emph{faces de caractéristique}) que toute instance possède. %
-	      Ainsi, tout bloc dispose des six faces caractéristiques suivantes, à
-	      savoir, \textit{haut}, \textit{bas}, \textit{avant}, \textit{arrière},
+	      Tout bloc dispose de six faces caractéristiques~: \textit{haut}, \textit{bas}, \textit{avant}, \textit{arrière},
 	      \textit{gauche} et \textit{droite}. %
 	      Ainsi, pour toute instance de cette caractéristique de forme, il est
 	      possible de désigner la face avant de la manière suivante~:
@@ -1140,19 +1112,19 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 	      scindées, fusionnées ou supprimées, indépendamment de leur
 	      représentation géométrique.
 
-	\item[Classes de caractéristique procédurales] une \emph{caractéristique
-		      procédurale}, est une caractéristique dont les paramètres topologiques
+	\item[Classes de caractéristiques procédurales] Une \emph{caractéristique
+		      procédurale} est une caractéristique dont les paramètres topologiques
 	      sont des arêtes, et non des faces, comme le chanfrein ou l'arrondi. %
 	      Les auteurs justifient l’existence de cette classe par les deux
-	      propriétés suivantes~: (1) Contrairement aux caractéristiques
+	      propriétés suivantes~: (1) contrairement aux caractéristiques
 	      déclaratives, une caractéristique procédurale dépend de l'existence de
-	      l'arête (ou des arêtes) passée(s) qui lui est (sont) passée(s) en
+	      l'arête (ou des arêtes)  qui lui est (sont) passée(s) en
 	      paramètre~; (2) la forme d'une caractéristique procédurale ne peut être
 	      déterminée qu'après que ses arêtes sont identifiées et localisées. %
 	      Ainsi, les auteurs proposent de nommer les arêtes d'après leurs faces
-	      adjacentes. %
+	      incidentes. %
 
-	      \begin{figure}[h!]
+	      \begin{figure}[ht!]
 		      \centering
 		      \begin{subfigure}{.45\textwidth}
 			      \centering
@@ -1172,7 +1144,7 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 
 	      Par exemple, dans la
 	      figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete},
-	      Bidarra et al. illustrent comment procéder à l'identification d'une des
+	      Bidarra et al. illustrent comment procéder identifier une des
 	      deux arêtes en rouge pour appliquer un chanfrein. %
 	      Tout d'abord
 	      (figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-1}),
@@ -1200,13 +1172,13 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 		\caption{}
 		\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-2}
 	\end{subfigure}
-	\caption{Résolution de l'ambiguité dans le cas d'une intersection
+	\caption{Résolution de l'ambiguïté dans le cas d'une intersection
 		non-planaire par Bidarra et al.}
 	\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite}
 \end{figure}
 
 Toutefois, Bidarra et al. soulèvent que cette méthode d'identification des
-arêtes devient inopérant dans le cas d'une intersection où au moins l'une
+arêtes devient inopérante dans le cas d'une intersection où au moins l'une
 entités n'est pas planaire (par exemple la face de côté d'un cylindre). %
 Le discriminant (et donc le voisinage topologique) ne suffit plus pour désigner
 une arête parmi celles issue de l'intersection puisqu'elles ont toutes le même
@@ -1229,7 +1201,7 @@ paramètre dans la spécification paramétrique. %
 
 %% Conclusions sur la méthode
 Ces travaux définissent trois classes de caractéristiques que les auteurs
-utilisent pour développer différents concepts et apporter de la stabilité à la
+utilisent pour développer différents concepts destinés à apporter de la stabilité à la
 nomination persistante des entités et garantir leurs appariements lors de la
 réévaluation d'une spécification paramétrique. %
 Toutefois, leur approche présente plusieurs limitations. %
@@ -1248,176 +1220,8 @@ savoir les plans, les cylindres, les sphères et les tores. %
 
 % \subsubsection*{Baba-Ali}
 
-%% système de nomination basé sur les arêtes
 
-\subsubsection*{Cascaval}
-%% Contexte
-
-Dans leurs travaux~\cite{cascaval2023lineage}, Cascaval et al. proposent de
-répondre au problème de la nomination persistante dans les opérations de
-modélisation et placent leurs travaux dans un contexte défini par les concepts
-suivants :
-\begin{itemize}
-	\item Un modèle paramétrique est une fonction prenant des paramètres
-	      topologiques et géométriques.
-	\item Un nom persistant peut être obtenu grâce à une requête sur une entité
-	      topologique.
-	\item Les types géométriques traités sont les point, segment (ligne ou arc),
-	      polygone (conceptuellement une face sans trou) et face (un élément bordé
-	      par un ou plusieurs polygones).
-\end{itemize}
-
-Cascaval et al. présentent les propriétés qu'un langage conçu pour la CAO
-devrait, selon eux, respecter~:
-\begin{itemize}
-	\item il doit permettre la sélection de tout ou partie d'un ensemble d'entités
-	      topologiques issues de la partition d'une entité passée en entrée
-	      d'une opération,
-	\item il doit permettre d'exclure des configurations topologiques des modèles
-	      en sortie du programme afin de saisir l'intention de conception
-\end{itemize}
-
-%% Contribution
-
-Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
-modélisation paramétrique qui met en œuvre un système de généalogie permettant
-de décrire les relations ancêtre/descendant entre plusieurs entités topologiques
-en entrées et en sortie d'une opération de modélisation. %
-
-%% Explication de la sémantique
-\begin{figure}[htb!]
-	\centering
-	\includegraphics[width=\textwidth]{cascaval-types-relations}
-	\caption{Types de relations pour le suivi des entités par Cascaval et al.}
-	\label{fig:etat-art-reevaluation-systemes-cascaval-types-relations}
-\end{figure}
-
-À cette fin, trois relations sont définies
-(figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations}) entre
-les entités topologiques en entrée et en sortie des opérations de modélisation~:
-(1) la relation de transformation~; (2) de sous-ensemble~; (3) de dérivation.
-\begin{enumerate}
-	\item La relation de transformation établie un lien direct entre deux entités,
-	      respectivement en entrée et en sortie, lorsque l'opération ne modifie
-	      pas la topologie de l'objet et qu'il existe une bijection entre les
-	      éléments en entrée et en sortie, par exemple, dans une translation ou
-	      une rotation. %
-	\item La relation de sous-ensemble établie un lien entre deux entités
-	      topologiques en entrée et en sortie d'opérations ensemblistes telles que
-	      les opérations booléennes. %
-	      Il s'agit, typiquement dans les opérations booléennes, de faire le lien
-	      entre, par exemple, deux faces et l'arête qui descend de l'intersection
-	      de ces deux faces. %
-	\item La relation de dérivation établie un lien entre une entité topologique
-	      existante et une entité topologique créée par une opération. %
-	      Dans l'exemple du chanfrein de sommet illustré dans la
-	      figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations},
-	      un lien de dérivation est créé entre le sommet de D et l'arête créée sur E. %
-	      De la même façon, des liens de dérivation sont créés entre ce sommet et
-	      les deux sommets créés sur E. %
-	      Ces deux sommets ayant, de fait, exactement les mêmes liens de
-	      dérivation, Cascaval et al. posent deux contraintes sur la construction
-	      de ces liens de dérivation~: (1) Les relations de dérivation entre les
-	      entités en entré et sortie d'une opération sont exprimées de manière
-	      statique de sorte que toute entité créée dans la dérivation puisse être
-	      désignée de manière unique par une ou plusieurs entités passées en
-	      entrée~; (2) Une relation de dérivation entre une entité créée dans la
-	      dérivation et son ancêtre doit être telle que la modification de son
-	      ancêtre a nécessairement un impact sur son entité descendante. %
-	      Afin de vérifier la première contrainte, ils proposent donc d'ajouter un
-	      lien de dérivation entre les arêtes adjacentes au sommet chanfreiné et
-	      les sommets correspondants sur E. %
-\end{enumerate}
-
-\begin{figure}[htb!]
-	\centering
-	\includegraphics[width=\textwidth]{cascaval-requetes}
-	\caption{Requêtes de filtrage par Cascaval}
-	\label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
-\end{figure}
-
-Afin de saisir les intentions de conception, les noms persistants sont définis
-par les utilisateurs, pendant la conception du modèle paramétrique, à l'aide de
-requêtes, comme illustré dans la
-figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
-\xavier{Dans la figure 1.28, le "u" de $edges(u)$ devrait être en majuscule.} %
-Ces requêtes permettent aux utilisateurs de contraindre l'appariement des
-entités topologiques passées en paramètres des opérations. %
-Les entités sont alors identifiées par rapport à un ou plusieurs ancêtres qui
-sont explicitement désignés comme paramètres dans les requêtes. %
-Il est possible, par exemple, de désigner toutes les entités de toute une
-construction, (\texttt{all}), qui font partie d'une autre entité \(e\)
-(\texttt{from(e)}) ou alors plusieurs (\texttt{fromAll((e|{e})*)}, voire de
-spécifier son appartenance à une entité \(e\) dans un ensemble
-(\texttt{fromAny((e | \{e\})*)}). %
-Il est également possible d'organiser les requêtes dans des critères logiques
-(\texttt{and(q,q)}) et (\texttt{or{q,q}}) d'en imposer (\texttt{contains(q)}),
-voire d'en exclure (\texttt{not(q)}). %
-Enfin, l'utilisateur peut s'appuyer sur les relations de transformation, de
-sous-ensemble et de dérivation pour exprimer au mieux ses intentions de
-modélisation, par exemple \texttt{deriveFrom|All|Any}. %
-
-L'outil développé par Cascaval et al. permet de travailler principalement sur
-des objets et des opérations principalement en 2D. %
-Le passage à la 3D implique que le traitement des voisinages topologiques sera
-nécessairement plus complexe. %
-
-% {\color{red}(pas clair!)%
-% 	En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
-% 	peut être délimité par des faces et des arêtes et l'appariement des entités
-% 	topologiques n'est pas «~tout ou rien~», c'est-à-dire que l'on peut se retrouver
-% 	avec la trace de seulement une partie d'un objet en cas, par exemple, d'une
-% 	intersection entre deux objets. %
-% }
-
-Dans les cas topologiquement ambigus, c'est-à-dire où il devient difficile
-d'identifier formellement une entité parmi plusieurs, comme l'identification
-d'un sommet lorsque deux cercles s'intersectent, les auteurs ont recours à des
-contraintes géométriques semblable à l'approche de
-Bidarra~\cite{bidarra2005feature} avec, par exemple, la mise en \oe uvre d'un
-demi espace pour discriminer plusieurs entités symétriques. %
-
-%% Comparaison avec Cascaval
-
-Dans cette contribution, Cascaval et al. proposent un langage spécifique pour la
-conception de modèles paramétriques. %
-Ce langage intègre un système de nomination persistante des entités où les noms sont donnés explicitement par l'utilisateur sous forme de requêtes. %
-Pour cela, le modèle est enrichi, d'une part, de trois types de relation qui
-permettent de garder une trace de l'évolution des entités topologiques par
-rapport à leurs ancêtres et, d'autre part, d'informations géométriques lorsque
-les ancêtres et la topologie ne suffisent plus. %
-Néanmoins, cette approche présente plusieurs inconvénients~:
-\begin{itemize}
-	\item Il s'agit d'un système de modélisation 2.5D, c'est-à-dire que les
-	      opérations sont essentiellement définies pour la conception 2D avec deux
-	      opérations d'extrusion et de révolution pour passer à la 3D. %
-	      Autrement dit, généraliser les systèmes de contraintes et d'appariement
-	      en toute dimension est au minimum difficile, par exemple, les ambiguïtés
-	      topologiques et géométriques ne nécessitent pas les mêmes traitements,
-	      voire se complexifient lorsqu'il s'agit de monter en dimension~;
-	\item Les opérations de modélisation sont explicitement responsable de la
-	      définition et de la création des relations de transformation, de
-	      sous-ensemble et de dérivation. %
-	      En particulier, il convient de définir manuellement ces relations tout
-	      en garantissant les contraintes posées par le développeur pour éviter
-	      les ambiguïtés. %
-	\item La nomination des entités est à la charge des utilisateurs afin que
-	      ceux-ci expriment leurs intentions de modélisation. %
-	      Pour cela, il propose une nomination sous la forme de requêtes intégrant
-	      des contraintes qui permettent de filtrer certaines parties de l'objet. %
-	      Par exemple, une arête ou un sommet créé par l'union ou la différence de
-	      deux faces, comme illustrés dans la
-	      figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
-	      Le problème de cette approche est que ces contraintes sont exprimées
-	      manuellement par l'utilisateur pour lequel plus un objet se complexifie,
-	      moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
-	      Il est alors donc de prévoir et garantir la persistance de la nomination
-	      avant que la spécification paramétrique ne soit éditée puis réévaluée et
-	      que les problèmes de nomination et d'appariement apparaissent. %
-\end{itemize}
-
-
-\subsubsection*{Cardot}
+\subsubsection*{Cardot}\xavier{Lu}
 \label{sec:etat-art-reevaluation-synthese-cardot}
 
 
@@ -1427,16 +1231,16 @@ transformation de graphe. %
 Ses contributions comprennent la spécification d'un système de nomination, une
 historisation de l'évolution des entités référencées dans une spécification
 paramétrique et l'édition d'une spécification paramétrique. %
-Dans le cadre de ses travaux, Cardot tire parti du formalisme des cartes
+Dans le cadre de ses travaux, Cardot tire partie du formalisme des cartes
 généralisées~\cite{lienhardt1994n,Damiand-Lienhardt14} pour formaliser les
 objets n-dimensionels et les représenter. %
 Elle a également recours aux règles Jerboa~\cite{belhaouari2014jerboa} pour
 formaliser les opérations de modélisation géométriques. %
 
-Pour la première partie de ses travaux, Cardot propose un système de nomination
+Dans la première partie de ses travaux, Cardot propose un système de nomination
 en deux couches~: (1) création d'un identifiant persistant pour tout brin d'une
-G-carte~; (2) création d'un nom persistant à partir d'un ensemble minimal
-d'identifiants persistant pour chaque entité topologique, ici une orbite,
+G-carte~; (2) création d'un nom persistant à partir d'un ensemble \textit{minimal}
+d'identifiants persistants pour chaque entité topologique, ici une orbite au sens des cartes généralisées,
 référencée dans la spécification paramétrique. %
 
 L'identification persistante des brins est justifiée par les propriétés
@@ -1451,10 +1255,11 @@ Avec ces propriétés en tête, Cardot propose de définir un identifiant persis
 (noté \emph{PI}) d'après l'histoire d'un brin, c'est-à-dire l'ensemble des
 règles et de leurs n\oe uds qui expriment de manière unique la création d'un
 brin dans une G-carte. %
-Un Identifiant est alors défini comme une collection de couples
-\(\{numeroEtap - noeud\}\) où \(numeroEtape\) est le numéro d'application d'une
-règle dans la spécification paramétrique et \(n\oe ud\) est le nom d'un n\oe ud
+Un identifiant est alors défini comme une collection de couples
+\(\{numeroEtap - noeud\}\), où \(numeroEtape\) est le numéro d'application d'une
+règle dans la spécification paramétrique et \(noeud\) est le nom d'un n\oe ud
 dans cette même règle.%
+
 À sa création \textit{ex nihilo}, par exemple suite à l'application de
 la toute première règle de la spécification paramétrique, l'identifiant
 persistant d'un brin est \(\{1 - noeud\}\) et chacune des opérations qui
@@ -1463,36 +1268,37 @@ persistant. %
 Enfin, l'identifiant persistant d'un brin créé par copie est aussi l'identifiant
 persistant du brin copié auquel s'ajoute sa propre histoire. %
 
-\begin{figure}[h!]
+
+\begin{figure}[ht!]
 	\centering
-	\includegraphics[width=.6\textwidth]{cardot-fil-rouge-court}
-	\caption{Exemple de construction de Cardot}
+	\includegraphics[width=.8\textwidth]{cardot-fil-rouge-court}
+	\caption{Exemple de construction de Cardot }
 	\label{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\centering
-		\includegraphics[width=.8\textwidth]{cardot-regle-carre}
-		\caption{}
+	\centering
+		\includegraphics[width=\textwidth]{cardot-regle-carre-v3}
+		\caption{Création de face carrée}
 		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-carre}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
-		\includegraphics[width=.6\textwidth]{cardot-regle-triangulation}
-		\caption{}
+		\includegraphics[width=.8\textwidth]{cardot-regle-triangulation}
+		\caption{Triangulation de face}
 		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-triangulation}
 	\end{subfigure}
-	\caption{Exemples de règles Jerboa par Cardot}
-	\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles}
+		\caption{Règles de l'exemple figure~\ref{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}}
+		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles}
 \end{figure}
 
-Par exemple, dans l'exemple de construction illustré
+Dans l'exemple de construction illustré
 figure~\ref{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}, les
-brins \(a\) et \(b\) sont tous les deux créés par la première règle qui crée une
-face carrée et plus spécifiquement par les n\oe uds \(n_{4}\) et \(n_{3}\)
-respectivement. %
+brins \(a\) et \(b\) sont tous les deux créés par la première règle, laquelle
+crée une face carrée et plus spécifiquement par les n\oe uds \(n_{4}\) (en {\color{DodgerBlue1}bleu}) et \(n_{3}\) (en
+	{\color{orange}orange}) respectivement. %
 Leurs identifiants persistants sont \(PI_{a} = \{1 - n_{4}\}\) et
 \(PI_{b} = \{1 - n_{3}\}\). %
 Dans la deuxième étape de la construction, \(a\) et \(b\) sont réécrits à
@@ -1500,28 +1306,29 @@ l'identique par le n\oe ud \(n_{0}\) de la triangulation. %
 Leurs identifiants persistants sont mis à jour en
 \(PI_{a} = \{1 - n_{4}; 2 - n_{0}\}\) et \(PI_{b} = \{1 - n_{3}; 2 - n_{0}\}\)
 
-Une fois les brins dotés d'un identifiant persistant, Cardot pose le principe
-suivant, une orbite est constitué de brins. %
-Cependant, un identifiant persistant ne représente l'histoire que pour un seul
-brin et une orbite peut-être impacté par plusieurs histoires. %
+Une fois les brins dotés d'un identifiant persistant, Cardot propose de les
+utiliser pour nommer, de manière unique, les orbites auxquelles ils
+appartiennent. %
+De cette manière, chaque brin représente une partie des changements subis par
+les orbites auxquelles il appartient. %
 Le nom persistant d'une orbite (noté \emph{PN}) est donc défini comme un
 ensemble d'identifiants persistants. %
 Un nom persistant est minimal lorsqu'un nombre minimum d'identifiants persistant
 énumèrent l'ensemble des règles qui ont impacté une orbite donnée. %
 Ainsi, toujours dans l'exemple
-figure~\ref{fig:etat-art-reevaluation-synthese-cardot-fil-rouge}, la deuxième
-règle application a pour paramètre le nom persistant \(PN_{1}\) qui désigne la
-face carrée. %
+figure~\ref{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}, la
+deuxième règle d'application a pour paramètre le nom persistant \(PN_{1}\) qui
+désigne la face carrée. %
 D'après la méthode de Cardot, puisque tous les brins de la face sont créés par
-la même règle, l'identifiant persistant du brin \(a\), \(PI_{a1}\) est ajouté au
-nom persistant \(PN_{1}\). %
+la même règle, l'identifiant persistant du brin \(a\) après la première
+opération, \(PI_{a1}\), est ajouté au nom persistant \(PN_{1}\). %
 De même, la troisième opération est appliquée sur une arête désignée par le nom
-persistant \(PN_{2}\) dont les identifiants persistants sont
+persistant \(PN_{2}\), dont les identifiants persistants sont
 \(PI_{a2} = \{1 - n_{4}; 2 - n_{0}\}\) et
 \(PI_{b2} = \{1 - n_{3}; 2 - n_{0}\}\). %
 Ces deux identifiants persistants sont équivalents. %
 Le nom persistant dépend donc du brin sélectionné par l'utilisateur lors de
-l'évaluation initiale. possibles %
+l'évaluation initiale.%
 
 Pour permettre l'appariement des entités topologiques, Cardot propose d'utiliser
 un journal de bord, c'est-à-dire une structure qui référence pour chaque règle
@@ -1542,7 +1349,7 @@ paramétrique non plus à la seule édition des paramètres géométriques, mais
 également à l'ajout, la suppression et le déplacement d'opérations dans une
 spécification paramétrique. %
 Cette extension permet de générer une plus grande diversité de modèles
-paramétrique. %
+paramétriques. %
 Avec cette extension, Cardot définit trois types d'éditions supplémentaires sur
 les opérations, c'est-à-dire l'ajout, la suppression et le changement d'ordre. %
 
@@ -1561,13 +1368,179 @@ entités topologiques est intéressante. %
 Néanmoins, ces journaux omettent d'intégrer une origine (et leurs propres
 suivis) pour les entités suivies, ce qui peut conduire à un mauvais appariement
 des entités topologiques lors de la réévaluation et à plus forte raison lorsque
-des opérations ont été ajoutés, supprimées ou encore déplacées dans l'édition
+des opérations ont été ajoutées, supprimées ou encore déplacées dans l'édition
 de la spécification paramétrique. %
+
+
+\subsubsection*{Cascaval \xavier{Lu}}
+
+
+Dans leurs travaux~\cite{cascaval2023lineage}, Cascaval et al. proposent de
+répondre au problème de la nomination persistante dans les opérations de
+modélisation en se basant sur les concepts
+suivants :
+\begin{itemize}
+	\item Un modèle paramétrique est une fonction prenant des paramètres
+	      topologiques et géométriques.
+	\item Un nom persistant peut être obtenu grâce à une requête sur une entité
+	      topologique.
+	\item Les types géométriques traités sont les points, segments (lignes ou arcs),
+	      polygones (conceptuellement des faces sans trou) et faces (éléments bordés
+	      par un ou plusieurs polygones).
+\end{itemize}
+
+Cascaval et al. présentent les propriétés qu'un langage conçu pour la CAO
+devrait, selon eux, respecter~:
+\begin{itemize}
+	\item il permettre la sélection de tout ou partie d'un ensemble d'entités
+	      topologiques issues de la partition d'une entité passée en entrée
+	      d'une opération;
+	\item permettre d'exclure des configurations topologiques des modèles
+	      en sortie du programme afin de saisir l'intention de conception.
+\end{itemize}
+
+%% Contribution
+
+Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
+modélisation paramétrique qui met en œuvre un système de généalogie permettant
+de décrire les relations ancêtre/descendant entre plusieurs entités topologiques
+en entrées et en sortie d'une opération de modélisation. %
+
+%% Explication de la sémantique
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\textwidth]{cascaval-types-relations}
+	\caption{Types de relations pour le suivi des entités par Cascaval et al.}
+	\label{fig:etat-art-reevaluation-systemes-cascaval-types-relations}
+\end{figure}
+
+À cette fin, trois relations sont définies
+(figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations}) entre
+les entités topologiques en entrée et en sortie des opérations de modélisation~:
+(1) transformation~; (2) sous-ensemble~; (3) dérivation.
+\begin{enumerate}
+	\item La relation de transformation établit un lien direct entre deux entités,
+	      respectivement en entrée et en sortie, lorsque l'opération ne modifie
+	      pas la topologie de l'objet et qu'il existe une bijection entre les
+	      éléments en entrée et en sortie, par exemple, dans une translation ou
+	      une rotation. %
+	\item La relation de sous-ensemble établit un lien entre deux entités
+	      topologiques en entrée et en sortie d'opérations ensemblistes telles que
+	      les opérations booléennes. %
+	      Il s'agit, typiquement dans les opérations booléennes, de faire le lien
+	      entre, par exemple, deux faces et l'arête issue de l'intersection
+	      de ces deux faces. %
+	\item La relation de dérivation établit un lien entre une entité topologique
+	      existante et une entité topologique créée par une opération. %
+	      Dans l'exemple du chanfrein de sommet illustré dans la
+	      figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations},
+	      un lien de dérivation est créé entre le sommet de D et l'arête créée sur E. %
+	      De la même façon, des liens de dérivation sont créés entre ce sommet et
+	      les deux sommets créés sur E. %
+	      Ces deux sommets ayant, de fait, exactement les mêmes liens de
+	      dérivation, Cascaval et al. posent deux contraintes sur la construction
+	      de ces liens~: (1) Les relations de dérivation entre les
+	      entités en entré et sortie d'une opération sont exprimées de manière
+	      statique, de sorte que toute entité créée dans la dérivation puisse être
+	      désignée de manière unique par une ou plusieurs entités passées en
+	      entrée~; (2) Une relation de dérivation entre une entité créée dans la
+	      dérivation et son ancêtre doit être telle que la modification de son
+	      ancêtre a nécessairement un impact sur son entité descendante. %
+	      Afin de vérifier la première contrainte, ils proposent donc d'ajouter un
+	      lien de dérivation entre les arêtes adjacentes au sommet chanfreiné et
+	      les sommets correspondants sur E. %
+\end{enumerate}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\textwidth]{cascaval-requetes}
+	\caption{Requêtes de filtrage par Cascaval}
+	\label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
+\end{figure}
+
+Afin de saisir les intentions de conception, les noms persistants sont définis
+par les utilisateurs pendant la conception du modèle paramétrique, à l'aide de
+requêtes, comme illustré dans la
+figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+Ces requêtes permettent aux utilisateurs de contraindre l'appariement des
+entités topologiques passées en paramètres des opérations. %
+Les entités sont alors identifiées par rapport à un ou plusieurs ancêtres qui
+sont explicitement désignés comme paramètres dans les requêtes. %
+Il est possible, par exemple, de désigner toutes les entités de toute une
+construction, (\texttt{all}), qui font partie d'une autre entité \(e\)
+(\texttt{from(e)}) ou alors plusieurs (\texttt{fromAll((e|{e})*)}, voire de
+spécifier son appartenance à une entité \(e\) dans un ensemble
+(\texttt{fromAny((e | \{e\})*)}). %
+Il est également possible d'organiser les requêtes dans des critères logiques
+(\texttt{and(q,q)}) et (\texttt{or{q,q}}), d'en imposer (\texttt{contains(q)}),
+voire d'en exclure (\texttt{not(q)}). %
+Enfin, l'utilisateur peut s'appuyer sur les relations de transformation, de
+sous-ensemble et de dérivation pour exprimer au mieux ses intentions de
+modélisation, par exemple \texttt{deriveFrom|All|Any}. %
+
+L'outil développé par Cascaval et al. permet de travailler sur des objets et des opérations principalement en 2D. %
+Le passage à la 3D implique que le traitement des voisinages topologiques sera
+nécessairement plus complexe. %
+
+% {\color{red}(pas clair!)%
+% 	En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
+% 	peut être délimité par des faces et des arêtes et l'appariement des entités
+% 	topologiques n'est pas «~tout ou rien~», c'est-à-dire que l'on peut se retrouver
+% 	avec la trace de seulement une partie d'un objet en cas, par exemple, d'une
+% 	intersection entre deux objets. %
+% }
+
+Dans les cas topologiquement ambigus, c'est-à-dire où il devient difficile
+d'identifier formellement une entité parmi plusieurs, comme l'identification
+d'un sommet lorsque deux cercles s'intersectent, les auteurs ont recours à des
+contraintes géométriques semblables à l'approche de
+Bidarra~\cite{bidarra2005feature} avec, par exemple, la mise en \oe uvre d'un
+demi-espace pour discriminer plusieurs entités symétriques. %
+
+%% Comparaison avec Cascaval
+
+Dans cette contribution, Cascaval et al. proposent un langage spécifique pour la
+conception de modèles paramétriques. %
+Ce langage intègre un système de nomination persistante des entités où les noms sont donnés explicitement par l'utilisateur sous forme de requêtes. %
+Pour cela, le modèle est enrichi, d'une part, de trois types de relation qui
+permettent de garder une trace de l'évolution des entités topologiques par
+rapport à leurs ancêtres et, d'autre part, d'informations géométriques lorsque
+les ancêtres et la topologie ne suffisent plus. %
+Néanmoins, cette approche présente plusieurs inconvénients~:
+\begin{itemize}
+	\item il s'agit d'un système de modélisation 2.5D, c'est-à-dire que les
+	      opérations sont essentiellement définies pour la conception 2D avec deux
+	      opérations d'extrusion et de révolution pour passer à la 3D. %
+	      Autrement dit, généraliser les systèmes de contraintes et d'appariement
+	      en toute dimension est au minimum difficile. Par exemple, les ambiguïtés
+	      topologiques et géométriques ne nécessitent pas les mêmes traitements,
+	      voire se complexifient lorsqu'il s'agit de monter en dimension~;
+	\item les opérations de modélisation sont explicitement responsables de la
+	      définition et de la création des relations de transformation, de
+	      sous-ensemble et de dérivation. %
+	      En particulier, il convient de définir manuellement ces relations tout
+	      en garantissant les contraintes posées par le développeur pour éviter
+	      les ambiguïtés; %
+	\item la nomination des entités est à la charge des utilisateurs afin que
+	      ceux-ci expriment leurs intentions de modélisation. %
+	      Pour cela, les auteurs proposent une nomination sous la forme de requêtes intégrant
+	      des contraintes qui permettent de filtrer certaines parties de l'objet: %
+	      par exemple, une arête ou un sommet créés par l'union ou la différence de
+	      deux faces, comme illustré dans la
+	      figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+	      Le problème de cette approche est que ces contraintes sont exprimées
+	      manuellement par l'utilisateur pour lequel plus un objet se complexifie,
+	      moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
+	      Il est donc difficile de prévoir et garantir la persistance de la nomination
+	      avant que la spécification paramétrique ne soit éditée puis réévaluée et
+	      que les problèmes de nomination et d'appariement apparaissent. %
+\end{itemize}
 
 
 \subsubsection*{Synthèse}
 \label{sec:etat-art-reevaluation-synthese}
 
+\maxime{besoin d'avis ici, je suis pas sûr d'avoir fait le bon choix de présentation}
 
 \begin{table}[ht!]
 	\centering

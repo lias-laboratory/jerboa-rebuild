@@ -36,10 +36,10 @@ représentations explicites selon les modifications effectuées. %
 ~
 
 On distingue deux principales approches dans le cadre de la
-modélisation paramétrique, chacune avec son type de
-spécification. %
-La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
-La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
+	modélisation paramétrique, chacune avec son type de
+	spécification. %
+	La première est l'approche \emph{équationnelle} (ou \emph{variationnelle}). %
+	La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
 
 
 \subsection{Approche équationnelle (ou variationnelle)}
@@ -105,7 +105,7 @@ La représentation explicite d'un objet, quant à elle, est entièrement génér
 L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
 \begin{definition}[Modèle paramétrique fonctionnel]
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, et $V$ une instance explicite, où $V$ appartient à $\mathcal{V}$ l'ensemble de toutes les formes possibles.
-	Un modèle paramétrique est une fonction~:
+ Un modèle paramétrique est une fonction~:
 	\[F : \mathcal{D} \mapsto \mathcal{V}\] %
 	avec $V = F(P)$, où $F$ est définie comme une composition de
 	fonctions $f_{i}$ appelées \emph{fonctions paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
@@ -578,16 +578,16 @@ u$f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %\david{il m
 
 \begin{figure}[htbp!]
 	\begin{subfigure}[t]{.45\textwidth}
-		\centering
-		\includegraphics[height=180pt]{wu-exemple-propagation-scission}
-		\caption{Scission}
-		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
+	\centering
+	\includegraphics[height=180pt]{wu-exemple-propagation-scission}
+	\caption{Scission}
+	\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}
 	\end{subfigure}
 	\begin{subfigure}[t]{.45\textwidth}
-		\centering
-		\includegraphics[height=160pt]{wu-exemple-propagation-fusion}
-		\caption{Fusion}
-		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
+	\centering
+	\includegraphics[height=160pt]{wu-exemple-propagation-fusion}
+	\caption{Fusion}
+	\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
 	\end{subfigure}
 	\caption{Propagation de nom persistant, Wu}
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
@@ -723,7 +723,7 @@ une plus grande marge de man\oe uvre dans leurs processus constructifs. %
 Dans cette section, nous proposons de décrire les différents systèmes publiés et de présenter leurs avantages et limitations dans le cadre de la réévaluation. %
 
 
-\subsubsection*{Kripac \xavier{Lu}}
+\subsubsection*{Kripac (1995) \xavier{Lu}}
 
 Dans ses travaux, Kripac propose un système pour répondre au problème de la
 nomination persistante et permettre la réévaluation de modèles
@@ -793,7 +793,7 @@ Une limite de cette approche est le cas où tout le voisinage d'une entité sera
 Dans ce cas, il n'est pas certain qu'il soit possible de poursuivre la réévaluation. %
 
 
-\subsubsection*{Capoyleas et al. \xavier{Lu}}
+\subsubsection*{Capoyleas et al. (1996) \xavier{Lu}}
 
 
 Les travaux de Capoyleas, complétés par Chen et intégrés dans le système
@@ -843,7 +843,7 @@ d'arrivée de l'extrusion, la face de côté générée à partir de \(e_{3}\) e
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=150pt]{capoyleas-cut-part}
+\includegraphics[height=150pt]{capoyleas-cut-part}
 	\caption{Résultat d'une différence entre deux objets par Capoyleas}
 	\label{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}
 \end{figure}
@@ -880,25 +880,25 @@ Précisons que \(nbOccurence\) représente le nombre d'entités qui partagent le
 même nom et la même distance dans le voisinage. %
 Le contexte est étendu de cette manière jusqu'à trouver une classe d'équivalence
 unique qui permette alors de discriminer une entité dont le nom est partagé. %
-Prenons, par exemple, les deux arêtes \(I_e\) encadrées en orange dans la
+Prenons, par exemple, les deux arêtes \(I_e\) encadrées en {\color{orange}orange} dans la
 figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}.
 % \xavier{De manière générale, sur la figure, il faudrait faire ressortir les entités que tu évoques. Par exemple, on a du mal à repérer cette arête \(I_e\).} %
 À terme, pour la première entité \(I_{e}\), nous obtenons~:
 \begin{flalign*}
-	I_{e} & :                                                                                                       \\
-	      & [0,I_{e},1],                                                                                            \\
-	      & [1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],                                                            \\
-	      & [2,\mathbf{e(v_{4})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
+	I_{e}&: \\
+	&[0,I_{e},1],\\
+	&[1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],\\
+	&[2,\mathbf{e(v_{4})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
 \end{flalign*}
 et pour la seconde~:
 \begin{flalign*}
-	I_{e} & :                                                                                                       \\
-	      & [0,I_{e},1],                                                                                            \\
-	      & [1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],                                                            \\
-	      & [2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
+	I_{e}&: \\
+	&[0,I_{e},1],\\
+	&[1,I_{v},2], [1,f(e_{3}),1], [1,f(e_{5}),1],\\
+	&[2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
 \end{flalign*}
 Ainsi, la première arête \(I_{e}\) est identifiée par l'arête \(e(v_{4})\) et la
-seconde est identifiée par l'arête \(e(v_{3})\) encadré en vert dans la figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
+seconde est identifiée par l'arête \(e(v_{3})\) encadré en {\color{Chartreuse4}vert} dans la figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
 
 Toutefois, cette approche basée sur le voisinage topologique peut ne plus
 suffire, par exemple à cause d'intersections de surfaces non-planaires. %
@@ -934,7 +934,7 @@ contrairement aux arêtes et sommets, sont uniquement caractérisées d'après l
 nom de leur ancêtre, quand elles en ont un. %
 
 
-\subsubsection*{Wu et al. }\xavier{Lu}
+\subsubsection*{Wu et al. (2001) \xavier{Lu}}
 
 Wu et al.~\cite{wu2001face} s'intéressent à la nomination des entités
 topologiques et plus particulièrement à leur suivi, dans le cadre de la modélisation
@@ -1020,10 +1020,9 @@ Ajouté au fait que la nomination d'une face dépend de la catégorie d'opérati
 qui la créent, ce système de nomination est particulièrement difficile, voire
 impossible, à généraliser dans d'autres dimensions. %
 
-
 % \subsubsection*{Agbodan}
 
-\subsubsection*{Bidarra}\xavier{Lu}
+\subsubsection*{Bidarra (2005) \xavier{Lu}}}
 
 
 Bidarra et al.~\cite{bidarra2005feature} suggèrent que le problème de la
@@ -1221,7 +1220,7 @@ savoir les plans, les cylindres, les sphères et les tores. %
 % \subsubsection*{Baba-Ali}
 
 
-\subsubsection*{Cardot}\xavier{Lu}
+\subsubsection*{Cardot (2019) \xavier{Lu}}
 \label{sec:etat-art-reevaluation-synthese-cardot}
 
 
@@ -1372,7 +1371,7 @@ des opérations ont été ajoutées, supprimées ou encore déplacées dans l'é
 de la spécification paramétrique. %
 
 
-\subsubsection*{Cascaval \xavier{Lu}}
+\subsubsection*{Cascaval (2023) \xavier{Lu}}
 
 
 Dans leurs travaux~\cite{cascaval2023lineage}, Cascaval et al. proposent de
@@ -1452,10 +1451,10 @@ les entités topologiques en entrée et en sortie des opérations de modélisati
 \end{enumerate}
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[width=\textwidth]{cascaval-requetes}
-	\caption{Requêtes de filtrage par Cascaval}
-	\label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
+  \centering
+  \includegraphics[width=\textwidth]{cascaval-requetes}
+  \caption{Requêtes de filtrage par Cascaval}
+  \label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
 \end{figure}
 
 Afin de saisir les intentions de conception, les noms persistants sont définis
@@ -1521,19 +1520,19 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 	      En particulier, il convient de définir manuellement ces relations tout
 	      en garantissant les contraintes posées par le développeur pour éviter
 	      les ambiguïtés; %
-	\item la nomination des entités est à la charge des utilisateurs afin que
-	      ceux-ci expriment leurs intentions de modélisation. %
-	      Pour cela, les auteurs proposent une nomination sous la forme de requêtes intégrant
-	      des contraintes qui permettent de filtrer certaines parties de l'objet: %
-	      par exemple, une arête ou un sommet créés par l'union ou la différence de
-	      deux faces, comme illustré dans la
-	      figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
-	      Le problème de cette approche est que ces contraintes sont exprimées
-	      manuellement par l'utilisateur pour lequel plus un objet se complexifie,
-	      moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
-	      Il est donc difficile de prévoir et garantir la persistance de la nomination
-	      avant que la spécification paramétrique ne soit éditée puis réévaluée et
-	      que les problèmes de nomination et d'appariement apparaissent. %
+  \item la nomination des entités est à la charge des utilisateurs afin que
+		ceux-ci expriment leurs intentions de modélisation. %
+		Pour cela, les auteurs proposent une nomination sous la forme de requêtes intégrant
+		des contraintes qui permettent de filtrer certaines parties de l'objet: %
+		par exemple, une arête ou un sommet créés par l'union ou la différence de
+		deux faces, comme illustré dans la
+		figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+		Le problème de cette approche est que ces contraintes sont exprimées
+		manuellement par l'utilisateur pour lequel plus un objet se complexifie,
+		moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
+		Il est donc difficile de prévoir et garantir la persistance de la nomination
+		avant que la spécification paramétrique ne soit éditée puis réévaluée et
+		que les problèmes de nomination et d'appariement apparaissent. %
 \end{itemize}
 
 
@@ -1597,11 +1596,13 @@ des autres . %
 Nous avons pu voir qu'une grande partie de ces systèmes ont développé un système
 de nomination persistante en utilisant les faces comme entités de base pour
 nommer les autres. %
-Ce choix est compréhensible dans la mesure où, pour un modeleur spécialisé dans
-la modélisation 3D, les faces sont des entités qui sont soit crées comme des
-pièces «~élémentaires~» (entité caractéristique, profil d'extrusion, … ) soit
-créées à partir d'autres faces, et donc avec sources, dans des opérations
-booléennes (intersection de volumes, de faces co-planaires) ce qu'il permet de
+Ce choix est compréhensible dans la mesure pour un modeleur spécialisé dans
+la modélisation 3D. %
+Dans un tel modeleur, une face est une entité créée comme une forme de base
+(entité caractéristique, profil d'extrusion, … ), ou bien
+à partir d'une ou plusieurs autres faces dans des opérations
+booléennes (intersection de volumes, de faces co-planaires).
+Dans les deux cas, une  face a toujours une source, ce qui permet de
 suivre aisément leurs évolutions tout au long d'un processus constructif. %
 Néanmoins ces méthodes ont pour inconvénients d'être rigides et d'inciter à
 développer un schéma de nomination différent pour chaque entité topologique. %

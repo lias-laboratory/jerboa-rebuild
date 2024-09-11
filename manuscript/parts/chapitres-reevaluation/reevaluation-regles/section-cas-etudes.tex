@@ -1,0 +1,215 @@
+\section{Cas d'études}
+\label{sec:reevaluation-base-regles-cas-etude}
+
+
+Nous présentons deux cas d'études, sous la forme de
+constructions, que nous utiliserons tout au long de chapitre afin faciliter la
+compréhension des différents mécanismes que nous proposons pour la nomination
+persistante des entités topologiques et leurs appariements lors de la
+réévaluation. %
+
+\subsection{Construction nº~1}
+\label{sec:reevaluation-base-regles-premier-cas}
+
+\todo{Trouver un arrangement pour avoir les évaluations à côté de leurs
+	réévaluations}
+
+\begin{figure}[ht!]
+	%\renewcommand\thesubfigure{\arabic{subfigure}}
+	\centering
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{1-evaluation-square}
+		\caption{}
+		\label{fig:1-eval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{2-evaluation-extrusion}
+		\caption{}
+		\label{fig:2-eval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{3-evaluation-insert}
+		\caption{}
+		\label{fig:3-eval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{4-evaluation-extrusion}
+		\caption{}
+		\label{fig:4-eval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{5-evaluation-triangulation}
+		\caption{}
+		\label{fig:5-eval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{6-evaluation-collapse}
+		\caption{}
+		\label{fig:6-eval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{7-evaluation-chamfer}
+		\caption{}
+		\label{fig:7-eval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{8-evaluation-colour}
+		\caption{}
+		\label{fig:8-eval}
+	\end{subfigure}
+	\caption{Evaluation %'s applications.
+		(a) $1$-carré(pos); (b)
+		$2$-extrusion($PN_{6}$,vec); (c) $3$-insertion($PN_{46}$); (d)
+		$4$-extrusion($PN_{47}$,vec); (e) $5$-triangulation($PN_{33}$); (f)
+		$6$-contraction($PN_{63}$); (g) $7$-chanfrein($PN_{55}$); (h) $8$-colorier($PN_{35}$)}
+	\label{fig:evaluation}
+\end{figure}
+%
+\begin{figure}[ht!]
+	%\renewcommand\thesubfigure{\arabic{subfigure}}
+	\centering
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{1-reevaluation-square}
+		\caption{}
+		\label{fig:1-reeval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
+		\caption{}
+		\label{fig:1add-reeval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{2-reevaluation-extrusion}
+		\caption{}
+		\label{fig:2-reeval}
+	\end{subfigure}
+	\begin{subfigure}[t]{0\textwidth}
+		\includegraphics[width=\textwidth]{3-reevaluation-insert}
+		\caption{}
+		\label{fig:3delete-reeval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{4-reevaluation-extrusion}
+		\caption{}
+		\label{fig:4-reeval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{5-reevaluation-triangulation}
+		\caption{}
+		\label{fig:5-reeval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{6-reevaluation-collapse}
+		\caption{}
+		\label{fig:6-reeval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{7-reevaluation-chamfer}
+		\caption{}
+		\label{fig:7-reeval}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{8-reevaluation-colour}
+		\caption{}
+		\label{fig:8-reeval}
+	\end{subfigure}
+	\caption{Reevaluation (a) $1$-carré(pos); (b) ADD$1$-insertion(3); (c)
+		$2$-extrusion($PN_{6}$,vec); (d) DELETE $3$-insertion($PN_{46}$); (e)
+		$4$-extrusion($PN_{47}$,vec); (f) $5$-triangulation($PN_{33}$); (g)
+		$6$-contraction($PN_{63}$); (h) $7$-chanfrein($PN_{55}$); (i) $8$-colorier($PN_{35}$)}
+	\label{fig:reevaluation}
+\end{figure}
+
+La première construction que nous présentons, illustrée
+figure~\ref{fig:evaluation}, est l'objet représenté par la spécification
+paramétrique
+(liste~\ref{lst:reevaluation-regles-specification-parametrique-spec-init})
+ci-après. %
+
+{\footnotesize\ttfamily%
+\begin{lstlisting}[%
+label=lst:reevaluation-regles-specification-parametrique-spec-init,caption=Spécification
+ paramétrique initiale]
+1-carre(pos)
+2-extrusionFace(PN(6)=[1n6], vec)
+3-insertion(PN(46)=[1n5;2n5])
+4-extrusionFaceVolume(PN(47)=[1n5;2n6;3n0], vec)
+5-triangulationFace(PN(33)=[1n3;2n2])
+6-contractionFace(PN(63)=[1n4;2n6;4n6])
+7-chanfrein(PN(55)=[1n5;2n6;3n0;4n4;6n2])
+8-coloration(PN(35)=[1n3;2n4;5n0])
+\end{lstlisting}}
+
+Détaillons cette spécification paramétrique. %
+L'application de la première opération, \texttt{carre}, crée une face carrée
+(figure~\ref{fig:1-eval}). %
+La deuxième opération, \texttt{extrusionFace}, est appliquée sur cette face,
+incidente au brin \(6\), et l'extrude en un cube (figure~\ref{fig:2-eval}). %
+La troisième opération, \texttt{insertion}, est appliquée sur l'arête
+incidente au brin \(46\) et y insère un sommet (figure~\ref{fig:3-eval}). %
+La quatrième opération, \texttt{extrusionFaceVolume}, est appliquée sur la
+face du dessus, incidente au brin \(47\), et l'extrude en un autre cube
+(figure~\ref{fig:4-eval}). %
+La cinquième opération, \texttt{trianguleFace}, est appliquée sur la face
+avant, incidente au brin \(33\), et la triangule (figure~\ref{fig:5-eval}). %
+La sixième opération, \texttt{contractionFace}, est appliquée sur la face
+incidente au brin \(63\), et la contracte en un sommet
+(figure~\ref{fig:6-eval}). %
+La septième opération, \texttt{chanfrein}, est appliquée sur ce même sommet,
+incident au brin \(55\), et fait un chanfrein dessus
+(figure~\ref{fig:7-eval}). %
+Enfin, la dernière opération, \texttt{coloration} colore la face incidente au
+brin \(35\) (figure~\ref{fig:8-eval}). %
+
+Nous procédons ensuite à l'édition de cette spécification paramétrique dont la
+représentation géométrique, à chaque étape, est illustrée dans la
+figure~\ref{fig:reevaluation}. %
+Plus précisément, nous ajoutons une opération d'insertion de sommet
+(figure~\ref{fig:1add-reeval}) et nous supprimons l'opération
+\texttt{3-insertion} afin que celle-ci ne soit pas réévaluée. %
+
+{\footnotesize\ttfamily
+\begin{lstlisting}[%
+label=lst:reevaluation-regles-specification-parametrique-spec-modif,caption=Spécification paramétrique modifiée]
+1-carre(pos)
+ADD 9-insertion(3)
+2-extrusionFace(PN(6)=[1n6], vec)
+DELETE 3-insertion(PN(46)=[1n5;2n4])
+4-extrusionFaceVolume(PN(47)=[1n5;2n6;3n0], vec)
+5-triangulationFace(PN(33)=[1n3;2n2])
+6-contractionFace(PN(63)=[1n4;2n6;4n6])
+7-chanfrein(PN(55)=[1n5;2n6;3n0;4n4;6n2])
+8-coloration(PN(35)=[1n3;2n4;5n0])
+\end{lstlisting}}
+
+  \todo{Décrire les éléments importants de ce cas d'étude et ce qui nous
+	intéresse~: scission supplémentaire de la face avant~; fusion par absence de
+	création sur le côté~; coloration de deux faces (symétriques) au lieu d'une
+	seule}
+
+\subsection{Construction nº~2}
+\label{sec:reevaluation-base-regles-deuxieme-cas}
+
+\todo{Générer la deuxième construction} \todo{L'intérêt de cette construction,
+  c'est la gestion d'évènements collatéraux pour compléter l'autre cas sans
+  l'alourdir~: suppression d'une face à colorier~; fusion de deux faces (dont
+  l'une est coloriée) par absence de création}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../../main"
+%%% End:

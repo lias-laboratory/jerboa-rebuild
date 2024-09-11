@@ -2,139 +2,33 @@
 \chapter{Réévaluation à base de règles}
 \label{cha:reevaluation-base-regles}
 
-Dans ce chapitre, nous présentons les différentes étapes qui constituent notre
-mécanisme de réévaluation pour la modélisation paramétrique à base de règles de
-transformation de graphe. %
+Dans notre état de l'art, nous avons passé en revu les systèmes de modélisation
+qui proposent la réévaluation de spécifications paramétriques et les différentes
+solutions qu'ils proposent pour la nomination persistante des entités
+topologiques. %
+Nous avons pu voir que la plupart des systèmes ne sont adaptés que pour la construction d'objets dans une dimension donnée (généralement en 3D). %
+De ce fait, leurs méthodes ne sont pas généralisables en toutes dimensions. %
 
-La première section présente la spécification paramétrique et les contraintes
-qu'elle doit respecter. %
-La deuxième section présentera, ensuite, la première partie du mécanisme de
-nomination persistante que nous avons conçu pour les brins dans une G-carte, son
-fonctionnement et ses propriétés. %
-La troisième section présentera la deuxième partie de la nomination persistante
-pour l'identification des orbites. %
-Dans la quatrième section, nous expliquerons la réévaluation grâce à l'usage des
-noms persistant suivie de l'appariement des orbites. %
+Dans ce chapitre, nous nous appuyons sur les travaux de Cardot~\cite{cardot2019}
+et les concepts qu'elle propose pour mettre en \oe uvre un système de
+réévaluation générique grâce à l'utilisation des cartes généralisées et des
+règles Jerboa. %
 
-\begin{figure}[ht!]
-	%\renewcommand\thesubfigure{\arabic{subfigure}}
-	\centering
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{1-evaluation-square}
-		\caption{}
-		\label{fig:1-eval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{2-evaluation-extrusion}
-		\caption{}
-		\label{fig:2-eval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{3-evaluation-insert}
-		\caption{}
-		\label{fig:3-eval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{4-evaluation-extrusion}
-		\caption{}
-		\label{fig:4-eval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{5-evaluation-triangulation}
-		\caption{}
-		\label{fig:5-eval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{6-evaluation-collapse}
-		\caption{}
-		\label{fig:6-eval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{7-evaluation-chamfer}
-		\caption{}
-		\label{fig:7-eval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{8-evaluation-colour}
-		\caption{}
-		\label{fig:8-eval}
-	\end{subfigure}
-	\caption{Evaluation %'s applications.
-		(a) $1$-carré(pos); (b)
-		$2$-extrusion($PN_{1}$,vec); (c) $3$-insertion($PN_{2}$); (d)
-		$4$-extrusion($PN_{3}$,vec); (e) $5$-triangulation($PN_{4}$); (f)
-		$6$-contraction($PN_{5}$); (g) $7$-chanfrein($PN_{6}$); (h) $8$-colorier($PN_{7}$)}
-	\label{fig:evaluation}
-\end{figure}
+Nous débutons ce chapitre avec une première section dans laquelle nous
+présentons deux cas d'études de réévaluation. %
+Ensuite, dans une deuxième section, nous présentons notre approche de la
+nomination persistante avec, d'une part, la nomination des brins grâce aux
+règles Jerboa et, d'autre part, la nomination des orbites grâce à la
+formalisation des évènements (voir
+chapitre~\ref{chap:formalisation-evenements}). %
+Dans une troisième section, nous présentons notre mécanisme d'appariement des
+orbites lors du processus de réévaluation. %
+Nous proposons, ensuite, un système de stratégie pour paramétrer la réévaluation
+d'une spécification paramétrique. %
+Enfin, dans la quatrième section, nous faisons un état des lieux de ce qui a été
+implanté. %
+
 %
-\begin{figure}[ht!]
-	%\renewcommand\thesubfigure{\arabic{subfigure}}
-	\centering
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{1-reevaluation-square}
-		\caption{}
-		\label{fig:1-reeval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
-		\caption{}
-		\label{fig:1add-reeval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{2-reevaluation-extrusion}
-		\caption{}
-		\label{fig:2-reeval}
-	\end{subfigure}
-	\begin{subfigure}[t]{0\textwidth}
-		\includegraphics[width=\textwidth]{3-reevaluation-insert}
-		\caption{}
-		\label{fig:3delete-reeval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{4-reevaluation-extrusion}
-		\caption{}
-		\label{fig:4-reeval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{5-reevaluation-triangulation}
-		\caption{}
-		\label{fig:5-reeval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{6-reevaluation-collapse}
-		\caption{}
-		\label{fig:6-reeval}
-	\end{subfigure})
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{7-reevaluation-chamfer}
-		\caption{}
-		\label{fig:7-reeval}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{8-reevaluation-colour}
-		\caption{}
-		\label{fig:8-reeval}
-	\end{subfigure}
-	\caption{Reevaluation (a) $1$-carré(pos); (b) ADD$1$-insertion(3); (c)
-		$2$-extrusion($PN_{1}$,vec); (d) DELETE $3$-insertion($PN_{2}$); (e)
-		$4$-extrusion($PN_{3}$,vec); (f) $5$-triangulation($PN_{4}$); (g)
-		$6$-contraction($PN_{5}$); (h) $7$-chanfrein($PN_{6}$); (i) $8$-colorier($PN_{7}$)}
-	\label{fig:reevaluation}
-\end{figure}
 
 %%% Local Variables:
 %%% mode: LaTeX

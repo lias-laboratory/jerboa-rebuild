@@ -65,9 +65,9 @@ réévaluation. %
 		\label{fig:8-eval}
 	\end{subfigure}
 	\caption{Evaluation %'s applications.
-		(a) $1$-carré(pos); (b)
+		(a) $1$-carre(pos); (b)
 		$2$-extrusion($PN_{6}$,vec); (c) $3$-insertion($PN_{46}$); (d)
-		$4$-extrusion($PN_{47}$,vec); (e) $5$-triangulation($PN_{33}$); (f)
+		$4$-extrusion($PN_{47}$,vec); (e) $5$-triangulationFace($PN_{33}$); (f)
 		$6$-contraction($PN_{63}$); (g) $7$-chanfrein($PN_{55}$); (h) $8$-colorier($PN_{35}$)}
 	\label{fig:evaluation}
 \end{figure}
@@ -127,9 +127,9 @@ réévaluation. %
 		\caption{}
 		\label{fig:8-reeval}
 	\end{subfigure}
-	\caption{Reevaluation (a) $1$-carré(pos); (b) ADD$1$-insertion(3); (c)
+	\caption{Reevaluation (a) $1$-carre(pos); (b) ADD$1$-insertion(3); (c)
 		$2$-extrusion($PN_{6}$,vec); (d) DELETE $3$-insertion($PN_{46}$); (e)
-		$4$-extrusion($PN_{47}$,vec); (f) $5$-triangulation($PN_{33}$); (g)
+		$4$-extrusion($PN_{47}$,vec); (f) $5$-triangulationFace($PN_{33}$); (g)
 		$6$-contraction($PN_{63}$); (h) $7$-chanfrein($PN_{55}$); (i) $8$-colorier($PN_{35}$)}
 	\label{fig:reevaluation}
 \end{figure}
@@ -201,7 +201,14 @@ DELETE 3-insertion(PN(46)=[1n5;2n4])
 	création sur le côté~; coloration de deux faces (symétriques) au lieu d'une
 	seule}
 
-\subsection{Construction nº~2}
+  Les aspects intéressants du modèle paramétrique et sa réévaluation que nous
+  venons de présenter sont le fait que nous ajoutons une opération et en
+  supprimons une autre lors de l'édition de la spécification paramétrique. %
+  Nous devrions donc, en toute logique, nous attendre à des changements
+  significatifs dans la topologie du modèle réévalué. %
+
+
+\subsection{Construction nº2}
 \label{sec:reevaluation-base-regles-deuxieme-cas}
 
 \todo{Générer la deuxième construction} \todo{L'intérêt de cette construction,

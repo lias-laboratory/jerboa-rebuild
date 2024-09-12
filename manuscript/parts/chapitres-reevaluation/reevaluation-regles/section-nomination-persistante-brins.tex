@@ -1,49 +1,113 @@
 \section{Nomination persistante des brins}
 \label{sec:reevaluation-nomination-persistante-brins}
 
-\maxime{«~plan~»\\ Mise en place d'un mécanisme de nommage à base de règles de
-	transformation de graphe Ce mécanisme comprend, pour chaque brin, l'ensemble des
-	paires (numéro application, nom de nœud) qui conduisent à sa création/le
-	réécrivent. }
+Dans le chapitre~\ref{cha:etat-art-reevaluation}
+Section~\ref{sec:etat-art-reevaluation-synthese-cardot}
+(page~\pageref{sec:etat-art-reevaluation-synthese-cardot}), nous avons
+rapidement résumé les travaux de Cardot sur lesquels nous nous appuyons. %
+En particulier, nous avons décrit son système de nomination persistante des
+entités topologiques. %
 
-Dans notre système, la nomination d'un brin est construite (implicitement ?)
-pour représenter (explicitement ?) son histoire. %
+Dans nos travaux, nous avons constaté que chaque opération appliquée sur une orbite implique la création d'un nom persistant, alors l'utilisation de l'historique d'un unique brin est suffisant pour nommer une orbite. %
+Toute autre séquence d'évolutions de cette orbite serait, de toutes manières,
+représentée par un autre nom persistant et réévalué en fonction de celui-ci. %
 
-Pour construire ces histoires, on utilise les règles et leurs n\oe uds qui
-créent et filtre chaque brin dans une G-carte. %
+Ainsi, dans cette section, nous détaillons notre système de nomination
+persistante pour les brins en évaluant pas à pas la construction nº1%
 
-\maxime{Ici je reprends le même schéma de développement que dans ma présentation
-	d'article}
 
-\maxime{1. création de la face carrée, construction des noms de brins~: brins 0
-	à 7 $\Rightarrow$ $[1n0], [1n1] \dots [1n7]$}
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{rule-create-square-face}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+	\end{subfigure}
+	\caption{Création de la face carrée}
+\end{figure}
 
-\maxime{2. extrusion de la face en un cube, construction des noms de brins $+$
-	mise à jour de noms persistants }
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{rule-face-extrusion-compact}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+	\end{subfigure}
+	\caption{Extrusion de la face en un cube}
+\end{figure}
 
-\maxime{3. insertion d'un sommet sur le cube, construction des noms de brins $+$
-	mise à jour de noms persistants }
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{rule-insert-vertex}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+	\end{subfigure}
+	\caption{}
+\end{figure}
 
-\maxime{4. extrusion du sommet du cube, construction des noms de brins $+$ mise
-	à jour de noms persistants }
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{rule-face-extrusion-compact}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+	\end{subfigure}
+	\caption{\texttt{4-extrusion}}
+\end{figure}
 
-\maxime{5. triangulation d'une face, construction des noms de brins $+$ mise à
-	jour de noms persistants }
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{rule-triangulate-face-3D}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+	\end{subfigure}
+	\caption{\texttt{5-triangulationFace}}
+\end{figure}
 
-\maxime{6. contraction de face, construction des noms de brins $+$ mise à jour
-	de noms persistants }
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-a}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+	\end{subfigure}
+	\caption{\texttt{6-chanfrein}}
+\end{figure}
 
-\maxime{7. chanfrein d'un sommet, construction des noms de brins $+$ mise à jour
-	de noms persistants }
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-a}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+	\end{subfigure}
+	\caption{\texttt{7-coloration}}
+\end{figure}
 
-\maxime{8. coloration de face, mise à jour de noms persistants }
-
-L'apport de cette approche est que de cette manière, et pour tout brin d'une
-G-carte, l'histoire d'un brin permet de l'identifier de manière unique. %
-
-\maxime{Mais la nomination des brins n'est qu'une partie de notre système de
-	nomination persistante, il nous faut maintenant créer les noms persistants de
-	chacune des entités topologiques passées en entrée des opérations de
-	modélisation. }
-
-%%% Local Variables: %%% mode: LaTeX %%% TeX-master: "../../../main" %%% End:
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../../main"
+%%% End:

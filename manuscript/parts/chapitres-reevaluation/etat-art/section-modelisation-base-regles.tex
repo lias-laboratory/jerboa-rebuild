@@ -1,42 +1,34 @@
 \section[Modélisation à base de règles]{Modélisation à base de règles}
 \label{sec:etat-art-model-regles}
 
-% La modélisation à base de règle est un concept proposant l'usage de règles pour
-% la création et l'édition d'objets virtuelles à partir d'opérations conçues comme
-% des règles. %Il peut s'agir d'une grammaire donc . %
-% Pour générer et modifier ces modèles, les systèmes existants utilisent le plus
-% souvent des opérations à base de code (ArcGIS's CGA) ou encore des grammaires
-% (L-Systèmes \cite{bohl2015modeling,terraz20093gmap}). %
-% Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
-% opérations de modélisation à l'aide de ce que l'on appelle des règles de
-% transformation de graphe. %
-% Cette section commence avec des définitions liées aux graphes et à leurs
-% transformations avant de présenter les outils utilisés dans le reste de ce
-% manuscrit.
+La modélisation à base de règle est un paradigme de modélisation proposant
+l'usage de règles pour formaliser les opérations de modélisation dans le but de
+créer et éditer des modèles de dimensions quelconques. %
+Pour générer et modifier ces modèles, les systèmes existants % utilisent le plus
+% souvent des opérations à base de code (ArcGIS's CGA) ou encore
+des grammaires
+(L-Systèmes~\cite{lindenmayer1974adding,bohl2015modeling,terraz20093gmap}). %
+Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
+opérations de modélisation à l'aide de ce que l'on appelle des règles de
+transformation de graphe et plus particulièrement les règles
+Jerboa~\cite{belhaouari2014jerboa} et leurs applications sur un modèle de
+représentation appelé carte
+généralisée~\cite{lienhardt1994n,Damiand-Lienhardt14}. %
 
 \subsection[Graphe et transformation de graphe]{Graphe et transformation de graphe}
 \label{sec:etat-art-model-regles-graphe-et-transfo}
 
-% Les structures topologiques peuvent être représentées par des graphes dont les
-% arcs établissent des relations d'adjacences entre les n\oe uds.
-%
-% Ces structures peuvent être, par exemple, des cellules telles que les volumes,
-% faces, arêtes et sommets lorsque le modèle de représentation est en dimension
-% 3. %
-% De tels graphes sont appelés des graphes topologiques. %
 Afin de formaliser la représentation et la transformation d'objets issus d'un
-processus de modélisation géométrique, nous nous intéressons à leur
-représentation sous la forme de \emph{graphes
-	topologiques}% ~\cite{pascual2022inference}
-. %
-Les graphes dits topologiques appartiennent à la catégories des graphes
+processus de modélisation géométrique, nous nous intéressons à leurs
+représentations sous la forme de \emph{graphes topologiques}. %
+Les graphes dits topologiques appartiennent à la catégorie des graphes
 étiquetés, c'est-à-dire des graphes dont chaque n\oe ud est porteur d'une
 information de dimension, et dont les n\oe uds sont porteurs d'information
 géométrique. %
 Toutefois, les travaux présentés dans cette thèse traitent les objets d'après
 leur topologie. %
-Ainsi, pour le reste de ce manuscrit, nous omettons les étiquettes de n\oe uds \(l_{v}\)
-qui représentent les plongements.
+Ainsi, pour le reste de ce manuscrit, nous omettons les étiquettes de n\oe uds
+\(l_{v}\) qui représentent les plongements. %
 
 \begin{definition}[Graphe étiqueté]
 	\label{def:graphe-etiquete}

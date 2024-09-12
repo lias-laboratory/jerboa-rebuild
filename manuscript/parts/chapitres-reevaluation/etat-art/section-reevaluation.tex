@@ -128,16 +128,16 @@ opérations de haut niveau telles que les opérations booléennes, extrusion, ch
 		\centering
 		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-init}
 		\caption{Évaluation de la spécification}
-		\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}
+		\label{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-init}
 	\end{subfigure}
 	\begin{subfigure}{1.0\linewidth}
 		\centering
 		\includegraphics[width=.7\textwidth]{probleme-nomination-persistante-cube-reeval-no-match}
 		\caption{Réévaluation de la spécification}
-		\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}
+		\label{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-reeval}
 	\end{subfigure}
 	\caption{Représentation explicite~: Évaluation et réévaluation d'un modèle}
-	\label{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite}
+	\label{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-rep-explicite}
 \end{figure}
 
 Prenons l'exemple d'une spécification paramétrique (représentation implicite)~: %
@@ -150,7 +150,7 @@ Prenons l'exemple d'une spécification paramétrique (représentation implicite)
 ~
 
 Le résultat (représentation explicite) est illustré sur la
-figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}). %
+figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-init}). %
 
 La première opération crée un cube paramétré par les trois valeurs
 \texttt{larg\_c}, \texttt{haut\_c} et \texttt{prof\_c}. %
@@ -164,7 +164,7 @@ Enfin, la troisième opération crée un arrondi sur l'arête $e_{1}$. %
 ~
 
 La spécification paramétrique ci-dessus (et sa représentation explicite
-figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init})
+figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-init})
 illustre plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
 (1) l'utilisateur est restreint à l'utilisation du pool d'opérations prédéfinies dans le modeleur~; (2) l'approche est
 séquentielle, ce qui implique que toute entité doit exister à l'étape courante de la modélisation pour pouvoir être référencée (i.e. pouvoir être utilisée comme paramètre d'entrée de l'opération de modélisation courante).
@@ -178,7 +178,7 @@ sur la référence $e_{2}$ à partir d'une éventuelle étape $4$. %
 
 Une autre difficulté liée à cette approche est le référencement d'entités qui peuvent ne plus exister ou être modifiées lors de la réévaluation. %
 Considérons, par exemple, le rejeu de la spécification paramétrique précédente légèrement modifiée
-(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval})~:
+(Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-reeval})~:
 \begin{itemize}
 	\item \texttt{1-Cube(larg\_c, haut\_c, prof\_c)}
 	\item \texttt{2-Rainure($f_{1}$, long\_r2, larg\_r)}
@@ -241,11 +241,11 @@ programme va échouer avec une erreur de pointeur nul. %
 
 Reprenons l'exemple précédent. %
 Lors de l'évaluation initiale
-(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-init}),
+(Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-init}),
 $e_{1}$ désigne l'arête qui doit être arrondie à la troisième étape de la
 modélisation. %
 Suite à la réévaluation
-(Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-reeval}),
+(Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-reeval}),
 la rainure, dont la longueur a changé, scinde $e_{1}$ en deux et n'existe plus
 telle quelle. %
 En conséquence, utiliser le nom $e_{1}$ ou un identifiant correspondant à $e_{1}$ comme référence n'est pas adapté, car sensible aux changements dans le modèle. %
@@ -272,7 +272,7 @@ En revanche, dans d'autres configurations, les changements provoqués peuvent
 conduire à plus ou moins d'options pour la mise en correspondance. %
 
 Reprenons encore une fois l'exemple de la
-figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite}. %
+figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-rep-explicite}. %
 Suite à la réévaluation, la scission de l'arête $e_{1}$ produit les arêtes
 $e_{x}$ et $e_{y}$. %
 Avec simplement $e_{1}$ comme référence, il est impossible de poursuivre la
@@ -379,7 +379,7 @@ intersection entre les deux objets, ou si nous modifions sa taille de façon à 
 que la face $f_{1}$ se retrouve scindée en deux, alors certaines entités
 contingentes ne seront plus créées ou au contraire d'autres apparaîtront. %
 De même si l'on reprend l'exemple sur la
-Figure~\ref{fig:etat-art-reevaluation-modelisation-parametrique-fonctionnel-rep-explicite},
+Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-rep-explicite},
 au rejeu, le changement de la longueur de la rainure scinde la face $f_{1}$ et
 crée deux nouvelles faces contingentes. %
 
@@ -812,16 +812,16 @@ opérations~:
 		\centering
 		\includegraphics[height=80pt]{capoyleas-main-part}
 		\caption{Profil}
-		\label{fig:etat-art-reevaluation-systemes-capoyleas-main-part}
+		\label{fig:etat-art-modelisation-parametrique-systemes-capoyleas-main-part}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[height=130pt]{capoyleas-extruded-part}
 		\caption{Pièce extrudée}
-		\label{fig:etat-art-reevaluation-systemes-capoylease-extruded-part}
+		\label{fig:etat-art-modelisation-parametrique-systemes-capoylease-extruded-part}
 	\end{subfigure}
 	\caption{Exemple de nomination d'entités topologique par Capoyleas}
-	\label{fig:etat-art-reevaluation-systemes-capoylease-generated-entities}
+	\label{fig:etat-art-modelisation-parametrique-systemes-capoylease-generated-entities}
 \end{figure}
 
 Ce système propose que les entités issues d'une extrusion
@@ -830,11 +830,11 @@ Ce système propose que les entités issues d'une extrusion
 soient nommées par rapport à leur ancêtre invariant dans le
 profil. %
 Prenons, l'exemple illustré dans la
-figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-generated-entities} et
+figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoylease-generated-entities} et
 plus particulièrement le profil
-(figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-main-part}) et son
+(figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-main-part}) et son
 extrusion
-(figure~\ref{fig:etat-art-reevaluation-systemes-capoylease-extruded-part}). %
+(figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoylease-extruded-part}). %
 Les entités du profil sont nommées par type d'entité et de manière incrémentale.
 Prenons, par exemple, l'arête \(e_{1}\) et le sommet \(v_{3}\). %
 Suite à l'extrusion, la face opposée à \(f\) et notée \(\hat{f}\) est la face
@@ -845,14 +845,14 @@ d'arrivée de l'extrusion, la face de côté générée à partir de \(e_{3}\) e
 	\centering
 \includegraphics[height=150pt]{capoyleas-cut-part}
 	\caption{Résultat d'une différence entre deux objets par Capoyleas}
-	\label{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}
+	\label{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}
 \end{figure}
 
 Capoyleas et al. distinguent deux schémas de nomination en fonction selon qu'une
 entité contingente, créée à l'issue d'une opération booléenne, possède une source ou
 non. %
 Prenons l'exemple de la différence entre un bloc et un cylindre illustré dans la
-figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
+figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}. %
 Si une entité est créée avec source,  cela signifie qu'elle a déjà un nom
 qu'elle conserve dans l'objet produit par l'opération. %
 Ce cas est illustré par les arêtes \(e_{5}\), \(\hat{e_{5}}\) et la face
@@ -881,7 +881,7 @@ même nom et la même distance dans le voisinage. %
 Le contexte est étendu de cette manière jusqu'à trouver une classe d'équivalence
 unique qui permette alors de discriminer une entité dont le nom est partagé. %
 Prenons, par exemple, les deux arêtes \(I_e\) encadrées en {\color{orange}orange} dans la
-figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}.
+figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}.
 % \xavier{De manière générale, sur la figure, il faudrait faire ressortir les entités que tu évoques. Par exemple, on a du mal à repérer cette arête \(I_e\).} %
 À terme, pour la première entité \(I_{e}\), nous obtenons~:
 \begin{flalign*}
@@ -898,7 +898,7 @@ et pour la seconde~:
 	&[2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
 \end{flalign*}
 Ainsi, la première arête \(I_{e}\) est identifiée par l'arête \(e(v_{4})\) et la
-seconde est identifiée par l'arête \(e(v_{3})\) encadré en {\color{Chartreuse4}vert} dans la figure~\ref{fig:etat-art-reevaluation-systemes-capoyleas-cut-part}. %
+seconde est identifiée par l'arête \(e(v_{3})\) encadré en {\color{Chartreuse4}vert} dans la figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}. %
 
 Toutefois, cette approche basée sur le voisinage topologique peut ne plus
 suffire, par exemple à cause d'intersections de surfaces non-planaires. %
@@ -1070,11 +1070,11 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 		      \centering
 		      \includegraphics[height=100pt]{bidarra-exemple-classes-references}
 		      \caption{Plan de référence}
-		      \label{fig:etat-art-reevaluation-syntheses-bidarra-classes-references}
+		      \label{fig:etat-art-modelisation-parametrique-syntheses-bidarra-classes-references}
 	      \end{figure}
 
 	      Afin de produire, par exemple, l'objet illustré dans la
-	      figure~\ref{fig:etat-art-reevaluation-syntheses-bidarra-classes-references},
+	      figure~\ref{fig:etat-art-modelisation-parametrique-syntheses-bidarra-classes-references},
 	      il est possible de définir un plan de référence dans le modèle
 	      paramétrique sur lequel vont être instanciés une série de trous, tous
 	      positionnés relativement au plan de référence. %
@@ -1094,10 +1094,10 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 		      \centering
 		      \includegraphics[height=100pt]{bidarra-exemple-classes-declaratives}
 		      \caption{Caractéristique déclarative de bloc}
-		      \label{fig:etat-art-reevaluation-syntheses-bidarra-classes-declaratives}
+		      \label{fig:etat-art-modelisation-parametrique-syntheses-bidarra-classes-declaratives}
 	      \end{figure}
 	      Un exemple est présenté dans la
-	      figure~\ref{fig:etat-art-reevaluation-syntheses-bidarra-classes-declaratives},
+	      figure~\ref{fig:etat-art-modelisation-parametrique-syntheses-bidarra-classes-declaratives},
 	      qui illustre les faces de la caractéristique de forme de bloc (appelées
 	      \emph{faces de caractéristique}) que toute instance possède. %
 	      Tout bloc dispose de six faces caractéristiques~: \textit{haut}, \textit{bas}, \textit{avant}, \textit{arrière},
@@ -1129,24 +1129,24 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 			      \centering
 			      \includegraphics[height=100pt]{bidarra-exemple-nomination-arete-1}
 			      \caption{}
-			      \label{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-1}
+			      \label{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete-1}
 		      \end{subfigure}
 		      \begin{subfigure}{.45\textwidth}
 			      \centering
 			      \includegraphics[height=100pt]{bidarra-exemple-nomination-arete-2}
 			      \caption{}
-			      \label{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-2}
+			      \label{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete-2}
 		      \end{subfigure}
 		      \caption{Nomination d'une arête par Bidarra et al.}
-		      \label{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete}
+		      \label{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete}
 	      \end{figure}
 
 	      Par exemple, dans la
-	      figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete},
+	      figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete},
 	      Bidarra et al. illustrent comment procéder identifier une des
 	      deux arêtes en rouge pour appliquer un chanfrein. %
 	      Tout d'abord
-	      (figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-nomination-arete-1}),
+	      (figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete-1}),
 	      l'arête est définie par ses faces caractéristiques incidentes, la face
 	      du dessus et la face de droite. %
 	      Cette sélection filtre deux arêtes de part et d'autre de la rainure. %
@@ -1163,17 +1163,17 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 		\centering
 		\includegraphics[height=150pt]{bidarra-exemple-ambiguite-1}
 		\caption{}
-		\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-1}
+		\label{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite-1}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[height=150pt]{bidarra-exemple-ambiguite-2}
 		\caption{}
-		\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-2}
+		\label{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite-2}
 	\end{subfigure}
 	\caption{Résolution de l'ambiguïté dans le cas d'une intersection
 		non-planaire par Bidarra et al.}
-	\label{fig:etat-art-reevaluation-synthese-bidarra-ambiguite}
+	\label{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite}
 \end{figure}
 
 Toutefois, Bidarra et al. soulèvent que cette méthode d'identification des
@@ -1182,19 +1182,19 @@ entités n'est pas planaire (par exemple la face de côté d'un cylindre). %
 Le discriminant (et donc le voisinage topologique) ne suffit plus pour désigner
 une arête parmi celles issue de l'intersection puisqu'elles ont toutes le même
 discriminant, comme dans l'exemple illustré
-figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-ambiguite} %
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite} %
 Pour résoudre ce problème, ils proposent alors d'utiliser un plan de référence
 pour découper la caractéristique déclarative en deux demi-espaces. %
 De cette manière, chaque arête se voit assigner un discriminant supplémentaire
 qui est le domaine de référence auquel il appartient, positif ou négatif. %
 Par exemple, dans là
-figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-1}, les arêtes
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite-1}, les arêtes
 \(e1\) et \(e2\) sont toutes les deux incidentes aux mêmes faces
 caractéristiques. %
 Néanmoins, le demi-espace défini le long de la rainure assigne \(e1\) au domaine
 positif et \(e2\) au domaine négatif. %
 Cette discrimination permet alors, lors de la réévaluation
-(figure~\ref{fig:etat-art-reevaluation-synthese-bidarra-ambiguite-2}), de ne pas
+(figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite-2}), de ne pas
 appliquer de chanfrein sur \(e1\) si \(e2\) était l'arête définie comme
 paramètre dans la spécification paramétrique. %
 
@@ -1229,8 +1229,9 @@ proposer une solution à la nomination persistante basée sur des règles de
 transformation de graphe. %
 Ses contributions comprennent la spécification d'un système de nomination, une
 historisation de l'évolution des entités référencées dans une spécification
-paramétrique et l'édition d'une spécification paramétrique. %
-Dans le cadre de ses travaux, Cardot tire partie du formalisme des cartes
+paramétrique et l'édition d'une spécification paramétrique avec l'appariement
+des entités topologiques. %
+Dans le cadre de ses travaux, Cardot tire parti du formalisme des cartes
 généralisées~\cite{lienhardt1994n,Damiand-Lienhardt14} pour formaliser les
 objets n-dimensionels et les représenter. %
 Elle a également recours aux règles Jerboa~\cite{belhaouari2014jerboa} pour
@@ -1238,9 +1239,10 @@ formaliser les opérations de modélisation géométriques. %
 
 Dans la première partie de ses travaux, Cardot propose un système de nomination
 en deux couches~: (1) création d'un identifiant persistant pour tout brin d'une
-G-carte~; (2) création d'un nom persistant à partir d'un ensemble \textit{minimal}
-d'identifiants persistants pour chaque entité topologique, ici une orbite au sens des cartes généralisées,
-référencée dans la spécification paramétrique. %
+G-carte~; (2) création d'un nom persistant à partir d'un ensemble
+\textit{minimal} d'identifiants persistants pour chaque entité topologique, ici
+une orbite au sens des cartes généralisées, référencée dans la spécification
+paramétrique. %
 
 L'identification persistante des brins est justifiée par les propriétés
 suivantes~:
@@ -1270,9 +1272,13 @@ persistant du brin copié auquel s'ajoute sa propre histoire. %
 
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=.8\textwidth]{cardot-fil-rouge-court}
+	\includegraphics[width=\textwidth]{cardot-fil-rouge-long}
+
+	~
+
+	\includegraphics[width=\textwidth]{cardot-fil-rouge-long-2}
 	\caption{Exemple de construction de Cardot }
-	\label{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}
+	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -1281,20 +1287,20 @@ persistant du brin copié auquel s'ajoute sa propre histoire. %
 	\centering
 		\includegraphics[width=\textwidth]{cardot-regle-carre-v3}
 		\caption{Création de face carrée}
-		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-carre}
+		\label{fig:etat-art-modelisation-parametrique-synthese-cardot-exemples-regles-carre}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
 		\includegraphics[width=.8\textwidth]{cardot-regle-triangulation}
 		\caption{Triangulation de face}
-		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles-triangulation}
+		\label{fig:etat-art-modelisation-parametrique-synthese-cardot-exemples-regles-triangulation}
 	\end{subfigure}
-		\caption{Règles de l'exemple figure~\ref{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}}
-		\label{fig:etat-art-reevaluation-synthese-cardot-exemples-regles}
+		\caption{Règles de l'exemple figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}}
+		\label{fig:etat-art-modelisation-parametrique-synthese-cardot-exemples-regles}
 \end{figure}
 
 Dans l'exemple de construction illustré
-figure~\ref{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}, les
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}, les
 brins \(a\) et \(b\) sont tous les deux créés par la première règle, laquelle
 crée une face carrée et plus spécifiquement par les n\oe uds \(n_{4}\) (en {\color{DodgerBlue1}bleu}) et \(n_{3}\) (en
 	{\color{orange}orange}) respectivement. %
@@ -1315,7 +1321,7 @@ ensemble d'identifiants persistants. %
 Un nom persistant est minimal lorsqu'un nombre minimum d'identifiants persistant
 énumèrent l'ensemble des règles qui ont impacté une orbite donnée. %
 Ainsi, toujours dans l'exemple
-figure~\ref{fig:etat-art-reevaluation-synthese-cardot-exemple-construction}, la
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}, la
 deuxième règle d'application a pour paramètre le nom persistant \(PN_{1}\) qui
 désigne la face carrée. %
 D'après la méthode de Cardot, puisque tous les brins de la face sont créés par
@@ -1329,19 +1335,50 @@ Ces deux identifiants persistants sont équivalents. %
 Le nom persistant dépend donc du brin sélectionné par l'utilisateur lors de
 l'évaluation initiale.%
 
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.65\textwidth]{cardot-journal-bord-triangulation}
+	\caption{Journal de bord de la triangulation par Cardot}
+	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-bord}
+\end{figure}
+
 Pour permettre l'appariement des entités topologiques, Cardot propose d'utiliser
 un journal de bord, c'est-à-dire une structure qui référence pour chaque règle
 Jerboa l'ensemble des changements topologiques qui interviennent sur les entités
 lors de l'application d'une règle. %
 Les changements classifiés sont la création, la suppression, la scission, la
 fusion, le non-changement et la modification d'entités topologique. %
-Au cours d'une construction, à chaque application de règle, le journal de bord
-de la règle est consulté pour construire un journal d'historique et ainsi
-permettre le suivi des entités topologiques tout au long d'un processus de
-construction. %
-Ce mécanisme de suivi est lui-même réutilisé lors de l'appariement pour mettre en correspondance une entité du modèle initial avec une entité du modèle réévalué.  %
-Pour cela, le journal d'historique de chaque entité est mis à jour pendant le
-processus de réévaluation. %
+Prenons le journal de bord de la règle de triangulation illustré dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-bord}. %
+Nous pouvons voir, par exemple, dans l'entrée de type face \(\orbit{0,1}\) que
+la face filtrée par la règle est scindée. %
+L'entrée de type sommet \(\orbit{1,2}\), décrit la création d'un sommet à partir
+de la face filtrée. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\textwidth]{cardot-journal-historique}
+	\caption{Journal d'historique de \(PI_{7a}\) par Cardot}
+	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-historique}
+\end{figure}
+
+Au cours d'une construction, à chaque application de règle et pour chaque
+identifiant persistant, le journal de bord de la règle est consulté pour
+construire un journal d'historique et ainsi permettre le suivi des entités
+topologiques tout au long d'un processus de construction. %
+Un journal d'historique est construit en remontant progressivement l'historique
+d'un identifiant persistant. %
+Prenons le journal d'historique du \(PI_{7a}={1-n_{4};2-n_{0};3-n_{0};6-n_{0}}\)
+illustré dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-historique}. %
+Dans cet exemple, le journal d'historique remonte progressivement l'historique
+des évolutions d'une face à colorier en suivant l'identifiant persistant du brin
+\(a\). %
+Le journal se lit de la manière suivante~: (1) l'orbite suivie est une face à
+colorier~; (2) la face est scindée par la sixième opération~; (3) elle est
+identifiée par une arête~; (4) l'arête est scindée par la troisième opération~;
+(5) elle est identifiée par un brin~; (6) ce brin est réécrit à l'identique par
+la triangulation~; et (7) ce brin est créé avec le carré. %
 
 Enfin, avec ses travaux, Cardot propose d'étendre l'édition d'une spécification
 paramétrique non plus à la seule édition des paramètres géométriques, mais
@@ -1349,8 +1386,31 @@ paramétrique non plus à la seule édition des paramètres géométriques, mais
 spécification paramétrique. %
 Cette extension permet de générer une plus grande diversité de modèles
 paramétriques. %
-Avec cette extension, Cardot définit trois types d'éditions supplémentaires sur
-les opérations, c'est-à-dire l'ajout, la suppression et le changement d'ordre. %
+Trois types d'éditions supplémentaires sont alors définies sur les opérations,
+c'est-à-dire l'ajout, la suppression et le changement d'ordre des opérations
+dans une spécification paramétrique. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=270pt]{cardot-arbre-virtuel-2}
+	\caption{Arbre d'appariement de \(PI_{7a}\) par Cardot}
+	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-arbre-virtuel-2}
+\end{figure}
+
+Une fois la spécification paramétrique éditée, lors de la réévaluation, un DAG
+(graphe orienté acyclique) est créé à partir des journaux d'historiques. %
+Un exemple est illustré dans la
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-arbre-virtuel-2}
+pour le nom persistant \(PN_{7}\). %
+Dans cette configuration, la première triangulation \texttt{2-Triangulation} a
+été déplacée après \texttt{4-Insertion\-Sommet}. %
+L'arbre construit pour \(PN_{7}\) désigne donc d'abord un brin \(a'\),
+\texttt{3-Insertion\-Sommet} scinde l'arête incidente à \(a'\),
+\texttt{4-Insertion\-Sommet} n'a pas pu être réappliquée et n'a donc aucun effet
+et enfin, \texttt{2-Triangulation} (déplacée) scinde la face incidente à
+\(a'\). %
+Le dernier n\oe ud de cet arbre désigne donc une face, incidente à un brin
+\(a'\), pour être coloriée. %
 
 Les travaux de Cardot proposent une extension du problème de la nomination
 persistante aux règles de transformation de graphe. %
@@ -1410,11 +1470,11 @@ en entrées et en sortie d'une opération de modélisation. %
 	\centering
 	\includegraphics[width=\textwidth]{cascaval-types-relations}
 	\caption{Types de relations pour le suivi des entités par Cascaval et al.}
-	\label{fig:etat-art-reevaluation-systemes-cascaval-types-relations}
+	\label{fig:etat-art-modelisation-parametrique-systemes-cascaval-types-relations}
 \end{figure}
 
 À cette fin, trois relations sont définies
-(figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations}) entre
+(figure~\ref{fig:etat-art-modelisation-parametrique-systemes-cascaval-types-relations}) entre
 les entités topologiques en entrée et en sortie des opérations de modélisation~:
 (1) transformation~; (2) sous-ensemble~; (3) dérivation.
 \begin{enumerate}
@@ -1432,7 +1492,7 @@ les entités topologiques en entrée et en sortie des opérations de modélisati
 	\item La relation de dérivation établit un lien entre une entité topologique
 	      existante et une entité topologique créée par une opération. %
 	      Dans l'exemple du chanfrein de sommet illustré dans la
-	      figure~\ref{fig:etat-art-reevaluation-systemes-cascaval-types-relations},
+	      figure~\ref{fig:etat-art-modelisation-parametrique-systemes-cascaval-types-relations},
 	      un lien de dérivation est créé entre le sommet de D et l'arête créée sur E. %
 	      De la même façon, des liens de dérivation sont créés entre ce sommet et
 	      les deux sommets créés sur E. %
@@ -1454,13 +1514,13 @@ les entités topologiques en entrée et en sortie des opérations de modélisati
   \centering
   \includegraphics[width=\textwidth]{cascaval-requetes}
   \caption{Requêtes de filtrage par Cascaval}
-  \label{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}
+  \label{fig:etat-art-modelisation-parametrique-systemes-nomination-cascaval-requetes}
 \end{figure}
 
 Afin de saisir les intentions de conception, les noms persistants sont définis
 par les utilisateurs pendant la conception du modèle paramétrique, à l'aide de
 requêtes, comme illustré dans la
-figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
+figure~\ref{fig:etat-art-modelisation-parametrique-systemes-nomination-cascaval-requetes}. %
 Ces requêtes permettent aux utilisateurs de contraindre l'appariement des
 entités topologiques passées en paramètres des opérations. %
 Les entités sont alors identifiées par rapport à un ou plusieurs ancêtres qui
@@ -1519,20 +1579,22 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 	      sous-ensemble et de dérivation. %
 	      En particulier, il convient de définir manuellement ces relations tout
 	      en garantissant les contraintes posées par le développeur pour éviter
-	      les ambiguïtés; %
+	      les ambiguïtés~; %
   \item la nomination des entités est à la charge des utilisateurs afin que
-		ceux-ci expriment leurs intentions de modélisation. %
-		Pour cela, les auteurs proposent une nomination sous la forme de requêtes intégrant
-		des contraintes qui permettent de filtrer certaines parties de l'objet: %
-		par exemple, une arête ou un sommet créés par l'union ou la différence de
-		deux faces, comme illustré dans la
-		figure~\ref{fig:etat-art-reevaluation-systemes-nomination-cascaval-requetes}. %
-		Le problème de cette approche est que ces contraintes sont exprimées
-		manuellement par l'utilisateur pour lequel plus un objet se complexifie,
-		moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
-		Il est donc difficile de prévoir et garantir la persistance de la nomination
-		avant que la spécification paramétrique ne soit éditée puis réévaluée et
-		que les problèmes de nomination et d'appariement apparaissent. %
+				ceux-ci expriment leurs intentions de modélisation. %
+				Pour cela, les auteurs proposent une nomination sous la forme de
+				requêtes intégrant des contraintes qui permettent de filtrer certaines
+				parties de l'objet~: %
+				par exemple, une arête ou un sommet créés par l'union ou la différence
+				de deux faces, comme illustré dans la
+				figure~\ref{fig:etat-art-modelisation-parametrique-systemes-nomination-cascaval-requetes}. %
+				Le problème de cette approche est que ces contraintes sont exprimées
+				manuellement par l'utilisateur pour lequel plus un objet se complexifie,
+				moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
+				Il est donc difficile de prévoir et garantir la persistance de la
+				nomination avant que la spécification paramétrique ne soit éditée puis
+				réévaluée et que les problèmes de nomination et d'appariement
+				apparaissent. %
 \end{itemize}
 
 

@@ -4,48 +4,49 @@
 \label{cha:etat-art-reevaluation}
 
 
-Ces dernières décennies ont vu les logiciels de modélisation géométriques gagner
-tous les domaines de compétences. %
-Tout d'abord destinés au dessin industriel, puis à la conception de pièces
-mécaniques jusqu'à être présent dans tous les domaines, de l'architecture, pour
-la construction, à l'aménagement des espaces urbain, en passant par
-l'archéologie, les logiciels de modélisation géométrique sont tout simplement
-devenus des outils indispensables. %
-D'année en année, ces outils s'enrichissent de méthodes d'acquisitions (lidar,
-photogrammétrie, …), de construction (génération procédurale, modélisation
-paramétrique) qu'ils soient issus du monde réel ou bien conçu pour devenir de
-véritables pièces. %
-De même, les moyens de représenter ces objets (BRep, cartes combinatoires, CGS,
-G-cartes) ne cessent d'évoluer. %
+% Ces dernières décennies ont vu les logiciels de modélisation géométrique devenir
+% incontournables. %
+% Tout d'abord destinés au dessin industriel avec la conception de pièces
+% mécaniques (d'abord en 2D puis en 3D), ces logiciels sont utilisés dans de
+% nombreux domaines comme l'archéologie (restitutions historiques d'artefacts
+% issus de fouilles), l'architecture (design de maisons, aménagement de l'espace
+% urbain), la cinématographie (conception de scènes, animations de personnages),
+% le design d'intérieur, la mode ou encore la réparation de matériel (pièces de
+% rechange à imprimer en 3D) pour n'en citer que quelques-uns. %
 
-À ce jour, une fonctionnalité des systèmes de modélisation paramétrique est
-toujours activement étudiée . %
-Il s'agit d'une procédure appelée réévaluation qui permet d'enregistrer le
-processus constructif d'un modèle 3D afin de le modifier pour générer rapidement
-plusieurs variations d'une même construction. %
-La mise en \oe uvre d'une telle fonctionnalité passe notamment par la résolution
-d'un problème connu sous le nom de problème de la nomination persistante. %
+% Avec les années, ces outils ont été enrichis de méthodes pour l'acquisition et
+% de reconstruction pour le patrimoine et la médecine (lidar, photogrammétrie, …),
+% de construction (génération procédurale, modélisation paramétrique) qu'ils
+% soient issus du monde réel ou bien conçu pour devenir de véritables pièces. %
+% De même, les moyens de représenter ces objets (BRep, cartes combinatoires, CGS,
+% G-cartes) ne cessent d'évoluer. %
 
-Ce chapitre est divisé en deux parties. %
-Dans la section~\ref{sec:etat-art-model-regles} nous commencer par présenter un
-ensemble d'outils de formalisation essentiels à la compréhension de l'état de
-l'art ainsi que des contributions détaillées dans ce manuscrit %
-Ensuite, dans la section~\ref{sec:etat-art-reevaluation}, nous faisons un état
-des lieux de la recherche sur la problématique de la réévaluation de modèles
-paramétriques. %
+% C'est pas le bon endroit pour ça (au-dessus) garder les idées pour le chapitre
+% d'introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Afin de permettre une bonne compréhension des différents concepts et outils
-% utilisés dans ce manuscrit, ce chapitre est divisé en deux sections. %
-% Dans la Section~\ref{sec:etat-art-model-regles}, nous présentons un ensemble
-% d'outils conçus pour la modélisation à base de règles de transformation de
-% graphe. %
-% Dans la Section~ nous présentons un état de l'art
-% des mécanismes de réévaluation.
+Parmi toutes les familles de logiciels de conception assistée par ordinateur,
+dans le cadre de cette thèse, nous nous intéressons aux logiciels de
+modélisation paramétrique. %
+Ceux-ci offrent la possibilité d'enregistrer le processus constructif d'un
+modèle paramétrique et de l'éditer afin de générer rapidement des variations
+d'un même objet. %
+Il s'agit d'une procédure appelée \emph{réévaluation}. %
+Toutefois, la mise en \oe uvre de cette fonctionnalité passe par la résolution
+d'un problème connu sous le nom de problème de la nomination persistante et qui
+fait, depuis plusieurs décennies, l'objet de nombreuses études. %
+Ainsi, dans ce manuscrit, et dans le but de permettre la réévaluation de modèles
+paramétriques, nous proposons une solution au problème de la nomination
+persistante par son extension au domaine de la modélisation à base de règles. %
 
-% Il existe de nombreuses façons d'obtenir des objets virtuels
-% (nuages de points, maillages, volumes, etc), parmi celles-ci, on retrouve des
-% modèles de représentation à base de graphe (graphes d'adjacence, cartes
-% combinatoires, etc). %
+Nous avons divisé ce chapitre en deux parties qui traitent chacune d'un aspect de la modélisation géométrique. %
+Dans la Section~\ref{sec:etat-art-model-regles} nous présentons un ensemble
+d'outils de formalisation essentiels à la compréhension de l'état de l'art ainsi
+que des contributions détaillées dans ce manuscrit %
+Ensuite, dans la Section~\ref{sec:etat-art-modelisation-parametrique}, nous
+faisons un état des lieux de la recherche sur la problématique de la
+réévaluation de modèles paramétriques. %
+
 
 %%% Local Variables:
 %%% mode: latex

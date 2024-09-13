@@ -145,13 +145,13 @@ ci-après. %
 label=lst:reevaluation-regles-specification-parametrique-spec-init,caption=Spécification
  paramétrique initiale]
 1-carre(pos)
-2-extrusionFace(PN(6)=[1n6], vec)
-3-insertion(PN(46)=[1n5;2n5])
-4-extrusionFaceVolume(PN(47)=[1n5;2n6;3n0], vec)
-5-triangulationFace(PN(33)=[1n3;2n2])
-6-contractionFace(PN(63)=[1n4;2n6;4n6])
-7-chanfrein(PN(55)=[1n5;2n6;3n0;4n4;6n2])
-8-coloration(PN(35)=[1n3;2n4;5n0])
+2-extrusionFace(\pndart{6}{1n6}, vec)
+3-insertion(\pndart{46}{1n5;2n5})
+4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)
+5-triangulationFace(\pndart{33}{1n3;2n2})
+6-contractionFace(\pndart{63}{1n4;2n6;4n6})
+7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})
+8-coloration(\pndart{35}{1n3;2n4;5n0})
 \end{lstlisting}}
 
 Détaillons cette spécification paramétrique. %
@@ -183,38 +183,53 @@ Plus précisément, nous ajoutons une opération d'insertion de sommet
 \texttt{3-insertion} afin que celle-ci ne soit pas réévaluée. %
 
 {\footnotesize\ttfamily
-\begin{lstlisting}[%
-label=lst:reevaluation-regles-specification-parametrique-spec-modif,caption=Spécification paramétrique modifiée]
-1-carre(pos)
-ADD 9-insertion(3)
-2-extrusionFace(PN(6)=[1n6], vec)
-DELETE 3-insertion(PN(46)=[1n5;2n4])
-4-extrusionFaceVolume(PN(47)=[1n5;2n6;3n0], vec)
-5-triangulationFace(PN(33)=[1n3;2n2])
-6-contractionFace(PN(63)=[1n4;2n6;4n6])
-7-chanfrein(PN(55)=[1n5;2n6;3n0;4n4;6n2])
-8-coloration(PN(35)=[1n3;2n4;5n0])
-\end{lstlisting}}
+% \begin{lstlisting}[%
+% label=lst:reevaluation-regles-specification-parametrique-spec-modif,caption=Spécification paramétrique modifiée]
+% 1-carre(pos)
+% ADD 9-insertion(3)
+% 2-extrusionFace(\pndart{6}{1n6}, vec)
+% DELETE 3-insertion(\pndart{46}{1n5;2n4})
+% 4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)
+% 5-triangulationFace(\pndart{33}{1n3;2n2})
+% 6-contractionFace(\pndart{63}{1n4;2n6;4n6})
+% 7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})
+% 8-coloration(\pndart{35}{1n3;2n4;5n0})
+% \end{lstlisting}
+}
 
-  \todo{Décrire les éléments importants de ce cas d'étude et ce qui nous
+\begin{minipage}{1.0\linewidth}
+  \captionof{lstlisting}{hello}%
+	\footnotesize\ttfamily
+	1-carre(pos)\\
+	ADD 9-insertion(3)\\
+	2-extrusionFace(\pndart{6}{1n6}, vec)\\
+	DELETE 3-insertion(\pndart{46}{1n5;2n4})\\
+	4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)\\
+	5-triangulationFace(\pndart{33}{1n3;2n2})\\
+	6-contractionFace(\pndart{63}{1n4;2n6;4n6})\\
+	7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
+	8-coloration(\pndart{35}{1n3;2n4;5n0})
+\end{minipage}
+
+\todo{Décrire les éléments importants de ce cas d'étude et ce qui nous
 	intéresse~: scission supplémentaire de la face avant~; fusion par absence de
 	création sur le côté~; coloration de deux faces (symétriques) au lieu d'une
 	seule}
 
-  Les aspects intéressants du modèle paramétrique et sa réévaluation que nous
-  venons de présenter sont le fait que nous ajoutons une opération et en
-  supprimons une autre lors de l'édition de la spécification paramétrique. %
-  Nous devrions donc, en toute logique, nous attendre à des changements
-  significatifs dans la topologie du modèle réévalué. %
+Les aspects intéressants du modèle paramétrique et sa réévaluation que nous
+venons de présenter sont le fait que nous ajoutons une opération et en
+supprimons une autre lors de l'édition de la spécification paramétrique. %
+Nous devrions donc, en toute logique, nous attendre à des changements
+significatifs dans la topologie du modèle réévalué. %
 
 
 \subsection{Construction nº2}
 \label{sec:reevaluation-base-regles-deuxieme-cas}
 
 \todo{Générer la deuxième construction} \todo{L'intérêt de cette construction,
-  c'est la gestion d'évènements collatéraux pour compléter l'autre cas sans
-  l'alourdir~: suppression d'une face à colorier~; fusion de deux faces (dont
-  l'une est coloriée) par absence de création}
+	c'est la gestion d'évènements collatéraux pour compléter l'autre cas sans
+	l'alourdir~: suppression d'une face à colorier~; fusion de deux faces (dont
+	l'une est coloriée) par absence de création}
 
 %%% Local Variables:
 %%% mode: LaTeX

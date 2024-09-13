@@ -18,93 +18,123 @@ persistante pour les brins en évaluant pas à pas la construction nº1%
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[width = 100pt]{rule-create-square-face}
+		\includegraphics[height = 160pt]{rule-create-square-face}
+		\caption{}
 	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.35\textwidth}
 		\centering
 		\includegraphics[width = 100pt]{example-image-b}
+		\caption{}
 	\end{subfigure}
-	\caption{Création de la face carrée}
+	\caption{\texttt{1-carre(pos)}}
+\end{figure}
+
+\maxime{Dans ce paragraphe, je montre la construction de l'historique pour un
+  échantillon de brin et plus particulièrement les brins 3 et 6.}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 90pt]{rule-face-extrusion-compact}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+		\caption{}
+	\end{subfigure}
+	\caption{\texttt{2-extrusionFace(\pndart{6}{1n6})}}
+\end{figure}
+
+\maxime{Dans ce paragraphe, je montre que le paramètre topologique d'une règle
+  est une orbite incidente à un brin, donc un nom persistant est une
+  photographie de l'historique d'un brin au moment de l'application d'une règle
+  à une étape donnée. %
+  Je montre la mise à jour des historiques et la construction des PNs suivants.}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 40pt]{rule-insert-vertex}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = 100pt]{example-image-b}
+		\caption{}
+	\end{subfigure}
+	\caption{\texttt{3-insertionSommet(\pndart{46}{1n5;2n5})}}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[width = 100pt]{rule-face-extrusion-compact}
+		\includegraphics[height = 90pt]{rule-volume-face-extrusion-compact-color}
+		\caption{}
 	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.35\textwidth}
 		\centering
 		\includegraphics[width = 100pt]{example-image-b}
+		\caption{}
 	\end{subfigure}
-	\caption{Extrusion de la face en un cube}
+	\caption{\texttt{4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0})}}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[width = 100pt]{rule-insert-vertex}
+		\includegraphics[height = 40pt]{rule-face-triangulation-3D}
 	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.35\textwidth}
 		\centering
 		\includegraphics[width = 100pt]{example-image-b}
 	\end{subfigure}
-	\caption{}
+	\caption{\texttt{6-contractionFace(\pndart{63}{1n4;2n6;4n6})}}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[width = 100pt]{rule-face-extrusion-compact}
+		\includegraphics[height = 40pt]{rule-face-collapse}
 	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.35\textwidth}
 		\centering
 		\includegraphics[width = 100pt]{example-image-b}
 	\end{subfigure}
-	\caption{\texttt{4-extrusion}}
+	\caption{Contraction de la face du dessus}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[width = 100pt]{rule-triangulate-face-3D}
+		\includegraphics[height = 40pt]{rule-vertex-chamfer-color}
 	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.35\textwidth}
 		\centering
 		\includegraphics[width = 100pt]{example-image-b}
 	\end{subfigure}
-	\caption{\texttt{5-triangulationFace}}
+	\caption{\texttt{7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})}}
 \end{figure}
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[width = 100pt]{example-image-a}
+		\includegraphics[height = 40pt]{rule-colour-face}
 	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\centering
-		\includegraphics[width = 100pt]{example-image-b}
-	\end{subfigure}
-	\caption{\texttt{6-chanfrein}}
-\end{figure}
-
-\begin{figure}[htb!]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\centering
-		\includegraphics[width = 100pt]{example-image-a}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
+	\begin{subfigure}{.35\textwidth}
 		\centering
 		\includegraphics[width = 100pt]{example-image-b}
 	\end{subfigure}
-	\caption{\texttt{7-coloration}}
+	\caption{\texttt{7-coloration(\pndart{35}{1n3;2n4;5n0})}}
 \end{figure}
 
 %%% Local Variables:

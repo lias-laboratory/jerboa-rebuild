@@ -1,6 +1,17 @@
 %%%%% Traduction %%%%%%%%%%%%%%%%%%%%%%%%
 %% Babel ne traduit par la caption de lstlisting donc je le fais ici
-\renewcommand\lstlistingname{Liste}
+\renewcommand\lstlistingname{\scshape Liste}
+
+%% Plus simple que lstlisting, sans verbatim et sans mathescape (je voulais uniformiser mon affichage de PN\subscript{xyz}=[x'y'z'] )
+\newenvironment{vbtflisting}[1][]%
+{%
+	\noindent
+	\begin{minipage}{\textwidth}
+		\captionof{lstlisting}{#1}
+		\footnotesize\ttfamily
+		}{%
+	\end{minipage}
+}
 
 %%%%% Tableaux %%%%%%%%%%%%%%%%%%%%%%%%
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
@@ -8,27 +19,27 @@
 \newcommand{\xmark}{{\color{red}\ding{55}}}
 %%%%% Environnements théorèmes,etc. %%%%%
 {
-\theoremstyle{break}
-\theoremheaderfont{\normalfont\bfseries}
-% \theorembodyfont{\upshape}
-\theoremseparator{}
-\newtheorem{thmi}{Théorème}% [subsection]
-\newtheorem{defi}{Définition}% [subsection]
-\newtheorem{propi}{Proposition}% [subsection]
-\newtheorem*{exmpi}{Exemple}% [subsection]
+	\theoremstyle{break}
+	\theoremheaderfont{\normalfont\bfseries}
+	% \theorembodyfont{\upshape}
+	\theoremseparator{}
+	\newtheorem{thmi}{Théorème}% [subsection]
+	\newtheorem{defi}{Définition}% [subsection]
+	\newtheorem{propi}{Proposition}% [subsection]
+	\newtheorem*{exmpi}{Exemple}% [subsection]
 }
 
 {
-\theoremstyle{change}
-\theoremheaderfont{\normalfont\bfseries}
-% \theorembodyfont{\upshape}
-\theoremseparator{~:}
-\newtheorem*{remarki}{Remarque}
-{
-	\theoremsymbol{$\square$}
-	\newtheorem*{proofi}{Preuve}
-	\newtheorem*{proofii}{Idée de preuve}
-}
+	\theoremstyle{change}
+	\theoremheaderfont{\normalfont\bfseries}
+	% \theorembodyfont{\upshape}
+	\theoremseparator{~:}
+	\newtheorem*{remarki}{Remarque}
+	{
+		\theoremsymbol{$\square$}
+		\newtheorem*{proofi}{Preuve}
+		\newtheorem*{proofii}{Idée de preuve}
+	}
 }
 
 \newtcolorbox{tcbleftbar}[1][]{blanker,breakable,left=5mm, before skip=10pt, after
@@ -96,17 +107,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% math mode uniquement %%%%%
-\newcommand{\orbit}[1]{%
-	\langle#1\rangle
+
+\newcommand{\orbit}[1]{% % mathmode uniquement
+	\langle#1\rangle%
 }
-% \newcommand{\pn}[1]{%
-% 	[#1]
-% }
-% \newcommand{\pnfull}[2]{%
-% 	PN_{#1}=[#2]
-% }
-\newcommand\pndart[2]{%
-  PN\textsubscript{#1}=[#2]%
+\newcommand{\node}[1]{%
+  n\textsubscript{#1}%
+}
+
+\newcommand{\pndart}[2]{%
+	PN\textsubscript{#1}=[#2]%
+}
+
+\newcommand{\partdartmath}[2]{%
+	PN_{#1}=[#2]
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,63 +1,170 @@
 \section{Nomination persistante des orbites}
 \label{sec:reevaluation-nomination-persistante-orbites}
 
-\maxime{idée plan~:\\
-	Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
-	complète d'un évènement à chaque application de règles. Formalisation de l'usage
-	de chemins pour préciser une origine lorsque celle-ci n'est pas directement liée
-	à un nœud d'accroche dans une règle. }
+Pour compléter la nomination des entités topologiques, nous réutilisons les noms
+persistants de brins pour construire les arbres d'évaluations, ou DAGs d'évaluations, qui
+représentent tous les évènements qui ont impacté chacune des orbites, autrement
+leurs historiques d'évolutions. %
 
-Pour la deuxième étape de notre nomination, nous représentons l'histoire de
-chacune des entités topologiques, désignées par des noms persistants de brins,
-dans la spécification paramétrique. %
-Cette histoire, nous la représentons à l'aide d'un graphe orienté acyclique
-(DAG en anglais) qui retrace les changements subis par les ancêtres d'une
-entité. %
+% \maxime{idée plan~:\\
+% 	Combinaison d'orbites d'origine et de suivi dans un DAG pour une représentation
+% 	complète d'un évènement à chaque application de règles. Formalisation de l'usage
+% 	de chemins pour préciser une origine lorsque celle-ci n'est pas directement liée
+% 	à un nœud d'accroche dans une règle. }
 
-\maxime{Ici, il y a plusieurs concepts qui interviennent~:\\
-	\begin{itemize}
-		\item les entrées pour la construction du DAG sont~: un nom persistant de
-		      brin, le type d'orbite de l'entité topologique, une spécification
-		      paramétrique (pour associer numéro d'opération et opération)
-		\item les notions de suivi (flèche noire) et d'origine (flèche rouge)
-		      d'une orbite (au travers d'une opération)
-	\end{itemize}
-}
+% \begin{itemize}
+% 	\item les entrées pour la construction du DAG sont~: un nom persistant de
+% 	      brin, le type d'orbite de l'entité topologique, une spécification
+% 	      paramétrique (pour associer numéro d'opération et opération)
+% 	\item les notions de suivi (flèche noire) et d'origine (flèche rouge)
+% 	      d'une orbite (au travers d'une opération)
+% \end{itemize}
 
-\maxime{On ressort la construction fil rouge, et on illustre l'histoire de la
-	face coloriée à l'issue de la dernière opération du processus de modélisation}
+Détaillons la construction du DAG d'évaluation pour le paramètre topologique l'application
+\texttt{8-colorationBleu(\pndart{35}{1n3;2n4;5n0}, Bleu)} de la construction nº~1. %
 
-\maxime{1. On commence par désigner le nom persistant de brin à partir duquel on
-	va représenter une entité topologique} \maxime{2. On montre le type d'orbite
-	associé au hook de la règle $\to$ désignation d'une entité topologique}
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height = 40pt]{rule-colour-face-n0-highlight}
+	\caption{}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}
+\end{figure}
 
-\maxime{3. Tracé de l'histoire à partir de l'entité désignée à l'étape
-	précédente (étape finale du processus de modélisation) jusqu'aux ancêtres les
-	plus anciens (potentiellement la première étape du processus de modélisation)}
+La première étape, pour construire le DAG d'évaluation, consiste à identifier le
+type d'orbite filtré par la règle. %
+Comme expliqué dans les chapitres précédents, cette information est représentée
+dans l'étiquette du n\oe ud d'accroche de la règle. %
+Pour notre exemple, le type d'orbite qui nous intéresse est l'étiquette du n\oe
+ud \(n_{0}\) affiché en {\color{orange}orange} dans la
+figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}. %
+À partir de cette information, nous pouvons commencer à remonter l'historique
+des évolutions de l'orbite sur laquelle l'opération de coloration a été
+appliquée. %
+Autrement dit, l'historique que nous reconstituons est un DAG qui se construit
+et se lit de la fin jusqu'au début, de l'état le plus récent de l'orbite jusqu'à
+ses ancêtres les plus anciens. %
 
-\maxime{4. étapes successives de restitution de l'histoire d'une entité
-	topologique à partir d'illustrations. Faire attention de bien présenter qu'il
-	y a à la fois le suivi et les origines. Faire attention à bien expliquer que
-	la notion d'origine a une signification dans la restitution et la lecture de
-	l'histoire}
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=20pt]{pn35-dag-eval-step-0}
+  \caption{Racine du DAG d'évaluation}
+  \label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-racine}
+\end{figure}
 
-\maxime{5. On ajoute une notion qui est celle de chemin~: parfois, le lien entre
-	une orbite et son origine ne peut être fait de manière directe parce que
-	l'origine a été supprimée dans l'opération. %
-	Dans ce cas, on peut annoter une orbite avec un chemin qui fait le lien entre
-	l'origine et les ancêtres directs d'une orbite.}
+Ainsi, le type de l'orbite que nous suivons, ou type d'orbite de \emph{suivi},
+est le premier élément intégré dans le DAG en tant que racine
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-racine}). %
 
-À terme, un DAG d'évaluation représente l'histoire d'une unique entité topologique. %
-Les apports de cette approche sont~:
-\begin{itemize}
-	\item la détection statique des évènements (formalisés dans le chapitre
-	      précédent) permet de reconstituer l'histoire d'une entité
-	\item pas de besoin de réappliquer les règles, c'est-à-dire que pas besoin
-	      de reproduire la représentation explicite
-	\item uniquement la spécification paramétrique
-	\item uniquement pour les entités calculée à partir du type d'orbite d'un
-	      hook et du nom persistant de brin associé dans la spécification paramétrique.
-\end{itemize}
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=105pt]{pn35-dag-eval-step-2}
+  \caption{Étape 2 \texttt{[1n3;2n4;{\color{orange}5n0}]} de la construction du DAG}
+  \label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-2}
+\end{figure}
+
+La suite de la reconstitution consiste à remonter l'historique du nom persistant
+du brin, application par application. %
+Dans le DAG d'évaluation, une application est représentée par un couple de
+niveaux~: (1) un niveau d'orbite qui contient l'ensemble des types d'orbites
+suivis dans l'application courante~; (2) un niveau d'événements qui ont impacté
+les orbites suivies. %
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=45pt]{rule-face-triangulation-3D-n0-highlight-boxed-v2}
+  \caption{Analyse de la règle de triangulation}
+  \label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-triangulation}
+\end{figure}
+
+Reprenons notre exemple. %
+La deuxième étape de la reconstitution d'historique commence avec la dernière
+application enregistrée dans le nom persistant du brin \(35\), c'est-à-dire
+l'application \texttt{5-triangulation} et son n\oe ud \(n_{0}\). %
+Grâce à ces informations, nous pouvons procéder à l'analyse de la règle de
+triangulation
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-triangulation})
+et plus particulièrement à la face incidente à \(n0\), \(\orbit{0,1}(n_{0})\). %
+L'étude de cette orbite, comme nous l'avons vu dans la
+section~\ref{sec:formalisation-evenements-regles-transfo-graphe-scission}
+(page~\ref{sec:formalisation-evenements-regles-transfo-graphe-scission}), montre
+que l'orbite \(L\orbit{0,1}(n_{0})\) est scindée du fait de la réécriture de
+tous les \(1\)-arcs implicite dans des dimensions hors du type \(\orbit{0,1}\),
+voire de leur suppression. %
+De plus, nous pouvons voir dans l'orbite \(R\orbit{0,1}(n_{0})\) que les \(0\)
+et \(1\)-arcs implicites sont des réécritures d'un \(0\)-arc implicite dans le
+n\oe ud d'accroche. %
+Ainsi, l'orbite que nous suivons, d'une part, est scindée, et, d'autre part, a
+pour origine une arête de type \(\orbit{0}\). %
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=180pt]{pn35-dag-eval-step-3}
+  \caption{Étape 3 \texttt{[1n3;{\color{orange}2n4};5n0]} de la construction du DAG}
+  \label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-3}
+\end{figure}
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=110pt]{rule-face-extrusion-compact-n4-highlight-v2}
+  \caption{Analyse de la règle d'extrusion d'une face}
+
+  \todo{étape 3}
+  \label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}
+\end{figure}
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=220pt]{pn35-dag-eval-step-4}
+  \caption{Étape 4 \texttt{[{\color{orange}1n3};2n4;5n0]} de la construction du DAG}
+  \label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}
+\end{figure}
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=200pt]{rule-create-square-face-n3-highlight}
+  \caption{Analyse de la règle d'extrusion d'une face}
+  \label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-carre}
+\end{figure}
+
+\todo{étape finale}
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[width=.53\textwidth]{pn55-dag-eval}
+  \caption{DAG d'évaluation du PN\textsubscript{55}}
+  \label{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55}
+\end{figure}
+
+\todo{Utiliser le dag du PN\textsubscript{55} pour expliquer l'extension d'un type d'orbite avec
+  un chemin pour le suivi d'évolution}
+
+% \todo{3. Tracé de l'histoire à partir de l'entité désignée à l'étape
+% 	précédente (étape finale du processus de modélisation) jusqu'aux ancêtres les
+% 	plus anciens (potentiellement la première étape du processus de modélisation)}
+
+% \todo{4. étapes successives de restitution de l'histoire d'une entité
+% 	topologique à partir d'illustrations. Faire attention de bien présenter qu'il
+% 	y a à la fois le suivi et les origines. Faire attention à bien expliquer que
+% 	la notion d'origine a une signification dans la restitution et la lecture de
+% 	l'histoire}
+
+% \todo{5. On ajoute une notion qui est celle de chemin~: parfois, le lien entre
+% 	une orbite et son origine ne peut être fait de manière directe parce que
+% 	l'origine a été supprimée dans l'opération. %
+% 	Dans ce cas, on peut annoter une orbite avec un chemin qui fait le lien entre
+% 	l'origine et les ancêtres directs d'une orbite.}
+
+% À terme, un DAG d'évaluation représente l'histoire d'une unique entité topologique. %
+% Les apports de cette approche sont~:
+% \begin{itemize}
+% 	\item la détection statique des évènements (formalisés dans le chapitre
+% 	      précédent) permet de reconstituer l'histoire d'une entité
+% 	\item pas de besoin de réappliquer les règles, c'est-à-dire que pas besoin
+% 	      de reproduire la représentation explicite
+% 	\item uniquement la spécification paramétrique
+% 	\item uniquement pour les entités calculée à partir du type d'orbite d'un
+% 	      hook et du nom persistant de brin associé dans la spécification paramétrique.
+% \end{itemize}
 
 
 %%% Local Variables:

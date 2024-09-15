@@ -65,11 +65,18 @@ paramétriques. %
 		\caption{}
 		\label{fig:8-eval}
 	\end{subfigure}
-	\caption{Evaluation %'s applications.
-		(a) $1$-carre(pos); (b)
-		$2$-extrusion($PN_{6}$,vec); (c) $3$-insertion($PN_{46}$); (d)
-		$4$-extrusion($PN_{47}$,vec); (e) $5$-triangulationFace($PN_{33}$); (f)
-		$6$-contraction($PN_{63}$); (g) $7$-chanfrein($PN_{55}$); (h) $8$-colorier($PN_{35}$)}
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{9-evaluation-color}
+		\caption{}
+		\label{fig:9-eval}
+	\end{subfigure}
+	\caption{Évaluation
+		(a) $1$-carre(pos); (b) $2$-extrusion($PN_{6}$,vec); (c)
+		$3$-insertion($PN_{46}$); (d) $4$-extrusion($PN_{47}$,vec); (e)
+		$5$-triangulation($PN_{33}$); (f) $6$-contraction($PN_{63}$); (g)
+		$7$-chanfrein($PN_{55}$); (h) $8$-coloration($PN_{35}$); (i)
+		$9$-coloration($PN_{68}$, Rouge)}
 	\label{fig:evaluation}
 \end{figure}
 \begin{figure}[t!]
@@ -127,10 +134,17 @@ paramétriques. %
 		\caption{}
 		\label{fig:8-reeval}
 	\end{subfigure}
-	\caption{Reevaluation (a) $1$-carre(pos); (b) ADD$1$-insertion(3); (c)
+	\hfill
+	\begin{subfigure}[t]{0.11\textwidth}
+		\includegraphics[width=\textwidth]{9-reevaluation-color}
+		\caption{}
+		\label{fig:9-reeval}
+	\end{subfigure}
+	\caption{Réevaluation (a) $1$-carre(pos); (b) ADD$1$-insertion(3); (c)
 		$2$-extrusion($PN_{6}$,vec); (d) DELETE $3$-insertion($PN_{46}$); (e)
-		$4$-extrusion($PN_{47}$,vec); (f) $5$-triangulationFace($PN_{33}$); (g)
-		$6$-contraction($PN_{63}$); (h) $7$-chanfrein($PN_{55}$); (i) $8$-colorier($PN_{35}$)}
+		$4$-extrusion($PN_{47}$,vec); (f) $5$-triangulation($PN_{33}$); (g)
+		$6$-contraction($PN_{63}$); (h) $7$-chanfrein($PN_{55}$); (i)
+		$8$-coloration($PN_{35}$,Bleu) ; (i) $9$-coloration($PN_{68}$, Rouge)}
 	\label{fig:reevaluation}
 \end{figure}
 
@@ -140,10 +154,11 @@ paramétriques. %
 	2-extrusionFace(\pndart{6}{1n6}, vec)\\
 	3-insertion(\pndart{46}{1n5;2n5})\\
 	4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)\\
-	5-triangulationFace(\pndart{33}{1n3;2n2})\\
+	5-triangulation(\pndart{33}{1n3;2n2})\\
 	6-contractionFace(\pndart{63}{1n4;2n6;4n6})\\
 	7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
-	8-coloration(\pndart{35}{1n3;2n4;5n0})\\
+	8-colorationBleu(\pndart{35}{1n3;2n4;5n0})\\
+	9-colorationRouge(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1})
 \end{vbtflisting}
 
 La première construction que nous présentons, illustrée
@@ -158,21 +173,23 @@ L'application de la première opération, \texttt{carre}, crée une face carrée
 (figure~\ref{fig:1-eval}). %
 La deuxième opération, \texttt{extrusionFace}, est appliquée sur cette face,
 incidente au brin \(6\), et l'extrude en un cube (figure~\ref{fig:2-eval}). %
-La troisième opération, \texttt{insertion}, est appliquée sur l'arête
-incidente au brin \(46\) et y insère un sommet (figure~\ref{fig:3-eval}). %
-La quatrième opération, \texttt{extrusionFaceVolume}, est appliquée sur la
-face du dessus, incidente au brin \(47\), et l'extrude en un autre cube
+La troisième opération, \texttt{insertion}, est appliquée sur l'arête incidente
+au brin \(46\) et y insère un sommet (figure~\ref{fig:3-eval}). %
+La quatrième opération, \texttt{extrusionFaceVolume}, est appliquée sur la face
+du dessus, incidente au brin \(47\), et l'extrude en un autre cube
 (figure~\ref{fig:4-eval}). %
-La cinquième opération, \texttt{trianguleFace}, est appliquée sur la face
-avant, incidente au brin \(33\), et la triangule (figure~\ref{fig:5-eval}). %
+La cinquième opération, \texttt{trianguleFace}, est appliquée sur la face avant,
+incidente au brin \(33\), et la triangule (figure~\ref{fig:5-eval}). %
 La sixième opération, \texttt{contractionFace}, est appliquée sur la face
 incidente au brin \(63\), et la contracte en un sommet
 (figure~\ref{fig:6-eval}). %
 La septième opération, \texttt{chanfrein}, est appliquée sur ce même sommet,
 incident au brin \(55\), et fait un chanfrein dessus
 (figure~\ref{fig:7-eval}). %
-Enfin, la dernière opération, \texttt{coloration} colore la face incidente au
-brin \(35\) (figure~\ref{fig:8-eval}). %
+La huitième opération, \texttt{colorationBleu}, colore la face incidente au brin
+\(35\) (figure~\ref{fig:8-eval}). %
+Enfin, la dernière opération, \texttt{colorationRouge}, colore la face incidente
+au brin \(68\). %
 
 \begin{vbtflisting}[Spécification paramétrique éditée du cas nº~2]
 	\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}
@@ -181,10 +198,11 @@ brin \(35\) (figure~\ref{fig:8-eval}). %
 	2-extrusionFace(\pndart{6}{1n6}, vec)\\
 	DELETE 3-insertion(\pndart{46}{1n5;2n4})\\
 	4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)\\
-	5-triangulationFace(\pndart{33}{1n3;2n2})\\
+	5-triangulation(\pndart{33}{1n3;2n2})\\
 	6-contractionFace(\pndart{63}{1n4;2n6;4n6})\\
 	7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
-	8-coloration(\pndart{35}{1n3;2n4;5n0})
+	8-coloration(\pndart{35}{1n3;2n4;5n0})\\
+	9-colorationRouge(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1})
 \end{vbtflisting}
 
 Nous procédons ensuite à l'édition de cette spécification paramétrique dont la
@@ -201,11 +219,6 @@ venons de présenter sont le fait que nous ajoutons une opération et en
 supprimons une autre lors de l'édition de la spécification paramétrique. %
 Nous devrions donc, en toute logique, nous attendre à des changements
 significatifs dans la topologie du modèle réévalué. %
-
-\todo{Décrire les éléments importants de ce cas d'étude et ce qui nous
-	intéresse~: scission supplémentaire de la face avant~; fusion par absence de
-	création sur le côté~; coloration de deux faces (symétriques) au lieu d'une
-	seule}
 
 \subsection{Construction nº~2}
 \label{sec:reevaluation-base-regles-deuxieme-cas}

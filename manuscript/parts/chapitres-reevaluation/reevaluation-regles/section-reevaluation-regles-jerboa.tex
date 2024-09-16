@@ -1,40 +1,143 @@
 \section[Réévaluation]{Réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation}
 
-Ici, je présente la méthode de réévaluation.
+Afin de proposer un mécanisme d'appariement pour la réévaluation, nous nous
+appuyons à nouveau sur les travaux de Cardot. %
+Dans ses travaux, elle procède à l'appariement à partir des journaux
+d'historiques qu'elle propose de mettre à jour dans des DAGs (voir
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-historique}
+page~\pageref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-historique}
+et
+figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-appariement-reevaluation}
+page~\pageref{fig:etat-art-modelisation-parametrique-synthese-cardot-appariement-reevaluation}). %
+Notre approche est très similaire dans le sens où nous effectuons l'appariement
+progressivement au cours de la réévaluation grâce à la mise à jour de nos DAGs
+d'évaluations. %
+La différence entre nos deux approches se trouve, d'une part, dans le niveau de
+détail proposé par nos DAGs et, d'autre part, par la possibilité de les
+exploiter pour mettre en \oe uvre des stratégies de réévaluation qui sont
+configurables par l'utilisateur. %
 
-J'explique que je fais ça à partir du nom persistant d'une orbite (arbre
-d'évaluation) et ce pour chacune des orbites identifiées dans la spec à
-réévaluer.
+Commençons avec la création des DAGs de réévaluations. %
 
 \subsection{Reconstruction à partir d'un DAG d'évaluation}
 \label{sec:reevaluation-base-regles-reevaluation-reconstruction}
 
-\maxime{idée de plan~:\\
-	(du début jusqu'à la fin)
-	Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
-	topologiques, ceux-ci ne contiennent non pas des nœuds de règles, mais des brins
-	issus de l'objet en cours de reconstruction. }
+Prenons à nouveau l'application \texttt{8-colorationBleu}. %
+À l'aide du DAG d'évaluation construit plus tôt
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}),
+nous pouvons identifier l'ensemble des orbites qui correspondent, du point de
+vue de leur construction, à l'orbite enregistrée comme paramètre topologique
+dans la spécification paramétrique. %
+La construction d'un DAG de réévaluation consiste simplement à le mettre à jour,
+étape par étape, en prenant en compte la nature des applications, c'est-à-dire
+\texttt{INIT} si elles viennent de l'évaluation \textbf{initiale} sinon
+\texttt{ADD}, \texttt{DELETE} ou encore \texttt{MOVE} si elles sont
+\textbf{ajoutées}, \textbf{supprimées} ou \textbf{déplacées} dans la
+spécification paramétrique éditée. %
+Enfin, et à l'inverse de la construction d'un DAG d'évaluation, un DAG de
+réévaluation est construit dans l'ordre d'application des règles. %
+% \maxime{idée de plan~:\\
+% 	(du début jusqu'à la fin)
+% 	Puisque les DAGs de réévaluation sont utilisés pour l'appariement de paramètres
+% 	topologiques, ceux-ci ne contiennent non pas des nœuds de règles, mais des brins
+% 	issus de l'objet en cours de reconstruction. }
 
-\maxime{Ici, c'est le fil rouge côté réévaluation. Pour remettre en contexte,
-	il s'agit de construire l'histoire «~révisée~» d'une entité topologique
-	(préalablement suivie lors de l'évaluation initiale) à partir d'un DAG
-	d'évaluation (l'histoire de cette même entité, donc).}
+% \maxime{Ici, c'est le fil rouge côté réévaluation. Pour remettre en contexte,
+% 	il s'agit de construire l'histoire «~révisée~» d'une entité topologique
+% 	(préalablement suivie lors de l'évaluation initiale) à partir d'un DAG
+% 	d'évaluation (l'histoire de cette même entité, donc).}
 
-\maxime{Il faut alors distinguer les deux structures de données, l'une pour
-	l'évaluation, l'autre pour la réévaluation. %
-	Les besoins ne sont pas les mêmes, à l'évaluation, les orbites sont
-	représentées statiquement par les opérations. %
-	Au contraire, lors de la réévaluation, par l'appariement, on sait
-	précisément quel brin est incident à l'orbite et donc identifier avec
-	certitude la ou les entités topologiques avec la/lesquelle(s) on travaille}
+% \maxime{Il faut alors distinguer les deux structures de données, l'une pour
+% 	l'évaluation, l'autre pour la réévaluation. %
+% 	Les besoins ne sont pas les mêmes, à l'évaluation, les orbites sont
+% 	représentées statiquement par les opérations. %
+% 	Au contraire, lors de la réévaluation, par l'appariement, on sait
+% 	précisément quel brin est incident à l'orbite et donc identifier avec
+% 	certitude la ou les entités topologiques avec la/lesquelle(s) on travaille}
 
-\maxime{À chaque étape, l'objectif est de présenter un appariement progressif
-	entre l'entité initiale, l'objet et l'entité réévaluée. %
-	Ces étapes d'appariement comprennent la prise en charge des scissions
-	(symétriques) d'entités topologiques avec la gestion de branches parallèles
-	dans les DAGs de réévaluations.}
+% \maxime{À chaque étape, l'objectif est de présenter un appariement progressif
+% 	entre l'entité initiale, l'objet et l'entité réévaluée. %
+% 	Ces étapes d'appariement comprennent la prise en charge des scissions
+% 	(symétriques) d'entités topologiques avec la gestion de branches parallèles
+% 	dans les DAGs de réévaluations.}
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.15\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{1-reevaluation-square}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-fil-rouge-reevaluation-pn35-step-1}
+	\end{subfigure}
+	\begin{subfigure}{.72\textwidth}
+		\raggedleft
+		\includegraphics[scale=.455]{reevaluationTree-6-export-step-1}
+		\caption{Réévaluation étape \texttt{1-carre}}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-dag-reevaluation-pn35-step-1}
 
+	\end{subfigure}
+\end{figure}
+
+Dans notre exemple, nous vérifions, statiquement, que les événements et orbites
+produits sont bien les mêmes que lors de l'évaluation initiale, à savoir un
+brin \(\orbit{}\) et une arête \(\orbit{0}\) incidentes au n\oe ud \(n_{3}\). %
+Toutefois, un premier élément diffère entre les DAGs d'évaluations et de
+réévaluations. %
+Lors de l'appariement, l'objectif est d'identifier explicitement les orbites par
+un brin et non pas par des n\oe uds qui peuvent filtrer plusieurs instances de
+brins. %
+Ainsi, les DAGs de réévaluation n'enregistre pas des n\oe uds mais des brins. %
+Dans la première étape de mise à jour du DAG
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-dag-reevaluation-pn35-step-1}),
+le n\oe ud \(n_{3}\) est remplacé par l'unique brin qu'il crée. %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.15\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
+		\caption{\todo{refaire la figure pour afficher les brins 3 et 4}}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-fil-rouge-reevaluation-pn35-step-2}
+	\end{subfigure}
+	\begin{subfigure}{.72\textwidth}
+		\raggedleft
+		\includegraphics[scale=.455]{reevaluationTree-6-export-step-2}
+		\caption{Réévaluation étape \texttt{ADD 9-insertion}}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-dag-reevaluation-pn35-step-2}
+	\end{subfigure}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.15\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{2-reevaluation-extrusion}
+		\caption{\todo{refaire la figure pour afficher les brins 37 et 52}}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-fil-rouge-reevaluation-pn35-step-3}
+	\end{subfigure}
+	\begin{subfigure}{.72\textwidth}
+		\raggedleft
+		\includegraphics[scale=.455]{reevaluationTree-6-export-step-3}
+		\caption{Réévaluation étape \texttt{2-extrusionFace}}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-dag-reevaluation-pn35-step-3}
+	\end{subfigure}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.15\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{5-reevaluation-triangulation}
+		\caption{\todo{refaire la figure pour afficher les brins 37 et 52}}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-fil-rouge-reevaluation-pn35-step-4}
+	\end{subfigure}
+	\begin{subfigure}{.72\textwidth}
+		\raggedleft
+		\includegraphics[scale=.455]{reevaluationTree-6-export}
+		\caption{Réévaluation étape \texttt{5-triangulation}}
+		\label{fig:reevaluation-base-regle-nomination-persistante-orbites-dag-reevaluation-pn35}
+	\end{subfigure}
+\end{figure}
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}

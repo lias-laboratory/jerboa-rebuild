@@ -148,7 +148,9 @@ paramétriques. %
 	\label{fig:reevaluation}
 \end{figure}
 
-\begin{vbtflisting}[Spécification paramétrique initiale du cas nº~1][\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
+\begin{vbtflisting}[Spécification paramétrique initiale du cas
+  nº~1,\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
+
 	1-carre(pos)\\
 	2-extrusionFace(\pndart{6}{1n6}, vec)\\
 	3-insertion(\pndart{46}{1n5;2n5})\\
@@ -166,7 +168,6 @@ paramétrique
 (liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1})
 que nous détaillons
 ci-après. %
-
 
 L'application de la première opération, \texttt{carre}, crée une face carrée
 (figure~\ref{fig:1-eval}). %
@@ -190,7 +191,9 @@ La huitième opération, \texttt{colorationBleu}, colore la face incidente au br
 Enfin, la dernière opération, \texttt{colorationRouge}, colore la face incidente
 au brin \(68\). %
 
-\begin{vbtflisting}[Spécification paramétrique éditée du cas nº~2][\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}]
+\begin{vbtflisting}[Spécification paramétrique éditée du cas
+  nº~2,\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}]
+
 	1-carre(pos)\\
 	ADD 9-insertion(3)\\
 	2-extrusionFace(\pndart{6}{1n6}, vec)\\
@@ -199,7 +202,7 @@ au brin \(68\). %
 	5-triangulation(\pndart{33}{1n3;2n2})\\
 	6-contractionFace(\pndart{63}{1n4;2n6;4n6})\\
 	7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
-	8-coloration(\pndart{35}{1n3;2n4;5n0})\\
+	8-colorationBleu(\pndart{35}{1n3;2n4;5n0})\\
 	9-colorationRouge(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1})
 \end{vbtflisting}
 

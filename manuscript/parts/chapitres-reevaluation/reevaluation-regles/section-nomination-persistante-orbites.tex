@@ -35,7 +35,8 @@ ses ancêtres les plus anciens. %
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=20pt]{pn35-dag-eval-step-0}
+	% \includegraphics[height=20pt]{pn35-dag-eval-step-0}
+	\includegraphics[scale=.45]{pn35-dag-eval-step-0}
 	\caption{Racine du DAG d'évaluation}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-racine}
 \end{figure}
@@ -78,7 +79,8 @@ n\oe ud d'accroche. %
 %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=105pt]{pn35-dag-eval-step-2}
+	% \includegraphics[height=105pt]{pn35-dag-eval-step-2}
+	\includegraphics[scale=.45]{pn35-dag-eval-step-2}
 	\caption{Étape 2 \texttt{[1n3;2n4;{\color{orange}5n0}]} de la construction du DAG}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-2}
 \end{figure}
@@ -92,14 +94,14 @@ dans le DAG d'évaluation de la manière suivante~: %
 	\item la racine du DAG est intégrée dans un niveau d'orbite qui est annoté par le n\oe ud \(n_{0}\) issu du nom persistant~;
 	\item un niveau d'événement, annoté par le numéro d'application et le nom de la règle, est ensuite créé et contient un n\oe ud d'événement correspondant à la scission détecté pour l'orbite \(\orbit{0,1}(n_{0})\)~;
 	\item une flèche \textbf{noire} est créée entre le n\oe ud d'événement
-	      (\texttt{SPLIT}) et le n\oe ud d'orbite (\(\orbit{0,1}\)) pour marquer
+	      \splitnodeevent{} et le n\oe ud d'orbite \orbitnode{\(\orbit{0,1}\)} pour marquer
 	      une \emph{relation de suivi}~;
-	\item les types d'orbites de suivi (\(\orbit{0,1}\)) et d'origine
-	      (\(\orbit{0}\)) sont ajoutés au DAG~;
-	\item enfin, le n\oe ud d'événement \texttt{SPLIT} est relié au n\oe ud
-	      d'orbite \(\orbit{0,1}\) par une relation de suivi et au n\oe ud
-	      d'orbite \(\orbit{0}\) par une \emph{relation d'origine} (représentée
-	      par une flèche \textbf{\color{red}rouge}). %
+	\item les n\oe uds d'orbites de suivi \orbitnode{\(\orbit{0,1}\)} et d'origine
+	      \orbitnode{\(\orbit{0}\)} sont ajoutés au DAG~;
+	\item enfin, le n\oe ud d'événement \splitnodeevent{} est relié au n\oe ud
+				d'orbite \orbitnode{\(\orbit{0,1}\)} par une relation de suivi et au
+				n\oe ud d'orbite \orbitnode{\(\orbit{0}\)} par une \emph{relation
+				d'origine} (représentée par une flèche \textbf{\color{red}rouge}). %
 \end{enumerate}
 %
 Au terme de cette étape, le DAG
@@ -113,7 +115,7 @@ l'application courante dans l'historique. %
 %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=110pt]{rule-face-extrusion-compact-n4-highlight-v2}
+	\includegraphics[height=110pt]{rule-face-extrusion-compact-n4-highlight-v3}
 	\caption{Analyse de la règle d'extrusion d'une face}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}
 \end{figure}
@@ -137,7 +139,8 @@ L'arête à pour origine un brin du fait de l'absence d'arc implicite réécrit 
 %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=180pt]{pn35-dag-eval-step-3}
+	% \includegraphics[height=180pt]{pn35-dag-eval-step-3}
+	\includegraphics[scale=.45]{pn35-dag-eval-step-3}
 	\caption{Étape 3 \texttt{[1n3;{\color{orange}2n4};5n0]} de la construction du DAG}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-3}
 \end{figure}
@@ -149,15 +152,15 @@ dans le DAG~:
 	\item nous créons un niveau d'orbite, annoté par le n\oe ud \(n_{4}\), qui contient les n\oe uds d'orbites de suivi, calculés à l'étape précédente~;
 	\item nous créons un niveau d'événement, annoté par le numéro d'application et
 	      le nom de la règle, qui contient deux n\oe uds d'événements
-	      \texttt{CREATION} (un pour chaque n\oe ud d'orbite)~;
-	\item les n\oe uds d'origine sont ajoutés au DAG~;
+	      \creationnodeevent{} (un pour chaque n\oe ud d'orbite)~;
+	\item les n\oe uds d'origines sont ajoutés au DAG~;
 	\item chacun des deux n\oe uds d'événement est relié par une relation de suivi
 	      aux n\oe uds d'orbites de suivis~;
 	\item enfin, chacun des n\oe uds d'orbite d'origine est relié au n\oe ud
-	      d'événement qui convient, c'est-à-dire, l'orbite origine \(\orbit{0}\)
-	      (respectivement \(\orbit{}\)) est connectée à l'événement
-	      \texttt{CREATION} qui est connecté à l'orbite de suivi \(\orbit{0,1}\)
-	      (respectivement \(\orbit{0}\)).
+				d'événement qui convient, c'est-à-dire, l'orbite origine
+				\orbitnode{\(\orbit{0}\)} (respectivement \orbitnode{\(\orbit{}\)}) est
+				connectée à un \creationnodeevent{} qui est lui-même connecté à
+				\orbitnode{\(\orbit{0,1}\)} (respectivement \orbitnode{\(\orbit{0}\)}).
 \end{enumerate}
 %
 Ce niveau du DAG
@@ -181,7 +184,8 @@ et le brin (encadré en {\color{orange}orange}) sont créés \textit{ex nihilo} 
 la règle, car son membre gauche est vide.%
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=220pt]{pn35-dag-eval-step-4}
+	% \includegraphics[height=220pt]{pn35-dag-eval-step-4}
+	\includegraphics[scale=.45]{pn35-dag-eval-step-4}
 	\caption{Étape 4 \texttt{[{\color{orange}1n3};2n4;5n0]} de la construction du DAG}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}
 \end{figure}
@@ -189,8 +193,6 @@ Comme pour les étapes précédentes, nous créons les niveaux d'orbite et
 d'événement qui correspondent à l'application courante et les remplissons avec
 les n\oe uds d'orbites issues de l'étape précédente et les événements que nous
 avons détectés. %
-
-~
 
 Dans cet exemple, nous avons illustré la reconstitution de l'historique des
 évolutions d'une orbite à l'aide de relations de suivi et d'origine. %
@@ -206,10 +208,10 @@ Dans l'exemple que nous venons de voir, le chemin est nul car le n\oe ud
 d'accroche filtrait systématiquement l'orbite d'origine. %
 En effet, les règles de triangulation et d'extrusion n'ont qu'un seul n\oe ud
 dans leurs membres gauches respectifs. %
-
+%
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.53\textwidth]{pn55-dag-eval}
+	\includegraphics[scale=.45]{pn55-dag-eval}
 	\caption{DAG d'évaluation du PN\textsubscript{55}}
 	\label{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55}
 \end{figure}
@@ -223,35 +225,55 @@ Lorsque nous remontons le DAG d'évaluation, nous nous intéressons à l'orbite
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}). %
 Cette orbite est issue d'une fusion provoquée par la contraction d'une face. %
 Autrement dit, les sommets incidents à cette face ont été fusionnés. %
-
-Lorsque nous analysons la règle de contraction, nous pouvons calculer que
-l'origine du sommet est la face incidente au n\oe ud \(n_{0}\). %
+%
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=45pt]{rule-face-collapse-origin-highlight}
+	\caption{Analyse de la règle de contraction}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}
+\end{figure}
+%
+Lorsque nous analysons la règle de contraction (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}), nous pouvons calculer que l'origine du sommet
+est la face incidente au n\oe ud \(n_{0}\). %
 Or, le sommet n'est créé ni par copie de la face ni par la réécriture de ses
 arcs, mais plutôt par la fusion des sommets provoquée par sa suppression. %
 Ainsi, la face est à l'origine de la fusion, mais elle n'est pas l'orbite
 d'origine du sommet qui est plutôt l'orbite \(L\orbit{1,2}(n_{2})\). %
 Le chemin, qui annote une orbite d'origine, sert donc à faire la distinction
 entre l'origine d'un événement et l'orbite d'origine d'une orbite suivie. %
+%
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=40pt]{rule-face-collapse-n2-path-n0}
+	\caption{Chemin entre \(n_{2}\) et \(n_{0}\) dans la contraction}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-contraction-chemin}
+\end{figure}
 
 Pour calculer un tel chemin, nous effectuons un parcours depuis le n\oe ud
-enregistré par l'application jusqu'au n\oe ud d'accroche. %
+enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en {\color{orange}orange} dans la figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-contraction-chemin}). %
 Par exemple, dans la règle de contraction, pour \(n_{2}\) comme n\oe ud de
 départ, ce chemin est constitué des arcs explicites \(1\) et \(2\). %
 Dans le DAG, il est ajouté au n\oe ud de l'orbite face qui devient
-\(@1.@2\orbit{0,1}\). %
+\orbitnode{\(@1.@2\orbit{0,1}\)}. %
+%
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=90pt]{rule-volume-face-extrusion-compact-n4-path-n6}
+	\caption{Chemin entre \(n_{4}\) et \(n_{6}\) dans l'extrusion}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-extrusion-chemin}
+\end{figure}
 
 Une autre raison de créer ce chemin est le fait que si nous observons la règle
 d'extrusion de face, l'orbite \(R\orbit{0,1}(n_{0})\) ne filtre pas la face dont
 la suppression provoque la fusion (dans notre exemple, cela filtre une face de
-côté du cube plutôt que sa face du dessus). %
+côté du cube plutôt que sa face du dessus)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-extrusion-chemin}). %
 L'annotation du n\oe ud avec un chemin nous permet donc de remonter jusqu'à la
 face à l'origine de la fusion. %
 En effet, le parcours des arcs explicites \(1\) et \(2\) à partir du n\oe ud
 \(n_{4}\) nous donne le n\oe ud \(n_{6}\). %
 C'est bien ce n\oe ud qui crée la face qui provoquera la fusion de ses sommets
 incidents lors de l'application suivante. %
-
-~
 
 La mise en \oe uvre de cette procédure, pour reconstituer l'historique des
 évolutions d'une orbite ne nécessite qu'un nom persistant de brin et les règles

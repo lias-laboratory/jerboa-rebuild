@@ -31,12 +31,14 @@ public class RebuildEngine {
   private ParametricSpecification editedSpecification;
   private ArrayList<HistoryRecord> evaluationTrees;
   private ArrayList<ReevaluationTree> reevaluationTrees;
+  private boolean GETNOEFFS;
 
   public RebuildEngine(
       ModelerGenerated modeler,
       String pathToDirectory,
       String pathToSpecification,
-      String pathToEditedSpecification)
+      String pathToEditedSpecification,
+      boolean GETNOEFFS)
       throws IOException, JerboaException {
 
     this.evaluationTrees = new ArrayList<HistoryRecord>();
@@ -48,6 +50,8 @@ public class RebuildEngine {
     this.editedSpecification =
         JSONPrinter.importParametricSpecification(
             pathToDirectory, pathToEditedSpecification, modeler);
+
+    this.GETNOEFFS = GETNOEFFS;
   }
 
   /**
@@ -73,7 +77,7 @@ public class RebuildEngine {
                   orbitType,
                   initialSpecification,
                   initialApplications.indexOf(application),
-                  true);
+                  this.GETNOEFFS);
           // register it within a list
           this.evaluationTrees.add(evaluationTree);
           // create and register the associated reevaluation tree

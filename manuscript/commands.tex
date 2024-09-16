@@ -3,11 +3,12 @@
 \renewcommand\lstlistingname{\scshape Liste}
 
 %% Plus simple que lstlisting, sans verbatim et sans mathescape (je voulais uniformiser mon affichage de PN\subscript{xyz}=[x'y'z'] )
-\newenvironment{vbtflisting}[1][]%
+\newenvironment{vbtflisting}[2][]%
 {%
 	\noindent
 	\begin{minipage}{\textwidth}
-		\captionof{lstlisting}{#1}
+		\captionsetup{type=lstlisting}
+		\captionof{lstlisting}{#1}#2
 		\footnotesize\ttfamily
 		}{%
 	\end{minipage}
@@ -164,6 +165,10 @@
 \definecolor{mylightblue}{HTML}{00c0ff}
 \definecolor{mylightgreen}{HTML}{00c000}
 \definecolor{mylightorange}{HTML}{ffc000}
+\definecolor{myblueink}{HTML}{0080ff}
+\definecolor{mylightgreenink}{HTML}{00c000}
+\definecolor{mydarkgreenink}{HTML}{008000}
+\definecolor{mydarkpurpleink}{HTML}{a600c9}
 
 \definecolor{darkgreen}{rgb}{0,.4,0}
 
@@ -178,7 +183,6 @@
 \newcommand{\idee}[1]{%
 	{\color{mylightblue}#1}%
 }
-
 
 
 %%% Local Variables:

@@ -227,17 +227,16 @@ initialement désignées pour appliquer les opérations de modélisation. %
 % réévaluation de la spécification paramétrique.} %
 
 En dehors de tout concept de réévaluation, il est possible de désigner une
-entité par un simple identifiant, comme par exemple un numéro d'apparition dans le modèle ou encore à l'aide d'un
-pointeur. %
+entité par un simple identifiant, comme un numéro d'apparition dans le modèle ou
+encore à l'aide d'un pointeur. %
 Toutefois, lorsque l'on se place dans le cadre de la modélisation paramétrique
-avec réévaluation, ces méthodes de référencement ne sont plus
-applicables. %
-En effet, de telles références sont particulièrement sensibles aux changements topologiques
-subis par le modèle lors de la réévaluation de la spécification. %
+avec réévaluation, ces méthodes de référencement ne sont plus applicables. %
+En effet, de telles références sont particulièrement sensibles aux changements
+topologiques subis par le modèle lors de la réévaluation de la spécification. %
 Ainsi, un numéro d'ordre d'apparition pourrait désigner une autre entité
 topologique incompatible avec l'opération qui la référence. %
-Pour un pointeur, si l'entité initialement référencée disparaît, le
-programme va échouer avec une erreur de pointeur nul. %
+Pour un pointeur, si l'entité initialement référencée disparaît, le programme va
+échouer avec une erreur de pointeur nul. %
 
 Reprenons l'exemple précédent. %
 Lors de l'évaluation initiale
@@ -898,7 +897,7 @@ et pour la seconde~:
 	      & [2,\mathbf{e(v_{3})},1], [2,e_{3},1], [2,e_{5},1], [2,I_{e},1], [2, \hat{e_{5}}, 1], [2, \hat{e_{3}},1]
 \end{flalign*}
 Ainsi, la première arête \(I_{e}\) est identifiée par l'arête \(e(v_{4})\) et la
-seconde est identifiée par l'arête \(e(v_{3})\) encadré en {\color{Chartreuse4}vert} dans la figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}. %
+seconde est identifiée par l'arête \(e(v_{3})\) encadré en {\color{mydarkgreenink}vert} dans la figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}. %
 
 Toutefois, cette approche basée sur le voisinage topologique peut ne plus
 suffire, par exemple à cause d'intersections de surfaces non-planaires. %
@@ -1316,7 +1315,7 @@ persistant du brin copié auquel s'ajoute sa propre histoire. %
 
 Dans l'exemple de construction illustré
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}, les
-brins \(a\) et \(b\) sont tous les deux créés par la première règle de création d'une face carrée (fig.~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemples-regles-carre}) et plus spécifiquement par les n\oe uds \(n_{4}\) (en {\color{DodgerBlue1}bleu}) et \(n_{3}\) (en
+brins \(a\) et \(b\) sont tous les deux créés par la première règle de création d'une face carrée (fig.~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemples-regles-carre}) et plus spécifiquement par les n\oe uds \(n_{4}\) (en {\color{myblueink}bleu}) et \(n_{3}\) (en
 	{\color{orange}orange}) respectivement. %
 Leurs identifiants persistants sont \(PI_{a1} = \{1 - n_{4}\}\) et
 \(PI_{b1} = \{1 - n_{3}\}\). %
@@ -1357,17 +1356,24 @@ l'évaluation initiale.%
 	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-bord}
 \end{figure}
 
-Pour permettre l'appariement des entités topologiques, Cardot utilise un \textbf{journal
-	de bord}, c'est-à-dire une structure qui référence pour chaque règle Jerboa
-l'ensemble des changements topologiques qui interviennent sur les entités lors
-de l'application d'une règle. %
+Pour permettre l'appariement des entités topologiques, Cardot utilise un
+\textbf{journal de bord}, c'est-à-dire une structure qui référence pour chaque
+règle Jerboa l'ensemble des changements topologiques qui interviennent sur les
+entités lors de l'application d'une règle. %
 Les changements classifiés sont la création, la suppression, la scission, la
 fusion, le non-changement et la modification d'entités topologiques. %
 Considérons le journal de bord de la règle de triangulation illustré dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-bord}. %
-Nous constatons, par exemple, dans l'entrée de type \texttt{face} (orbite \(\orbit{0,1}\)) (encadrée en {\color{DodgerBlue1}bleu}), que
-la face filtrée par la règle est scindée ("\textit{split}") en autant de parties qu'il y avait d'arêtes (orbite \(\orbit{0}\)) dans la face initiale. %
-Si l'on considère l'entrée de type \texttt{sommet} \(\orbit{1,2}\) (encadrée en {\color{orange}orange}), nous observons deux événements: d'une part, la modification ("\textit{Modif.}") des sommets (orbite \(\orbit{1,2}\)) de la face initiale après la triangulation ; et d'autre part, la création ("\textit{Creat.}") du sommet central de la face triangulée à partir de la face (orbite \(\orbit{0,1}\)) initiale.
+Nous constatons, par exemple, dans l'entrée de type \texttt{face} (orbite
+\(\orbit{0,1}\)) (encadrée en {\color{myblueink}bleu}), que la face filtrée par
+la règle est scindée ("\textit{split}") en autant de parties qu'il y avait
+d'arêtes (orbite \(\orbit{0}\)) dans la face initiale. %
+Si l'on considère l'entrée de type \texttt{sommet} \(\orbit{1,2}\) (encadrée en
+{\color{orange}orange}), nous observons deux événements~: d'une part, la
+modification ("\textit{Modif.}") des sommets (orbite \(\orbit{1,2}\)) de la face
+initiale après la triangulation ; et d'autre part, la création
+("\textit{Creat.}") du sommet central de la face triangulée à partir de la face
+(orbite \(\orbit{0,1}\)) initiale.
 
 \begin{figure}[htb!]
 	\centering

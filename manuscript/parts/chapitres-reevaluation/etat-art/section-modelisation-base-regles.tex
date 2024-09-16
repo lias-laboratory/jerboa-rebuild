@@ -4,9 +4,7 @@
 La modélisation à base de règle est un paradigme de modélisation proposant
 l'usage de règles pour formaliser les opérations de modélisation dans le but de
 créer et éditer des modèles de dimensions quelconques. %
-Pour générer et modifier ces modèles, les systèmes existants % utilisent le plus
-% souvent des opérations à base de code (ArcGIS's CGA) ou encore
-des grammaires
+Pour générer et modifier ces modèles, les systèmes existants utilisent des grammaires
 (L-Systèmes~\cite{lindenmayer1974adding,bohl2015modeling,terraz20093gmap}). %
 Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
 opérations de modélisation à l'aide de ce que l'on appelle des règles de
@@ -18,17 +16,26 @@ généralisée~\cite{lienhardt1994n,Damiand-Lienhardt14}. %
 \subsection[Graphe et transformation de graphe]{Graphe et transformation de graphe}
 \label{sec:etat-art-model-regles-graphe-et-transfo}
 
+% Les structures topologiques peuvent être représentées par des graphes dont les
+% arcs établissent des relations d'adjacences entre les n\oe uds.
+%
+% Ces structures peuvent être, par exemple, des cellules telles que les volumes,
+% faces, arêtes et sommets lorsque le modèle de représentation est en dimension
+% 3. %
+% De tels graphes sont appelés des graphes topologiques. %
 Afin de formaliser la représentation et la transformation d'objets issus d'un
-processus de modélisation géométrique, nous nous intéressons à leurs
-représentations sous la forme de \emph{graphes topologiques}. %
-Les graphes dits topologiques appartiennent à la catégorie des graphes
+processus de modélisation géométrique, nous nous intéressons à leur
+représentation sous la forme de \emph{graphes
+	topologiques}% ~\cite{pascual2022inference}
+. %
+Les graphes dits topologiques appartiennent à la catégories des graphes
 étiquetés, c'est-à-dire des graphes dont chaque n\oe ud est porteur d'une
 information de dimension, et dont les n\oe uds sont porteurs d'information
 géométrique. %
 Toutefois, les travaux présentés dans cette thèse traitent les objets d'après
 leur topologie. %
-Ainsi, pour le reste de ce manuscrit, nous omettons les étiquettes de n\oe uds
-\(l_{v}\) qui représentent les plongements. %
+Ainsi, pour le reste de ce manuscrit, nous omettons les étiquettes de n\oe uds \(l_{v}\)
+qui représentent les plongements.
 
 \begin{definition}[Graphe étiqueté]
 	\label{def:graphe-etiquete}
@@ -61,14 +68,14 @@ Prenons l'exemple du graphe étiqueté illustré dans la
 figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}. %
 Pour ce graphe, les ensembles d'étiquettes pour les n\oe uds $\mathcal{C}_{V}$ et pour les
 arcs $\mathcal{C}_{E}$ sont définis sur le même ensemble de couleurs
-$\{{\color{orange}orange},{\color{Chartreuse4}vert},{\color{DodgerBlue1}bleu},{\color{purple}violet}\}$. %
+$\{{\color{orange}orange},{\color{mydarkgreenink}vert},{\color{myblueink}bleu},{\color{mydarkpurpleink}violet}\}$. %
 L'ensemble $V$ des n\oe uds est constitué des n\oe uds $a,b,c$ et $d$ et l'ensemble
 $E$ des arcs est constitué des arcs $e_{1}, e_{2}, e_{3}$ et $e_{4}$. %
 Ce graphe est construit de telle sorte que $e_{1}$ a respectivement pour source
 et cible les n\oe uds $a$ et $b$. %
 Enfin, les n\oe uds $a$ et $b$ sont respectivement étiquetés par les couleurs
-${\color{orange}orange}$ et ${\color{purple}violet}$ et l'arc $e_{1}$ est étiqueté par
-la couleur ${\color{Chartreuse4}verte}$. %
+${\color{orange}orange}$ et ${\color{mydarkpurpleink}violet}$ et l'arc $e_{1}$ est étiqueté par
+la couleur ${\color{mydarkgreenink}verte}$. %
 
 \begin{definition}[Morphisme]
 	\label{def:morphismes-graphes}
@@ -317,17 +324,17 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 		\label{fig:etat-art-model-regles-sous-graphe-genere}
 	\end{subfigure}
 	\caption{Génération du sous-graphe
-		$G' = G\orbit{{\color{Chartreuse4}vert},{\color{orange}orange}}(a)$}
+		$G' = G\orbit{{\color{mydarkgreenink}vert},{\color{orange}orange}}(a)$}
 	\label{fig:etat-art-model-regles-sous-graphe}
 \end{figure}
 
 Dans la Figure~\ref{fig:etat-art-model-regles-sous-graphe}, nous
 définissons $G'$ comme un sous-graphe de $G$ généré à partir du n\oe ud $a$ et des
-étiquettes d'arcs $\orbit{{\color{Chartreuse4}vert},{\color[HTML]{ff8000}orange}}$. %
+étiquettes d'arcs $\orbit{{\color{mydarkgreenink}vert},{\color{orange}orange}}$. %
 Le sous-graphe illustré dans la
 Figure~\ref{fig:etat-art-model-regles-sous-graphe-genere} est généré
 à partir du n\oe ud $a$, les n\oe uds $b$ et $c$ sont atteint au travers des arcs
-$e_{1}$ et $e_{2}$ respectivement à travers {\color{Chartreuse4}vert} et {\color{orange}orange}. %
+$e_{1}$ et $e_{2}$ respectivement à travers {\color{mydarkgreenink}vert} et {\color{orange}orange}. %
 En fin de compte, $G'$ comporte les n\oe uds $a, b, c$ et les arcs $e_{1}, e_{2}$. %
 
 Un dernier concept essentiel pour l'utilisation des graphes et celui de chemin. %
@@ -506,19 +513,19 @@ topologiques cellulaires de dimension quelconque.
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-3-cell}
-		\caption{\centering 3-liaisons\\({\color{Chartreuse4}\textbf{—}})}
+		\caption{\centering 3-liaisons\\({\color{mydarkgreenink}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-3-cell}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-2-cell}
-		\caption{2-liaisons\\ ({\color{DodgerBlue1}\textbf{—}})}
+		\caption{\centering 2-liaisons\\ ({\color{myblueink}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-2-cell}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-1-cell}
-		\caption{1-liaisons\\ ({\color{Red1}\textbf{—}})}
+		\caption{\centering 1-liaisons\\ ({\color{Red1}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-1-cell}
 	\end{subfigure}
 	\hfill
@@ -1164,8 +1171,7 @@ où nous connectons la face du dessus du cube à la base de la pyramide. %
 	(voir le Théorème~\ref{thm:preservation-coherence-topo-regles} page~\pageref{thm:preservation-coherence-topo-regles}).
 \end{remarque}
 
-Prenons une face du cube et une face du tétraèdre de la
-figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-impossible}
+Prenons une face du cube et une face triangulaire de la pyramide (figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-non-isomorphes})
 comme exemples. %
 Lorsque nous appliquons la règle de couture à ces faces, conformément à la
 contrainte d'arc incident, pour tout brin appartenant à une même
@@ -1286,7 +1292,7 @@ s'étend naturellement sur les règles Jerboa. %
 \subsubsection[Scripts de règles]{Scripts de règles}
 \label{sec:etat-art-model-regles-jerboa-scripts}
 
-\todo{}
+{\HUGE \todo{}}
 
 %%% Local Variables:
 %%% mode: latex

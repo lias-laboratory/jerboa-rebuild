@@ -223,6 +223,8 @@ public class JerboaStaticDetection {
         || isRuleNodesOrbitImplicitlyMerged(this.orbit, orbitType);
   }
 
+  // FIXME: missing `topological reduction/augmentation` case !
+  // TODO: add topological reduction/augmentation case !
   public boolean modifiedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
     if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
       this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
@@ -572,6 +574,8 @@ public class JerboaStaticDetection {
     return hasUntrackedIthLink(leftRuleNodesOrbit, orbitType, iLinksArray);
   }
 
+  // FIXME: A modification may arise even though hook has been deleted !
+  // TODO: default to leftnode rewrite and then hook if rightnode has been created
   private boolean hasRewrittenImplicitLink(
       List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType) {
     int hookIndex = rule.attachedNode(ruleNodesOrbit.get(0).getID());

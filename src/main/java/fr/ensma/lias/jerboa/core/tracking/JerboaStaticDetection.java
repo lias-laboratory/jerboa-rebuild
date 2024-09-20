@@ -223,14 +223,14 @@ public class JerboaStaticDetection {
         || isRuleNodesOrbitImplicitlyMerged(this.orbit, orbitType);
   }
 
-  // FIXME: missing `topological reduction/augmentation` case !
-  // TODO: add topological reduction/augmentation case !
   public boolean modifiedOrbit(JerboaRuleNode ruleNode, JerboaOrbit orbitType) {
     if (this.orbit.isEmpty() || !this.orbit.contains(ruleNode)) {
       this.orbit = JerboaRuleNode.orbit(ruleNode, orbitType);
     }
     // List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(ruleNode, orbitType);
-    return hasRewrittenImplicitLink(this.orbit, orbitType);
+    return hasRewrittenImplicitLink(this.orbit, orbitType)
+        || isThereAnyCreatedNode(orbit)
+        || isThereAnyDeletedNode(orbit, orbitType);
   }
 
   public boolean isNodeHook(JerboaRuleNode node) {
@@ -274,15 +274,14 @@ public class JerboaStaticDetection {
    * @return true if left rule nodes' list's size is the same as right rule nodes' list's size else
    *     false
    */
-  private boolean isThereAnyMissingNode(
+  private boolean isThereAnyDeletedNode(
       List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType) {
 
     JerboaRuleNode leftRuleNode =
-        // rule.getLeftRuleNode(rule.reverseAssoc(ruleNodesOrbit.get(0).getID()));
         rule.getLeftRuleNode(rule.getLeftIndexRuleNode(ruleNodesOrbit.get(0).getName()));
     List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(leftRuleNode, orbitType);
 
-    return leftRuleNodesOrbit.size() == ruleNodesOrbit.size();
+    return leftRuleNodesOrbit.stream().anyMatch((node) -> isNodeDeleted(node));
   }
 
   /**
@@ -574,30 +573,46 @@ public class JerboaStaticDetection {
     return hasUntrackedIthLink(leftRuleNodesOrbit, orbitType, iLinksArray);
   }
 
-  // FIXME: A modification may arise even though hook has been deleted !
-  // TODO: default to leftnode rewrite and then hook if rightnode has been created
-  private boolean hasRewrittenImplicitLink(
-      List<JerboaRuleNode> ruleNodesOrbit, JerboaOrbit orbitType) {
-    int hookIndex = rule.attachedNode(ruleNodesOrbit.get(0).getID());
-    if (hookIndex == -1) {
-      return false;
-    }
-    JerboaRuleNode hookNode = rule.getLeftRuleNode(hookIndex);
-    List<JerboaRuleNode> leftRuleNodesOrbit = JerboaRuleNode.orbit(hookNode, orbitType);
+  private boolean wrapped_hasRewrittenImplicitLink(
+      List<JerboaRuleNode> rightRuleNodesOrbit, JerboaOrbit orbitType) {
 
-    for (JerboaRuleNode leftRuleNode : leftRuleNodesOrbit) {
-      for (JerboaRuleNode rightRuleNode : ruleNodesOrbit) {
-        for (int aLinkIndex = 0; aLinkIndex < rightRuleNode.getOrbit().size(); aLinkIndex++) {
-          int leftALink = leftRuleNode.getOrbit().get(aLinkIndex);
+    // need to compare each implict aLink (if they are in orbitType) one to one
+    // between two nodes
+    for (JerboaRuleNode rightRuleNode : rightRuleNodesOrbit) {
+      int lNodeIndex = rule.getLeftIndexRuleNode(rightRuleNode.getName());
+      if (lNodeIndex != -1) {
+        JerboaRuleNode lRuleNode = rule.getLeftRuleNode(lNodeIndex);
+        for (int aLinkIndex = 0; aLinkIndex < lRuleNode.getOrbit().size(); aLinkIndex++) {
+          int leftALink = lRuleNode.getOrbit().get(aLinkIndex);
           int rightALink = rightRuleNode.getOrbit().get(aLinkIndex);
-          if (orbitType.contains(leftALink)
+          if ((orbitType.contains(leftALink) || orbitType.contains(rightALink))
               && orbitType.contains(rightALink)
               && leftALink != rightALink) {
             return true;
           }
         }
       }
+      // for (JerboaRuleNode rightRuleNode : leftRuleNodesOrbit) {
+      //   for (int aLinkIndex = 0; aLinkIndex < rightRuleNode.getOrbit().size(); aLinkIndex++) {
+      //     int leftALink = leftRuleNode.getOrbit().get(aLinkIndex);
+      //     int rightALink = rightRuleNode.getOrbit().get(aLinkIndex);
+      //     if (orbitType.contains(leftALink)
+      //         && orbitType.contains(rightALink)
+      //         && leftALink != rightALink) {
+      //       return true;
+      //     }
+      //   }
+      // }
     }
+
     return false;
+  }
+
+  protected boolean hasRewrittenImplicitLink(
+      List<JerboaRuleNode> rightRuleNodesOrbit, JerboaOrbit orbitType) {
+
+    JerboaRuleNode rightRootNode = rightRuleNodesOrbit.get(0);
+
+    return wrapped_hasRewrittenImplicitLink(rightRuleNodesOrbit, orbitType);
   }
 }

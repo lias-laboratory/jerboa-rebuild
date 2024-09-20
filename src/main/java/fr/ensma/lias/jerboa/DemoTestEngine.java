@@ -38,8 +38,7 @@ public class DemoTestEngine {
             modeler, //
             "./examples", //
             "article-2-build-v3.json", //
-            "article-2-build-v3.json", //
-            // "article-2-build-v3-reevaluation.json",
+            "article-2-build-v3-reevaluation.json",
             false);
 
     SwingUtilities.invokeLater(

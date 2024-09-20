@@ -1,6 +1,7 @@
 package fr.ensma.lias.jerboa.datastructures;
 
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
+import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -170,13 +171,16 @@ public class NodeOrbit {
       }
     }
 
-    System.out.println(currentRuleNode);
+    System.out.println("BBBuildEntry: -> currentRuleNode " + currentRuleNode);
 
     List<JerboaRuleNode> ruleNodesOrbit = JerboaRuleNode.orbit(currentRuleNode, this.orbit);
     JerboaRebuiltRule rebuiltRule = (JerboaRebuiltRule) rule;
 
+    JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRebuiltRule) rule);
+    Event detectedEvent = detector.getEventFromOrbit(currentRuleNode, orbitType);
+
     /* // CREATED CASE ///////////////////////////////////////////////////// */
-    if (rebuiltRule.isRuleNodesOrbitCreated(ruleNodesOrbit)) {
+    if (detectedEvent.equals(Event.CREATION)) {
       NodeEvent creationEvent = new NodeEvent(Event.CREATION, this);
       levelEvent.addEvent(creationEvent);
       if (rebuiltRule.getLeft().isEmpty()) {
@@ -190,7 +194,7 @@ public class NodeOrbit {
       return nextStepOrbitHRs;
     }
     /* // UNCHANGED CASE ///////////////////////////////////////////// */
-    else if (rebuiltRule.isRuleNodesOrbitUnchanged(ruleNodesOrbit, orbitType)) {
+    else if (detectedEvent.equals(Event.NOMODIF)) {
       NodeEvent unchangedEvent = new NodeEvent(Event.NOMODIF, this);
       levelEvent.addEvent(unchangedEvent);
       NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);
@@ -200,10 +204,9 @@ public class NodeOrbit {
       return nextStepOrbitHRs;
     }
     /* // SPLIT CASE ///////////////////////////////////////////////////// */
-    else if (rebuiltRule.isRuleNodesOrbitSplitted(ruleNodesOrbit, this.orbit)
-        || rebuiltRule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType)) {
+    else if (detectedEvent.equals(Event.SPLIT) || detectedEvent.equals(Event.MERGE)) {
       //
-      if (rebuiltRule.isRuleNodesOrbitSplitted(ruleNodesOrbit, this.orbit)) {
+      if (detector.splittedOrbit(currentRuleNode, this.orbit)) {
         NodeEvent splitEvent = new NodeEvent(Event.SPLIT, this);
         levelEvent.addEvent(splitEvent);
         NodeOrbit previousOrbitHR =
@@ -215,7 +218,7 @@ public class NodeOrbit {
         Link traceChild = new Link(LinkType.TRACE, splitEvent);
         updateNodeOrbitList(previousOrbitHR, traceChild, nextStepOrbitHRs);
       }
-      if (rebuiltRule.isRuleNodesOrbitMerged(ruleNodesOrbit, orbitType)) {
+      if (detector.mergedOrbit(currentRuleNode, this.orbit)) {
         NodeEvent mergeEvent = new NodeEvent(Event.MERGE, this);
         levelEvent.addEvent(mergeEvent);
         NodeOrbit previousOrbitHR =
@@ -230,7 +233,7 @@ public class NodeOrbit {
       return nextStepOrbitHRs;
     }
     /* // MODIFIED CASE ///////////////////////////////////////////// */
-    else if (rebuiltRule.isRuleNodesOrbitModified(ruleNodesOrbit, orbitType)) {
+    else if (detectedEvent.equals(Event.MODIFICATION)) {
       NodeEvent modificationEvent = new NodeEvent(Event.MODIFICATION, this);
       levelEvent.addEvent(modificationEvent);
       NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);

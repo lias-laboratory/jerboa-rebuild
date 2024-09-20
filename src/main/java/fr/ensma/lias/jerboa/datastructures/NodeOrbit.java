@@ -2,6 +2,7 @@ package fr.ensma.lias.jerboa.datastructures;
 
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
+import fr.ensma.lias.jerboa.core.utils.rule.RelativePath;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -188,7 +189,9 @@ public class NodeOrbit {
       }
       NodeOrbit previousOrbitHR =
           new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
-      previousOrbitHR.computePath(rebuiltRule, nodeName);
+      previousOrbitHR.setAlphaPath(
+          RelativePath.computePath(
+              rebuiltRule, nodeName, previousOrbitHR, detector, detectedEvent));
       Link child = new Link(LinkType.ORIGIN, creationEvent);
       updateNodeOrbitList(previousOrbitHR, child, nextStepOrbitHRs);
       return nextStepOrbitHRs;
@@ -198,7 +201,10 @@ public class NodeOrbit {
       NodeEvent unchangedEvent = new NodeEvent(Event.NOMODIF, this);
       levelEvent.addEvent(unchangedEvent);
       NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);
-      previousOrbitHR.computePath(rebuiltRule, nodeName);
+      // previousOrbitHR.computePath(rebuiltRule, nodeName);
+      previousOrbitHR.setAlphaPath(
+          RelativePath.computePath(
+              rebuiltRule, nodeName, previousOrbitHR, detector, detectedEvent));
       Link child = new Link(LinkType.TRACE, unchangedEvent);
       updateNodeOrbitList(previousOrbitHR, child, nextStepOrbitHRs);
       return nextStepOrbitHRs;
@@ -211,7 +217,10 @@ public class NodeOrbit {
         levelEvent.addEvent(splitEvent);
         NodeOrbit previousOrbitHR =
             new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
-        previousOrbitHR.computePath(rebuiltRule, nodeName);
+        // previousOrbitHR.computePath(rebuiltRule, nodeName);
+        previousOrbitHR.setAlphaPath(
+            RelativePath.computePath(
+                rebuiltRule, nodeName, previousOrbitHR, detector, detectedEvent));
         Link originChild = new Link(LinkType.ORIGIN, splitEvent);
         updateNodeOrbitList(previousOrbitHR, originChild, nextStepOrbitHRs);
         previousOrbitHR = new NodeOrbit(orbitType);
@@ -223,7 +232,10 @@ public class NodeOrbit {
         levelEvent.addEvent(mergeEvent);
         NodeOrbit previousOrbitHR =
             new NodeOrbit(rebuiltRule.computeBBOrigin(ruleNodesOrbit, orbitType));
-        previousOrbitHR.computePath(rebuiltRule, nodeName);
+        // previousOrbitHR.computePath(rebuiltRule, nodeName);
+        previousOrbitHR.setAlphaPath(
+            RelativePath.computePath(
+                rebuiltRule, nodeName, previousOrbitHR, detector, detectedEvent));
         Link originChild = new Link(LinkType.ORIGIN, mergeEvent);
         updateNodeOrbitList(previousOrbitHR, originChild, nextStepOrbitHRs);
         previousOrbitHR = new NodeOrbit(orbitType);
@@ -237,7 +249,10 @@ public class NodeOrbit {
       NodeEvent modificationEvent = new NodeEvent(Event.MODIFICATION, this);
       levelEvent.addEvent(modificationEvent);
       NodeOrbit previousOrbitHR = new NodeOrbit(orbitType);
-      previousOrbitHR.computePath(rebuiltRule, nodeName);
+      // previousOrbitHR.computePath(rebuiltRule, nodeName);
+      previousOrbitHR.setAlphaPath(
+          RelativePath.computePath(
+              rebuiltRule, nodeName, previousOrbitHR, detector, detectedEvent));
       Link child = new Link(LinkType.TRACE, modificationEvent);
       updateNodeOrbitList(previousOrbitHR, child, nextStepOrbitHRs);
       return nextStepOrbitHRs;
@@ -306,7 +321,8 @@ public class NodeOrbit {
     }
   }
 
-  // NOTE: Draft
+  @Deprecated
+  // This method and its helpers were superseded by more core.utils.RelativePath
   public void computePath(JerboaRebuiltRule rule, String nodeName) {
     int nodeOfInterest = rule.getRightIndexRuleNode(nodeName);
     JerboaRuleNode rNode = rule.getRightRuleNode(nodeOfInterest);

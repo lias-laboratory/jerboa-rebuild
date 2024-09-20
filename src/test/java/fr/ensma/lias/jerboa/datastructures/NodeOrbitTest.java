@@ -5,11 +5,14 @@ import static org.junit.Assert.assertTrue;
 
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
+import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
+import fr.ensma.lias.jerboa.core.utils.rule.RelativePath;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import up.jerboa.core.JerboaOrbit;
+import up.jerboa.core.rule.JerboaRuleNode;
 import up.jerboa.exception.JerboaException;
 
 /** NodeOrbitHRTest */
@@ -75,19 +78,38 @@ public class NodeOrbitTest {
   @Test
   public void test_compute_path_oneNewTwoUpdates() {
     JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("DeleteEdge");
-    NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(2));
-    nodeOrbit.computePath(rule, "n1");
+    NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(0, 1));
+    String nodeName = "n1";
+    JerboaStaticDetection detector = new JerboaStaticDetection(rule);
+    JerboaRuleNode currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    Event event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
 
-    nodeOrbit.computePath(rule, "n1");
+    nodeOrbit = new NodeOrbit(nodeOrbit.getOrbit(), nodeOrbit.getAlphaPath());
+    nodeName = "n1";
+    detector = new JerboaStaticDetection(rule);
+    currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(1, 2, 1), nodeOrbit.getAlphaPath());
 
     rule = (JerboaRebuiltRule) modeler.getRule("TriangulateFace");
-    nodeOrbit.computePath(rule, "n0");
+    nodeOrbit = new NodeOrbit(nodeOrbit.getOrbit(), nodeOrbit.getAlphaPath());
+    nodeName = "n0";
+    detector = new JerboaStaticDetection(rule);
+    currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(1), nodeOrbit.getAlphaPath());
 
     rule = (JerboaRebuiltRule) modeler.getRule("InsertEdge");
-    nodeOrbit.computePath(rule, "n0");
+    nodeOrbit = new NodeOrbit(nodeOrbit.getOrbit(), nodeOrbit.getAlphaPath());
+    nodeName = "n0";
+    detector = new JerboaStaticDetection(rule);
+    currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(), nodeOrbit.getAlphaPath());
   }
 
@@ -95,15 +117,29 @@ public class NodeOrbitTest {
   public void test_compute_path_without_NOEFF() {
     JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("FaceCollapse");
     NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(1, 2));
-    nodeOrbit.computePath(rule, "n2");
+    String nodeName = "n2";
+    JerboaStaticDetection detector = new JerboaStaticDetection(rule);
+    JerboaRuleNode currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    Event event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(1, 2), nodeOrbit.getAlphaPath());
 
     rule = (JerboaRebuiltRule) modeler.getRule("ExtrudeVolumeFaceZAxis");
-    nodeOrbit.computePath(rule, "n4");
+    nodeOrbit = new NodeOrbit(nodeOrbit.getOrbit(), nodeOrbit.getAlphaPath());
+    nodeName = "n4";
+    detector = new JerboaStaticDetection(rule);
+    currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(), nodeOrbit.getAlphaPath());
 
     rule = (JerboaRebuiltRule) modeler.getRule("CreateSquareFace");
-    nodeOrbit.computePath(rule, "n1");
+    nodeOrbit = new NodeOrbit(nodeOrbit.getOrbit(), nodeOrbit.getAlphaPath());
+    nodeName = "n1";
+    detector = new JerboaStaticDetection(rule);
+    currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(), nodeOrbit.getAlphaPath());
   }
 
@@ -111,7 +147,11 @@ public class NodeOrbitTest {
   public void test_compute_path_pyramid() {
     JerboaRebuiltRule rule = (JerboaRebuiltRule) modeler.getRule("FaceA3ToPyramid");
     NodeOrbit nodeOrbit = new NodeOrbit(JerboaOrbit.orbit(0, 1, 3));
-    nodeOrbit.computePath(rule, "n1");
+    String nodeName = "n1";
+    JerboaStaticDetection detector = new JerboaStaticDetection(rule);
+    JerboaRuleNode currentRuleNode = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));
+    Event event = detector.getEventFromOrbit(currentRuleNode, nodeOrbit.getOrbit());
+    nodeOrbit.setAlphaPath(RelativePath.computePath(rule, nodeName, nodeOrbit, detector, event));
     assertEquals(Arrays.asList(3), nodeOrbit.getAlphaPath());
   }
 }

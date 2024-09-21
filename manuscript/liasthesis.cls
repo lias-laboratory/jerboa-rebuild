@@ -122,6 +122,12 @@
 		\end{tikzpicture}
 	}
 }
+\newif\ifdev
+
+\DeclareOption{framepage}{%
+\devtrue
+}
+
 \ProcessOptions\relax
 
 
@@ -203,8 +209,6 @@
 \newif\ifexamboard % This if macro prints exam board
 
 %%%%%%%%%% DevMacro to render block frames in you document %%%%%%%%%%%%%%%%%%%%%
-\newif\ifdev
-% \devtrue
 \ifdev
 	\usepackage{showframe}
 \fi

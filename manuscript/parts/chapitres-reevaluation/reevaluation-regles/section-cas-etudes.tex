@@ -149,7 +149,7 @@ paramétriques. %
 \end{figure}
 
 \begin{vbtflisting}[Spécification paramétrique initiale du cas
-  nº~1,\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
+		nº~1,\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
 
 	1-carre(pos)\\
 	2-extrusionFace(\pndart{6}{1n6}, vec)\\
@@ -158,8 +158,8 @@ paramétriques. %
 	5-triangulation(\pndart{33}{1n3;2n2})\\
 	6-contractionFace(\pndart{63}{1n4;2n6;4n6})\\
 	7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
-	8-colorationBleu(\pndart{35}{1n3;2n4;5n0})\\
-	9-colorationRouge(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1})
+	8-coloration(\pndart{35}{1n3;2n4;5n0}, Bleu)\\
+	9-coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1}, Rouge)
 \end{vbtflisting}
 
 La première construction que nous présentons, illustrée
@@ -192,7 +192,7 @@ Enfin, la dernière opération, \texttt{colorationRouge}, colore la face inciden
 au brin \(68\). %
 
 \begin{vbtflisting}[Spécification paramétrique éditée du cas
-  nº~2,\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}]
+		nº~1,\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}]
 
 	1-carre(pos)\\
 	ADD 9-insertion(3)\\
@@ -224,10 +224,31 @@ significatifs dans la topologie du modèle réévalué. %
 \subsection{Construction nº~2}
 \label{sec:reevaluation-base-regles-deuxieme-cas}
 
+\begin{vbtflisting}[Spécification paramétrique initiale du cas nº~2, \label{lst:reevaluation-regles-specification-parametrique-init-cas-2}]
+	1-carre()\\
+	2-extrusionFace([1n6])\\
+	3-contractionFace([1n5; 2n6])\\
+	4-chanfrein([1n4; 2n4; 3n2])\\
+	5-triangulation([1n3; 2n2])\\
+	6-coloration([1n4; 2n4; 3n2; 4n0], Rouge)\\
+	7-coloration([1n4; 2n4; 3n2; 4n2; 5n0], Bleu)\\
+\end{vbtflisting}
+
 \todo{Générer la deuxième construction} \todo{L'intérêt de cette construction,
 	c'est la gestion d'évènements collatéraux pour compléter l'autre cas sans
 	l'alourdir~: suppression d'une face à colorier~; fusion de deux faces (dont
 	l'une est coloriée) par absence de création}
+
+\begin{vbtflisting}[Spécification paramétrique éditée du cas
+		nº~2, \label{lst:reevaluation-regles-specification-parametrique-edit-cas-2}]
+	1-carre()\\
+	2-extrusionFace([1n6])\\
+	3-contractionFace([1n5; 2n6])\\
+	4-chanfrein([1n4; 2n4; 3n2])\\
+	5-triangulation([1n3; 2n2])\\
+	6-coloration([1n4; 2n4; 3n2; 4n0], Rouge)\\
+	7-coloration([1n4; 2n4; 3n2; 4n2; 5n0], Bleu)\\
+\end{vbtflisting}
 
 %%% Local Variables:
 %%% mode: LaTeX

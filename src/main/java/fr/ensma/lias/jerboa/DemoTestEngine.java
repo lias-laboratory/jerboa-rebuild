@@ -37,8 +37,8 @@ public class DemoTestEngine {
         new RebuildEngine(
             modeler, //
             "./examples", //
-            "article-2-build-v3.json", //
-            "article-2-build-v3-reevaluation.json",
+            "case-study-2-eval.json", //
+            "case-study-2-eval.json",
             false);
 
     SwingUtilities.invokeLater(

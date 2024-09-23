@@ -13,148 +13,137 @@ paramétriques. %
 \subsection{Construction nº~1}
 \label{sec:reevaluation-base-regles-premier-cas}
 
-\todo{Trouver un arrangement pour avoir les évaluations à côté de leurs
-	réévaluations}
-
-\begin{figure}[t!]
+\begin{sidewaysfigure}
 	\centering
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{1-evaluation-square}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-1-evaluation-square}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{2-evaluation-extrusion}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-2-evaluation-extrusion}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{3-evaluation-insert}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-3-evaluation-insert}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{4-evaluation-extrusion}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-4-evaluation-extrusion}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{5-evaluation-triangulation}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-5-triangulation}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{6-evaluation-collapse}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-6-evaluation-collapse}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{7-evaluation-chamfer}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-7-evaluation-chamfer}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{8-evaluation-colour}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-8-evaluation-color}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{9-evaluation-color}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-9-evaluation-color}
 	\end{subfigure}
 	\caption{Évaluation~: (a) \texttt{1-carre(pos)}~; (b)
-	  \texttt{2-extrusion(PN\textsubscript{6},vec)}~; (c)
-	  \texttt{3-insertion(PN\textsubscript{46})}~; (d)
-	  \texttt{4-extrusion(PN\textsubscript{47},vec)}~; (e)
-	  \texttt{5-triangulation(PN\textsubscript{33})}~; (f)
-	  \texttt{6-contraction(PN\textsubscript{63})}~; (g)
-	  \texttt{7-chanfrein(PN\textsubscript{55})}~; (h)
-	  \texttt{8-coloration(PN\textsubscript{35},Bleu)}~; (i)
-	  \texttt{9-coloration(PN\textsubscript{68}, Rouge)}}
+		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (c)
+		\texttt{3-insertion(PN\textsubscript{46})}~; (d)
+		\texttt{4-extrusion(PN\textsubscript{47},vec)}~; (e)
+		\texttt{5-triangulation(PN\textsubscript{33})}~; (f)
+		\texttt{6-contraction(PN\textsubscript{63})}~; (g)
+		\texttt{7-chanfrein(PN\textsubscript{55})}~; (h)
+		\texttt{8-coloration(PN\textsubscript{35},Bleu)}~; (i)
+		\texttt{9-coloration(PN\textsubscript{68}, Rouge)}}
 	\label{fig:reevaluation-base-regles-cs1-evaluation}
-\end{figure}
-\begin{figure}[t!]
-	%\renewcommand\thesubfigure{\arabic{subfigure}}
 	\centering
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{1-reevaluation-square}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-1-reevaluation-square}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{1ADD-reevaluation-insert}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-add-10-reevaluation-insert}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{2-reevaluation-extrusion}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-2-reevaluation-extrusion}
 	\end{subfigure}
-	\begin{subfigure}[t]{0\textwidth}
-		\includegraphics[width=\textwidth]{3-reevaluation-insert}
-		\caption{}
-		\label{fig:reevaluation-base-regles-cs1-delete-3-reevaluation-insert}
-	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{4-reevaluation-extrusion}
-		\caption{}
+		\stepcounter{subfigure}\caption{}
 		\label{reevaluation-base-regles-cs1-4-reevaluation-extrusion}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{5-reevaluation-triangulation}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-5-reevaluation-triangulation}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{6-reevaluation-collapse}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-6-reevaluation-collapse}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{7-reevaluation-chamfer}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-7-reevaluation-chamfer}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{8-reevaluation-colour}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-8-reevaluation-color}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
 		\includegraphics[width=\textwidth]{9-reevaluation-color}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-9-reevaluation-color}
 	\end{subfigure}
 	\caption{Réevaluation (a) \texttt{1-carre(pos)}~; (b)
-	  \texttt{ADD~1-insertion(3)}~; (c)
-	  \texttt{2-extrusion(PN\textsubscript{6},vec)}~; (d)
-	  \texttt{DELETE~3-insertion(PN\textsubscript{46})}~; (e)
-	  \texttt{4-extrusion(PN\textsubscript{47},vec)}~; (f)
-	  \texttt{5-triangulation(PN\textsubscript{33})}~; (g)
-	  \texttt{6-contraction(PN\textsubscript{63})}~; (h)
-	  \texttt{7-chanfrein(PN\textsubscript{55})}~; (i)
-	  \texttt{8-coloration(PN\textsubscript{35},Bleu)}~; (i)
-	  \texttt{9-coloration(PN\textsubscript{68}, Rouge)}}
+		\texttt{ADD~1-insertion(3)}~; (c)
+		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (d)
+		\texttt{DELETE~3-insertion(PN\textsubscript{46})}~; (e)
+		\texttt{4-extrusion(PN\textsubscript{47},vec)}~; (f)
+		\texttt{5-triangulation(PN\textsubscript{33})}~; (g)
+		\texttt{6-contraction(PN\textsubscript{63})}~; (h)
+		\texttt{7-chanfrein(PN\textsubscript{55})}~; (i)
+		\texttt{8-coloration(PN\textsubscript{35},Bleu)}~; (i)
+		\texttt{9-coloration(PN\textsubscript{68}, Rouge)}}
 	\label{fig:reevaluation-base-regles-cs1-reevaluation}
-\end{figure}
+\end{sidewaysfigure}
 
 \begin{vbtflisting}[Spécification paramétrique initiale du cas
 		nº~1,\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
@@ -171,11 +160,12 @@ paramétriques. %
 \end{vbtflisting}
 
 La première construction que nous présentons, illustrée
-figure~\ref{fig:reevaluation-base-regles-cs1-evaluation}, est l'objet représenté par la spécification
-paramétrique
-(liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1})
-que nous détaillons
-ci-après. %
+figure~\ref{fig:reevaluation-base-regles-cs1-evaluation}, sera notre principal
+fil rouge pour ce chapitre. %
+Celle-ci va nous permettre d'illustrer nos méthodes de nomination persistante
+et de réévaluation. %
+Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
+liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1}. %
 
 L'application de la première opération, \texttt{carre}, crée une face carrée
 (figure~\ref{fig:reevaluation-base-regles-cs1-1-evaluation-square}). %
@@ -221,13 +211,12 @@ au brin \(68\)
 Nous procédons ensuite à l'édition de cette spécification paramétrique dont la
 représentation géométrique, à chaque étape, est illustrée dans la
 figure~\ref{fig:reevaluation-base-regles-cs1-reevaluation}. %
-Plus précisément, nous ajoutons une opération d'insertion de sommet \texttt{ADD 9-insertion(3)}
-(figure~\ref{fig:reevaluation-base-regles-cs1-add-10-reevaluation-insert}) et nous supprimons l'opération
-\texttt{3-insertion} afin que celle-ci ne soit pas réévaluée. %
-
-
-
-Les aspects intéressants du modèle paramétrique et sa réévaluation que nous
+Dans de cette édition, nous ajoutons une opération d'insertion de sommet
+\texttt{ADD 9-insertion(3)}
+(figure~\ref{fig:reevaluation-base-regles-cs1-add-10-reevaluation-insert}) et
+nous supprimons l'opération \texttt{3-insertion} afin que celle-ci ne soit pas
+réévaluée. %
+Les aspects remarquables de la construction et de sa réévaluation que nous
 venons de présenter sont le fait que nous ajoutons une opération et en
 supprimons une autre lors de l'édition de la spécification paramétrique. %
 Nous devrions donc, en toute logique, nous attendre à des changements
@@ -237,45 +226,52 @@ significatifs dans la topologie du modèle réévalué. %
 \label{sec:reevaluation-base-regles-deuxieme-cas}
 
 
-\begin{figure}[t!]
+\begin{sidewaysfigure}
 	\centering
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-1-evaluation-square}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-1-evaluation-square}
+		\label{fig:reevaluation-base-regles-cs2-1-evaluation-square}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-2-evaluation-faceExtrusion}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-2-evaluatino-extrusion}
+		\label{fig:reevaluation-base-regles-cs2-2-evaluatino-extrusion}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-3-evaluation-faceCollapse}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-3-evaluation-collapse}
+		\label{fig:reevaluation-base-regles-cs2-3-evaluation-collapse}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-4-evaluation-chamfer}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-4-evaluation-chamfer}
+		\label{fig:reevaluation-base-regles-cs2-4-evaluation-chamfer}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-5-evaluation-triangulation}
 		\caption{}
 	\end{subfigure}
 	\label{fig:reevaluation-base-regles-cs2-5-evaluation-triangulation}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-6-evaluation-colourFaceRed}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-6-evaluation-color}
+		\label{fig:reevaluation-base-regles-cs2-6-evaluation-color}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-7-evaluation-colourFaceBlue}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs2-7-evaluation-color}
@@ -288,49 +284,48 @@ significatifs dans la topologie du modèle réévalué. %
 		\texttt{6-coloration(PN\textsubscript{12},Rouge)}~; (g)
 		\texttt{7-coloration(PN\textsubscript{57},Bleu)}}
 	\label{fig:reevaluation-base-regles-cs2-evaluation}
-\end{figure}
-\begin{figure}[t!]
+	\begin{subfigure}[t]{0.1\textwidth}
 	\centering
-	\begin{subfigure}[t]{0.11\textwidth}
 		\includegraphics[width=\textwidth]{cs2-1-reevaluation-square}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-1-reevaluation-square}
+		\label{fig:reevaluation-base-regles-cs2-1-reevaluation-square}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-2-reevaluation-faceExtrusion}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-2-reevaluation-extrusion}
+		\label{fig:reevaluation-base-regles-cs2-2-reevaluation-extrusion}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-3-reevaluation-faceCollapse}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-3-reevaluation-collapse}
+		\label{fig:reevaluation-base-regles-cs2-3-reevaluation-collapse}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
-		\includegraphics[width=\textwidth]{cs2-3-reevaluation-faceCollapse}
-		\caption{}
-		\label{fig:reevaluation-base-regles-cs2-DELETE-4-reevaluation-chamfer}
-	\end{subfigure}
+	\hspace{0.1\textwidth}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-5-reevaluation-triangulation}
-		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-5-reevaluation-triangulation}
+		\stepcounter{subfigure}\caption{}
+		\label{fig:reevaluation-base-regles-cs2-5-reevaluation-triangulation}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-5-reevaluation-triangulation}
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs2-CANCEL-6-reevaluation-color}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.11\textwidth}
+	\begin{subfigure}[t]{0.1\textwidth}
+	\centering
 		\includegraphics[width=\textwidth]{cs2-7-reevaluation-colourFaceBlue}
 		\caption{}
-	\label{fig:reevaluation-base-regles-cs2-7-reevaluation-color}
+		\label{fig:reevaluation-base-regles-cs2-7-reevaluation-color}
 	\end{subfigure}
 	\caption{Réévaluation~: (a) \texttt{1-carre(pos)}~; (b)
 		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (c)
@@ -339,7 +334,7 @@ significatifs dans la topologie du modèle réévalué. %
 		\texttt{6-coloration(PN\textsubscript{12},Rouge)}~; (g)
 		\texttt{7-coloration(PN\textsubscript{57},Bleu)}}
 	\label{fig:reevaluation-base-regles-cs2-reevaluation}
-\end{figure}
+\end{sidewaysfigure}
 
 \begin{vbtflisting}[Spécification paramétrique initiale du cas nº~2, \label{lst:reevaluation-regles-specification-parametrique-init-cas-2}]
 	1-carre()\\
@@ -351,10 +346,26 @@ significatifs dans la topologie du modèle réévalué. %
 	7-coloration(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
 \end{vbtflisting}
 
-\todo{Générer la deuxième construction} \todo{L'intérêt de cette construction,
-	c'est la gestion d'évènements collatéraux pour compléter l'autre cas sans
-	l'alourdir~: suppression d'une face à colorier~; fusion de deux faces (dont
-	l'une est coloriée) par absence de création}
+La seconde construction que nous présentons, illustrée
+figure~\ref{fig:reevaluation-base-regles-cs2-evaluation}. %
+Celle-ci va nous permettre d'illustrer et préciser la définition de stratégies
+de réévaluation, notamment pour la suppression d'opération. %
+Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
+liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-2}. %
+
+La construction de cet objet est semblable à la construction nº~1. %
+Le processus de modélisation comporte une première application \texttt{1-carre}
+qui crée une face. %
+L'application suivante \texttt{2-extrusion} extrude la face en un cube. %
+La troisième application \texttt{3-contraction} contracte la face supérieure du
+cube en un sommet. %
+Ce sommet est ensuite chanfreiné par la quatrième application
+\texttt{4-chanfrein}. %
+L'application \texttt{5-triangulation} triangule la face frontale de l'objet. %
+Enfin, les applications \texttt{6-coloration} et \texttt{7-coloration} colorie
+deux faces de l'objet respectivement en rouge et en bleu. %
+Notons que la face coloriée en rouge est la face issue du chanfreinage
+(\texttt{4-chanfrein}). %
 
 \begin{vbtflisting}[Spécification paramétrique éditée du cas
 		nº~2, \label{lst:reevaluation-regles-specification-parametrique-edit-cas-2}]
@@ -366,6 +377,19 @@ significatifs dans la topologie du modèle réévalué. %
 	6-coloration(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)\\
 	7-coloration(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
 \end{vbtflisting}
+
+Dans la version éditée de la spécification paramétrique
+(liste~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}),
+figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
+Les différentes étapes de réévaluation sont illustrées dans la
+figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
+Les aspects remarquables de cette construction et de sa réévaluation sont le
+fait que la suppression de l'application \texttt{4-chanfrein} a un impact direct
+sur l'application \texttt{6-coloration} et indirect sur l'application
+\texttt{7-coloration}. %
+En effet, l'application \texttt{6-coloration} référence la face créée par le
+chanfrein qui n'existe plus dans la réévaluation. %
+
 
 %%% Local Variables:
 %%% mode: LaTeX

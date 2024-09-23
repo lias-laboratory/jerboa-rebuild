@@ -3,17 +3,18 @@
 % \label{sec:reevaluation-nomination-persistante}
 
 
-Dans le chapitre~\ref{cha:etat-art-reevaluation}
-Section~\ref{sec:etat-art-reevaluation-synthese-cardot}
-(page~\pageref{sec:etat-art-reevaluation-synthese-cardot}), nous avons
-rapidement résumé les travaux de Cardot sur lesquels nous nous appuyons. %
-En particulier, nous avons décrit son système de nomination persistante des
-entités topologiques. %
 % Nous présentons dans cette section les deux éléments constitutif du mécanisme de
 % nomination persistante que nous proposons dans nos travaux. %
 
 \section{Nomination persistante des brins}
 \label{sec:reevaluation-nomination-persistante-brins}
+
+% Dans le chapitre~\ref{cha:etat-art-reevaluation}
+% Section~\ref{sec:etat-art-reevaluation-synthese-cardot}
+% (page~\pageref{sec:etat-art-reevaluation-synthese-cardot}), nous avons
+% rapidement résumé les travaux de Cardot sur lesquels nous nous appuyons. %
+% En particulier, nous avons décrit son système de nomination persistante des
+% entités topologiques. %
 
 L'étude des travaux antérieurs a montré que la nécessité de créer et d'attribuer
 des noms persistants concerne uniquement les entités topologiques référencées
@@ -53,9 +54,10 @@ spécification~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-carre}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{1-evaluation-square}
+		\includegraphics[width = .8\textwidth]{sc1-nodematch-1-evaluation-square}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-1-evaluation-carre}
 	\end{subfigure}
@@ -89,9 +91,10 @@ Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{2-evaluation-extrusion}
+		\includegraphics[width = .9\textwidth]{sc1-nodematch-2-evaluation-extrusion}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-2-evaluation-extrusion}
 	\end{subfigure}
@@ -134,20 +137,21 @@ Par exemple, les brins \(33\) et \(35\), créés par les n\oe uds \(n_{1}\) et
 Leurs historiques sont \([1n3;2n1]\) et \([1n3;2n4]\) respectivement. %
 De la même manière, les brins \(46\) et \(47\), créés par les n\oe uds \(n_{5}\)
 et \(n_{6}\), sont des copies du brin \(5\). %
-Leurs historiques sont \([1n5;2n5]\) et \([1n5;2n6]\) respectivement. %
+Leurs historiques sont \([1n5;2n5]\) et \([1n5;2n6]\) respectivement (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-2-evaluation-extrusion}). %
 
 
 \begin{figure}[htb!]
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-insert-vertex}
+		\includegraphics[height = 40pt]{rule-insert-vertex-coloured}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-insertion}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{3-evaluation-insert}
+		\includegraphics[width = .95\textwidth]{sc1-nodematch-3-evaluation-insert}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-3-evaluation-insertion}
 	\end{subfigure}
@@ -174,9 +178,10 @@ sont mis à jour en \([1n5;2n5;3n0]\) et \([1n5;2n6;3n0]\) respectivement
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-volume-extrusion}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{4-evaluation-extrusion}
+		\includegraphics[width = .9\textwidth]{sc1-nodematch-4-evaluation-extrusion}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion}
 	\end{subfigure}
@@ -204,9 +209,10 @@ respectivement. %
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-triangulation}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{5-evaluation-triangulation}
+		\includegraphics[width = .65\textwidth]{sc1-nodematch-5-evaluation-triangulation}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-5-evaluation-triangulation}
 	\end{subfigure}
@@ -232,13 +238,14 @@ respectivement
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{6-evaluation-collapse}
+		\includegraphics[width = .7\textwidth]{sc1-nodematch-6-evaluation-collapse}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}
 	\end{subfigure}
-	\caption{\texttt{6-contractionFace(\pndart{55}{1n5;2n6;3n0;4n4;6n2})}}
+	\caption{\texttt{6-contractionFace(\pndart{63}{1n4;2n6;4n6})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-contraction}
 \end{figure}
 
@@ -255,19 +262,21 @@ règle
 le brin \(63\) est lui-même supprimé. %
 Les historiques des brins filtrés par \(n2\), qui composent maintenant le sommet
 issu de la contraction, sont mis à jour. %
-En particulier, l'historique du brin \(55\) devient \([1n5;2n6;3n0;4n4;6n2]\). %
+En particulier, l'historique du brin \(55\) devient \([1n5;2n6;3n0;4n4;6n2]\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}). %
 
 \begin{figure}[htb!]
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-vertex-chamfer-color}
+		\includegraphics[height = 40pt]{rule-vertex-chamfer-coloured}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-chanfrein}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{7-evaluation-chamfer}
+		\includegraphics[width = .7\textwidth]{sc1-nodematch-7-evaluation-chamfer}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-chanfrein}
 	\end{subfigure}
@@ -283,8 +292,11 @@ brin \(55\) lui-même filtré par le n\oe ud \(n0\)
 Comme dans les étapes précédentes, l'historique \([1n5;2n6;3n0;4n4;6n2]\), avant
 sa mise à jour par la règle, est enregistré dans la spécification
 paramétrique. %
-Suite à l'application, une face est créée à partir du chanfreinage du sommet
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-chanfrein}). %
+L'application crée une face à partir du chanfreinage du sommet désigné. %
+Parmi les brins créés, nous trouvons notamment le brin \(68\) dont l'historique
+est \([1n5;2n6;3n0;4n4;6n2;7n1]\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-chanfrein})
+. %
 
 
 \begin{figure}[htb!]
@@ -295,9 +307,10 @@ Suite à l'application, une face est créée à partir du chanfreinage du sommet
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-bleu}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{8-evaluation-colour}
+		\includegraphics[width = .65\textwidth]{8-evaluation-colour}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-8-evaluation-coloration-bleu}
 	\end{subfigure}
@@ -313,9 +326,10 @@ Suite à l'application, une face est créée à partir du chanfreinage du sommet
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-rouge}
 	\end{subfigure}
+	\hfill
 	\begin{subfigure}{.35\textwidth}
 		\centering
-		\includegraphics[width = 75pt]{9-evaluation-color}
+		\includegraphics[width = .65\textwidth]{9-evaluation-color}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-9-evaluation-coloration-rouge}
 	\end{subfigure}

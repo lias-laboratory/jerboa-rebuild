@@ -61,9 +61,9 @@ d'appariement des paramètres topologiques. %
 
 \begin{figure}[htb!]
 	% \centering
-	\begin{subfigure}{.19\textwidth}
+	\begin{subfigure}{.2\textwidth}
 		\centering
-		\includegraphics[width=.9\textwidth]{1-reevaluation-square}
+		\includegraphics[width=\textwidth]{1-reevaluation-square}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1-appariement}
 	\end{subfigure}
@@ -105,10 +105,10 @@ c'est ce brin que nous enregistrons dans le DAG de réévaluation
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.19\textwidth}
+	\begin{subfigure}{.2\textwidth}
 		\centering
-		\includegraphics[width=.9\textwidth]{1ADD-reevaluation-insert}
-		\caption{\todo{refaire la figure pour afficher les brins 3 et 4}}
+		\includegraphics[width=\textwidth]{sc1-ADD-10-reevaluation-insert}
+		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2-appariement}
 	\end{subfigure}
 	% \hspace{0.06\textwidth}
@@ -154,10 +154,10 @@ En effet, une branche suit désormais  l'évolution des orbites incidentes au br
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.19\textwidth}
+	\begin{subfigure}{.2\textwidth}
 		\centering
-		\includegraphics[width=.9\textwidth]{2-reevaluation-extrusion}
-		\caption{\todo{refaire la figure pour afficher les brins 37 et 52}}
+		\includegraphics[width=\textwidth]{sc1-2-reevaluation-extrusion}
+		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3-appariement}
 	\end{subfigure}
 	\hfill
@@ -189,10 +189,10 @@ que nous enregistrons dans les niveaux d'orbites du DAG. %
 
 \begin{figure}[htb!]
 	\centering
-	\begin{subfigure}{.19\textwidth}
+	\begin{subfigure}{.2\textwidth}
 		\centering
-		\includegraphics[width=.9\textwidth]{5-reevaluation-triangulation}
-		\caption{\todo{refaire la figure pour afficher les brins 37 et 52}}
+		\includegraphics[width=\textwidth]{sc1-5-reevaluation-triangulation}
+		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-4-appariement}
 	\end{subfigure}
 	\hfill
@@ -206,7 +206,7 @@ que nous enregistrons dans les niveaux d'orbites du DAG. %
 	\label{fig:reevaluation-base-regle-reevaluation-pn35}
 \end{figure}
 
-La dernière étape d'appariement du PN\textsubscript{35} concerne l'application
+La dernière étape d'appariement du PN\textsubscript{35} est l'application
 \texttt{INIT 5-triangulation}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
 Lors de cette scission, les faces suivie dans chacune des branches sont
@@ -229,6 +229,7 @@ l'utilisateur pour la réévaluation~: les faces \(\orbit{0,1}(37)\) et
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-4-appariement}). %
 
 
+\todo{Ajouter réévaluation PN\textsubscript{55} en une pièce pour en faire une lecture \textit{rapide}.}
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}
@@ -244,27 +245,41 @@ l'utilisateur pour la réévaluation~: les faces \(\orbit{0,1}(37)\) et
 
 \end{itemize}
 
-% \begin{itemize}
-% 	\item Scission d'un paramètre topologique : évaluation de tout ou partie des paramètres éligibles
-% 	\item Sélection d'une branche prédominante en cas de fusion
-% 	\item Suppression d'un paramètre topologique : interruption de la réévaluation pour ce paramètre (potentiellement de l'objet)
-% \end{itemize}
+\idee{Les DAGs d'évaluation et de réévaluation nous permettent de représenter
+  l'ensemble des possibilités d'évolutions d'un objet. %
+  Chacune de ces possibilités donne la possibilité aux utilisateurs de mettre en
+  \oe uvre des stratégies pour paramétrer la réévaluation d'un objet. %
+}
 
-% \maxime{Dans cette section, expliquer que l'on peut, à l'aide de ces DAGs,
-% 	mettre en \oe uvre des stratégies pour la réévaluation.} \maxime{Expliciter le
-% 	terme de stratégie, c'est-à-dire, lorsqu'il y a plusieurs branches (dues à des
-% 	scissions ajoutées par l'édition de la spec), on peut proposer à l'utilisateur
-% 	de choisir parmi un ensemble de branches pour la réévaluation. %
-% 	D'autres stratégies sont possibles, comme (lors d'une fusion ajoutée ou une
-% 	annulation de scission) choisir qu'elle branche, parmi celles fusionnées, est
-% 	prédominante.}
+\subsubsection*{Ajout de scission}
 
-% \maxime{Je ne vois trop ce qui pourrait être ajouté, certainement des
-% 	illustrations}
+\idee{Par exemple, dans les scissions ajoutées, (cf.~PN\textsubscript{35}), nous
+  avons choisi comme stratégie par défaut de réévaluer chacune des branches. %
+  Cependant, il est tout à fait possible pour l'utilisateur de choisir de ne
+  réévaluer que la branche principale ou d'en sélectionner d'autres.}
 
-% \maxime{1. illustration stratégie scission rééval branche 1\\
-% 	2. stratégie scission rééval branch 2\\
-% 	3. stratégie suppression arrêt rééval}
+\subsubsection*{Suppression d'opération}
+
+\idee{Dans le cas de la suppression d'une opération dans la spécification
+  paramétrique éditée, il peut arriver que la création d'une entité ne soit pas
+  réévaluée et conduire à annulation d'un évènement. %
+  Deux cas de figure peuvent alors se présenter~: (1) l'entité non-réévaluée
+  n'est pas référencée dans la spécification paramétrique
+  (cf.~PN\textsubscript{55} pour l'arête non-créée)~; (2) l'entité non-réévaluée
+  est référencée dans la spécification paramétrique (cf.~PN\textsubscript{12}
+  pour la face à colorier en rouge) }
+
+%% Interruption de branche
+
+
+\todo{Exemple du PN\textsubscript{55} du cas nº~1 pour l'annulation d'évènement
+  (non création d'un sommet et non création d'une face [fusion implicite])}
+
+%% Annulation d'évènement
+
+\todo{Exemple du PN\textsubscript{12} du cas nº~2 pour l'annulation d'évènement
+  (non création d'un sommet et non création d'une face [fusion implicite])}
+
 
 %%% Local Variables:
 %%% mode: LaTeX

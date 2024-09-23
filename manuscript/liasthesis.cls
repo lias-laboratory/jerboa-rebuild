@@ -122,6 +122,7 @@
 		\end{tikzpicture}
 	}
 }
+
 \newif\ifdev
 
 \DeclareOption{framepage}{%
@@ -332,7 +333,7 @@
 \newlength{\numberheight} \setlength{\numberheight}{50pt}
 \newlength{\barlength} \setlength{\barlength}{25pt}
 
-\makechapterstyle{gaide}{%
+\makechapterstyle{customveelo}{%
 	\setlength{\afterchapskip}{40pt}
 	\renewcommand*{\chapterheadstart}{\vspace*{2cm}}
 	\renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}

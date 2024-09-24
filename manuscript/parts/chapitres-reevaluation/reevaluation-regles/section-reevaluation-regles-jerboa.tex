@@ -38,7 +38,6 @@ un brin et non pas par des n\oe uds de règles Jerboa qui peuvent filtrer
 plusieurs instances de brins. %
 Les DAGs de réévaluation n'enregistrent donc pas des n\oe uds de règles Jerboa
 mais des brins. %
-
 Ainsi, la méthode consiste, pour chaque application d'un type donné, à~:
 \begin{description}
 	\item[\texttt{INIT}~:] mettre à jour les évènements initialement détectés
@@ -70,7 +69,7 @@ d'appariement des paramètres topologiques. %
 	\hfill
 	\begin{subfigure}{.79\textwidth}
 		\raggedleft
-		\includegraphics[scale=.455]{reevaluationTree-6-export-step-1}
+		\includegraphics[scale=.45]{reevaluationTree-6-export-step-1}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1-dag}
 
@@ -107,7 +106,7 @@ c'est ce brin que nous enregistrons dans le DAG de réévaluation
 	\centering
 	\begin{subfigure}{.2\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{sc1-ADD-10-reevaluation-insert}
+		\includegraphics[width=\textwidth]{cs1-ADD-10-reevaluation-insert}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2-appariement}
 	\end{subfigure}
@@ -115,7 +114,7 @@ c'est ce brin que nous enregistrons dans le DAG de réévaluation
 	\hfill
 	\begin{subfigure}{.79\textwidth}
 		\raggedleft
-		\includegraphics[scale=.455]{reevaluationTree-6-export-step-2}
+		\includegraphics[scale=.45]{reevaluationTree-6-export-step-2}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2-dag}
 	\end{subfigure}
@@ -156,27 +155,26 @@ En effet, une branche suit désormais  l'évolution des orbites incidentes au br
 	\centering
 	\begin{subfigure}{.2\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{sc1-2-reevaluation-extrusion}
+		\includegraphics[width=\textwidth]{cs1-2-reevaluation-extrusion}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3-appariement}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.79\textwidth}
 		\raggedleft
-		\includegraphics[scale=.455]{reevaluationTree-6-export-step-3}
+		\includegraphics[scale=.45]{reevaluationTree-6-export-step-3}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3-dag}
 	\end{subfigure}
 	\caption{Appariement des orbites issues de \texttt{INIT 2-extrusionFace}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3}
 \end{figure}
-
 Suite à la scission ajoutée à l'étape précédente, nous suivons l'impact de
 l'application \texttt{INIT 2-extrusionFace} pour chaque branche du DAG
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3}). %
 Comme prévu initialement, l'application de la règle crée des arêtes par
 extrusion de brins et des faces par extrusion d'arêtes. %
-Nous enregistrons donc deux n\oe uds d'évènements \creationnodeevent et deux
+Nous enregistrons donc deux n\oe uds d'évènements \creationnodeevent{} et deux
 n\oe uds d'orbites \orbitnode{\(0\)} et \orbitnode{\(0,1\)} dans chaque branche
 du DAG
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3-dag}). %
@@ -191,27 +189,26 @@ que nous enregistrons dans les niveaux d'orbites du DAG. %
 	\centering
 	\begin{subfigure}{.2\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{sc1-5-reevaluation-triangulation}
+		\includegraphics[width=\textwidth]{cs1-5-reevaluation-triangulation}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-4-appariement}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.79\textwidth}
 		\raggedleft
-		\includegraphics[scale=.455]{reevaluationTree-6-export}
+		\includegraphics[scale=.45]{reevaluationTree-6-export}
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-dag}
 	\end{subfigure}
 	\caption{Appariement des orbites issues de \texttt{INIT 5-triangulation}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35}
 \end{figure}
-
 La dernière étape d'appariement du PN\textsubscript{35} est l'application
 \texttt{INIT 5-triangulation}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
-Lors de cette scission, les faces suivie dans chacune des branches sont
+Lors de cette scission, les faces suivies dans chacune des branches sont
 scindées, mais puisque cet évènement était prévu dans l'évaluation initiale,
-aucun dédoublement de branche n'est nécessaire. %
+alors aucun dédoublement de branche n'est nécessaire. %
 Nous enregistrons donc un n\oe ud d'évènement \splitnodeevent{} ainsi qu'un n\oe
 ud d'orbite \orbitnode{\(0,1\)} dans les niveaux d'évènements et d'orbites de
 chaque branche
@@ -220,75 +217,88 @@ Dans cette règle, les brins \(37\) et \(52\) ont été filtrés et préservés 
 n\oe ud \(n0\) de la règle de triangulation. %
 Ainsi, nous enregistrons ces deux brins dans les niveaux d'orbites du DAG. %
 
-À ce stade de la réévaluation, la procédure d'appariement pour le
-paramètre topologique de l'application \texttt{INIT
-	8-coloration(PN\textsubscript{35}, Bleu)} est terminée. %
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width = .19\textwidth]{8-reevaluation-color}
+	\caption{Fin de l'appariement du PN\textsubscript{35}}
+	\label{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}
+\end{figure}
+
+À ce stade de la réévaluation, la procédure d'appariement pour le paramètre
+topologique de l'application \texttt{INIT~8-coloration(PN\textsubscript{35},
+  Bleu)} est terminée. %
 Le DAG de réévaluation indique que deux orbites peuvent être sélectionnées par
 l'utilisateur pour la réévaluation~: les faces \(\orbit{0,1}(37)\) et
 \(\orbit{0,1}(52)\)
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-4-appariement}). %
+Dans cet exemple, nous avons fait le choix de réappliquer la coloration sur les
+deux faces désignées par le DAG
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}),
+mais il est tout à fait possible de définir ce que nous appelons des stratégies
+pour définir des comportements de réévaluation qui correspondent aux intentions
+de modélisation des utilisateurs. %
 
-
-\todo{Ajouter réévaluation PN\textsubscript{55} en une pièce pour en faire une lecture \textit{rapide}.}
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}
 
-\begin{itemize}
-	\item Définir stratégie (interactive et pré-définie)~;
-	\item exploiter les DAGs pour définir des stratégies diverses et variées~;
-	\item exemple scission ajoutée `1 ou tout ou cas par cas` en reprenant la coloration bleue~;
-	\item exemple annulation d'évènement `fusion ou non` de deux entités qui n'en
-	      forment plus qu'une~;
-	\item exemple suppression `interruption appariement` lorsqu'un paramètre
-	      topologique n'est plus créé. %
 
-\end{itemize}
+% \begin{itemize}
+% 	\item Définir stratégie (interactive et pré-définie)~;
+% 	\item exploiter les DAGs pour définir des stratégies diverses et variées~;
+% 	\item exemple scission ajoutée `1 ou tout ou cas par cas` en reprenant la coloration bleue~;
+% 	\item exemple annulation d'évènement `fusion ou non` de deux entités qui n'en
+% 	      forment plus qu'une~;
+% 	\item exemple suppression `interruption appariement` lorsqu'un paramètre
+% 	      topologique n'est plus créé. %
+% \end{itemize}
 
-\idee{Les DAGs d'évaluation et de réévaluation nous permettent de représenter
-  l'ensemble des possibilités d'évolutions d'un objet. %
-  Chacune de ces possibilités donne la possibilité aux utilisateurs de mettre en
-  \oe uvre des stratégies pour paramétrer la réévaluation d'un objet. %
-}
+Les DAGs de réévaluation représentent l'ensemble des évolutions qui impactent,
+voir qui auraient dû impacter, l'évolution d'une orbite au cours de la
+réévaluation. %
+À l'aide des informations qu'ils contiennent, il est possible de définir des
+stratégies pour adapter le comportement du mécanisme de réévaluation selon les
+préférences des utilisateurs. %
+Nous présentons \todo{reprendre ici}
 
 \subsubsection*{Ajout de scission}
 
 \idee{Par exemple, dans les scissions ajoutées, (cf.~PN\textsubscript{35}), nous
-  avons choisi comme stratégie par défaut de réévaluer chacune des branches. %
-  Cependant, il est tout à fait possible pour l'utilisateur de choisir de ne
-  réévaluer que la branche principale ou d'en sélectionner d'autres.}
+	avons choisi comme stratégie par défaut de réévaluer chacune des branches. %
+	Cependant, il est tout à fait possible pour l'utilisateur de choisir de ne
+	réévaluer que la branche principale ou d'en sélectionner d'autres.}
 
 \subsubsection*{Suppression d'opération}
 
 \idee{Dans le cas de la suppression d'une opération dans la spécification
-  paramétrique éditée, il peut arriver que la création d'une entité ne soit pas
-  réévaluée et conduire à annulation d'un évènement. %
-  Deux cas de figure peuvent alors se présenter~: (1) l'entité non-réévaluée
-  n'est pas référencée dans la spécification paramétrique
-  (cf.~PN\textsubscript{55} pour l'arête non-créée)~; (2) l'entité non-réévaluée
-  est référencée dans la spécification paramétrique (cf.~PN\textsubscript{12}
-  pour la face à colorier en rouge) }
+	paramétrique éditée, il peut arriver que la création d'une entité ne soit pas
+	réévaluée et conduire à annulation d'un évènement. %
+	Deux cas de figure peuvent alors se présenter~: (1) l'entité non-réévaluée
+	n'est pas référencée dans la spécification paramétrique
+	(cf.~PN\textsubscript{55} pour l'arête non-créée)~; (2) l'entité non-réévaluée
+	est référencée dans la spécification paramétrique (cf.~PN\textsubscript{12}
+	pour la face à colorier en rouge) }
 
 
 %% Interruption de branche
 
 
 \todo{Exemple du PN\textsubscript{55} du cas nº~1 pour l'annulation d'évènement
-  (non création d'un sommet et non création d'une face [fusion implicite])}
+	(non création d'un sommet et non création d'une face [fusion implicite])}
 \begin{figure}[htb!]
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}{.4\textwidth}
 		\centering
-		\includegraphics[scale=.455]{}
+		\includegraphics[scale=.455]{cs2-evaluationTree-4}
 	\end{subfigure}
-	\begin{subfigure}{.5\textwidth}
+	\begin{subfigure}{.6\textwidth}
 		\centering
 		\includegraphics[scale=.455]{cs2-pn12-dag-reeval}
 	\end{subfigure}
 \end{figure}
 
 \begin{figure}[htb!]
-  \centering
-  \includegraphics[scale=.455]{cs2-pn57-dag-reeval}
+	\centering
+	\includegraphics[scale=.455]{cs2-pn57-dag-reeval}
 \end{figure}
 
 

@@ -162,11 +162,12 @@ dans le DAG~:
 	\item les n\oe uds d'origines sont ajoutés au DAG~;
 	\item chacun des deux n\oe uds d'événement est relié par une relation de suivi
 	      aux n\oe uds d'orbites de suivis~;
-	\item enfin, chacun des n\oe uds d'orbite d'origine est relié au n\oe ud
-	      d'événement qui convient, c'est-à-dire, l'orbite origine
-	      \orbitnode{\(\orbit{0}\)} (respectivement \orbitnode{\(\orbit{}\)}) est
-	      connectée à un \creationnodeevent{} qui est lui-même connecté à
-	      \orbitnode{\(\orbit{0,1}\)} (respectivement \orbitnode{\(\orbit{0}\)}).
+  \item enfin, chacun des n\oe uds d'orbite d'origine est relié au n\oe ud
+		d'événement qui convient, c'est-à-dire, l'orbite origine
+		\orbitnode{\(\orbit{0}\)} (respectivement \orbitnode{\(\orbit{}\)}) est
+		connectée à un n\oe ud d'évènement \creationnodeevent{} qui est lui-même
+		connecté à \orbitnode{\(\orbit{0,1}\)} (respectivement
+		\orbitnode{\(\orbit{0}\)}).
 \end{enumerate}
 %
 Ce niveau du DAG
@@ -275,7 +276,7 @@ entre l'origine d'un événement et l'orbite d'origine d'une orbite suivie. %
 	\begin{minipage}{.25\textwidth}
 		\begin{subfigure}{\textwidth}
 			\centering
-			\includegraphics[width=\textwidth]{sc1-path-to-collapse-origin}
+			\includegraphics[width=\textwidth]{cs1-path-to-collapse-origin}
 			\caption{}
 			\label{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet}
 		\end{subfigure}
@@ -297,17 +298,18 @@ entre l'origine d'un événement et l'orbite d'origine d'une orbite suivie. %
 			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}
 		\end{subfigure}
 	\end{minipage}
-	\caption{Chemin \(@1@2\) dans
-	  (\subref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet})
-	  l'objet~;
+	\caption{Chemin \(@1.@2\) dans l'objet
+	  (\subref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet}),
+	  la règle de contraction
 	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction})
-	  la règle de contraction~;
-	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})
-	  la règle d'extrusion}
+	  et la règle d'extrusion
+	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})}
 \end{figure}
 
 Pour calculer un tel chemin, nous effectuons un parcours depuis le n\oe ud
-enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en {\color{orange}orange} dans la figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}). %
+enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en
+{\color{orange}orange} dans la
+figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}). %
 Par exemple, dans la règle de contraction, pour \(n_{2}\) comme n\oe ud de
 départ, ce chemin est constitué des arcs explicites \(1\) et \(2\). %
 Dans le DAG, il est ajouté au n\oe ud de l'orbite face qui devient
@@ -341,6 +343,15 @@ En outre, le mécanisme de nommage que nous proposons combine les avantages de
 l'analyse statique des règles (faible coût en calcul pour la détection des
 événements) et la nomination d'un échantillon d'orbites restreint à celles qui
 sont explicitement désignées par lors du processus de construction d'un objet. %
+
+\idee{Tous comme dans les travaux de Cardot, la reconstitution des évolutions
+d'orbites peuvent intégrer un type d'évènement appelé \texttt{NOEFFECT} qui
+permettent de représenter les opérations qui ne filtrent pas les orbites suivies
+dans l'historique d'une orbite. %
+Par simplicité pédagogique, nous ne présentons pas, dans ce chapitre, d'exemple
+qui intègre les n\oe uds d'évènements \noeffectnodeevent dans les DAGs. %
+De tels exemples peuvent être trouvés en annexes de ce manuscrit. %
+}
 
 %%% Local Variables:
 %%% mode: LaTeX

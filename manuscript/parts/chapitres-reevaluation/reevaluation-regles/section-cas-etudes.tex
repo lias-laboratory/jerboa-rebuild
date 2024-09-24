@@ -314,19 +314,21 @@ significatifs dans la topologie du modèle réévalué. %
 		\label{fig:reevaluation-base-regles-cs2-5-reevaluation-triangulation}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.1\textwidth}
-	\centering
-		\includegraphics[width=\textwidth]{cs2-5-reevaluation-triangulation}
-		\caption{}
-		\label{fig:reevaluation-base-regles-cs2-CANCEL-6-reevaluation-color}
-	\end{subfigure}
+	\hspace{0.1\textwidth}
+	% \begin{subfigure}[t]{0.1\textwidth}
+	% \centering
+	% 	\includegraphics[width=\textwidth]{cs2-5-reevaluation-triangulation}
+	% 	\caption{}
+	% 	\label{fig:reevaluation-base-regles-cs2-CANCEL-6-reevaluation-color}
+	% \end{subfigure}
 	\hfill
-	\begin{subfigure}[t]{0.1\textwidth}
-	\centering
-		\includegraphics[width=\textwidth]{cs2-7-reevaluation-colourFaceBlue}
-		\caption{}
-		\label{fig:reevaluation-base-regles-cs2-7-reevaluation-color}
-	\end{subfigure}
+	\hspace{0.1\textwidth}
+	% \begin{subfigure}[t]{0.1\textwidth}
+	% \centering
+	% 	\includegraphics[width=\textwidth]{cs2-7-reevaluation-colourFaceBlue}
+	% 	\caption{}
+	% 	\label{fig:reevaluation-base-regles-cs2-7-reevaluation-color}
+	% \end{subfigure}
 	\caption{Réévaluation~: (a) \texttt{1-carre(pos)}~; (b)
 		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (c)
 		\texttt{3-contractionFace(PN\textsubscript{47})}~; (d) \texttt{DELETE~4-chanfrein(PN\textsubscript{40})}~; (e)
@@ -387,9 +389,11 @@ Les aspects remarquables de cette construction et de sa réévaluation sont le
 fait que la suppression de l'application \texttt{4-chanfrein} a un impact direct
 sur l'application \texttt{6-coloration} et indirect sur l'application
 \texttt{7-coloration}. %
-En effet, l'application \texttt{6-coloration} référence la face créée par le
-chanfrein qui n'existe plus dans la réévaluation. %
-
+En effet, l'application \texttt{6-coloration} référence la face créée par
+\texttt{4-chanfrein} qui n'existe plus dans la réévaluation. %
+De la même manière, la face initialement coloriée par \texttt{7-coloration}
+n'est plus créée lors de la triangulation et ne peut donc pas être coloriée dans
+la réévaluation. %
 
 %%% Local Variables:
 %%% mode: LaTeX

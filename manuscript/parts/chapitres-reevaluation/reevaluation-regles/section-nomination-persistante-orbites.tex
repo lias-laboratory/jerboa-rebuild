@@ -1,6 +1,7 @@
 \section{Nomination persistante des orbites}
 \label{sec:reevaluation-nomination-persistante-orbites}
 
+
 Pour compléter la nomination des entités topologiques, nous réutilisons les noms
 persistants de brins pour construire les arbres d'évaluations, ou DAGs
 d'évaluations. %
@@ -8,6 +9,11 @@ Ces noms persistants sont des enregistrements de toutes les applications qui
 impactent les orbites. %
 Ces brins représentent ainsi les historiques d'évolutions des orbites auxquelles
 ils appartiennent. %
+
+
+\subsection{Reconstitution de l'historique des évolutions d'une orbite}
+\label{sec:reevaluation-base-regles-nomination-persistante-orbites-reconstitution-historique}
+
 
 Détaillons la construction du DAG d'évaluation pour le paramètre topologique l'application
 \texttt{8-colorationBleu(\pndart{35}{1n3;2n4;5n0}, Bleu)} de la construction nº~1. %
@@ -196,19 +202,42 @@ avons détectés. %
 
 Dans cet exemple, nous avons illustré la reconstitution de l'historique des
 évolutions d'une orbite à l'aide de relations de suivi et d'origine. %
-Un type d'origine est systématiquement calculé à partir d'un n\oe ud d'accroche
-à cause de l'isomorphisme et de réécritures d'arcs. %
-Toutefois, si l'orbite filtrée par le n\oe ud d'accroche peut, par sa
-suppression, avoir une importance significative, celle-ci n'est pas forcément
-une orbite d'origine. En revanche, elle appartient l'orbite filtrée par le n\oe
-ud d'accroche est toujours connexe à l'orbite d'origine. %
-Pour cette raison, nous intégrons une extension à la relation d'origine sous la
-forme d'un chemin associé à un type d'orbite. %
-Dans l'exemple que nous venons de voir, le chemin est nul car le n\oe ud
-d'accroche filtrait systématiquement l'orbite d'origine. %
-En effet, les règles de triangulation et d'extrusion n'ont qu'un seul n\oe ud
-dans leurs membres gauches respectifs. %
-%
+L'utilisation de ces relations nous permettent de représenter des orbites par
+leurs historiques complets d'évolutions et ainsi de les distinguer les unes des
+autres lorsqu'elles partageant le même processus de construction. %
+
+
+\subsection{Intégration d'un chemin d'origine}
+\label{sec:reevaluation-base-regles-nomination-persistante-orbites-integration-chemin}
+
+Reprenons la notion d'orbite d'origine d'après la
+définition~\ref{def:orbite-origine} (page~\pageref{def:orbite-origine}). %
+Du fait de la propriété d'isomorphisme des n\oe uds dans les règles Jerboa, un
+type d'origine est calculé uniquement à partir de la réécriture des arcs
+implicites d'un n\oe ud d'accroche et d'un type d'orbite \(\orbit{\omega}\). %
+Malgré le fait que le type d'une telle orbite soit calculé à partir d'un n\oe ud
+d'accroche, celui-ci ne filtre pas toujours l'orbite d'origine, elle peut
+simplement se trouver dans sa composante connexe. %
+Comme nous venons de le voir, un DAG est construit à partir de l'historique d'un
+brin. %
+Ainsi, chaque niveau d'orbite contient un n\oe ud de règle dont l'association à
+un n\oe ud d'orbite désigne une orbite dans une règle Jerboa. %
+Or, dans le processus de construction, l'orbite associée à ce n\oe ud est
+elle-même filtrée par le n\oe ud d'accroche de la règle suivante. %
+Par conséquent, l'association entre un n\oe ud de règle et un n\oe ud d'origine
+peut désigner une orbite qui n'est pas une orbite d'origine. %
+Pour cette raison, nous intégrons dans les n\oe uds d'orbite une information
+complémentaire sous la forme d'un chemin. %
+Ce chemin permet, dans la règle, de remonter jusqu'au n\oe ud de l'orbite
+d'origine à partir du n\oe ud enregistré dans le DAG. %
+
+Dans l'exemple que nous venons de voir, les orbites d'origines sont
+systématiquement filtrées par le n\oe ud d'accroche. %
+En effet, dans l'extrusion (respectivement la triangulation), l'arête
+(respectivement la face) est créée à partir d'un brin (respectivement d'une
+arête) filtré(e) par le n\oe ud d'accroche. %
+Ainsi, puisque l'origine est dans le n\oe ud d'accroche, ces chemins sont
+nuls. %
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[scale=.45]{pn55-dag-eval}

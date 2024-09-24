@@ -137,14 +137,17 @@ celui-ci est créé dans \(H_{tri}\)
 (Figures~\ref{fig:formalisation-evenements-regle-jerboa-creation-triangulation-tri-G}
 et \ref{fig:formalisation-evenements-regle-jerboa-creation-triangulation-tri-H})
 
-~
 
 L'analyse des règles Jerboa nous permet de définir ce que nous appelons les
 orbites d'origines. %
-Pour le présenter simplement, une orbite d'origine est l'ancêtre invariant d'une
-entité topologique. %
-
-\begin{definition}[Orbite d'origine]
+Pour le présenter simplement, une orbite d'origine est une orbite qui
+caractérise la création, la scission ou la fusion d'une autre orbite. %
+D'un point de vue plus pratique, l'origine est~: dans une création, l'orbite à
+partir de laquelle une autre entité est créée~; dans une scission, l'orbite qui
+permet d'en discriminer une autre parmi toutes celles issues de
+la scission~; dans une fusion, l'orbite qui permet d'identifier toutes les
+orbites fusionnées ensemble. %
+\begin{definition}[Orbite d'origine]\label{def:orbite-origine}
 	Soit une règle $r~: L \longrightarrow R$, $n$ un nœud de $R$ et $\orbit{\omega}$ un type d'orbite.
 
 	Une \emph{orbite d'origine} de $\underline{R}\orbit{\omega}(n)$ dans $L$ est une orbite $\underline{L}\orbit{\omega'}(n')$ où~:

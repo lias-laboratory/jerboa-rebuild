@@ -1,4 +1,4 @@
-\section[Réévaluation]{Réévaluation}
+\section{Réevaluation}
 \label{sec:reevaluation-base-regles-reevaluation}
 
 Afin de proposer un mécanisme d'appariement pour la réévaluation, nous nous
@@ -25,8 +25,8 @@ configurables par l'utilisateur. %
 
 Comme nous l'avons exprimé plus tôt, la construction d'un DAG de réévaluation
 consiste simplement à mettre à jour un DAG d'évaluation, étape par étape, en
-prenant en compte la nature (ou \emph{type}) des applications, c'est-à-dire
-\texttt{INIT} si elles viennent de l'évaluation \textbf{initiale} sinon
+prenant en compte le \emph{type} de chacune des applications, c'est-à-dire
+\texttt{INIT} si elles proviennent de l'évaluation \textbf{initiale} sinon
 \texttt{ADD}, \texttt{DELETE} ou encore \texttt{MOVE} si elles sont
 \textbf{ajoutées}, \textbf{supprimées} ou \textbf{déplacées} dans la
 spécification paramétrique éditée. %
@@ -269,16 +269,21 @@ l'utilisateur pour la réévaluation~: les faces \(\orbit{0,1}(37)\) et
   est référencée dans la spécification paramétrique (cf.~PN\textsubscript{12}
   pour la face à colorier en rouge) }
 
+
 %% Interruption de branche
 
 
 \todo{Exemple du PN\textsubscript{55} du cas nº~1 pour l'annulation d'évènement
   (non création d'un sommet et non création d'une face [fusion implicite])}
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[scale=.455]{cs2-pn12-dag-reeval}
+\end{figure}
 
-%% Annulation d'évènement
-
-\todo{Exemple du PN\textsubscript{12} du cas nº~2 pour l'annulation d'évènement
-  (non création d'un sommet et non création d'une face [fusion implicite])}
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[scale=.455]{cs2-pn57-dag-reeval}
+\end{figure}
 
 
 %%% Local Variables:

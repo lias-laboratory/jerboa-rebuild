@@ -20,8 +20,8 @@ configurables par l'utilisateur. %
 
 % Commençons avec la création des DAGs de réévaluations. %
 
-\subsection{Reconstruction à partir d'un DAG d'évaluation}
-\label{sec:reevaluation-base-regles-reevaluation-reconstruction}
+\subsection{Mise à jour d'un DAG d'évaluation}
+\label{sec:reevaluation-base-regles-reevaluation-dag-reevaluation}
 
 Comme nous l'avons exprimé plus tôt, la construction d'un DAG de réévaluation
 consiste simplement à mettre à jour un DAG d'évaluation, étape par étape, en
@@ -48,16 +48,6 @@ Ainsi, la méthode consiste, pour chaque application d'un type donné, à~:
 	      l'opération déplacée ou les suivantes sont toujours applicables. %
 \end{description}
 
-Prenons à nouveau l'application \texttt{8-colorationBleu} comme point de départ
-pour illustrer la création d'un DAG de réévaluation et les différentes étapes
-d'appariement des paramètres topologiques. %
-% À l'aide du DAG d'évaluation que nous avons construit plus tôt
-% (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}),
-% nous pouvons identifier l'ensemble des orbites qui correspondent, du point de
-% vue de leurs constructions respectives, à l'orbite enregistrée comme paramètre
-% topologique dans la spécification paramétrique. %
-
-
 \begin{figure}[htb!]
 	% \centering
 	\begin{subfigure}{.2\textwidth}
@@ -77,7 +67,9 @@ d'appariement des paramètres topologiques. %
 	\caption{Appariement des orbites issues de \texttt{INIT 1-carre()}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1}
 \end{figure}
-
+Reprenons l'application le nom persistant PN\textsubscript{35} comme point de départ pour
+illustrer la création d'un DAG de réévaluation et les différentes étapes
+d'appariement des paramètres topologiques. %
 La première étape d'appariement concerne l'application \texttt{INIT
 	1-carre}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1}). %
@@ -219,7 +211,7 @@ Ainsi, nous enregistrons ces deux brins dans les niveaux d'orbites du DAG. %
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width = .19\textwidth]{8-reevaluation-color}
+	\includegraphics[width = .19\textwidth]{cs1-pn35-8-reevaluation-color}
 	\caption{Fin de l'appariement du PN\textsubscript{35}}
 	\label{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}
 \end{figure}
@@ -234,10 +226,8 @@ l'utilisateur pour la réévaluation~: les faces \(\orbit{0,1}(37)\) et
 Dans cet exemple, nous avons fait le choix de réappliquer la coloration sur les
 deux faces désignées par le DAG
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}),
-mais il est tout à fait possible de définir ce que nous appelons des stratégies
-pour définir des comportements de réévaluation qui correspondent aux intentions
-de modélisation des utilisateurs. %
-
+mais il est tout à fait possible de faire un choix différent, c'est-à-dire
+appliquer une autre stratégie de réévaluation. %
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}
@@ -253,31 +243,43 @@ de modélisation des utilisateurs. %
 % 	      topologique n'est plus créé. %
 % \end{itemize}
 
-Les DAGs de réévaluation représentent l'ensemble des évolutions qui impactent,
-voir qui auraient dû impacter, l'évolution d'une orbite au cours de la
-réévaluation. %
-À l'aide des informations qu'ils contiennent, il est possible de définir des
-stratégies pour adapter le comportement du mécanisme de réévaluation selon les
-préférences des utilisateurs. %
-Nous présentons \todo{reprendre ici}
+Non seulement les DAGs de réévaluation permettent de représenter les historiques
+d'évolutions des orbites, ils permettent aussi de représenter les évènements
+annulés et ajoutés suivant l'édition d'une spécification paramétrique. %
+À l'aide de ces évènements, nous pouvons mettre en \oe uvre des stratégies pour
+adapter le comportement du mécanisme de réévaluation selon les préférences des
+utilisateurs. %
+Nous présentons ici plusieurs stratégies de réévaluations qui découlent
+directement de l'édition d'une spécification paramétrique et plus
+particulièrement de l'ajout et la suppression d'opérations. %
 
 \subsubsection*{Ajout de scission}
 
-\idee{Par exemple, dans les scissions ajoutées, (cf.~PN\textsubscript{35}), nous
-	avons choisi comme stratégie par défaut de réévaluer chacune des branches. %
-	Cependant, il est tout à fait possible pour l'utilisateur de choisir de ne
-	réévaluer que la branche principale ou d'en sélectionner d'autres.}
+Un premier exemple de réévaluation avec l'ajout d'une opération a été présenté
+la section précédente avec le DAG de réévaluation du PN\textsubscript{35}
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
+Plus particulièrement, cet exemple illustre la création d'une branche pour
+chacune des entités issues d'une scission provoquée par une opération ajoutée
+dans l'édition d'une spécification paramétrique. %
+Chacune de ces branches nous permet alors de suivre l'évolution de ces
+orbites. %
+La première stratégie que nous proposons permet aux utilisateurs de choisir
+parmi toutes ces branches lesquelles ils souhaitent suivre ou interrompre. %
+Pour cela, ils peuvent définir une stratégie par défaut, par exemple, réévaluer
+toutes les branches, ou bien réévaluer que la branche principale. %
+Au cours de la réévaluation, ils peuvent également refaire un choix et
+l'enregistrer dès qu'une nouvelle scission est ajoutée. %
 
-\subsubsection*{Suppression d'opération}
+\subsubsection*{Annulation et suppression d'évènement}
 
-\idee{Dans le cas de la suppression d'une opération dans la spécification
-	paramétrique éditée, il peut arriver que la création d'une entité ne soit pas
-	réévaluée et conduire à annulation d'un évènement. %
-	Deux cas de figure peuvent alors se présenter~: (1) l'entité non-réévaluée
-	n'est pas référencée dans la spécification paramétrique
-	(cf.~PN\textsubscript{55} pour l'arête non-créée)~; (2) l'entité non-réévaluée
-	est référencée dans la spécification paramétrique (cf.~PN\textsubscript{12}
-	pour la face à colorier en rouge) }
+% \idee{Dans le cas de la suppression d'une opération dans la spécification
+% 	paramétrique éditée, il peut arriver que la création d'une entité ne soit pas
+% 	réévaluée et conduire à annulation d'un évènement. %
+% 	Deux cas de figure peuvent alors se présenter~: (1) l'entité non-réévaluée
+% 	n'est pas référencée dans la spécification paramétrique
+% 	(cf.~PN\textsubscript{55} pour l'arête non-créée)~; (2) l'entité non-réévaluée
+% 	est référencée dans la spécification paramétrique (cf.~PN\textsubscript{12}
+% 	pour la face à colorier en rouge) }
 
 
 %% Interruption de branche

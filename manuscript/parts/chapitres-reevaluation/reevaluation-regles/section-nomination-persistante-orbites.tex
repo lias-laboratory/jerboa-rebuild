@@ -249,13 +249,9 @@ nuls. %
 Prenons le DAG d'évaluation du PN\textsubscript{55}
 (figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
 pour illustrer le calcul et l'utilisation d'un chemin pour compléter les orbites
-d'origine. %
-Lorsque nous remontons le DAG d'évaluation, nous nous intéressons à l'orbite
-\(R\orbit{1,2}(n_{2})\) de la règle de contraction
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}). %
-Cette orbite est issue d'une fusion provoquée par la contraction d'une face. %
-Autrement dit, les sommets incidents à cette face ont été fusionnés. %
-%
+d'origines. %
+Ce DAG décrit l'historique des évolutions d'un sommet issu d'une fusion
+provoquée par l'application \texttt{6-contraction}. %
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=45pt]{rule-face-collapse-origin-highlight}
@@ -263,17 +259,23 @@ Autrement dit, les sommets incidents à cette face ont été fusionnés. %
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}
 \end{figure}
 %
-Lorsque nous analysons la règle de contraction (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}), nous pouvons calculer que l'origine du sommet
-est la face incidente au n\oe ud \(n_{0}\). %
-Or, le sommet n'est créé ni par copie de la face ni par la réécriture de ses
-arcs, mais plutôt par la fusion des sommets provoquée par sa suppression. %
-Ainsi, la face est à l'origine de la fusion, mais elle n'est pas l'orbite
-d'origine du sommet qui est plutôt l'orbite \(L\orbit{1,2}(n_{2})\). %
-Le chemin, qui annote une orbite d'origine, sert donc à faire la distinction
-entre l'origine d'un événement et l'orbite d'origine d'une orbite suivie. %
+L'analyse de la règle de contraction nous apprend que l'origine de cette fusion
+est une face, comme nous pouvons aussi le voir dans le DAG, mais que cette face
+est filtrée par le n\oe ud d'accroche \(n_{0}\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}),
+Or, le sommet \(R\orbit{1,2}(n_{2})\) n'est créé ni par copie ni par la
+réécriture des arcs de la face incidente à \(n_{0}\). %
+Au contraire, la suppression de cette face provoque la fusion de ses sommets
+incidents en un seul sommet qui est celui désigné par le DAG. %
+Ainsi, la face supprimée est à l'origine de la fusion, mais elle ne permet pas,
+seule, de représenter les sommets fusionnés qui sont filtrés par l'orbite
+\(L\orbit{1,2}(n_{2})\). %
+Nous devons alors de compléter la notion d'origine à l'aide d'un contexte qui
+permet de faire la distinction entre l'origine d'un événement et une orbite
+d'origine. %
 %
 \begin{figure}[htb!]
-	\begin{minipage}{.25\textwidth}
+	\begin{minipage}[s]{.25\textwidth}
 		\begin{subfigure}{\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{cs1-path-to-collapse-origin}
@@ -290,6 +292,9 @@ entre l'origine d'un événement et l'orbite d'origine d'une orbite suivie. %
 			\caption{}
 			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}
 		\end{subfigure}
+
+		~
+
 		\begin{subfigure}{\textwidth}
 			\centering
 			\includegraphics[width=.85\textwidth]{rule-volume-face-extrusion-compact-n4-path-n6}
@@ -305,7 +310,9 @@ entre l'origine d'un événement et l'orbite d'origine d'une orbite suivie. %
 	  et la règle d'extrusion
 	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})}
 \end{figure}
-
+Ce contexte, que nous ajoutons aux origines, nous permet de faire le lien entre
+l'origine d'un évènement et une orbite d'origine et, de fait, de les
+distinguer. %
 Pour calculer un tel chemin, nous effectuons un parcours depuis le n\oe ud
 enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en
 {\color{orange}orange} dans la
@@ -344,14 +351,14 @@ l'analyse statique des règles (faible coût en calcul pour la détection des
 événements) et la nomination d'un échantillon d'orbites restreint à celles qui
 sont explicitement désignées par lors du processus de construction d'un objet. %
 
-\idee{Tous comme dans les travaux de Cardot, la reconstitution des évolutions
+Tous comme dans les travaux de Cardot, la reconstitution des évolutions
 d'orbites peuvent intégrer un type d'évènement appelé \texttt{NOEFFECT} qui
 permettent de représenter les opérations qui ne filtrent pas les orbites suivies
 dans l'historique d'une orbite. %
 Par simplicité pédagogique, nous ne présentons pas, dans ce chapitre, d'exemple
 qui intègre les n\oe uds d'évènements \noeffectnodeevent dans les DAGs. %
 De tels exemples peuvent être trouvés en annexes de ce manuscrit. %
-}
+
 
 %%% Local Variables:
 %%% mode: LaTeX

@@ -105,9 +105,9 @@ dans le DAG d'évaluation de la manière suivante~: %
 	\item les n\oe uds d'orbites de suivi \orbitnode{\(\orbit{0,1}\)} et d'origine
 	      \orbitnode{\(\orbit{0}\)} sont ajoutés au DAG~;
 	\item enfin, le n\oe ud d'événement \splitnodeevent{} est relié au n\oe ud
-				d'orbite \orbitnode{\(\orbit{0,1}\)} par une relation de suivi et au
-				n\oe ud d'orbite \orbitnode{\(\orbit{0}\)} par une \emph{relation
-				d'origine} (représentée par une flèche \textbf{\color{red}rouge}). %
+	      d'orbite \orbitnode{\(\orbit{0,1}\)} par une relation de suivi et au
+	      n\oe ud d'orbite \orbitnode{\(\orbit{0}\)} par une \emph{relation
+		      d'origine} (représentée par une flèche \textbf{\color{red}rouge}). %
 \end{enumerate}
 %
 Au terme de cette étape, le DAG
@@ -163,10 +163,10 @@ dans le DAG~:
 	\item chacun des deux n\oe uds d'événement est relié par une relation de suivi
 	      aux n\oe uds d'orbites de suivis~;
 	\item enfin, chacun des n\oe uds d'orbite d'origine est relié au n\oe ud
-				d'événement qui convient, c'est-à-dire, l'orbite origine
-				\orbitnode{\(\orbit{0}\)} (respectivement \orbitnode{\(\orbit{}\)}) est
-				connectée à un \creationnodeevent{} qui est lui-même connecté à
-				\orbitnode{\(\orbit{0,1}\)} (respectivement \orbitnode{\(\orbit{0}\)}).
+	      d'événement qui convient, c'est-à-dire, l'orbite origine
+	      \orbitnode{\(\orbit{0}\)} (respectivement \orbitnode{\(\orbit{}\)}) est
+	      connectée à un \creationnodeevent{} qui est lui-même connecté à
+	      \orbitnode{\(\orbit{0,1}\)} (respectivement \orbitnode{\(\orbit{0}\)}).
 \end{enumerate}
 %
 Ce niveau du DAG
@@ -272,31 +272,55 @@ Le chemin, qui annote une orbite d'origine, sert donc à faire la distinction
 entre l'origine d'un événement et l'orbite d'origine d'une orbite suivie. %
 %
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[height=40pt]{rule-face-collapse-n2-path-n0}
-	\caption{Chemin entre \(n_{2}\) et \(n_{0}\) dans la contraction}
-	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-contraction-chemin}
+	\begin{minipage}{.25\textwidth}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{sc1-path-to-collapse-origin}
+			\caption{}
+			\label{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet}
+		\end{subfigure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{.74\textwidth}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=.65\textwidth]{rule-face-collapse-n2-path-n0}
+			% \caption{Chemin entre \(n_{2}\) et \(n_{0}\) dans la contraction}
+			\caption{}
+			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}
+		\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=.85\textwidth]{rule-volume-face-extrusion-compact-n4-path-n6}
+			% \caption{Chemin entre \(n_{4}\) et \(n_{6}\) dans l'extrusion}
+			\caption{}
+			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}
+		\end{subfigure}
+	\end{minipage}
+	\caption{Chemin \(@1@2\) dans
+	  (\subref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet})
+	  l'objet~;
+	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction})
+	  la règle de contraction~;
+	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})
+	  la règle d'extrusion}
 \end{figure}
 
 Pour calculer un tel chemin, nous effectuons un parcours depuis le n\oe ud
-enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en {\color{orange}orange} dans la figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-contraction-chemin}). %
+enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en {\color{orange}orange} dans la figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}). %
 Par exemple, dans la règle de contraction, pour \(n_{2}\) comme n\oe ud de
 départ, ce chemin est constitué des arcs explicites \(1\) et \(2\). %
 Dans le DAG, il est ajouté au n\oe ud de l'orbite face qui devient
 \orbitnode{\(@1.@2\orbit{0,1}\)}. %
 %
-\begin{figure}[htb!]
-	\centering
-	\includegraphics[height=90pt]{rule-volume-face-extrusion-compact-n4-path-n6}
-	\caption{Chemin entre \(n_{4}\) et \(n_{6}\) dans l'extrusion}
-	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-extrusion-chemin}
-\end{figure}
+% \begin{figure}[htb!]
+% \end{figure}
 
 Une autre raison de créer ce chemin est le fait que si nous observons la règle
 d'extrusion de face, l'orbite \(R\orbit{0,1}(n_{0})\) ne filtre pas la face dont
 la suppression provoque la fusion (dans notre exemple, cela filtre une face de
 côté du cube plutôt que sa face du dessus)
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-regle-extrusion-chemin}). %
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}). %
 L'annotation du n\oe ud avec un chemin nous permet donc de remonter jusqu'à la
 face à l'origine de la fusion. %
 En effet, le parcours des arcs explicites \(1\) et \(2\) à partir du n\oe ud

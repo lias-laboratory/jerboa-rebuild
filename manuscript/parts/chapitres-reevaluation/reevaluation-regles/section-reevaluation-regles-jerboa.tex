@@ -20,7 +20,7 @@ configurables par l'utilisateur. %
 
 % Commençons avec la création des DAGs de réévaluations. %
 
-\subsection{Mise à jour d'un DAG d'évaluation}
+\subsection{Appariement des orbites}
 \label{sec:reevaluation-base-regles-reevaluation-dag-reevaluation}
 
 Comme nous l'avons exprimé plus tôt, la construction d'un DAG de réévaluation
@@ -190,7 +190,7 @@ que nous enregistrons dans les niveaux d'orbites du DAG. %
 		\raggedleft
 		\includegraphics[scale=.45]{reevaluationTree-6-export}
 		\caption{}
-		\label{fig:reevaluation-base-regle-reevaluation-pn35-dag}
+		\label{fig:reevaluation-base-regle-reevaluation-cs1-pn35-dag-reevaluation}
 	\end{subfigure}
 	\caption{Appariement des orbites issues de \texttt{INIT 5-triangulation}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35}
@@ -204,7 +204,7 @@ alors aucun dédoublement de branche n'est nécessaire. %
 Nous enregistrons donc un n\oe ud d'évènement \splitnodeevent{} ainsi qu'un n\oe
 ud d'orbite \orbitnode{\(0,1\)} dans les niveaux d'évènements et d'orbites de
 chaque branche
-(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-dag}). %
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-cs1-pn35-dag-reevaluation}). %
 Dans cette règle, les brins \(37\) et \(52\) ont été filtrés et préservés par le
 n\oe ud \(n0\) de la règle de triangulation. %
 Ainsi, nous enregistrons ces deux brins dans les niveaux d'orbites du DAG. %
@@ -227,11 +227,77 @@ Dans cet exemple, nous avons fait le choix de réappliquer la coloration sur les
 deux faces désignées par le DAG
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}),
 mais il est tout à fait possible de faire un choix différent, c'est-à-dire
-appliquer une autre stratégie de réévaluation. %
+appliquer de paramétrer le comportement de mécanisme de réévaluation. %
+
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[scale=.45]{cs1-pn55-dag-reevaluation}
+  \caption{Appariement du PN\textsubscript{55}}
+  \label{fig:reeavulation-base-regles-reevaluation-cs1-pn55-dag-reevaluation}
+\end{figure}
+
+Dans le cas du DAG de réévaluation du PN\textsubscript{55}
+(figure~\ref{fig:reeavulation-base-regles-reevaluation-cs1-pn55-dag-reevaluation}),
+la mise à jour de l'historique d'évolutions ne provoque pas la création de
+nouvelle branche et identifie un unique sommet pour réappliquer la règle de
+chanfreinage. %
+L'application \texttt{1-carre} produit une face carrée et identifie les orbites
+\(\orbit{1}(5)\) et \(\orbit{0,1}(5)\). %
+L'application ajoutée \texttt{ADD~9-insert} filtre partiellement ces deux
+orbites donc nous n'enregistrons pas de \noeffectnodeevent{} dans le DAG. %
+À l'exception de \texttt{DELETE~3-insert}, les autres applications se déroulent
+de manière quasi identique à l'évaluation initiale. %
+Contrairement à l'évaluation initiale, où le DAG
+(figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
+(page~\pageref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
+enregistre deux n\oe uds d'évènements \modifnodeevent{}, nous pouvons voir lors
+de la réévaluation que la suppression de \texttt{3-insert} annule ces deux
+évènements qui sont alors remplacés par des n\oe uds \nomodifnodeevent{}. %
+
+Lors de la réévaluation d'une spécification paramétrique éditée, et plus
+précisément lorsqu'une application est supprimée, nous gardons dans les DAGs une
+trace des évènements qui sont annulés. %
+Afin correspondre à la réalité de la réévaluation, ces évènements sont remplacés
+par d'autres évènements qui décrivent leurs annulations dans la phase
+d'appariement. %
+Ainsi un n\oe ud \creationnodeevent{} est remplacé par un
+\nocreationnodeevent{}~; \splitnodeevent{} est remplacé par
+\nosplitnodeevent{}~; \mergenodeevent{} est remplacé par \nomergenodeevent{}~;
+\modifnodeevent{} est remplacé par \nomodifnodeevent{}. %
+Notons que les n\oe uds d'évènements \nomodifnodeevent{} ne sont pas
+remplacés. %
+En effet, si l'application d'une règle ne modifie une orbite, son annulation ne
+peut pas la modifier non plus. %
+
+Ce  suivi  des évènements  annulés  répond  à  une problématique,  soulevée  par
+Bidarra~\cite{bidarra2005feature}, concernant la nécessité de garantir qu'il est
+possible de réévaluer un modèle paramétrique. %
+Avec  la représentation  des évènements  annulés, nous  maintenons une  forme de
+persistance des évènements entre l'évaluation initiale et la réévaluation. %
+Ainsi, lorsqu'une orbite référencée dans la spécification paramétrique n'est pas
+re-créée  lors de  la  réévaluation, nous  pouvons  tout simplement  interrompre
+l'étape d'appariement et terminer la réévaluation sans erreur. %
+
+\begin{figure}[htb!]
+	\begin{subfigure}{.4\textwidth}
+		\centering
+		\includegraphics[scale=.45]{cs2-evaluationTree-4}
+	\end{subfigure}
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[scale=.45]{cs2-pn12-dag-reeval}
+	\end{subfigure}
+\end{figure}
+
+
+Par exemple, dans le cas d'étude nº~2, l'opération de chanfrein n'est pas
+réévaluée (figures~\ref{fig:reevaluation-base-regles-cs2-4-evaluation-chamfer}
+et \ref{fig:reevaluation-base-regles-cs2-reevaluation}
+page~\pageref{fig:reevaluation-base-regles-cs2-reevaluation}). %
+\todo{reprendre ici}
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}
-
 
 % \begin{itemize}
 % 	\item Définir stratégie (interactive et pré-définie)~;
@@ -250,53 +316,63 @@ annulés et ajoutés suivant l'édition d'une spécification paramétrique. %
 adapter le comportement du mécanisme de réévaluation selon les préférences des
 utilisateurs. %
 Nous présentons ici plusieurs stratégies de réévaluations qui découlent
-directement de l'édition d'une spécification paramétrique et plus
-particulièrement de l'ajout et la suppression d'opérations. %
+directement de l'édition d'une spécification paramétrique avec l'ajout et la
+suppression d'opérations. %
 
 \subsubsection*{Ajout de scission}
 
-Un premier exemple de réévaluation avec l'ajout d'une opération a été présenté
-la section précédente avec le DAG de réévaluation du PN\textsubscript{35}
+Nous présentons un premier exemple de scission ajoutée avec le DAG de
+réévaluation du PN\textsubscript{35}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
-Plus particulièrement, cet exemple illustre la création d'une branche pour
-chacune des entités issues d'une scission provoquée par une opération ajoutée
-dans l'édition d'une spécification paramétrique. %
-Chacune de ces branches nous permet alors de suivre l'évolution de ces
-orbites. %
-La première stratégie que nous proposons permet aux utilisateurs de choisir
-parmi toutes ces branches lesquelles ils souhaitent suivre ou interrompre. %
-Pour cela, ils peuvent définir une stratégie par défaut, par exemple, réévaluer
-toutes les branches, ou bien réévaluer que la branche principale. %
-Au cours de la réévaluation, ils peuvent également refaire un choix et
-l'enregistrer dès qu'une nouvelle scission est ajoutée. %
+De manière générale, lorsqu'une scission est ajoutée, une branche de suivi
+d'orbites est ajoutée dans le DAG pour chacune des orbites issues de la scission
+de l'orbite initialement suivie. %
+Ce comportement nous permet de représenter plusieurs historiques d'évolutions et
+ainsi proposer plusieurs options de réévaluation aux utilisateurs. %
+C'est à partir de ces choix que nous pouvons définir des stratégies de
+réévaluations et ainsi permettre aux utilisateurs de configurer le comportement
+du mécanisme de réévaluation selon leurs projets de modélisation. %
 
-\subsubsection*{Annulation et suppression d'évènement}
+Une première stratégie, celle que nous avons utilisée par défaut lors de la
+réévaluation du PN\textsubscript{35}, est de réappliquer une opération sur la
+totalité des orbites désignées par un DAG. %
+Le résultat obtenu est la coloration des deux faces incidentes aux brins \(37\)
+et \(52\)
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}). %
 
-% \idee{Dans le cas de la suppression d'une opération dans la spécification
-% 	paramétrique éditée, il peut arriver que la création d'une entité ne soit pas
-% 	réévaluée et conduire à annulation d'un évènement. %
-% 	Deux cas de figure peuvent alors se présenter~: (1) l'entité non-réévaluée
-% 	n'est pas référencée dans la spécification paramétrique
-% 	(cf.~PN\textsubscript{55} pour l'arête non-créée)~; (2) l'entité non-réévaluée
-% 	est référencée dans la spécification paramétrique (cf.~PN\textsubscript{12}
-% 	pour la face à colorier en rouge) }
+Une deuxième stratégie serait de ne réévaluer que l'orbite désignée par la
+branche principale du DAG. %
+Dans notre exemple, cela reviendrait à ne colorier que la face incidente au brin
+\(37\). %
 
+Enfin, une dernière stratégie consiste à proposer, lors de la réévaluation, les
+orbites sur lesquelles réappliquer une opération. %
+Dans ce cas, les utilisateurs ont la possibilité de désigner explicitement les
+orbites de leur choix et de sauvegarder cette configuration. %
+Cette dernière option laisse alors un certain degré de liberté quant à
+l'exploration dans la conception d'un objet. %
+\maxime{J'ai tenté quelque chose, mais je ne suis pas sûr que ce soit le bon
+  endroit pour ça.} %
+
+
+\subsubsection*{Annulation d'évènements}
+
+%%
+
+Dans le cas de la suppression d'une opération dans la spécification paramétrique
+éditée, il peut arriver que la création d'une entité ne soit pas réévaluée et
+conduire à annulation d'un évènement. %
+Deux cas de figure peuvent alors se présenter~: (1) l'entité non-réévaluée n'est
+pas référencée dans la spécification paramétrique (cf.~PN\textsubscript{55} pour
+l'arête non-créée)~; (2) l'entité non-réévaluée est référencée dans la
+spécification paramétrique (cf.~PN\textsubscript{12} pour la face à colorier en
+rouge)
 
 %% Interruption de branche
 
 
 \todo{Exemple du PN\textsubscript{55} du cas nº~1 pour l'annulation d'évènement
 	(non création d'un sommet et non création d'une face [fusion implicite])}
-\begin{figure}[htb!]
-	\begin{subfigure}{.4\textwidth}
-		\centering
-		\includegraphics[scale=.455]{cs2-evaluationTree-4}
-	\end{subfigure}
-	\begin{subfigure}{.6\textwidth}
-		\centering
-		\includegraphics[scale=.455]{cs2-pn12-dag-reeval}
-	\end{subfigure}
-\end{figure}
 
 \begin{figure}[htb!]
 	\centering

@@ -113,7 +113,7 @@
 	\langle#1\rangle%
 }
 \newcommand{\node}[1]{%
-  n\textsubscript{#1}%
+	n\textsubscript{#1}%
 }
 
 \newcommand{\pndart}[2]{%
@@ -180,26 +180,57 @@
 }
 
 \newcommand{\todo}[1]{%
-  \textbf{\highlight{TODO: #1}}%
+	\textbf{\highlight{TODO: #1}}%
 }
 
 \newcommand{\idee}[1]{%
 	{\color{mylightblue}#1}%
 }
 
-\newcommand{\splitnodeevent}{\eventnode{SPLIT}}
-\newcommand{\mergenodeevent}{\eventnode{MERGE}}
-\newcommand{\creationnodeevent}{\eventnode{CREATION}}
-\newcommand{\modifnodeevent}{\eventnode{MODIFICATION}}
-\newcommand{\nomodifnodeevent}{\eventnode{NOMODIF}}
-\newcommand{\noeffectnodeevent}{\eventnode{NOEFFECT}}
+\newcommand{\roundedbox}[2]{%
+	\tcbox[on line,
+		size=tight,
+		arc=1mm,
+		outer arc=1mm,
+		colframe=#1,
+		colback=white,
+		boxsep=1pt,
+		nobeforeafter,
+		left=2pt,
+		right=2pt,
+		top=2pt,
+		bottom=2pt
+		]{#2}%
+	  }
 
-\newcommand{\nosplitnodeevent}{\eventnode{NOSPLIT}}
-\newcommand{\nomergenodeevent}{\eventnode{NOMERGE}}
-\newcommand{\nocreationnodeevent}{\eventnode{NOCREATION}}
+\newcommand{\sharpbox}[1]{
+	\tcboxmath[
+		on line,
+		size=fbox,
+		sharp corners=all,
+		colframe=black,
+		colback=white,
+		boxsep=0pt,
+		nobeforeafter,
+		right=1pt,
+		left=1pt,
+		top=1pt,
+		bottom=1pt
+	]{#1}}
 
-\newcommand{\eventnode}[1]{\ovalbox{\small\texttt{#1}}}
-\newcommand{\orbitnode}[1]{\fbox{\small{#1}}}
+\newcommand{\splitnodeevent}[1][black]{\eventnode{#1}{SPLIT}}
+\newcommand{\mergenodeevent}[1][black]{\eventnode{#1}{MERGE}}
+\newcommand{\creationnodeevent}[1][black]{\eventnode{#1}{CREATION}}
+\newcommand{\modifnodeevent}[1][black]{\eventnode{#1}{MODIFICATION}}
+\newcommand{\nomodifnodeevent}[1][black]{\eventnode{#1}{NOMODIF}}
+\newcommand{\noeffectnodeevent}[1][black]{\eventnode{#1}{NOEFFECT}}
+
+\newcommand{\nosplitnodeevent}[1][black]{\eventnode{#1}{NOSPLIT}}
+\newcommand{\nomergenodeevent}[1][black]{\eventnode{#1}{NOMERGE}}
+\newcommand{\nocreationnodeevent}[1][black]{\eventnode{#1}{NOCREATION}}
+
+\newcommand{\eventnode}[2]{\roundedbox{#1}{\texttt{#2}}}
+\newcommand{\orbitnode}[1]{\(\sharpbox{#1}\)}
 
 %%% Local Variables:
 %%% mode: latex

@@ -100,13 +100,13 @@ dans le DAG d'évaluation de la manière suivante~: %
 	\item la racine du DAG est intégrée dans un niveau d'orbite qui est annoté par le n\oe ud \(n_{0}\) issu du nom persistant~;
 	\item un niveau d'événement, annoté par le numéro d'application et le nom de la règle, est ensuite créé et contient un n\oe ud d'événement correspondant à la scission détecté pour l'orbite \(\orbit{0,1}(n_{0})\)~;
 	\item une flèche \textbf{noire} est créée entre le n\oe ud d'événement
-	      \splitnodeevent{} et le n\oe ud d'orbite \orbitnode{\(\orbit{0,1}\)} pour marquer
-	      une \emph{relation de suivi}~;
-	\item les n\oe uds d'orbites de suivi \orbitnode{\(\orbit{0,1}\)} et d'origine
-	      \orbitnode{\(\orbit{0}\)} sont ajoutés au DAG~;
+	      \splitnodeevent{} et le n\oe ud d'orbite \orbitnode{\orbit{0,1}}
+	      pour marquer une \emph{relation de suivi}~;
+	\item les n\oe uds d'orbites de suivi \orbitnode{\orbit{0,1}} et d'origine
+	      \orbitnode{\orbit{0}} sont ajoutés au DAG~;
 	\item enfin, le n\oe ud d'événement \splitnodeevent{} est relié au n\oe ud
-	      d'orbite \orbitnode{\(\orbit{0,1}\)} par une relation de suivi et au
-	      n\oe ud d'orbite \orbitnode{\(\orbit{0}\)} par une \emph{relation
+	      d'orbite \orbitnode{\orbit{0,1}} par une relation de suivi et au
+	      n\oe ud d'orbite \orbitnode{\orbit{0}} par une \emph{relation
 		      d'origine} (représentée par une flèche \textbf{\color{red}rouge}). %
 \end{enumerate}
 %
@@ -162,12 +162,12 @@ dans le DAG~:
 	\item les n\oe uds d'origines sont ajoutés au DAG~;
 	\item chacun des deux n\oe uds d'événement est relié par une relation de suivi
 	      aux n\oe uds d'orbites de suivis~;
-  \item enfin, chacun des n\oe uds d'orbite d'origine est relié au n\oe ud
-		d'événement qui convient, c'est-à-dire, l'orbite origine
-		\orbitnode{\(\orbit{0}\)} (respectivement \orbitnode{\(\orbit{}\)}) est
-		connectée à un n\oe ud d'évènement \creationnodeevent{} qui est lui-même
-		connecté à \orbitnode{\(\orbit{0,1}\)} (respectivement
-		\orbitnode{\(\orbit{0}\)}).
+	\item enfin, chacun des n\oe uds d'orbite d'origine est relié au n\oe ud
+	      d'événement qui convient, c'est-à-dire, l'orbite origine
+	      \orbitnode{\orbit{0}} (respectivement \orbitnode{\orbit{}}) est
+	      connectée à un n\oe ud d'évènement \creationnodeevent{} qui est lui-même
+	      connecté à \orbitnode{\orbit{0,1}} (respectivement
+	      \orbitnode{\orbit{0}}).
 \end{enumerate}
 %
 Ce niveau du DAG
@@ -304,23 +304,23 @@ d'origine. %
 		\end{subfigure}
 	\end{minipage}
 	\caption{Chemin \(@1.@2\) dans l'objet
-	  (\subref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet})~;
-	  règle de contraction
-	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction})~;
-	  la règle d'extrusion
-	  (\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})}
+		(\subref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet})~;
+		règle de contraction
+		(\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction})~;
+		la règle d'extrusion
+		(\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})}
 \end{figure}
 Ce contexte, que nous ajoutons aux origines, nous permet de faire le lien entre
 l'origine d'un évènement et une orbite d'origine et, de fait, de les
 distinguer. %
 Pour calculer un tel chemin, nous effectuons un parcours depuis le n\oe ud
 enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en
-{\color{orange}orange} dans la
+	{\color{orange}orange} dans la
 figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}). %
 Par exemple, dans la règle de contraction, pour \(n_{2}\) comme n\oe ud de
 départ, ce chemin est constitué des arcs explicites \(1\) et \(2\). %
 Dans le DAG, il est ajouté au n\oe ud de l'orbite face qui devient
-\orbitnode{\(@1.@2\orbit{0,1}\)}. %
+\orbitnode{@1.@2\orbit{0,1}}. %
 %
 % \begin{figure}[htb!]
 % \end{figure}

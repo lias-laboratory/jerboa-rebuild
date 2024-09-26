@@ -1,9 +1,10 @@
-\section[Modélisation à base de règles]{Modélisation à base de règles}
-\label{sec:etat-art-model-regles}
+\chapter{Outils pour la modélisation à base de règles}
+\label{cha:outils-modelisation-base-regles}
 
-La modélisation à base de règle est un paradigme de modélisation proposant
-l'usage de règles pour formaliser les opérations de modélisation dans le but de
-créer et éditer des modèles de dimensions quelconques. %
+\todo{Enrichir l'intro}
+
+La modélisation à base de règle est une famille d'outils de modélisation qui propose
+l'utilisation de règles pour formaliser les opérations de modélisation dans le but de créer et éditer des modèles de dimensions quelconques. %
 Pour générer et modifier ces modèles, les systèmes existants utilisent des grammaires
 (L-Systèmes~\cite{lindenmayer1974adding,bohl2015modeling,terraz20093gmap}). %
 Dans ce manuscrit, l'approche qui nous intéresse est celle qui représente les
@@ -13,16 +14,11 @@ Jerboa~\cite{belhaouari2014jerboa} et leurs applications sur un modèle de
 représentation appelé carte
 généralisée~\cite{lienhardt1994n,Damiand-Lienhardt14}. %
 
-\subsection[Graphe et transformation de graphe]{Graphe et transformation de graphe}
+
+\section[Graphe et transformation de graphe]{Graphe et transformation de graphe}
 \label{sec:etat-art-model-regles-graphe-et-transfo}
 
-% Les structures topologiques peuvent être représentées par des graphes dont les
-% arcs établissent des relations d'adjacences entre les n\oe uds.
-%
-% Ces structures peuvent être, par exemple, des cellules telles que les volumes,
-% faces, arêtes et sommets lorsque le modèle de représentation est en dimension
-% 3. %
-% De tels graphes sont appelés des graphes topologiques. %
+
 Afin de formaliser la représentation et la transformation d'objets issus d'un
 processus de modélisation géométrique, nous nous intéressons à leur
 représentation sous la forme de \emph{graphes
@@ -68,14 +64,14 @@ Prenons l'exemple du graphe étiqueté illustré dans la
 figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}. %
 Pour ce graphe, les ensembles d'étiquettes pour les n\oe uds $\mathcal{C}_{V}$ et pour les
 arcs $\mathcal{C}_{E}$ sont définis sur le même ensemble de couleurs
-$\{{\color{orange}orange},{\color{mydarkgreenink}vert},{\color{myblueink}bleu},{\color{mydarkpurpleink}violet}\}$. %
+$\{{\color{orange}orange},{\color{Chartreuse4}vert},{\color{DodgerBlue1}bleu},{\color{purple}violet}\}$. %
 L'ensemble $V$ des n\oe uds est constitué des n\oe uds $a,b,c$ et $d$ et l'ensemble
 $E$ des arcs est constitué des arcs $e_{1}, e_{2}, e_{3}$ et $e_{4}$. %
 Ce graphe est construit de telle sorte que $e_{1}$ a respectivement pour source
 et cible les n\oe uds $a$ et $b$. %
 Enfin, les n\oe uds $a$ et $b$ sont respectivement étiquetés par les couleurs
-${\color{orange}orange}$ et ${\color{mydarkpurpleink}violet}$ et l'arc $e_{1}$ est étiqueté par
-la couleur ${\color{mydarkgreenink}verte}$. %
+${\color{orange}orange}$ et ${\color{purple}violet}$ et l'arc $e_{1}$ est étiqueté par
+la couleur ${\color{Chartreuse4}verte}$. %
 
 \begin{definition}[Morphisme]
 	\label{def:morphismes-graphes}
@@ -324,17 +320,17 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 		\label{fig:etat-art-model-regles-sous-graphe-genere}
 	\end{subfigure}
 	\caption{Génération du sous-graphe
-		$G' = G\orbit{{\color{mydarkgreenink}vert},{\color{orange}orange}}(a)$}
+		$G' = G\orbit{{\color{Chartreuse4}vert},{\color{orange}orange}}(a)$}
 	\label{fig:etat-art-model-regles-sous-graphe}
 \end{figure}
 
 Dans la Figure~\ref{fig:etat-art-model-regles-sous-graphe}, nous
 définissons $G'$ comme un sous-graphe de $G$ généré à partir du n\oe ud $a$ et des
-étiquettes d'arcs $\orbit{{\color{mydarkgreenink}vert},{\color{orange}orange}}$. %
+étiquettes d'arcs $\orbit{{\color{Chartreuse4}vert},{\color[HTML]{ff8000}orange}}$. %
 Le sous-graphe illustré dans la
 Figure~\ref{fig:etat-art-model-regles-sous-graphe-genere} est généré
 à partir du n\oe ud $a$, les n\oe uds $b$ et $c$ sont atteint au travers des arcs
-$e_{1}$ et $e_{2}$ respectivement à travers {\color{mydarkgreenink}vert} et {\color{orange}orange}. %
+$e_{1}$ et $e_{2}$ respectivement à travers {\color{Chartreuse4}vert} et {\color{orange}orange}. %
 En fin de compte, $G'$ comporte les n\oe uds $a, b, c$ et les arcs $e_{1}, e_{2}$. %
 
 Un dernier concept essentiel pour l'utilisation des graphes et celui de chemin. %
@@ -472,7 +468,7 @@ Dans la transformation directe présentée, le n\oe ud $d$ est l'arc $e_{3}$
 sont supprimés et remplacés par la boucle $e_{5}$. %
 
 
-\subsection[Les cartes généralisées]{Les cartes généralisées}
+\section[Les cartes généralisées]{Les cartes généralisées}
 \label{sec:etat-art-model-regles-gcartes}
 
 
@@ -513,19 +509,19 @@ topologiques cellulaires de dimension quelconque.
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-3-cell}
-		\caption{\centering 3-liaisons\\({\color{mydarkgreenink}\textbf{—}})}
+		\caption{\centering 3-liaisons\\({\color{Chartreuse4}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-3-cell}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-2-cell}
-		\caption{\centering 2-liaisons\\ ({\color{myblueink}\textbf{—}})}
+		\caption{2-liaisons\\ ({\color{DodgerBlue1}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-2-cell}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-1-cell}
-		\caption{\centering 1-liaisons\\ ({\color{Red1}\textbf{—}})}
+		\caption{1-liaisons\\ ({\color{Red1}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-1-cell}
 	\end{subfigure}
 	\hfill
@@ -627,7 +623,7 @@ générales que des cellules, par exemple, l'arête de volume dans la
 Figure~\ref{fig:etat-art-model-regle-gcarte-orbite-02} contient les brins
 atteignables par des liaisons $0$ et $2$. %
 
-\subsection[Langage Jerboa]{Langage Jerboa}
+\section[Langage Jerboa]{Langage Jerboa}
 \label{sec:etat-art-model-regles-lang-jerboa}
 
 % \todo{Dans cette thèse, on ne s'intéresse qu'à un aspect purement topologique
@@ -649,7 +645,7 @@ Ensuite, nous étendons ces concepts aux règles de transformation de graphe
 Jerboa~\cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological}. %
 Enfin, nous terminons avec les scripts de règles~\cite{gauth2019}. %
 
-\subsubsection[Règles de transformation de graphe]{Règles de transformation de graphe}
+\subsection[Règles de transformation de graphe]{Règles de transformation de graphe}
 \label{sec:etat-art-model-regles-lang-jerboa-regles-inst}
 
 % Les règles de transformation de G-cartes sont les règles instanciées de Jerboa.
@@ -744,7 +740,7 @@ ce, indépendamment de l'objet. %
 	Grâce à la condition d'arc incident, l'orbite $L\orbit{\omega}(n)$ est complète si et seulement si $G\orbit{\omega}(m(n))$ est entièrement filtrée. %
 \end{remarque}
 
-\subsubsection[Règles Jerboa]{Règles Jerboa}
+\subsection[Règles Jerboa]{Règles Jerboa}
 \label{sec:etat-art-model-regles-regles-jerboa}
 
 Comme pour les règles de base, les conditions syntaxiques suivantes sur les règles permettent de garantir la préservation des contraintes des G-cartes lors des transformations directes~\cite{pascual2022topological}.
@@ -1289,7 +1285,7 @@ s'étend naturellement sur les règles Jerboa. %
 	et seulement si $G\orbit{\omega}(b)$ est entièrement filtrée. %
 \end{remarque}
 
-\subsubsection[Scripts de règles]{Scripts de règles}
+\subsection[Scripts de règles]{Scripts de règles}
 \label{sec:etat-art-model-regles-jerboa-scripts}
 
 {\HUGE \todo{}}

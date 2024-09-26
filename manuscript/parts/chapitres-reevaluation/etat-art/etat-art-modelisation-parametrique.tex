@@ -1,5 +1,5 @@
-\section[Modélisation paramétrique]{Modélisation paramétrique}
-\label{sec:etat-art-modelisation-parametrique}
+\chapter{État de l'art : modélisation paramétrique}
+\label{chap:etat-art-modelisation-parametrique}
 
 Le domaine de la CAO utilise de nombreux outils de modélisation, dont les
 systèmes paramétriques qui permettent la génération de variations d'un modèle à
@@ -15,14 +15,15 @@ contraintes. %
 Finalement, le processus constructif est rejoué, ou réévalué, automatiquement, ce qui
 génère une variation d'un objet initialement construit, selon les modifications
 effectuées. %
-Dans cette section, nous commençons par définir plus précisément la notion de
+Dans ce chapitre, nous commençons par définir plus précisément la notion de
 \textit{système paramétrique} et plus particulièrement sa structure, ainsi que
 les concepts permettant de réévaluer ces modèles. %
 Nous verrons que la réévaluation peut poser problème lorsque le système ne gère
 pas correctement les références associées aux entités topologiques et qu'il
 convient, dans ce cas, d'intégrer un mécanisme de \textit{nomination persistante}. %
 
-~
+\section{Approches de modélisation paramétriques}
+\label{sec:etat-art-approches-modelisation-parametrique}
 
 Un système paramétrique peut être considéré comme une structure duale avec
 d'une part la représentation explicite, ou \emph{couche géométrique}, d'un
@@ -33,14 +34,11 @@ avec leurs paramètres. %
 Elle peut être modifiée et réévaluée, afin de générer de nouvelles
 représentations explicites selon les modifications effectuées. %
 
-~
-
-On distingue deux principales approches dans le cadre de la
+Nous distinguons deux principales approches dans le cadre de la
 modélisation paramétrique, chacune avec son type de
 spécification. %
 La première est l'approche \emph{équationnelle} (ou \emph{variational}). %
 La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
-
 
 \subsection{Approche équationnelle (ou \textit{variational})}
 \label{sec:etat-art-modelisation-parametric-approche-equationnelle}
@@ -154,7 +152,7 @@ figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fon
 
 La première opération crée un cube paramétré par les trois valeurs
 \texttt{long\_c}, \texttt{haut\_c} et \texttt{prof\_c}. %
-On s'intéresse en particulier à trois entités topologiques nommées $f_{1}$, $e_{1}$ et $e_{2}$, qui
+Nous nous intéressons, en particulier, à trois entités topologiques nommées $f_{1}$, $e_{1}$ et $e_{2}$, qui
 sont respectivement la face avant du cube et ses arêtes verticales gauche
 ($e_{1}$) et droite ($e_{2}$). %
 La deuxième opération, appliquée sur $f_{1}$, creuse une rainure dans cette face et coupe l'arête $e_{2}$
@@ -204,7 +202,7 @@ Lors de la réévaluation et lorsqu'une entité référencée dans la spécifica
 paramétrique cesse d'exister, il devient alors impossible d'utiliser sa
 référence et ainsi produire une	nouvelle représentation explicite du modèle sans utiliser un mécanisme de nomination plus robuste. %
 
-\subsection{Nomination persistante}
+\section{Nomination persistante}
 \label{sec:etat-art-reevaluation-nomination-persistante}
 
 L'exemple précédent illustre le besoin auquel doit répondre un mécanisme de nomination persistante~: pouvoir régénérer un modèle malgré des références invalides. %
@@ -218,7 +216,7 @@ c'est-à-dire retrouver dans le nouveau modèle les entités qui avaient été
 initialement désignées pour appliquer les opérations de modélisation. %
 
 
-\subsubsection{Nomination des entités} \label{sec:etat-art-modelisation-parametric-nomination-utilisation-nom}
+\subsection{Nomination des entités} \label{sec:etat-art-modelisation-parametric-nomination-utilisation-nom}
 
 
 En dehors de tout concept de réévaluation, il est possible de désigner une
@@ -253,7 +251,7 @@ Ce mécanisme s'impose alors comme une troisième couche dans les systèmes de
 modélisation paramétrique, entre la spécification paramétrique et la
 représentation explicite. %
 
-\subsubsection{Appariement des entités}
+\subsection{Appariement des entités}
 \label{sec:etat-art-modelisation-parametrique-nomination-appariement}
 
 Comme nous l'avons vu, lorsque la spécification paramétrique est modifiée et
@@ -280,7 +278,7 @@ correspondance avec $e_{x}$ et $e_{y}$ et d'appliquer l'opération d'arrondi sur
 l'une et/ou l'autre de ces arêtes. %
 
 
-\subsection{Classification des méthodes de nomination persistante}
+\section{Classification des méthodes de nomination persistante}
 \label{sec:etat-art-reevaluation-approches-nommages}
 
 
@@ -297,7 +295,7 @@ les plus significatifs pour résoudre le problème de la nomination persistante
 et, enfin, nous proposons une synthèse de ces méthodes. %
 
 
-\subsubsection{Concepts communs de la nomination persistante}
+\subsection{Concepts communs de la nomination persistante}
 \label{sec:etat-art-reevaluation-classification-concepts-communs}
 
 Les différents systèmes de nomination persistante s'appuient, explicitement ou
@@ -308,7 +306,7 @@ Cela permet de mettre en \oe uvre des mécanismes spécifiques pour la nominatio
 et l'appariement. %
 
 
-\subsubsection*{Distinction des entités invariantes et contingentes}
+\paragraph*{Distinction des entités invariantes et contingentes}
 
 
 \begin{figure}[htbp!]
@@ -377,7 +375,7 @@ crée deux nouvelles faces contingentes. %
 % résoudre le problème. %
 
 
-\subsubsection*{Entités issues d'extrusion ou de révolution}
+\paragraph*{Entités issues d'extrusion ou de révolution}
 
 
 Le deuxième concept est un mécanisme de nomination des entités invariantes
@@ -439,7 +437,7 @@ où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 \end{figure}
 
 
-\subsubsection*{Entités avec et sans sources}
+\paragraph*{Entités avec et sans sources}
 
 Le troisième concept commun que l'on retrouve dans la plupart des approches,
 même s'il n'est pas toujours défini de manière explicite, propose de distinguer
@@ -486,7 +484,7 @@ supérieure. %
 Une conséquence de cela, que nous pouvons constater, même si cela n'est pas exprimé de façon explicite, c'est qu'aujourd'hui dans la plupart des modeleurs 3D, les mécanismes de nomination s'appuient sur les faces. %
 En effet, le fait qu'elles soient invariantes ou qu'elles aient systématiquement une source les rend plus facilement identifiables et permet par voie de conséquence une nomination plus robuste des autres entités. %
 
-\subsubsection*{Utilisation d'un historique de noms}
+\paragraph*{Utilisation d'un historique de noms}
 
 Le quatrième concept commun dans la littérature concerne l'utilisation d'un
 historique permettant de \textit{tracer l'évolution} des ancêtres invariants. %
@@ -513,7 +511,7 @@ Dans ce DAG, un n\oe ud, appelé un \textit{FaceIdNode}, représente une face
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=.6\textwidth]{kripac-faceid-graph}
+	\includegraphics[width=.5\textwidth]{kripac-faceid-graph}
 	\caption{DAG de suivi de face dans un modèle~\cite{kripac1995mechanism}}
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-kripac}
 \end{figure}
@@ -578,46 +576,39 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %\david{il me
 
 Un exemple de construction implicite d'un historique par héritage des noms des
 ancêtres invariants est celui développé par Wu et al.~\cite{wu2001face}. %
-\maxime{
-	Le système de Wu et al. propose différents schémas de nomination, par exemple
-	celui pour les entités extrudées, qui génèrent des noms uniques, pour attribuer
-	à chaque entité topologique générée un nom unique appelé \emph{original name}
-	(\(\mathit{on}\)). %
-}
+Le système de Wu et al. propose différents schémas de nomination, par exemple
+celui pour les entités extrudées, qui attribut un nom unique appelé \emph{original name} (\(on\)) à chaque entité topologique générée. %
+
 % Les auteurs proposent plusieurs schémas de nominations, par exemple celui pour les
 % entités extrudées, qui intègre les ancêtres invariants de l'entité nommée. %
 % Une telle nomination crée, de manière implicite, une forme d'historique dans
 % la mesure où, pour toute entité topologique, celle-ci permet de remonter
 % l'histoire à son ancêtre invariant et ainsi de suite. \david{Je persiste à dire que tu ne devrais pas parler d'historique implicite durant la phase de construction des entités créées par extrusion.  L'extrusion permet de construire les ON de départ. C'est une fois ces ON créés que Wu explique comment il va les propager aux descendants sur les entités de même dimension. "L'arbre" implicite commence ici. Pas avant.}%
-\maxime{Une fois les \(\mathit{on}\) attribués, ce système met en \oe uvre un
-	mécanisme de propagation des noms persistants
-	(Figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu})
-	qui, lors d'une scission par exemple, propage le nom d'une entité à chacune
-	des deux entités scindées, autrement dit aux entités descendantes de même
-	dimension. %
-	C'est cette mécanique de propagation de nom qui, implicitement, construit un
-	historique de noms. %
-} Un tel exemple est illustré dans la
+Une fois les \(on\) attribués, ce système met en \oe uvre un
+mécanisme de propagation des noms persistants
+(Figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu})
+qui, lors d'une scission par exemple, propage le nom d'une entité à chacune
+des deux entités scindées, autrement dit aux entités descendantes de même
+dimension. %
+C'est cette mécanique de propagation de nom qui, implicitement, construit un
+historique de noms. %
+Un tel exemple est illustré dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-scission}. %
 Suite à la différence entre les deux blocs, une pièce (\textit{part body}) et
 une caractéristique (\textit{feature body}), la face désignée par $F$ est
 scindée en deux faces $F1$ et $F2$. %
-$F$ porte un nom \(\mathit{on}\) qui est propagé aux faces $F1$ et $F2$ qui ont
+$F$ porte un nom \(on\) qui est propagé aux faces $F1$ et $F2$ qui ont
 alors le même nom persistant. %
 Pour la fusion, illustrée dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion},
 les faces \(F1\) et \(F2\), nommées \(on1\) et \(on2\) respectivement, sont
 fusionnées. %
 Dans cette approche, puisque \(on2\) est associé à une face de la \textit{part
-	body}, c'est ce nom qui est propagé \maximeSup{et qui devient $on3$ dans} à
-la pièce finale. % \david{je préfèrerais que tu mettes on2 sur la figure dans la
-% pièce finale, parce que ça me fait toujours bizarre de parler de nom qui se
-% propage alors qu'on le change sur la fusion et qu'on garde le même sur la
-% scission.}
-%
+	body}, c'est ce nom qui est propagé à
+la pièce finale. %
 
 
-\subsubsection*{Nomination hétérogène des entités}
+\paragraph*{Nomination hétérogène des entités}
 
 
 Le cinquième concept commun concerne l'hétérogénéité des schémas de nomination
@@ -638,24 +629,17 @@ plus à lever les ambiguïtés, par exemple lorsque deux arêtes issues d'une
 opération de différence auraient un voisinage identique. %
 L'inconvénient de définir un schéma de nomination ainsi est que chaque système
 est défini pour une dimension de modélisation précise et que la généralisation
-vers d'autres dimensions est \maximeSup{au minimum} complexe et
-\maxime{nécessite une redéfinition complète des mécanismes de nomination}. %
-\maximeSup{au pire
-	impossible} % \david{je ne pense pas que ce soit impossible. C'est complexe et il faut tout refaire.}
+vers d'autres dimensions est complexe et
+nécessite une redéfinition complète des mécanismes de nomination. %
 
-\maxime{Déplacement du paragraphe des entités de dim 3+ ici}
-Dans ses travaux, Baba-Ali~\cite{babaali2010systeme} \maxime{met en évidence une autre
-	limitation (conséquence?) liée à la nomination hétérogène des entités
-	topologiques.} %
-Dans la littérature, peu de méthodes traitent la nomination des agrégats
+Dans ses travaux, Baba-Ali~\cite{babaali2010systeme} met en évidence une conséquence liée à la nomination hétérogène des entités topologiques. %
+Dans la littérature, peu de méthodes traitent la nomination d'entités de dimensions supérieures au faces ou d'agrégats
 d'entités, tels que les agrégats de faces aussi appelées coques dans les
 systèmes de modélisation 3D. %
 Rappelons que la plupart des systèmes de nomination persistante sont basés sur
-les faces pour définir les autres entités, le plus souvent les arêtes et
-sommets, comme des intersections de faces. %
-Ces mêmes systèmes sont donc, par essence, inadaptés à la nomination d'autres
-agrégats que les coques. %
-Il existe donc, dans les systèmes de modélisation paramétrique, un manque à
+les faces pour définir les autres entités, le plus souvent les arêtes et sommets comme des intersections de faces, et sur des mécanismes de nomination hétérogènes en fonction de la dimension. %
+Par essence, ces systèmes sont donc inadaptés à une extension naturelle des mécanismes de nomination vers de nouvelles entités. %
+Il existe ainsi, dans les systèmes de modélisation paramétrique, un manque à
 combler en ce qui concerne la nomination des volumes, agrégats et autres
 entités de dimension supérieures aux faces. %
 Permettre leur nomination offrirait aux utilisateurs de logiciels CAO une plus
@@ -664,21 +648,21 @@ grande marge de man\oe uvre dans leurs processus constructifs. %
 
 
 
-\subsubsection*{Nomination des entités issues d'intersections non-planaires}
+\paragraph*{Nomination des entités issues d'intersections non-planaires}
 
 
-\maxime{Le sixième concept concerne la mise en \oe uvre d'un mécanisme capable
-	de lever l'ambiguïté pour les entités topologiques issues d'intersections de
-	surfaces non-planaires.} %
+Le sixième concept concerne la mise en \oe uvre d'un mécanisme capable
+de lever l'ambiguïté pour les entités topologiques issues d'intersections de
+surfaces non-planaires. %
 Les intersections d'entités non-planaires sont souvent sources d'ambiguïtés et
 compliquent la nomination des entités topologiques issues de ces
 intersections. %
 Les systèmes de nomination utilisent la plupart du temps d'abord la topologie
 pour caractériser les entités. %
-En effet, dans ce cas, les voisinages plus ou moins
-étendus~\cite{chen1995editability} \david{ajouter ref Chen\maxime{celui-là ou la
-		thèse ?}} permettent systématiquement de distinguer les entités. %
-A l'inverse, lors de l'intersection avec une ou plusieurs entités non-planaires,
+En effet, dans le cas d'intersections planaires, les voisinages plus ou
+moins étendus~\cite{chen1995representation} permettent systématiquement de distinguer les entités. %
+A
+l'inverse, lors de l'intersection avec une ou plusieurs entités non-planaires,
 l'information topologique seule ne suffit plus toujours à distinguer les entités
 générées. %
 En effet, les entités issues d'une telle intersection peuvent partager
@@ -689,35 +673,36 @@ d'utiliser des informations géométriques permettant de lever ces ambiguïtés.
 
 \begin{figure}
 	\centering
-	\begin{subfigure}{.6\textwidth}
-		\includegraphics[width=\textwidth]{persistent-naming-pb-1}
+	\begin{subfigure}{.32\textwidth}
+        \centering
+		\includegraphics[width=.6\textwidth]{chen-persistent-naming-problem-1}
         \caption{Évaluation initiale}
 		\label{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-1}
-
 	\end{subfigure}
-	\begin{subfigure}{.6\textwidth}
-		\includegraphics[width=\textwidth]{persistent-naming-pb-2}
-	   \caption{Réévaluation}
+    \hfill
+	\begin{subfigure}{.32\textwidth}
+        \centering
+		\includegraphics[width=.6\textwidth]{chen-persistent-naming-problem-2}
+	    \caption{Réévaluation}
 		\label{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-2}
 	\end{subfigure}
-	\caption{Intersection de deux cylindres}
-		\label{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme}
+    \hfill
+    \begin{subfigure}{.32\textwidth}
+        \centering
+		\includegraphics[width=.6\textwidth]{chen-persistent-naming-problem-3}
+	       \caption{Réévaluation}
+		\label{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-3}
+	\end{subfigure}
+	\caption{Exemple d'intersection de cylindres par Chen}
+	\label{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme}
 \end{figure}
-\maxime{%
-Prenons l'exemple de cylindres dont l'intersection creuse une rainure arrondie
-(figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme})
-. %
-Dans l'évaluation initiale
-(figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-1}),
-la rainure scinde la face \(f_{1}\) en deux faces qui possèdent exactement le
-même voisinage topologique. %
-Une protrusion est ensuite ajoutée sur la face \(f_{2}\). %
-Lors de la réévaluation
-(figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-2}),
-la rainure ne scinde plus \(f_{1}\) en deux, \(f_{2}\) n'existe plus, et les
-informations topologique de la face modifiée \(f_{x}\) faire l'association entre
-\(f_{2}\) et \(f_{x}\) et donc de re-créer la protrusion . %
-}
+Prenons l'exemple illustré dans la figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme}. %
+Dans l'évaluation initiale (figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-1}), une première opération creuse une rainure cylindrique dans un cylindre. %
+Cette opération crée deux arêtes le long de la rainure dont les voisinages topologiques contiennent les mêmes faces. %
+La deuxième opération arrondie ensuite l'une de ces deux arêtes. %
+Dans la réévaluation (figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-2}), l'intersection est déplacée sur un bord du cylindre et ne crée plus qu'une seule des deux arêtes. %
+Le problème présenté dans cet exemple et le suivant~: puisque les deux arêtes de l'évaluation initiale ont exactement le même voisinage topologique, dans la réévaluation il est possible que l'appariement désigne la mauvaise arête pour ré-appliquer l'opération d'arrondi (figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-3}). %
+Ici, la topologie n'est pas suffisante pour discriminer les deux arêtes et faire le bon appariement lors de la réévaluation. %
 
 Ainsi, la plupart des systèmes proposent d'ajouter des informations géométriques
 aux noms persistants pour permettre l'identification des entités issues de
@@ -733,15 +718,14 @@ coupe permet alors de distinguer deux entités symétriques. %
 
 % \david{cite aussi l'article de babaali. Je peux te filer l'article si tu vois
 % 	pas duquel je veux parler}
-\maxime{ Baba-Ali et al~\cite{baba2009method}
-	prennent en considération la courbure d'une surface, à savoir ses extremums
-	locaux (des bosses et des creux), pour la partitionner. %
-	L'information géométrique obtenue pour chaque sous-surface permet alors
-	d'améliorer l'appariement des arêtes. %
-}
+Baba-Ali et al~\cite{baba2009method}
+prennent en considération la courbure d'une surface, à savoir ses extremums
+locaux (des bosses et des creux), pour la partitionner. %
+L'information géométrique obtenue pour chaque sous-surface permet alors
+d'améliorer la caractérisation et l'appariement des arêtes. %
 
 
-\subsubsection*{Structure des plateformes qui intègrent la nomination persistante}
+\paragraph*{Structure des plateformes qui intègrent la nomination persistante}
 
 
 Le dernier des concepts communs que nous présentons concerne l'\textit{extension} de
@@ -763,7 +747,7 @@ produit l'architecture à trois couches suivante~:
 
 % \david{Je pense qu'il faudrait réorganiser cette partie en virant la partie 2.4.2 Concepts distinctifs de la nomination persistante. Pourquoi ? Parce que premièrement, le premier point  "Nomination des entités issues d’intersections non-planaires" est un truc que tu peux déplacer au dessus dans la section 2.4.1 car justement la plupart des approches le font : utiliser la géométrie quand la topo ne suffit plus (Bon c'est vrai que certaines approches proposent d'utiliser que la géométrie et pas la topo, mais bon, tu n'en parles pas). D'ailleurs c'est ce que tu dis toit même dans ton texte : "Ainsi, la plupart des systèmes proposent d’ajouter des informations géométriques aux noms persistants pour permettre l’identification des entités issues de telles intersections". Deuxièmement, le deuxième point "Nomination des entités de dimension supérieure à 2" peut être intégré très facilement au 5ème concept commun "Nomination hétérogène des entités" en disant qu'un conséquence de cette manière de nommer de façon hétérogène en utilisant la dim n-1 c'est que justement on peut difficilement nommer des entités de dim supérieure et donc qu'il n'existe que très peu de travaux dessus à part baba ali. Du coup pour résumer, tu vires 2.4.2, tu mets le contenu au dessus comme expliqué.}
 
-% \subsubsection*{Nomination des entités de dimension supérieure à 2}
+% \paragraph*{Nomination des entités de dimension supérieure à 2}
 
 
 % Cet élément distinctif, énoncé dans les travaux de
@@ -782,13 +766,13 @@ produit l'architecture à trois couches suivante~:
 % une plus grande marge de man\oe uvre dans leurs processus constructifs. %
 
 
-\subsubsection[Systèmes de nomination persistante]{Systèmes de nomination persistante}
+\subsection[Systèmes de nomination persistante]{Systèmes de nomination persistante}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
 Dans cette section, nous proposons de décrire les différents systèmes publiés et de présenter leurs avantages et limitations dans le cadre de la réévaluation. %
 
 
-\subsubsection*{Kripac (1995) \xavier{Lu}}
+\paragraph*{Kripac (1995)}
 
 
 Dans ses travaux, Kripac propose un système pour répondre au problème de la
@@ -865,7 +849,7 @@ manière dont ces correspondances sont représentées et gérées dans le graphe
 sur l'impact que cela aura sur les futurs appariements. %
 
 
-\subsubsection*{Capoyleas et al. (1996) \xavier{Lu}}
+\paragraph*{Capoyleas et al. (1996)}
 
 
 
@@ -1012,7 +996,7 @@ peut avoir du sens lorsqu'il s'agit de voisins relativement proches, mais il est
 difficile d'imaginer le sens et l'impact que pourrait avoir l'utilisation de
 voisins plus éloignés sur le rejeu. %
 
-\subsubsection*{Wu et al. (2001) \xavier{Lu}}
+\paragraph*{Wu et al. (2001)}
 
 
 Wu et al.~\cite{wu2001face} s'intéressent à la nomination des entités
@@ -1057,10 +1041,9 @@ trajectoire. %
 La valeur \(InsNum\) désigne chacun des cylindres à l'aide d'un numéro
 d'instanciation où \(0\) désigne l'instance d'origine, c'est-à-dire celle qui
 est dupliquée. %
-\maxime{Comme nous l'avons vu plus tôt, Wu et al. proposent d'associer leur
-	système de nomination à un mécanisme de propagation des \(on\) des faces,
-	lorsqu'elles sont scindées et fusionnées, à leurs faces descendantes.}
-	% \david{il y a un pb dans cette phrase.}%
+Comme nous l'avons vu plus tôt, Wu et al. proposent d'associer leur
+système de nomination à un mécanisme de propagation des \(on\) des faces,
+lorsqu'elles sont scindées et fusionnées, à leurs faces descendantes.
 
 Pour compléter la nomination et permettre la distinction des entités dont le
 nom est ambigu, Wu et al. proposent d'utiliser une information d'espace
@@ -1120,10 +1103,10 @@ Malgré tout, les travaux de Farjana s'appuient sur les travaux de Wu et
 al., et leurs travaux présentent les mêmes limitations. %
 
 
-% \subsubsection*{Agbodan}
+% \paragraph*{Agbodan}
 
 
-\subsubsection*{Bidarra (2005) \xavier{Lu}}
+\paragraph*{Bidarra (2005)}
 
 
 
@@ -1170,7 +1153,7 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 
 	      \begin{figure}[htb!]
 		      \centering
-		      \includegraphics[height=100pt]{bidarra-exemple-classes-references}
+		      \includegraphics[height=90pt]{bidarra-exemple-classes-references}
 		      \caption{Plan de référence}
 		      \label{fig:etat-art-modelisation-parametrique-syntheses-bidarra-classes-references}
 	      \end{figure}
@@ -1329,10 +1312,10 @@ En effet, un plan ne permet de scinder efficacement l'espace que pour un
 savoir les plans, les cylindres, les sphères et les tores. %
 
 
-% \subsubsection*{Baba-Ali}
+% \paragraph*{Baba-Ali}
 
 
-\subsubsection*{Cardot (2019) \xavier{Lu}}
+\paragraph*{Cardot (2019)}
 \label{sec:etat-art-reevaluation-synthese-cardot}
 
 
@@ -1354,7 +1337,7 @@ en deux couches~: (1) création d'un identifiant persistant pour tout brin d'une
 G-carte~; (2) création d'un nom persistant à partir d'un ensemble
 minimal d'identifiants persistants pour chaque entité topologique, ici
 une orbite au sens des cartes généralisées, référencée dans la spécification
-paramétrique. \david{pourquoi mettre minimal en italique ?}\maxime{Si minimal est le terme exacte pour exprimer la réduction du nombre de PI pour constituer un PN, ou en tout cas si le terme ne te pose pas de problème, alors n'y a pas, je pense, de raison de laisser l'italique}%
+paramétrique.%
 
 L'identification persistante des brins est justifiée par les propriétés
 suivantes~:
@@ -1549,15 +1532,15 @@ omettent d'intégrer une origine (et leurs propres suivis) pour les entités
 suivies, ce qui peut conduire à un appariement erroné des entités topologiques
 lors de la réévaluation et à plus forte raison lorsque des opérations ont été
 ajoutées, supprimées ou encore déplacées dans l'édition de la spécification
-paramétrique. De plus la méthode proposée par Cardot est "purement théorique" et
-n'a pas été implémentée~\cite{cardot2019}~(page
-117). % \david{toto ajouter la réf à sa thèse page 117 où elle dit ça}
-\maxime{Notons aussi que dans ses travaux, Cardot travaille uniquement sur des opérations élémentaires. C'est-à-dire des opérations de modélisation dont la structure interne ne permet pas~: la répétition d'une procédure, d'avoir un comportement différent selon l'entité topologique désignée, d'appliquer une séquence de procédures distinctes. }
+paramétrique.
+Notons aussi que dans ses travaux, Cardot étudie uniquement des opérations élémentaires (règles simples) et non des opérations complexes correspondant à des scripts règles. %
+De plus, comme l'indique Cardot, la méthode proposée est "purement théorique" et
+n'a pas été implémentée~\cite{cardot2019}~(page~117). %
 Il est difficile dans ce contexte de mesurer l'impact réel de cette approche et
 la pertinence du mécanisme de nomination sur des cas concrets.
 
 
-\subsubsection*{Cascaval (2023) \xavier{Lu}}
+\paragraph*{Cascaval (2023)}
 
 
 Dans leurs travaux~\cite{cascaval2023lineage}, Cascaval et al. proposent de
@@ -1714,11 +1697,11 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 	      moins il a une idée précise des contraintes à intégrer, \textit{a priori}. %
 	      Il est donc difficile de prévoir et garantir la persistance d'un nom avant l'édition et la
         réévaluation d'une spécification paramétrique, c'est-à-dire avant l'apparition des problèmes
-        d'appariement. \david{juste un petit message pour te dire que ce paragraphe sur Cascaval est top.}\maxime{merci, c'est une idée que tu avais proposé d'ajouter en mai (quand tu as relu la v1 du résumé)}%
+        d'appariement.%
 \end{itemize}
 
 
-% \subsubsection*{Synthèse}
+% \paragraph*{Synthèse}
 % \label{sec:etat-art-modelisation-parametrique-synthese}
 
 
@@ -1765,7 +1748,7 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 % 	\end{tabular}
 % \end{table}
 
-\subsection{Conclusion}
+\section{Conclusion}
 
 \begin{sidewaystable}[htbp!]
 	\centering
@@ -1849,11 +1832,11 @@ contributions. %
 La première est une méthode qui permet la détection des changements
 topologiques pour toutes entités topologiques statiquement à partir des seules
 règles Jerboa. %
-Notre deuxième contribution est la mise en \oe uvre d'un système de réévaluation basé sur un historique complet d'évolution intégrant les origines et le suivit de chaque entité référencée dans la spécification. Notre troisième contribution concerne l'implémentation et l'intégration \maxime{dans l'application Jerboa} de l'ensemble des mécanismes proposés \maximeSup{au sein de l'application Jerboa}. \david{je te laisse reformuler cette dernière phrase. pas sur que ce soit "au sein", c'est peut être au dessus ou à partir...} %
+Notre deuxième contribution est la mise en \oe uvre d'un système de réévaluation basé sur un historique complet d'évolution intégrant les origines et le suivit de chaque entité référencée dans la spécification. Notre troisième contribution concerne l'implémentation et l'intégration dans l'application Jerboa de l'ensemble des mécanismes proposés. %
 Enfin, nous étendons ce système de réévaluation à des scripts qui permettent de manipuler
  des règles Jerboa à l'aide de structures de contrôle et plus
 particulièrement des itérations de sous-orbites et des structures
-conditionnelles. \david{Ah oui, c'est vrai en lisant ça je pense que tu devrais aussi ajouter dans la partie limitation du travail de Cardot qu'elle ne travaille que sur des opérations élémentaires)}\maxime{j'ai fait une tentative}%
+conditionnelles.%
 
 
 %%% Local Variables:

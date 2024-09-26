@@ -195,7 +195,8 @@ que nous enregistrons dans les niveaux d'orbites du DAG. %
 	\caption{Appariement des orbites issues de \texttt{INIT 5-triangulation}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35}
 \end{figure}
-La dernière étape d'appariement du PN\textsubscript{35} est l'application
+
+La dernière étape pour l'appariement du PN\textsubscript{35} est l'application
 \texttt{INIT 5-triangulation}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
 Lors de cette scission, les faces suivies dans chacune des branches sont
@@ -281,30 +282,27 @@ l'étape d'appariement et terminer la réévaluation sans erreurs d'appariement.
 \begin{figure}[htb!]
 	\begin{subfigure}{0.5\linewidth}
 		\centering
-		\includegraphics[width=.5\textwidth]{cs2-6-evaluation-colourFaceRed}
+		\includegraphics[width=.3\textwidth]{cs2-6-evaluation-colourFaceRed}
 		\caption{}
 		\label{fig:reevaluation-base-regles-evaluation--cas2-pn12}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.5\linewidth}
 		\centering
-		\includegraphics[width=.5\textwidth]{cs2-7-reevaluation-colourFaceBlue}
+		\includegraphics[width=.3\textwidth]{cs2-7-reevaluation-colourFaceBlue}
 		\caption{}
 		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn12}
 	\end{subfigure}
-
-	~
-
-	\begin{subfigure}{.49\textwidth}
+	\begin{subfigure}[t]{.5\textwidth}\vskip 0pt
 		\centering
-		\includegraphics[scale=.45]{cs2-evaluationTree-4}
+		\includegraphics[height=250pt]{cs2-evaluationTree-4}
 		\caption{}
 		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-eval}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}{.49\textwidth}
+	\vrule
+	\begin{subfigure}[t]{.5\textwidth}\vskip 0pt
 		\centering
-		\includegraphics[scale=.45]{cs2-pn12-dag-reeval}
+		\includegraphics[height=250pt]{cs2-pn12-dag-reeval}
 		\caption{}
 		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval}
 	\end{subfigure}
@@ -338,7 +336,7 @@ au niveau d'évènement 4, nous pouvons voir que l'application
 réévaluation
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval}),
 celui-ci est remplacé un n\oe ud d'évènement \nocreationnodeevent[red]{} en
-{\color{red}rouge}. %
+	{\color{red}rouge}. %
 La conséquence immédiate de cet évènement est l'interruption de l'appariement
 pour ce nom persistant afin de respecter les intentions de conceptions de
 l'utilisateur, ce qui donne l'objet illustré dans la
@@ -367,7 +365,7 @@ Nous présentons ici plusieurs stratégies de réévaluations qui découlent
 directement de l'édition d'une spécification paramétrique avec l'ajout et la
 suppression d'opérations. %
 
-\subsubsection*{Ajout de scission}
+\paragraph*{Ajout de scission}
 
 Nous présentons un premier exemple de scission ajoutée avec le DAG de
 réévaluation du PN\textsubscript{35}
@@ -403,29 +401,160 @@ l'exploration dans la conception d'un objet. %
 	endroit pour ça.} %
 
 
-\subsubsection*{Annulation d'évènements}
+\paragraph*{Annulation d'évènements}
 
-%%
+\begin{figure}[htb!]
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{cs2-7-evaluation-colourFaceBlue}
+		\caption{}
+		\label{fig:reevaluation-base-regles-evaluation-cas2-pn57}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{cs2-7-reevaluation-colourFaceBlue}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}
+	\end{subfigure}
+	\begin{subfigure}[b]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[width=.98\textwidth]{cs2-pn57-dag-eval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-eval}
+	\end{subfigure}
+	\vrule
+	\begin{subfigure}[b]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[width=.98\textwidth]{cs2-pn57-dag-reeval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-reeval}
+	\end{subfigure}
+	\caption{Appariement du PN\textsubscript{57} du cas d'étude nº~2, objet initial (\subref{fig:reevaluation-base-regles-evaluation-cas2-pn57}),
+		objet re-généré
+		(\subref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}),
+		DAGs d'évaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-eval})
+		et de réévaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-reeval})
+	}
+	\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57}
+\end{figure}
 
-Dans le cas de la suppression d'une opération dans la spécification paramétrique
-éditée, il peut arriver que la création d'une entité ne soit pas réévaluée et
-conduire à annulation d'un évènement. %
-Deux cas de figure peuvent alors se présenter~: (1) l'entité non réévaluée n'est
-pas référencée dans la spécification paramétrique (cf.~PN\textsubscript{55} pour
-l'arête non créée)~; (2) l'entité non réévaluée est référencée dans la
-spécification paramétrique (cf.~PN\textsubscript{12} pour la face à colorier en
-rouge)
+Dans l'exemple de l'appariement du PN\textsubscript{12}
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12}),
+nous avons montré que le suivi des évènements et de leurs annulations nous
+permet de prévenir le risque de mauvais appariement d'orbites et de produire des
+objets qui respectent les intentions de conception d'un utilisateur. %
+Une stratégie, que nous illustrons dans la
+figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57},
+consiste à étendre cette restriction aux orbites d'origines. %
+Dans cet exemple, lors de l'évaluation initiale, la face à colorier en bleu
+provient d'une face scindée et est désignée par une arête (elle-même créée par
+l'application \texttt{4-chanfrein}). %
+Or, dans la réévaluation cette application est supprimée est l'arête n'est pas
+créée. %
+Comme illustré dans la
+figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}, la
+conséquence de cette suppression d'application est que la face à colorier n'est
+pas re-créée. %
+De plus, l'orbite sommet \(\orbit{1}\) à partir de laquelle devait être créée
+l'arête, même si elle pourrait aisément discriminer une face \(orbit{0,1}\)
+d'une autre, ne correspond pas à une origine de face scindée par la règle de
+triangulation. %
+Ainsi, un tel appariement ne correspondrait, \textit{a priori}, en rien aux
+intentions de conceptions de l'utilisateur %
+Au contraire, une alternative consisterait à demander à l'utilisateur
+s'il souhaite ou non faire l'appariement sur une telle orbite. %
+Dans le cas de notre exemple, cela reviendrait à colorier la face triangulaire à
+droite. %
+
+\begin{figure}[htb!]
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{9-evaluation-color}
+		\caption{}
+		\label{fig:reevaluation-base-regles-evaluation-cas1-pn68}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{9-reevaluation-color}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}
+	\end{subfigure}
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[height=420pt]{cs1-pn68-dag-eval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}
+	\end{subfigure}
+	\vrule
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[height=420pt]{cs1-pn68-dag-reeval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval}
+	\end{subfigure}
+	\caption{Appariement du PN\textsubscript{68} du cas d'étude nº~1, objet
+		initial (\subref{fig:reevaluation-base-regles-evaluation-cas1-pn68}),
+		objet re-généré
+		(\subref{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}),
+		DAGs d'évaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval})
+		et de réévaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval})
+	}
+	\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}
+\end{figure}
+
+Dans certains cas, la suppression d'une application peut annuler un évènement de
+scission, voire de fusion. %
+Ces suppressions provoquent alors, indirectement, des effets inverses à ceux des
+évènements annulés. %
+Par exemple, dans l'évaluation de notre cas d'étude nº~1
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}),
+l'application \texttt{3-insert} crée un sommet qui est extrudé en une arête par
+l'application \texttt{4-extrusionFaceVolume}. %
+L'une des face, le long de cette arête est ensuite coloriée en rouge par
+l'application \texttt{7-coloration}
+(figures~\ref{fig:reevaluation-base-regles-evaluation-cas1-pn68} et
+\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}). %
+Dans la spécification paramétrique éditée, l'application \texttt{3-insert} est
+supprimée. %
+Le sommet n'est donc plus créé ni extrudé dans la réévaluation
+(figures~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}
+et~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval}). %
+Ainsi, et de manière indirecte, la suppression de cette application a fusionné
+deux faces qui étaient distinctes dans l'évaluation initiale. %
+Dans l'hypothèse ou les deux faces sont transformées dans l'évaluation initiale,
+une stratégie pourrait être de ne rien faire et laisser les transformations être
+résolues de manière séquentielle. %
+Par exemple, si l'autre face avait été coloriée en vert après que la face rouge
+ait été coloriée, alors la stratégie résoudrait ces deux opérations l'une après
+l'autre et au terme de la modélisation, la face serait coloriée en vert. %
+Au contraire, une alternative consisterait à laisser l'utilisateur choisir les
+opérations qu'il souhaite réappliquer sur cette face. %
+
+% Dans le cas de la suppression d'une opération dans la spécification paramétrique
+% éditée, il peut arriver que la création d'une entité ne soit pas réévaluée et
+% conduire à annulation d'un évènement. %
+% Deux cas de figure peuvent alors se présenter~: (1) l'entité non réévaluée n'est
+% pas référencée dans la spécification paramétrique (cf.~PN\textsubscript{55} pour
+% l'arête non créée)~; (2) l'entité non réévaluée est référencée dans la
+% spécification paramétrique (cf.~PN\textsubscript{12} pour la face à colorier en
+% rouge)
 
 %% Interruption de branche
 
 
-\todo{Exemple du PN\textsubscript{55} du cas nº~1 pour l'annulation d'évènement
-	(non-création d'un sommet et non création d'une face [fusion implicite])}
+% \todo{Exemple du PN\textsubscript{55} du cas nº~1 pour l'annulation d'évènement
+% 	(non-création d'un sommet et non création d'une face [fusion implicite])}
 
-\begin{figure}[htb!]
-	\centering
-	\includegraphics[scale=.455]{cs2-pn57-dag-reeval}
-\end{figure}
 
 
 %%% Local Variables:

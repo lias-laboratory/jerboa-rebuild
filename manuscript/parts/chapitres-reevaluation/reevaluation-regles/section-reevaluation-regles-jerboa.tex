@@ -1,4 +1,4 @@
-\section{Réevaluation}
+\section{Réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation}
 
 Afin de proposer un mécanisme d'appariement pour la réévaluation, nous nous
@@ -270,6 +270,7 @@ remplacés. %
 En effet, si l'application d'une règle ne modifie une orbite, son annulation ne
 peut pas la modifier non plus. %
 
+\maxime{J'ai tenté une comparaison de notre usage des « non évènements » au critère de persistance des références de Bidarra. Si tu as la problématique en tête je te laisse aviser sinon j'en discuterai avec David. En tout cas, c'est une phrase qui peut sauter si elle est fausse/n'apporte rien. }
 Ce suivi des évènements annulés répond à une problématique, soulevée par
 Bidarra~\cite{bidarra2005feature}, concernant la nécessité de garantir qu'il est
 possible de réévaluer un modèle paramétrique. %
@@ -365,6 +366,8 @@ Nous présentons ici plusieurs stratégies de réévaluations qui découlent
 directement de l'édition d'une spécification paramétrique avec l'ajout et la
 suppression d'opérations. %
 
+\maxime{Dans les paragraphes suivants, je pense à mettre des tableau pour afficher différentes représentations de modèles selon les stratégie de réévaluation.}
+
 \paragraph*{Ajout de scission}
 
 Nous présentons un premier exemple de scission ajoutée avec le DAG de
@@ -417,7 +420,7 @@ l'exploration dans la conception d'un objet. %
 		\caption{}
 		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}
 	\end{subfigure}
-	\begin{subfigure}[b]{.5\textwidth}
+	\begin{subfigure}[t]{.5\textwidth}
 		\vskip 0pt
 		\centering
 		\includegraphics[width=.98\textwidth]{cs2-pn57-dag-eval}
@@ -425,7 +428,7 @@ l'exploration dans la conception d'un objet. %
 		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-eval}
 	\end{subfigure}
 	\vrule
-	\begin{subfigure}[b]{.5\textwidth}
+	\begin{subfigure}[t]{.5\textwidth}
 		\vskip 0pt
 		\centering
 		\includegraphics[width=.98\textwidth]{cs2-pn57-dag-reeval}
@@ -454,14 +457,13 @@ consiste à étendre cette restriction aux orbites d'origines. %
 Dans cet exemple, lors de l'évaluation initiale, la face à colorier en bleu
 provient d'une face scindée et est désignée par une arête (elle-même créée par
 l'application \texttt{4-chanfrein}). %
-Or, dans la réévaluation cette application est supprimée est l'arête n'est pas
-créée. %
+Or, dans la réévaluation, cette application est supprimée et l'arête d'origine
+de la face à colorer n'est pas re-créée. %
 Comme illustré dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}, la
-conséquence de cette suppression d'application est que la face à colorier n'est
-pas re-créée. %
+conséquence est que cette face aussi n'est pas re-créée.
 De plus, l'orbite sommet \(\orbit{1}\) à partir de laquelle devait être créée
-l'arête, même si elle pourrait aisément discriminer une face \(orbit{0,1}\)
+l'arête, même si elle pourrait aisément discriminer une face \(\orbit{0,1}\)
 d'une autre, ne correspond pas à une origine de face scindée par la règle de
 triangulation. %
 Ainsi, un tel appariement ne correspondrait, \textit{a priori}, en rien aux
@@ -520,7 +522,7 @@ Par exemple, dans l'évaluation de notre cas d'étude nº~1
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}),
 l'application \texttt{3-insert} crée un sommet qui est extrudé en une arête par
 l'application \texttt{4-extrusionFaceVolume}. %
-L'une des face, le long de cette arête est ensuite coloriée en rouge par
+L'une des faces, le long de cette arête, est ensuite coloriée en rouge par
 l'application \texttt{7-coloration}
 (figures~\ref{fig:reevaluation-base-regles-evaluation-cas1-pn68} et
 \ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}). %
@@ -531,7 +533,7 @@ Le sommet n'est donc plus créé ni extrudé dans la réévaluation
 et~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval}). %
 Ainsi, et de manière indirecte, la suppression de cette application a fusionné
 deux faces qui étaient distinctes dans l'évaluation initiale. %
-Dans l'hypothèse ou les deux faces sont transformées dans l'évaluation initiale,
+Dans l'hypothèse où les deux faces sont transformées dans l'évaluation initiale,
 une stratégie pourrait être de ne rien faire et laisser les transformations être
 résolues de manière séquentielle. %
 Par exemple, si l'autre face avait été coloriée en vert après que la face rouge

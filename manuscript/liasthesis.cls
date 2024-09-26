@@ -335,7 +335,7 @@
 
 \makechapterstyle{customveelo}{%
 	\setlength{\afterchapskip}{40pt}
-	\renewcommand*{\chapterheadstart}{\vspace*{2cm}}
+	\renewcommand*{\chapterheadstart}{\thispagestyle{empty}\vspace*{2cm}}
 	\renewcommand*{\afterchapternum}{\par\nobreak\vskip 25pt}
 	\renewcommand*{\chapnamefont}{\normalfont\LARGE\flushright}
 	\renewcommand*{\chapnumfont}{\fontfamily{tgtermes}\normalfont\bfseries\HUGE\color{nord10}}

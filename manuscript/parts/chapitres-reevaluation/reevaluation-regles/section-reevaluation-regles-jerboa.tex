@@ -3,16 +3,16 @@
 
 Afin de proposer un mécanisme d'appariement pour la réévaluation, nous nous
 appuyons à nouveau sur les travaux de Cardot. %
-Dans ses travaux, elle procède à l'appariement à partir des journaux
+Elle procède à l'appariement à partir des journaux
 d'historiques qu'elle propose de mettre à jour dans des DAGs (voir
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-historique}
 page~\pageref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-historique}
 et
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-arbre-appariement}
 page~\pageref{fig:etat-art-modelisation-parametrique-synthese-cardot-arbre-appariement}). %
-Notre approche est très similaire dans le sens où nous effectuons l'appariement
-progressivement au cours de la réévaluation grâce à la mise à jour de nos DAGs
-d'évaluations. %
+Notre approche est très similaire, dans le sens où nous effectuons l'appariement
+progressivement au cours de la réévaluation, grâce à la mise à jour de nos DAGs
+d'évaluation. %
 La différence entre nos deux approches se trouve, d'une part, dans le niveau de
 détail proposé par nos DAGs et, d'autre part, par la possibilité de les
 exploiter pour mettre en \oe uvre des stratégies de réévaluation qui sont
@@ -25,9 +25,9 @@ configurables par l'utilisateur. %
 
 Comme nous l'avons exprimé plus tôt, la construction d'un DAG de réévaluation
 consiste simplement à mettre à jour un DAG d'évaluation, étape par étape, en
-prenant en compte le \emph{type} de chacune des applications, c'est-à-dire
-\texttt{INIT} si elles proviennent de l'évaluation \textbf{initiale} sinon
-\texttt{ADD}, \texttt{DELETE} ou encore \texttt{MOVE} si elles sont
+prenant en compte le \emph{type} de chacune des applications, c'est-à-dire:
+\texttt{INIT} si elles proviennent de l'évaluation \textbf{initiale}, sinon
+\texttt{ADD}, \texttt{DELETE} ou encore \texttt{MOVE} si elles sont respectivement
 \textbf{ajoutées}, \textbf{supprimées} ou \textbf{déplacées} dans la
 spécification paramétrique éditée. %
 Enfin, et à l'inverse de la construction d'un DAG d'évaluation, un DAG de
@@ -83,7 +83,7 @@ produits pour toute application sur tout objet. %
 
 Nous pouvons alors reproduire le premier niveau d'application du DAG
 d'évaluation qui contient deux n\oe uds d'évènements \creationnodeevent{} et
-deux n\oe uds d'orbite brin \orbitnode{\orbit{}} et arête
+deux n\oe uds d'orbites brin \orbitnode{\orbit{}} et arête
 \orbitnode{\orbit{0}} incidentes au n\oe ud \(n_{3}\). %
 Comme évoqué plus tôt, dans un DAG de réévaluation les niveaux d'orbites sont
 annotés par des brins et non des n\oe uds. %
@@ -121,15 +121,15 @@ Puisqu'elle est ajoutée, nous vérifions tout d'abord si elle a un impact sur l
 évolutions d'orbites représentées dans ce DAG. %
 Pour cela, nous vérifions si la règle filtre tout ou partie d'orbite incidente
 au brin \(3\) enregistré dans le DAG. %
-Si ce n'est pas le cas niveau d'application inséré est une simple copie du
+Si ce n'est pas le cas, le niveau d'application inséré est une simple copie du
 niveau précédent dans lequel les n\oe uds d'évènements sont tous remplacés par
 des \noeffectnodeevent{}. %
 
-Dans notre exemple, l'application désigne l'arête incidente au brin \(3\) donc
+Dans notre exemple, l'application désigne l'arête incidente au brin \(3\), donc
 nous poursuivons avec la détection des évènements. %
 L'insertion d'un sommet sur l'arête incidente au brin \(3\) la scinde en deux. %
 La détection d'une scission, provoquée par une application ajoutée, provoque le
-dédoublement de la branche de suivi pour suivre l'évolution de chacune des
+\emph{dédoublement} de la branche de suivi pour suivre l'évolution de chacune des
 entités issues de la scission. %
 Nous avons alors deux branches de suivi avec chacune un niveau d'évènement qui
 contient un n\oe ud d'évènement \nomodifnodeevent{}, car les brins aux
@@ -267,7 +267,7 @@ Ainsi un n\oe ud \creationnodeevent{} est remplacé par un
 \modifnodeevent{} est remplacé par \nomodifnodeevent{}. %
 Notons que les n\oe uds d'évènements \nomodifnodeevent{} ne sont pas
 remplacés. %
-En effet, si l'application d'une règle ne modifie une orbite, son annulation ne
+En effet, si l'application d'une règle ne modifie pas une orbite, son annulation ne
 peut pas la modifier non plus. %
 
 \maxime{J'ai tenté une comparaison de notre usage des « non évènements » au critère de persistance des références de Bidarra. Si tu as la problématique en tête je te laisse aviser sinon j'en discuterai avec David. En tout cas, c'est une phrase qui peut sauter si elle est fausse/n'apporte rien. }
@@ -332,16 +332,18 @@ utilisateur de colorier une autre face qui ne serait pas issue de ce
 chanfrein. %
 Dans le DAG d'évaluation du PN\textsubscript{12}
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-eval}),
-au niveau d'évènement 4, nous pouvons voir que l'application
+au niveau d'évènement 4, nous observons que l'application
 \texttt{4-chanfrein} crée un sommet qui n'est pas recréé dans le DAG de
 réévaluation
-(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval}),
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval});
 celui-ci est remplacé un n\oe ud d'évènement \nocreationnodeevent[red]{} en
 	{\color{red}rouge}. %
 La conséquence immédiate de cet évènement est l'interruption de l'appariement
 pour ce nom persistant afin de respecter les intentions de conceptions de
 l'utilisateur, ce qui donne l'objet illustré dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn12}. %
+
+\xavier{Ton argumentation sur l'utilité de conserver les "non-événements" dans le DAG me paraît pertinente en tant que telles, mais j'avoue que j'ai du mal à relier cette justification avec le critère de "garantie de persistance" de Bidarra ; je n'ai pas l'impression qu'il s'agisse de la même chose. Donc vérifie avec David ce qu'il en est, tu as raison.}
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}
@@ -356,17 +358,17 @@ figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn12}. %
 % 	      topologique n'est plus créé. %
 % \end{itemize}
 
-Non seulement les DAGs de réévaluation permettent de représenter les historiques
-d'évolutions des orbites, ils permettent aussi de représenter les évènements
+Les DAGs de réévaluation permettent non seulement de représenter les historiques
+d'évolutions des orbites, mais aussi les évènements
 annulés et ajoutés suivant l'édition d'une spécification paramétrique. %
 À l'aide de ces évènements, nous pouvons mettre en \oe uvre des stratégies pour
 adapter le comportement du mécanisme de réévaluation selon les préférences des
 utilisateurs. %
-Nous présentons ici plusieurs stratégies de réévaluations qui découlent
+Nous présentons ici plusieurs stratégies de réévaluation qui découlent
 directement de l'édition d'une spécification paramétrique avec l'ajout et la
 suppression d'opérations. %
 
-\maxime{Dans les paragraphes suivants, je pense à mettre des tableau pour afficher différentes représentations de modèles selon les stratégie de réévaluation.}
+\maxime{Dans les paragraphes suivants, je pense à mettre des tableau pour afficher différentes représentations de modèles selon les stratégie de réévaluation.} \xavier{Bonne idée.}
 
 \paragraph*{Ajout de scission}
 
@@ -401,7 +403,8 @@ orbites de leur choix et de sauvegarder cette configuration. %
 Cette dernière option laisse alors un certain degré de liberté quant à
 l'exploration dans la conception d'un objet. %
 \maxime{J'ai tenté quelque chose, mais je ne suis pas sûr que ce soit le bon
-	endroit pour ça.} %
+	endroit pour ça.} \xavier{Je ne comprends pas ta phrase "j'ai tenté quelque chose" : de quoi parles-tu ?}
+ \xavier{Et à propos de la dernière stratégie, il faut préciser si elle est actuellement réalisable ou si c'est une variante qui reste à l'état d'idée.}%
 
 
 \paragraph*{Annulation d'évènements}
@@ -449,7 +452,7 @@ l'exploration dans la conception d'un objet. %
 Dans l'exemple de l'appariement du PN\textsubscript{12}
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12}),
 nous avons montré que le suivi des évènements et de leurs annulations nous
-permet de prévenir le risque de mauvais appariement d'orbites et de produire des
+permet de prévenir le risque d'un appariement erroné d'orbites et de produire des
 objets qui respectent les intentions de conception d'un utilisateur. %
 Une stratégie, que nous illustrons dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57},
@@ -461,17 +464,17 @@ Or, dans la réévaluation, cette application est supprimée et l'arête d'origi
 de la face à colorer n'est pas re-créée. %
 Comme illustré dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}, la
-conséquence est que cette face aussi n'est pas re-créée.
+conséquence est que cette face n'est pas re-créée non plus.
 De plus, l'orbite sommet \(\orbit{1}\) à partir de laquelle devait être créée
 l'arête, même si elle pourrait aisément discriminer une face \(\orbit{0,1}\)
-d'une autre, ne correspond pas à une origine de face scindée par la règle de
+d'une autre \xavier{Pas très clair, le fait qu'une orbite sommet puisse "discriminer" une face $\rightarrow$ comment ?}, ne correspond pas à une origine de face scindée par la règle de
 triangulation. %
 Ainsi, un tel appariement ne correspondrait, \textit{a priori}, en rien aux
-intentions de conceptions de l'utilisateur %
+intentions de conceptions de l'utilisateur. %
 Au contraire, une alternative consisterait à demander à l'utilisateur
 s'il souhaite ou non faire l'appariement sur une telle orbite. %
 Dans le cas de notre exemple, cela reviendrait à colorier la face triangulaire à
-droite. %
+droite. \xavier{Ajouter une image de ce coloriage sur la face de droite ?}%
 
 \begin{figure}[htb!]
 	\begin{subfigure}{0.5\linewidth}
@@ -515,8 +518,8 @@ droite. %
 \end{figure}
 
 Dans certains cas, la suppression d'une application peut annuler un évènement de
-scission, voire de fusion. %
-Ces suppressions provoquent alors, indirectement, des effets inverses à ceux des
+scission, voire de fusion. \xavier{Pourquoi "voire" de fusion ? Supprimer un événement peut annuler n'importe quel autre événement postérieur, en théorie.}%
+Ces suppressions provoquent alors, indirectement, des effets inverses de ceux des
 évènements annulés. %
 Par exemple, dans l'évaluation de notre cas d'étude nº~1
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}),
@@ -541,6 +544,8 @@ ait été coloriée, alors la stratégie résoudrait ces deux opérations l'une 
 l'autre et au terme de la modélisation, la face serait coloriée en vert. %
 Au contraire, une alternative consisterait à laisser l'utilisateur choisir les
 opérations qu'il souhaite réappliquer sur cette face. %
+
+\xavier{Il manque une conclusion à ce chapitre...}
 
 % Dans le cas de la suppression d'une opération dans la spécification paramétrique
 % éditée, il peut arriver que la création d'une entité ne soit pas réévaluée et

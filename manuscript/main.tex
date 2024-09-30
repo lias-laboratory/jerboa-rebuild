@@ -11,8 +11,8 @@
 \usepackage{titlesec}
 \titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
-% \titleformat{\subparagraph}[hang]{\normalfont\normalsize\underline}{\thesubparagraph}{1em}{}
-% \titlespacing*{\subparagraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
+\titleformat{\subparagraph}[hang]{\normalfont\normalsize}{\thesubparagraph}{1em}{\ul}
+\titlespacing*{\subparagraph}{0pt}{1ex plus 0.2ex minus 0.2ex}{0pt}
 
 %% Des numéros de lignes partout (ou presque)
 \usepackage[switch*,pagewise,mathlines]{lineno}
@@ -31,7 +31,7 @@
 \usepackage[style=french]{csquotes}
 
 %% Pour la bibliographie
-\usepackage[backend=biber,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
+\usepackage[backend=biber,maxbibnames=99,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
 \addbibresource{references/references.bib}
 %%
 
@@ -61,7 +61,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\publishtrue %% Keep it commented until you have defended
+% \publishtrue %% Keep it commented until you have defended
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \examboardtrue %% Keep it commented until you have a jury
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,13 +90,8 @@
 \laboratory{%
   Laboratoire d'Informatique et d'Automatique pour les Systèmes (LIAS)}
 
-%
 \examboard{%
   \raggedright
-  \underline{\bfseries Présidente~:}\\[2mm]
-  Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
-    CentraleSupélec}\\%
-  \vspace{.5em}%
   \underline{\bfseries Rapporteurs~:}\\[2mm]
   David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
     Strasbourg}\\[1mm]%
@@ -104,19 +99,48 @@
     Université Claude Bernard}\\%
   \vspace{.5em}%
   \underline{\bfseries Membres du jury~:}\\[2mm]
-  Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
-    Université}\\[1mm]%
   Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
     Université de Poitiers}\\[1mm]%
   Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de conférences,
     Université de Poitiers}\\[1mm]%
   Stéphane JEAN \tabto{.35\textwidth} {\mdseries Professeur, Université de
     Poitiers}\\[1mm]%
+  Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
+    CentraleSupélec}\\%
   David MARCHEIX \tabto{.35\textwidth} {\mdseries Maître de conférences,
     Université de Poitiers}\\[1mm]%
+  Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
+    Université}\\[1mm]%
   Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de conférences,
     Université de Poitiers}\\%
 }
+%
+% \examboard{%
+%   \raggedright
+%   \underline{\bfseries Présidente~:}\\[2mm]
+%   Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
+%     CentraleSupélec}\\%
+%   \vspace{.5em}%
+%   \underline{\bfseries Rapporteurs~:}\\[2mm]
+%   David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
+%     Strasbourg}\\[1mm]%
+%   Guillaume DAMIAND \tabto{.35\textwidth} {\mdseries Directeur de recherche,
+%     Université Claude Bernard}\\%
+%   \vspace{.5em}%
+%   \underline{\bfseries Membres du jury~:}\\[2mm]
+%   Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
+%     Université}\\[1mm]%
+%   Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
+%     Université de Poitiers}\\[1mm]%
+%   Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de conférences,
+%     Université de Poitiers}\\[1mm]%
+%   Stéphane JEAN \tabto{.35\textwidth} {\mdseries Professeur, Université de
+%     Poitiers}\\[1mm]%
+%   David MARCHEIX \tabto{.35\textwidth} {\mdseries Maître de conférences,
+%     Université de Poitiers}\\[1mm]%
+%   Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de conférences,
+%     Université de Poitiers}\\%
+% }
 %
 \date{\makebox[.2\textwidth]{\dotfill}}
 

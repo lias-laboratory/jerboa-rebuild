@@ -20,27 +20,27 @@ L'étude des travaux antérieurs a montré que la nécessité de créer et d'att
 des noms persistants concerne uniquement les entités topologiques référencées
 dans une spécification paramétrique, autrement dit les paramètres topologiques
 des opérations. %
-Les travaux de Cardot~\cite{cardot2019} ont montré que dans un système à base de
-règle, chaque brin peut être représenté par un historique de construction qui
+Les travaux de Cardot~\cite{cardot2019} ont indiqué que dans un système à base de
+règles, chaque brin peut être représenté par un historique de construction qui
 l'identifie de manière unique. %
-Elle fait alors le choix d'utiliser un ensemble de brins pour représenter de
+Elle fait alors le choix d'utiliser \textit{un ensemble de brins} pour représenter de
 manière exhaustive les transformations appliquées sur une orbite. %
 Toutefois, puisque chaque paramètre topologique se voit attribuer un nom, les
 différentes opérations appliquées sur des parties distinctes d'une même orbite
-sont nécessairement identifiées dans un nom persistant à part. %
+sont nécessairement identifiées par un nom persistant spécifique. %
 Nous proposons donc, dans un premier temps, de désigner une orbite à l'aide de
-l'historique d'un unique brin, ce brin étant celui sélectionné explicitement
+l'historique d'un \textit{unique} brin, ce brin étant celui sélectionné explicitement
 lors de la construction pour désigner l'orbite à transformer. %
 Dans un second temps, nous procédons à la reconstitution de l'historique des
 évolutions de l'orbite désignée pour l'identifier formellement par son
 historique de construction. %
 
-Commençons avec la construction des noms persistants des brins sélectionnés
+Commençons par la construction des noms persistants des brins sélectionnés
 lors de la construction de l'objet nº~1 (figure~\ref{fig:reevaluation-base-regles-cs1-evaluation} et
 spécification~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1})
 
 \begin{remarque}
-	Les illustrations d'applications suivantes représentent, de manière évidente,
+	Les illustrations d'applications suivantes représentent
 	uniquement les résultats des applications des opérations. %
 	Ainsi, chacun des brins affichés dans ces illustrations est un paramètre
 	topologique de l'application suivante. %
@@ -67,9 +67,9 @@ spécification~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-
 
 %% Présentation de la construction des brins 3, 4, 5 et 6
 
-La première application \texttt{1-carre()}
+La première application \texttt{1-carre()} \xavier{toujours les mêmes remarques de renommage des opérations et d'éviter les redondances comme "première" de "première application" et "1" de "1-carre".}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-1-carre}),
-dont l'opération est la règle de création de carré
+\xavier{morceau de phrase redondant : "dont l'opération est la règle de création de carré"}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-carre})
 crée \textit{ex nihilo} une face carrée
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-1-evaluation-carre}). %
@@ -108,11 +108,11 @@ est appliquée sur le brin \(6\) et, puisque le n\oe ud d'accroche de la règle
 d'extrusion
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion})
 est de type \texttt{face} \(\orbit{0,1,3}\), alors le brin \(6\) désigne sa face
-incidente. %
-Toutefois, le numéro d'un brin n'est une information robuste et son historique
+incidente.%
+Toutefois, le numéro d'un brin n'est pas une information robuste et son historique
 doit évoluer au fur et à mesure de la construction. %
-C'est pour ces raisons-là que, à l'instant où une règle est appliquée, nous
-faisons une photographie de l'historique de chacun des brins désignés et les
+Pour cette raison, à l'instant où une règle est appliquée, nous
+réalisons une "photographie" de l'historique de chacun des brins désignés et les
 enregistrons comme des noms persistants dans la spécification paramétrique. %
 Ainsi, pour la deuxième application, le brin sélectionné ne peut pas être un
 autre brin, indépendamment de son numéro, que celui créé par \texttt{1-carre()}
@@ -120,14 +120,15 @@ et le n\oe ud \(n_{6}\). %
 
 Comme nous venons de l'expliquer, l'historique d'un brin évolue à chaque fois
 que celui-ci est filtré par une règle. %
-Si nous regardons le cube issue de l'extrusion, nous pouvons voir que les brins
+Si nous observons le cube issu de l'extrusion, nous constatons que les brins
 filtrés par la règle sont préservés, parce que le n\oe ud qui les filtre
-(\(n_{0}\)) est lui-même préservé dans la règle. %
-Pour ces brins préservés par \(n_{0}\), leurs historiques sont mis à jour par
+(\(n_{0}\)) \xavier{ATTENTION : sur la figure 4.6, il n'y a PAS de n\oe{}ud $n_0$ : on a juste $n_1$ à $n_6$.}
+est lui-même préservé dans la règle \xavier{je suggère de compléter la phrase ainsi : "(pour rappel, un n\oe{}ud dans la partie gauche d'une règle est préservé si on le retrouve dans la partie droite)."} \xavier{Mais ce complément est peut-être redondant quand on lit le manuscrit en bloc, à voir s'il est vraiment utile.}. %
+Pour ces brins préservés par \(n_{0}\) \xavier{\(n_{1}\) plutôt?}, leur historique est mis à jour par
 l'ajout d'un couple {\(2n0\)}. %
 Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
-\(6\)) devient \([1n3;2n0]\) (respectivement \([1n4;2n1]\), \([1n5;2n1]\),
-\([1n6;2n0]\)). %
+\(6\)) devient \([1n3;2n0]\) \xavier{Sur la figure, l'historique est \([1n3;2n1]\)} (respectivement \([1n4;2n1]\), \([1n5;2n1]\),
+\([1n6;2n0]\)). \xavier{Bref, vérifie bien les numéros de n\oe{}uds !}%
 Pour les autres brins, ceux qui sont créés, rappelons que ce sont des copies des
 brins filtrés. %
 Ainsi, en tant que copies, ces brins portent dans leurs historiques respectifs
@@ -190,14 +191,14 @@ sont mis à jour en \([1n5;2n5;3n0]\) et \([1n5;2n6;3n0]\) respectivement
 \end{figure}
 
 L'application \texttt{4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0})} crée un
-nouveau cube à en extrudant la face supérieur de l'objet
+nouveau cube  en extrudant la face supérieurz de l'objet
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-extrusion}). %
-Cette face est désignée par le brin \(47\) et le nom persistant enregistré est
+Cette face est désignée par le brin \(47\) et le nom persistant enregistré est donc
 \([1n5;2n6;3n0]\). %
 Les brins \(55\) et \(63\) sont créés par les n\oe uds \(n_{5}\) et \(n_{6}\)
 respectivement
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion})
-et leurs historiques sont \([1n5;2n6;3n0;4n5]\) et \([1n4;2n6;4n6]\)
+et leurs historiques sont \([1n5;2n6;3n0;4n5]\) et \([1n4;2n6;4n6]\) \xavier{Il manque un élément dans ce dernier historique, non ? Où est passée la 3ème opération ?}
 respectivement. %
 
 
@@ -256,7 +257,7 @@ un sommet
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}). %
 Le nom persistant enregistré dans la spécification paramétrique est
 \([1n4;2n6;4n6]\). %
-Puisque toute la face est filtrée, par le n\oe ud \(n_{0}\), supprimé dans la
+Puisque toute la face est filtrée par le n\oe ud \(n_{0}\), lequel  est supprimé dans la
 règle
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}),
 le brin \(63\) est lui-même supprimé. %
@@ -363,7 +364,7 @@ Le processus de création de chacun des noms persistants enregistrés dans la
 spécification paramétrique du cas d'étude nº~1, que nous venons de détailler,
 nous permet de mettre deux propriétés en évidence. %
 La première est que la nomination des brins est, par construction, unique. %
-Un tel historique représente par les règles appliquées, et de manière implicite,
+Un tel historique construit pas à pas, \textit{via}  les règles appliquées, et de manière implicite \xavier{au contraire, je trouve que ce chemin est explicite , mais bon...},
 un chemin qui relie un brin et son ancêtre le plus ancien (créé \textit{ex
 	nihilo}). %
 La seconde propriété est que la nomination persistante est, à elle-seule, insuffisante,

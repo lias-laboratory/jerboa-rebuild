@@ -15,8 +15,8 @@ ils appartiennent. %
 \label{sec:reevaluation-base-regles-nomination-persistante-orbites-reconstitution-historique}
 
 
-Détaillons la construction du DAG d'évaluation pour le paramètre topologique l'application
-\texttt{8-colorationBleu(\pndart{35}{1n3;2n4;5n0}, Bleu)} de la construction nº~1. %
+Détaillons la construction du DAG d'évaluation pour le paramètre topologique de l'application
+\texttt{8-colorationBleu(\pndart{35}{1n3;2n4;5n0}, Bleu)}, dans la la construction nº~1. %
 %
 \begin{figure}[htb!]
 	\centering
@@ -25,12 +25,12 @@ Détaillons la construction du DAG d'évaluation pour le paramètre topologique 
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}
 \end{figure}
 %
-La première étape, pour construire le DAG d'évaluation, consiste à identifier le
+La première étape consiste à identifier le
 type d'orbite filtré par la règle. %
 Comme expliqué dans les chapitres précédents, cette information est représentée
 dans l'étiquette du n\oe ud d'accroche de la règle. %
-Pour notre exemple, le type d'orbite qui nous intéresse est l'étiquette du n\oe
-ud \(n_{0}\) affiché en {\color{orange}orange} dans la
+Pour notre exemple, le type d'orbite qui nous intéresse, \(\orbit{0,1}\) en l'occurrence, est déterminée par l'étiquette du n\oe
+ud \(n_{0}\) affichée en {\color{orange}orange} dans la
 figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}. %
 À partir de cette information, nous pouvons commencer à remonter l'historique
 des évolutions de l'orbite sur laquelle l'opération de coloration a été
@@ -42,20 +42,20 @@ ses ancêtres les plus anciens. %
 \begin{figure}[htb!]
 	\centering
 	% \includegraphics[height=20pt]{pn35-dag-eval-step-0}
-	\includegraphics[scale=.45]{pn35-dag-eval-step-0}
+	\includegraphics[scale=1]{pn35-dag-eval-step-0}
 	\caption{Racine du DAG d'évaluation}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-racine}
 \end{figure}
 %
-Le type de l'orbite que nous suivons (ou type d'orbite de \emph{suivi}) est
-alors le premier élément que nous intégrons dans le DAG en tant que racine
+Ce type d'orbite est qualifié de \emph{type d'orbite de suivi}~; il représente
+ le premier élément que nous intégrons dans le DAG en tant que racine
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-racine}). %
 
 La suite de la reconstitution consiste à remonter l'historique du nom persistant
 du brin, application par application. %
 Dans le DAG d'évaluation, une application est représentée par un couple de
-niveaux~: (1) un niveau d'orbite qui contient l'ensemble des types d'orbites
-suivis dans l'application courante~; (2) un niveau d'événements qui ont impacté
+niveaux~: (1) un \emph{niveau d'orbite} qui contient l'ensemble des types d'orbites
+suivis dans l'application courante~; (2) un \emph{niveau d'événements} qui ont impacté
 les orbites suivies. %
 %
 \begin{figure}[htb!]
@@ -74,14 +74,14 @@ triangulation
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-triangulation})
 et plus particulièrement à la face incidente à \(n0\), \(\orbit{0,1}(n_{0})\). %
 L'étude de cette orbite, comme nous l'avons vu dans la
-section~\ref{sec:formalisation-evenements-regles-transfo-graphe-scission}
-(page~\ref{sec:formalisation-evenements-regles-transfo-graphe-scission}), montre
+section~\ref{sec:formalisation-evenements-regles-transfo-graphe-scission},
+montre
 que l'orbite \(L\orbit{0,1}(n_{0})\) est scindée du fait de la réécriture de
-tous les \(1\)-arcs implicite dans des dimensions hors du type \(\orbit{0,1}\),
+tous les \(1\)-arcs implicites dans des dimensions hors du type \(\orbit{0,1}\),
 voire de leur suppression. %
 De plus, nous pouvons voir dans l'orbite \(R\orbit{0,1}(n_{0})\) que les \(0\)
 et \(1\)-arcs implicites sont des réécritures d'un \(0\)-arc implicite dans le
-n\oe ud d'accroche. %
+n\oe ud d'accroche. \xavier{Précise que le \(0\)-arc implicite dans le n\oe{}ud d'accroche est sur fond orange, tout comme les arcs réécrits dans les n\oe{}uds à droite.} %
 %
 \begin{figure}[htb!]
 	\centering
@@ -98,12 +98,12 @@ dans le DAG d'évaluation de la manière suivante~: %
 %
 \begin{enumerate}
 	\item la racine du DAG est intégrée dans un niveau d'orbite qui est annoté par le n\oe ud \(n_{0}\) issu du nom persistant~;
-	\item un niveau d'événement, annoté par le numéro d'application et le nom de la règle, est ensuite créé et contient un n\oe ud d'événement correspondant à la scission détecté pour l'orbite \(\orbit{0,1}(n_{0})\)~;
+	\item un niveau d'événement, annoté par le numéro d'application et le nom de la règle, est ensuite créé et contient un n\oe ud d'événement correspondant à la scission détectée pour l'orbite \(\orbit{0,1}(n_{0})\)~;
 	\item une flèche \textbf{noire} est créée entre le n\oe ud d'événement
 	      \splitnodeevent{} et le n\oe ud d'orbite \orbitnode{\orbit{0,1}}
 	      pour marquer une \emph{relation de suivi}~;
 	\item les n\oe uds d'orbites de suivi \orbitnode{\orbit{0,1}} et d'origine
-	      \orbitnode{\orbit{0}} sont ajoutés au DAG~;
+	      \orbitnode{\orbit{0}} sont ajoutés au DAG, au-dessus du niveau de l'événement~;
 	\item enfin, le n\oe ud d'événement \splitnodeevent{} est relié au n\oe ud
 	      d'orbite \orbitnode{\orbit{0,1}} par une relation de suivi et au
 	      n\oe ud d'orbite \orbitnode{\orbit{0}} par une \emph{relation
@@ -112,10 +112,11 @@ dans le DAG d'évaluation de la manière suivante~: %
 %
 Au terme de cette étape, le DAG
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-2})
-se lit de la manière suivante~: L'orbite face \(\orbit{0,1}\) provient de la
+se lit de bas en haut de la manière suivante~: L'orbite face \(\orbit{0,1}\) provient de la
 scission, par triangulation, d'une autre face \(\orbit{0,1}\) et a pour origine
-une arête \(\orbit{0}\).%
-Notons que les n\oe uds d'orbites ne sont, à ce stade, pas encore intégré dans
+une arête \(\orbit{0}\). %
+
+Notons que les n\oe uds d'orbites ne sont, à ce stade, pas encore intégrés dans
 un niveau d'orbite car ils sont issus d'une application antérieure à
 l'application courante dans l'historique. %
 %
@@ -126,13 +127,14 @@ l'application courante dans l'historique. %
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}
 \end{figure}
 %
+
 À l'étape suivante, nous remontons l'historique d'un niveau. %
 Cette fois, l'application concerne la règle d'extrusion d'une face et son n\oe
 ud \(n_{4}\). %
 Comme pour la triangulation, nous procédons à l'analyse de la règle à la
 différence près que cette fois-ci, nous suivons deux types d'orbites~: une face
 \(\orbit{0,1}\) (l'orbite encadrée en {\color{myblueink}bleu}) et une arête
-\(\orbit{0}\) (l'orbite encadrée en {\color{orange}orange}) toutes les deux
+\(\orbit{0}\) (l'orbite encadrée en {\color{orange}orange}), toutes deux
 incidentes au n\oe ud \(n_{4}\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}). %
 L'analyse révèle que la face et l'arête sont toutes les deux créées, car les
@@ -140,7 +142,7 @@ orbites sont constituées uniquement de n\oe uds créées. %
 La face a pour origine une arête (\(\orbit{0}\)), car les \(0\)-arcs implicites
 (surlignés en {\color{myblueink}bleu}) sont réécrits à partir d'un \(0\)-arc
 dans le n\oe ud d'accroche. %
-L'arête à pour origine un brin du fait de l'absence d'arc implicite réécrit en
+L'arête à pour origine un brin (\(\orbit{}\)) du fait de l'absence d'arc implicite réécrit en
 \(0\) dans son orbite. %
 %
 \begin{figure}[htb!]
@@ -172,7 +174,7 @@ dans le DAG~:
 %
 Ce niveau du DAG
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-3})
-se lit~: L'orbite face incidente à \(n_{4}\) est créée par l'extrusion d'une
+se lit ainsi~: l'orbite face incidente à \(n_{4}\) est créée par l'extrusion d'une
 arête et l'arête incidente à \(n_{4}\) est créée par l'extrusion d'un brin. %
 %
 \begin{figure}[htb!]
@@ -182,6 +184,7 @@ arête et l'arête incidente à \(n_{4}\) est créée par l'extrusion d'un brin.
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-carre}
 \end{figure}
 %
+
 Nous remontons l'historique d'un cran et arrivons à la dernière étape de cette
 reconstitution de l'historique des évolutions de notre orbite de suivi. %
 L'application désignée est la toute première enregistrée dans la spécification,
@@ -203,9 +206,9 @@ avons détectés. %
 
 Dans cet exemple, nous avons illustré la reconstitution de l'historique des
 évolutions d'une orbite à l'aide de relations de suivi et d'origine. %
-L'utilisation de ces relations nous permettent de représenter des orbites par
-leurs historiques complets d'évolutions et ainsi de les distinguer les unes des
-autres lorsqu'elles partageant le même processus de construction. %
+Ces relations nous permettent de représenter des orbites par
+leur historique  d'évolution complet et ainsi de les distinguer les unes des
+autres lorsqu'elles partagent le même processus de construction. %
 
 
 \subsection{Intégration d'un chemin d'origine}
@@ -219,6 +222,7 @@ implicites d'un n\oe ud d'accroche et d'un type d'orbite \(\orbit{\omega}\). %
 Malgré le fait que le type d'une telle orbite soit calculé à partir d'un n\oe ud
 d'accroche, celui-ci ne filtre pas toujours l'orbite d'origine, elle peut
 simplement se trouver dans sa composante connexe. %
+
 Comme nous venons de le voir, un DAG est construit à partir de l'historique d'un
 brin. %
 Ainsi, chaque niveau d'orbite contient un n\oe ud de règle dont l'association à
@@ -232,7 +236,7 @@ complémentaire sous la forme d'un chemin. %
 Ce chemin permet, dans la règle, de remonter jusqu'au n\oe ud de l'orbite
 d'origine à partir du n\oe ud enregistré dans le DAG. %
 
-Dans l'exemple que nous venons de voir, les orbites d'origines sont
+Dans l'exemple que nous venons de traiter, les orbites d'origines sont
 systématiquement filtrées par le n\oe ud d'accroche. %
 En effet, dans l'extrusion (respectivement la triangulation), l'arête
 (respectivement la face) est créée à partir d'un brin (respectivement d'une
@@ -246,7 +250,7 @@ nuls. %
 	\label{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55}
 \end{figure}
 
-Prenons le DAG d'évaluation du PN\textsubscript{55}
+Considérons le DAG d'évaluation du PN\textsubscript{55}
 (figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
 pour illustrer le calcul et l'utilisation d'un chemin pour compléter les orbites
 d'origines. %
@@ -262,7 +266,7 @@ provoquée par l'application \texttt{6-contraction}. %
 L'analyse de la règle de contraction nous apprend que l'origine de cette fusion
 est une face, comme nous pouvons aussi le voir dans le DAG, mais que cette face
 est filtrée par le n\oe ud d'accroche \(n_{0}\)
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}),
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}).
 Or, le sommet \(R\orbit{1,2}(n_{2})\) n'est créé ni par copie ni par la
 réécriture des arcs de la face incidente à \(n_{0}\). %
 Au contraire, la suppression de cette face provoque la fusion de ses sommets
@@ -270,7 +274,7 @@ incidents en un seul sommet qui est celui désigné par le DAG. %
 Ainsi, la face supprimée est à l'origine de la fusion, mais elle ne permet pas,
 seule, de représenter les sommets fusionnés qui sont filtrés par l'orbite
 \(L\orbit{1,2}(n_{2})\). %
-Nous devons alors de compléter la notion d'origine à l'aide d'un contexte qui
+Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui
 permet de faire la distinction entre l'origine d'un événement et une orbite
 d'origine. %
 %
@@ -310,10 +314,10 @@ d'origine. %
 		la règle d'extrusion
 		(\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})}
 \end{figure}
-Ce contexte, que nous ajoutons aux origines, nous permet de faire le lien entre
+\xavier{La phrase suivante est redondante}\xavierSupp{Ce contexte, que nous ajoutons aux origines, nous permet de faire le lien entre
 l'origine d'un évènement et une orbite d'origine et, de fait, de les
-distinguer. %
-Pour calculer un tel chemin, nous effectuons un parcours depuis le n\oe ud
+distinguer.} %
+Ce contexte prend la forme d'un chemin entre les n\oe{}uds. Pour calculer un tel chemin, nous effectuons un parcours depuis le n\oe ud
 enregistré par l'application jusqu'au n\oe ud d'accroche (voir le chemin en
 	{\color{orange}orange} dans la
 figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}). %
@@ -338,28 +342,28 @@ C'est bien ce n\oe ud qui crée la face qui provoquera la fusion de ses sommets
 incidents lors de l'application suivante. %
 
 La mise en \oe uvre de cette procédure, pour reconstituer l'historique des
-évolutions d'une orbite ne nécessite qu'un nom persistant de brin et les règles
+évolutions d'une orbite, ne nécessite qu'un nom persistant de brin et les règles
 enregistrées dans une spécification paramétrique. %
 Comme démontré dans l'exemple, l'analyse statique des règles nous permet de
 représenter les évolutions d'une orbite jusqu'à ses origines sans devoir
 réappliquer les règles. %
-Enfin, ce mécanisme n'est exécuté que pour les paramètres topologiques,
+Enfin, ce mécanisme est exécuté  pour les paramètres topologiques uniquement,
 c'est-à-dire les entités topologiques enregistrées dans la spécification
 paramétrique. %
 En outre, le mécanisme de nommage que nous proposons combine les avantages de
 l'analyse statique des règles (faible coût en calcul pour la détection des
 événements) et la nomination d'un échantillon d'orbites restreint à celles qui
-sont explicitement désignées par lors du processus de construction d'un objet. %
+sont explicitement désignées par l'utilisateur lors du processus de construction d'un objet. %
 
 Tous comme dans les travaux de Cardot, la reconstitution des évolutions
-d'orbites peuvent intégrer un type d'évènement appelé \texttt{NOEFFECT} qui
-permettent de représenter les opérations qui ne filtrent pas les orbites suivies
+d'orbites peuvent intégrer un type d'évènement appelé \texttt{NOEFFECT}, qui
+permet de représenter les opérations qui ne filtrent pas les orbites suivies
 dans l'historique d'une orbite. %
 Par simplicité pédagogique, nous ne présentons pas, dans ce chapitre, d'exemple
 qui intègre les n\oe uds d'évènements \noeffectnodeevent dans les DAGs. %
 De tels exemples peuvent être trouvés en annexes de ce manuscrit. %
-\maxime{Je pense que ce sera pas du luxe des proposer des exemples plus complets en Annexes.}
-
+\maxime{Je pense que ce sera pas du luxe des proposer des exemples plus complets en Annexes.} 
+\xavier{Oui, il y a intérêt, surtout si tu écris dans le manuscrit que de tels exemples s'y trouveront. :)}
 
 %%% Local Variables:
 %%% mode: LaTeX

@@ -1,57 +1,30 @@
 \chapter{État de l'art : modélisation paramétrique}
 \label{cha:etat-art-modelisation-parametrique}
 
-Le domaine de la CAO utilise de nombreux outils de modélisation, dont les
-systèmes paramétriques qui permettent la génération de variations d'un modèle à
-l'aide d'un mécanisme dit de \textit{rejeu}, ou
+Le domaine de la CAO repose sur divers outils de modélisation, parmi lesquels les systèmes paramétriques qui permettent de générer des variations d'un modèle à l'aide d'un mécanisme de \textit{rejeu}, ou de
 \textit{réévaluation}~\cite{dassaultCATIA,dassaultSOLIDWORKS,autodeskAUTOCAD,autodeskREVIT,siemensNX}. %
-Un tel système enregistre tout d'abord le processus constructif, c'est-à-dire
-une liste d'opérations ou de contraintes appliquées à des entités géométriques
-(points, droites, caractéristiques de formes\dots) permettant de modéliser
-l'objet. %
-L'utilisateur a ensuite la possibilité de modifier certains paramètres de la
-construction et/ou d'ajouter, déplacer voire supprimer des opérations ou des
-contraintes. %
-Finalement, le processus constructif est rejoué, ou réévalué, automatiquement, ce qui
-génère une variation d'un objet initialement construit, selon les modifications
-effectuées. %
-Dans ce chapitre, nous commençons par définir plus précisément la notion de
-\textit{système paramétrique} et plus particulièrement sa structure, ainsi que
-les concepts permettant de réévaluer ces modèles. %
-Nous verrons que la réévaluation peut poser problème lorsque le système ne gère
-pas correctement les références associées aux entités topologiques et qu'il
-convient, dans ce cas, d'intégrer un mécanisme de \textit{nomination persistante}. %
+Ces systèmes enregistrent le processus de construction, c'est-à-dire une liste d'opérations ou de contraintes appliquées à des entités géométriques (points, droites, caractéristiques de formes, etc.) permettant de modéliser un objet. L'utilisateur peut ensuite modifier certains paramètres de la construction ou ajouter, déplacer, voire supprimer des opérations et des contraintes. Le processus de construction est alors automatiquement rejoué ou réévalué, générant une version modifiée de l'objet initial, en fonction des modifications apportées.  %
+
+Dans ce chapitre, nous commençons par définir plus précisément la notion de \textit{système paramétrique}, en détaillant sa structure et les mécanismes de réévaluation des modèles. Nous verrons que la réévaluation peut échouer si le système ne gère pas correctement les références associées aux entités topologiques ; et que, dans ce cas, il est nécessaire d'intégrer un mécanisme de \textit{nomination persistante} pour garantir la robustesse du processus.
 
 \section{Approches de modélisation paramétriques}
 \label{sec:etat-art-approches-modelisation-parametrique}
 
-Un système paramétrique peut être considéré comme une structure duale avec
-d'une part la représentation explicite, ou \emph{couche géométrique}, d'un
-objet et, d'autre part, une représentation implicite, ou \emph{couche de spécification
-	paramétrique} (ou simplement \emph{spécification}). %
-Cette dernière contient la liste des contraintes ou des opérations successives
-avec leurs paramètres. %
-Elle peut être modifiée et réévaluée, afin de générer de nouvelles
-représentations explicites selon les modifications effectuées. %
+Un système paramétrique peut être considéré comme une structure duale composée, d'une part, d'une représentation explicite, appelée \emph{couche géométrique}, qui décrit la forme visible d'un objet, et d'autre part, d'une représentation implicite, nommée \emph{couche de spécification paramétrique} (ou simplement \emph{spécification}). Cette couche implicite contient la liste des contraintes et des opérations appliquées à l'objet, ainsi que leurs paramètres associés. La spécification peut être modifiée et réévaluée, ce qui permet de générer de nouvelles représentations explicites en fonction des modifications effectuées.
 
 Nous distinguons deux principales approches dans le cadre de la
 modélisation paramétrique, chacune avec son type de
 spécification. %
 La première est l'approche \emph{équationnelle} (ou \emph{variational}). %
 La seconde est l'approche \emph{fonctionnelle} (ou \emph{history-based}). %
+Ces deux approches sont décrites dans les sections suivantes.
+
 
 \subsection{Approche équationnelle (ou \textit{variational})}
 \label{sec:etat-art-modelisation-parametric-approche-equationnelle}
 
-Dans cette première approche, la représentation implicite (ou spécification
-paramétrique) d'un modèle correspond à un ensemble de contraintes géométriques
-(angle, distance, longueur, parallélisme, tangence\dots) appliquées sur des
-entités géométriques. %
-Un solveur doit alors être utilisé pour trouver une solution au système de
-contraintes défini (si une telle solution existe) afin de calculer une
-représentation explicite du modèle, c'est-à-dire un objet. %
-Une définition plus formelle est proposée
-ci-dessous~\cite{pierra1996general}~: %
+Dans l'approche équationnelle, la représentation implicite (ou spécification paramétrique) d'un modèle est définie par un ensemble de contraintes géométriques (telles que des angles, distances, longueurs, parallélismes, tangences, etc.) appliquées à des entités géométriques. Un solveur est ensuite utilisé pour résoudre ce système de contraintes (lorsqu'une solution existe), afin de calculer une représentation explicite du modèle, c'est-à-dire un objet. Une définition plus formelle est présentée ci-dessous~\cite{pierra1996general}~: %
+
 % \david{Je te propose de mettre plutôt cette définition qui colle à ce que Dago
 % 	reprenait de Pierra. Je te propose en particulier d'utiliser la lettre V (pour
 % 	variable) plutôt que E (pour entités) car dans cette définition on voit plutôt
@@ -74,19 +47,14 @@ présente plusieurs avantages tels que la simplicité de concevoir un objet «~�
 main~», c'est-à-dire en dessinant d'abord une esquisse «~à main levée~» avant
 d'assigner des contraintes géométriques une à une. %
 
-D'un autre côté, nous relevons plusieurs limitations de cette approche: %
+Cependant, cette approche présente plusieurs limitations :
 \begin{itemize}
-	\item le nombre de solutions pour un système est en général exponentiel, dû
-	      au nombre de contraintes non linéaires~; %
+	\item le nombre de solutions possibles pour un système est généralement exponentiel, en raison du nombre de contraintes non linéaires~; %
 	\item il est nécessaire de définir une approximation initiale pour les calculs
 	      de convergence et des heuristiques pour discriminer plusieurs solutions~;
 	\item l'usage exclusif de contraintes non orientées empêche la réalisation
 	      d'actions orientées telles que l'extrusion, les opérations booléennes, \textit{etc.}
-	\item les contraintes étant librement introduites, il est difficile~: (1) pour
-	      l'utilisateur, de savoir quand et pourquoi une entité est sous- ou
-	      sur-contrainte~; (2) pour l'ordinateur, de fournir une solution dans le
-	      premier cas, ou bien, de montrer les conflits de contraintes dans le
-	      second~;
+	\item les contraintes pouvant être introduites librement, il est difficile pour l'utilisateur de savoir quand et pourquoi une entité est sous ou surcontrainte, et pour l'ordinateur, de fournir une solution dans le premier cas, ou de montrer des conflits de contraintes dans le second~;
 	\item les solutions sont très souvent calculées de manière approximative par
 	      des méthodes de résolution numérique.
 \end{itemize}
@@ -94,12 +62,8 @@ D'un autre côté, nous relevons plusieurs limitations de cette approche: %
 \subsection{Approche fonctionnelle (ou \textit{history-based})}
 \label{sec:etat-art-modelisation-parametric-approche-fonctionnelle}
 
-Dans cette seconde approche, la spécification paramétrique d'un objet est un
-processus constructif (ou historique), c'est-à-dire un enregistrement de
-l'ensemble des opérations de modélisation et de leurs paramètres, successivement
-appliquées tout au long d'un processus de modélisation. %
-Les paramètres des opérations sont soit des valeurs géométriques, soit des références à des entités topologiques existantes. %
-La représentation explicite d'un objet, quant à elle, est entièrement générée au fur et à mesure de l'application du processus constructif et est donc déterministe. %
+Dans l'approche fonctionnelle, la spécification paramétrique d'un objet est un processus constructif (ou historique), autrement dit, un enregistrement des opérations de modélisation et de leurs paramètres, appliquées successivement tout au long du processus de modélisation. Les paramètres des opérations peuvent être des valeurs géométriques ou des références à des entités topologiques existantes. La représentation explicite d'un objet, quant à elle, est entièrement générée au fur et à mesure de l'application du processus constructif, ce qui la rend déterministe. %
+
 L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
 \begin{definition}[Modèle paramétrique fonctionnel]
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, et $V$ une instance explicite, où $V$ appartient à $\mathcal{V}$ l'ensemble de toutes les formes possibles.
@@ -109,12 +73,9 @@ L'approche fonctionnelle est définie comme suit~\cite{pierra1996general}~: %
 	fonctions $f_{i}$ appelées \emph{fonctions paramétriques}~: \[F = f_{n}\circ f_{n-1} \ldots \circ f_{1}\] %
 \end{definition}
 
-Représenter un modèle paramétrique par une fonction présente plusieurs
-avantages~: le système est déterministe et produit ainsi un unique résultat~;
-elle s'applique aussi bien en 2D qu'en 3D pour les modèles basés sur la
+Représenter un modèle paramétrique sous forme de fonction offre plusieurs avantages : le système est déterministe, garantissant ainsi un résultat unique ; cette approche s'applique aussi bien en 2D qu'en 3D pour les modèles basés sur la
 \textit{CSG} (\textit{Constructive Solid Geometry}) et ceux basés sur la représentation
-par frontières (\textit{Boundary Representation, B-Rep})~; elle supporte des
-opérations de haut niveau telles que les opérations booléennes, extrusion, chanfrein, rainure\dots %
+par frontières (\textit{Boundary Representation, B-Rep})~; ; enfin, des opérations de haut niveau sont supportées telles que les opérations booléennes, l'extrusion, le chanfrein, ou encore la rainure.
 
 ~
 
@@ -148,9 +109,7 @@ Prenons l'exemple d'une spécification paramétrique (représentation implicite)
 
 
 Le résultat (représentation explicite) est illustré sur la
-figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-init}). %
-
-La première opération crée un cube paramétré par les trois valeurs
+figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-init}). La première opération crée un cube paramétré par les trois valeurs
 \texttt{long\_c}, \texttt{haut\_c} et \texttt{prof\_c}. %
 Nous nous intéressons, en particulier, à trois entités topologiques nommées $f_{1}$, $e_{1}$ et $e_{2}$, qui
 sont respectivement la face avant du cube et ses arêtes verticales gauche
@@ -160,23 +119,13 @@ en deux. %
 Enfin, la troisième opération crée un arrondi sur l'arête $e_{1}$. %
 
 
-
 La spécification paramétrique ci-dessus (et sa représentation explicite
 figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-init})
 illustre plusieurs aspects de la rigidité de l'approche fonctionnelle~: %
-(1) l'utilisateur est restreint à l'utilisation du pool d'opérations prédéfinies dans le modeleur~; (2) l'approche est
-séquentielle, ce qui implique que toute entité doit exister à l'étape courante de la modélisation pour pouvoir être référencée (i.e. pouvoir être utilisée comme paramètre d'entrée de l'opération de modélisation courante).
-Par exemple, suite à l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de
-la face avant du cube initial n'existe plus~: elle a été «~remplacée~» par une
-succession de nouvelles arêtes. Il devient alors impossible d'appliquer une fonction
-sur la référence $e_{2}$ à partir d'une éventuelle étape $4$. %
+(1) l'utilisateur est limité à un ensemble d'opérations prédéfinies dans le modeleur~; (2) l'approche est séquentielle, ce qui implique que toute entité doit exister à l'étape courante de la modélisation pour pouvoir être référencée, c'est-à-dire utilisée comme paramètre d'entrée de l'opération en cours. Par exemple, suite à l'application de la fonction \texttt{rainure} à l'étape $3$, l'arête $e_{2}$ de la face avant du cube initial n'existe plus~: elle a été «~remplacée~» par une succession de nouvelles arêtes. Il devient alors impossible d'appliquer une fonction sur la référence $e_{2}$ à partir d'une éventuelle étape $4$. %
 
 
-
-
-Une autre difficulté liée à cette approche est le référencement d'entités qui peuvent ne plus exister ou être modifiées lors de la réévaluation. %
-Considérons, par exemple, le rejeu de la spécification paramétrique précédente légèrement modifiée
-(Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-reeval})~:
+Une autre difficulté associée à l'approche fonctionnelle réside dans le référencement d'entités qui peuvent ne plus exister ou avoir été modifiées lors de la réévaluation. Considérons, par exemple, le rejeu de la spécification paramétrique précédente, légèrement modifiée (Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-reeval})~:
 \begin{itemize}
 	\item \texttt{1-Cube(long\_c, haut\_c, prof\_c)}
 	\item \texttt{2-Rainure($f_{1}$, long\_r2, larg\_r)}
@@ -197,40 +146,33 @@ $e_{1}$ est scindée en $e_{x}$ et $e_{y}$. %
 L'arête $e_{1}$ n'existant plus, il n'est alors plus possible
 d'appliquer l'opération d'arrondi sur la référence $e_{1}$. %
 
-Cette dernière difficulté illustre une limitation importante de l'approche fonctionnelle. %
-Lors de la réévaluation et lorsqu'une entité référencée dans la spécification
-paramétrique cesse d'exister, il devient alors impossible d'utiliser sa
-référence et ainsi produire une	nouvelle représentation explicite du modèle sans utiliser un mécanisme de nomination plus robuste. %
+Cette difficulté illustre une limitation majeure de l'approche fonctionnelle. Lors de la réévaluation, si une entité référencée dans la spécification paramétrique cesse d'exister, il devient alors impossible d'utiliser sa référence, ce qui empêche de produire une nouvelle représentation explicite du modèle sans un mécanisme de nomination plus robuste.
 
 \section{Nomination persistante}
 \label{sec:etat-art-reevaluation-nomination-persistante}
 
-L'exemple précédent illustre le besoin auquel doit répondre un mécanisme de nomination persistante~: pouvoir régénérer un modèle malgré des références invalides. %
-Ainsi, permettre la réévaluation d'une spécification paramétrique nécessite,
-dans un premier temps, que chacune des entités topologiques d'un modèle paramétrique
-puisse être identifiée à l'aide d'un identifiant unique et robuste, appelé
-\emph{nom persistant}. %
-Ensuite, le nom attribué à chacune des entités topologiques doit permettre de
-procéder à leur \emph{appariement} dans le modèle paramétrique régénéré,
-c'est-à-dire retrouver dans le nouveau modèle les entités qui avaient été
-initialement désignées pour appliquer les opérations de modélisation. %
+L'exemple présenté dans la section précédente met en évidence la nécessité d'un mécanisme de nomination persistante : celui-ci doit permettre la régénération d'un modèle malgré la présence de références invalides. Pour cela, il est essentiel que chaque entité topologique d'un modèle paramétrique soit identifiable à l'aide d'un identifiant unique et robuste, appelé \emph{nom persistant}. De plus, le nom attribué à chaque entité doit faciliter leur \emph{appariement} dans le modèle paramétrique régénéré, c'est-à-dire permettre de retrouver, dans le nouveau modèle, les entités qui avaient été initialement désignées pour appliquer les opérations de modélisation.
+
 
 
 \subsection{Nomination des entités} \label{sec:etat-art-modelisation-parametric-nomination-utilisation-nom}
 
+%% Je reprécise «sans réévaluation» parce d'autres systèmes utilisent le concept
+%% de nomination des entités topologiques mais sans proposer de réévaluation,
+%% comme le transfert de modèle paramétrique d'un système à un autre.
+Dans \maxime{le} % autre
+contexte % que celui
+de la modélisation paramétrique \maxime{sans réévaluation}, une entité peut être
+désignée à l'aide d'un identifiant simple, comme un numéro d'apparition dans le
+modèle ou un pointeur. Cependant, dans le cadre de la modélisation paramétrique
+avec réévaluation, ces méthodes de référencement deviennent inapplicables. En
+effet, de telles références sont particulièrement sensibles aux changements
+topologiques subis par le modèle lors de la réévaluation de la spécification.
+Par exemple, un numéro d'ordre d'apparition pourrait désigner une entité
+topologique différente, incompatible avec l'opération qui la référence. De même,
+si l'entité initialement référencée par un pointeur disparaît, le programme
+échouera en raison d'une erreur de pointeur nul.
 
-En dehors de tout concept de réévaluation, il est possible de désigner une
-entité par un simple identifiant, comme par exemple un numéro d'apparition dans le modèle ou encore à l'aide d'un
-pointeur. %
-Toutefois, lorsque l'on se place dans le cadre de la modélisation paramétrique
-avec réévaluation, ces méthodes de référencement ne sont plus
-applicables. %
-En effet, de telles références sont particulièrement sensibles aux changements topologiques
-subis par le modèle lors de la réévaluation de la spécification. %
-Ainsi, un numéro d'ordre d'apparition pourrait désigner une autre entité
-topologique incompatible avec l'opération qui la référence. %
-Pour un pointeur, si l'entité initialement référencée disparaît, le
-programme va échouer avec une erreur de pointeur nul. %
 
 Reprenons l'exemple précédent. %
 Lors de l'évaluation initiale
@@ -241,15 +183,9 @@ Suite à la réévaluation
 (Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-reeval}),
 la rainure, dont la longueur a changé, scinde $e_{1}$ en deux et n'existe plus
 telle quelle. %
-En conséquence, utiliser le nom $e_{1}$ ou un identifiant correspondant à $e_{1}$ comme référence n'est pas adapté, car sensible aux changements dans le modèle. %
+Par conséquent, utiliser le nom $e_{1}$ ou un identifiant correspondant à $e_{1}$ comme référence n'est pas approprié, car il reste sensible aux modifications du modèle.
 
-La nomination persistante doit donc être un mécanisme d'identification robuste,
-c'est-à-dire dont les références restent valides au cours de la réévaluation
-d'une spécification paramétrique, malgré les modifications géométriques et
-topologiques. %
-Ce mécanisme s'impose alors comme une troisième couche dans les systèmes de
-modélisation paramétrique, entre la spécification paramétrique et la
-représentation explicite. %
+La nomination persistante doit donc être un mécanisme d'identification robuste, c'est-à-dire un système dont les références restent valides au cours de la réévaluation d'une spécification paramétrique, malgré les modifications géométriques et topologiques. Ce mécanisme s'intègre alors comme une troisième couche dans les systèmes de modélisation paramétrique, entre la spécification paramétrique et la représentation explicite.
 
 \subsection{Appariement des entités}
 \label{sec:etat-art-modelisation-parametrique-nomination-appariement}
@@ -274,36 +210,24 @@ réévaluation avec l'application de l'opération d'arrondi sur l'une et/ou l'au
 des deux arêtes scindées. %
 Dans cette situation, avec un nom permettant d'identifier l'arête $e_{1}$ malgré
 sa scission, un mécanisme d'appariement doit permettre de mettre $e_{1}$ en
-correspondance avec $e_{x}$ et $e_{y}$ et d'appliquer l'opération d'arrondi sur
-l'une et/ou l'autre de ces arêtes. %
+correspondance avec $e_{x}$ et $e_{y}$ et d'appliquer l'opération d'arrondi sur l'une ou l'autre de ces arêtes, voire sur les deux. %
 
 
 \section{Classification des méthodes de nomination persistante}
 \label{sec:etat-art-reevaluation-approches-nommages}
 
 
-La nomination persistante, avec l'identification et l'appariement des entités
-topologiques, est un problème avec un enjeu fort pour la réévaluation d'un
-modèle paramétrique. %
+La nomination persistante, ainsi que l'identification et l'appariement des entités topologiques, constitue un enjeu majeur pour la réévaluation d'un modèle paramétrique. %
 Au cours des dernières années, de nombreuses méthodes ont été proposées pour
 mettre en \oe uvre un système permettant de réévaluer des modèles
 paramétriques. %
-Dans cette section, nous proposons tout d'abord de mettre en exergue un certain
-nombre de concepts communs que l'on retrouve dans les différentes approches. %
-Ensuite, nous passons en revue de manière plus détaillée les systèmes proposés
-les plus significatifs pour résoudre le problème de la nomination persistante
-et, enfin, nous proposons une synthèse de ces méthodes. %
+Dans cette section, nous commençons par identifier des concepts communs aux différentes approches. Ensuite, nous passons en revue de manière plus détaillée les systèmes les plus significatifs proposés pour résoudre le problème de la nomination persistante. Enfin, nous proposons une synthèse de ces méthodes.%
 
 
 \subsection{Concepts communs de la nomination persistante}
 \label{sec:etat-art-reevaluation-classification-concepts-communs}
 
-Les différents systèmes de nomination persistante s'appuient, explicitement ou
-non, sur un ensemble de concepts. %
-Ces concepts définissent principalement des propriétés sur les entités topologiques permettant
-de les classer dans des catégories distinctes. %
-Cela permet de mettre en \oe uvre des mécanismes spécifiques pour la nomination
-et l'appariement. %
+Les différents systèmes de nomination persistante reposent, explicitement ou implicitement, sur un ensemble de concepts. Ces concepts définissent principalement des propriétés des entités topologiques, permettant de les classer en catégories distinctes. Cela facilite la mise en \oe uvre de mécanismes spécifiques pour la nomination et l'appariement. %
 
 
 \paragraph*{Distinction des entités invariantes et contingentes}
@@ -333,7 +257,7 @@ Quels que soient les paramètres des opérations créant ces deux blocs, nous
 savons que l'ensemble de ces entités seront systématiquement générées, car elles
 sont caractéristiques de l'opération. %
 Ainsi, l'ensemble des entités topologiques des blocs, telles que les faces
-$f_{1}$ et $f_{5}$, sont-elles invariantes. %
+$f_{1}$ et $f_{5}$, sont invariantes. %
 
 \begin{definition}[Entité contingente]\label{def:entite-contingente}%
 	Une \emph{entité contingente} est une entité topologique ou géométrique qui résulte
@@ -356,7 +280,7 @@ intersection entre les deux objets, ou si nous modifions sa taille de façon à 
 que la face $f_{1}$ se retrouve scindée en deux, alors certaines entités
 contingentes ne seront plus créées ou au contraire d'autres apparaîtront. %
 De même si l'on reprend l'exemple sur la
-Figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-rep-explicite},
+figure~\ref{fig:etat-art-modelisation-parametrique-modelisation-parametrique-fonctionnel-rep-explicite},
 au rejeu, le changement de la longueur de la rainure scinde la face $f_{1}$ et
 crée deux nouvelles faces contingentes. %
 
@@ -378,7 +302,7 @@ crée deux nouvelles faces contingentes. %
 \paragraph*{Entités issues d'extrusion ou de révolution}
 
 
-Le deuxième concept est un mécanisme de nomination des entités invariantes
+Le second concept commun que nous abordons est un mécanisme de nomination des entités invariantes
 générées lors d'opérations d'extrusion ou de révolution. %
 Ces opérations génèrent des volumes à partir d'entités topologiques 2D. %
 Ces entités 2D sont les paramètres des opérations d'extrusion et de
@@ -393,14 +317,12 @@ topologie. %
 Différentes méthodes ont été proposées pour procéder à la nomination persistante
 des entités générées lors d'une
 extrusion~\cite{chen1995representation,wu2001face,agbodan2003topological}. %
-Toutefois, ces méthodes suivent à peu près toutes le même procédé, c'est-à-dire
-que les noms des entités générées sont produits en utilisant ceux des entités
-invariantes intervenant dans leurs constructions. %
+Cependant, ces méthodes suivent toutes, dans l'ensemble, le même procédé : les noms des entités générées sont dérivés de ceux des entités invariantes impliquées dans leur construction. %
 
 
-Prenons l'exemple des travaux de Wu~\cite{wu2001face}. %
-Cet auteur propose une identification des entités topologiques générées par extrusion (ou
-révolution), basée sur le schéma de nomination suivant
+Prenons l'exemple des travaux de Wu et al.~\cite{wu2001face}. %
+Ces auteurs proposent une identification des entités topologiques générées par extrusion (ou
+révolution), basée sur le schéma de nomination~suivant~:
 
 \[[ID_{operation},ID_{profil},ID_{element},ID_{chemin},ID_{trajectoire}]\]
 
@@ -439,10 +361,7 @@ où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 
 \paragraph*{Entités avec et sans sources}
 
-Le troisième concept commun que l'on retrouve dans la plupart des approches,
-même s'il n'est pas toujours défini de manière explicite, propose de distinguer
-les entités selon qu'elles possèdent une source ou non, en définissant les
-entités avec \textit{source} de la façon suivante~\cite{wu2001face}. %
+Le troisième concept commun présent dans la plupart des approches, bien qu'il ne soit pas toujours défini de manière explicite, consiste à distinguer les entités selon qu'elles possèdent une source ou non. Les entités avec \textit{source} sont définies de la manière suivante~\cite{wu2001face}.
 
 \begin{definition}[Entité avec source]\label{def:entite-avec-source}%
 	Une entité avec source est une entité topologique résultant d'une autre entité
@@ -450,7 +369,7 @@ entités avec \textit{source} de la façon suivante~\cite{wu2001face}. %
 	avec cette dernière, suite à l'application d'une opération de modélisation.
 \end{definition}
 
-D'après Wu~\cite{wu2001face}, une entité topologique $E$ issue d'une opération
+D'après Wu et al.~\cite{wu2001face}, une entité topologique $E$ issue d'une opération
 booléenne entre deux objets $O_{1}$ et $O_{2}$, est une entité avec source s'il
 existe une entité topologique $E'$, de même dimension, appartenant à $O_{1}$ ou
 $O_{2}$ telle que $E$ et $E'$ ont au moins une partie de leur plongement
@@ -481,8 +400,8 @@ Ainsi, en 3D les faces contingentes sont toutes avec source. %
 À l'inverse, ce n'est pas forcément le cas pour les arêtes et sommets qui
 peuvent être créés par l'intersection de plusieurs entités de dimension
 supérieure. %
-Une conséquence de cela, que nous pouvons constater, même si cela n'est pas exprimé de façon explicite, c'est qu'aujourd'hui dans la plupart des modeleurs 3D, les mécanismes de nomination s'appuient sur les faces. %
-En effet, le fait qu'elles soient invariantes ou qu'elles aient systématiquement une source les rend plus facilement identifiables et permet par voie de conséquence une nomination plus robuste des autres entités. %
+Une conséquence de cela, bien qu'elle ne soit pas toujours exprimée de manière explicite, est que la plupart des modeleurs 3D d'aujourd'hui s'appuient sur les faces pour leurs mécanismes de nomination. %
+En effet, le fait qu'elles soient invariantes ou qu'elles aient systématiquement une source les rend plus facilement identifiables, ce qui permet une nomination plus robuste des autres entités.
 
 \paragraph*{Utilisation d'un historique de noms}
 
@@ -574,11 +493,7 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %\david{il me
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
 \end{figure}
 
-Un exemple de construction implicite d'un historique par héritage des noms des
-ancêtres invariants est celui développé par Wu et al.~\cite{wu2001face}. %
-Le système de Wu et al. propose différents schémas de nomination, par exemple
-celui pour les entités extrudées, qui attribut un nom unique appelé \emph{original name} (\(on\)) à chaque entité topologique générée. %
-
+Un exemple de construction implicite d'un historique par héritage des noms des ancêtres invariants est celui développé par Wu et al.~\cite{wu2001face}. Leur système propose différents schémas de nomination, notamment pour les entités extrudées, où chaque entité topologique générée reçoit un nom unique appelé \emph{original name} (\(on\)). %
 % Les auteurs proposent plusieurs schémas de nominations, par exemple celui pour les
 % entités extrudées, qui intègre les ancêtres invariants de l'entité nommée. %
 % Une telle nomination crée, de manière implicite, une forme d'historique dans
@@ -586,10 +501,12 @@ celui pour les entités extrudées, qui attribut un nom unique appelé \emph{ori
 % l'histoire à son ancêtre invariant et ainsi de suite. \david{Je persiste à dire que tu ne devrais pas parler d'historique implicite durant la phase de construction des entités créées par extrusion.  L'extrusion permet de construire les ON de départ. C'est une fois ces ON créés que Wu explique comment il va les propager aux descendants sur les entités de même dimension. "L'arbre" implicite commence ici. Pas avant.}%
 Une fois les \(on\) attribués, ce système met en \oe uvre un
 mécanisme de propagation des noms persistants
-(Figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu})
+(figure~\ref{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu})
 qui, lors d'une scission par exemple, propage le nom d'une entité à chacune
 des deux entités scindées, autrement dit aux entités descendantes de même
 dimension. %
+
+
 C'est cette mécanique de propagation de nom qui, implicitement, construit un
 historique de noms. %
 Un tel exemple est illustré dans la
@@ -608,6 +525,7 @@ Dans cette approche, puisque \(on2\) est associé à une face de la \textit{part
 la pièce finale. %
 
 
+
 \paragraph*{Nomination hétérogène des entités}
 
 
@@ -618,27 +536,23 @@ La plupart des systèmes utilisent les entités topologiques de dimension \(n-1\
 entités topologiques, et proposent des schémas de nomination différents pour
 chaque dimension. Ce choix est expliqué par le fait que les autres entités
 topologiques peuvent être entièrement définies comme des intersections d'entités
-de dimensions \(n-1\)~: en 3D par exemple, une arête est une intersection de
+de dimensions \(n-1\)~. En 3D par exemple, une arête est une intersection de
 deux faces, un sommet une intersection de trois faces. %
+
+
 Un tel choix mène à nommer les entités topologiques en fonction de leur
 voisinage~\cite{CAPOYLEAS199617,chen1995representation,kripac1995mechanism,agbodan2000persistent},
 voire à ajouter des informations
 géométriques~\cite{wu2001face,bidarra2005feature,wang2005geometry} (espace
-paramétrique, orientation, gradient, …) lorsque la topologie seule ne suffit
-plus à lever les ambiguïtés, par exemple lorsque deux arêtes issues d'une
-opération de différence auraient un voisinage identique. %
-L'inconvénient de définir un schéma de nomination ainsi est que chaque système
-est défini pour une dimension de modélisation précise et que la généralisation
-vers d'autres dimensions est complexe et
-nécessite une redéfinition complète des mécanismes de nomination. %
+paramétrique, orientation, gradient, etc.) lorsque la topologie seule ne suffit
+plus à lever les ambiguïtés. Par exemple, cela est nécessaire lorsque deux arêtes issues d'une opération de différence partagent un voisinage identique. %
+L'inconvénient de définir un schéma de nomination de cette manière est que chaque système est conçu pour une dimension de modélisation spécifique, rendant la généralisation vers d'autres dimensions complexe et nécessitant une redéfinition complète des mécanismes de nomination.
 
-Dans ses travaux, Baba-Ali~\cite{babaali2010systeme} met en évidence une conséquence liée à la nomination hétérogène des entités topologiques. %
+Dans ses travaux, Baba-Ali~\cite{babaali2010systeme} met en évidence une conséquence liée à la nomination hétérogène des entités topologiques.
 Dans la littérature, peu de méthodes traitent la nomination d'entités de dimensions supérieures au faces ou d'agrégats
 d'entités, tels que les agrégats de faces aussi appelées coques dans les
 systèmes de modélisation 3D. %
-Rappelons que la plupart des systèmes de nomination persistante sont basés sur
-les faces pour définir les autres entités, le plus souvent les arêtes et sommets comme des intersections de faces, et sur des mécanismes de nomination hétérogènes en fonction de la dimension. %
-Par essence, ces systèmes sont donc inadaptés à une extension naturelle des mécanismes de nomination vers de nouvelles entités. %
+Rappelons que la plupart des systèmes de nomination persistante reposent sur les faces pour définir les autres entités, généralement les arêtes et les sommets, qui sont considérés comme des intersections de faces. De plus, ces systèmes utilisent des mécanismes de nomination hétérogènes en fonction de la dimension. Par essence, ces systèmes sont donc inadaptés à une extension naturelle des mécanismes de nomination vers de nouvelles entités. %
 Il existe ainsi, dans les systèmes de modélisation paramétrique, un manque à
 combler en ce qui concerne la nomination des volumes, agrégats et autres
 entités de dimension supérieures aux faces. %
@@ -704,21 +618,18 @@ Dans la réévaluation (figure~\ref{fig:etat-art-modelisation-parametrique-conce
 Le problème présenté dans cet exemple et le suivant~: puisque les deux arêtes de l'évaluation initiale ont exactement le même voisinage topologique, dans la réévaluation il est possible que l'appariement désigne la mauvaise arête pour ré-appliquer l'opération d'arrondi (figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-3}). %
 Ici, la topologie n'est pas suffisante pour discriminer les deux arêtes et faire le bon appariement lors de la réévaluation. %
 
+
+
+
+
 Ainsi, la plupart des systèmes proposent d'ajouter des informations géométriques
 aux noms persistants pour permettre l'identification des entités issues de
 telles intersections~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
-
 Wu et al~\cite{wu2001face}, par exemple, proposent de représenter les entités
-topologiquement ambiguës dans un espace paramétrique (u,v) et de les ordonnancer
-pour les distinguer les unes des autres. %
-
-Bidarra et al.\cite{bidarra2005feature} proposent de découper l'espace en deux domaines, positif et négatif, à l'aide d'un plan de référence. %
+topologiquement ambiguës dans un espace paramétrique $(u,v)$ et de les ordonnancer
+pour les distinguer les unes des autres. Bidarra et al.\cite{bidarra2005feature} proposent de découper l'espace en deux domaines, positif et négatif, à l'aide d'un plan de référence.
 L'appartenance d'une entité à un domaine ou un autre par rapport au plan de
-coupe permet alors de distinguer deux entités symétriques. %
-
-% \david{cite aussi l'article de babaali. Je peux te filer l'article si tu vois
-% 	pas duquel je veux parler}
-Baba-Ali et al~\cite{baba2009method}
+coupe permet alors de distinguer deux entités symétriques. Baba-Ali et al~\cite{baba2009method}
 prennent en considération la courbure d'une surface, à savoir ses extremums
 locaux (des bosses et des creux), pour la partitionner. %
 L'information géométrique obtenue pour chaque sous-surface permet alors
@@ -734,14 +645,12 @@ pour la nomination et l'appariement des entités topologiques. %
 Cette extension, issues des différentes contributions pour la réévaluation,
 produit l'architecture à trois couches suivante~:
 \begin{itemize}
-	\item la couche de spécification paramétrique contient l'ensemble des
+	\item la couche de spécification paramétrique qui contient l'ensemble des
 	      opérations de modélisations, issues du processus constructif,
 	      définissant un objet~; %
-	\item la couche de nomination permet une identification sans ambiguïté des
+	\item la couche de nomination qui permet une identification sans ambiguïté des
 	      entités topologiques et leur appariement lors de la réévaluation~; %
-	\item la couche géométrique contient la représentation géométrique d'un
-	      objet, c'est-à-dire ses entités géométriques et topologiques, après
-	      évaluation de la spécification paramétrique. %
+	\item la couche géométrique, qui contient la représentation géométrique d'un objet, c'est-à-dire ses entités géométriques et topologiques, après évaluation de la spécification~paramétrique. %
 \end{itemize}
 
 
@@ -769,11 +678,9 @@ produit l'architecture à trois couches suivante~:
 \subsection[Systèmes de nomination persistante]{Systèmes de nomination persistante}
 \label{sec:etat-art-reevaluation-classification-nommage}
 
-Dans cette section, nous proposons de décrire les différents systèmes publiés et de présenter leurs avantages et limitations dans le cadre de la réévaluation. %
-
+Dans cette section, nous décrivons les différents systèmes de nomination persistante publiés, en présentant leurs avantages et limitations dans le contexte de la réévaluation. %
 
 \paragraph*{Kripac (1995)}
-
 
 Dans ses travaux, Kripac propose un système pour répondre au problème de la
 nomination persistante et permettre la réévaluation de modèles
@@ -832,21 +739,17 @@ Dans cette logique, Kripac propose un système de requêtes pour définir le deg
 similarité devant être atteint pour effectuer l'appariement entre plusieurs
 entités topologiques. %
 
+\subparagraph*{Synthèse}
+
 Les travaux de Kripac sont parmi les premiers à présenter une solution à la
 réévaluation de modèle paramétrique 3D. %
 Il propose un système de nomination persistante, un DAG pour suivre l'évolution
 des faces et un mécanisme d'appariement des entités. %
-Toutefois, ce système présente des inconvénients. %
-D'une part, à chaque type d'entité topologique correspond un schéma de
-nomination différent, ce qui en fait un système qui n'est pas généralisable en
-toutes dimensions. %
-D'autre part, l'appariement s'appuie en partie sur le voisinage (pour rappel des
+Cependant, ce système présente des inconvénients. D'une part, chaque type d'entité topologique est associé à un schéma de nomination spécifique, ce qui limite la généralisabilité du système à toutes les dimensions. %
+D'autre part, l'appariement repose en partie sur le voisinage (des
 faces) pour estimer la similitude entre deux entités et sur un certain nombre
 d'heuristiques rendant le résultat parfois imprévisible. %
-En particulier, lorsque les correspondances entre les faces du graphe ne sont pas
-exactes (ce qui est bien souvent le cas) aucune indication n'est donnée sur la
-manière dont ces correspondances sont représentées et gérées dans le graphe, et
-sur l'impact que cela aura sur les futurs appariements. %
+En particulier, lorsque les correspondances entre les faces du graphe ne sont pas exactes (ce qui est souvent le cas) aucune indication n'est fournie sur la façon dont ces correspondances sont représentées et gérées dans le graphe, ni sur l'impact que cela pourrait avoir sur les futurs appariements. %
 
 
 \paragraph*{Capoyleas et al. (1996)}
@@ -860,7 +763,7 @@ opérations~:
 \begin{itemize}
 	\item d'extrusion, de balayage et de révolution~;
 	\item booléennes~;
-	\item de modification d'entités (chanfrein, arrondi, …). % \david{c'est quoi comme genre d'op ? tu peux donner un ou deux ex entre parenthèse ?}
+	\item de modification d'entités (chanfrein, arrondi, etc.). % \david{c'est quoi comme genre d'op ? tu peux donner un ou deux ex entre parenthèse ?}
 \end{itemize}
 
 \begin{figure}[htb!]
@@ -905,7 +808,7 @@ d'arrivée de l'extrusion, la face de côté générée à partir de \(e_{3}\) e
 	\label{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}
 \end{figure}
 
-Capoyleas et al. distinguent deux schémas de nomination en fonction selon qu'une
+Capoyleas et al. distinguent deux schémas de nomination selon qu'une
 entité contingente, créée à l'issue d'une opération booléenne, possède une source ou
 non. %
 Prenons l'exemple de la différence entre un bloc et un cylindre illustré dans la
@@ -959,7 +862,7 @@ la seconde est caractérisée par l'arête \(e(v_{3})\) encadré en
 {\color{Chartreuse4}vert} dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}. %
 
-Toutefois, cette approche basée sur le voisinage topologique peut ne plus
+Cependant, cette approche basée sur le voisinage topologique peut ne plus
 suffire dans le cas d'intersections de surfaces non-planaires. %
 Pour répondre à cette problématique, les auteurs proposent un schéma de
 nomination persistante des sommets et arêtes d'après leurs faces adjacentes,
@@ -981,6 +884,8 @@ où \(\mathit{FacesIncidentes_{s}}\) est la liste (cyclique) des faces incidente
 décrivent l'orientation de \(E_{s}\) dans l'objet à condition que celui-ci soit
 orientable. %
 
+\subparagraph{Synthèse}
+
 Le système de nomination persistante proposé par Capoyleas et al. est un système
 basé sur les faces puisque celles-ci ont nécessairement un ancêtre invariant. %
 L'inconvénient d'un tel système, comme évoqué précédemment, est qu'il est
@@ -996,7 +901,10 @@ peut avoir du sens lorsqu'il s'agit de voisins relativement proches, mais il est
 difficile d'imaginer le sens et l'impact que pourrait avoir l'utilisation de
 voisins plus éloignés sur le rejeu. %
 
+
+
 \paragraph*{Wu et al. (2001)}
+
 
 
 Wu et al.~\cite{wu2001face} s'intéressent à la nomination des entités
@@ -1004,26 +912,30 @@ topologiques et plus particulièrement à leur suivi, dans le cadre de la modél
 à base d'opérations booléennes. %
 Ces auteurs proposent un système dans lequel
 les noms persistants sont constitués de deux parties~: la première se base sur
-l'identification à base topologique des faces du modèle~: la seconde est une information géométrique
+l'identification à base topologique des faces du modèle~; la seconde est une information géométrique
 dont le but est de lever des ambiguïtés potentielles. %
 
-L'identification à base topologique consiste à créer, pour chaque face
-enregistrée dans la spécification paramétrique, un nom unique appelé
-\(on\) (pour \emph{original name}). %
-Wu et al. distinguent trois schémas de nominations pour, respectivement, les faces
-issues d'extrusions, les faces dérivées d'entités topologiques et les
-faces issues d'autres caractéristiques de formes. %
+%% SJEAN : Je trouve cette partie redondante avec ce qui a été dit dans les concepts communs. Remettre les définitions est assez lourd.
 
-La nomination des faces issues d'un profil d'extrusion, comme nous l'avons
-décrit dans les concepts communs, suit le schéma suivant~: %
-%% extrusion vue plus tôt dans les concepts communs sur l'extrusion
-\[on_{side}(F) = [FeatID, FeatID_{p}, ID_{element},FeatID_{path},ID_{trajectory}]\]
-La nomination des faces dérivées d'entités topologiques se basent sur les \(on\) des faces adjacentes à ces entités. Par exemple l'\(on\) de la face \(F\) d'un chanfrein est déterminé ainsi~:
+% Comme indiqué précédemment, l'identification à base topologique consiste à créer, pour chaque face enregistrée dans la spécification paramétrique, un nom unique appelé
+% \(on\) (pour \emph{original name}). %
+
+Wu et al. distinguent trois schémas de nomination~: l’un pour les faces issues
+d’extrusions \maxime{(présenté dans les concepts communs)}, un
+autre pour les faces dérivées d’entités topologiques, et un troisième pour les
+faces résultant d’autres caractéristiques de formes. % La
+% nomination des faces issues d'un profil d'extrusion suit le schéma suivant~: %
+% %% extrusion vue plus tôt dans les concepts communs sur l'extrusion
+% \[on_{side}(F) = [FeatID, FeatID_{p}, ID_{element},FeatID_{path},ID_{trajectory}]\]
+
+La nomination des faces dérivées d'entités topologiques se basent sur les \(on\)
+des faces adjacentes à ces entités. %
+Par exemple l'\(on\) de la face \(F\) d'un chanfrein est déterminé ainsi~:
 %% caractéristique issue d'une entité
 \[on(F) = [FeatID, FeatID_{FF1}, ID_{element1},FeatID_{FF2},ID_{element2}]\]
 où \(FeatID_{FF1}\) et \(FeatID_{FF2}\) sont les identifiants de deux faces
 adjacentes à l'arête dont est dérivée \(F\), \(FeatID_{element1}\) et
-\(FeatID_{element2}\) les identifiants de \(FF1\) et \(FF2\) dans leurs \(on\) respectifs.\\
+\(FeatID_{element2}\) les identifiants de \(FF1\) et \(FF2\) dans leurs \(on\) respectifs. %
 
 % Prenons, par exemple, d'une face créée par une opération de chanfrein sur une
 % arête. %
@@ -1041,7 +953,7 @@ trajectoire. %
 La valeur \(InsNum\) désigne chacun des cylindres à l'aide d'un numéro
 d'instanciation où \(0\) désigne l'instance d'origine, c'est-à-dire celle qui
 est dupliquée. %
-Comme nous l'avons vu plus tôt, Wu et al. proposent d'associer leur
+Comme nous l'avons vu précédemment, Wu et al. proposent d'associer leur
 système de nomination à un mécanisme de propagation des \(on\) des faces,
 lorsqu'elles sont scindées et fusionnées, à leurs faces descendantes.
 
@@ -1068,42 +980,36 @@ topologiques~:
 	      \[rn(V) = [rn(F1), rn(F2),rn(F3), PSI]\]
 \end{itemize}
 
-En résumé, les travaux de Wu et al. s'intéressent au problème de la nomination
-persistante du point de vue des opérations booléennes et proposent un système de
-nomination à base de faces enrichi d'une information purement géométrique pour
-lever l'ambiguïté lorsque plusieurs entités portent le même nom. %
-Les auteurs proposent que seules les entités enregistrées dans la spécification
-paramétrique doivent être nommées et le système de nomination proposé permet la
-création de noms uniques, à l'exception des cas ambigus issus d'intersections
-non-planaires. %
-Néanmoins, l'usage systématique fait des \(PSI\), et donc de la géométrie, en
-cas de simple scission d'une face, par exemple, alors même que la topologie
-permettrait aisément de lever les ambiguïtés, rend cette approche moins stable. %
-Les informations contenues dans les \(PSI\) peuvent, en effet, rapidement
-provoquer des résultats erronés en cas de modification de l'objet.
 
+\subparagraph{Synthèse}
+
+En résumé, les travaux de Wu et al. abordent le problème de la nomination persistante dans le contexte des opérations booléennes. Ils proposent un système de nomination basé sur les faces, enrichi d'informations géométriques supplémentaires pour résoudre les ambiguïtés lorsque plusieurs entités portent le même nom. Les auteurs proposent que seules les entités explicitement enregistrées dans la spécification paramétrique doivent être nommées. Ce système permet la création de noms uniques, à l'exception des cas ambigus résultant d'intersections non-planaires.
+
+%% SJEAN La phrase ci-dessous n'est pas claire
+% Néanmoins, l'usage systématique des \(PSI\), et donc de la géométrie, même dans des cas simples comme la scission d'une face, alors que la topologie seule pourrait facilement résoudre les ambiguïtés, rend cette approche moins stable. %
+\maxime{Néanmoins, cette approche propose un usage systématique des \(PSI\), et donc de
+la géométrie, y compris dans des cas simples où la topologie seule peut suffire
+à lever l'ambiguïté, comme la scission d'une face.} %
+Les informations contenues dans les \(PSI\) peuvent, en effet, rapidement
+provoquer des résultats erronés en cas de modification de l'objet. %
 De plus, l'usage des faces comme type d'entité de base pour la nomination des
 autres entités est un facteur limitant. %
 Ajouté au fait que la nomination d'une face dépend de la catégorie d'opérations
-qui la créent, ce système de nomination est particulièrement difficile, voire
+qui la crée, ce système de nomination est particulièrement difficile, voire
 impossible, à généraliser dans d'autres dimensions. %
 
 Dans les travaux publiés plus récemment, Farjana et
 al.~\cite{farjana2015method,farjana2016implementation} proposent une extension
 des travaux de Wu et al. avec un enrichissement des noms persistants. %
-La difficulté étudiée est l'ambiguïté occasionnée par les entités scindées et
-fusionnées partagent le même nom persistant. %
+Le problème abordé est l'ambiguïté occasionnée lorsque des entités scindées ou fusionnées partagent le même nom persistant. %
 Farjana et al. proposent alors d'ajouter un nom secondaire, attribué pendant la
 réévaluation, qui est une simple mise à jour du nom persistant attribué à
 l'évaluation initiale. %
-Ainsi, si une entité est issue d'une scission, son nom secondaire la distingue avec un numéro d'instanciation sur la totalité des entités scindée. %
-Si une entité est issue d'une fusion, l'entité principale garde le même nom est
+Ainsi, si une entité est issue d'une scission, son nom secondaire la distingue avec un numéro d'instanciation sur la totalité des entités scindées. %
+Si une entité est issue d'une fusion, l'entité principale garde le même nom et
 le nom secondaire renseigne le nom de l'autre entité fusionnée. %
-Malgré tout, les travaux de Farjana s'appuient sur les travaux de Wu et
+Malgré tout, les travaux de Farjana et al. s'appuient sur les travaux de Wu et
 al., et leurs travaux présentent les mêmes limitations. %
-
-
-% \paragraph*{Agbodan}
 
 
 \paragraph*{Bidarra (2005)}
@@ -1113,41 +1019,30 @@ al., et leurs travaux présentent les mêmes limitations. %
 Bidarra et al.~\cite{bidarra2005feature} suggèrent que le problème de la
 nomination est généralement abordé avec une solution incomplète, voire
 contre-productive. %
-En effet, les auteurs observent que les systèmes de réévaluation existants
-tentent de suivre et maintenir des noms persistants pour des entités
+En effet, les auteurs soulignent que les systèmes de réévaluation existants
+cherchent à suivre et maintenir des noms persistants pour des entités
 topologiques susceptibles de disparaître lors de la réévaluation. %
-Ils avancent que procéder ainsi est tout simplement impossible avec une approche
+Ils avancent que procéder ainsi est incompatible avec une approche
 véritablement générique. %
 
 À partir de ce constat, les auteurs proposent une méthode basée sur la nomination des caractéristiques de forme et posent deux critères pour garantir le fonctionnement de cette approche~: %
 \begin{enumerate}
 	\item les noms persistants doivent porter exclusivement sur des entités
 	      topologiques définies dans la spécification paramétrique du modèle~; %
-	\item garantir, à chaque étape de l'évaluation, que la sémantique (ou
-	      l'ensemble des contraintes qui caractérisent une entité), telle que
-	      définie dans la spécification paramétrique, est toujours valide. %
+	\item à chaque étape de l'évaluation, il est crucial de garantir que la sémantique des entités (c'est-à-dire, l'ensemble des contraintes qui les caractérisent dans la spécification paramétrique) demeure valide. %
 \end{enumerate}
-Ainsi, le premier critère porte sur la nomination persistante d'un ensemble
-d'entités topologiques restreint aux paramètres topologiques définies dans la
-spécification paramétrique. %
-Le second critère porte sur le fait que la validité d'une sémantique garantit
-que le mécanisme d'appariement est en mesure de faire le lien entre des entités
-issues du modèle initial et réévalué. %
+
+Ainsi, le premier critère concerne la nomination persistante d'un ensemble d'entités topologiques, limité aux paramètres explicitement définis dans la spécification paramétrique. Le second critère, quant à lui, porte sur la validité de la sémantique, qui garantit que le mécanisme d'appariement peut établir un lien entre les entités issues du modèle initial et celles du modèle réévalué.  %
 
 Dans cette démarche, Bidarra et al. considèrent qu'un modèle paramétrique
-consiste en une corrélation entre trois classes d'entités, respectivement les
+consiste en une corrélation entre trois classes d'entités : les
 \emph{classes de référence}, les \emph{classes de caractéristiques déclaratives}
-et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
+et les \emph{classes de caractéristiques procédurales}. Elles sont définies comme suit.
 \begin{description}
-	\item[Classe de références] Une \emph{référence} est définie comme une entité
-	      auxiliaire disposant d'un nom unique et d'une structure prédéfinie
-	      (plan, ligne, cercle,~…) et qui peut être associée à tout paramètre
-	      topologique de la spécification paramétrique par le moyen d'un ensemble
-	      de contraintes. %
+	\item[Classe de références] Une \textit{référence }est définie comme une entité auxiliaire qui possède un nom unique et une structure prédéfinie (comme un plan, une ligne, un cercle, etc.). Cette entité peut être associée à n'importe quel paramètre topologique de la spécification paramétrique à travers un ensemble de contraintes. %
 	      En outre, les classes de références sont des objets simples à partir
-	      desquelles il est relativement aisé de dériver ou composer d'autres
-	      classes. %
-	      Enfin, celles-ci doivent déclarer leurs propres position et orientation
+	      desquelles il est aisé de dériver ou composer d'autres
+	      classes. Enfin, celles-ci doivent déclarer leurs propres position et orientation
 	      afin de fixer le degré de liberté d'une entité auxiliaire par rapport
 	      aux entités persistantes du modèle. %
 
@@ -1191,7 +1086,7 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 	      possible de désigner la face avant de la manière suivante~:
 	      \[[Nom Bloc,Face Avant]\]
 	      %
-	      Les auteurs ajoutent qu'une caractéristique essentielle des
+	      Les auteurs précisent qu'une caractéristique essentielle des
 	      caractéristiques déclaratives est que leurs faces ne sont jamais
 	      scindées, fusionnées ou supprimées, indépendamment de leur
 	      représentation géométrique.
@@ -1228,7 +1123,7 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 
 	      Par exemple, dans la
 	      figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete},
-	      Bidarra et al. illustrent comment procéder identifier une des
+	      Bidarra et al. illustrent comment identifier une des
 	      deux arêtes en rouge pour appliquer un chanfrein. %
 	      Tout d'abord
 	      (figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete-1}),
@@ -1256,16 +1151,17 @@ et les \emph{classes de caractéristiques procédurales}, définies ci-après~:
 		\caption{}
 		\label{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite-2}
 	\end{subfigure}
-	\caption{Résolution de l'ambiguïté dans le cas d'une intersection
+	\caption{Résolution de l'ambiguïté % dans le cas
+		d'une intersection
 		non-planaire par Bidarra et al.}
 	\label{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite}
 \end{figure}
 
-Toutefois, Bidarra et al. soulèvent que cette méthode d'identification des
+Toutefois, Bidarra et al. indiquent que cette méthode d'identification des
 arêtes devient inopérante dans le cas d'une intersection où au moins l'une
 entités n'est pas planaire (par exemple la face de côté d'un cylindre). %
 Le discriminant (et donc le voisinage topologique) ne suffit plus pour désigner
-une arête parmi celles issue de l'intersection puisqu'elles ont toutes le même
+une arête parmi celles issues de l'intersection puisqu'elles ont toutes le même
 discriminant, comme dans l'exemple illustré
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite} %
 Pour résoudre ce problème, ils proposent alors d'utiliser un plan de référence
@@ -1283,8 +1179,11 @@ Cette discrimination permet alors, lors de la réévaluation
 appliquer de chanfrein sur \(e1\) si \(e2\) était l'arête définie comme
 paramètre dans la spécification paramétrique. %
 
+
+\subparagraph{Synthèse}
+
 %% Conclusions sur la méthode
-Ces travaux définissent trois classes de caractéristiques que les auteurs
+Ainsi, ces travaux définissent trois classes de caractéristiques que les auteurs
 utilisent pour développer différents concepts destinés à apporter de la
 stabilité à la nomination persistante des entités et garantir leurs appariements
 lors de la réévaluation d'une spécification paramétrique. %
@@ -1298,21 +1197,11 @@ faisaient déjà Kripac et Capoyleas. %
 L'utilisation d'un plan de référence est une autre manière d'utiliser une
 information géométrique permettant de lever les ambiguïtés lorsque la topologie
 ne permet plus de caractériser de manière unique une entité. %
-En outre, leur approche présente plusieurs limitations. %
-Le système de nomination s'appuie sur des faces invariantes. %
-Même si celles-ci sont persistantes dans la réévaluation et immuables, car
-définies exclusivement à partir de caractéristiques de formes, ce système est
-adapté uniquement à la modélisation 3D, c'est-à-dire que ce système n'est pas
-généralisable aux autres dimensions où les faces peuvent être issues d'une
-intersection de volumes. %
-Une autre limitation est l'usage d'un plan pour la discrimination des
-différentes arêtes issues d'une intersection avec une entité non-planaire. %
+
+Par ailleurs, cette approche présente plusieurs limitations. Le système de nomination s'appuie sur des faces invariantes. Bien que ces faces soient persistantes lors de la réévaluation et immuables, car définies exclusivement à partir de caractéristiques de forme, ce système est spécifiquement adapté à la modélisation 3D. Ainsi, il n'est pas généralisable à d'autres dimensions, où les faces peuvent résulter d'intersections de volumes. Une autre limitation est l'usage d'un plan pour la discrimination des différentes arêtes issues d'une intersection avec une entité non-planaire. %
 En effet, un plan ne permet de scinder efficacement l'espace que pour un
 échantillon de structures compatibles avec leurs classes de caractéristiques, à
 savoir les plans, les cylindres, les sphères et les tores. %
-
-
-% \paragraph*{Baba-Ali}
 
 
 \paragraph*{Cardot (2019)}
@@ -1354,7 +1243,7 @@ brin dans une G-carte. %
 Un identifiant est alors défini comme une collection de couples
 \(\{numeroEtap - noeud\}\), où \(numeroEtape\) est le numéro d'application d'une
 règle dans la spécification paramétrique et \(noeud\) est le nom d'un n\oe ud
-dans cette même règle.%
+dans cette même~règle.%
 
 À sa création \textit{ex nihilo}, par exemple suite à l'application de
 la toute première règle de la spécification paramétrique, l'identifiant
@@ -1414,6 +1303,8 @@ Le nom persistant d'une orbite (noté \emph{PN}) est donc défini comme un
 ensemble d'identifiants persistants. %
 Un nom persistant est \textit{minimal} lorsqu'un nombre minimum d'identifiants persistants
 énumèrent l'ensemble des règles qui ont impacté une orbite donnée. %
+
+
 Ainsi, toujours dans l'exemple
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}, la
 deuxième règle d'application a pour paramètre le nom persistant \(PN_{1}\) qui
@@ -1445,11 +1336,13 @@ l'ensemble des changements topologiques qui interviennent sur les entités lors
 de l'application d'une règle. %
 Les changements classifiés sont la création, la suppression, la scission, la
 fusion, le non-changement et la modification d'entités topologiques. %
+
+
 Considérons le journal de bord de la règle de triangulation illustré dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-bord}. %
 Nous constatons, par exemple, dans l'entrée de type \texttt{face} (orbite \(\orbit{0,1}\)) (encadrée en {\color{DodgerBlue1}bleu}), que
 la face filtrée par la règle est scindée ("\textit{split}") en autant de parties qu'il y avait d'arêtes (orbite \(\orbit{0}\)) dans la face initiale. %
-Si l'on considère l'entrée de type \texttt{sommet} \(\orbit{1,2}\) (encadrée en {\color{orange}orange}), nous observons deux événements: d'une part, la modification ("\textit{Modif.}") des sommets (orbite \(\orbit{1,2}\)) de la face initiale après la triangulation ; et d'autre part, la création ("\textit{Creat.}") du sommet central de la face triangulée à partir de la face (orbite \(\orbit{0,1}\)) initiale.
+Si l'on considère l'entrée de type \texttt{sommet} \(\orbit{1,2}\) (encadrée en {\color{orange}orange}), nous observons deux événements : d'une part, la modification ("\textit{Modif.}") des sommets (orbite \(\orbit{1,2}\)) de la face initiale après la triangulation ; et d'autre part, la création ("\textit{Creat.}") du sommet central de la face triangulée à partir de la face (orbite \(\orbit{0,1}\)) initiale.
 
 \begin{figure}[htb!]
 	\centering
@@ -1481,7 +1374,7 @@ colorier~; (2) la face est scindée par la sixième opération
 \(\orbit{}\))~; (6) ce brin est réécrit à l'identique par la deuxième opération
 (une autre \textit{Triangulation})~; et (7) ce brin est créé avec le carré. %
 
-Enfin, avec ses travaux, Cardot propose d'étendre l'édition d'une spécification
+Enfin, dans ses travaux, Cardot propose d'étendre l'édition d'une spécification
 paramétrique non plus à la seule édition des paramètres géométriques, mais
 également à l'ajout, la suppression et le déplacement d'opérations dans une
 spécification paramétrique. %
@@ -1513,7 +1406,7 @@ Le dernier n\oe ud de cet arbre \(a'.\orbit{0,1}\) désigne la face incidente au
 % \xavier{Tu peux garder l'arbre d'appriement sur la droite de la figure. Mais sur la gauche, il faudrait mettre chaque étape de la modélisation qui finit par 6-Triangulation. Sinon, on ne voit pas ce que font les opérations intermédiaires (surtout les insertions de sommets).} %
 % \xavier{En plus, tu écris que la 2-Triangulation a été déplacée mais elle apparaît toujours avant 3-InsertionSommet. Je pense qu'il faudrait faire la figure de la spécification initiale. Et ensuite, cette figure-là.}%
 
-~
+\subparagraph{Synthèse}
 
 Les travaux de Cardot proposent une extension du problème de la nomination
 persistante aux règles de transformation de graphe. %
@@ -1546,7 +1439,7 @@ la pertinence du mécanisme de nomination sur des cas concrets.
 Dans leurs travaux~\cite{cascaval2023lineage}, Cascaval et al. proposent de
 répondre au problème de la nomination persistante dans les opérations de
 modélisation en se basant sur les concepts
-suivants :
+suivants.
 \begin{itemize}
 	\item Un modèle paramétrique est une fonction prenant des paramètres
 	      topologiques et géométriques.
@@ -1558,18 +1451,9 @@ suivants :
 \end{itemize}
 
 Cascaval et al. présentent les propriétés qu'un langage conçu pour la CAO
-devrait, selon eux, respecter~:
-\begin{itemize}
-	\item permettre la sélection de tout ou partie d'un ensemble d'entités topologiques issues de la partition d'une entité passée en entrée d'une opération;
-	\item saisir l'intention de conception en permettant d'exclure certaines configurations topologiques en sortie de programme.
-\end{itemize}
+devrait, selon eux,~respecter.  Premièrement, il devrait permettre la sélection de tout ou partie d'un ensemble d'entités topologiques résultant de la partition d'une entité donnée en entrée d'une opération. Deuxièmement, le langage devrait également être capable de saisir l'intention de conception de l'utilisateur en fournissant des moyens d'exclure certaines configurations topologiques indésirables dans les résultats produits par le programme.
 
 %% Contribution
-
-Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
-modélisation paramétrique qui met en œuvre un système de généalogie permettant
-de décrire les relations ancêtre/descendant entre plusieurs entités topologiques
-en entrées et en sortie d'une opération de modélisation. %
 
 %% Explication de la sémantique
 \begin{figure}[htb!]
@@ -1578,17 +1462,16 @@ en entrées et en sortie d'une opération de modélisation. %
 	\caption{Types de relations pour le suivi des entités par Cascaval et al.}
 	\label{fig:etat-art-modelisation-parametrique-systemes-cascaval-types-relations}
 \end{figure}
-
+Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
+modélisation paramétrique qui met en \oe uvre un système de généalogie permettant
+de décrire les relations ancêtre/descendant entre plusieurs entités topologiques
+en entrées et en sortie d'une opération de modélisation. %
 À cette fin, trois relations sont définies
 (figure~\ref{fig:etat-art-modelisation-parametrique-systemes-cascaval-types-relations}) entre
 les entités topologiques en entrée et en sortie des opérations de modélisation~:
 (1) transformation (flèches bleues)~; (2) sous-ensemble (flèches vertes)~; (3) dérivation (flèches rouges).
 \begin{enumerate}
-	\item La relation de \textit{transformation} établit un lien direct entre deux entités,
-	      respectivement en entrée et en sortie, lorsque l'opération ne modifie
-	      pas la topologie de l'objet et qu'il existe une bijection entre les
-	      éléments en entrée et en sortie, par exemple, dans une translation ou
-	      une rotation. %
+	\item La relation de \textit{transformation} définit un lien direct entre deux entités, une en entrée et l'autre en sortie, dans le cadre d'une opération qui ne modifie pas la topologie de l'objet. Cette relation est caractérisée par l'existence d'une bijection entre les éléments en entrée et en sortie ; par exemple, dans des opérations telles que la translation ou la rotation.
 	\item La relation de \textit{sous-ensemble} établit un lien entre deux entités topologiques en entrée et en sortie d'opérations ensemblistes telles que
 	      les opérations booléennes. %
 	      Il s'agit, typiquement dans les opérations booléennes, de faire le lien
@@ -1597,10 +1480,11 @@ les entités topologiques en entrée et en sortie des opérations de modélisati
 	\item La relation de \textit{dérivation} établit un lien entre une entité topologique créée et la ou les entités qui en sont à l'origine. %
 	      Dans l'exemple du chanfrein de sommet illustré dans la
 	      figure~\ref{fig:etat-art-modelisation-parametrique-systemes-cascaval-types-relations},
-	      un lien de dérivation est créé entre le sommet de D et l'arête créée sur E. %
+	      un lien de dérivation est créé entre le sommet de $D$ et l'arête créée sur $E$. %
 	      De la même façon, des liens de dérivation sont créés entre ce sommet et
-	      les deux sommets créés sur E à l'extrémité de l'arête du chanfrein. %
-	      Ces deux sommets ayant, de fait, exactement les mêmes liens de
+	      les deux sommets créés sur $E$ à l'extrémité de l'arête du chanfrein. %
+
+          Ces deux sommets ayant, de fait, exactement les mêmes liens de
 	      dérivation, Cascaval et al. posent deux contraintes sur la construction
 	      de ces liens~: (1) Les relations de dérivation entre les
 	      entités en entré et sortie d'une opération sont exprimées de manière
@@ -1611,7 +1495,7 @@ les entités topologiques en entrée et en sortie des opérations de modélisati
 	      ancêtre a nécessairement un impact sur son entité descendante. %
 	      Afin de vérifier la première contrainte, ils proposent donc d'ajouter un
 	      lien de dérivation entre les arêtes adjacentes au sommet chanfreiné et
-	      les sommets correspondants sur E. %
+	      les sommets correspondants sur $E$. %
 \end{enumerate}
 
 \begin{figure}[htb!]
@@ -1641,9 +1525,20 @@ Enfin, l'utilisateur peut s'appuyer sur les relations de transformation, de
 sous-ensemble et de dérivation pour exprimer au mieux ses intentions de
 modélisation, par exemple \texttt{deriveFrom|All|Any}. %
 
-L'outil développé par Cascaval et al. permet de travailler sur des objets et des opérations principalement en 2D. %
-Le passage à la 3D implique que le traitement des voisinages topologiques sera
-nécessairement plus complexe. %
+Dans les cas topologiquement ambigus, c'est-à-dire où il devient difficile
+d'identifier formellement une entité parmi plusieurs, comme l'identification
+d'un sommet lorsque deux cercles s'intersectent, les auteurs ont recours à des
+contraintes géométriques semblables à l'approche de
+Bidarra~\cite{bidarra2005feature} avec, par exemple, la mise en \oe uvre d'un
+demi-espace pour discriminer plusieurs entités symétriques. %
+
+
+%% TODO SJEA
+
+
+%L'outil développé par Cascaval et al. permet de travailler sur des objets et des opérations principalement en 2D. %
+%Le passage à la 3D implique que le traitement des voisinages topologiques sera
+%nécessairement plus complexe. %
 
 % {\color{red}(pas clair!)%
 % 	En 2D, le bord d'un objet est délimité par une arête, tandis qu'en 3D, un bord
@@ -1653,15 +1548,11 @@ nécessairement plus complexe. %
 % 	intersection entre deux objets. %
 % }
 
-Dans les cas topologiquement ambigus, c'est-à-dire où il devient difficile
-d'identifier formellement une entité parmi plusieurs, comme l'identification
-d'un sommet lorsque deux cercles s'intersectent, les auteurs ont recours à des
-contraintes géométriques semblables à l'approche de
-Bidarra~\cite{bidarra2005feature} avec, par exemple, la mise en \oe uvre d'un
-demi-espace pour discriminer plusieurs entités symétriques. %
+
+\subparagraph*{Synthèse}
+
 
 %% Comparaison avec Cascaval
-
 Dans cette contribution, Cascaval et al. proposent un langage spécifique pour la
 conception de modèles paramétriques. %
 Ce langage intègre un système de nomination persistante des entités où les noms sont donnés explicitement par l'utilisateur sous forme de requêtes. %
@@ -1787,7 +1678,7 @@ Dans ce chapitre, nous avons commencé par présenter les outils que nous
 utiliserons tout au long de cette thèse pour formaliser les objets et les
 opérations de modélisation géométrique. Puis, nous avons passé en revue un état
 de l'art des systèmes de réévaluation proposés dans la littérature et des
-problèmes qu'ils tentent de résoudre, parmi lesquels se trouvent la nomination
+problèmes qu'ils tentent de résoudre. Parmi ceux-ci se trouvent la nomination
 persistante des entités topologiques, leurs appariements dans la réévaluation
 d'une spécification paramétrique éditée et, parfois, l'appariement d'entités pour
 lesquelles la topologie est devenue insuffisante pour les distinguer les unes
@@ -1799,13 +1690,11 @@ nommer les autres. %
 Ce choix est compréhensible pour un modeleur spécialisé dans
 la modélisation 3D. %
 Dans un tel modeleur, une face est une entité créée comme une forme de base
-(entité caractéristique, profil d'extrusion, … ), ou bien
+(entité caractéristique, profil d'extrusion, etc.), ou bien
 à partir d'une ou plusieurs autres faces dans des opérations
 booléennes (intersection de volumes, de faces co-planaires).
-Dans un tel modeleur, une face est une entité soit créée de manière invariante (faces d'une caractéristique de forme, faces issues d'une construction par extrusion à partir d'un profil invariant, …), soit générée par scission, fusion ou modification de faces existantes suite à l'application d'une opération de modélisation (opération booléenne, triangulation, …). Dans le premier cas la face est invariante, dans le second elle est toujours avec source, ce qui permet de
-suivre aisément son évolution tout au long d'un processus constructif. %
-Néanmoins, ces méthodes ont pour inconvénient d'être relativement rigides et d'inciter à
-développer un schéma de nomination différent pour chaque entité topologique. %
+Dans un tel modeleur, une face est une entité soit créée de manière invariante (faces d'une caractéristique de forme, faces issues d'une construction par extrusion à partir d'un profil invariant, etc.), soit générée par scission, fusion ou modification de faces existantes suite à l'application d'une opération de modélisation (opération booléenne, triangulation, etc.). Dans le premier cas la face est invariante, dans le second elle est toujours avec source, ce qui permet de
+suivre aisément son évolution tout au long d'un processus constructif. Néanmoins, ces méthodes ont pour inconvénient d'être relativement rigides et d'inciter à développer un schéma de nomination différent pour chaque entité topologique. %
 Par conséquent, il est difficile de généraliser de telles méthodes pour
 des modeleurs qui travaillent avec des dimensions supérieures à la 3D. %
 

@@ -4,7 +4,7 @@
 
 Tout au long de ce chapitre, nous présentons nos différentes approches pour la
 réévaluation, notamment la nomination persistante des entités topologiques et
-leurs appariements, à l'aide de deux constructions et leurs réévaluations, qui
+leurs appariements. Nous nous appuyons pour cela de deux constructions et de leurs réévaluations, qui
 nous servent de cas d'études. %
 Pour chacune de ces constructions, nous proposons les représentations
 géométriques (par étape de construction) accompagnées de leurs spécifications
@@ -146,7 +146,7 @@ paramétriques. %
 \end{sidewaysfigure}
 
 \begin{vbtflisting}[Spécification paramétrique initiale du cas
-		nº~1,\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
+		nº~1\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
 
 	1-carre(pos)\\
 	2-extrusionFace(\pndart{6}{1n6}, vec)\\
@@ -159,10 +159,26 @@ paramétriques. %
 	9-coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1}, Rouge)
 \end{vbtflisting}
 
-La première construction que nous présentons, illustrée
+
+\xavier{Dans la spéc. paramétrique, parfois tu précises sur quelle entité topologique l'opération a lieu : par exemple, "extrusionFace", parfois non, par exemple, "insertion" $\rightarrow$ sois homogène et précise l'entité pour toutes les opérations.
+\begin{itemize}
+\item carre $\rightarrow$ creationCarre
+\item extrusionFace  $\rightarrow$ OK
+\item extrusionFaceVolume $\rightarrow$ OK
+\item triangulation $\rightarrow$ triangulationFace (attention, il faut aussi remettre le texte explicatif à jour. En particulier, tu nommes actuellement cette opération "triangulate")
+\item contractionFace  $\rightarrow$ OK
+\item chanfrein $\rightarrow$ chanfreinSommet
+\item coloration $\rightarrow$ colorationFace ou colorationBleuFace
+\item coloration $\rightarrow$ colorationFace ou colorationRougeFace
+\end{itemize}
+}
+
+\xavier{Dans les figures (h) et (i), soit les colorations, les numéros de brins ne sont pas indiqués.}
+
+La première construction, illustrée
 figure~\ref{fig:reevaluation-base-regles-cs1-evaluation}, sera notre principal
 fil rouge pour ce chapitre. %
-Celle-ci va nous permettre d'illustrer nos méthodes de nomination persistante
+Celui-ci va nous permettre d'illustrer nos méthodes de nomination persistante
 et de réévaluation. %
 Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
 liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1}. %
@@ -194,7 +210,7 @@ au brin \(68\)
 (figure~\ref{fig:reevaluation-base-regles-cs1-9-evaluation-color}). %
 
 \begin{vbtflisting}[Spécification paramétrique éditée du cas
-		nº~1,\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}]
+		nº~1\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}]
 
 	1-carre(pos)\\
 	ADD 9-insertion(3)\\
@@ -208,17 +224,23 @@ au brin \(68\)
 	9-coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1},Rouge)
 \end{vbtflisting}
 
-Nous procédons ensuite à l'édition de cette spécification paramétrique dont la
+\xavier{Même remarque que précédemment pour le renommage des opérations, dans la spéc. param. et dans le texte explicatif.}
+
+Nous procédons ensuite à l'édition de cette spécification paramétrique, dont la
 représentation géométrique, à chaque étape, est illustrée dans la
 figure~\ref{fig:reevaluation-base-regles-cs1-reevaluation}. %
-Dans de cette édition, nous ajoutons une opération d'insertion de sommet
+Cette édition consiste à ajouter une opération d'insertion de sommet
 \texttt{ADD 9-insertion(3)}
 (figure~\ref{fig:reevaluation-base-regles-cs1-add-10-reevaluation-insert}) et
-nous supprimons l'opération \texttt{3-insertion} afin que celle-ci ne soit pas
+à supprimer l'opération \texttt{3-insertion} afin que celle-ci ne soit pas
 réévaluée. %
+
+\xavier{Je ne vois pas l'intérêt de la phrase suivante, c'est une redite exacte de la précédente.}
 Les aspects remarquables de la construction et de sa réévaluation que nous
 venons de présenter sont le fait que nous ajoutons une opération et en
 supprimons une autre lors de l'édition de la spécification paramétrique. %
+
+
 Nous devrions donc, en toute logique, nous attendre à des changements
 significatifs dans la topologie du modèle réévalué. %
 
@@ -338,7 +360,7 @@ significatifs dans la topologie du modèle réévalué. %
 	\label{fig:reevaluation-base-regles-cs2-reevaluation}
 \end{sidewaysfigure}
 
-\begin{vbtflisting}[Spécification paramétrique initiale du cas nº~2, \label{lst:reevaluation-regles-specification-parametrique-init-cas-2}]
+\begin{vbtflisting}[Spécification paramétrique initiale du cas nº~2 \label{lst:reevaluation-regles-specification-parametrique-init-cas-2}]
 	1-carre()\\
 	2-extrusionFace(\pndart{6}{1n6})\\
 	3-contractionFace(\pndart{47}{1n5; 2n6})\\
@@ -348,12 +370,17 @@ significatifs dans la topologie du modèle réévalué. %
 	7-coloration(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
 \end{vbtflisting}
 
-La seconde construction que nous présentons, illustrée
+La seconde construction est illustrée
 figure~\ref{fig:reevaluation-base-regles-cs2-evaluation}. %
-Celle-ci va nous permettre d'illustrer et préciser la définition de stratégies
-de réévaluation, notamment pour la suppression d'opération. %
+Celle-ci va nous permettre de préciser la définition de \textit{stratégies
+de réévaluation}, notamment pour la suppression d'opérations. %
 Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
 liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-2}. %
+
+\xavier{Attention :\\
+1) même remarque concernant le nom des fonctions\\
+2) cette fois-ci, tu précises aussi le \textbf{numéro} des fonctions, par exemple "1-carre" au lieu de "carre" précédemment $\rightarrow$ sois homogène et précise \textbf{partout} le numéro, ou bien nulle part (et si c'est partout, simplifie ton texte : ce n'est pas la peine de préciser deux fois le numéro d'une opération avec le texte du style "La \textbf{troisième} application \textbf{3}-contraction[...])."
+}
 
 La construction de cet objet est semblable à la construction nº~1. %
 Le processus de modélisation comporte une première application \texttt{1-carre}
@@ -364,13 +391,13 @@ cube en un sommet. %
 Ce sommet est ensuite chanfreiné par la quatrième application
 \texttt{4-chanfrein}. %
 L'application \texttt{5-triangulation} triangule la face frontale de l'objet. %
-Enfin, les applications \texttt{6-coloration} et \texttt{7-coloration} colorie
+Enfin, les applications \texttt{6-coloration} et \texttt{7-coloration} colorient respectivement
 deux faces de l'objet respectivement en rouge et en bleu. %
 Notons que la face coloriée en rouge est la face issue du chanfreinage
 (\texttt{4-chanfrein}). %
 
 \begin{vbtflisting}[Spécification paramétrique éditée du cas
-		nº~2, \label{lst:reevaluation-regles-specification-parametrique-edit-cas-2}]
+		nº~2 \label{lst:reevaluation-regles-specification-parametrique-edit-cas-2}]
 	1-carre()\\
 	2-extrusionFace(\pndart{6}{1n6})\\
 	3-contractionFace(\pndart{47}{1n5; 2n6})\\
@@ -380,15 +407,20 @@ Notons que la face coloriée en rouge est la face issue du chanfreinage
 	7-coloration(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
 \end{vbtflisting}
 
-Dans la version éditée de la spécification paramétrique
-(liste~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}),
-figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
-Les différentes étapes de réévaluation sont illustrées dans la
-figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
-Les aspects remarquables de cette construction et de sa réévaluation sont le
-fait que la suppression de l'application \texttt{4-chanfrein} a un impact direct
+La version éditée de la spécification paramétrique consiste à supprimer la quatrième opération, comme l'illustre la liste ~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}.
+Cela se traduit par un impact direct
 sur l'application \texttt{6-coloration} et indirect sur l'application
-\texttt{7-coloration}. %
+\texttt{7-coloration}, ainsi que l'atteste la figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}.%
+
+%Dans la version éditée de la spécification paramétrique
+%(liste~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}),
+%figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
+%Les différentes étapes de réévaluation sont illustrées dans la
+%figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
+%Les aspects remarquables de cette construction et de sa réévaluation sont le
+%fait que la suppression de l'application \texttt{4-chanfrein} a un impact direct
+%sur l'application \texttt{6-coloration} et indirect sur l'application
+%\texttt{7-coloration}. %
 En effet, l'application \texttt{6-coloration} référence la face créée par
 \texttt{4-chanfrein} qui n'existe plus dans la réévaluation. %
 De la même manière, la face initialement coloriée par \texttt{7-coloration}

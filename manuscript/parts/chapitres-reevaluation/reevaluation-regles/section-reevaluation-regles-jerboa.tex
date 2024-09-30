@@ -64,17 +64,17 @@ Ainsi, la méthode consiste, pour chaque application d'un type donné, à~:
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1-dag}
 
 	\end{subfigure}
-	\caption{Appariement des orbites issues de \texttt{INIT 1-carre()}}
+	\caption{Appariement des orbites issues de \texttt{INIT 1-\allowbreak{}creation\-Carre()}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1}
 \end{figure}
 Reprenons l'application le nom persistant PN\textsubscript{35} comme point de départ pour
 illustrer la création d'un DAG de réévaluation et les différentes étapes
 d'appariement des paramètres topologiques. %
 La première étape d'appariement concerne l'application \texttt{INIT
-	1-carre}
+	1-\allowbreak{}creation\-Carre}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1}). %
 Pour commencer, nous vérifions que la règle est toujours applicable. %
-Puisque \texttt{1-carre} ne référence aucun paramètre topologique, elle est
+Puisque \texttt{1-\allowbreak{}creation\-Carre} ne référence aucun paramètre topologique, elle est
 immédiatement ré-applicable. %
 Logiquement, comme nous l'avons démontré dans le
 chapitre~\ref{cha:formalisation-evenements}
@@ -88,7 +88,7 @@ deux n\oe uds d'orbites brin \orbitnode{\orbit{}} et arête
 Comme évoqué plus tôt, dans un DAG de réévaluation les niveaux d'orbites sont
 annotés par des brins et non des n\oe uds. %
 Pour cela, nous récupérons un brin parmi ceux filtrés par le n\oe ud \(n_{0}\)
-dans l'application \texttt{1-carre}. %
+dans l'application \texttt{1-\allowbreak{}creation\-Carre}. %
 Puisque \(n_{3}\) ne crée qu'un unique brin \(3\)
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1-appariement}),
 c'est ce brin que nous enregistrons dans le DAG de réévaluation
@@ -110,12 +110,12 @@ c'est ce brin que nous enregistrons dans le DAG de réévaluation
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2-dag}
 	\end{subfigure}
-	\caption{Appariement des orbites issues de \texttt{ADD 9-insertion}}
+	\caption{Appariement des orbites issues de \texttt{ADD 9-\allowbreak{}insertion\-Sommet}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2}
 \end{figure}
 
 L'édition de la spécification paramétrique ajoute l'application \texttt{ADD
-	9-insertion(3)}
+	9-\allowbreak{}insertion\-Sommet(3)}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-2}). %
 Puisqu'elle est ajoutée, nous vérifions tout d'abord si elle a un impact sur les
 évolutions d'orbites représentées dans ce DAG. %
@@ -158,17 +158,17 @@ En effet, une branche suit désormais l'évolution des orbites incidentes au bri
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3-dag}
 	\end{subfigure}
-	\caption{Appariement des orbites issues de \texttt{INIT 2-extrusionFace}}
+	\caption{Appariement des orbites issues de \texttt{INIT 2-\allowbreak{}extrusion\-Face}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3}
 \end{figure}
 Suite à la scission ajoutée à l'étape précédente, nous suivons l'impact de
-l'application \texttt{INIT 2-extrusionFace} pour chaque branche du DAG
-(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3}). %
+l'application \texttt{INIT 2-\allowbreak{}extrusion\-Face} pour chaque branche
+du DAG (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3}). %
 Comme prévu initialement, l'application de la règle crée des arêtes par
 extrusion de brins et des faces par extrusion d'arêtes. %
 Nous enregistrons donc deux n\oe uds d'évènements \creationnodeevent{} et deux
-n\oe uds d'orbites \orbitnode{\orbit{0}} et \orbitnode{\orbit{0,1}} dans chaque branche
-du DAG
+n\oe uds d'orbites \orbitnode{\orbit{0}} et \orbitnode{\orbit{0,1}} dans chaque
+branche du DAG
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3-dag}). %
 Le n\oe ud de règle initialement enregistré, \(n_{4}\), crée un ensemble de
 brins, mais seuls deux d'entre eux sont directement issus des brins \(3\) et
@@ -192,19 +192,19 @@ que nous enregistrons dans les niveaux d'orbites du DAG. %
 		\caption{}
 		\label{fig:reevaluation-base-regle-reevaluation-cs1-pn35-dag-reevaluation}
 	\end{subfigure}
-	\caption{Appariement des orbites issues de \texttt{INIT 5-triangulation}}
+	\caption{Appariement des orbites issues de \texttt{INIT 5-\allowbreak{}triangulation\-Face}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35}
 \end{figure}
 
 La dernière étape pour l'appariement du PN\textsubscript{35} est l'application
-\texttt{INIT 5-triangulation}
+\texttt{INIT 5-\allowbreak{}triangulation\-Face}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
 Lors de cette scission, les faces suivies dans chacune des branches sont
 scindées, mais puisque cet évènement était prévu dans l'évaluation initiale,
 alors aucun dédoublement de branche n'est nécessaire. %
 Nous enregistrons donc un n\oe ud d'évènement \splitnodeevent{} ainsi qu'un n\oe
-ud d'orbite \orbitnode{\orbit{0,1}} dans les niveaux d'évènements et d'orbites de
-chaque branche
+ud d'orbite \orbitnode{\orbit{0,1}} dans les niveaux d'évènements et d'orbites
+de chaque branche
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-cs1-pn35-dag-reevaluation}). %
 Dans cette règle, les brins \(37\) et \(52\) ont été filtrés et préservés par le
 n\oe ud \(n0\) de la règle de triangulation. %
@@ -218,7 +218,7 @@ Ainsi, nous enregistrons ces deux brins dans les niveaux d'orbites du DAG. %
 \end{figure}
 
 À ce stade de la réévaluation, la procédure d'appariement pour le paramètre
-topologique de l'application \texttt{INIT~8-coloration(PN\textsubscript{35},
+topologique de l'application \texttt{INIT~8-\allowbreak{}coloration\-Face(PN\textsubscript{35},
 	Bleu)} est terminée. %
 Le DAG de réévaluation indique que deux orbites peuvent être sélectionnées par
 l'utilisateur pour la réévaluation~: les faces \(\orbit{0,1}(37)\) et
@@ -242,17 +242,17 @@ Dans le cas du DAG de réévaluation du PN\textsubscript{55}
 la mise à jour de l'historique d'évolutions ne provoque pas la création de
 nouvelle branche et identifie un unique sommet pour réappliquer la règle de
 chanfreinage. %
-L'application \texttt{1-carre} produit une face carrée et identifie les orbites
+L'application \texttt{1-\allowbreak{}creation\-Carre} produit une face carrée et identifie les orbites
 \(\orbit{1}(5)\) et \(\orbit{0,1}(5)\). %
-L'application ajoutée \texttt{ADD~9-insert} filtre partiellement ces deux
+L'application ajoutée \texttt{ADD~9-\allowbreak{}insertion\-Sommet} filtre partiellement ces deux
 orbites donc nous n'enregistrons pas de \noeffectnodeevent{} dans le DAG. %
-À l'exception de \texttt{DELETE~3-insert}, les autres applications se déroulent
+À l'exception de \texttt{DELETE~3-\allowbreak{}insertion\-Sommet}, les autres applications se déroulent
 de manière quasi identique à l'évaluation initiale. %
 Contrairement à l'évaluation initiale, où le DAG
 (figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
 (page~\pageref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
 enregistre deux n\oe uds d'évènements \modifnodeevent{}, nous pouvons voir lors
-de la réévaluation que la suppression de \texttt{3-insert} annule ces deux
+de la réévaluation que la suppression de \texttt{3-\allowbreak{}insertion\-Sommet} annule ces deux
 évènements qui sont alors remplacés par des n\oe uds \nomodifnodeevent{}. %
 
 Lors de la réévaluation d'une spécification paramétrique éditée, et plus
@@ -333,7 +333,7 @@ chanfrein. %
 Dans le DAG d'évaluation du PN\textsubscript{12}
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-eval}),
 au niveau d'évènement 4, nous observons que l'application
-\texttt{4-chanfrein} crée un sommet qui n'est pas recréé dans le DAG de
+\texttt{4-\allowbreak{}chanfrein\-Sommet} crée un sommet qui n'est pas recréé dans le DAG de
 réévaluation
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval});
 celui-ci est remplacé un n\oe ud d'évènement \nocreationnodeevent[red]{} en
@@ -403,9 +403,17 @@ orbites de leur choix et de sauvegarder cette configuration. %
 Cette dernière option laisse alors un certain degré de liberté quant à
 l'exploration dans la conception d'un objet. %
 \maxime{J'ai tenté quelque chose, mais je ne suis pas sûr que ce soit le bon
-	endroit pour ça.} \xavier{Je ne comprends pas ta phrase "j'ai tenté quelque chose" : de quoi parles-tu ?}
- \xavier{Et à propos de la dernière stratégie, il faut préciser si elle est actuellement réalisable ou si c'est une variante qui reste à l'état d'idée.}%
-
+  endroit pour ça.} \xavier{Je ne comprends pas ta phrase "j'ai tenté quelque
+  chose" : de quoi parles-tu ?} \xavier{Et à propos de la dernière stratégie, il
+  faut préciser si elle est actuellement réalisable ou si c'est une variante qui
+  reste à l'état d'idée.}%
+\maxime{C'est vrai que ce n'est pas très clair. Cette dernière stratégie, c'est
+  celle sur laquelle ont travaillé Tom et Victor dans l'interface graphique (il
+  faudra que je teste l'ihm pour voir où ça en est de la sauvegarde de
+  stratégie). En parlant de cette stratégie, j'essaie de faire un effet
+  d'annonce avant de parler de son implantation dans la section implantation.
+  C'est pour ça que je dis que je ne suis pas sûr que ce soit le bon endroit, ou
+  que ça se fasses tout court d'ailleurs.}
 
 \paragraph*{Annulation d'évènements}
 
@@ -452,29 +460,35 @@ l'exploration dans la conception d'un objet. %
 Dans l'exemple de l'appariement du PN\textsubscript{12}
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12}),
 nous avons montré que le suivi des évènements et de leurs annulations nous
-permet de prévenir le risque d'un appariement erroné d'orbites et de produire des
-objets qui respectent les intentions de conception d'un utilisateur. %
+permet de prévenir le risque d'un appariement erroné d'orbites et de produire
+des objets qui respectent les intentions de conception d'un utilisateur. %
 Une stratégie, que nous illustrons dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57},
 consiste à étendre cette restriction aux orbites d'origines. %
 Dans cet exemple, lors de l'évaluation initiale, la face à colorier en bleu
 provient d'une face scindée et est désignée par une arête (elle-même créée par
-l'application \texttt{4-chanfrein}). %
+l'application \texttt{4-\allowbreak{}chanfrein\-Sommet}). %
 Or, dans la réévaluation, cette application est supprimée et l'arête d'origine
 de la face à colorer n'est pas re-créée. %
 Comme illustré dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}, la
-conséquence est que cette face n'est pas re-créée non plus.
-De plus, l'orbite sommet \(\orbit{1}\) à partir de laquelle devait être créée
-l'arête, même si elle pourrait aisément discriminer une face \(\orbit{0,1}\)
-d'une autre \xavier{Pas très clair, le fait qu'une orbite sommet puisse "discriminer" une face $\rightarrow$ comment ?}, ne correspond pas à une origine de face scindée par la règle de
-triangulation. %
+conséquence est que cette face n'est pas re-créée non plus. De plus, l'orbite
+sommet \(\orbit{1}\) à partir de laquelle devait être créée l'arête, même si
+elle pourrait aisément discriminer une face \(\orbit{0,1}\) d'une autre
+\xavier{Pas très clair, le fait qu'une orbite sommet puisse "discriminer" une
+  face $\rightarrow$ comment ?}\maxime{avec une image : le sommet d'orbite
+  \(\orbit{1}\) n'est incident qu'à une seule face. Si on a un sommet de type 1,
+  scindé dans la triangulation, incident à l'une des face issue de la scission,
+  on peut identifier une des faces avec ce sommet. Ça la discrimine, ce n'est
+  juste pas son orbite d'origine}\todo{}, ne correspond pas à une origine de face
+scindée par la règle de triangulation. %
 Ainsi, un tel appariement ne correspondrait, \textit{a priori}, en rien aux
 intentions de conceptions de l'utilisateur. %
-Au contraire, une alternative consisterait à demander à l'utilisateur
-s'il souhaite ou non faire l'appariement sur une telle orbite. %
+Au contraire, une alternative consisterait à demander à l'utilisateur s'il
+souhaite ou non faire l'appariement sur une telle orbite. %
 Dans le cas de notre exemple, cela reviendrait à colorier la face triangulaire à
-droite. \xavier{Ajouter une image de ce coloriage sur la face de droite ?}%
+droite. \xavier{Ajouter une image de ce coloriage sur la face de droite
+  ?}\todo{}%
 
 \begin{figure}[htb!]
 	\begin{subfigure}{0.5\linewidth}
@@ -517,19 +531,24 @@ droite. \xavier{Ajouter une image de ce coloriage sur la face de droite ?}%
 	\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}
 \end{figure}
 
-Dans certains cas, la suppression d'une application peut annuler un évènement de
-scission, voire de fusion. \xavier{Pourquoi "voire" de fusion ? Supprimer un événement peut annuler n'importe quel autre événement postérieur, en théorie.}%
+Dans certains cas, la suppression d'une application peut annuler des évènements
+de scission ou de fusion. \xavier{Pourquoi "voire" de fusion ? Supprimer un
+  événement peut annuler n'importe quel autre événement postérieur, en
+  théorie.}\maxime{Tu as raison, je crois que «ou» est un meilleur choix que le
+  «voire» qui met l'accent sur quelque chose d'attendu, comme tu le dit, tout
+  évènement peut être annulé, en théorie.}
+%
 Ces suppressions provoquent alors, indirectement, des effets inverses de ceux des
 évènements annulés. %
 Par exemple, dans l'évaluation de notre cas d'étude nº~1
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}),
-l'application \texttt{3-insert} crée un sommet qui est extrudé en une arête par
-l'application \texttt{4-extrusionFaceVolume}. %
+l'application \texttt{3-\allowbreak{}insertion\-Sommet} crée un sommet qui est extrudé en une arête par
+l'application \texttt{4-\allowbreak{}extrusion\-Face\-Volume}. %
 L'une des faces, le long de cette arête, est ensuite coloriée en rouge par
-l'application \texttt{7-coloration}
+l'application \texttt{7-\allowbreak{}coloration\-Face}
 (figures~\ref{fig:reevaluation-base-regles-evaluation-cas1-pn68} et
 \ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}). %
-Dans la spécification paramétrique éditée, l'application \texttt{3-insert} est
+Dans la spécification paramétrique éditée, l'application \texttt{3-\allowbreak{}insertion\-Sommet} est
 supprimée. %
 Le sommet n'est donc plus créé ni extrudé dans la réévaluation
 (figures~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}
@@ -545,7 +564,7 @@ l'autre et au terme de la modélisation, la face serait coloriée en vert. %
 Au contraire, une alternative consisterait à laisser l'utilisateur choisir les
 opérations qu'il souhaite réappliquer sur cette face. %
 
-\xavier{Il manque une conclusion à ce chapitre...}
+\xavier{Il manque une conclusion à ce chapitre...}\maxime{Je vais d'abord mettre une sorte de conclusion de section, mais je dois encore ajouter la section implantation avant de pouvoir metter une vraie bonne conclusion à ce chapitre.}
 
 % Dans le cas de la suppression d'une opération dans la spécification paramétrique
 % éditée, il peut arriver que la création d'une entité ne soit pas réévaluée et

@@ -68,15 +68,15 @@ paramétriques. %
 		\caption{}
 		\label{fig:reevaluation-base-regles-cs1-9-evaluation-color}
 	\end{subfigure}
-	\caption{Évaluation~: (a) \texttt{1-carre(pos)}~; (b)
-		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (c)
-		\texttt{3-insertion(PN\textsubscript{46})}~; (d)
-		\texttt{4-extrusion(PN\textsubscript{47},vec)}~; (e)
-		\texttt{5-triangulation(PN\textsubscript{33})}~; (f)
-		\texttt{6-contraction(PN\textsubscript{63})}~; (g)
-		\texttt{7-chanfrein(PN\textsubscript{55})}~; (h)
-		\texttt{8-coloration(PN\textsubscript{35},Bleu)}~; (i)
-		\texttt{9-coloration(PN\textsubscript{68}, Rouge)}}
+	\caption{Évaluation~: (a) \texttt{1-\allowbreak{}creation\-Carre(pos)}~; (b)
+		\texttt{2-\allowbreak{}extrusion\-Face(PN\textsubscript{6},vec)}~; (c)
+		\texttt{3-\allowbreak{}insertion\-Sommet(PN\textsubscript{46})}~; (d)
+		\texttt{4-\allowbreak{}extrusion\-FaceVolume(PN\textsubscript{47},vec)}~; (e)
+		\texttt{5-\allowbreak{}triangulation\-Face(PN\textsubscript{33})}~; (f)
+		\texttt{6-\allowbreak{}contraction\-Face(PN\textsubscript{63})}~; (g)
+		\texttt{7-\allowbreak{}chanfrein\-Sommet(PN\textsubscript{55})}~; (h)
+		\texttt{8-\allowbreak{}coloration\-Face(PN\textsubscript{35},Bleu)}~; (i)
+		\texttt{9-\allowbreak{}coloration\-Face(PN\textsubscript{68}, Rouge)}}
 	\label{fig:reevaluation-base-regles-cs1-evaluation}
 	\centering
 	\begin{subfigure}[t]{0.1\textwidth}
@@ -133,45 +133,45 @@ paramétriques. %
 		\label{fig:reevaluation-base-regles-cs1-9-reevaluation-color}
 	\end{subfigure}
 	\caption{Réevaluation (a) \texttt{1-carre(pos)}~; (b)
-		\texttt{ADD~1-insertion(3)}~; (c)
-		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (d)
-		\texttt{DELETE~3-insertion(PN\textsubscript{46})}~; (e)
-		\texttt{4-extrusion(PN\textsubscript{47},vec)}~; (f)
-		\texttt{5-triangulation(PN\textsubscript{33})}~; (g)
-		\texttt{6-contraction(PN\textsubscript{63})}~; (h)
-		\texttt{7-chanfrein(PN\textsubscript{55})}~; (i)
-		\texttt{8-coloration(PN\textsubscript{35}, Bleu)}~; (i)
-		\texttt{9-coloration(PN\textsubscript{68}, Rouge)}}
+		\texttt{ADD~1-\allowbreak{}insertion\-Sommet(3)}~; (c)
+		\texttt{2-\allowbreak{}extrusion\-Face(PN\textsubscript{6},vec)}~; (d)
+		\texttt{DELETE~3-\allowbreak{}insertion\-Sommet(PN\textsubscript{46})}~; (e)
+		\texttt{4-\allowbreak{}extrusion\-FaceVolume(PN\textsubscript{47},vec)}~; (f)
+		\texttt{5-\allowbreak{}triangulation\-Face(PN\textsubscript{33})}~; (g)
+		\texttt{6-\allowbreak{}contraction\-Face(PN\textsubscript{63})}~; (h)
+		\texttt{7-\allowbreak{}chanfrein\-Sommet(PN\textsubscript{55})}~; (i)
+		\texttt{8-\allowbreak{}coloration\-Face(PN\textsubscript{35}, Bleu)}~; (i)
+		\texttt{9-\allowbreak{}coloration\-Face(PN\textsubscript{68}, Rouge)}}
 	\label{fig:reevaluation-base-regles-cs1-reevaluation}
 \end{sidewaysfigure}
 
 \begin{vbtflisting}[Spécification paramétrique initiale du cas
 		nº~1\label{lst:reevaluation-regles-specification-parametrique-init-cas-1}]
 
-	1-carre(pos)\\
-	2-extrusionFace(\pndart{6}{1n6}, vec)\\
-	3-insertion(\pndart{46}{1n5;2n5})\\
-	4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)\\
-	5-triangulation(\pndart{33}{1n3;2n2})\\
-	6-contractionFace(\pndart{63}{1n4;2n6;4n6})\\
-	7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
-	8-coloration(\pndart{35}{1n3;2n4;5n0}, Bleu)\\
-	9-coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1}, Rouge)
+	1-\allowbreak{}creation\-Carre(pos)\\
+	2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6}, vec)\\
+	3-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;2n5})\\
+	4-\allowbreak{}extrusion\-FaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)\\
+	5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3;2n2})\\
+	6-\allowbreak{}contraction\-Face(\pndart{63}{1n4;2n6;4n6})\\
+	7-\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
+	8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;2n4;5n0}, Bleu)\\
+	9-\allowbreak{}coloration\-Face(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1}, Rouge)
 \end{vbtflisting}
 
 
-\xavier{Dans la spéc. paramétrique, parfois tu précises sur quelle entité topologique l'opération a lieu : par exemple, "extrusionFace", parfois non, par exemple, "insertion" $\rightarrow$ sois homogène et précise l'entité pour toutes les opérations.
-\begin{itemize}
-\item carre $\rightarrow$ creationCarre
-\item extrusionFace  $\rightarrow$ OK
-\item extrusionFaceVolume $\rightarrow$ OK
-\item triangulation $\rightarrow$ triangulationFace (attention, il faut aussi remettre le texte explicatif à jour. En particulier, tu nommes actuellement cette opération "triangulate")
-\item contractionFace  $\rightarrow$ OK
-\item chanfrein $\rightarrow$ chanfreinSommet
-\item coloration $\rightarrow$ colorationFace ou colorationBleuFace
-\item coloration $\rightarrow$ colorationFace ou colorationRougeFace
-\end{itemize}
-}
+% \xavier{Dans la spéc. paramétrique, parfois tu précises sur quelle entité topologique l'opération a lieu : par exemple, "extrusionFace", parfois non, par exemple, "insertionSommet" $\rightarrow$ sois homogène et précise l'entité pour toutes les opérations.
+% \begin{itemize}
+% \item carre $\rightarrow$ creationCarre
+% \item extrusionFace  $\rightarrow$ OK
+% \item extrusionFaceVolume $\rightarrow$ OK
+% \item triangulation $\rightarrow$ triangulationFace (attention, il faut aussi remettre le texte explicatif à jour. En particulier, tu nommes actuellement cette opération "triangulate")
+% \item contractionFace  $\rightarrow$ OK
+% \item chanfrein $\rightarrow$ chanfreinSommet
+% \item coloration $\rightarrow$ colorationFace ou colorationBleuFace
+% \item coloration $\rightarrow$ colorationFace ou colorationRougeFace
+% \end{itemize}
+% }
 
 \xavier{Dans les figures (h) et (i), soit les colorations, les numéros de brins ne sont pas indiqués.}
 
@@ -183,29 +183,29 @@ et de réévaluation. %
 Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
 liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1}. %
 
-L'application de la première opération, \texttt{carre}, crée une face carrée
+L'application de l'opération, \texttt{1-\allowbreak{}creation\-Carre}, crée une face carrée
 (figure~\ref{fig:reevaluation-base-regles-cs1-1-evaluation-square}). %
-La deuxième opération, \texttt{extrusionFace}, est appliquée sur cette face,
+L'opération, \texttt{2-\allowbreak{}extrusion\-Face}, est appliquée sur cette face,
 incidente au brin \(6\), et l'extrude en un cube
 (figure~\ref{fig:reevaluation-base-regles-cs1-2-evaluation-extrusion}). %
-La troisième opération, \texttt{insertion}, est appliquée sur l'arête incidente
+L'opération, \texttt{3-\allowbreak{}insertion\-Sommet}, est appliquée sur l'arête incidente
 au brin \(46\) et y insère un sommet
 (figure~\ref{fig:reevaluation-base-regles-cs1-3-evaluation-insert}). %
-La quatrième opération, \texttt{extrusionFaceVolume}, est appliquée sur la face
+L'opération, \texttt{4-\allowbreak{}extrusion\-FaceVolume}, est appliquée sur la face
 du dessus, incidente au brin \(47\), et l'extrude en un autre cube
 (figure~\ref{fig:reevaluation-base-regles-cs1-4-evaluation-extrusion}). %
-La cinquième opération, \texttt{trianguleFace}, est appliquée sur la face avant,
+L'opération, \texttt{5-\allowbreak{}triangule\-Face}, est appliquée sur la face avant,
 incidente au brin \(33\), et la triangule
 (figure~\ref{fig:reevaluation-base-regles-cs1-5-triangulation}). %
-La sixième opération, \texttt{contractionFace}, est appliquée sur la face
+L'opération, \texttt{6-\allowbreak{}contraction\-Face}, est appliquée sur la face
 incidente au brin \(63\), et la contracte en un sommet
 (figure~\ref{fig:reevaluation-base-regles-cs1-6-evaluation-collapse}). %
-La septième opération, \texttt{chanfrein}, est appliquée sur ce même sommet,
+L'opération, \texttt{7-\allowbreak{}chanfrein\-Sommet}, est appliquée sur ce même sommet,
 incident au brin \(55\), et fait un chanfrein dessus
 (figure~\ref{fig:reevaluation-base-regles-cs1-7-evaluation-chamfer}). %
-La huitième opération, \texttt{colorationBleu}, colore la face incidente au brin
+L'opération, \texttt{8-\allowbreak{}coloration\-Face}, colore la face incidente au brin
 \(35\) (figure~\ref{fig:reevaluation-base-regles-cs1-8-evaluation-color}). %
-Enfin, la dernière opération, \texttt{colorationRouge}, colore la face incidente
+Enfin, la dernière opération, \texttt{9-\allowbreak{}coloration\-Face}, colore la face incidente
 au brin \(68\)
 (figure~\ref{fig:reevaluation-base-regles-cs1-9-evaluation-color}). %
 
@@ -213,36 +213,36 @@ au brin \(68\)
 		nº~1\label{lst:reevaluation-regles-specification-parametrique-edit-cas-1}]
 
 	1-carre(pos)\\
-	ADD 9-insertion(3)\\
-	2-extrusionFace(\pndart{6}{1n6}, vec)\\
-	DELETE 3-insertion(\pndart{46}{1n5;2n4})\\
-	4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)\\
-	5-triangulation(\pndart{33}{1n3;2n2})\\
-	6-contractionFace(\pndart{63}{1n4;2n6;4n6})\\
+	ADD 9-\allowbreak{}insertion\-Sommet(3)\\
+	2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6}, vec)\\
+	DELETE 3-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;2n4})\\
+	4-\allowbreak{}extrusion\-FaceVolume(\pndart{47}{1n5;2n6;3n0}, vec)\\
+	5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3;2n2})\\
+	6-\allowbreak{}contraction\-Face(\pndart{63}{1n4;2n6;4n6})\\
 	7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})\\
 	8-coloration(\pndart{35}{1n3;2n4;5n0}, Bleu)\\
 	9-coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1},Rouge)
 \end{vbtflisting}
 
-\xavier{Même remarque que précédemment pour le renommage des opérations, dans la spéc. param. et dans le texte explicatif.}
+% \xavier{Même remarque que précédemment pour le renommage des opérations, dans la spéc. param. et dans le texte explicatif.}
 
 Nous procédons ensuite à l'édition de cette spécification paramétrique, dont la
 représentation géométrique, à chaque étape, est illustrée dans la
 figure~\ref{fig:reevaluation-base-regles-cs1-reevaluation}. %
 Cette édition consiste à ajouter une opération d'insertion de sommet
-\texttt{ADD 9-insertion(3)}
+\texttt{9-\allowbreak{}insertion\-Sommet(3)}
 (figure~\ref{fig:reevaluation-base-regles-cs1-add-10-reevaluation-insert}) et
-à supprimer l'opération \texttt{3-insertion} afin que celle-ci ne soit pas
+à supprimer l'opération \texttt{3-\allowbreak{}insertion\-Sommet} afin que celle-ci ne soit pas
 réévaluée. %
 
-\xavier{Je ne vois pas l'intérêt de la phrase suivante, c'est une redite exacte de la précédente.}
-Les aspects remarquables de la construction et de sa réévaluation que nous
-venons de présenter sont le fait que nous ajoutons une opération et en
-supprimons une autre lors de l'édition de la spécification paramétrique. %
+% \xavier{Je ne vois pas l'intérêt de la phrase suivante, c'est une redite exacte de la précédente.}
+% Les aspects remarquables de la construction et de sa réévaluation que nous
+% venons de présenter sont le fait que nous ajoutons une opération et en
+% supprimons une autre lors de l'édition de la spécification paramétrique. %
 
 
-Nous devrions donc, en toute logique, nous attendre à des changements
-significatifs dans la topologie du modèle réévalué. %
+% Nous devrions donc, en toute logique, nous attendre à des changements
+% significatifs dans la topologie du modèle réévalué. %
 
 \subsection{Construction nº~2}
 \label{sec:reevaluation-base-regles-deuxieme-cas}
@@ -300,9 +300,9 @@ significatifs dans la topologie du modèle réévalué. %
 	\end{subfigure}
 	\caption{Évaluation~: (a) \texttt{1-carre(pos)}~; (b)
 		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (c)
-		\texttt{3-contractionFace(PN\textsubscript{47})}~; (d)
+		\texttt{3-\allowbreak{}contraction\-Face(PN\textsubscript{47})}~; (d)
 		\texttt{4-chanfrein(PN\textsubscript{40})}~; (e)
-		\texttt{5-triangulation(PN\textsubscript{33})}~; (f)
+		\texttt{5-\allowbreak{}triangulation\-Face(PN\textsubscript{33})}~; (f)
 		\texttt{6-coloration(PN\textsubscript{12},Rouge)}~; (g)
 		\texttt{7-coloration(PN\textsubscript{57},Bleu)}}
 	\label{fig:reevaluation-base-regles-cs2-evaluation}
@@ -353,21 +353,22 @@ significatifs dans la topologie du modèle réévalué. %
 	% \end{subfigure}
 	\caption{Réévaluation~: (a) \texttt{1-carre(pos)}~; (b)
 		\texttt{2-extrusion(PN\textsubscript{6},vec)}~; (c)
-		\texttt{3-contractionFace(PN\textsubscript{47})}~; (d) \texttt{DELETE~4-chanfrein(PN\textsubscript{40})}~; (e)
-		\texttt{5-triangulation(PN\textsubscript{33})}~; (f)
+		\texttt{3-\allowbreak{}contraction\-Face(PN\textsubscript{47})}~; (d) \texttt{DELETE~4-chanfrein(PN\textsubscript{40})}~; (e)
+		\texttt{5-\allowbreak{}triangulation\-Face(PN\textsubscript{33})}~; (f)
 		\texttt{6-coloration(PN\textsubscript{12},Rouge)}~; (g)
 		\texttt{7-coloration(PN\textsubscript{57},Bleu)}}
 	\label{fig:reevaluation-base-regles-cs2-reevaluation}
 \end{sidewaysfigure}
 
 \begin{vbtflisting}[Spécification paramétrique initiale du cas nº~2 \label{lst:reevaluation-regles-specification-parametrique-init-cas-2}]
-	1-carre()\\
-	2-extrusionFace(\pndart{6}{1n6})\\
-	3-contractionFace(\pndart{47}{1n5; 2n6})\\
-	4-chanfrein(\pndart{40}{1n4; 2n4; 3n2})\\
-	5-triangulation(\pndart{33}{1n3; 2n2})\\
-	6-coloration(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)\\
-	7-coloration(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
+
+	1-\allowbreak{}creation\-Carre()\\
+	2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6})\\
+	3-\allowbreak{}contraction\-Face(\pndart{47}{1n5; 2n6})\\
+	4-\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})\\
+	5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3; 2n2})\\
+	6-\allowbreak{}coloration\-Face(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)\\
+	7-\allowbreak{}coloration\-Face(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
 \end{vbtflisting}
 
 La seconde construction est illustrée
@@ -377,40 +378,44 @@ de réévaluation}, notamment pour la suppression d'opérations. %
 Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
 liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-2}. %
 
-\xavier{Attention :\\
-1) même remarque concernant le nom des fonctions\\
-2) cette fois-ci, tu précises aussi le \textbf{numéro} des fonctions, par exemple "1-carre" au lieu de "carre" précédemment $\rightarrow$ sois homogène et précise \textbf{partout} le numéro, ou bien nulle part (et si c'est partout, simplifie ton texte : ce n'est pas la peine de préciser deux fois le numéro d'une opération avec le texte du style "La \textbf{troisième} application \textbf{3}-contraction[...])."
-}
+% \xavier{Attention :\\
+% 1) même remarque concernant le nom des fonctions\\
+% 2) cette fois-ci, tu précises aussi le \textbf{numéro} des fonctions, par exemple "1-carre" au lieu de "carre" précédemment $\rightarrow$ sois homogène et précise \textbf{partout} le numéro, ou bien nulle part (et si c'est partout, simplifie ton texte : ce n'est pas la peine de préciser deux fois le numéro d'une opération avec le texte du style "La \textbf{troisième} application \textbf{3}-contraction[...])."
+% }
 
 La construction de cet objet est semblable à la construction nº~1. %
-Le processus de modélisation comporte une première application \texttt{1-carre}
+Le processus de modélisation commence avec l'application \texttt{1-\allowbreak{}creation\-Carre}
 qui crée une face. %
-L'application suivante \texttt{2-extrusion} extrude la face en un cube. %
-La troisième application \texttt{3-contraction} contracte la face supérieure du
+L'application suivante \texttt{2-\allowbreak{}extrusion\-Face} extrude la face en un cube. %
+La troisième application \texttt{3-\allowbreak{}contraction\-Face} contracte la face supérieure du
 cube en un sommet. %
 Ce sommet est ensuite chanfreiné par la quatrième application
-\texttt{4-chanfrein}. %
-L'application \texttt{5-triangulation} triangule la face frontale de l'objet. %
-Enfin, les applications \texttt{6-coloration} et \texttt{7-coloration} colorient respectivement
+\texttt{4-\allowbreak{}chanfrein\-Sommet}. %
+L'application \texttt{5-\allowbreak{}triangulation\-Face} triangule la face frontale de l'objet. %
+Enfin, les applications \texttt{6-\allowbreak{}coloration\-Face} et \texttt{7-\allowbreak{}coloration\-Face} colorient respectivement
 deux faces de l'objet respectivement en rouge et en bleu. %
 Notons que la face coloriée en rouge est la face issue du chanfreinage
-(\texttt{4-chanfrein}). %
+(\texttt{4-\allowbreak{}chanfrein\-Sommet}). %
 
 \begin{vbtflisting}[Spécification paramétrique éditée du cas
 		nº~2 \label{lst:reevaluation-regles-specification-parametrique-edit-cas-2}]
-	1-carre()\\
-	2-extrusionFace(\pndart{6}{1n6})\\
-	3-contractionFace(\pndart{47}{1n5; 2n6})\\
-	DELETE 4-chanfrein(\pndart{40}{1n4; 2n4; 3n2})\\
-	5-triangulation(\pndart{33}{1n3; 2n2})\\
-	6-coloration(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)\\
-	7-coloration(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
+
+	1-\allowbreak{}creation\-Carre()\\
+	2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6})\\
+	3-\allowbreak{}contraction\-Face(\pndart{47}{1n5; 2n6})\\
+	DELETE 4-\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})\\
+	5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3; 2n2})\\
+	6-\allowbreak{}coloration\-Face(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)\\
+	7-\allowbreak{}coloration\-Face(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)\\
 \end{vbtflisting}
 
-La version éditée de la spécification paramétrique consiste à supprimer la quatrième opération, comme l'illustre la liste ~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}.
-Cela se traduit par un impact direct
-sur l'application \texttt{6-coloration} et indirect sur l'application
-\texttt{7-coloration}, ainsi que l'atteste la figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}.%
+La version éditée de la spécification paramétrique consiste à supprimer la
+quatrième opération, comme l'illustre la liste
+~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}. %
+Cette édition se traduit, dans la réévaluation, a un impact direct sur
+l'application \texttt{6-\allowbreak{}coloration\-Face} et indirect sur l'application
+\texttt{7-\allowbreak{}coloration\-Face}, ainsi que l'atteste la
+figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}.%
 
 %Dans la version éditée de la spécification paramétrique
 %(liste~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}),
@@ -421,9 +426,9 @@ sur l'application \texttt{6-coloration} et indirect sur l'application
 %fait que la suppression de l'application \texttt{4-chanfrein} a un impact direct
 %sur l'application \texttt{6-coloration} et indirect sur l'application
 %\texttt{7-coloration}. %
-En effet, l'application \texttt{6-coloration} référence la face créée par
-\texttt{4-chanfrein} qui n'existe plus dans la réévaluation. %
-De la même manière, la face initialement coloriée par \texttt{7-coloration}
+En effet, l'application \texttt{6-coloration\-Face} référence la face créée par
+\texttt{4-\allowbreak{}chanfrein\-Sommet} qui n'existe plus dans la réévaluation. %
+De la même manière, la face initialement coloriée par \texttt{7-\allowbreak{}coloration\-Face}
 n'est plus créée lors de la triangulation et ne peut donc pas être coloriée dans
 la réévaluation. %
 

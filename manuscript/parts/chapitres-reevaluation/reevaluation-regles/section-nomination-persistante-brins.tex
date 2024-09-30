@@ -61,13 +61,13 @@ spécification~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-1-evaluation-carre}
 	\end{subfigure}
-	\caption{\texttt{1-carre(pos)}}
+	\caption{\texttt{1-\allowbreak{}creation\-Carre()}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-1-carre}
 \end{figure}
 
 %% Présentation de la construction des brins 3, 4, 5 et 6
 
-La première application \texttt{1-carre()} \xavier{toujours les mêmes remarques de renommage des opérations et d'éviter les redondances comme "première" de "première application" et "1" de "1-carre".}
+L'application \texttt{1-\allowbreak{}creation\-Carre()} \xavier{toujours les mêmes remarques de renommage des opérations et d'éviter les redondances comme "première" de "première application" et "1" de "1-carre".}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-1-carre}),
 \xavier{morceau de phrase redondant : "dont l'opération est la règle de création de carré"}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-carre})
@@ -98,25 +98,25 @@ Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-2-evaluation-extrusion}
 	\end{subfigure}
-	\caption{\texttt{2-extrusionFace(\pndart{6}{1n6})}}
+	\caption{\texttt{2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-2-extrusion}
 \end{figure}
 
-La deuxième application \texttt{2-extrusionFace(\pndart{6}{1n6})}
+L'application \texttt{2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-2-extrusion})
-est appliquée sur le brin \(6\) et, puisque le n\oe ud d'accroche de la règle
-d'extrusion
+est ensuite appliquée sur le brin \(6\). %
+Puisque le n\oe ud d'accroche de la règle d'extrusion
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion})
 est de type \texttt{face} \(\orbit{0,1,3}\), alors le brin \(6\) désigne sa face
-incidente.%
-Toutefois, le numéro d'un brin n'est pas une information robuste et son historique
-doit évoluer au fur et à mesure de la construction. %
-Pour cette raison, à l'instant où une règle est appliquée, nous
-réalisons une "photographie" de l'historique de chacun des brins désignés et les
-enregistrons comme des noms persistants dans la spécification paramétrique. %
+incidente. %
+Toutefois, le numéro d'un brin n'est pas une information robuste et son
+historique doit évoluer au fur et à mesure de la construction. %
+Pour cette raison, à l'instant où une règle est appliquée, nous réalisons une
+"photographie" de l'historique de chacun des brins désignés et les enregistrons
+comme des noms persistants dans la spécification paramétrique. %
 Ainsi, pour la deuxième application, le brin sélectionné ne peut pas être un
-autre brin, indépendamment de son numéro, que celui créé par \texttt{1-carre()}
-et le n\oe ud \(n_{6}\). %
+autre brin, indépendamment de son numéro, que celui créé par
+\texttt{1-\allowbreak{}creation\-Carre()} et le n\oe ud \(n_{6}\). %
 
 Comme nous venons de l'expliquer, l'historique d'un brin évolue à chaque fois
 que celui-ci est filtré par une règle. %
@@ -127,18 +127,18 @@ est lui-même préservé dans la règle \xavier{je suggère de compléter la phr
 Pour ces brins préservés par \(n_{0}\) \xavier{\(n_{1}\) plutôt?}, leur historique est mis à jour par
 l'ajout d'un couple {\(2n0\)}. %
 Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
-\(6\)) devient \([1n3;2n0]\) \xavier{Sur la figure, l'historique est \([1n3;2n1]\)} (respectivement \([1n4;2n1]\), \([1n5;2n1]\),
-\([1n6;2n0]\)). \xavier{Bref, vérifie bien les numéros de n\oe{}uds !}%
+\(6\)) devient \([1n3;\allowbreak{}2n0]\) \xavier{Sur la figure, l'historique est \([1n3;\allowbreak{}2n1]\)} (respectivement \([1n4;\allowbreak{}2n1]\), \([1n5;\allowbreak{}2n1]\),
+\([1n6;\allowbreak{}2n0]\)). \xavier{Bref, vérifie bien les numéros de n\oe{}uds !}%
 Pour les autres brins, ceux qui sont créés, rappelons que ce sont des copies des
 brins filtrés. %
 Ainsi, en tant que copies, ces brins portent dans leurs historiques respectifs
 celui du brin à partir duquel ils sont copiés. %
 Par exemple, les brins \(33\) et \(35\), créés par les n\oe uds \(n_{1}\) et
 \(n_{4}\) respectivement, sont des copies du brin \(3\). %
-Leurs historiques sont \([1n3;2n1]\) et \([1n3;2n4]\) respectivement. %
+Leurs historiques sont \([1n3;\allowbreak{}2n1]\) et \([1n3;\allowbreak{}2n4]\) respectivement. %
 De la même manière, les brins \(46\) et \(47\), créés par les n\oe uds \(n_{5}\)
 et \(n_{6}\), sont des copies du brin \(5\). %
-Leurs historiques sont \([1n5;2n5]\) et \([1n5;2n6]\) respectivement (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-2-evaluation-extrusion}). %
+Leurs historiques sont \([1n5;\allowbreak{}2n5]\) et \([1n5;\allowbreak{}2n6]\) respectivement (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-2-evaluation-extrusion}). %
 
 
 \begin{figure}[htb!]
@@ -156,19 +156,19 @@ Leurs historiques sont \([1n5;2n5]\) et \([1n5;2n6]\) respectivement (figure~\re
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-3-evaluation-insertion}
 	\end{subfigure}
-	\caption{\texttt{3-insertionSommet(\pndart{46}{1n5;2n5})}}
+	\caption{\texttt{3-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;\allowbreak{}2n5})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-3-insertion}
 \end{figure}
 
-La troisième application \texttt{3-insertion(\pndart{46}{1n5;2n4})}
+L'application \texttt{3-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;\allowbreak{}2n4})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-3-insertion})
 est appliquée sur l'arête désignée par le brin \(46\). %
 Comme pour l'application précédente, le nom persistant enregistré est une
-photographie de l'historique du brin \(46\), c'est-à-dire \([1n5;2n5]\). %
+photographie de l'historique du brin \(46\), c'est-à-dire \([1n5;\allowbreak{}2n5]\). %
 Suite à l'application, les historiques des brins \(46\) et \(47\), tous deux
 filtrés par le n\oe ud \(n_{0}\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-insertion}),
-sont mis à jour en \([1n5;2n5;3n0]\) et \([1n5;2n6;3n0]\) respectivement
+sont mis à jour en \([1n5;\allowbreak{}2n5;\allowbreak{}3n0]\) et \([1n5;\allowbreak{}2n6;\allowbreak{}3n0]\) respectivement
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-3-evaluation-insertion}). %
 
 \begin{figure}[htb!]
@@ -186,20 +186,27 @@ sont mis à jour en \([1n5;2n5;3n0]\) et \([1n5;2n6;3n0]\) respectivement
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion}
 	\end{subfigure}
-	\caption{\texttt{4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0})}}
+	\caption{\texttt{4-\allowbreak{}extrusion\-FaceVolume(\pndart{47}{1n5;\allowbreak{}2n6;\allowbreak{}3n0})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-4-extrusion}
 \end{figure}
 
-L'application \texttt{4-extrusionFaceVolume(\pndart{47}{1n5;2n6;3n0})} crée un
-nouveau cube  en extrudant la face supérieurz de l'objet
+L'application
+\texttt{4-\allowbreak{}extrusion\-FaceVolume(\pndart{47}{1n5;\allowbreak{}2n6;\allowbreak{}3n0})}
+crée un nouveau cube en extrudant la face supérieurz de l'objet
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-extrusion}). %
-Cette face est désignée par le brin \(47\) et le nom persistant enregistré est donc
-\([1n5;2n6;3n0]\). %
+Cette face est désignée par le brin \(47\) et le nom persistant enregistré est
+donc \([1n5;\allowbreak{}2n6;\allowbreak{}3n0]\). %
 Les brins \(55\) et \(63\) sont créés par les n\oe uds \(n_{5}\) et \(n_{6}\)
 respectivement
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion})
-et leurs historiques sont \([1n5;2n6;3n0;4n5]\) et \([1n4;2n6;4n6]\) \xavier{Il manque un élément dans ce dernier historique, non ? Où est passée la 3ème opération ?}
-respectivement. %
+et leurs historiques sont
+\([1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n5]\) et
+\([1n4;\allowbreak{}2n6;\allowbreak{}4n6]\) \xavier{Il manque un élément dans ce
+  dernier historique, non ? Où est passée la 3ème opération ?} respectivement. %
+Notons que la création du brin \(63\) n'a aucun lien avec la troisième
+application qui n’apparaît donc pas dans son historique. \maxime{J'avais pas
+  pensé à le préciser jusqu'à ce que tu me poses la question, donc je propose
+  cette phrase pour y répondre}%
 
 
 \begin{figure}[htb!]
@@ -217,17 +224,17 @@ respectivement. %
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-5-evaluation-triangulation}
 	\end{subfigure}
-	\caption{\texttt{5-triangulationFace(\pndart{33}{1n3;2n2})}}
+	\caption{\texttt{5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3;\allowbreak{}2n2})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-5-triangulation}
 \end{figure}
 
-L'application \texttt{5-triangulationFace(\pndart{33}{1n3;2n2})}
+L'application \texttt{5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3;\allowbreak{}2n2})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-5-triangulation})
-triangule la face désignée par le brin \(33\) et le nom persistant \([1n3;2n2]\)
+triangule la face désignée par le brin \(33\) et le nom persistant \([1n3;\allowbreak{}2n2]\)
 est enregistré dans la spécification paramétrique. %
 Les brins \(33\) et \(35\) sont filtrés par le n\oe ud \(n_{0}\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-triangulation}),
-leurs historiques évoluent donc en \([1n3;2n2;5n0]\) et \([1n3;2n4;5n0]\)
+leurs historiques évoluent donc en \([1n3;\allowbreak{}2n2;\allowbreak{}5n0]\) et \([1n3;\allowbreak{}2n4;\allowbreak{}5n0]\)
 respectivement
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-5-evaluation-triangulation}). %
 
@@ -246,24 +253,24 @@ respectivement
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}
 	\end{subfigure}
-	\caption{\texttt{6-contractionFace(\pndart{63}{1n4;2n6;4n6})}}
+	\caption{\texttt{6-\allowbreak{}contraction\-Face(\pndart{63}{1n4;\allowbreak{}2n6;\allowbreak{}4n6})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-contraction}
 \end{figure}
 
-L'application \texttt{6-contractionFace(\pndart{55}{1n4;2n6;4n6})}
+L'application \texttt{6-\allowbreak{}contraction\-Face(\pndart{55}{1n4;\allowbreak{}2n6;\allowbreak{}4n6})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-contraction})
 contracte la face désignée par le brin \(63\), au sommet de la pile de cubes, en
 un sommet
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}). %
 Le nom persistant enregistré dans la spécification paramétrique est
-\([1n4;2n6;4n6]\). %
+\([1n4;\allowbreak{}2n6;\allowbreak{}4n6]\). %
 Puisque toute la face est filtrée par le n\oe ud \(n_{0}\), lequel  est supprimé dans la
 règle
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}),
 le brin \(63\) est lui-même supprimé. %
 Les historiques des brins filtrés par \(n2\), qui composent maintenant le sommet
 issu de la contraction, sont mis à jour. %
-En particulier, l'historique du brin \(55\) devient \([1n5;2n6;3n0;4n4;6n2]\)
+En particulier, l'historique du brin \(55\) devient \([1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2]\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}). %
 
 \begin{figure}[htb!]
@@ -281,21 +288,21 @@ En particulier, l'historique du brin \(55\) devient \([1n5;2n6;3n0;4n4;6n2]\)
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-chanfrein}
 	\end{subfigure}
-	\caption{\texttt{7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})}}
+	\caption{\texttt{7-\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-7-chanfrein}
 \end{figure}
 
-L'application \texttt{7-chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})}
+L'application \texttt{7-\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-7-chanfrein})
 est appliquée sur le sommet issu de l'application précédente, désigné par le
 brin \(55\) lui-même filtré par le n\oe ud \(n0\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-chanfrein}). %
-Comme dans les étapes précédentes, l'historique \([1n5;2n6;3n0;4n4;6n2]\), avant
+Comme dans les étapes précédentes, l'historique \([1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2]\), avant
 sa mise à jour par la règle, est enregistré dans la spécification
 paramétrique. %
 L'application crée une face à partir du chanfreinage du sommet désigné. %
 Parmi les brins créés, nous trouvons notamment le brin \(68\) dont l'historique
-est \([1n5;2n6;3n0;4n4;6n2;7n1]\)
+est \([1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1]\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-chanfrein})
 . %
 
@@ -315,7 +322,7 @@ est \([1n5;2n6;3n0;4n4;6n2;7n1]\)
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-8-evaluation-coloration-bleu}
 	\end{subfigure}
-	\caption{\texttt{8-coloration(\pndart{35}{1n3;2n4;5n0})}}
+	\caption{\texttt{8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;\allowbreak{}2n4;\allowbreak{}5n0})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-8-coloration-bleu}
 \end{figure}
 
@@ -334,16 +341,17 @@ est \([1n5;2n6;3n0;4n4;6n2;7n1]\)
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-9-evaluation-coloration-rouge}
 	\end{subfigure}
-	\caption{\texttt{9-coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1})}}
+	\caption{\texttt{9-\allowbreak{}coloration\-Face(\pndart{68}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1})}}
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}
 \end{figure}
 
 
-Enfin, les deux dernières applications
-\texttt{8-coloration(\pndart{35}{1n3;2n4;5n0})}
+Enfin, les deux dernières applications enregistrées,
+\texttt{8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;\allowbreak{}2n4;\allowbreak{}5n0})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-8-coloration-bleu})
-et \texttt{9-coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1})}
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge})
+et
+\texttt{9-\allowbreak{}coloration\-Face(\pndart{68}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}),
 colorient les faces désignées par les brins \(35\) et \(68\)
 (figures~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-8-evaluation-coloration-bleu}
 et
@@ -354,9 +362,10 @@ et
 \ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-rouge},
 seul le plongement de couleur change). %
 L'historique du brin \(35\) (respectivement \(68\)) est enregistré dans la
-spécification paramétrique comme nom persistant de l'application \texttt{8}
-(respectivement \texttt{9}) , puis mis à jour en \([1n3;2n4;5n0;8n0]\)
-(respectivement \([1n5;2n6;3n0;4n4;6n2;7n1;9n0]\)). %
+spécification paramétrique comme nom persistant de la huitième application
+(respectivement la neuvième), puis mis à jour en
+\([1n3;\allowbreak{}2n4;\allowbreak{}5n0;\allowbreak{}8n0]\) (respectivement
+\([1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1;\allowbreak{}9n0]\)). %
 
 ~
 
@@ -364,12 +373,14 @@ Le processus de création de chacun des noms persistants enregistrés dans la
 spécification paramétrique du cas d'étude nº~1, que nous venons de détailler,
 nous permet de mettre deux propriétés en évidence. %
 La première est que la nomination des brins est, par construction, unique. %
-Un tel historique construit pas à pas, \textit{via}  les règles appliquées, et de manière implicite \xavier{au contraire, je trouve que ce chemin est explicite , mais bon...},
-un chemin qui relie un brin et son ancêtre le plus ancien (créé \textit{ex
-	nihilo}). %
-La seconde propriété est que la nomination persistante est, à elle-seule, insuffisante,
-car l'historique de création d'un brin ne permet pas de caractériser
-l'historique des évènements qui ont impacté une orbite. %
+Un tel historique construit pas à pas, \textit{via} les règles appliquées, et de
+manière explicite \xavier{au contraire, je trouve que ce chemin est explicite ,
+  mais bon...}\maxime{Tu as entièrement raison, j'ai mélangé deux idées quand
+  j'ai écrit.} , un chemin qui relie un brin et son ancêtre le plus ancien (créé
+\textit{ex nihilo}). %
+La seconde propriété est que la nomination persistante est, à elle-seule,
+insuffisante, car l'historique de création d'un brin ne permet pas de
+caractériser l'historique des évènements qui ont impacté une orbite. %
 De manière plus évidente, en omettant le cas où un n\oe ud d'accroche désigne
 explicitement un brin, un brin n'est pas une orbite. %
 Cette nomination, seule, n'est donc pas robuste, car non représentative des

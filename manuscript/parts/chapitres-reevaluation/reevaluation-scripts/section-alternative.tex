@@ -2,16 +2,41 @@
 \section{Gestion des alternatives}
 \label{sec:extension-scripts-alternatives}
 
-\begin{itemize}
-  \item présentation des alternatives
-  \item méthode d'appariement d'entité entre deux règles
-  \item extension de la spécification paramétrique avec
-  \begin{itemize}
-    \item un bloc alternative «~si… sinon…~»
-    \item un enregistrement de la règle appliquée lors de l'évaluation initiale
-  \end{itemize}
-  \item extension des DAG pour remonter l'histoire du paramètre d'entrée du script
-\end{itemize}
+% \begin{itemize}
+%   \item présentation des alternatives
+%   \item méthode d'appariement d'entité entre deux règles
+%   \item extension de la spécification paramétrique avec
+%   \begin{itemize}
+%     \item un bloc alternative «~si… sinon…~»
+%     \item un enregistrement de la règle appliquée lors de l'évaluation initiale
+%   \end{itemize}
+%   \item extension des DAG pour remonter l'histoire du paramètre d'entrée du script
+% \end{itemize}
+
+
+La dernière structure de contrôle que nous présentons est l'alternative qui
+permet de moduler le comportement d'un script avec différentes opérations selon
+un critère défini par le développeur du script. %
+Cette structure implique aussi une extension de la spécification paramétrique et
+des DAGs. %
+Cependant, son support nécessite une nouvelle fonctionnalité qui est
+l'appariement d'orbites entre deux règles qui peuvent être très différentes. %
+
+
+\subsection{Extension de la spécification paramétrique}
+\label{sec:reevaluation-scripts-alternative-extension-spec-param}
+
+
+Comme pour les autres structures de contrôle, l'extension de la spécification
+paramétrique pour l'alternative requiert d'enregistrer un bloc d'instructions
+associé à l'application du script. %
+Précisons que seules les opérations correspondantes
+
+
+\subsection{Extension des DAGs}
+\label{sec:reevaluation-scripts-alternative-extension-dags}
+
+
 
 %%% Local Variables:
 %%% mode: LaTeX

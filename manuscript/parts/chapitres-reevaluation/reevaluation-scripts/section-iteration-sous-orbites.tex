@@ -2,20 +2,62 @@
 \section{Gestion des iterations sur les sous-orbites}
 \label{sec:extension-scripts-iteration}
 
-\begin{itemize}
-  \item présentation des boucles de sous-orbites
-  \item extension de la spécification paramétrique avec une boîte d'itération qui contient
-  \begin{itemize}
-    \item la boîte du script avec son nom et le nom persistant d'une orbite
-    \item une boîte \textit{for} avec le nom persistant de la sous-orbite d'itération
-    \item les enregistrements de l'opération itérée avec les noms persistant de chaque sous-orbite
-  \end{itemize}
-  \item extension des DAG avec l'ajout
-  \begin{itemize}
-    \item ajout d'une branche pour remonter l'histoire du paramètre d'entrée du script
-    \item ajout d'une branche pour remonter l'histoire de la sous-orbite d'itération
-  \end{itemize}
-\end{itemize}
+Les orbites ont la propriété de pouvoir être décomposées en sous-orbites,
+c'est-à-dire, par exemple, que l'on peut extraire les sommets \(\orbit{1}\)
+d'une face \(\orbit{0,1}\). %
+Une des structures de contrôle proposées par le langage Jerboa et l'itération
+des sous-orbites d'une orbites. %
+Un exemple d'une telle itération peut-être le script qui, pour chaque sommet
+d'une face, applique la règle \texttt{chanfreinSommet}. %
+
+
+
+\subsection{Extension de la spécification paramétrique}
+\label{reevaluation-scripts-iteration-extension-spec-param}
+
+%   \item extension de la spécification paramétrique avec une boîte d'itération qui contient
+
+%   \begin{itemize}
+%     \item la boîte du script avec son nom et le nom persistant d'une orbite
+%     \item une boîte \textit{for} avec le nom persistant de la sous-orbite d'itération
+%     \item les enregistrements de l'opération itérée avec les noms persistant de chaque sous-orbite
+%   \end{itemize}
+
+\todo{liste de spec boîte ouverte + bloc itération (pn) + séquences d'itérations (pn)}
+
+De la même manière que pour les séquences d'opérations, il est nécessaire
+d'étendre la définition d'une spécification paramétrique. %
+Cette extension consiste à permettre la représentation des itérations de cette
+structure de contrôle. %
+Ainsi, une spécification paramétrique contiendra, dans la boîte de script, son
+propre bloc d'opérations. %
+Un bloc d'itération dispose alors d'un nom persistant comme paramètre d'entrée
+qui conditionne sa réévaluation et les différentes applications liées aux
+sous-orbites de l'itération. %
+
+
+
+\subsection{Extension des DAGs}
+\label{sec:reevaluation-scripts-iteration-extension-dags}
+
+%   \begin{itemize}
+%     \item ajout d'une branche pour remonter l'histoire du paramètre d'entrée du script
+%     \item ajout d'une branche pour remonter l'histoire de la sous-orbite d'itération
+%   \end{itemize}
+
+\todo{dag évaluation boîte ouverte + bloc itération (pn) + séquences d'itérations (pn)}
+
+En plus des orbites référencées par les scripts, afin de supporter les
+itérations sur les sous-orbites, il est désormais nécessaire de suivre d'autres
+orbites pour conditionner la réévaluation d'un script. %
+Plus précisément, il convient de tracer l'historique d'évolution de l'orbite
+passée en paramètre de la boucle ainsi que les historiques des sous-orbites
+itérées. %
+Dans chaque DAG illustrant l'historique d'une sous-orbite itérée, il y a
+désormais une branche qui trace l'historique du paramètre topologique du script,
+une branche qui trace l'historique de l'orbite passée en paramètre de la
+structure de contrôle et une branche qui trace l'historique pour une instance de
+sous-orbite. %
 
 %%% Local Variables:
 %%% mode: LaTeX

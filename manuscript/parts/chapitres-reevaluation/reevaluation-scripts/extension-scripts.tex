@@ -2,6 +2,44 @@
 \chapter{Extension de la réévaluation aux scripts}
 \label{cha:extension-scripts}
 
+Dans le chapitre~\ref{cha:outils-modelisation-base-regles}
+(section~\ref{sec:etat-art-model-regles-jerboa-scripts}
+page~\ref{sec:etat-art-model-regles-jerboa-scripts}) nous avons présenté les
+scripts Jerboa qui permettent de représenter des opérations de modélisation
+géométriques complexes en faisant appel aux règles Jerboa. %
+Toutefois, ces scripts ne peuvent pas, en l'état, être réévalués par le système
+de réévaluation que nous avons présenté dans le
+chapitre~\ref{cha:reevaluation-base-regles}. %
+En effet, les scripts permettent d'organiser des règles à l'aide des structures
+de contrôles largement disponibles dans la plupart des langages de
+programmation. %
+Or, le système de réévaluation que nous venons de présenter n'est pas capable de gérer la réévaluation de telles opérations de modélisation. %
+
+
+Dans ce chapitre, nous présentons une extension de notre système de réévaluation
+afin que celui-ci puisse réévaluer des scripts de règles. %
+Pour cela, nous proposons d'étendre notre système de réévaluation à des scripts
+présentant un ensemble limités de structures de contrôles, à savoir des
+séquences de règles, des itérations sur les sous-orbites d'une orbite ainsi que
+des alternatives «~si… sinon…~». %
+Avec de telles structures, il est aussi nécessaire d'enregistrer tous les
+comportements associés, notamment pour les itérations et les alternatives. %
+Un tel support nous permet donc, déjà, de représenter des comportements
+complexes dans des opérations de modélisation géométrique et de permettre leurs
+réévaluations. %
+
+Nous commençons ce chapitre avec les séquences de règles et les problématiques
+liées à l'enregistrement des opérations contenues dans un script. %
+Nous présentons ensuite le support des structures itératives pour la
+réévaluation avec l'extension de la spécification paramétrique et des DAGs. %
+Dans une troisième section, nous présentons le support des structures
+d'alternatives. %
+Dans une quatrième section, nous présentons des exemples de réévaluations ou
+nous entre-mêlons les différentes structures de contrôles. %
+Enfin, nous proposons une dernière section sur l'état d'implantation de
+l'extension de la réévaluation aux scripts. %
+
+
 %%% Local Variables:
 %%% mode: LaTeX
 %%% TeX-master: "../../../main"

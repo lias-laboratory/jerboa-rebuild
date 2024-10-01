@@ -2,19 +2,87 @@
 \section{Gestion d'une séquence}
 \label{sec:extension-scripts-sequences}
 
-  \begin{itemize}
-    \item séquence \(\to\) simple succession d'opérations, pas de difficulté particulière
-    \item deux options pour intégrer les scripts dans une spécification paramétrique
-    \begin{itemize}
-      \item boîte fermée~: on garde la spécification paramétrique simple~;
-            l'utilisateur n'a aucune idée de comment le script est géré par le
-            moteur de réévaluation.
-      \item boîte ouverte~: la spécification paramétrique doit être restructurée
-            pour afficher le structures internes des scripts~: séquences,
-            itérations et alternatives.
-    \end{itemize}
-    \item intégration dans les DAG~: boîte qui englobe les opérations et évènements par script
-  \end{itemize}
+% \begin{itemize}
+% 	\item séquence \(\to\) simple succession d'opérations, pas de difficulté particulière
+% 	\item deux options pour intégrer les scripts dans une spécification paramétrique
+% 	      \begin{itemize}
+% 		      \item boîte fermée~: on garde la spécification paramétrique simple~;
+% 		            l'utilisateur n'a aucune idée de comment le script est géré par le
+% 		            moteur de réévaluation.
+% 		      \item boîte ouverte~: la spécification paramétrique doit être restructurée
+% 		            pour afficher le structures internes des scripts~: séquences,
+% 		            itérations et alternatives.
+% 	      \end{itemize}
+% 	\item intégration dans les DAG~: boîte qui englobe les opérations et évènements par script
+% \end{itemize}
+
+
+\subsection{Extension de la spécification paramétrique}
+\label{sec:reevaluation-scripts-sequence-extension-spec-param}
+
+Nous présentons le support des séquences d'opérations dans les scripts pour la
+réévaluation. %
+Intuitivement, une séquence est une sorte de spécification paramétrique
+imbriquée dans une autre spécification paramétrique. %
+Notre choix se porte sur une représentation explicite de cette structure de
+donnée avec le modèle de boîte ouverte (ou glassbox). %
+Toutefois, pour justifier notre choix, nous comparons les avantages et
+inconvénients de la boîte ouverte avec la boîte fermée (ou blackbox)
+
+\subsubsection*{Représentation boîte fermée}
+
+\todo{liste de spec boîte fermée}
+
+Les boîtes fermées présentent trop d'inconvénients autant pour les développeurs
+d'opérations que pour le système de réévaluation. %
+Dans ce mode de représentation, seule l'opération script est enregistrée et il
+est impossible pour le système de réévaluation gérer les règles réappliquées en
+interne. S'il y a un échec dû à un mauvais appariement ou à la non-réévaluation
+d'une entité topologique, il est alors impossible d'interrompre la réévaluation
+convenablement (crash). %
+C'est alors au développeur de gérer explicitement l'ensemble des évènements
+attendu dans sa séquence d'opérations pour garantir que la réévaluation
+fonctionnera. %
+Dans notre démarche, ce n'est pas une option acceptable puisque le système doit
+garantir, seul, qu'une réévaluation est possible (dans la mesure où une
+règle/script et conçue correctement en respectant les contraintes imposées par
+le langage Jerboa). %
+
+\subsubsection*{Représentation boîte ouverte}
+
+\todo{liste de spec boîte ouverte}
+
+Les boîtes ouvertes le mode de représentation que nous préférons, car celles-ci
+permettent au système de réévaluation d'avoir connaissances des règles (et
+scripts) appelés en interne d'un script et de faire l'appariement de leurs
+paramètres topologiques respectifs. %
+Cependant, cette deuxième approche requiert l'extension des structures de
+données nous permettant de représenter les diverses étapes de modélisation, à
+savoir la spécification paramétrique ainsi que les DAGs d'évaluation et de
+réévaluation. %
+Dans cette configuration, il est possible de gérer les interruptions de
+réévaluation puisque le système connaît les règles d'un scripts et leurs
+paramètres topologiques. %
+Pour les développeurs, la contrainte est similaire aux règles Jerboa. %
+En effet, l'application d'une règle Jerboa retourne un résultat d'application
+sous la forme d'un tableau de brins instanciés à partir du membre droit. %
+Pour les scripts, les développeurs doivent aussi construire cette sortie. %
+
+\subsection{Extensions des DAGs}
+\label{sec:reevaluation-scripts-sequence-extension-dags}
+
+\todo{DAG évaluation avec bloc boîte ouverte}
+
+L'utilisation d'une boîte ouverte pour représenter les opérations internes à un
+script nous permet de reconstituer les historiques d'évolutions de chacun des
+paramètres topologiques dans des DAGs. %
+Afin de faire la distinction entre les opérations hors scripts et les opérations
+dans les scripts, le modèle de boîte ouverte doit être reportée dans les DAGs
+notamment parce que, tout comme les règles, les scripts peuvent référencer une
+entité topologique comme paramètre. %
+Ce paramètre conditionne alors l'exécution du script et l'ouverture de la
+boîte. %
+
 
 %%% Local Variables:
 %%% mode: LaTeX

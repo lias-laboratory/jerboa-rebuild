@@ -28,15 +28,22 @@ l'appariement d'orbites entre deux règles qui peuvent être très différentes.
 
 
 Comme pour les autres structures de contrôle, l'extension de la spécification
-paramétrique pour l'alternative requiert d'enregistrer un bloc d'instructions
-associé à l'application du script. %
-Précisons que seules les opérations correspondantes
+paramétrique pour l'alternative requiert d'enregistrer la séquence d'opérations
+appliquées lors de l'évaluation. %
+Précisons qu'une seule des deux séquences de l'alternative est enregistrée. %
 
 
 \subsection{Extension des DAGs}
 \label{sec:reevaluation-scripts-alternative-extension-dags}
 
-
+L'extension des DAGs, pour le support de l'alternative, nécessite d'avoir deux
+branches supplémentaires, l'une pour tracer l'évolution du paramètre topologique
+du script, l'autre pour tracer l'évolution de l'orbite évaluée par la structure
+d'alternative. %
+De plus, pour maintenir le suivi d'un type d'orbite explicitement désigné par
+l'utilisateur, nous proposons un appariement entre les orbites filtrées par
+l'opération initialement évaluée et l'opération de la réévaluation lorsqu'elles
+sont différentes. %
 
 %%% Local Variables:
 %%% mode: LaTeX

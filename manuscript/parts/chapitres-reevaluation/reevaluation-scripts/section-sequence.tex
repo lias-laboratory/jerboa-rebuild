@@ -29,9 +29,22 @@ donnée avec le modèle de boîte ouverte (ou glassbox). %
 Toutefois, pour justifier notre choix, nous comparons les avantages et
 inconvénients de la boîte ouverte avec la boîte fermée (ou blackbox)
 
+
+
 \subsubsection*{Représentation boîte fermée}
 
+
+
 \todo{liste de spec boîte fermée}
+
+
+\begin{vbtflisting}[temporaire]
+
+  1-uneOpération();\\
+  2-unScript(pn1)\\
+  3-unScript(pn2)
+\end{vbtflisting}
+
 
 Les boîtes fermées présentent trop d'inconvénients autant pour les développeurs
 d'opérations que pour le système de réévaluation. %
@@ -51,6 +64,17 @@ le langage Jerboa). %
 \subsubsection*{Représentation boîte ouverte}
 
 \todo{liste de spec boîte ouverte}
+
+\begin{vbtflisting}[temporaire]
+
+  1-uneOpération();\\
+  2-unScript(pn1)\\
+  \tabto{1em}Séquence~:\\
+  \tabto{2em}2.1-uneOpération(pn2);\\
+  3-unScript(pn3)\\
+  \tabto{1em}Séquence~:\\
+  \tabto{2em}3.1-uneOpération(pn4);
+\end{vbtflisting}
 
 Les boîtes ouvertes le mode de représentation que nous préférons, car celles-ci
 permettent au système de réévaluation d'avoir connaissances des règles (et

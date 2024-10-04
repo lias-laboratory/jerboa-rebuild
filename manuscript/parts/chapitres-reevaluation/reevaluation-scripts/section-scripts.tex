@@ -4,7 +4,7 @@
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=0.6\textwidth]{exemple-contrainte-regles-gauthier}
-	\caption{Tentative de décousure par Gauthier}
+	\caption{Exemple de décousure d'un volume par Gauthier}
 	\label{fig:reevaluation-scripts-scripts-scripts-jerboa-non-decousure}
 \end{figure}
 
@@ -12,7 +12,14 @@
 	\centering
 	\includegraphics[height=40pt]{rule-unsew-volume-a3}
 	\caption{Règle de décousure d'un volume par ses \(3\)-liaisons}
-	\label{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure}
+	\label{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure-volume}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=40pt]{rule-unsew-face-a3}
+	\caption{Règle de décousure d'une face par ses \(3\)-liaisons}
+	\label{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure-face}
 \end{figure}
 
 Les règles Jerboa nous permettent de représenter diverses opérations de
@@ -22,65 +29,159 @@ chapitre~\ref{cha:outils-modelisation-base-regles} avec la
 définition~\ref{def:orbite-instanciation}
 (page~\pageref{def:orbite-instanciation}), les orbites filtrées par la partie
 gauche d'une règle doivent être isomorphes à renommage près. %
-Ainsi, un langage de script~\cite{belhaouari2014jerboa,gauth2019} a été conçu
-afin de permettre l'écriture d'opérations de modélisations plus complexes,
-c'est-à-dire des opérations qui peuvent être appliqués sur des orbites non
-isomorphes. %
 %% Exemple de problème lié à l'isomorphisme des règles Jerboa
 La figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-non-decousure}
-illustre un exemple où la décousure d'un volume par
-ses 3-liaisons
-(figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure})
-est impossible, car certaines de ces faces sont libres. %
-Leurs 3-liaisons ne peuvent donc pas être découpées et le volume orange ne peut
-pas être déconnecté du reste de la composante connexe. %
+illustre un exemple où la décousure d'un volume par ses 3-liaisons
+(figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure-volume})
+est impossible, car certaines des faces du volume sont libres. %
+Elles ne possèdent pas de 3-liaisons à découdre et le volume
+\textcolor{orange}{orange} ne peut pas être déconnecté du reste de la composante
+connexe. %
+Pour déconnecter ce volume, il faudrait appliquer la règle de décousure de face
+(figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure-face})
+sur chacune des faces incidentes à un autre volume. %
+
 
 
 \subsection{Scripts Jerboa}
 \label{sec:extension-scripts-scripts-scripts-jerboa}
 
-Pour dépasser cette limitation des règles,
-%% Écriture d'un script, instruction « élémentaire » : appel de règle
-Jerboa propose des scripts construits à partir de deux langages. %
-Un langage de calcul est d'abord conçu pour définir un ensemble d'instructions,
-comprenant entre autres des structures de contrôles, afin réaliser des
-opérations sur les G-cartes et leurs orbites. %
-Un langage de script étend ensuite ce langage de calcul avec des appels
-d'opérations qui en sont les instructions élémentaires. %
-Les scripts permettent ainsi d'appeler des règles Jerboa et de les organiser à
-l'aide de structures de contrôle afin de concevoir des opérations complexes. %
 
 
-\begin{lstlisting}[style=script-style,language=jerboa-script]
+Les scripts Jerboa~\cite{belhaouari2014jerboa,gauth2019} permettent, à l'aide
+d'un langage de script, de construire des opérations avec des comportements plus
+complexes que les règles. %
+Un script peut faciliter, par exemple, le processus de décousure du volume
+\textcolor{orange}{orange} en évitant de réappliquer manuellement la règle de
+décousure de face
+(figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-non-decousure}). %
+Le langage utilisé pour écrire les scripts Jerboa définit l'ensemble des
+instructions nécessaires pour manipuler les G-cartes et leurs orbites. %
+Les structures de contrôles classiques de Java et du C++ sont disponibles, à
+savoir les boucles (\texttt{for}, \texttt{foreach}, \texttt{while}) et les
+alternatives. %
+Plus particulièrement, ces scripts peuvent appeler d'autres opérations. %
+Ces appels sont les instructions élémentaires d'un script qui, dans sa forme la
+plus simple, est une séquence d'appels de règles. %
+
+%% exemple de script pour résoudre le problème
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=40pt]{script-unsew012-a3}
+	\caption{Motif gauche du script de décousure de volume}
+	\label{fig:reevaluation-scripts-scripts-scripts-jerboa-graphe-script}
+\end{figure}
+
+\begin{lstlisting}[style=script-style,language=jerboa-script,caption=Script de
+décousure d'un volume,
+label=lst:reevaluation-scripts-scripts-scripts-jerboa-script-decousure-volume]
 for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
 {
     try
     {
         @rule<UnsewFace01A3>(face);
     } catch (JerboaException e){
-        // Ici l'application echoue
+        // echec de l'application
     }
 }
 return null;
 \end{lstlisting}
 
-%%% exemple de script pour résoudre le problème
-
-
+Les scripts, comme les règles, sont des opérations. %
+À ce titre, elles disposent de paramètres en entrée qui peuvent être des
+paramètres topologiques ou de plongement (géométrie, couleur, etc.). %
+En pratique, ces paramètres sont utilisés différemment. %
 %% Les entrées et les sorties : montrer avec le script
-
+Observons le motif gauche du script qui découd un volume de sa composante
+connexe
+(figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-graphe-script}). %
+Ce motif est composé d'un unique n\oe ud d'accroche appelé \texttt{volume}. %
+Son étiquette désigne un brin (\(\orbit{}\)) ainsi qu'une information de
+\textit{multiplicité} (\texttt{{1}}) qui indique le nombre d'orbites sur
+lesquelles ce script peut être appliqué, ici une seule orbite. %
 %% Les paramètres topologiques : montrer avec le script
-
+Une différence notable, entre les motifs gauches des règles et de scripts, est
+que les motifs de scripts ne filtrent pas d'orbites. %
+Ceux-ci récupèrent simplement une liste de brin, un par orbite, et délèguent le
+filtrage aux règles qu'ils appellent. %
+Étudions maintenant le script
+(liste~\ref{lst:reevaluation-scripts-scripts-scripts-jerboa-script-decousure-volume}). %
+%% Structures dans un script
+La principale structure de ce script est une boucle qui itère chacune des faces
+d'un volume incident à un brin obtenu par le n\oe ud \texttt{volume}. %
+L'itération est formalisée par l'instruction
+\texttt{<0,1,3>\_<0,1>(volume\#{}0)} qui retourne une liste de brins à raison
+d'un brin par face. %
+Notons, d'une part que \texttt{volume\#{}0} est le premier (et unique brin)
+contenu dans \texttt{volume} et, d'autre part, que la variable \texttt{face} est
+effectivement un brin de type \texttt{JerboaDart}. %
 %% Appels de scripts dans les scripts
+Dans cette boucle, un bloc \texttt{try-catch} contient un appel de la règle
+\texttt{UnsewFace01A3} qui doit alors être appliquée à chacune des faces d'un
+cube. %
+Celui-ci empêche une sortie prématurée du programme lorsque la règle échoue
+suite à son application sur une face libre. %
+Enfin, et contrairement aux règles pour lesquelles le motif droit construit la
+sortie d'une application, une telle sortie doit être explicitement construite
+dans le corps d'un script. %
+\maxime{Il manque peut-être encore un morceau, pour expliquer ce qu'est une sortie de script, comment ça se construit et avec quoi (\texttt{JerboaRuleResult}). Y revenir pour la correction. }
+
+Ainsi, les scripts Jerboa permettent d'écrire des opérations plus complexes que
+les règles puisqu'ils proposent d'organiser des opérations à l'aide de
+structures de contrôle. %
+Une opération, voire une séquence d'opérations, peut être répété un certain
+nombre de fois à l'aide de boucles. %
+Une application peut être soumise à condition et le script peut contenir une
+alternative selon l'évaluation de la condition. %
+Enfin, puisqu'une règle et un script sont tous deux des opérations, un script
+peut adopter un comportement d'autant plus complexe qu'il peut appeler un autre
+script. %
+
 
 \subsection{Scripts de réévaluation}
 \label{sec:extension-scripts-scripts-scripts-reevaluation}
 
-Description des scripts que l'on propose, définit comme un sous-ensemble
-restreint de fonctionnalités proposées dans les scripts Jerboa, (séquence,
-foreach, if then else). %
 
+Dans ce chapitre, les scripts que nous proposons de réévaluer dans ce chapitre
+comportent qu'un sous-ensemble d'instruction des scripts Jerboa. %
+Nos travaux étant encore à un stade préliminaire, nous proposons de traiter que
+trois structures de contrôle pour les instructions. %
 
+\begin{description}
+  \item[Séquence]
+
+        ~
+
+\begin{lstlisting}[style=script-style,language=jerboa-script]
+@rule<ruleA>(brin);
+@rule<ruleB>(brin);
+@rule<ruleC>(brin);
+\end{lstlisting}
+
+  \item[Boucle «~foreach~»]
+
+        ~
+
+\begin{lstlisting}[style=script-style,language=jerboa-script]
+for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
+{
+    @rule<ruleA>(face);
+}
+\end{lstlisting}
+
+  \item[Alternative]
+
+        ~
+
+\begin{lstlisting}[style=script-style,language=jerboa-script]
+if(CONDITION)
+{
+    @rule<ruleA>(brin);
+} else {
+    @rule<ruleB>(brin);
+}
+\end{lstlisting}
+\end{description}
 
 
 %%% Local Variables:

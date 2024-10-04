@@ -2,6 +2,44 @@
 %% Babel ne traduit par la caption de lstlisting donc je le fais ici
 \renewcommand\lstlistingname{\scshape Liste}
 
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinelanguage{jerboa-script}{
+	keywords=[1]{
+	  for,
+	  try,
+	  catch,
+	  return,
+	  null
+	},
+	morekeywords=[2]{
+	  JerboaDart
+	},
+	morekeywords=[3]{
+	  @rule
+	},
+	morecomment=[l]{//}}
+
+\lstdefinestyle{script-style}{
+	backgroundcolor=\color{backcolour},
+	numberstyle=\tiny\color{codegray},
+	basicstyle=\ttfamily\footnotesize,
+	keywordstyle=\color{blue},
+	keywordstyle=[2]{\color{orange}},
+	keywordstyle=[3]{\color{red}},
+	commentstyle=\color{mydarkgreenink},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=t,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2
+}
+
 %% Plus simple que lstlisting, sans verbatim et sans mathescape (je voulais uniformiser mon affichage de PN\subscript{xyz}=[x'y'z'] )
 \newenvironment{vbtflisting}[2][]%
 {%

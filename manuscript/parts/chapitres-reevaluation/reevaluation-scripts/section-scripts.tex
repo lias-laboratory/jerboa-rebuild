@@ -141,38 +141,65 @@ script. %
 \subsection{Scripts de réévaluation}
 \label{sec:extension-scripts-scripts-scripts-reevaluation}
 
+Afin d'étendre notre système de réévaluation avec le support des scripts de
+règle, nous réutilisons une partie du langage de scripts Jerboa. %
+Ainsi, dans ce chapitre, nous étudions la réévaluation de scripts construits
+avec un sous-ensemble des structures de contrôles restreint aux séquences, aux
+boucles \texttt{foreach} et aux alternatives de règles. %
 
-Dans ce chapitre, les scripts que nous proposons de réévaluer dans ce chapitre
-comportent qu'un sous-ensemble d'instruction des scripts Jerboa. %
-Nos travaux étant encore à un stade préliminaire, nous proposons de traiter que
-trois structures de contrôle pour les instructions. %
-
-\begin{description}
-  \item[Séquence]
-
-        ~
-
+La première structure que nous voyons dans ce chapitre est la séquence de
+règles. %
 \begin{lstlisting}[style=script-style,language=jerboa-script]
 @rule<ruleA>(brin);
 @rule<ruleB>(brin);
 @rule<ruleC>(brin);
 \end{lstlisting}
+Un script permet, logiquement, d'appeler plusieurs opérations. %
+Cette structure peut donc être comparée à une spécification paramétrique. %
+En effet, nous pouvons très bien représenter un script comme l'enregistrement
+d'un ensemble de règles, chacune avec ses paramètres topologiques et
+géométriques. %
+Une première question se pose alors sur l'intégration des scripts dans notre
+système de réévaluation~: comment représenter un script dans une spécification
+paramétrique ? %
+À travers cette question, nous nous intéressons aux changements qui doivent être
+apporté à une spécification paramétrique ainsi qu'aux DAG. %
+Une première hypothèse est de représenter un script uniquement par ses entrées
+et ses sorties, c'est-à-dire selon le modèle de représentation de boîte fermée
+(ou \textit{black box} en anglais). %
+Considérons que cela soit suffisant pour la réévaluation. %
+Les développeurs de scripts ont alors la responsabilité d'écrire des opérations
+dont les règles puissent toujours être réévaluées. %
+Cependant, en faisant choix, les scripts doivent procéder à l'enregistrement des
+évènements topologiques. %
+Le système de réévaluation ne pourra pas ni connaître l'ensemble des règles
+évaluées, ni procéder à leurs analyses pour tracer l'évolution des orbites. %
+Nous proposons donc d'utiliser le modèle de boîte ouverte (ou \textit{glass
+  box}) pour continuer d'enregistrer et d'analyser les règles dans le cadre des
+scripts. %
 
-  \item[Boucle «~foreach~»]
-
-        ~
-
+La deuxième structure que nous voyons est la boucle de type \texttt{foreach}. %
 \begin{lstlisting}[style=script-style,language=jerboa-script]
 for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
 {
     @rule<ruleA>(face);
 }
 \end{lstlisting}
+Les boucles sont une composante des scripts et nous nous intéressons plus
+particulièrement aux \texttt{foreach}. %
+Celles-ci permettent d'itérer sur les sous-orbites d'une orbite. %
+Si nous reprenons l'exemple de la section précédente, il est alors possible
+d'appliquer une règle (ou en ensemble de règles) sur chacune des faces du cube à
+déconnecter. %
+Dans le cadre de la réévaluation, cela nous permet d'enregistrer chacune des
+applications dans une boucle et de proposer une solution pour tracer l'évolution
+de ces sous-orbites. %
+Ainsi, le support des boucles \texttt{foreach} nécessite de les intégrer dans
+les spécifications paramétriques ainsi que dans les DAGs, notamment avec le
+suivi de l'orbite à itérer et de ses sous-orbites. %
 
-  \item[Alternative]
-
-        ~
-
+Enfin, la troisième structure que nous voyons est l'alternative entre deux
+règles. %
 \begin{lstlisting}[style=script-style,language=jerboa-script]
 if(CONDITION)
 {
@@ -181,8 +208,27 @@ if(CONDITION)
     @rule<ruleB>(brin);
 }
 \end{lstlisting}
-\end{description}
+L'alternative est une structure fondamentale en programmation puisqu'elle permet
+d'adapter un comportement à un contexte défini par une condition. %
+Dans le cadre des scripts, l'alternative permet d'adapter le choix d'une règle
+étant donné des paramètres topologiques ou géométriques. %
+L'intégration de cette structure pour la réévaluation nécessite, tout comme pour
+la séquence et la boucle, un enregistrement dans la spécification
+paramétrique. %
+Cependant, afin d'enregistrer les bonnes informations de suivi dans un DAG de
+réévaluation, nous proposons une méthode d'appariement d'orbite entre deux
+règles. %
+En effet, les règles appelées dans une alternative peuvent être très
+différentes. %
+Il est alors nécessaire de d'effectuer un appariement entre deux règles
+alternatives (lorsque nécessaire) de sorte que le suivi d'orbite corresponde aux
+intentions de modélisation d'un utilisateur. %
 
+Dans la suite de ce chapitre, nous proposons donc des évolutions pour les
+spécifications paramétriques et les DAGs afin de supporter les scripts dans
+notre système de réévaluation. %
+Nous proposons également une méthode d'appariement des orbites dans le cadre de
+la réévaluation des règles alternatives. %
 
 %%% Local Variables:
 %%% mode: LaTeX

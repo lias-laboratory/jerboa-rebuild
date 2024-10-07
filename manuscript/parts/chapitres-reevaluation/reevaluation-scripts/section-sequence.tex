@@ -1,98 +1,120 @@
-
-\section{Gestion d'une séquence}
+\section{Structure séquence}
 \label{sec:extension-scripts-sequences}
 
-% \begin{itemize}
-% 	\item séquence \(\to\) simple succession d'opérations, pas de difficulté particulière
-% 	\item deux options pour intégrer les scripts dans une spécification paramétrique
-% 	      \begin{itemize}
-% 		      \item boîte fermée~: on garde la spécification paramétrique simple~;
-% 		            l'utilisateur n'a aucune idée de comment le script est géré par le
-% 		            moteur de réévaluation.
-% 		      \item boîte ouverte~: la spécification paramétrique doit être restructurée
-% 		            pour afficher le structures internes des scripts~: séquences,
-% 		            itérations et alternatives.
-% 	      \end{itemize}
-% 	\item intégration dans les DAG~: boîte qui englobe les opérations et évènements par script
-% \end{itemize}
 
 
-\subsection{Extension de la spécification paramétrique}
-\label{sec:reevaluation-scripts-sequence-extension-spec-param}
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[height=40pt]{script-fil-rouge}
+  \caption{Entrée du script pour le cas d'étude nº~1}
+  \label{fig:reevaluation-scripts-sequence-exemple-cas-etude-1-entree}
+\end{figure}
+%
+\begin{lstlisting}[style=script-style,
+language=jerboa-script,
+escapechar=\%,
+caption=Script du cas d'étude nº~1,
+label=lst:reevaluation-scripts-sequence-exemple-cas-etude-1
+]
+JerboaRuleResult resCube1 = @rule<extrusionFace>(face#0);
+// resCube1#4#7 : (colonne 4; rangee 7)
+JerboaRuleResult resVertex = @rule<insertionSommet>(resCube1#4#7);
+JerboaRuleResult resCube2 = @rule<extrusionFaceVolume>(resCube1#5#7);
+JerboaRuleResult resTri = @rule<triangulationFace>(resCube1#1#5);
+JerboaRuleResult resContraction = @rule<contractionFace>(resCube2#6#1);
+JerboaRuleResult resChanfrein = @rule<chanfreinSommet>(resCollapse#0#1);
+@rule<coloration>(resTri#0#2,blue);
+@rule<coloration>(resChamfer#0#0,red);
+return null;
+\end{lstlisting}
 
-Nous présentons le support des séquences d'opérations dans les scripts pour la
-réévaluation. %
-Intuitivement, une séquence est une sorte de spécification paramétrique
-imbriquée dans une autre spécification paramétrique. %
-Notre choix se porte sur une représentation explicite de cette structure de
-donnée avec le modèle de boîte ouverte (ou glassbox). %
-Toutefois, pour justifier notre choix, nous comparons les avantages et
-inconvénients de la boîte ouverte avec la boîte fermée (ou blackbox)
+Dans cette section, nous proposons les premières modifications nécessaires aux
+spécifications paramétriques ainsi qu'aux DAGs afin de supporter la réévaluation
+des scripts. %
+Prenons pour exemple le script
+(liste~\ref{lst:reevaluation-scripts-sequence-exemple-cas-etude-1}) qui prend
+une face en entrée
+(figure~\ref{fig:reevaluation-scripts-sequence-exemple-cas-etude-1-entree}) et
+qui produit le cas d'étude nº~1 du
+chapitre~\ref{cha:reevaluation-base-regles}. %
 
 
 
-\subsubsection*{Représentation boîte fermée}
+\subsection{Spécification paramétrique}
+\label{sec:reevaluation-scripts-sequence-spec-param}
 
 
 
-\todo{liste de spec boîte fermée}
-
-
-\begin{vbtflisting}[temporaire]
-
-  1-uneOpération();\\
-  2-unScript(pn1)\\
-  3-unScript(pn2)
-\end{vbtflisting}
-
-
-Les boîtes fermées présentent trop d'inconvénients autant pour les développeurs
-d'opérations que pour le système de réévaluation. %
-Dans ce mode de représentation, seule l'opération script est enregistrée et il
-est impossible pour le système de réévaluation gérer les règles réappliquées en
-interne. S'il y a un échec dû à un mauvais appariement ou à la non-réévaluation
-d'une entité topologique, il est alors impossible d'interrompre la réévaluation
-convenablement (crash). %
-C'est alors au développeur de gérer explicitement l'ensemble des évènements
-attendu dans sa séquence d'opérations pour garantir que la réévaluation
-fonctionnera. %
-Dans notre démarche, ce n'est pas une option acceptable puisque le système doit
-garantir, seul, qu'une réévaluation est possible (dans la mesure où une
-règle/script et conçue correctement en respectant les contraintes imposées par
-le langage Jerboa). %
-
-\subsubsection*{Représentation boîte ouverte}
-
-\todo{liste de spec boîte ouverte}
-
-\begin{vbtflisting}[temporaire]
-
-  1-uneOpération();\\
-  2-unScript(pn1)\\
-  \tabto{1em}Séquence~:\\
-  \tabto{2em}2.1-uneOpération(pn2);\\
-  3-unScript(pn3)\\
-  \tabto{1em}Séquence~:\\
-  \tabto{2em}3.1-uneOpération(pn4);
-\end{vbtflisting}
-
-Les boîtes ouvertes le mode de représentation que nous préférons, car celles-ci
-permettent au système de réévaluation d'avoir connaissances des règles (et
-scripts) appelés en interne d'un script et de faire l'appariement de leurs
-paramètres topologiques respectifs. %
-Cependant, cette deuxième approche requiert l'extension des structures de
-données nous permettant de représenter les diverses étapes de modélisation, à
-savoir la spécification paramétrique ainsi que les DAGs d'évaluation et de
-réévaluation. %
-Dans cette configuration, il est possible de gérer les interruptions de
-réévaluation puisque le système connaît les règles d'un scripts et leurs
+La représentation en boîte fermée présente plusieurs inconvénients. %
+En particulier, l'impossibilité d'accéder aux règles utilisées et à leurs
 paramètres topologiques. %
-Pour les développeurs, la contrainte est similaire aux règles Jerboa. %
-En effet, l'application d'une règle Jerboa retourne un résultat d'application
-sous la forme d'un tableau de brins instanciés à partir du membre droit. %
-Pour les scripts, les développeurs doivent aussi construire cette sortie. %
+En effet, ne pas pouvoir accéder aux règles, implique de ne pas pouvoir procéder
+à leurs analyses. %
+Les développeurs d'opérations doivent alors enregistrer manuellement les
+évènements topologiques. %
+De plus, ne pas avoir accès aux paramètres topologiques signifie proposer un
+suivi dégradé de l'évolution des orbites et donc un appariement imprévisible des
+orbites lors de la réévaluation. %
+Or, cette démarche est incompatible avec celle que nous proposons dans nos
+travaux. %
+Nous proposons donc d'enregistrer les opérations de modélisation de manière
+transparente avec le modèle de boîte ouverte. %
 
-\subsection{Extensions des DAGs}
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Spécification paramétrique du cas d'étude nº~1 avec un script,
+label=lst:reevaluation-scripts-sequence-spec-param-cas-etude-1]
+1-creationCarre()
+2-casEtude1(pn1)
+  Sequence:
+    1-extrusionFace(pn2)
+    2-insertionSommet(pn3)
+    3-extrusionFaceVolume(pn4)
+    4-triangulationFace(pn5)
+    5-contractionFace(pn6)
+    6-chanfreinSommet(pn7)
+    7-coloration(pn8)
+    8-coloration(pn9)
+\end{lstlisting}
+
+Avec la représentation boîte ouverte, nous avons accès aux instructions des
+scripts. %
+Il nous est alors possible d'enregistrer dans les spécifications paramétriques
+le contenu dont nous avions besoin jusque-là pour les règles, à savoir leurs
+noms et leurs paramètres topologiques. %
+Toutefois, dans notre approche, nous distinguons le contenu d'un script des
+autres opérations enregistrées dans une spécification paramétrique. %
+L'enregistrement d'un script ouvre un bloc, avec indentation, où sont nommées
+les structures et leur contenu. %
+Par exemple, dans la spécification paramétrique représentée dans la
+liste~\ref{lst:reevaluation-scripts-sequence-spec-param-cas-etude-1}, un bloc
+\texttt{Sequence} est enregistré sous l'enregistrement du script
+\texttt{casEtude1} et contient l'ensemble des opérations appelées. %
+\todo{Reprendre ici (tout le paragraphe, ça part dans tous les sens)}
+
+%% ce que l'on peut faire
+%%% connaître les règles et les paramètres topologiques pour l'appariement
+%%% prévenir une erreur d'application grâce au suivi des orbites
+%% contraintes
+%%% les mêmes que les règles + la construction manuelle de la sortie (jerboaruleresult)
+
+% Les boîtes ouvertes le mode de représentation que nous préférons, car celles-ci
+% permettent au système de réévaluation d'avoir connaissances des règles (et
+% scripts) appelés en interne d'un script et de faire l'appariement de leurs
+% paramètres topologiques respectifs. %
+% Cependant, cette deuxième approche requiert l'extension des structures de
+% données nous permettant de représenter les diverses étapes de modélisation, à
+% savoir la spécification paramétrique ainsi que les DAGs d'évaluation et de
+% réévaluation. %
+% Dans cette configuration, il est possible de gérer les interruptions de
+% réévaluation puisque le système connaît les règles d'un script et leurs
+% paramètres topologiques. %
+% Pour les développeurs, la contrainte est similaire aux règles Jerboa. %
+% En effet, l'application d'une règle Jerboa retourne un résultat d'application
+% sous la forme d'un tableau de brins instanciés à partir du membre droit. %
+% Pour les scripts, les développeurs doivent aussi construire cette sortie. %
+
+\subsection{DAGs}
 \label{sec:reevaluation-scripts-sequence-extension-dags}
 
 \todo{DAG évaluation avec bloc boîte ouverte}

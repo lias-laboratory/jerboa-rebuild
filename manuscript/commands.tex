@@ -4,22 +4,29 @@
 
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{backcolour}{HTML}{e5e9f0}
+\definecolor{delimpurple}{HTML}{9932cc}
 \lstdefinelanguage{jerboa-script}{
 	keywords=[1]{
-	  if,
-	  for,
-	  try,
-	  catch,
-	  return,
-	  null
-	},
+			if,
+			for,
+			try,
+			catch,
+			return,
+			null
+		},
 	morekeywords=[2]{
-	  @rule
-	},
-	% morekeywords=[3]{
-	%   JerboaDart
-	% },
-	morecomment=[l]{//}}
+			@rule,
+			rule
+		},
+	morekeywords=[3]{
+			JerboaDart,
+			JerboaRuleResult
+		},
+	literate=*{\#}{{\textcolor{red}{\#}}}{1}
+		{@}{{\textcolor{red}{@}}}{1},
+	morecomment=[l]{//},
+	moredelim={[s][\color{delimpurple!80!blue}]{<}{>}}
+}
 
 \lstdefinestyle{script-style}{
 	backgroundcolor=\color{backcolour!30},
@@ -27,7 +34,7 @@
 	basicstyle=\ttfamily\footnotesize,
 	keywordstyle=\color{blue},
 	keywordstyle=[2]{\color{red}},
-	% keywordstyle=[3]{\color{orange}},
+	keywordstyle=[3]{\color{orange!80!black}},
 	commentstyle=\color{mydarkgreenink},
 	breakatwhitespace=false,
 	breaklines=true,
@@ -39,18 +46,6 @@
 	showstringspaces=false,
 	showtabs=false,
 	tabsize=2
-}
-
-%% Plus simple que lstlisting, sans verbatim et sans mathescape (je voulais uniformiser mon affichage de PN\subscript{xyz}=[x'y'z'] )
-\newenvironment{vbtflisting}[2][]%
-{%
-	\noindent
-	\begin{minipage}{\textwidth}
-		\captionsetup{type=lstlisting}
-		\captionof{lstlisting}{#1}#2
-		\footnotesize\ttfamily
-		}{%
-	\end{minipage}
 }
 
 %%%%% Tableaux %%%%%%%%%%%%%%%%%%%%%%%%
@@ -239,8 +234,8 @@
 		right=2pt,
 		top=2pt,
 		bottom=2pt
-		]{#2}%
-	  }
+	]{#2}%
+}
 
 \newcommand{\sharpbox}[1]{
 	\tcboxmath[

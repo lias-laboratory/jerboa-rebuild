@@ -4,7 +4,7 @@
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=0.6\textwidth]{exemple-contrainte-regles-gauthier}
-	\caption{Exemple de décousure d'un volume par Gauthier}
+	\caption{Exemple de volume à découdre par Gauthier}
 	\label{fig:reevaluation-scripts-scripts-scripts-jerboa-non-decousure}
 \end{figure}
 
@@ -164,14 +164,25 @@ système de réévaluation~: comment représenter un script dans une spécificat
 paramétrique ? %
 À travers cette question, nous nous intéressons aux changements qui doivent être
 apporté à une spécification paramétrique ainsi qu'aux DAG. %
-Une première hypothèse est de représenter un script uniquement par ses entrées
-et ses sorties, c'est-à-dire selon le modèle de représentation de boîte fermée
-(ou \textit{black box} en anglais). %
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Exemple de spécification «~boîte fermée~»,
+label=lst:reevaluation-scripts-scripts-scripts-reevaluation-boite-fermee]
+1-uneRegle();
+2-unScript(PN%\textsubscript{1}%);
+3-uneRegle(PN%\textsubscript{2}%);
+\end{lstlisting}
+Une possibilité serait de représenter un script uniquement par ses entrées et
+ses sorties, c'est-à-dire selon le modèle de représentation de boîte fermée (ou
+\textit{black box} en anglais) comme présenté dans la
+liste~\ref{lst:reevaluation-scripts-scripts-scripts-reevaluation-boite-fermee}. %
 Considérons que cela soit suffisant pour la réévaluation. %
 Les développeurs de scripts ont alors la responsabilité d'écrire des opérations
 dont les règles puissent toujours être réévaluées. %
-Cependant, en faisant choix, les scripts doivent procéder à l'enregistrement des
-évènements topologiques. %
+Cependant, en faisant choix, il est aussi nécessaire de procéder à
+l'enregistrement des évènements topologiques à l'intérieur même des scripts. %
+Rappelons que cette dernière contrainte peut être source d'erreurs dans le suivi
+des orbites. %
 Le système de réévaluation ne pourra pas ni connaître l'ensemble des règles
 évaluées, ni procéder à leurs analyses pour tracer l'évolution des orbites. %
 Nous proposons donc d'utiliser le modèle de boîte ouverte (ou \textit{glass
@@ -180,9 +191,9 @@ scripts. %
 
 La deuxième structure que nous voyons est la boucle de type \texttt{foreach}. %
 \begin{lstlisting}[style=script-style,language=jerboa-script]
-for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
+for(JerboaDart brin_sous-orbite : <type_orbite>_<type_sous-orbite>(brin_orbite))
 {
-    @rule<ruleA>(face);
+    @rule<ruleA>(brin_sous-orbite);
 }
 \end{lstlisting}
 Les boucles sont une composante des scripts et nous nous intéressons plus

@@ -84,6 +84,11 @@ public class Vec3 {
     return new Vec3(x * m, y * m, z * m);
   }
 
+  public static float dist(Vec3 v1, Vec3 v2) {
+    return (float)
+        Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2) + Math.pow(v2.z - v1.z, 2));
+  }
+
   public void barycenter(List<Vec3> vecList) {
     this.x = 0;
     this.y = 0;
@@ -114,6 +119,15 @@ public class Vec3 {
   public static Vec3 segmentABByWeight(Vec3 a, Vec3 b, float weight) {
     return new Vec3(
         a.x + ((b.x - a.x) * weight), a.y + ((b.y - a.y) * weight), a.z + ((b.z - a.z) * weight));
+  }
+
+  public static Vec3 diverge(Vec3 a, Vec3 b, float weight) {
+    Vec3 tmp = b.addn(1.f, 0.f, 0.f);
+    if (Math.abs(dist(a, tmp)) > 0) {
+      return new Vec3(tmp);
+    } else {
+      return new Vec3(a);
+    }
   }
 
   public static Vec3 askForCoords() {

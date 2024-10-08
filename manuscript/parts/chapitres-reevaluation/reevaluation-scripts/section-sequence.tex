@@ -3,13 +3,28 @@
 
 
 
-% \begin{figure}[htb!]
-% 	\centering
-% 	\includegraphics[height=40pt]{script-fil-rouge}
-% 	\caption{Entrée du script pour une séquence d'extrusion}
-% 	\label{fig:reevaluation-scripts-sequence-exemple-entree}
-% \end{figure}
-%
+La représentation boîte ouverte pour les scripts nous permet d'accéder à leurs
+contenus. %
+Nous pouvons alors enregistrer les opérations évaluées au cours de l'application
+d'un script ainsi que leurs paramètres topologiques. %
+Cette démarche s'inscrit dans la même logique que l'enregistrement des règles. %
+En effet, l'affichage du contenu d'un script donne aussi accès au contenu des
+règles, c'est-à-dire aux motifs d'orbites. %
+Ce dernier est particulièrement important pour tracer les évolutions
+d'orbites. %
+
+Dans cette section, nous proposons les premières modifications nécessaires aux
+spécifications paramétriques ainsi qu'aux DAGs afin de supporter la réévaluation
+des scripts. %
+Pour cela, nous prenons l'exemple d'un script extrude un chemin à partir d'un
+brin \todo{figure}. %
+
+
+
+\subsection{Spécification paramétrique}
+\label{sec:reevaluation-scripts-sequence-spec-param}
+
+
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
@@ -21,38 +36,16 @@ JerboaRuleResult arete2 = @rule<ExtrudeEdgeVertexYAxis>(brin#0@0);
 JerboaRuleResult arete3 = @rule<ExtrudeEdgeVertexYAxis>(brin#0@0@1@0);
 return null;
 \end{lstlisting}
+% (liste~\ref{lst:reevaluation-scripts-sequence-exemple})
 
-Dans cette section, nous proposons les premières modifications nécessaires aux
-spécifications paramétriques ainsi qu'aux DAGs afin de supporter la réévaluation
-des scripts. %
-Prenons pour exemple le script
-(liste~\ref{lst:reevaluation-scripts-sequence-exemple}). % qui prend
-% une face en entrée
-% (figure~\ref{fig:reevaluation-scripts-sequence-exemple}) et
-% qui produit le cas d'étude nº~1 du
-% chapitre~\ref{cha:reevaluation-base-regles}. %
-
-
-
-\subsection{Spécification paramétrique}
-\label{sec:reevaluation-scripts-sequence-spec-param}
-
-
-
-La représentation en boîte fermée présente plusieurs inconvénients. %
-En particulier, l'impossibilité d'accéder aux règles utilisées et à leurs
-paramètres topologiques. %
-En effet, ne pas pouvoir accéder aux règles, implique de ne pas pouvoir procéder
-à leurs analyses. %
-Les développeurs d'opérations doivent alors enregistrer manuellement les
-évènements topologiques. %
-De plus, ne pas avoir accès aux paramètres topologiques signifie proposer un
-suivi dégradé de l'évolution des orbites et donc un appariement imprévisible des
-orbites lors de la réévaluation. %
-Or, cette démarche est incompatible avec celle que nous proposons dans nos
-travaux. %
-Nous proposons donc d'enregistrer les opérations de modélisation de manière
-transparente avec le modèle de boîte ouverte. %
+Prenons le script (liste~\ref{lst:reevaluation-scripts-sequence-exemple}) qui
+construit le chemin illustré dans la figure~\todo{}. %
+Ce script contient trois appels de règles, chacune opérant l'extrusion d'un
+brin. %
+La première règle \texttt{Extrude\-Independent\-Vertex} fait l'extrusion d'un brin
+libre, c'est-à-dire qui n'est connecté à aucun autre brin. %
+Les deux autres règles \texttt{Extrude\-Edge\-Vertex\-YAxis} font l'extrusion d'un
+brin à l'extrémité d'une arête. %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
@@ -66,20 +59,42 @@ label=lst:reevaluation-scripts-sequence-spec-param]
     3-extrusionSommetArete(pn4)
 \end{lstlisting}
 
-Avec la représentation boîte ouverte, nous avons accès aux instructions des
-scripts. %
-Il nous est alors possible d'enregistrer dans les spécifications paramétriques
-le contenu dont nous avions besoin jusque-là pour les règles, à savoir leurs
-noms et leurs paramètres topologiques. %
-Toutefois, dans notre approche, nous distinguons le contenu d'un script des
-autres opérations enregistrées dans une spécification paramétrique. %
-L'enregistrement d'un script ouvre un bloc, avec indentation, où sont nommées
-les structures et leur contenu. %
-Par exemple, dans la spécification paramétrique représentée dans la
-liste~\ref{lst:reevaluation-scripts-sequence-spec-param}, un bloc
-\texttt{Sequence} est enregistré sous l'enregistrement du script
-\texttt{casEtude1} et contient l'ensemble des opérations appelées. %
-\todo{Reprendre ici (tout le paragraphe, ça part dans tous les sens)}
+L'application de ce script sur un brin libre donne la spécification paramétrique
+représentée par la liste~\ref{lst:reevaluation-scripts-sequence-spec-param}. %
+Intuitivement, une spécification paramétrique peut être vue comme un script qui
+contient une séquence de règles avec des paramètres et inversement. %
+Ainsi, dans nos spécifications paramétriques, nous proposons de représenter les
+scripts comme des spécifications imbriquées. %
+Dans la liste~\ref{lst:reevaluation-scripts-sequence-spec-param}, la deuxième
+opération enregistrée est un script. %
+En conséquence, nous ouvrons un bloc \texttt{Sequence} dans lequel nous
+enregistrons les opérations de la séquence qui sont évaluées. %
+Toute comme dans une spécification paramétrique, les opérations d'un script
+disposent d'un identifiant «~frais~» et d'un ensemble de paramètres. %
+Dans notre exemple, nous obtenons alors la séquence de règles
+\texttt{1\allowbreak{}-\allowbreak{}extrusion\-Sommet(PN\textsubscript{2})},
+\texttt{2\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{3})}
+et
+\texttt{3\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{4})}. %
+\todo{Relire la description des cas d'études du chapitre précédent pour voir si
+  je peux utiliser le même style de présentation ici.}
+
+
+
+% Avec la représentation boîte ouverte, nous avons accès aux instructions des
+% scripts. %
+% Il nous est alors possible d'enregistrer dans les spécifications paramétriques
+% le contenu dont nous avions besoin jusque-là pour les règles, à savoir leurs
+% noms et leurs paramètres topologiques. %
+% Toutefois, dans notre approche, nous distinguons le contenu d'un script des
+% autres opérations enregistrées dans une spécification paramétrique. %
+% L'enregistrement d'un script ouvre un bloc, avec indentation, où sont nommées
+% les structures et leur contenu. %
+% Par exemple, dans la spécification paramétrique représentée dans la
+% liste~\ref{lst:reevaluation-scripts-sequence-spec-param}, un bloc
+% \texttt{Sequence} est enregistré sous l'enregistrement du script
+% \texttt{casEtude1} et contient l'ensemble des opérations appelées. %
+% \todo{Reprendre ici (tout le paragraphe, ça part dans tous les sens)}
 
 %% ce que l'on peut faire
 %%% connaître les règles et les paramètres topologiques pour l'appariement

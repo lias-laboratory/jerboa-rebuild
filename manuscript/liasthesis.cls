@@ -373,13 +373,15 @@
 
 	\vspace{1em}
 
-	\noindent
-		\renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
-		\renewcommand{\abstractname}{\translate{Résumé~:}}
-		\begin{abstract}
-			}{%
-		\end{abstract}
-}
+	\begin{minipage}{1.0\linewidth}
+	  \noindent
+	  \renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
+	  \renewcommand{\abstractname}{\translate{Résumé~:}}
+	  \begin{abstract}
+	  }{%
+	  \end{abstract}
+	\end{minipage}
+  }
 
 %%% Local Variables:
 %%% mode: latex

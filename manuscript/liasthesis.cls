@@ -62,6 +62,8 @@
 \newtranslation[to = english]{devant la Commission d'Examen}{before the examination committee}
 \newtranslation[to = french]{Examination Board}{Jury}
 \newtranslation[to = english]{Jury}{Examination Board}
+\newtranslation[to = french]{Abstract:}{Résumé~:}
+\newtranslation[to = english]{Résumé~:}{Abstract:}
 
 % \ifpdftex
 %   % Maybe issue pdftex logs
@@ -357,6 +359,26 @@
 	%   \color{nord0}
 	%   \chaptitlefont}
 	\renewcommand*{\afterchaptertitle}{\vfill\minitoc\vfill\clearpage}
+}
+
+\newcommand{\keywords}[1]{%
+	\noindent
+	\underline{\translate{Mots clés~:}} (#1)
+}
+
+\newenvironment{resume}[1]{%
+
+	\centering
+	{\normalsize\bfseries #1}
+
+	\vspace{1em}
+
+	\noindent
+		\renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
+		\renewcommand{\abstractname}{\translate{Résumé~:}}
+		\begin{abstract}
+			}{%
+		\end{abstract}
 }
 
 %%% Local Variables:

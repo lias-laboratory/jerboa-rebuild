@@ -12,7 +12,23 @@
 %   \end{itemize}
 %   \item extension des DAG pour remonter l'histoire du paramètre d'entrée du script
 % \end{itemize}
-
+\begin{lstlisting}[style=script-style,
+language=jerboa-script,
+escapechar=\%,
+caption=Script de séquence d'extrusions,
+label=lst:reevaluation-scripts-sequence-exemple
+]
+float offset = Vec3.dist(vertex#0.pos, vertex#0@0.pos);
+Vec3 center = new Vec3(vertex#0.pos);
+JerboaRuleResult squareFace = @rule<VertexDualToFace>(center, offset/2);
+JerboaRuleResult cube = null;
+if((<1,2,3>_<2>(vertex#0)).size() <= 2){
+    cube = @rule<ExtrudeIndependentFaceWithSide>(squareFace#0#0, offset);
+} else {
+    cube = @rule<ExtrudeFaceToPyramid>(squareFace#0#0,offset);
+}
+return cube;
+\end{lstlisting}
 
 La dernière structure de contrôle que nous présentons est l'alternative qui
 permet de moduler le comportement d'un script avec différentes opérations selon
@@ -26,6 +42,15 @@ l'appariement d'orbites entre deux règles qui peuvent être très différentes.
 \subsection{Extension de la spécification paramétrique}
 \label{sec:reevaluation-scripts-alternative-extension-spec-param}
 
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Spécification paramétrique avec alternative,
+label=lst:reevaluation-scripts-alternative-spec-param]
+1-creationBrin()
+2-S_VertexDualToVolume(pn1)
+  Alternative - Then:
+    1-VertexDualToCube(pn2)
+\end{lstlisting}
 
 Comme pour les autres structures de contrôle, l'extension de la spécification
 paramétrique pour l'alternative requiert d'enregistrer la séquence d'opérations

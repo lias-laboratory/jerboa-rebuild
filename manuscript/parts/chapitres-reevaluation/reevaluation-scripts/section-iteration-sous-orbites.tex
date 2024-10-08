@@ -2,11 +2,27 @@
 \section{Gestion des iterations sur les sous-orbites}
 \label{sec:extension-scripts-iteration}
 
+\begin{lstlisting}[style=script-style,
+language=jerboa-script,
+escapechar=\%,
+caption=Script de séquence d'extrusions,
+label=lst:reevaluation-scripts-sequence-exemple
+]
+JerboaRuleResult curCube;
+for(JerboaDart vertex : <0,1,2>_<1,2>(lin_skeleton#0)){
+    float offset = Vec3.dist(vertex.pos, vertex@0.pos);
+    Vec3 center = new Vec3(vertex.pos);
+    JerboaRuleResult squareFace = @rule<VertexDualToFace>(center, offset/2);
+    JerboaRuleResult cube = @rule<ExtrudeIndependentFaceWithSide>(squareFace#0#0, offset);
+}
+return null;
+\end{lstlisting}
+
 Les orbites ont la propriété de pouvoir être décomposées en sous-orbites,
 c'est-à-dire, par exemple, que l'on peut extraire les sommets \(\orbit{1}\)
 d'une face \(\orbit{0,1}\). %
 Une des structures de contrôle proposées par le langage Jerboa et l'itération
-des sous-orbites d'une orbites. %
+des sous-orbites d'une orbite. %
 Un exemple d'une telle itération peut-être le script qui, pour chaque sommet
 d'une face, applique la règle \texttt{chanfrein\-Sommet}. %
 
@@ -15,6 +31,16 @@ d'une face, applique la règle \texttt{chanfrein\-Sommet}. %
 \subsection{Extension de la spécification paramétrique}
 \label{reevaluation-scripts-iteration-extension-spec-param}
 
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Spécification paramétrique avec boucle,
+label=lst:reevaluation-scripts-boucle-spec-param]
+1-creationBrin()
+2-S_DualToSkeleton(pn1)
+  For %\textlangle{}1,2,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}(pn2)%
+    1-VertexDualToFace(pn3)
+    2-ExtrudeIndependantFaceWithSide(pn4)
+\end{lstlisting}
 %   \item extension de la spécification paramétrique avec une boîte d'itération qui contient
 
 %   \begin{itemize}

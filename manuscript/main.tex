@@ -1,4 +1,4 @@
-\documentclass[x11names,framed]{LiasThesis}
+\documentclass[x11names]{LiasThesis}
 % \documentclass[x11names,framepage]{LiasThesis}
 
 \usepackage{subfiles}
@@ -24,7 +24,7 @@
 \usepackage{pifont}
 
 %% Pour causer français
-\usepackage[french]{babel}
+\usepackage[main=french, english]{babel}
 % \frenchsetup{StandardItemLabels=true}
 % \frenchsetup{StandardItemLabels=true, StandardItemizeEnv=true}
 % \frenchsetup{ StandardItemizeEnv=true}
@@ -64,14 +64,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \publishtrue %% Keep it commented until you have defended
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\examboardtrue %% Keep it commented until you have a jury
+% \examboardtrue %% Keep it commented until you have a jury
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \titlelogoleft{logo_isae-ensma.pdf}
 % \titlelogoright{lias-logo.png}
 
 \title{%
-  Modélisation et rejeu basés sur des règles~: application à la modélisation spatio-temporelle}
+  Modélisation et rejeu basés sur des règles}
 %
 \author{%
   Maxime GAIDE}
@@ -86,7 +86,7 @@
   Informatique et Applications}
 %
 \supervisor{%
-   David MARCHEIX, Xavier SKAPIN {\normalfont\footnotesize et} Stéphane JEAN}
+  David MARCHEIX, Xavier SKAPIN {\normalfont\footnotesize et} Stéphane JEAN}
 %
 \laboratory{%
   Laboratoire d'Informatique et d'Automatique pour les Systèmes (LIAS)}
@@ -117,30 +117,30 @@
 }
 %
 % \examboard{%
-%   \raggedright
-%   \underline{\bfseries Présidente~:}\\[2mm]
-%   Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
-%     CentraleSupélec}\\%
-%   \vspace{.5em}%
-%   \underline{\bfseries Rapporteurs~:}\\[2mm]
-%   David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
-%     Strasbourg}\\[1mm]%
-%   Guillaume DAMIAND \tabto{.35\textwidth} {\mdseries Directeur de recherche,
-%     Université Claude Bernard}\\%
-%   \vspace{.5em}%
-%   \underline{\bfseries Membres du jury~:}\\[2mm]
-%   Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
-%     Université}\\[1mm]%
-%   Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
-%     Université de Poitiers}\\[1mm]%
-%   Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de conférences,
-%     Université de Poitiers}\\[1mm]%
-%   Stéphane JEAN \tabto{.35\textwidth} {\mdseries Professeur, Université de
-%     Poitiers}\\[1mm]%
-%   David MARCHEIX \tabto{.35\textwidth} {\mdseries Maître de conférences,
-%     Université de Poitiers}\\[1mm]%
-%   Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de conférences,
-%     Université de Poitiers}\\%
+% \raggedright
+% \underline{\bfseries Présidente~:}\\[2mm]
+% Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
+% CentraleSupélec}\\%
+% \vspace{.5em}%
+% \underline{\bfseries Rapporteurs~:}\\[2mm]
+% David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
+% Strasbourg}\\[1mm]%
+% Guillaume DAMIAND \tabto{.35\textwidth} {\mdseries Directeur de recherche,
+% Université Claude Bernard}\\%
+% \vspace{.5em}%
+% \underline{\bfseries Membres du jury~:}\\[2mm]
+% Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
+% Université}\\[1mm]%
+% Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
+% Université de Poitiers}\\[1mm]%
+% Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de conférences,
+% Université de Poitiers}\\[1mm]%
+% Stéphane JEAN \tabto{.35\textwidth} {\mdseries Professeur, Université de
+% Poitiers}\\[1mm]%
+% David MARCHEIX \tabto{.35\textwidth} {\mdseries Maître de conférences,
+% Université de Poitiers}\\[1mm]%
+% Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de conférences,
+% Université de Poitiers}\\%
 % }
 %
 \date{\makebox[.2\textwidth]{\dotfill}}
@@ -217,11 +217,12 @@
 \chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
 \clearpage
 \pagebreak
-\clearpage
-\pagebreak
 \listoffigures
 \clearpage
 \pagebreak
 % \printbibliography*
 \printbibliography
+\clearpage
+\pagebreak
+\subfile{resume}
 \end{document}

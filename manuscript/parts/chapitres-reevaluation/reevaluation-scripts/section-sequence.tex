@@ -3,28 +3,22 @@
 
 
 
-\begin{figure}[htb!]
-  \centering
-  \includegraphics[height=40pt]{script-fil-rouge}
-  \caption{Entrée du script pour le cas d'étude nº~1}
-  \label{fig:reevaluation-scripts-sequence-exemple-cas-etude-1-entree}
-\end{figure}
+% \begin{figure}[htb!]
+% 	\centering
+% 	\includegraphics[height=40pt]{script-fil-rouge}
+% 	\caption{Entrée du script pour une séquence d'extrusion}
+% 	\label{fig:reevaluation-scripts-sequence-exemple-entree}
+% \end{figure}
 %
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
-caption=Script du cas d'étude nº~1,
-label=lst:reevaluation-scripts-sequence-exemple-cas-etude-1
+caption=Script de séquence d'extrusions,
+label=lst:reevaluation-scripts-sequence-exemple
 ]
-JerboaRuleResult resCube1 = @rule<extrusionFace>(face#0);
-// resCube1#4#7 : (colonne 4; rangee 7)
-JerboaRuleResult resVertex = @rule<insertionSommet>(resCube1#4#7);
-JerboaRuleResult resCube2 = @rule<extrusionFaceVolume>(resCube1#5#7);
-JerboaRuleResult resTri = @rule<triangulationFace>(resCube1#1#5);
-JerboaRuleResult resContraction = @rule<contractionFace>(resCube2#6#1);
-JerboaRuleResult resChanfrein = @rule<chanfreinSommet>(resCollapse#0#1);
-@rule<coloration>(resTri#0#2,blue);
-@rule<coloration>(resChamfer#0#0,red);
+JerboaRuleResult arete1 = @rule<ExtrudeIndependentVertex>(brin#0);
+JerboaRuleResult arete2 = @rule<ExtrudeEdgeVertexYAxis>(brin#0@0);
+JerboaRuleResult arete3 = @rule<ExtrudeEdgeVertexYAxis>(brin#0@0@1@0);
 return null;
 \end{lstlisting}
 
@@ -32,11 +26,11 @@ Dans cette section, nous proposons les premières modifications nécessaires aux
 spécifications paramétriques ainsi qu'aux DAGs afin de supporter la réévaluation
 des scripts. %
 Prenons pour exemple le script
-(liste~\ref{lst:reevaluation-scripts-sequence-exemple-cas-etude-1}) qui prend
-une face en entrée
-(figure~\ref{fig:reevaluation-scripts-sequence-exemple-cas-etude-1-entree}) et
-qui produit le cas d'étude nº~1 du
-chapitre~\ref{cha:reevaluation-base-regles}. %
+(liste~\ref{lst:reevaluation-scripts-sequence-exemple}). % qui prend
+% une face en entrée
+% (figure~\ref{fig:reevaluation-scripts-sequence-exemple}) et
+% qui produit le cas d'étude nº~1 du
+% chapitre~\ref{cha:reevaluation-base-regles}. %
 
 
 
@@ -62,19 +56,14 @@ transparente avec le modèle de boîte ouverte. %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
-caption=Spécification paramétrique du cas d'étude nº~1 avec un script,
-label=lst:reevaluation-scripts-sequence-spec-param-cas-etude-1]
-1-creationCarre()
-2-casEtude1(pn1)
+caption=Spécification paramétrique avec séquence,
+label=lst:reevaluation-scripts-sequence-spec-param]
+1-creationBrin()
+2-extrusionSquelette(pn1)
   Sequence:
-    1-extrusionFace(pn2)
-    2-insertionSommet(pn3)
-    3-extrusionFaceVolume(pn4)
-    4-triangulationFace(pn5)
-    5-contractionFace(pn6)
-    6-chanfreinSommet(pn7)
-    7-coloration(pn8)
-    8-coloration(pn9)
+    1-extrusionSommet(pn2)
+    2-extrusionSommetArete(pn3)
+    3-extrusionSommetArete(pn4)
 \end{lstlisting}
 
 Avec la représentation boîte ouverte, nous avons accès aux instructions des
@@ -87,7 +76,7 @@ autres opérations enregistrées dans une spécification paramétrique. %
 L'enregistrement d'un script ouvre un bloc, avec indentation, où sont nommées
 les structures et leur contenu. %
 Par exemple, dans la spécification paramétrique représentée dans la
-liste~\ref{lst:reevaluation-scripts-sequence-spec-param-cas-etude-1}, un bloc
+liste~\ref{lst:reevaluation-scripts-sequence-spec-param}, un bloc
 \texttt{Sequence} est enregistré sous l'enregistrement du script
 \texttt{casEtude1} et contient l'ensemble des opérations appelées. %
 \todo{Reprendre ici (tout le paragraphe, ça part dans tous les sens)}

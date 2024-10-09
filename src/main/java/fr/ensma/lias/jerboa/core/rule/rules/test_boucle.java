@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules.Dual;
+package fr.ensma.lias.jerboa.core.rule.rules;
 
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.awt.Color;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 /* Raw Imports : */
-import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_VertexDualToVolume;
+import fr.ensma.lias.jerboa.core.rule.rules.Dual.VertexDualToFaceSquare;
 
 /* End raw Imports */
 
@@ -26,7 +26,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_VertexDualToVolume;
 
 
 
-public class S_DualToSkeleton extends JerboaRuleScript {
+public class test_boucle extends JerboaRuleScript {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -38,9 +38,9 @@ public class S_DualToSkeleton extends JerboaRuleScript {
 
 
 
-    public S_DualToSkeleton(ModelerGenerated modeler) throws JerboaException {
+    public test_boucle(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "S_DualToSkeleton", "Dual");
+        super(modeler, "test_boucle", "");
 
         // -------- LEFT GRAPH
         JerboaRuleNode llin_skeleton = new JerboaRuleNode("lin_skeleton", 0, JerboaOrbit.orbit(), 3);
@@ -69,11 +69,12 @@ public class S_DualToSkeleton extends JerboaRuleScript {
 @Override
     public JerboaRuleResult apply(final JerboaGMap gmap, final JerboaInputHooks hooks) throws JerboaException {
 // BEGIN SCRIPT GENERATION
-        JerboaRuleResult curCube = null;
-		for(JerboaDart vertex : gmap.collect(hooks.dart(0, 0),JerboaOrbit.orbit(0,1,2,3),JerboaOrbit.orbit(1,2,3))){
+        for(JerboaDart vertex : gmap.collect(hooks.dart(0, 0),JerboaOrbit.orbit(0,1,2),JerboaOrbit.orbit(1,2))){
 		   JerboaInputHooksGeneric _v_hook0 = new JerboaInputHooksGeneric();
 		   _v_hook0.addCol(vertex);
-		   JerboaRuleResult nextCube = ((S_VertexDualToVolume)modeler.getRule("S_VertexDualToVolume")).applyRule(gmap, _v_hook0);
+		   ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).setCenter(vertex.<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
+		   ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).setVOffset((Vec3.dist(vertex.<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),vertex.alpha(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0)) / 2));
+		   JerboaRuleResult squareFace = ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).applyRule(gmap, _v_hook0);
 		}
 		
 		return null;

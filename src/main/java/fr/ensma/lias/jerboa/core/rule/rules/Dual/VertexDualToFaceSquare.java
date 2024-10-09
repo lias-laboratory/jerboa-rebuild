@@ -22,7 +22,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class VertexDualToFace extends JerboaRebuiltRule {
+public class VertexDualToFaceSquare extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -36,21 +36,21 @@ public class VertexDualToFace extends JerboaRebuiltRule {
 
 
 
-    public VertexDualToFace(ModelerGenerated modeler) throws JerboaException {
+    public VertexDualToFaceSquare(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "VertexDualToFace", "Dual");
+        super(modeler, "VertexDualToFaceSquare", "Dual");
 
         // -------- LEFT GRAPH
 
         // -------- RIGHT GRAPH
         JerboaRuleNode rn1 = new JerboaRuleNode("n1", 0, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 1, JerboaOrbit.orbit(), 3, new VertexDualToFaceExprRn2pos());
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 1, JerboaOrbit.orbit(), 3, new VertexDualToFaceSquareExprRn2pos());
         JerboaRuleNode rn3 = new JerboaRuleNode("n3", 2, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode rn4 = new JerboaRuleNode("n4", 3, JerboaOrbit.orbit(), 3, new VertexDualToFaceExprRn4pos());
+        JerboaRuleNode rn4 = new JerboaRuleNode("n4", 3, JerboaOrbit.orbit(), 3, new VertexDualToFaceSquareExprRn4pos());
         JerboaRuleNode rn5 = new JerboaRuleNode("n5", 4, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode rn6 = new JerboaRuleNode("n6", 5, JerboaOrbit.orbit(), 3, new VertexDualToFaceExprRn6pos());
+        JerboaRuleNode rn6 = new JerboaRuleNode("n6", 5, JerboaOrbit.orbit(), 3, new VertexDualToFaceSquareExprRn6pos());
         JerboaRuleNode rn7 = new JerboaRuleNode("n7", 6, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode rn8 = new JerboaRuleNode("n8", 7, JerboaOrbit.orbit(), 3, new VertexDualToFaceExprRn8pos());
+        JerboaRuleNode rn8 = new JerboaRuleNode("n8", 7, JerboaOrbit.orbit(), 3, new VertexDualToFaceSquareExprRn8pos());
         right.add(rn1);
         right.add(rn2);
         right.add(rn3);
@@ -125,14 +125,14 @@ public class VertexDualToFace extends JerboaRebuiltRule {
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class VertexDualToFaceExprRn2pos implements JerboaRuleExpression {
+    private class VertexDualToFaceSquareExprRn2pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return new Vec3((center.x() - vOffset),center.y(),(center.z() - vOffset));
+return new Vec3((center.x() - vOffset),(center.y() + vOffset),center.z());
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -147,14 +147,14 @@ return new Vec3((center.x() - vOffset),center.y(),(center.z() - vOffset));
         }
     }
 
-    private class VertexDualToFaceExprRn4pos implements JerboaRuleExpression {
+    private class VertexDualToFaceSquareExprRn4pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return new Vec3((center.x() + vOffset),center.y(),(center.z() - vOffset));
+return new Vec3((center.x() + vOffset),(center.y() + vOffset),center.z());
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -169,14 +169,14 @@ return new Vec3((center.x() + vOffset),center.y(),(center.z() - vOffset));
         }
     }
 
-    private class VertexDualToFaceExprRn6pos implements JerboaRuleExpression {
+    private class VertexDualToFaceSquareExprRn6pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return new Vec3((center.x() + vOffset),center.y(),(center.z() + vOffset));
+return new Vec3((center.x() + vOffset),(center.y() - vOffset),center.z());
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
@@ -191,14 +191,14 @@ return new Vec3((center.x() + vOffset),center.y(),(center.z() + vOffset));
         }
     }
 
-    private class VertexDualToFaceExprRn8pos implements JerboaRuleExpression {
+    private class VertexDualToFaceSquareExprRn8pos implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return new Vec3((center.x() - vOffset),center.y(),(center.z() + vOffset));
+return new Vec3((center.x() - vOffset),(center.y() - vOffset),center.z());
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 

@@ -14,7 +14,7 @@ import java.awt.Color;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 /* Raw Imports : */
-import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_VertexDualToVolume;
+import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_VertexDualToFace;
 
 /* End raw Imports */
 
@@ -26,7 +26,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_VertexDualToVolume;
 
 
 
-public class S_DualToSkeleton extends JerboaRuleScript {
+public class S_DualToSkeleton2D extends JerboaRuleScript {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -38,9 +38,9 @@ public class S_DualToSkeleton extends JerboaRuleScript {
 
 
 
-    public S_DualToSkeleton(ModelerGenerated modeler) throws JerboaException {
+    public S_DualToSkeleton2D(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "S_DualToSkeleton", "Dual");
+        super(modeler, "S_DualToSkeleton2D", "Dual");
 
         // -------- LEFT GRAPH
         JerboaRuleNode llin_skeleton = new JerboaRuleNode("lin_skeleton", 0, JerboaOrbit.orbit(), 3);
@@ -73,7 +73,7 @@ public class S_DualToSkeleton extends JerboaRuleScript {
 		for(JerboaDart vertex : gmap.collect(hooks.dart(0, 0),JerboaOrbit.orbit(0,1,2,3),JerboaOrbit.orbit(1,2,3))){
 		   JerboaInputHooksGeneric _v_hook0 = new JerboaInputHooksGeneric();
 		   _v_hook0.addCol(vertex);
-		   JerboaRuleResult nextCube = ((S_VertexDualToVolume)modeler.getRule("S_VertexDualToVolume")).applyRule(gmap, _v_hook0);
+		   JerboaRuleResult nextCube = ((S_VertexDualToFace)modeler.getRule("S_VertexDualToFace")).applyRule(gmap, _v_hook0);
 		}
 		
 		return null;

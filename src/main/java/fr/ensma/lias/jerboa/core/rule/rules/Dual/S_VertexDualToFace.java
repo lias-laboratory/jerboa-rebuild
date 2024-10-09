@@ -14,9 +14,8 @@ import java.awt.Color;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 /* Raw Imports : */
-import fr.ensma.lias.jerboa.core.rule.rules.Dual.VertexDualToFace;
-import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeIndependentFaceWithSide;
-import fr.ensma.lias.jerboa.core.rule.rules.ExtrudeFaceToPyramid;
+import fr.ensma.lias.jerboa.core.rule.rules.Dual.VertexDualToFaceSquare;
+import fr.ensma.lias.jerboa.core.rule.rules.Dual.VertexDualToFaceTri;
 
 /* End raw Imports */
 
@@ -28,7 +27,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.ExtrudeFaceToPyramid;
 
 
 
-public class S_VertexDualToVolume extends JerboaRuleScript {
+public class S_VertexDualToFace extends JerboaRuleScript {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -40,9 +39,9 @@ public class S_VertexDualToVolume extends JerboaRuleScript {
 
 
 
-    public S_VertexDualToVolume(ModelerGenerated modeler) throws JerboaException {
+    public S_VertexDualToFace(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "S_VertexDualToVolume", "Dual");
+        super(modeler, "S_VertexDualToFace", "Dual");
 
         // -------- LEFT GRAPH
         JerboaRuleNode lvertex = new JerboaRuleNode("vertex", 0, JerboaOrbit.orbit(), 3);
@@ -73,25 +72,21 @@ public class S_VertexDualToVolume extends JerboaRuleScript {
 // BEGIN SCRIPT GENERATION
         float offset = Vec3.dist(hooks.dart(0, 0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),hooks.dart(0, 0).alpha(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
 		Vec3 center = new Vec3(hooks.dart(0, 0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
-		JerboaInputHooksGeneric _v_hook0 = new JerboaInputHooksGeneric();
-		((VertexDualToFace)modeler.getRule("VertexDualToFace")).setCenter(center);
-		((VertexDualToFace)modeler.getRule("VertexDualToFace")).setVOffset((offset / 2));
-		JerboaRuleResult squareFace = ((VertexDualToFace)modeler.getRule("VertexDualToFace")).applyRule(gmap, _v_hook0);
-		JerboaRuleResult cube = null;
+		JerboaRuleResult face = null;
 		int nb_verts = gmap.collect(hooks.dart(0, 0),JerboaOrbit.orbit(1,2,3),JerboaOrbit.orbit(2,3)).size();
 		if(((nb_verts > 0) && (nb_verts < 3))) {
-		   JerboaInputHooksGeneric _v_hook3 = new JerboaInputHooksGeneric();
-		   _v_hook3.addCol(squareFace.get(0).get(0));
-		   ((ExtrudeIndependentFaceWithSide)modeler.getRule("ExtrudeIndependentFaceWithSide")).setSide(offset);
-		   cube = ((ExtrudeIndependentFaceWithSide)modeler.getRule("ExtrudeIndependentFaceWithSide")).applyRule(gmap, _v_hook3);
+		   JerboaInputHooksGeneric _v_hook2 = new JerboaInputHooksGeneric();
+		   ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).setCenter(center);
+		   ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).setVOffset((offset / 2));
+		   face = ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).applyRule(gmap, _v_hook2);
 		}
 		else {
-		   JerboaInputHooksGeneric _v_hook4 = new JerboaInputHooksGeneric();
-		   _v_hook4.addCol(squareFace.get(0).get(0));
-		   ((ExtrudeFaceToPyramid)modeler.getRule("ExtrudeFaceToPyramid")).setHeight(offset);
-		   cube = ((ExtrudeFaceToPyramid)modeler.getRule("ExtrudeFaceToPyramid")).applyRule(gmap, _v_hook4);
+		   JerboaInputHooksGeneric _v_hook3 = new JerboaInputHooksGeneric();
+		   ((VertexDualToFaceTri)modeler.getRule("VertexDualToFaceTri")).setCenter(center);
+		   ((VertexDualToFaceTri)modeler.getRule("VertexDualToFaceTri")).setVOffset((offset / 2));
+		   face = ((VertexDualToFaceTri)modeler.getRule("VertexDualToFaceTri")).applyRule(gmap, _v_hook3);
 		}
-		return cube;
+		return null;
 		// END SCRIPT GENERATION
 
 	}

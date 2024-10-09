@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <jerboamodelereditor version="1" >
-	<openRules>ExtrudeVertexToBranchFolded</openRules>
-	<openRules>CreateDart</openRules>
-	<openRules>ExtrudeVertexToBranch</openRules>
-	<openRules>DeleteCC</openRules>
-	<openRules>S_ExtrusionSquelette</openRules>
-	<openRules>ExtrudeFaceToPyramid</openRules>
+	<openRules>VertexDualToFace</openRules>
+	<openRules>VertexDualToFaceTri</openRules>
 	<openRules>S_DualToSkeleton</openRules>
-	<openRules>ChamferCorner</openRules>
+	<openRules>VertexDualToFaceSquare</openRules>
 	<openRules>S_VertexDualToVolume</openRules>
+	<openRules>S_VertexDualToFace</openRules>
 	<openRules>test_boucle</openRules>
+	<openRules>S_DualToSkeleton2D</openRules>
 <modeler name="ModelerGenerated" module="fr.ensma.lias.jerboa.core.rule.rules" dimension="3" destDir="src/main/java/" projectDir=".">
     <comment></comment>
     <header></header>
@@ -19,7 +17,7 @@
         <embedding name="color" type="java.awt.Color" orbit="0,1" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
         <embedding name="norm" type="fr.ensma.lias.jerboa.embeddings.Vec3" orbit="" headerFile="" ><comment></comment><defaultCode></defaultCode></embedding>
     </embeddings>
-    <rules count="100">
+    <rules count="104">
         <rule name="InsertVertex" module="Creation" category="Creation" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -5071,7 +5069,7 @@ return null;</content>
             <comment></comment>
             <left>
                 <nodes count="1">
-                    <node name="vertex" x="334" y="141" orbit="1,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="vertex" x="334" y="141" orbit="" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
                 <arcs count="0">
                 </arcs>
@@ -5086,7 +5084,8 @@ return null;</content>
 Vec3 center = new Vec3(vertex#0.pos);
 JerboaRuleResult squareFace = @rule&lt;VertexDualToFace&gt;(center, offset/2);
 JerboaRuleResult cube = null;
-if( (&lt;1,2,3&gt;_&lt;2&gt;(vertex#0)).size() &lt;= 2){
+int nb_verts = (&lt;1,2,3&gt;_&lt;2,3&gt;(vertex#0)).size();
+if( nb_verts &gt; 0 &#38;&#38; nb_verts &lt; 3){
     cube = @rule&lt;ExtrudeIndependentFaceWithSide&gt;(squareFace#0#0, offset);
 } else {
     cube = @rule&lt;ExtrudeFaceToPyramid&gt;(squareFace#0#0,offset);    
@@ -5190,96 +5189,6 @@ return cube;</content>
             <paramstopo>
             </paramstopo>
         </rule>
-        <rule name="VertexDualToFace" module="Dual" category="Dual" shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
-            <header></header>
-            <precondition></precondition>
-            <comment></comment>
-            <left>
-                <nodes count="0">
-                </nodes>
-                <arcs count="0">
-                </arcs>
-            </left>
-            <right>
-                <nodes count="8">
-                    <node name="n0" x="173" y="131" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="263" y="41" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">return new Vec3(center.x()-vOffset,center.y()-vOffset,center.z()-vOffset);</expr>
-                    </node>
-                    <node name="n2" x="383" y="41" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n3" x="473" y="131" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">return new Vec3(center.x()+vOffset,center.y()-vOffset,center.z()-vOffset);</expr>
-                    </node>
-                    <node name="n4" x="473" y="251" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n5" x="383" y="341" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">return new Vec3(center.x()+vOffset,center.y()-vOffset,center.z()+vOffset);</expr>
-                    </node>
-                    <node name="n6" x="263" y="341" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n7" x="173" y="251" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
-                        <expr ebd="pos">return new Vec3(center.x()-vOffset,center.y()-vOffset,center.z()+vOffset);</expr>
-                    </node>
-                </nodes>
-                <arcs count="24">
-                    <arc dim="1" a="n0" b="n1" size="0">
-                    </arc>
-                    <arc dim="0" a="n1" b="n2" size="0">
-                    </arc>
-                    <arc dim="1" a="n2" b="n3" size="0">
-                    </arc>
-                    <arc dim="0" a="n3" b="n4" size="0">
-                    </arc>
-                    <arc dim="1" a="n4" b="n5" size="0">
-                    </arc>
-                    <arc dim="0" a="n5" b="n6" size="0">
-                    </arc>
-                    <arc dim="1" a="n6" b="n7" size="0">
-                    </arc>
-                    <arc dim="0" a="n7" b="n0" size="0">
-                    </arc>
-                    <arcloop dim="2" node="n1" angle="7.2875145172294" >
-                    </arcloop>
-                    <arcloop dim="2" node="n2" angle="1.7358193977509542" >
-                    </arcloop>
-                    <arcloop dim="3" node="n2" angle="2.1647225688714538" >
-                    </arcloop>
-                    <arcloop dim="2" node="n3" angle="2.523943609115308" >
-                    </arcloop>
-                    <arcloop dim="3" node="n3" angle="3.019293755875408" >
-                    </arcloop>
-                    <arcloop dim="2" node="n4" angle="3.3142395172188106" >
-                    </arcloop>
-                    <arcloop dim="3" node="n4" angle="-2.505569048150171" >
-                    </arcloop>
-                    <arcloop dim="2" node="n5" angle="10.375307337286092" >
-                    </arcloop>
-                    <arcloop dim="3" node="n5" angle="-1.658583263540411" >
-                    </arcloop>
-                    <arcloop dim="2" node="n6" angle="4.812837694379386" >
-                    </arcloop>
-                    <arcloop dim="3" node="n6" angle="-0.9601634723912845" >
-                    </arcloop>
-                    <arcloop dim="2" node="n7" angle="5.624132168858731" >
-                    </arcloop>
-                    <arcloop dim="3" node="n7" angle="-0.14086196804296214" >
-                    </arcloop>
-                    <arcloop dim="2" node="n0" angle="12.671069000907034" >
-                    </arcloop>
-                    <arcloop dim="3" node="n0" angle="0.5538100460832873" >
-                    </arcloop>
-                    <arcloop dim="3" node="n1" angle="1.426666769342073" >
-                    </arcloop>
-                </arcs>
-            </right>
-            <preprocess></preprocess>
-            <postprocess></postprocess>
-            <midprocess></midprocess>
-            <paramsebd>
-                <paramebd name="center" type="Vec3" order="0"></paramebd>
-                <paramebd name="vOffset" type="float" order="1"></paramebd>
-            </paramsebd>
-            <paramstopo>
-            </paramstopo>
-        </rule>
         <rule name="ExtrudeIndependentFaceWithSide" module="Extrusion" category="Extrusion" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
@@ -5355,9 +5264,8 @@ return cube;</content>
                 </arcs>
             </right>
             <content>JerboaRuleResult curCube;
-for(JerboaDart vertex : &lt;0,1,2&gt;_&lt;1,2&gt;(lin_skeleton#0)){
-    JerboaRuleResult nextCube = @rule&lt;
-    //JerboaRuleResult nextCube = @rule&lt;S_VertexDualToVolume&gt;(vertex);
+for(JerboaDart vertex : &lt;0,1,2,3&gt;_&lt;1,2,3&gt;(lin_skeleton#0)){
+    JerboaRuleResult nextCube = @rule&lt;S_VertexDualToVolume&gt;(vertex);
     //try{
     //    @rule&lt;SewA3&gt;(curCube#5#0,nextCube#0#0);
     //} catch (JerboaException e){}
@@ -5600,12 +5508,332 @@ return new Vec3(res).addn(0.0f,height,0.0f);</expr>
                 <arcs count="0">
                 </arcs>
             </right>
+            <content>for(JerboaDart vertex : &lt;0,1,2&gt;_&lt;1,2&gt;(lin_skeleton#0)){
+    JerboaRuleResult squareFace = @rule&lt;VertexDualToFaceSquare&gt;(vertex, vertex.pos, (Vec3.dist(vertex.pos, vertex@0.pos)/2));
+}
+return null;</content>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="lin_skeleton" order="0" />
+            </paramstopo>
+        </script>
+        <rule name="VertexDualToFaceSquare" module="Dual" category="Dual" shape="CIRCLE" magnetic="true" showgrid="true" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="8">
+                    <node name="n1" x="210" y="150" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="300" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()-vOffset,center.y()+vOffset,center.z());</expr>
+                    </node>
+                    <node name="n3" x="420" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="510" y="150" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()+vOffset,center.y()+vOffset,center.z());</expr>
+                    </node>
+                    <node name="n5" x="510" y="270" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="420" y="360" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()+vOffset,center.y()-vOffset,center.z());</expr>
+                    </node>
+                    <node name="n7" x="300" y="360" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n8" x="210" y="270" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()-vOffset,center.y()-vOffset,center.z());</expr>
+                    </node>
+                </nodes>
+                <arcs count="24">
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="0" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="1" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="0" a="n6" b="n7" size="0">
+                    </arc>
+                    <arc dim="1" a="n7" b="n8" size="0">
+                    </arc>
+                    <arc dim="0" a="n8" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n2" angle="7.2875145172294" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="1.7358193977509542" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="2.1647225688714538" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="2.523943609115308" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="3.019293755875408" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="3.3142395172188106" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="-2.505569048150171" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="10.375307337286092" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="-1.658583263540411" >
+                    </arcloop>
+                    <arcloop dim="2" node="n7" angle="4.812837694379386" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="-0.9601634723912845" >
+                    </arcloop>
+                    <arcloop dim="2" node="n8" angle="5.624132168858731" >
+                    </arcloop>
+                    <arcloop dim="3" node="n8" angle="-0.14086196804296214" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="12.671069000907034" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="0.5538100460832873" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="1.426666769342073" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="center" type="Vec3" order="0"></paramebd>
+                <paramebd name="vOffset" type="float" order="1"></paramebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <script name="S_VertexDualToFace" module="Dual" category="Dual"  shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="vertex" x="324" y="143" orbit="" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
+            <content>float offset = Vec3.dist(vertex#0.pos, vertex#0@0.pos);
+Vec3 center = new Vec3(vertex#0.pos);
+JerboaRuleResult face = null;
+int nb_verts = (&lt;1,2,3&gt;_&lt;2,3&gt;(vertex#0)).size();
+if( nb_verts &gt; 0 &#38;&#38; nb_verts &lt; 3){
+    face = @rule&lt;VertexDualToFaceSquare&gt;(center, offset/2);
+} else {
+    face = @rule&lt;VertexDualToFaceTri&gt;(center, offset/2);    
+}
+return null;</content>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+            </paramsebd>
+            <paramstopo>
+                <paramtopo name="vertex" order="0" />
+            </paramstopo>
+        </script>
+        <rule name="VertexDualToFace" module="Dual" category="Dual" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="8">
+                    <node name="n1" x="180" y="150" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="270" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()-vOffset,center.y(),center.z()-vOffset);</expr>
+                    </node>
+                    <node name="n3" x="390" y="60" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="480" y="150" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()+vOffset,center.y(),center.z()-vOffset);</expr>
+                    </node>
+                    <node name="n5" x="480" y="270" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="390" y="360" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()+vOffset,center.y(),center.z()+vOffset);</expr>
+                    </node>
+                    <node name="n7" x="270" y="360" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n8" x="180" y="270" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()-vOffset,center.y(),center.z()+vOffset);</expr>
+                    </node>
+                </nodes>
+                <arcs count="24">
+                    <arc dim="1" a="n1" b="n2" size="0">
+                    </arc>
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="0" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="1" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="0" a="n6" b="n7" size="0">
+                    </arc>
+                    <arc dim="1" a="n7" b="n8" size="0">
+                    </arc>
+                    <arc dim="0" a="n8" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n2" angle="7.2875145172294" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="1.7358193977509542" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="2.1647225688714538" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="2.523943609115308" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="3.019293755875408" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="3.3142395172188106" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="-2.505569048150171" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="10.375307337286092" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="-1.658583263540411" >
+                    </arcloop>
+                    <arcloop dim="2" node="n7" angle="4.812837694379386" >
+                    </arcloop>
+                    <arcloop dim="3" node="n7" angle="-0.9601634723912845" >
+                    </arcloop>
+                    <arcloop dim="2" node="n8" angle="5.624132168858731" >
+                    </arcloop>
+                    <arcloop dim="3" node="n8" angle="-0.14086196804296214" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="12.671069000907034" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="0.5538100460832873" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="1.426666769342073" >
+                    </arcloop>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="center" type="Vec3" order="0"></paramebd>
+                <paramebd name="vOffset" type="float" order="1"></paramebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <rule name="VertexDualToFaceTri" module="Dual" category="Dual" shape="CIRCLE" magnetic="true" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="6">
+                    <node name="n1" x="210" y="90" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n2" x="390" y="90" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x(),center.y()+vOffset,center.z());</expr>
+                    </node>
+                    <node name="n3" x="450" y="270" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n4" x="360" y="360" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()+vOffset,center.y()-vOffset,center.z());</expr>
+                    </node>
+                    <node name="n5" x="240" y="360" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n6" x="150" y="270" orbit="" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">
+                        <expr ebd="pos">return new Vec3(center.x()-vOffset,center.y()-vOffset,center.z());</expr>
+                    </node>
+                </nodes>
+                <arcs count="18">
+                    <arc dim="0" a="n2" b="n3" size="0">
+                    </arc>
+                    <arc dim="1" a="n3" b="n4" size="0">
+                    </arc>
+                    <arc dim="0" a="n4" b="n5" size="0">
+                    </arc>
+                    <arc dim="1" a="n5" b="n6" size="0">
+                    </arc>
+                    <arc dim="0" a="n6" b="n1" size="0">
+                    </arc>
+                    <arcloop dim="2" node="n2" angle="2.523943609115308" >
+                    </arcloop>
+                    <arcloop dim="3" node="n2" angle="3.019293755875408" >
+                    </arcloop>
+                    <arcloop dim="2" node="n3" angle="3.3142395172188106" >
+                    </arcloop>
+                    <arcloop dim="3" node="n3" angle="-2.505569048150171" >
+                    </arcloop>
+                    <arcloop dim="2" node="n4" angle="10.375307337286092" >
+                    </arcloop>
+                    <arcloop dim="3" node="n4" angle="-1.658583263540411" >
+                    </arcloop>
+                    <arcloop dim="2" node="n5" angle="4.812837694379386" >
+                    </arcloop>
+                    <arcloop dim="3" node="n5" angle="-0.9601634723912845" >
+                    </arcloop>
+                    <arcloop dim="2" node="n6" angle="5.624132168858731" >
+                    </arcloop>
+                    <arcloop dim="3" node="n6" angle="-0.14086196804296214" >
+                    </arcloop>
+                    <arcloop dim="2" node="n1" angle="12.671069000907034" >
+                    </arcloop>
+                    <arcloop dim="3" node="n1" angle="0.5538100460832873" >
+                    </arcloop>
+                    <arc dim="1" a="n2" b="n1" size="0">
+                    </arc>
+                </arcs>
+            </right>
+            <preprocess></preprocess>
+            <postprocess></postprocess>
+            <midprocess></midprocess>
+            <paramsebd>
+                <paramebd name="center" type="Vec3" order="0"></paramebd>
+                <paramebd name="vOffset" type="float" order="1"></paramebd>
+            </paramsebd>
+            <paramstopo>
+            </paramstopo>
+        </rule>
+        <script name="S_DualToSkeleton2D" module="Dual" category="Dual"  shape="CIRCLE" magnetic="false" showgrid="false" gridsize="MEDIUM" >
+            <header></header>
+            <precondition></precondition>
+            <comment></comment>
+            <left>
+                <nodes count="1">
+                    <node name="lin_skeleton" x="296" y="134" orbit="" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </left>
+            <right>
+                <nodes count="0">
+                </nodes>
+                <arcs count="0">
+                </arcs>
+            </right>
             <content>JerboaRuleResult curCube;
-for(JerboaDart vertex : &lt;0,1,2&gt;_&lt;1,2&gt;(lin_skeleton#0)){
-    float offset = Vec3.dist(vertex.pos, vertex@0.pos);
-    Vec3 center = new Vec3(vertex.pos);
-    JerboaRuleResult squareFace = @rule&lt;VertexDualToFace&gt;(center, offset/2);
-    JerboaRuleResult cube = @rule&lt;ExtrudeIndependentFaceWithSide&gt;(squareFace#0#0, offset);
+for(JerboaDart vertex : &lt;0,1,2,3&gt;_&lt;1,2,3&gt;(lin_skeleton#0)){
+    JerboaRuleResult nextCube = @rule&lt;S_VertexDualToFace&gt;(vertex);
+    //try{
+    //    @rule&lt;SewA3&gt;(curCube#5#0,nextCube#0#0);
+    //} catch (JerboaException e){}
 }
 return null;</content>
             <preprocess></preprocess>

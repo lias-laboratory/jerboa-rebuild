@@ -52,15 +52,26 @@ escapechar=\%,
 caption=Spécification paramétrique avec séquence,
 label=lst:reevaluation-scripts-sequence-spec-param]
 1-creationBrin()
-2-extrusionSquelette(pn1)
+2-extrusionSquelette(PN%\textsubscript{0}%)
   Sequence:
-    1-extrusionSommet(pn2)
-    2-extrusionSommetArete(pn3)
-    3-extrusionSommetArete(pn4)
+    1-extrusionSommet(PN%\textsubscript{0}%)
+    2-extrusionSommetArete(PN%\textsubscript{1}%)
+    3-extrusionSommetArete(PN%\textsubscript{5}%)
+3-dualFace(PN%\textsubscript{9}%)
 \end{lstlisting}
 
-L'application de ce script sur un brin libre donne la spécification paramétrique
-représentée par la liste~\ref{lst:reevaluation-scripts-sequence-spec-param}. %
+Détaillons la spécification de la
+liste~\ref{lst:reevaluation-scripts-sequence-spec-param}. %
+L'application \texttt{1-creationBrin()} crée le brin \(0\). %
+L'application \texttt{2-S\_extrusionSquelette(PN\textsubscript{0})} applique
+successivement trois règles d'extrusions à partir du brin \(0\). %
+Dans le script, nous déclarons un bloc \texttt{Sequence} avec une nouvelle
+numérotation des opérations. %
+Ainsi, l'application \texttt{1-extrusionSommet(PN\textsubscript)}
+
+L'application de ce script sur un brin (\(\orbit{}\)) donne la spécification
+paramétrique représentée par la
+liste~\ref{lst:reevaluation-scripts-sequence-spec-param}. %
 Intuitivement, une spécification paramétrique peut être vue comme un script qui
 contient une séquence de règles avec des paramètres et inversement. %
 Ainsi, dans nos spécifications paramétriques, nous proposons de représenter les
@@ -72,10 +83,10 @@ enregistrons les opérations de la séquence qui sont évaluées. %
 Toute comme dans une spécification paramétrique, les opérations d'un script
 disposent d'un identifiant «~frais~» et d'un ensemble de paramètres. %
 Dans notre exemple, nous obtenons alors la séquence de règles
-\texttt{1\allowbreak{}-\allowbreak{}extrusion\-Sommet(PN\textsubscript{2})},
-\texttt{2\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{3})}
+\texttt{1\allowbreak{}-\allowbreak{}extrusion\-Sommet(PN\textsubscript{1})},
+\texttt{2\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{5})}
 et
-\texttt{3\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{4})}. %
+\texttt{3\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{9})}. %
 \todo{Relire la description des cas d'études du chapitre précédent pour voir si
   je peux utiliser le même style de présentation ici.}
 
@@ -122,6 +133,12 @@ et
 \label{sec:reevaluation-scripts-sequence-extension-dags}
 
 \todo{DAG évaluation avec bloc boîte ouverte}
+\begin{figure}[htb!]
+  \centering
+ \includegraphics[scale=.45]{tmp-evaluationTree-pn9}
+  \caption{DAG d'évaluation du PN\textsubscript{9}}
+  \label{fig:reevaluation-scripts-sequence-extension-dags-eval-pn9}
+\end{figure}
 
 L'utilisation d'une boîte ouverte pour représenter les opérations internes à un
 script nous permet de reconstituer les historiques d'évolutions de chacun des

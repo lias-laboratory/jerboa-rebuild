@@ -8,7 +8,6 @@ escapechar=\%,
 caption=Script de séquence d'extrusions,
 label=lst:reevaluation-scripts-sequence-exemple
 ]
-JerboaRuleResult curCube;
 for(JerboaDart vertex : <0,1,2>_<1,2>(lin_skeleton#0)){
     float offset = Vec3.dist(vertex.pos, vertex@0.pos);
     Vec3 center = new Vec3(vertex.pos);

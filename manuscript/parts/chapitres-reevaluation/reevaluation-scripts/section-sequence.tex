@@ -17,7 +17,7 @@ Dans cette section, nous proposons les premières modifications nécessaires aux
 spécifications paramétriques ainsi qu'aux DAGs afin de supporter la réévaluation
 des scripts. %
 Pour cela, nous prenons l'exemple d'un script extrude un chemin à partir d'un
-brin \todo{figure}. %
+brin \todo{figure du squelette}. %
 
 
 
@@ -62,94 +62,62 @@ label=lst:reevaluation-scripts-sequence-spec-param]
 
 Détaillons la spécification de la
 liste~\ref{lst:reevaluation-scripts-sequence-spec-param}. %
-L'application \texttt{1-creationBrin()} crée le brin \(0\). %
-L'application \texttt{2-S\_extrusionSquelette(PN\textsubscript{0})} applique
-successivement trois règles d'extrusions à partir du brin \(0\). %
-Dans le script, nous déclarons un bloc \texttt{Sequence} avec une nouvelle
-numérotation des opérations. %
-Ainsi, l'application \texttt{1-extrusionSommet(PN\textsubscript)}
-
-L'application de ce script sur un brin (\(\orbit{}\)) donne la spécification
-paramétrique représentée par la
-liste~\ref{lst:reevaluation-scripts-sequence-spec-param}. %
-Intuitivement, une spécification paramétrique peut être vue comme un script qui
-contient une séquence de règles avec des paramètres et inversement. %
-Ainsi, dans nos spécifications paramétriques, nous proposons de représenter les
-scripts comme des spécifications imbriquées. %
-Dans la liste~\ref{lst:reevaluation-scripts-sequence-spec-param}, la deuxième
-opération enregistrée est un script. %
-En conséquence, nous ouvrons un bloc \texttt{Sequence} dans lequel nous
-enregistrons les opérations de la séquence qui sont évaluées. %
-Toute comme dans une spécification paramétrique, les opérations d'un script
-disposent d'un identifiant «~frais~» et d'un ensemble de paramètres. %
-Dans notre exemple, nous obtenons alors la séquence de règles
-\texttt{1\allowbreak{}-\allowbreak{}extrusion\-Sommet(PN\textsubscript{1})},
-\texttt{2\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{5})}
-et
-\texttt{3\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(PN\textsubscript{9})}. %
-\todo{Relire la description des cas d'études du chapitre précédent pour voir si
-  je peux utiliser le même style de présentation ici.}
+L'application \texttt{1\allowbreak{}-\allowbreak{}creation\-Brin()} crée le brin
+\(0\). %
+L'application \texttt{2\allowbreak{}\allowbreak{}-S\allowbreak{}%
+	\_\allowbreak{}extrusion\-Squelette(PN\textsubscript{0})} entraîne les
+applications successives de trois règles d'extrusions à partir du brin \(0\). %
+Intuitivement, un script peut être vu comme une spécification paramétrique à
+part entière avec une séquence de règles et leurs paramètres. %
+En conséquence, un bloc \texttt{Sequence} est déclaré dans la spécification
+paramétrique. %
+De même, une nouvelle numérotation des opérations est amorcée dans ce bloc. %
+Ainsi, à l'intérieur du script, l'application
+\texttt{1\allowbreak{}-\allowbreak{}extrusion\-Sommet(PN\textsubscript{0})} crée
+une arête à partir d'un brin (\(\orbit{}\)) ainsi que le brin \(1\). %
+l'application \texttt{2\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(%
+  PN\textsubscript{0,2,3})} extrude une arête à partir du sommet de l'arête
+identifiée par le brin \(1\) identifié par le nom persistant \([1n0;2{1n1}]\). %
+L'application suivante fait de même à partir du brin \(5\) identifié par
+\([1n0;2{1n1;2n2}]\). %
+Enfin, dans le bloc principal, l'application
+\texttt{3\allowbreak{}-\allowbreak{}dual\-Face} crée une face centrée sur le
+sommet identifié par le brin \(9\) identifié par \([1n0;2{1n1;2n3;3n3}]\). %
 
 
-
-% Avec la représentation boîte ouverte, nous avons accès aux instructions des
-% scripts. %
-% Il nous est alors possible d'enregistrer dans les spécifications paramétriques
-% le contenu dont nous avions besoin jusque-là pour les règles, à savoir leurs
-% noms et leurs paramètres topologiques. %
-% Toutefois, dans notre approche, nous distinguons le contenu d'un script des
-% autres opérations enregistrées dans une spécification paramétrique. %
-% L'enregistrement d'un script ouvre un bloc, avec indentation, où sont nommées
-% les structures et leur contenu. %
-% Par exemple, dans la spécification paramétrique représentée dans la
-% liste~\ref{lst:reevaluation-scripts-sequence-spec-param}, un bloc
-% \texttt{Sequence} est enregistré sous l'enregistrement du script
-% \texttt{casEtude1} et contient l'ensemble des opérations appelées. %
-% \todo{Reprendre ici (tout le paragraphe, ça part dans tous les sens)}
-
-%% ce que l'on peut faire
-%%% connaître les règles et les paramètres topologiques pour l'appariement
-%%% prévenir une erreur d'application grâce au suivi des orbites
-%% contraintes
-%%% les mêmes que les règles + la construction manuelle de la sortie (jerboaruleresult)
-
-% Les boîtes ouvertes le mode de représentation que nous préférons, car celles-ci
-% permettent au système de réévaluation d'avoir connaissances des règles (et
-% scripts) appelés en interne d'un script et de faire l'appariement de leurs
-% paramètres topologiques respectifs. %
-% Cependant, cette deuxième approche requiert l'extension des structures de
-% données nous permettant de représenter les diverses étapes de modélisation, à
-% savoir la spécification paramétrique ainsi que les DAGs d'évaluation et de
-% réévaluation. %
-% Dans cette configuration, il est possible de gérer les interruptions de
-% réévaluation puisque le système connaît les règles d'un script et leurs
-% paramètres topologiques. %
-% Pour les développeurs, la contrainte est similaire aux règles Jerboa. %
-% En effet, l'application d'une règle Jerboa retourne un résultat d'application
-% sous la forme d'un tableau de brins instanciés à partir du membre droit. %
-% Pour les scripts, les développeurs doivent aussi construire cette sortie. %
 
 \subsection{DAGs}
 \label{sec:reevaluation-scripts-sequence-extension-dags}
 
-\todo{DAG évaluation avec bloc boîte ouverte}
+
+
 \begin{figure}[htb!]
-  \centering
- \includegraphics[scale=.45]{tmp-evaluationTree-pn9}
-  \caption{DAG d'évaluation du PN\textsubscript{9}}
-  \label{fig:reevaluation-scripts-sequence-extension-dags-eval-pn9}
+	\centering
+	\includegraphics[scale=.47]{tmp-evaluationTree-pn9}
+	\caption{DAG d'évaluation du PN\textsubscript{9}}
+	\label{fig:reevaluation-scripts-sequence-extension-dags-eval-pn9}
 \end{figure}
 
-L'utilisation d'une boîte ouverte pour représenter les opérations internes à un
-script nous permet de reconstituer les historiques d'évolutions de chacun des
-paramètres topologiques dans des DAGs. %
-Afin de faire la distinction entre les opérations hors scripts et les opérations
-dans les scripts, le modèle de boîte ouverte doit être reportée dans les DAGs
-notamment parce que, tout comme les règles, les scripts peuvent référencer une
-entité topologique comme paramètre. %
-Ce paramètre conditionne alors l'exécution du script et l'ouverture de la
-boîte. %
+L'ouverture des scripts dans les spécifications paramétriques donnent la
+possibilité d'accéder à leurs opérations internes dans les DAGs également. %
+Prenons le DAGs d'évaluation du PN\textsubscript{9} illustré dans la
+figure~\ref{fig:reevaluation-scripts-sequence-extension-dags-eval-pn9}. %
+Nous pouvons observer deux nouvelles propriétés dans ce DAG. %
+Tout d'abord, une boîte englobe les applications appartenant au script
+\texttt{S\_extrusionSquelette}. %
+Ensuite, et puisque ce script a son propre paramètre topologique, il est
+nécessaire de remonter l'historique de ce paramètre. %
+Cette branche permet d'identifier le paramètre topologique du script lors de la
+réévaluation et poursuivre ou interrompre l'appariement selon l'édition. %
 
+\todo{dag reeval - annuler 1ère application}
+
+Dans cet exemple, l'entrée du script est la même que l'entrée de la règle
+\texttt{extrusionSommet}. %
+Toutefois, nous pouvons imaginer une configuration où ces deux paramètres sont
+différents. %
+Ainsi, l'existence de l'une des deux orbites ne garantie pas l'existence de
+l'autre au cours de la réévaluation. %
 
 %%% Local Variables:
 %%% mode: LaTeX

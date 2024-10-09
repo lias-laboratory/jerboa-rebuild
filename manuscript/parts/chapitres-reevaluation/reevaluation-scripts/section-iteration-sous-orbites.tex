@@ -1,30 +1,29 @@
 
-\section{Gestion des iterations sur les sous-orbites}
+\section{Iterations des sous-orbites}
 \label{sec:extension-scripts-iteration}
 
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
 caption=Script de séquence d'extrusions,
-label=lst:reevaluation-scripts-sequence-exemple
+label=lst:reevaluation-scripts-iteration-exemple
 ]
 for(JerboaDart vertex : <0,1,2>_<1,2>(lin_skeleton#0)){
-    float offset = Vec3.dist(vertex.pos, vertex@0.pos);
-    Vec3 center = new Vec3(vertex.pos);
-    JerboaRuleResult squareFace = @rule<VertexDualToFace>(center, offset/2);
+    JerboaRuleResult squareFace = @rule<VertexDualToFace>(
+        vertex.pos,
+        Vec3.dist(vertex.pos, vertex@0.pos)/2);
     JerboaRuleResult cube = @rule<ExtrudeIndependentFaceWithSide>(squareFace#0#0, offset);
 }
 return null;
 \end{lstlisting}
 
-Les orbites ont la propriété de pouvoir être décomposées en sous-orbites,
-c'est-à-dire, par exemple, que l'on peut extraire les sommets \(\orbit{1}\)
-d'une face \(\orbit{0,1}\). %
-Une des structures de contrôle proposées par le langage Jerboa et l'itération
-des sous-orbites d'une orbite. %
-Un exemple d'une telle itération peut-être le script qui, pour chaque sommet
-d'une face, applique la règle \texttt{chanfrein\-Sommet}. %
-
+Les orbites étant décomposables en sous-orbites, il est possible d'itérer sur
+ces sous-orbites à l'aide de boucles \texttt{foreach}. %
+Reprenons l'objet que nous avons construit (figure~\todo{}) avec la séquence
+d'extrusions du script \texttt{2-S\_extrusionSquelette}. %
+Nous allons créer, à l'aide du script
+liste~\ref{lst:reevaluation-scripts-iteration-exemple}, une face centrée sur
+chacun des sommets du chemin extrudé (\maxime{ou squelette}). %
 
 
 \subsection{Extension de la spécification paramétrique}
@@ -35,32 +34,39 @@ escapechar=\%,
 caption=Spécification paramétrique avec boucle,
 label=lst:reevaluation-scripts-boucle-spec-param]
 1-creationBrin()
-2-S_DualToSkeleton(pn1)
+2-S_extrusionSquelette(pn0)
+3-S_DualToSkeleton(pn1)
   For %\textlangle{}1,2,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}(pn2)%
-    1-VertexDualToFace(pn3)
-    2-ExtrudeIndependantFaceWithSide(pn4)
+    1-VertexDualToFaceSquare(pn3)
+    2-VertexDualToFaceSquare(pn4)
+    3-VertexDualToFaceSquare(pn5)
+    4-VertexDualToFaceSquare(pn6)
+4-triangulationFace(pn7)
 \end{lstlisting}
-%   \item extension de la spécification paramétrique avec une boîte d'itération qui contient
-
-%   \begin{itemize}
-%     \item la boîte du script avec son nom et le nom persistant d'une orbite
-%     \item une boîte \textit{for} avec le nom persistant de la sous-orbite d'itération
-%     \item les enregistrements de l'opération itérée avec les noms persistant de chaque sous-orbite
-%   \end{itemize}
 
 \todo{liste de spec boîte ouverte + bloc itération (pn) + séquences d'itérations (pn)}
 
-De la même manière que pour les séquences d'opérations, il est nécessaire
-d'étendre la définition d'une spécification paramétrique. %
-Cette extension consiste à permettre la représentation des itérations de cette
-structure de contrôle. %
-Ainsi, une spécification paramétrique contiendra, dans la boîte de script, son
-propre bloc d'opérations. %
-Un bloc d'itération dispose alors d'un nom persistant comme paramètre d'entrée
-qui conditionne sa réévaluation et les différentes applications liées aux
-sous-orbites de l'itération. %
+Comme pour les séquences d'opérations, nous proposons d'ajouter un bloc
+\texttt{For} pour lister les applications sur des sous-orbites dans un script. %
+À la différence d'un bloc \texttt{Sequence}, un bloc \texttt{For} possède un
+paramètre topologique pour l'orbite qui doit être itérée. %
+Cela garantit que si l'orbite est supprimée, alors la boucle ne peut pas être
+réévaluée. %
+Sinon, si l'orbite est scindée, alors chacune des orbites issues de la scission
+est réévaluée avec cette boucle. %
 
-
+Détaillons l'exemple de par la spécification paramétrique
+liste~\ref{lst:reevaluation-scripts-boucle-spec-param}. %
+Les deux premières applications sont les mêmes que dans la section précédente,
+c'est-à-dire qu'elles produisent un chemin extrudé à partir d'un brin. %
+L'application \texttt{3-\_dualToSkeleton} appelle la règle
+\texttt{vertex\-Dual\-To\-Face\-Square} sur tous les sommets d'une composante connexe,
+ici notre chemin extrudé qui possède quatre sommets. %
+En conséquence, dans la spécification, nous voyons un bloc \texttt{For} qui
+décrit quatre itérations de sommets (\(\orbit{1,2,3}\)) dans composante connexe
+(\(\orbit{0,1,2,3}\)) identifiée par le PN\textsubscript{2}. %
+Enfin, l'une de ces faces, celle identifiée par le PN\textsubscript{7}, est
+triangulée. %
 
 \subsection{Extension des DAGs}
 \label{sec:reevaluation-scripts-iteration-extension-dags}

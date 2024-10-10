@@ -1,7 +1,13 @@
-\section{Structure séquence}
+\section{Structure de séquence}
 \label{sec:extension-scripts-sequences}
 
 
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\linewidth]{sequence-extrusion-colonne-faces}
+	\caption{Rangée de faces}
+	\label{fig:reevaluation-scripts-sequence-illustration}
+\end{figure}
 
 La représentation boîte ouverte pour les scripts nous permet d'accéder à leurs
 contenus. %
@@ -9,20 +15,10 @@ Nous pouvons alors enregistrer les opérations évaluées au cours de l'applicat
 d'un script ainsi que leurs paramètres topologiques. %
 Cette démarche s'inscrit dans la même logique que l'enregistrement des règles. %
 En effet, l'affichage du contenu d'un script donne aussi accès au contenu des
-règles, c'est-à-dire aux motifs d'orbites. %
-Ce dernier est particulièrement important pour tracer les évolutions
-d'orbites. %
-
-Dans cette section, nous proposons les premières modifications nécessaires aux
+règles pour tracer les évolutions d'orbites. %
+Dans cette section, nous proposons les modifications nécessaires aux
 spécifications paramétriques ainsi qu'aux DAGs afin de supporter la réévaluation
-des scripts. %
-Pour cela, nous prenons l'exemple d'un script extrude un chemin à partir d'un
-brin \todo{figure du squelette}. %
-
-
-
-\subsection{Spécification paramétrique}
-\label{sec:reevaluation-scripts-sequence-spec-param}
+des séquences dans des scripts.
 
 
 \begin{lstlisting}[style=script-style,
@@ -31,93 +27,189 @@ escapechar=\%,
 caption=Script de séquence d'extrusions,
 label=lst:reevaluation-scripts-sequence-exemple
 ]
-JerboaRuleResult arete1 = @rule<ExtrudeIndependentVertex>(brin#0);
-JerboaRuleResult arete2 = @rule<ExtrudeEdgeVertexYAxis>(brin#0@0);
-JerboaRuleResult arete3 = @rule<ExtrudeEdgeVertexYAxis>(brin#0@0@1@0);
-return null;
+JerboaRuleResult face2 = @rule<extrusionAreteFace>(face#0);
+JerboaRuleResult face3 = @rule<extrusionAreteFace>(face2#4#0);
+JerboaRuleResult face4 = @rule<extrusionAreteFace>(face3#4#0);
+return face4;
 \end{lstlisting}
-% (liste~\ref{lst:reevaluation-scripts-sequence-exemple})
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.8\linewidth]{rule-extrusion-faceedge}
+	\caption{Règle d'extrusion d'une arête de face}
+	\label{fig:reevaluation-scripts-sequence-regle-extrusion-arete-face}
+\end{figure}
 
 Prenons le script (liste~\ref{lst:reevaluation-scripts-sequence-exemple}) qui
-construit le chemin illustré dans la figure~\todo{}. %
-Ce script contient trois appels de règles, chacune opérant l'extrusion d'un
-brin. %
-La première règle \texttt{Extrude\-Independent\-Vertex} fait l'extrusion d'un brin
-libre, c'est-à-dire qui n'est connecté à aucun autre brin. %
-Les deux autres règles \texttt{Extrude\-Edge\-Vertex\-YAxis} font l'extrusion d'un
-brin à l'extrémité d'une arête. %
+construit la rangée de faces illustrée dans la
+figure~\ref{fig:reevaluation-scripts-sequence-illustration}. %
+Ce script prend une face en entrée et contient trois appels de la règle
+\texttt{extrusionAreteFace}. %
+Chaque appel crée une nouvelle face dans l'objet par l'extrusion d'une arête %
+Le premier appel prend en paramètre le premier brin filtré par le n\oe ud
+d'accroche (appelé \texttt{face}). %
+Ce brin, \texttt{face\#0}, désigne l'arête à extruder. %
+La sortie de la règle, c'est-à-dire les brins filtrés par son motif droit, est
+ensuite enregistrée dans la variable \texttt{face2} de type
+\texttt{JerboaRuleResult}. %
+Le deuxième appel prend en entrée un brin enregistré dans le résultat
+\texttt{face2}. %
+Il s'agit du premier brin filtré par le n\oe ud \(n_{4}\) de la règle
+d'extrusion illustrée dans la
+figure~\ref{fig:reevaluation-scripts-sequence-regle-extrusion-arete-face}. %
+Ce brin est noté \texttt{face2\#4\#0}. %
+Enfin, le troisième appel est exécuté de la même manière. %
+
+
+
+\subsection{Spécification paramétrique}
+\label{sec:reevaluation-scripts-sequence-spec-param}
+
+
+
+L'une des étapes pour réévaluer un script contenant une séquence de règles est
+d'enregistrer son contenu de manière transparente. %
+Autrement dit, il faut enregistrer explicitement chacune des opérations appelées
+par le script avec leurs paramètres. %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique avec séquence,
-label=lst:reevaluation-scripts-sequence-spec-param]
-1-creationBrin()
-2-extrusionSquelette(PN%\textsubscript{0}%)
+label=lst:reevaluation-scripts-sequence-spec-param-init]
+1-creationCarre()
+2-S_extrusionColonne(PN%\textsubscript{5}%)
   Sequence:
-    1-extrusionSommet(PN%\textsubscript{0}%)
-    2-extrusionSommetArete(PN%\textsubscript{1}%)
-    3-extrusionSommetArete(PN%\textsubscript{5}%)
-3-dualFace(PN%\textsubscript{9}%)
+    1-extrusionAreteFace(PN%\textsubscript{5}%)
+    2-extrusionAreteFace(PN%\textsubscript{15}%)
+    3-extrusionAreteFace(PN%\textsubscript{23}%)
+3-colorationFace(PN%\textsubscript{9}, Orange%)
 \end{lstlisting}
 
-Détaillons la spécification de la
-liste~\ref{lst:reevaluation-scripts-sequence-spec-param}. %
-L'application \texttt{1\allowbreak{}-\allowbreak{}creation\-Brin()} crée le brin
-\(0\). %
-L'application \texttt{2\allowbreak{}\allowbreak{}-S\allowbreak{}%
-	\_\allowbreak{}extrusion\-Squelette(PN\textsubscript{0})} entraîne les
-applications successives de trois règles d'extrusions à partir du brin \(0\). %
-Intuitivement, un script peut être vu comme une spécification paramétrique à
-part entière avec une séquence de règles et leurs paramètres. %
-En conséquence, un bloc \texttt{Sequence} est déclaré dans la spécification
+Une séquence de règles dans un script peut être vue comme spécification
 paramétrique. %
-De même, une nouvelle numérotation des opérations est amorcée dans ce bloc. %
-Ainsi, à l'intérieur du script, l'application
-\texttt{1\allowbreak{}-\allowbreak{}extrusion\-Sommet(PN\textsubscript{0})} crée
-une arête à partir d'un brin (\(\orbit{}\)) ainsi que le brin \(1\). %
-l'application \texttt{2\allowbreak{}-\allowbreak{}extrusion\-Sommet\-Arete(%
-  PN\textsubscript{0,2,3})} extrude une arête à partir du sommet de l'arête
-identifiée par le brin \(1\) identifié par le nom persistant \([1n0;2{1n1}]\). %
-L'application suivante fait de même à partir du brin \(5\) identifié par
-\([1n0;2{1n1;2n2}]\). %
-Enfin, dans le bloc principal, l'application
-\texttt{3\allowbreak{}-\allowbreak{}dual\-Face} crée une face centrée sur le
-sommet identifié par le brin \(9\) identifié par \([1n0;2{1n1;2n3;3n3}]\). %
+En effet, un ensemble de règles sont enregistrés avec leurs paramètres
+topologiques et géométriques. %
+C'est de cette manière que nous proposons d'enregistrer une séquence issue d'un
+script. %
+En conséquence, nous commençons par ajouter un bloc \texttt{Sequence} pour
+mettre en évidence une séquence d'applications issues d'un script. %
+Ensuite, nous amorçons une nouvelle séquence de numérotation dans chaque
+script. %
+Ainsi, les trois applications du script \texttt{S\_extrusionColonne} sont
+respectivement numérotées \texttt{1}, \texttt{2} et \texttt{3}. %
+Enfin, puisque les paramètres topologiques sont accessibles, il est nécessaire
+d'étendre le schéma de nomination. %
+Ainsi, l'historique d'une orbite créée dans une application de script sera
+représenté selon le schéma suivant~: %
+\[[\mathit{S\{R~noeud\}}]\] où \(S\) est le numéro d'application d'un script et
+\(R\) le numéro d'application d'une règle dans un script. %
+Notons, que le motif \(\{R~noeud\}\) est répété tant que l'orbite évolue dans le
+script. %
+
+Détaillons la spécification de la
+liste~\ref{lst:reevaluation-scripts-sequence-spec-param-init}. %
+L'application \texttt{1\allowbreak{}-\allowbreak{}creation\-Carre()} crée le
+brin \(5\). %
+L'historique de ce brin est \([1n5]\). %
+L'application \texttt{2\allowbreak{}\allowbreak{}-S\allowbreak{}%
+	\_\allowbreak{}extrusion\-Colonne(PN\textsubscript{5})} entraîne les
+applications successives de trois règles d'extrusions à partir du brin \(5\). %
+Comme prévu, nous démarrons une nouvelle séquence de numérotation dans le
+script. %
+L'application
+\texttt{1\allowbreak{}-\allowbreak{}extrusion\-Arete\-Face(PN\textsubscript{5})}
+crée une face à partir d'une arête (\(\orbit{0}\)) ainsi que les brins \(9\) et
+\(15\). %
+Les historiques de ces brins sont respectivement \([1n6;2\{1n2\}]\) et
+\([1n5;2\{1n4\}]\). %
+L'application \texttt{2\allowbreak{}-\allowbreak{}extrusion\-Arete\-Face(%
+	PN\textsubscript{15})} crée une nouvelle face ainsi que son brin \(23\). %
+L'historique de ce brin est \([1n5;2\{1n4;2n4\}]\). %
+La dernière application du script,
+\texttt{3\allowbreak{}-\allowbreak{}extrusion\-Arete\-Face(%
+	PN\textsubscript{23})} crée la quatrième et dernière face. %
+Enfin, dans le bloc principal, la dernière application
+\texttt{3\allowbreak{}-\allowbreak{}coloration\-Face} colorie la face identifiée
+par le brin \(15\). %
 
 
+L'ouverture des scripts permet de garder les opérations internes accessible. %
+Cela est d'autant plus nécessaire que nous avons besoin de cet accès pour
+effectuer le suivi des orbites y compris au travers des scripts. %
 
 \subsection{DAGs}
 \label{sec:reevaluation-scripts-sequence-extension-dags}
 
+L'autre étape nécessaire au support des scripts et la mise à jour des DAGs
+d'évaluations et de réévaluations. %
+En effet, avec l'enregistrement des paramètres topologiques à l'intérieur des
+scripts, nous avons la possibilité de reconstituer leurs évolutions. %
+Par extension, ce suivi nous permet, comme pour les règles, de proposer leurs
+appariements (s'ils existent) lors de la réévaluation. %
 
+Pour mettre en \oe uvre ce support, nous ajoutons deux propriétés aux DAGs. %
+Premièrement, comme pour les spécifications, les applications internes à un
+script sont regroupé dans le bloc de ce script avec leur propre numérotation. %
+Ensuite, la réévaluation d'un script est conditionné par le suivi de son
+paramètre topologique dans une nouvelle branche. %
+Pour cela, une nouvelle relation est définie entre un n\oe ud d'orbite et un
+bloc de script. %
+Ainsi, au cours d'une réévaluation, si un paramètre d'entrée de script n’existe
+plus, alors le script ne peut être réévalué. %
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[scale=.47]{tmp-evaluationTree-pn9}
+	\includegraphics[scale=.6]{tmp-evaluationTree-pn9}
 	\caption{DAG d'évaluation du PN\textsubscript{9}}
 	\label{fig:reevaluation-scripts-sequence-extension-dags-eval-pn9}
 \end{figure}
 
-L'ouverture des scripts dans les spécifications paramétriques donnent la
-possibilité d'accéder à leurs opérations internes dans les DAGs également. %
-Prenons le DAGs d'évaluation du PN\textsubscript{9} illustré dans la
+Prenons, par exemple, avec le DAG d'évaluation du PN\textsubscript{9} illustré
+dans la
 figure~\ref{fig:reevaluation-scripts-sequence-extension-dags-eval-pn9}. %
-Nous pouvons observer deux nouvelles propriétés dans ce DAG. %
-Tout d'abord, une boîte englobe les applications appartenant au script
-\texttt{S\_extrusionSquelette}. %
-Ensuite, et puisque ce script a son propre paramètre topologique, il est
-nécessaire de remonter l'historique de ce paramètre. %
-Cette branche permet d'identifier le paramètre topologique du script lors de la
-réévaluation et poursuivre ou interrompre l'appariement selon l'édition. %
+Ce DAG représente l'évolution de l'orbite face qui est coloriée en
+\textcolor{orange}{orange} par l'application
+\texttt{3\allowbreak{}-\allowbreak{}coloration\-Face}. %
+Nous pouvons observer les propriétés que nous venons de présenter. %
+Tout d'abord, une boîte de script englobe les applications qui appartient à
+l'application \texttt{2\allowbreak{}-\allowbreak{}S\_extrusion\-Colonne}. %
+Ensuite, le suivi du paramètre topologique du script est effectué dans une
+nouvelle branche. %
+L'orbite représentée par le n\oe ud \orbitnode{\orbit{0,1,3}} est lié au bloc de
+script par une flèche \textcolor{mydarkgreenink}{verte}. %
+Cette branche identifie une face qui est créée par la
+première application. %
 
-\todo{dag reeval - annuler 1ère application}
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Spécification paramétrique avec séquence,
+label=lst:reevaluation-scripts-sequence-spec-param-edit]
+DELETE 1-creationCarre()
+2-extrusionColonne(PN%\textsubscript{5}%)
+  Sequence:
+    1-extrusionAreteFace(PN%\textsubscript{5}%)
+    2-extrusionAreteFace(PN%\textsubscript{15}%)
+    3-extrusionAreteFace(PN%\textsubscript{23}%)
+3-colorationFace(PN%\textsubscript{9}%)
+\end{lstlisting}
 
-Dans cet exemple, l'entrée du script est la même que l'entrée de la règle
-\texttt{extrusionSommet}. %
-Toutefois, nous pouvons imaginer une configuration où ces deux paramètres sont
-différents. %
-Ainsi, l'existence de l'une des deux orbites ne garantie pas l'existence de
-l'autre au cours de la réévaluation. %
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[scale=.6]{tmp-reevaluationTree-pn9}
+	\caption{DAG de réévaluation du PN\textsubscript{9}}
+	\label{fig:reevaluation-scripts-scripts-sequence-extension-dags-reeval-pn9}
+\end{figure}
+
+Étudions maintenant le DAG de réévaluation du PN\textsubscript{9}
+(figure~\ref{fig:reevaluation-scripts-scripts-sequence-extension-dags-reeval-pn9})
+étant donné l'édition de la spécification présentée dans la
+liste~\ref{lst:reevaluation-scripts-sequence-spec-param-edit}. %
+Dans cette édition, la première application est supprimée. %
+Celle-ci annule alors la création des deux orbites suivies, c'est-à-dire les
+paramètres topologiques du script et de sa première application. %
+Avec une telle édition, le script ne peut être réévalué ce qui annule également
+la réévaluation de son contenu. %
+
 
 %%% Local Variables:
 %%% mode: LaTeX

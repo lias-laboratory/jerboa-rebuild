@@ -1,33 +1,25 @@
 
-\section{Gestion des alternatives}
+\section{Structure d'alternatives}
 \label{sec:extension-scripts-alternatives}
 
-% \begin{itemize}
-%   \item présentation des alternatives
-%   \item méthode d'appariement d'entité entre deux règles
-%   \item extension de la spécification paramétrique avec
-%   \begin{itemize}
-%     \item un bloc alternative «~si… sinon…~»
-%     \item un enregistrement de la règle appliquée lors de l'évaluation initiale
-%   \end{itemize}
-%   \item extension des DAG pour remonter l'histoire du paramètre d'entrée du script
-% \end{itemize}
+
+
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
-caption=Script de séquence d'extrusions,
-label=lst:reevaluation-scripts-sequence-exemple
+caption=Script avec alternative,
+label=lst:reevaluation-scripts-alternative-exemple
 ]
-float offset = Vec3.dist(vertex#0.pos, vertex#0@0.pos);
-Vec3 center = new Vec3(vertex#0.pos);
-JerboaRuleResult squareFace = @rule<VertexDualToFace>(center, offset/2);
-JerboaRuleResult cube = null;
-if((<1,2,3>_<2>(vertex#0)).size() <= 2){
-    cube = @rule<ExtrudeIndependentFaceWithSide>(squareFace#0#0, offset);
-} else {
-    cube = @rule<ExtrudeFaceToPyramid>(squareFace#0#0,offset);
+int nbVerts = <0,1,3>_<1,3>(face#0).size();
+if(nbVerts == 4)
+{
+    @rule<TriangulateFace>(face);
 }
-return cube;
+else
+{
+    @rule<PierceFaceAndCover>(face);
+}
+return null;
 \end{lstlisting}
 
 La dernière structure de contrôle que nous présentons est l'alternative qui
@@ -38,20 +30,51 @@ des DAGs. %
 Cependant, son support nécessite une nouvelle fonctionnalité qui est
 l'appariement d'orbites entre deux règles qui peuvent être très différentes. %
 
+\subsection{Appariement entre deux règles}
+\label{sec:reevaluation-scripts-alternative-appariement}
 
-\subsection{Extension de la spécification paramétrique}
-\label{sec:reevaluation-scripts-alternative-extension-spec-param}
+\begin{figure}[htb!]
+  \centering
+  \begin{subfigure}{1.0\linewidth}
+  \includegraphics[height=60pt]{rule-face-triangulation-match-box-alternative}
+  \caption{Règle de triangulation}
+  \label{fig:reevaluation-scripts-alternative-appariement-orbite-tri}
+  \end{subfigure}
+  \begin{subfigure}{1.0\linewidth}
+  \includegraphics[height=60pt]{rule-insert-square-in-face-match-box-alternative}
+  \caption{Règle d'insertion de face carrée}
+  \label{fig:reevaluation-scripts-alternative-appariement-orbite-insert}
+  \end{subfigure}
+  \caption{Appariement d'orbite entre deux règles}
+  \label{fig:reevaluation-scripts-alternative-appariement-orbite}
+\end{figure}
+
+\subsection{Spécification paramétrique et DAGs}
+\label{sec:reevaluation-scripts-alternative-extension-spec-dags}
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique avec alternative,
-label=lst:reevaluation-scripts-alternative-spec-param]
-1-creationBrin()
-2-S_VertexDualToVolume(pn1)
+label=lst:reevaluation-scripts-alternative-spec-param-init]
+1-creationCarre()
+2-extrusionSommet(pn0)
+3-S_insertionCarreOuTriangulationFace(pn1)
   Alternative - Then:
-    1-VertexDualToCube(pn2)
+    1-triangulationFace(pn2)
+4-chanfreinSommet(pn3)
 \end{lstlisting}
 
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Spécification paramétrique avec alternative éditée,
+label=lst:reevaluation-scripts-alternative-spec-param-edit]
+1-creationCarre()
+2-extrusionSommet(pn0)
+3-S_insertionCarreOuTriangulationFace(pn1)
+  Alternative - Then:
+    1-triangulationFace(pn2)
+4-chanfreinSommet(pn3)
+\end{lstlisting}
 Comme pour les autres structures de contrôle, l'extension de la spécification
 paramétrique pour l'alternative requiert d'enregistrer la séquence d'opérations
 appliquées lors de l'évaluation. %
@@ -69,6 +92,7 @@ De plus, pour maintenir le suivi d'un type d'orbite explicitement désigné par
 l'utilisateur, nous proposons un appariement entre les orbites filtrées par
 l'opération initialement évaluée et l'opération de la réévaluation lorsqu'elles
 sont différentes. %
+
 
 %%% Local Variables:
 %%% mode: LaTeX

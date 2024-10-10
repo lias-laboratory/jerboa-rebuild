@@ -111,6 +111,10 @@ import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_VertexDualToFace;
 import fr.ensma.lias.jerboa.core.rule.rules.Dual.VertexDualToFace;
 import fr.ensma.lias.jerboa.core.rule.rules.Dual.VertexDualToFaceTri;
 import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_DualToSkeleton2D;
+import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeIndependentFaceZAxis;
+import fr.ensma.lias.jerboa.core.rule.rules.EdgeDim2;
+import fr.ensma.lias.jerboa.core.rule.rules.squareOrTriangulate;
+import fr.ensma.lias.jerboa.core.rule.rules.Color.MakeFaceOrange;
 
 
 
@@ -245,6 +249,10 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new VertexDualToFace(this));
         this.registerRule(new VertexDualToFaceTri(this));
         this.registerRule(new S_DualToSkeleton2D(this));
+        this.registerRule(new ExtrudeIndependentFaceZAxis(this));
+        this.registerRule(new EdgeDim2(this));
+        this.registerRule(new squareOrTriangulate(this));
+        this.registerRule(new MakeFaceOrange(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

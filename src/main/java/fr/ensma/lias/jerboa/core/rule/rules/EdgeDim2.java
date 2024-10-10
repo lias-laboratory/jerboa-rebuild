@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules.Extrusion;
+package fr.ensma.lias.jerboa.core.rule.rules;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
@@ -22,7 +22,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
+public class EdgeDim2 extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -34,22 +34,27 @@ public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
 
 
 
-    public ExtrudeIndependentVertex(ModelerGenerated modeler) throws JerboaException {
+    public EdgeDim2(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "ExtrudeIndependentVertex", "Extrusion");
+        super(modeler, "EdgeDim2", "");
 
         // -------- LEFT GRAPH
-        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,2,3), 3);
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0), 3);
         left.add(ln0);
         hooks.add(ln0);
-        ln0.setAlpha(0, ln0);
+        ln0.setAlpha(1, ln0);
+        ln0.setAlpha(2, ln0);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,2,3), 3);
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(1,2,3), 3, new ExtrudeIndependentVertexExprRn1pos());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0), 3);
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(0), 3);
         right.add(rn0);
         right.add(rn1);
-        rn0.setAlpha(0, rn1);
+        rn0.setAlpha(1, rn0);
+        rn1.setAlpha(1, rn1);
+        rn0.setAlpha(2, rn1);
+        rn0.setAlpha(3, rn0);
+        rn1.setAlpha(3, rn1);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
@@ -78,28 +83,6 @@ public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
         ____jme_hooks.addCol(n0);
         return applyRule(gmap, ____jme_hooks);
 	}
-
-    private class ExtrudeIndependentVertexExprRn1pos implements JerboaRuleExpression {
-
-        @Override
-        public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
-            curleftPattern = leftPattern;
-// ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
-            // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0).addn(0,0.5f,0);
-// ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
-        }
-
-        @Override
-        public String getName() {
-            return "pos";
-        }
-
-        @Override
-        public int getEmbedding() {
-            return ((ModelerGenerated)modeler).getPos().getID();
-        }
-    }
 
     // Facility for accessing to the dart
     private JerboaDart n0() {

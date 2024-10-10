@@ -41,44 +41,49 @@ public class VertexDualToFaceTri extends JerboaRebuiltRule {
         super(modeler, "VertexDualToFaceTri", "Dual");
 
         // -------- LEFT GRAPH
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,2,3), 3);
+        left.add(ln0);
+        hooks.add(ln0);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 0, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 1, JerboaOrbit.orbit(), 3, new VertexDualToFaceTriExprRn2pos());
-        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 2, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode rn4 = new JerboaRuleNode("n4", 3, JerboaOrbit.orbit(), 3, new VertexDualToFaceTriExprRn4pos());
-        JerboaRuleNode rn5 = new JerboaRuleNode("n5", 4, JerboaOrbit.orbit(), 3);
-        JerboaRuleNode rn6 = new JerboaRuleNode("n6", 5, JerboaOrbit.orbit(), 3, new VertexDualToFaceTriExprRn6pos());
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 0, JerboaOrbit.orbit(-1,-1,-1), 3);
+        JerboaRuleNode rn2 = new JerboaRuleNode("n2", 1, JerboaOrbit.orbit(-1,-1,-1), 3, new VertexDualToFaceTriExprRn2pos());
+        JerboaRuleNode rn3 = new JerboaRuleNode("n3", 2, JerboaOrbit.orbit(-1,-1,-1), 3);
+        JerboaRuleNode rn4 = new JerboaRuleNode("n4", 3, JerboaOrbit.orbit(-1,-1,-1), 3, new VertexDualToFaceTriExprRn4pos());
+        JerboaRuleNode rn5 = new JerboaRuleNode("n5", 4, JerboaOrbit.orbit(-1,-1,-1), 3);
+        JerboaRuleNode rn6 = new JerboaRuleNode("n6", 5, JerboaOrbit.orbit(-1,-1,-1), 3, new VertexDualToFaceTriExprRn6pos());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 6, JerboaOrbit.orbit(1,2,3), 3);
         right.add(rn1);
         right.add(rn2);
         right.add(rn3);
         right.add(rn4);
         right.add(rn5);
         right.add(rn6);
+        right.add(rn0);
         rn2.setAlpha(0, rn3);
         rn3.setAlpha(1, rn4);
         rn4.setAlpha(0, rn5);
         rn5.setAlpha(1, rn6);
         rn6.setAlpha(0, rn1);
-        rn2.setAlpha(2, rn2);
-        rn2.setAlpha(3, rn2);
-        rn3.setAlpha(2, rn3);
-        rn3.setAlpha(3, rn3);
-        rn4.setAlpha(2, rn4);
-        rn4.setAlpha(3, rn4);
-        rn5.setAlpha(2, rn5);
-        rn5.setAlpha(3, rn5);
-        rn6.setAlpha(2, rn6);
-        rn6.setAlpha(3, rn6);
-        rn1.setAlpha(2, rn1);
-        rn1.setAlpha(3, rn1);
         rn2.setAlpha(1, rn1);
+        rn1.setAlpha(2, rn1);
+        rn2.setAlpha(2, rn2);
+        rn3.setAlpha(2, rn3);
+        rn4.setAlpha(2, rn4);
+        rn6.setAlpha(2, rn6);
+        rn5.setAlpha(2, rn5);
+        rn2.setAlpha(3, rn2);
+        rn4.setAlpha(3, rn4);
+        rn3.setAlpha(3, rn3);
+        rn1.setAlpha(3, rn1);
+        rn5.setAlpha(3, rn5);
+        rn6.setAlpha(3, rn6);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
         computeSpreadOperation();
         // ------- USER DECLARATION 
-    }
+        center = new Vec3(0,0,0);        vOffset = 0.5f;    }
 
     public int reverseAssoc(int i) {
         switch(i) {
@@ -88,6 +93,7 @@ public class VertexDualToFaceTri extends JerboaRebuiltRule {
         case 3: return -1;
         case 4: return -1;
         case 5: return -1;
+        case 6: return 0;
         }
         return -1;
     }
@@ -100,12 +106,14 @@ public class VertexDualToFaceTri extends JerboaRebuiltRule {
         case 3: return -1;
         case 4: return -1;
         case 5: return -1;
+        case 6: return 0;
         }
         return -1;
     }
 
-    public JerboaRuleResult applyRule(JerboaGMap gmap, Vec3 center, float vOffset) throws JerboaException {
+    public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaDart n0, Vec3 center, float vOffset) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
+        ____jme_hooks.addCol(n0);
         setCenter(center);
         setVOffset(vOffset);
         return applyRule(gmap, ____jme_hooks);
@@ -175,6 +183,11 @@ return new Vec3((center.x() - vOffset),(center.y() - vOffset),center.z());
         public int getEmbedding() {
             return ((ModelerGenerated)modeler).getPos().getID();
         }
+    }
+
+    // Facility for accessing to the dart
+    private JerboaDart n0() {
+        return curleftPattern.getNode(0);
     }
 
 	public Vec3 getCenter(){

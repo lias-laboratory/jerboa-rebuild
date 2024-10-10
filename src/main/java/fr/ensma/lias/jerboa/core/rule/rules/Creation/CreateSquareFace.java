@@ -29,7 +29,7 @@ public class CreateSquareFace extends JerboaRebuiltRule {
 
 	// BEGIN PARAMETERS Transformed 
 
-	protected Integer size; 
+	protected int size; 
 
 	// END PARAMETERS 
 
@@ -117,7 +117,7 @@ public class CreateSquareFace extends JerboaRebuiltRule {
         return -1;
     }
 
-    public JerboaRuleResult applyRule(JerboaGMap gmap, Integer size) throws JerboaException {
+    public JerboaRuleResult applyRule(JerboaGMap gmap, int size) throws JerboaException {
         JerboaInputHooksGeneric ____jme_hooks = new JerboaInputHooksGeneric();
         setSize(size);
         return applyRule(gmap, ____jme_hooks);
@@ -211,10 +211,10 @@ return new Vec3(1,0,0);
         }
     }
 
-	public Integer getSize(){
+	public int getSize(){
 		return size;
 	}
-	public void setSize(Integer _size){
+	public void setSize(int _size){
 		this.size = _size;
 	}
 } // end rule Class

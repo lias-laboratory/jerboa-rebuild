@@ -71,17 +71,22 @@ public class S_VertexDualToFace extends JerboaRuleScript {
     public JerboaRuleResult apply(final JerboaGMap gmap, final JerboaInputHooks hooks) throws JerboaException {
 // BEGIN SCRIPT GENERATION
         float offset = Vec3.dist(hooks.dart(0, 0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0),hooks.dart(0, 0).alpha(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
+		if((offset == 0.0f)) {
+		   offset = 0.5f;
+		}
 		Vec3 center = new Vec3(hooks.dart(0, 0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0));
 		JerboaRuleResult face = null;
 		int nb_verts = gmap.collect(hooks.dart(0, 0),JerboaOrbit.orbit(1,2,3),JerboaOrbit.orbit(2,3)).size();
 		if(((nb_verts > 0) && (nb_verts < 3))) {
 		   JerboaInputHooksGeneric _v_hook2 = new JerboaInputHooksGeneric();
+		   _v_hook2.addCol(hooks.dart(0, 0));
 		   ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).setCenter(center);
 		   ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).setVOffset((offset / 2));
 		   face = ((VertexDualToFaceSquare)modeler.getRule("VertexDualToFaceSquare")).applyRule(gmap, _v_hook2);
 		}
 		else {
 		   JerboaInputHooksGeneric _v_hook3 = new JerboaInputHooksGeneric();
+		   _v_hook3.addCol(hooks.dart(0, 0));
 		   ((VertexDualToFaceTri)modeler.getRule("VertexDualToFaceTri")).setCenter(center);
 		   ((VertexDualToFaceTri)modeler.getRule("VertexDualToFaceTri")).setVOffset((offset / 2));
 		   face = ((VertexDualToFaceTri)modeler.getRule("VertexDualToFaceTri")).applyRule(gmap, _v_hook3);

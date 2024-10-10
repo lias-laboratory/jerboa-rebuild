@@ -15,6 +15,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 /* Raw Imports : */
 import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeIndependentVertex;
+import fr.ensma.lias.jerboa.core.rule.rules.EdgeDim2;
 import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeEdgeVertexYAxis;
 
 /* End raw Imports */
@@ -78,11 +79,14 @@ public class S_ExtrusionSquelette extends JerboaRuleScript {
 		_v_hook0.addCol(hooks.dart(0, 0));
 		JerboaRuleResult arete1 = ((ExtrudeIndependentVertex)modeler.getRule("ExtrudeIndependentVertex")).applyRule(gmap, _v_hook0);
 		JerboaInputHooksGeneric _v_hook1 = new JerboaInputHooksGeneric();
-		_v_hook1.addCol(hooks.dart(0, 0).alpha(0));
-		JerboaRuleResult arete2 = ((ExtrudeEdgeVertexYAxis)modeler.getRule("ExtrudeEdgeVertexYAxis")).applyRule(gmap, _v_hook1);
+		_v_hook1.addCol(hooks.dart(0, 0));
+		((EdgeDim2)modeler.getRule("EdgeDim2")).applyRule(gmap, _v_hook1);
 		JerboaInputHooksGeneric _v_hook2 = new JerboaInputHooksGeneric();
-		_v_hook2.addCol(hooks.dart(0, 0).alpha(0).alpha(1).alpha(0));
-		JerboaRuleResult arete3 = ((ExtrudeEdgeVertexYAxis)modeler.getRule("ExtrudeEdgeVertexYAxis")).applyRule(gmap, _v_hook2);
+		_v_hook2.addCol(hooks.dart(0, 0).alpha(0));
+		JerboaRuleResult arete2 = ((ExtrudeEdgeVertexYAxis)modeler.getRule("ExtrudeEdgeVertexYAxis")).applyRule(gmap, _v_hook2);
+		JerboaInputHooksGeneric _v_hook3 = new JerboaInputHooksGeneric();
+		_v_hook3.addCol(hooks.dart(0, 0).alpha(0).alpha(1).alpha(0));
+		JerboaRuleResult arete3 = ((ExtrudeEdgeVertexYAxis)modeler.getRule("ExtrudeEdgeVertexYAxis")).applyRule(gmap, _v_hook3);
 		return null;
 		// END SCRIPT GENERATION
 

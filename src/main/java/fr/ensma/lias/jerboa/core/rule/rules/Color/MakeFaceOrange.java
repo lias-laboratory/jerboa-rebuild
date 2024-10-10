@@ -1,4 +1,4 @@
-package fr.ensma.lias.jerboa.core.rule.rules.Extrusion;
+package fr.ensma.lias.jerboa.core.rule.rules.Color;
 import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
@@ -22,7 +22,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
+public class MakeFaceOrange extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -34,22 +34,18 @@ public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
 
 
 
-    public ExtrudeIndependentVertex(ModelerGenerated modeler) throws JerboaException {
+    public MakeFaceOrange(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "ExtrudeIndependentVertex", "Extrusion");
+        super(modeler, "MakeFaceOrange", "Color");
 
         // -------- LEFT GRAPH
-        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,2,3), 3);
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3);
         left.add(ln0);
         hooks.add(ln0);
-        ln0.setAlpha(0, ln0);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(1,2,3), 3);
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(1,2,3), 3, new ExtrudeIndependentVertexExprRn1pos());
+        JerboaRuleNode rn0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,1), 3, new MakeFaceOrangeExprRn0color());
         right.add(rn0);
-        right.add(rn1);
-        rn0.setAlpha(0, rn1);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
@@ -60,7 +56,6 @@ public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
     public int reverseAssoc(int i) {
         switch(i) {
         case 0: return 0;
-        case 1: return -1;
         }
         return -1;
     }
@@ -68,7 +63,6 @@ public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
     public int attachedNode(int i) {
         switch(i) {
         case 0: return 0;
-        case 1: return 0;
         }
         return -1;
     }
@@ -79,25 +73,25 @@ public class ExtrudeIndependentVertex extends JerboaRebuiltRule {
         return applyRule(gmap, ____jme_hooks);
 	}
 
-    private class ExtrudeIndependentVertexExprRn1pos implements JerboaRuleExpression {
+    private class MakeFaceOrangeExprRn0color implements JerboaRuleExpression {
 
         @Override
         public Object compute(JerboaGMap gmap, JerboaRuleOperation rule,JerboaRowPattern leftPattern, JerboaRuleNode rulenode) throws JerboaException {
             curleftPattern = leftPattern;
 // ======== BEGIN CODE TRANSLATION FOR EXPRESSION COMPUTATION
             // ======== SEPARATION CODE TRANSLATION FOR EXPRESSION COMPUTATION
-return curleftPattern.getNode(0).<fr.ensma.lias.jerboa.embeddings.Vec3>ebd(0).addn(0,0.5f,0);
+return new Color(255,192,0);
 // ======== END CODE TRANSLATION FOR EXPRESSION COMPUTATION
         }
 
         @Override
         public String getName() {
-            return "pos";
+            return "color";
         }
 
         @Override
         public int getEmbedding() {
-            return ((ModelerGenerated)modeler).getPos().getID();
+            return ((ModelerGenerated)modeler).getColor().getID();
         }
     }
 

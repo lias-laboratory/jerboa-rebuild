@@ -1,28 +1,64 @@
 \section{Structure d'itération}
 \label{sec:extension-scripts-iteration}
 
+\todo{illustration d'un plan de quad + coloration avec la boucle + triangulation d'une face}
+
+Le langage de script Jerboa met à disposition deux éléments clés pour la
+réévaluation de nos scripts. %
+La première instruction est de la forme \texttt{<orbite>\_<sous-orbite>}. %
+Celle-ci permet de lister les instances d'un type \(\orbit{\omega'}\) de
+sous-orbite dans une \(\orbit{\omega}\)-orbite. %
+La seconde est une structure d'itération de type \texttt{foreach}. %
+Avec ces deux instructions, il est possible de procéder à la répétition d'une
+séquence d'opérations sur les sous-orbites d'une orbite. %
+
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
 caption=Script de séquence d'extrusions,
 label=lst:reevaluation-scripts-iteration-exemple
 ]
-for(JerboaDart volume : <0,1,2,3>_<0,1,3>(column#0)){
+for(JerboaDart face : <0,1,2,3>_<0,1,3>(surface#0)){
     @rule<colorationFace>(face)
 }
 return null;
 \end{lstlisting}
 
-Les orbites étant décomposables en sous-orbites. %
-La boucle \texttt{foreach} du langage de script permet donc de parcourir les
-sous-orbites pour une orbite donnée. %
-Prenons le script liste~\ref{lst:reevaluation-scripts-iteration-exemple}. %
-Ce script contient une boucle qui pour chaque sommet (\(\orbit{1,2,3}\))
-\texttt{vertex} dans une composante connexe (\(\orbit{0,1,2,3}\))
-\texttt{lin\_skeleton} crée une face centrée par rapport à \texttt{vertex}. %
+Prenons le script liste~\ref{lst:reevaluation-scripts-iteration-exemple} qui
+colorie toutes les faces (\(\orbit{0,1,3}\)) d'une composante connexe
+(\(\orbit{0,1,2,3}\)). %
+Ce script prend une composante connexe appelée \texttt{surface} et répète
+l'application \texttt{coloration\-Face} sur chacune de ses faces. %
+À chaque itération, l'application prend en paramètre une instance de face,
+c'est-à-dire un brin, obtenu dans la boucle. %
+L'instruction \texttt{return null} indique qu'aucun résultat d'application n'est
+retourné par le script. %
+
+
 
 \subsection{Extension de la spécification paramétrique}
 \label{reevaluation-scripts-iteration-extension-spec-param}
+
+
+
+De la même manière que nous ajoutons un bloc \texttt{Sequence} pour les
+séquences d'applications, nous ajoutons un bloc \texttt{For} lorsqu'un script en
+possède un. %
+Cependant, un bloc \texttt{For} dispose de deux paramètres topologiques. %
+L'un représente l'orbite principale et l'autre est une de ses sous-orbites. %
+Cette sous-orbite joue un rôle précis dans la distinction des sous-orbites
+itérées. %
+En effet, puisque l'ordre d'itération des sous-orbites n'est pas fiable, il peut
+être influencé modification de la topologique, c'est donc son nom persistant qui
+la discrimine parmi les autres sous-orbites. %
+De plus, si la sous-orbite n'est pas recréée, alors la boucle n'est pas
+réévaluée, ce qui permet \textit{in fine} d'éviter un mauvais appariement
+d'orbite. %
+Autrement, si, par exemple, l'orbite est scindée par une opération ajoutée,
+alors chacune des instances d'orbites issues de la scission est réévaluée avec
+cette boucle. %
+Si c'est une sous-orbite qui est scindée, la boucle est naturellement prolongée
+sur les instances de sous-orbites issues de la scission. %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
@@ -30,39 +66,59 @@ caption=Spécification paramétrique avec boucle,
 label=lst:reevaluation-scripts-boucle-spec-param-init]
 1-creationCarre()
 2-subdivisionQuad(PN%\textsubscript{0}%)
-3-S_colorationColonne(PN%\textsubscript{0}%)
-  For %\textlangle{}1,2,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(PN%\textsubscript{1}%)
+3-S_colorationSurface(PN%\textsubscript{0}%)
+  For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(PN%\textsubscript{0}%)
     1-colorationFace(PN%\textsubscript{0}%)
-    2-colorationFace(PN%\textsubscript{8}%)
-    3-colorationFace(PN%\textsubscript{16}%)
-    4-colorationFace(PN%\textsubscript{24}%)
-4-triangulationFace(PN%\textsubscript{16}%)
+    2-colorationFace(PN%\textsubscript{2}%)
+    3-colorationFace(PN%\textsubscript{4}%)
+    4-colorationFace(PN%\textsubscript{6}%)
+4-triangulationFace(PN%\textsubscript{3}%)
 \end{lstlisting}
 
-Comme pour les séquences d'opérations, nous proposons d'ajouter un bloc
-\texttt{For} pour lister les applications sur des sous-orbites dans un script. %
-À la différence d'un bloc \texttt{Sequence}, un bloc \texttt{For} possède un
-paramètre topologique pour l'orbite qui doit être itérée. %
-Cela garantit que si l'orbite est supprimée, alors la boucle ne peut pas être
-réévaluée. %
-Sinon, si l'orbite est scindée, alors chacune des orbites issues de la scission
-est réévaluée avec cette boucle. %
 
-Détaillons l'exemple de la spécification paramétrique
+Détaillons l'exemple de la spécification paramétrique dans la
 liste~\ref{lst:reevaluation-scripts-boucle-spec-param-init}. %
-Les deux premières applications sont les mêmes que dans la section précédente,
-c'est-à-dire qu'elles produisent un chemin extrudé à partir d'un brin. %
-L'application \texttt{3-\_dualToSkeleton} appelle la règle
-\texttt{vertex\-Dual\-To\-Face\-Square} sur tous les sommets d'une composante
-connexe, ici notre chemin extrudé qui possède quatre sommets. %
-En conséquence, dans la spécification, nous voyons un bloc \texttt{For} qui
-décrit quatre itérations de sommets (\(\orbit{1,2,3}\)) dans composante connexe
-(\(\orbit{0,1,2,3}\)) identifiée par le PN\textsubscript{2}. %
-Enfin, l'une de ces faces, celle identifiée par le PN\textsubscript{7}, est
-triangulée. %
+L'application \texttt{1\allowbreak{}-\allowbreak{}creation\-Carre} crée une face
+carrée. %
+Elle crée aussi les brins \(0\), \(2\), \(3\), \(4\) et \(6\) dont les
+historiques sont respectivement \([1n0]\), \([1n2]\), \([1n3]\), \([1n4]\) et
+\([1n6]\). %
+La face, désignée par \pndart{0}{1n0}, est ensuite subdivisée en une surface de
+carrés par l'application
+\texttt{2\allowbreak{}-\allowbreak{}subdivision\-Quad}. %
+L'application
+\texttt{3\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}coloration\-Surface}
+sur la surface désignée par le \pndart{0}{1n0}, déclenche l'enregistrement d'un
+bloc \texttt{For}. %
+Celui-ci contient quatre applications de l'opération \texttt{coloration\-Face},
+et plus particulièrement, une pour chaque face. %
+Celles-ci sont désignées par les PN\textsubscript{0}, PN\textsubscript{2},
+PN\textsubscript{4}, PN\textsubscript{6}. %
+Les historiques des brins \(0\), \(2\), \(3\), \(4\) et \(6\) deviennent
+\([1n0;2\{1n0\}]\), \([1n2;2\{2n0\}]\), \([1n3;2\{2n0\}]\), \([1n4;2\{3n0\}]\)
+et \([1n6;2\{4n0\}]\). %
+Enfin, à nouveau dans le bloc principal de la spécification paramétrique,
+l'opération \texttt{triangulation\-Face} est appliquée sur la face désignée par
+le \pndart{3}{1n3;2\{2n0\}}. %
 
-\subsection{Extension des DAGs}
+
+
+\subsection {DAGs}
 \label{sec:reevaluation-scripts-iteration-extension-dags}
+
+
+
+
+Encore une fois, nous reportons ces nouvelles informations dans le DAG
+d'évaluation. %
+Cependant, il y a maintenant deux blocs qui sont conditionnés par des paramètres
+topologiques, ce qui signifie de branches en plus de l'historique de l'orbite
+suivie. %
+Ainsi, en plus du bloc de script, conditionné par son paramètre topologique, Le
+bloc \texttt{For} est conditionné par deux paramètres topologiques. %
+L'un est l'orbite à parcourir, l'autre est une instance issue de l'itération. %
+Cette instance est, aussi, nécessairement le paramètre topologique de l'une des
+applications dans la boucle. %
 
 \begin{figure}[htb!]
   \centering
@@ -71,26 +127,34 @@ triangulée. %
   \label{fig:reevaluation-scripts-iteration-extension-dags-evaluation-pn12}
 \end{figure}
 
-En plus des orbites référencées par les scripts, afin de supporter les
-itérations sur les sous-orbites, il est désormais nécessaire de suivre d'autres
-orbites pour conditionner la réévaluation d'un script. %
-Plus précisément, il convient de tracer l'historique d'évolution de l'orbite
-passée en paramètre de la boucle ainsi que les historiques des sous-orbites
-itérées. %
-Dans chaque DAG illustrant l'historique d'une sous-orbite itérée, il y a
-à présent une branche qui trace l'historique du paramètre topologique du script,
-une branche qui trace l'historique de l'orbite passée en paramètre de la
-structure de contrôle et une branche qui trace l'historique pour une instance de
-sous-orbite. %
+Prenons, par exemple, le DAG du PN\textsubscript{3} illustré dans la
+figure~\ref{fig:reevaluation-scripts-iteration-extension-dags-evaluation-pn12}. %
+Ce DAG, représente l'évolution de l'orbite face (\(\orbit{0,1,3}\)) qui est
+scindée par l'application \texttt{3-triangulationFace}. %
+Nous pouvons observer l'ajout d'un bloc \texttt{For} contenant les applications
+qui ont eu un impact dans l'historique de la face triangulée. %
+Ce bloc est paramétré par deux orbites dont le suivi est effectué dans une
+troisième branche (au milieu). %
+L'une de ces orbites est la surface (\(orbit{0,1,2,3}\)) parcouru, l'autre est
+une instance parmi les sous-orbites d'itérations, c'est-à-dire une face
+(\(\orbit{0,1,3}\)). %
+Tout comme pour le bloc de script, les deux n\oe uds d'orbites de cette nouvelle
+branche conditionnent la réévaluation de la boucle et plus précisément d'une de
+ses itérations. %
+Ainsi les n\oe uds \orbitnode{\orbit{0,1,2,3}} et \orbitnode{\orbit{0,1,3}} sont
+liés par des flèches \textcolor{mydarkgreenink}{vertes} au même bloc
+\texttt{For}. %
+
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique avec boucle,
 label=lst:reevaluation-scripts-boucle-spec-param-edit]
 1-creationCarre()
+ADD 5-fusionretes(3)
 2-subdivisionQuad(PN%\textsubscript{0}%)
 3-S_colorationColonne(PN%\textsubscript{0}%)
-  For %\textlangle{}1,2,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(PN%\textsubscript{1}%)
+  For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(PN%\textsubscript{1}%)
     1-colorationFace(PN%\textsubscript{0}%)
     2-colorationFace(PN%\textsubscript{8}%)
     3-colorationFace(PN%\textsubscript{16}%)
@@ -104,6 +168,20 @@ label=lst:reevaluation-scripts-boucle-spec-param-edit]
   \caption{DAG de réévaluation du PN\textsubscript{12}}
   \label{fig:reevaluation-scripts-iteration-extension-dags-reevaluation-pn12}
 \end{figure}
+
+Étudions maintenant le DAG de réévaluation du PN\textsubscript{3}
+(figure~\ref{fig:reevaluation-scripts-iteration-extension-dags-reevaluation-pn12})
+étant donné l'édition de la spécification paramétrique présentée dans al
+liste~\ref{lst:reevaluation-scripts-boucle-spec-param-edit}. %
+Dans cette édition, nous ajoutons la règle \texttt{fusionAretes} qui fusionne
+deux arêtes en supprimant leur sommet commun. %
+Du point de vue du paramètre topologique du script, l'orbite est simplement modifiée. %
+Du point de vue des paramètres de la boucle, c'est aussi le cas, à l'exception
+de la sous-orbite d'itération pour laquelle nous enregistrons la suppression
+totale d'un sommet. %
+Étant donné que ce sommet est supprimé, cette itération ne peut être réévaluée. %
+En effet, la suppression du sommet empêche la création d'une face lors de l'application de \texttt{subdivisionQuad}. %
+Ainsi, cette face ne peut être ni colorée ni triangulée. %
 
 %%% Local Variables:
 %%% mode: LaTeX

@@ -4,7 +4,7 @@
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=\linewidth]{sequence-extrusion-colonne-faces}
+	\includegraphics[width=.8\linewidth]{sequence-extrusion-colonne-faces}
 	\caption{Rangée de faces}
 	\label{fig:reevaluation-scripts-sequence-illustration}
 \end{figure}
@@ -77,7 +77,7 @@ escapechar=\%,
 caption=Spécification paramétrique avec séquence,
 label=lst:reevaluation-scripts-sequence-spec-param-init]
 1-creationCarre()
-2-S_extrusionColonne(PN%\textsubscript{5}%)
+2-S_extrusionRuban(PN%\textsubscript{5}%)
   Sequence:
     1-extrusionAreteFace(PN%\textsubscript{5}%)
     2-extrusionAreteFace(PN%\textsubscript{15}%)
@@ -95,24 +95,25 @@ En conséquence, nous commençons par ajouter un bloc \texttt{Sequence} pour
 mettre en évidence une séquence d'applications issues d'un script. %
 Ensuite, nous amorçons une nouvelle séquence de numérotation dans chaque
 script. %
-Ainsi, les trois applications du script \texttt{S\_extrusionColonne} sont
+Ainsi, les trois applications du script \texttt{S\_extrusionRuban} sont
 respectivement numérotées \texttt{1}, \texttt{2} et \texttt{3}. %
 Enfin, puisque les paramètres topologiques sont accessibles, il est nécessaire
 d'étendre le schéma de nomination. %
-Ainsi, l'historique d'une orbite créée dans une application de script sera
-représenté selon le schéma suivant~: %
-\[[\mathit{S\{R~noeud\}}]\] où \(S\) est le numéro d'application d'un script et
-\(R\) le numéro d'application d'une règle dans un script. %
+Ainsi, l'historique d'une orbite dont l'évolution est impactée par une
+application de script sera représentée selon le schéma suivant~: %
+\[[\mathit{S\{R~noeud\}}]\] %
+où \(S\) est le numéro d'application d'un script et \(R\) le numéro
+d'application d'une règle dans un script. %
 Notons, que le motif \(\{R~noeud\}\) est répété tant que l'orbite évolue dans le
 script. %
 
-Détaillons la spécification de la
+Détaillons la spécification paramétrique dans la
 liste~\ref{lst:reevaluation-scripts-sequence-spec-param-init}. %
 L'application \texttt{1\allowbreak{}-\allowbreak{}creation\-Carre()} crée le
 brin \(5\). %
 L'historique de ce brin est \([1n5]\). %
 L'application \texttt{2\allowbreak{}\allowbreak{}-S\allowbreak{}%
-	\_\allowbreak{}extrusion\-Colonne(PN\textsubscript{5})} entraîne les
+  \_\allowbreak{}extrusion\-Ruban(PN\textsubscript{5})} entraîne les
 applications successives de trois règles d'extrusions à partir du brin \(5\). %
 Comme prévu, nous démarrons une nouvelle séquence de numérotation dans le
 script. %
@@ -123,11 +124,11 @@ crée une face à partir d'une arête (\(\orbit{0}\)) ainsi que les brins \(9\) 
 Les historiques de ces brins sont respectivement \([1n6;2\{1n2\}]\) et
 \([1n5;2\{1n4\}]\). %
 L'application \texttt{2\allowbreak{}-\allowbreak{}extrusion\-Arete\-Face(%
-	PN\textsubscript{15})} crée une nouvelle face ainsi que son brin \(23\). %
+  PN\textsubscript{15})} crée une nouvelle face ainsi que son brin \(23\). %
 L'historique de ce brin est \([1n5;2\{1n4;2n4\}]\). %
 La dernière application du script,
 \texttt{3\allowbreak{}-\allowbreak{}extrusion\-Arete\-Face(%
-	PN\textsubscript{23})} crée la quatrième et dernière face. %
+  PN\textsubscript{23})} crée la quatrième et dernière face. %
 Enfin, dans le bloc principal, la dernière application
 \texttt{3\allowbreak{}-\allowbreak{}coloration\-Face} colorie la face identifiée
 par le brin \(15\). %
@@ -172,7 +173,7 @@ Ce DAG représente l'évolution de l'orbite face qui est coloriée en
 \texttt{3\allowbreak{}-\allowbreak{}coloration\-Face}. %
 Nous pouvons observer les propriétés que nous venons de présenter. %
 Tout d'abord, une boîte de script englobe les applications qui appartient à
-l'application \texttt{2\allowbreak{}-\allowbreak{}S\_extrusion\-Colonne}. %
+l'application \texttt{2\allowbreak{}-\allowbreak{}S\_extrusion\-Ruban}. %
 Ensuite, le suivi du paramètre topologique du script est effectué dans une
 nouvelle branche. %
 L'orbite représentée par le n\oe ud \orbitnode{\orbit{0,1,3}} est lié au bloc de
@@ -185,7 +186,7 @@ escapechar=\%,
 caption=Spécification paramétrique avec séquence,
 label=lst:reevaluation-scripts-sequence-spec-param-edit]
 DELETE 1-creationCarre()
-2-extrusionColonne(PN%\textsubscript{5}%)
+2-extrusionRuban(PN%\textsubscript{5}%)
   Sequence:
     1-extrusionAreteFace(PN%\textsubscript{5}%)
     2-extrusionAreteFace(PN%\textsubscript{15}%)

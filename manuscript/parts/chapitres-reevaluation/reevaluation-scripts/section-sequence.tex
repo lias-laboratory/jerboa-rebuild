@@ -4,9 +4,9 @@
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[width=.8\linewidth]{sequence-extrusion-colonne-faces}
-	\caption{Rangée de faces}
-	\label{fig:reevaluation-scripts-sequence-illustration}
+	\includegraphics[width=.9\linewidth]{sequence-extrusion-colonne-faces}
+	\caption{Ruban}
+	\label{fig:reevaluation-scripts-sequence-illustration-script}
 \end{figure}
 
 La représentation boîte ouverte pour les scripts nous permet d'accéder à leurs
@@ -42,7 +42,7 @@ return face4;
 
 Prenons le script (liste~\ref{lst:reevaluation-scripts-sequence-exemple}) qui
 construit la rangée de faces illustrée dans la
-figure~\ref{fig:reevaluation-scripts-sequence-illustration}. %
+figure~\ref{fig:reevaluation-scripts-sequence-illustration-script}. %
 Ce script prend une face en entrée et contient trois appels de la règle
 \texttt{extrusionAreteFace}. %
 Chaque appel crée une nouvelle face dans l'objet par l'extrusion d'une arête %
@@ -66,6 +66,12 @@ Enfin, le troisième appel est exécuté de la même manière. %
 \label{sec:reevaluation-scripts-sequence-spec-param}
 
 
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.9\linewidth]{sequence-extrusion-colonne-faces-coloration}
+	\caption{Ruban avec coloration d'une face}
+	\label{fig:reevaluation-scripts-sequence-illustration-pn9}
+\end{figure}
 
 L'une des étapes pour réévaluer un script contenant une séquence de règles est
 d'enregistrer son contenu de manière transparente. %
@@ -108,7 +114,8 @@ Notons, que le motif \(\{R~noeud\}\) est répété tant que l'orbite évolue dan
 script. %
 
 Détaillons la spécification paramétrique dans la
-liste~\ref{lst:reevaluation-scripts-sequence-spec-param-init}. %
+liste~\ref{lst:reevaluation-scripts-sequence-spec-param-init} de l'objet
+illustré figure~\ref{fig:reevaluation-scripts-sequence-illustration-pn9}. %
 L'application \texttt{1\allowbreak{}-\allowbreak{}creation\-Carre()} crée le
 brin \(5\). %
 L'historique de ce brin est \([1n5]\). %
@@ -140,6 +147,7 @@ effectuer le suivi des orbites y compris au travers des scripts. %
 
 \subsection{DAGs}
 \label{sec:reevaluation-scripts-sequence-extension-dags}
+
 
 L'autre étape nécessaire au support des scripts et la mise à jour des DAGs
 d'évaluations et de réévaluations. %

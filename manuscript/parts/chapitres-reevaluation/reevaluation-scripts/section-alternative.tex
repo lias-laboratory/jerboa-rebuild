@@ -4,50 +4,361 @@
 
 
 
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{\linewidth}
+		\centering
+		\includegraphics[width=.8\textwidth]{alternative-part-then}
+		\caption{Triangulation d'un carré}
+		\label{fig:reevaluation-scripts-alternatives-exemple-part-then}
+	\end{subfigure}
+	\begin{subfigure}{\linewidth}
+		\centering
+		\includegraphics[width=.8\textwidth]{alternative-part-else}
+		\caption{Insertion de face dans un triangle}
+		\label{fig:reevaluation-scripts-alternatives-exemple-part-else}
+	\end{subfigure}
+	\caption{Alternative sur un nombre de sommets}
+	\label{fig:reevaluation-scripts-alternatives-exemple}
+\end{figure}
+
+Pour certaines opérations de modélisation géométrique, le comportement doit
+pouvoir s'adapter aux changements, qu'ils soient géométriques ou topologiques,
+d'une entité topologique. %
+Cela se traduit par l'utilisation d'une structure d'alternative
+\texttt{if\allowbreak{}-\allowbreak{}then\allowbreak{}-\allowbreak{}else} qui
+permet alors d'appliquer une séquence d'opérations ou une autre selon
+l'évaluation d'une condition. %
+Ainsi, la troisième et dernière structure de contrôle que nous présentons dans
+ce chapitre est l'alternative. %
+
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
 caption=Script avec alternative,
 label=lst:reevaluation-scripts-alternative-exemple
 ]
-int nbVerts = <0,1,3>_<1,3>(face#0).size();
-if(nbVerts == 4)
+int nbSommets = <0,1,3>_<1,3>(face#0).size();
+JerboaRuleResult res = null;
+if(nbSommets == 4)
 {
-    @rule<TriangulateFace>(face);
+    res = @rule<triangulationFace>(face);
 }
 else
 {
-    @rule<PierceFaceAndCover>(face);
+    res = @rule<insertionFace>(face);
 }
-return null;
+return res;
 \end{lstlisting}
 
-La dernière structure de contrôle que nous présentons est l'alternative qui
-permet de moduler le comportement d'un script avec différentes opérations selon
-un critère défini par le développeur du script. %
-Cette structure implique aussi une extension de la spécification paramétrique et
-des DAGs. %
-Cependant, son support nécessite une nouvelle fonctionnalité qui est
-l'appariement d'orbites entre deux règles qui peuvent être très différentes. %
+Prenons le script liste~\ref{lst:reevaluation-scripts-alternative-exemple} qui
+triangule une face si elle est carrée ou y insère une autre face, isomorphe,
+sinon. %
+Ce script prend en entrée une face (\(\orbit{0,1,3}\)) dont nous comptons le
+nombre de sommets. %
+Si \texttt{face} possède quatre sommets, alors le script appelle la règle
+\texttt{triangulationFace}, sinon elle appelle \texttt{insertionFace}. %
+
+Comme pour les autres structures, l'alternative implique un certain nombre de
+changements pour les spécifications paramétriques et les DAGs. %
+Toutefois, elle implique aussi la mise en \oe uvre d'une procédure
+supplémentaire. %
+En effet, dans une alternative, deux fonctions appelées peuvent provoquer des
+évènements très différents dans une orbite. %
+Dans notre approche, nous devons considérer que l'utilisateur, lors de la
+conception de son modèle paramétrique exprime des intentions de modélisations
+précises. %
+Ainsi, nous proposons une procédure qui fait l'appariement d'une orbite entre
+deux règles comprises dans une alternative afin de respecter son intention. %
+
+
 
 \subsection{Appariement entre deux règles}
 \label{sec:reevaluation-scripts-alternative-appariement}
 
+
+
 \begin{figure}[htb!]
-  \centering
-  \begin{subfigure}{1.0\linewidth}
-  \includegraphics[height=60pt]{rule-face-triangulation-match-box-alternative}
-  \caption{Règle de triangulation}
-  \label{fig:reevaluation-scripts-alternative-appariement-orbite-tri}
-  \end{subfigure}
-  \begin{subfigure}{1.0\linewidth}
-  \includegraphics[height=60pt]{rule-insert-square-in-face-match-box-alternative}
-  \caption{Règle d'insertion de face carrée}
-  \label{fig:reevaluation-scripts-alternative-appariement-orbite-insert}
-  \end{subfigure}
-  \caption{Appariement d'orbite entre deux règles}
-  \label{fig:reevaluation-scripts-alternative-appariement-orbite}
+	\centering
+	\begin{subfigure}{1.0\linewidth}
+		\centering
+		\includegraphics[height=70pt]{rule-face-triangulation-match-box-alternative}
+		\caption{Règle de triangulation}
+		\label{fig:reevaluation-scripts-alternative-appariement-orbite-tri}
+	\end{subfigure}
+	\begin{subfigure}{1.0\linewidth}
+		\centering
+		\includegraphics[height=65pt]{rule-insert-square-in-face-match-box-alternative}
+		\caption{Règle d'insertion de face}
+		\label{fig:reevaluation-scripts-alternative-appariement-orbite-insert}
+	\end{subfigure}
+	\caption{Règles alternatives du script (liste~\ref{lst:reevaluation-scripts-alternative-exemple})}
+	\label{fig:reevaluation-scripts-alternative-appariement-orbite}
 \end{figure}
+
+L'appariement d'orbites entre deux règles est une procédure particulière
+puisqu'elle propose d'appairer des orbites qui peuvent évoluer de manières très
+différentes. %
+À ce titre, nous proposons de définir des classes d'évènements. %
+\begin{description}
+	\item[GENERATION] qui contient l'évènement \texttt{CREATION}~;
+	\item[DESTRUCTION] qui contient l'évènement \texttt{DELETION}~;
+	\item[MODIFICATION] qui contient les évènements de \texttt{SPLIT}, de
+	      \texttt{MERGE}, de \texttt{NOMODIF}, de
+	      \texttt{MO\-DI\-FI\-CA\-T\-I\-ON} ainsi que \texttt{NOEFFECT}.
+\end{description}
+Cette classification des évènements n'est, en soi, pas nouvelle . %
+En effet, la scission et la fusion sont deux cas particuliers de la modification
+d'une orbite. %
+\maxime{D'ailleurs, OCAF\todo{ref}, définit des classes d'évènements proches de
+	ceux-ci : PRIMITIVE qui concerne la création \textit{ex nihilo}, GENERATED qui
+	concerne la création à partir d'une autre entité (extrusion, copie), MODIFY
+	qui concerne la modification au sens large d'une entité déjà existante, DELETE
+	qui concerne la suppression d'une entité et SELECTED qui concerne simplement
+	les entités filtrées qui n'évoluent pas (équivalent à notre NOMODIF).} %
+Étant donné les différences qui peuvent exister entre deux règles, cette
+classification nous permet de regrouper ensemble des orbites que nous pourrions
+souhaiter appairer et ainsi évaluer un plus grand nombre d'appariements
+potentiels. %
+
+Les opérations de notre script
+(liste~\ref{lst:reevaluation-scripts-alternative-exemple}), sont illustrées dans
+les figures~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri} et
+\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}. %
+Imaginons que lors de l'évaluation initiale la face passée en entrée du script
+était un carré. %
+C'est alors la règle de triangulation qui est appliquée par le script. %
+
+
+
+\subsubsection{Appariement d'un sommet créé}
+\label{sec:reevaluation-scripts-alternative-appariement-creation-sommet}
+
+Dans ce contexte, étudions deux exemples d'évènements provoqués par cette règle,
+à savoir la création d'un sommet et la scission d'une face. %
+Commençons avec la création d'un sommet. %
+
+\paragraph{Types de suivi et d'origine et classe d'évènement}
+
+
+La première étape pour effectuer l'appariement est de récupérer l'évènement et
+l'origine de l'orbite que l'on souhaite étudier. %
+Dans le cas présent, nous étudions le sommet \(\orbit{1,2,3}(n_{2})\) de la
+règle de triangulation. %
+L'analyse de la règle
+(figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri})
+montre que ce sommet (encadré en \textcolor{orange}{orange}) est créé, son
+évènement appartient donc à la classe d'évènement \texttt{GENERATION}. %
+L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
+(surligné en \textcolor{orange}{orange}). %
+
+
+\paragraph{Appariement des n\oe uds d'accroches}
+
+
+\begin{table}[htb!]
+	\centering
+	\caption{Tableau de filtrage de la règle de triangulation sur une face carrée}
+	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-triangulation}
+	\begin{tabular}{|c||c|c|c|}
+		\bottomrule
+		{\color{mydarkgreenink}\(\mathbf{n_{0}}\)} & \(n_{0}\) & \(n_{1}\) & \(n_{2}\) \\
+		\toprule %
+		\bottomrule%
+		\(0\)                                      & \(0\)     & \(8\)     & \(9\)     \\
+		\(1\)                                      & \(1\)     & \(10\)    & \(11\)    \\
+		\(2\)                                      & \(2\)     & \(12\)    & \(13\)    \\
+		\(3\)                                      & \(3\)     & \(14\)    & \(15\)    \\
+		\(4\)                                      & \(4\)     & \(16\)    & \(17\)    \\
+		\(5\)                                      & \(5\)     & \(18\)    & \(19\)    \\
+		\(6\)                                      & \(6\)     & \(20\)    & \(21\)    \\
+		\(7\)                                      & \(7\)     & \(22\)    & \(23\)    \\
+		\toprule%
+	\end{tabular}
+
+
+	\caption{Tableau de filtrage de la règle d'insertion de face sur une face triangulaire}
+	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face}
+	\begin{tabular}{|c||c|c|c|c|c|}
+		\bottomrule
+		{\color{mydarkgreenink}\(\mathbf{n_{0}}\)} & \(n_{0}\) & \(n_{1}\) & \(n_{2}\)                     & \(n_{3}\)                     & \(n_{4}\)                     \\
+		\toprule %
+		\bottomrule%
+		 \textcolor{red}{\(0\)}                     & \(0\)     & \(6\)     & \textcolor{red}{\(7\)}        & \textcolor{red}{\(8\)}        & \textcolor{red}{\(9\)}        \\
+		 \textcolor{red}{\(1\)}                     & \(1\)     & \(10\)    & \textcolor{red}{\(11\)}       & \textcolor{red}{\(12\)}       & \textcolor{red}{\(13\)}       \\
+		 \textcolor{myblueink}{\(2\)}               & \(2\)     & \(14\)    & \textcolor{myblueink}{\(15\)} & \textcolor{myblueink}{\(16\)} & \textcolor{myblueink}{\(17\)} \\
+		 \textcolor{myblueink}{\(3\)}               & \(3\)     & \(18\)    & \textcolor{myblueink}{\(19\)} & \textcolor{myblueink}{\(20\)} & \textcolor{myblueink}{\(20\)} \\
+		 \textcolor{orange}{\(4\)}                  & \(4\)     & \(21\)    & \textcolor{orange}{\(21\)}    & \textcolor{orange}{\(22\)}    & \textcolor{orange}{\(23\)}    \\
+		 \textcolor{orange}{\(5\)}                  & \(24\)    & \(25\)    & \textcolor{orange}{\(26\)}    & \textcolor{orange}{\(27\)}    & \textcolor{orange}{\(28\)}    \\
+		\toprule%
+	\end{tabular}
+\end{table}
+
+La deuxième étape est l'appariement des motifs gauches des deux règles. %
+Dans la conception d'un modèle paramétrique, la sélection de l'orbite, et dans
+notre cas d'un brin, caractérise un processus de conception. %
+En effet, la sélection d'un brin plutôt qu'un autre peut dans une orbite peut
+avoir divers effets sur la géométrie ainsi que la topologie. %
+Plus généralement, un brin indique un bord particulier dans une orbite, par
+exemple une extrémité d'arête, un côté de sommet scindé, etc. %
+Il s'agit d'une intention de modélisation que le système de réévaluation doit
+respecter. %
+Un cas typique est celui où un n\oe ud d'accroche ne filtre que partiellement
+l'orbite transformée. \maxime{Je pense à l'exemple de l'opération qui coupe une
+  face en deux (et son autre version qui supprime l'une des deux moitiés) mais
+  je ne sais pas comment l'exprimer. En tout cas, je pense que ce sera un
+  exemple en annexe.} %
+Cette étape est importante pour ne pas proposer un appariement erroné lors de la
+réévaluation. %
+
+Pour faire cet appariement, regardons d'abord les n\oe uds d'accroches des deux
+règles. %
+Ils filtrent, tous les deux, une orbite face (\(\orbit{0,1,3}\)) dans sa
+totalité. %
+Ainsi, nous pouvons appairer sans difficulté les brins du n\oe ud \(n_{0}\) de
+\texttt{triangulation\-Face} avec ceux du n\oe ud \(n_{0}\) de
+\texttt{insertion\-Face}. %
+
+
+La première colonne {\color{mydarkgreenink}\(\mathbf{n_{0}}\)} (en
+\textcolor{mydarkgreenink}{\textbf{vert}}) des
+tableaux~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-triangulation}
+et
+\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face}
+montrent les filtrages gauches et droites des deux règles lorsqu'elles sont
+appliquées sur le brin \(0\). %
+Un brin d'accroche est toujours à la position \texttt{0} dans la colonne de
+filtrage d'un n\oe ud d'accroche. %
+La lecture de ces tableaux montre qu'il est possible d'associer les brins \(0\)
+à \(5\) de la face carrée avec les brins \(0\) à \(5\) de la face
+triangulaire. %
+Cela n'est pas possible pour les brins \(6\) et \(7\) puisque \(n_{0}\) ne
+filtre pas de tels brins dans le triangle. %
+
+
+
+\paragraph{Appariement des orbites}
+
+
+
+La troisième étape est l'identification des orbites éligibles pour
+l'appariement. %
+Pour cela, nous cherchons dans le membre droit d'\texttt{insertion\-Face} les
+orbites de type sommet (\(\orbit{1,2,3}\)) qui partagent la même classe
+d'équivalence. %
+Dans notre exemple, nous ne trouvons qu'une seule orbite sommet créée dans la
+règle \texttt{insertion\-Face}, c'est l'orbite \(R\orbit{1,2,3}(n_{2})\)
+(encadrée en \textcolor{orange}{orange} dans la
+figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
+
+Toutefois, l'origine de cette orbite n'est pas identique à celle du sommet créé
+par la règle \texttt{triangulation\-Face}. %
+En effet, l'orbite \(R\orbit{1,2,3}(n_{2})\) de \texttt{insertion\-Face} a pour
+origine une orbite de type \(\orbit{1,3}\), c'est-à-dire une sous-orbite de
+\(\orbit{0,1,3}\). %
+Nous proposons alors deux stratégies d'appariement basées sur les types
+d'origines. %
+La première consiste à rechercher un appariement exact et, dans ce cas, les deux
+types d'origines doivent être identiques. %
+La seconde consiste en un appariement moins strict avec des sur ou
+sous-orbites. %
+Pour cette deuxième stratégie, il faut considérer que l'appariement entre une
+orbite et une sous-orbite n'est pas \texttt{1:1}. %
+En effet, une sous-orbite dans une règle peut filtrer plusieurs orbites dans un
+objet. %
+Dans notre exemple, il n'existe pas d'appariement exact. %
+Nous poursuivons donc avec un appariement moins strict, c'est-à-dire
+l'appariement d'un sommet de type \(\orbit{1,2,3}\) avec un plusieurs sommets de
+type \(\orbit{1,3}\). %
+
+
+
+\paragraph{Sélection des instances d'une orbite d'appariement}
+
+
+
+Enfin, la dernière étape consiste à identifier les brins qui composent les
+orbites d'appariement dans la deuxième règle. %
+Notre face est un triangle, nous recherchons alors trois \(\orbit{1,3}\)-orbites
+à l'origine des \(\orbit{1,2,3}\)-orbites créées par \texttt{insertion\-Face}. %
+À l'aide du type d'origine \(\orbit{1,3}\) et d'au moins un des n\oe uds du
+motif droit, nous pouvons retrouver un représentant, c'est-à-dire un brin, par
+orbite. %
+
+D'abord, nous identifions, dans le
+tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face},
+trois couples de brins, filtrés par
+\textcolor{mydarkgreenink}{\(\mathbf{n_{0}}\)}, qui sont les
+\(\orbit{1,3}\)-orbites d'origines. %
+Ces couples sont colorés respectivement en \textcolor{red}{rouge},
+\textcolor{myblueink}{bleu} et \textcolor{orange}{orange}. %
+Ensuite, nous savons que dans la règle trois n\oe ud composent l'orbite sommet
+qui est créée. %
+Ce n\oe ud nous indique dans quelle colonne du tableau trouver un représentant
+de l'orbite créée. %
+
+Ainsi, nous récupérer un brin par orbite d'appariement à l'aide d'un couple
+\((\mathit{brin},\mathit{noeud})\) et les utiliser comme paramètres topologiques
+lors de la réévaluation. %
+Nous obtenons donc les couples \((0, n_{2})\), \((2, n_{2})\) et \((4, n_{2})\). %
+
+Enfin, lorsque l'utilisateur accepte un appariement d'orbites moins strict, il
+est possible de le laisser choisir lesquelles il souhaite utiliser. %
+Cette approche est similaire à la stratégie présentée dans le chapitre précédent
+lorsqu'une opération ajoutée provoque la scission d'une orbite. %
+
+\subsubsection{Appariement d'une face scindée}
+\label{sec:reevaluation-scripts-alternative-appariement-scission-face}
+
+
+Passons maintenant à l'exemple suivant. %
+Nous gardons les mêmes règles et les mêmes objets, mais cette fois nous étudions
+l'appariement des faces scindées. %
+
+
+\paragraph{Types de suivi et d'origine et classe d'évènement}
+
+Pour la première étape, nous analysons à nouveau la règle
+\texttt{triangulation\-Face}. %
+Nous trouvons que l'orbite \(L\orbit{0,1,3}(n_{0})\) (encadrée en
+\textcolor{myblueink}{bleu} dans la figure
+\ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri}). %
+Cette orbite est scindée et est donc associée à l'évènement \texttt{SPLIT} qui
+appartient à la classe d'évènements \texttt{MODIFICATION}. %
+Enfin, elle a pour origine une \(\orbit{0,3}\)-orbite (soulignée en
+\textcolor{myblueink}{bleu}). %
+
+\paragraph{Appariement des n\oe uds d'accroches}
+
+
+Les règles et les faces n'ayant pas changé par rapport à l'exemple précédent,
+les n\oe uds d'accroches filtrent toujours entièrement une
+\(\orbit{0,1,3}\)-orbite. %
+De même, la mise en correspondance des n\oe uds et de leurs brins reste la
+même. %
+
+
+\paragraph{Appariement des orbites}
+
+L'analyse de la règle \texttt{insertion\-Face} montre ici aussi qu'il n'y a
+qu'une seule orbite éligible pour l'appariement. %
+Il s'agit de l'orbite \(R\orbit{0,1,3}\) (encadrée en
+\textcolor{myblueink}{bleu} dans la
+figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
+Elle est aussi scindée. %
+Cette fois, elle a pour origine une \(\orbit{0,3}\)-orbite. %
+Il est donc possible de procéder à un appariement exact entre les deux règles. %
+
+\paragraph{Sélection des instances d'une orbite d'appariement}
+
+L'appariement étant exact, nous pouvons rechercher les brins qui composent
+chacune des faces scindées. %
+Dans le
+tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face},
+nous pouvons identifier trois \(\orbit{0,3}\)-orbites qui sont respectivement
+composés des brins \((0, 5)\), \((1, 2)\) et \((3, 4)\). %
+Ainsi, les couples \((0, n_{0})\), \((1, n_{0})\) et \((3, n_{0})\) permettent
+d'identifier chaque des faces scindées par la règle \texttt{insertion\-Face}. %
 
 \subsection{Spécification paramétrique et DAGs}
 \label{sec:reevaluation-scripts-alternative-extension-spec-dags}
@@ -55,8 +366,7 @@ l'appariement d'orbites entre deux règles qui peuvent être très différentes.
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique avec alternative,
-label=lst:reevaluation-scripts-alternative-spec-param-init]
-1-creationCarre()
+label=lst:reevaluation-scripts-alternative-spec-param-init] 1-creationCarre()
 2-extrusionSommet(pn0)
 3-S_insertionCarreOuTriangulationFace(pn1)
   Alternative - Then:

@@ -8,13 +8,13 @@
 	\centering
 	\begin{subfigure}{\linewidth}
 		\centering
-		\includegraphics[width=.8\textwidth]{alternative-part-then}
+		\includegraphics[width=.7\textwidth]{alternative-part-then}
 		\caption{Triangulation d'un carré}
 		\label{fig:reevaluation-scripts-alternatives-exemple-part-then}
 	\end{subfigure}
 	\begin{subfigure}{\linewidth}
 		\centering
-		\includegraphics[width=.8\textwidth]{alternative-part-else}
+		\includegraphics[width=.7\textwidth]{alternative-part-else}
 		\caption{Insertion de face dans un triangle}
 		\label{fig:reevaluation-scripts-alternatives-exemple-part-else}
 	\end{subfigure}
@@ -99,18 +99,20 @@ deux règles comprises dans une alternative afin de respecter son intention. %
 L'appariement d'orbites entre deux règles est une procédure particulière
 puisqu'elle propose d'appairer des orbites qui peuvent évoluer de manières très
 différentes. %
-À ce titre, nous proposons de définir des classes d'évènements. %
+À ce titre, nous proposons de définir des catégories d'évènements. %
 \begin{description}
-	\item[GENERATION] qui contient l'évènement \texttt{CREATION}~;
-	\item[DESTRUCTION] qui contient l'évènement \texttt{DELETION}~;
-	\item[MODIFICATION] qui contient les évènements de \texttt{SPLIT}, de
-	      \texttt{MERGE}, de \texttt{NOMODIF}, de
-	      \texttt{MO\-DI\-FI\-CA\-T\-I\-ON} ainsi que \texttt{NOEFFECT}.
+	\item[{\fontfamily{lmtt}\selectfont{}GENERATION}~:] qui comprend l'évènement \texttt{CREATION}~;
+	\item[{\fontfamily{lmtt}\selectfont{}DESTRUCTION}~:] qui comprend l'évènement
+	      \texttt{DELETION}~;
+	\item[{\fontfamily{lmtt}\selectfont{}MODIFICATION}~:] qui comprend les
+	      évènements de modification de la topologie au sens large, à savoir
+	      \texttt{SPLIT}, \texttt{MERGE}, \texttt{NOMODIF},
+	      \texttt{MO\-DI\-FI\-CA\-T\-I\-ON} et \texttt{NOEFFECT}.
 \end{description}
 Cette classification des évènements n'est, en soi, pas nouvelle . %
 En effet, la scission et la fusion sont deux cas particuliers de la modification
 d'une orbite. %
-\maxime{D'ailleurs, OCAF\todo{ref}, définit des classes d'évènements proches de
+\maxime{D'ailleurs, OCAF\todo{ref}, définit des catégories d'évènements proches de
 	ceux-ci : PRIMITIVE qui concerne la création \textit{ex nihilo}, GENERATED qui
 	concerne la création à partir d'une autre entité (extrusion, copie), MODIFY
 	qui concerne la modification au sens large d'une entité déjà existante, DELETE
@@ -138,7 +140,7 @@ Dans ce contexte, étudions deux exemples d'évènements provoqués par cette r�
 à savoir la création d'un sommet et la scission d'une face. %
 Commençons avec la création d'un sommet. %
 
-\paragraph{Types de suivi et d'origine et classe d'évènement}
+\paragraph{Types de suivi et d'origine et catégorie d'évènement}
 
 
 La première étape pour effectuer l'appariement est de récupérer l'évènement et
@@ -148,7 +150,7 @@ règle de triangulation. %
 L'analyse de la règle
 (figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri})
 montre que ce sommet (encadré en \textcolor{orange}{orange}) est créé, son
-évènement appartient donc à la classe d'évènement \texttt{GENERATION}. %
+évènement appartient donc à la catégorie d'évènement \texttt{GENERATION}. %
 L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
 (surligné en \textcolor{orange}{orange}). %
 
@@ -157,41 +159,49 @@ L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
 
 
 \begin{table}[htb!]
+	% \setlength{\belowrulesep}{.65ex}
 	\centering
-	\caption{Tableau de filtrage de la règle de triangulation sur une face carrée}
+	\caption{Tableaux de filtrage des sommets créés}
 	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-triangulation}
-	\begin{tabular}{|c||c|c|c|}
-		\bottomrule
-		{\color{mydarkgreenink}\(\mathbf{n_{0}}\)} & \(n_{0}\) & \(n_{1}\) & \(n_{2}\) \\
-		\toprule %
-		\bottomrule%
-		\(0\)                                      & \(0\)     & \(8\)     & \(9\)     \\
-		\(1\)                                      & \(1\)     & \(10\)    & \(11\)    \\
-		\(2\)                                      & \(2\)     & \(12\)    & \(13\)    \\
-		\(3\)                                      & \(3\)     & \(14\)    & \(15\)    \\
-		\(4\)                                      & \(4\)     & \(16\)    & \(17\)    \\
-		\(5\)                                      & \(5\)     & \(18\)    & \(19\)    \\
-		\(6\)                                      & \(6\)     & \(20\)    & \(21\)    \\
-		\(7\)                                      & \(7\)     & \(22\)    & \(23\)    \\
-		\toprule%
-	\end{tabular}
+	\begin{subtable}[t]{.49\linewidth}
+		\caption{\raggedright Triangulation}
+		\begin{tabular}{|c||c|c|c|l@{\,}}
+			\cline{1-4}%
+			\(\mathbf{n_{0}}\) & \(n_{0}\) & \(n_{1}\) & \(n_{2}\)                        &                                                   \\
+			\cline{1-4}%
+			\addlinespace[2pt]%
+			\cline{1-4}%
+			\(0\)              & {\(0\)}   & {\(8\)}   & \textcolor{mydarkorange}{\(9\)}  & \rdelim\}{8}{*}[\hspace{2pt}\(\orbit{1,2,3}(0)\)] \\
+			\(1\)              & {\(1\)}   & {\(10\)}  & \textcolor{mydarkorange}{\(11\)} &                                                   \\
+			\(2\)              & {\(2\)}   & {\(12\)}  & \textcolor{mydarkorange}{\(13\)} &                                                   \\
+			\(3\)              & {\(3\)}   & {\(14\)}  & \textcolor{mydarkorange}{\(15\)} &                                                   \\
+			\(4\)              & {\(4\)}   & {\(16\)}  & \textcolor{mydarkorange}{\(17\)} &                                                   \\
+			\(5\)              & {\(5\)}   & {\(18\)}  & \textcolor{mydarkorange}{\(19\)} &                                                   \\
+			\(6\)              & {\(6\)}   & {\(20\)}  & \textcolor{mydarkorange}{\(21\)} &                                                   \\
+			\(7\)              & {\(7\)}   & {\(22\)}  & \textcolor{mydarkorange}{\(23\)} &                                                   \\
+			\cline{1-4}%
+		\end{tabular}
+	\end{subtable}
+	\begin{subtable}[t]{.49\linewidth}
+		\caption{\raggedright Insertion de face}
+		\begin{tabular}{|c||c|c|c|c|c|l@{}}
+			\cline{1-6}%
+			\(\mathbf{n_{0}}\) & \(n_{0}\) & \(n_{1}\) & \(n_{2}\)                        & \(n_{3}\)                        & \(n_{4}\)                        &                                                   \\
+			\cline{1-6}%
+			\addlinespace[2pt]
+			\cline{1-6}%
+			\(0\)              & \(0\)     & \(6\)     & \textcolor{mydarkorange}{\(7\)}  & \textcolor{mydarkorange}{\(8\)}  & \textcolor{mydarkorange}{\(9\)}  & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{1,2,3}(0)\)] \\
+			\(1\)              & \(1\)     & \(10\)    & \textcolor{mydarkorange}{\(11\)} & \textcolor{mydarkorange}{\(12\)} & \textcolor{mydarkorange}{\(13\)} &                                                   \\
+			\(2\)              & \(2\)     & \(14\)    & \textcolor{mydarkorange}{\(15\)} & \textcolor{mydarkorange}{\(16\)} & \textcolor{mydarkorange}{\(17\)} & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{1,2,3}(2)\)] \\
+			\(3\)              & \(3\)     & \(18\)    & \textcolor{mydarkorange}{\(19\)} & \textcolor{mydarkorange}{\(20\)} & \textcolor{mydarkorange}{\(20\)} &                                                   \\
+			\(4\)              & \(4\)     & \(21\)    & \textcolor{mydarkorange}{\(21\)} & \textcolor{mydarkorange}{\(22\)} & \textcolor{mydarkorange}{\(23\)} & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{1,2,3}(4)\)] \\
+			\(5\)              & \(24\)    & \(25\)    & \textcolor{mydarkorange}{\(26\)} & \textcolor{mydarkorange}{\(27\)} & \textcolor{mydarkorange}{\(28\)} &                                                   \\
+			\cline{1-6}%
+		\end{tabular}
+	\end{subtable}
+	\hfill
 
 
-	\caption{Tableau de filtrage de la règle d'insertion de face sur une face triangulaire}
-	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face}
-	\begin{tabular}{|c||c|c|c|c|c|}
-		\bottomrule
-		{\color{mydarkgreenink}\(\mathbf{n_{0}}\)} & \(n_{0}\) & \(n_{1}\) & \(n_{2}\)                     & \(n_{3}\)                     & \(n_{4}\)                     \\
-		\toprule %
-		\bottomrule%
-		 \textcolor{red}{\(0\)}                     & \(0\)     & \(6\)     & \textcolor{red}{\(7\)}        & \textcolor{red}{\(8\)}        & \textcolor{red}{\(9\)}        \\
-		 \textcolor{red}{\(1\)}                     & \(1\)     & \(10\)    & \textcolor{red}{\(11\)}       & \textcolor{red}{\(12\)}       & \textcolor{red}{\(13\)}       \\
-		 \textcolor{myblueink}{\(2\)}               & \(2\)     & \(14\)    & \textcolor{myblueink}{\(15\)} & \textcolor{myblueink}{\(16\)} & \textcolor{myblueink}{\(17\)} \\
-		 \textcolor{myblueink}{\(3\)}               & \(3\)     & \(18\)    & \textcolor{myblueink}{\(19\)} & \textcolor{myblueink}{\(20\)} & \textcolor{myblueink}{\(20\)} \\
-		 \textcolor{orange}{\(4\)}                  & \(4\)     & \(21\)    & \textcolor{orange}{\(21\)}    & \textcolor{orange}{\(22\)}    & \textcolor{orange}{\(23\)}    \\
-		 \textcolor{orange}{\(5\)}                  & \(24\)    & \(25\)    & \textcolor{orange}{\(26\)}    & \textcolor{orange}{\(27\)}    & \textcolor{orange}{\(28\)}    \\
-		\toprule%
-	\end{tabular}
 \end{table}
 
 La deuxième étape est l'appariement des motifs gauches des deux règles. %
@@ -205,9 +215,9 @@ Il s'agit d'une intention de modélisation que le système de réévaluation doi
 respecter. %
 Un cas typique est celui où un n\oe ud d'accroche ne filtre que partiellement
 l'orbite transformée. \maxime{Je pense à l'exemple de l'opération qui coupe une
-  face en deux (et son autre version qui supprime l'une des deux moitiés) mais
-  je ne sais pas comment l'exprimer. En tout cas, je pense que ce sera un
-  exemple en annexe.} %
+	face en deux (et son autre version qui supprime l'une des deux moitiés) mais
+	je ne sais pas comment l'exprimer. En tout cas, je pense que ce sera un
+	exemple en annexe.} %
 Cette étape est importante pour ne pas proposer un appariement erroné lors de la
 réévaluation. %
 
@@ -220,8 +230,7 @@ Ainsi, nous pouvons appairer sans difficulté les brins du n\oe ud \(n_{0}\) de
 \texttt{insertion\-Face}. %
 
 
-La première colonne {\color{mydarkgreenink}\(\mathbf{n_{0}}\)} (en
-\textcolor{mydarkgreenink}{\textbf{vert}}) des
+La première colonne \(\mathbf{n_{0}}\)  des
 tableaux~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-triangulation}
 et
 \ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face}
@@ -244,11 +253,11 @@ filtre pas de tels brins dans le triangle. %
 La troisième étape est l'identification des orbites éligibles pour
 l'appariement. %
 Pour cela, nous cherchons dans le membre droit d'\texttt{insertion\-Face} les
-orbites de type sommet (\(\orbit{1,2,3}\)) qui partagent la même classe
+orbites de type sommet (\(\orbit{1,2,3}\)) qui partagent la même catégorie
 d'équivalence. %
 Dans notre exemple, nous ne trouvons qu'une seule orbite sommet créée dans la
 règle \texttt{insertion\-Face}, c'est l'orbite \(R\orbit{1,2,3}(n_{2})\)
-(encadrée en \textcolor{orange}{orange} dans la
+(encadrée en \textcolor{mydarkorange}{orange} dans la
 figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
 
 Toutefois, l'origine de cette orbite n'est pas identique à celle du sommet créé
@@ -288,10 +297,10 @@ orbite. %
 D'abord, nous identifions, dans le
 tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face},
 trois couples de brins, filtrés par
-\textcolor{mydarkgreenink}{\(\mathbf{n_{0}}\)}, qui sont les
+\textcolor{mydarkpurpleink}{\(\mathbf{n_{0}}\)}, qui sont les
 \(\orbit{1,3}\)-orbites d'origines. %
 Ces couples sont colorés respectivement en \textcolor{red}{rouge},
-\textcolor{myblueink}{bleu} et \textcolor{orange}{orange}. %
+\textcolor{myblueink}{bleu} et \textcolor{mydarkorange}{orange}. %
 Ensuite, nous savons que dans la règle trois n\oe ud composent l'orbite sommet
 qui est créée. %
 Ce n\oe ud nous indique dans quelle colonne du tableau trouver un représentant
@@ -316,7 +325,7 @@ Nous gardons les mêmes règles et les mêmes objets, mais cette fois nous étud
 l'appariement des faces scindées. %
 
 
-\paragraph{Types de suivi et d'origine et classe d'évènement}
+\paragraph{Types de suivi et d'origine et catégorie d'évènement}
 
 Pour la première étape, nous analysons à nouveau la règle
 \texttt{triangulation\-Face}. %
@@ -324,12 +333,57 @@ Nous trouvons que l'orbite \(L\orbit{0,1,3}(n_{0})\) (encadrée en
 \textcolor{myblueink}{bleu} dans la figure
 \ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri}). %
 Cette orbite est scindée et est donc associée à l'évènement \texttt{SPLIT} qui
-appartient à la classe d'évènements \texttt{MODIFICATION}. %
+appartient à la catégorie d'évènements \texttt{MODIFICATION}. %
 Enfin, elle a pour origine une \(\orbit{0,3}\)-orbite (soulignée en
 \textcolor{myblueink}{bleu}). %
 
 \paragraph{Appariement des n\oe uds d'accroches}
 
+\begin{table}[htb!]
+	\centering
+	\caption{Tableaux de filtrage des faces scindées}
+	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face}
+	\begin{subtable}{.49\linewidth}
+		\caption{\raggedright Triangulation}
+		\begin{tabular}{|c||c|c|c|l@{\,}}
+			\cline{1-4}%
+			\(\mathbf{n_{0}}\) & \(n_{0}\)                    & \(n_{1}\)                     & \(n_{2}\)                     &                                                   \\
+			\cline{1-4}%
+			\addlinespace[2pt]%
+			\cline{1-4}%
+			\(0\)              & \textcolor{myblueink}{\(0\)} & \textcolor{myblueink}{\(8\)}  & \textcolor{myblueink}{\(9\)}  & \rdelim\}{1}{*}[\hspace{2pt}\(\orbit{0,1,3}(0)\)] \\
+			\cline{1-4}%
+			\(1\)              & \textcolor{myblueink}{\(1\)} & \textcolor{myblueink}{\(10\)} & \textcolor{myblueink}{\(11\)} & \rdelim\}{2}{*}[\(\orbit{0,1,3}(1)\)]             \\
+			\(2\)              & \textcolor{myblueink}{\(2\)} & \textcolor{myblueink}{\(12\)} & \textcolor{myblueink}{\(13\)} &                                                   \\
+			\cline{1-4}%
+			\(3\)              & \textcolor{myblueink}{\(3\)} & \textcolor{myblueink}{\(14\)} & \textcolor{myblueink}{\(15\)} & \rdelim\}{2}{*}[\(\orbit{0,1,3}(3)\)]             \\
+			\(4\)              & \textcolor{myblueink}{\(4\)} & \textcolor{myblueink}{\(16\)} & \textcolor{myblueink}{\(17\)} &                                                   \\
+			\cline{1-4}%
+			\(5\)              & \textcolor{myblueink}{\(5\)} & \textcolor{myblueink}{\(18\)} & \textcolor{myblueink}{\(19\)} & \rdelim\}{2}{*}[\(\orbit{0,1,3}(5)\)]             \\
+			\(6\)              & \textcolor{myblueink}{\(6\)} & \textcolor{myblueink}{\(20\)} & \textcolor{myblueink}{\(21\)} &                                                   \\
+			\cline{1-4}%
+			\(7\)              & \textcolor{myblueink}{\(7\)} & \textcolor{myblueink}{\(22\)} & \textcolor{myblueink}{\(23\)} & \rdelim\}{1}{*}[\hspace{2pt}\(\orbit{0,1,3}(0)\)] \\
+			\cline{1-4}%
+		\end{tabular}
+	\end{subtable}
+	\begin{subtable}{.49\linewidth}
+		\caption{\raggedright Insertion de face}
+		\begin{tabular}{|c||c|c|c|c|c|l@{}}
+			\cline{1-6}%
+			\(\mathbf{n_{0}}\) & \(n_{0}\)                     & \(n_{1}\)                     & \(n_{2}\) & \(n_{3}\) & \(n_{4}\) &                                                   \\
+			\cline{1-6}%
+			\addlinespace[2pt]
+			\cline{1-6}%
+			\(0\)              & \textcolor{myblueink}{\(0\)}  & \textcolor{myblueink}{\(6\)}  & {\(7\)}   & {\(8\)}   & {\(9\)}   & \rdelim\}{1}{*}[\hspace{2pt}\(\orbit{0,1,3}(0)\)] \\
+			\(1\)              & \textcolor{myblueink}{\(1\)}  & \textcolor{myblueink}{\(10\)} & {\(11\)}  & {\(12\)}  & {\(13\)}  & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{0,1,3}(1)\)] \\
+			\(2\)              & \textcolor{myblueink}{\(2\)}  & \textcolor{myblueink}{\(14\)} & {\(15\)}  & {\(16\)}  & {\(17\)}  &                                                   \\
+			\(3\)              & \textcolor{myblueink}{\(3\)}  & \textcolor{myblueink}{\(18\)} & {\(19\)}  & {\(20\)}  & {\(20\)}  & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{0,1,3}(3)\)] \\
+			\(4\)              & \textcolor{myblueink}{\(4\)}  & \textcolor{myblueink}{\(21\)} & {\(21\)}  & {\(22\)}  & {\(23\)}  &                                                   \\
+			\(5\)              & \textcolor{myblueink}{\(24\)} & \textcolor{myblueink}{\(25\)} & {\(26\)}  & {\(27\)}  & {\(28\)}  & \rdelim\}{1}{*}[\hspace{2pt}\(\orbit{0,1,3}(0)\)] \\
+			\cline{1-6}%
+		\end{tabular}
+	\end{subtable}
+\end{table}
 
 Les règles et les faces n'ayant pas changé par rapport à l'exemple précédent,
 les n\oe uds d'accroches filtrent toujours entièrement une
@@ -339,6 +393,7 @@ même. %
 
 
 \paragraph{Appariement des orbites}
+
 
 L'analyse de la règle \texttt{insertion\-Face} montre ici aussi qu'il n'y a
 qu'une seule orbite éligible pour l'appariement. %
@@ -379,20 +434,19 @@ escapechar=\%,
 caption=Spécification paramétrique avec alternative éditée,
 label=lst:reevaluation-scripts-alternative-spec-param-edit]
 1-creationCarre()
-2-extrusionSommet(pn0)
-3-S_insertionCarreOuTriangulationFace(pn1)
+2-contractionArete(pn0)
+3-S_triangulationOuInsertionFace(pn1)
   Alternative - Then:
     1-triangulationFace(pn2)
 4-chanfreinSommet(pn3)
 \end{lstlisting}
+
 Comme pour les autres structures de contrôle, l'extension de la spécification
 paramétrique pour l'alternative requiert d'enregistrer la séquence d'opérations
 appliquées lors de l'évaluation. %
 Précisons qu'une seule des deux séquences de l'alternative est enregistrée. %
 
 
-\subsection{Extension des DAGs}
-\label{sec:reevaluation-scripts-alternative-extension-dags}
 
 L'extension des DAGs, pour le support de l'alternative, nécessite d'avoir deux
 branches supplémentaires, l'une pour tracer l'évolution du paramètre topologique

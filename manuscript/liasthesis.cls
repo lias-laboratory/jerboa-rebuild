@@ -174,10 +174,15 @@
 \researchfield{}
 
 %% - NOMS & Prénoms des directeurs de thèse
-\DeclareRobustCommand*\supervisor[1]{%
-	\gdef\@supervisor{#1}
+\DeclareRobustCommand*\phddirector[1]{%
+	\gdef\@phddirector{#1}
 }
-\supervisor{}
+\phddirector{}
+
+\DeclareRobustCommand*\cosupervisors[1]{%
+	\gdef\@cosupervisors{#1}
+}
+\cosupervisors{}
 
 %% - NOM Administratif du laboratoire ou Unité de Recherche
 \DeclareRobustCommand*\laboratory[1]{%
@@ -216,6 +221,9 @@
 	\usepackage{showframe}
 \fi
 
+%%%%%%%%%% Additional commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\asteriskfill{\leavevmode\xleaders\hbox{$\ast$}\hfill\kern0pt}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% THESIS TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -242,92 +250,93 @@
 
 \renewcommand{\maketitle}{%
 	\begin{titlingpage}
+		\fontfamily{phv}\selectfont
 		\AddToHook{shipout/firstpage}{%
 			\put(0,-\paperheight)
 			{\TitleFrame\TitleLogos}}
 		\begin{center}
-			\vspace*{.045\paperheight}
-			% \vfill
-			{\huge\textbf{\translate{THÈSE}}}
+			% \vspace*{.0125\paperheight}
+			{{\bfseries\fontsize{22}{24}\fontfamily{ptm}\selectfont\translate{THESE}}}
 
-			\vspace{1em}
+			{\vspace{14.5pt}}
 
-			{\textbf{\translate{pour l'obtention du Grade de}}}
+			{\bfseries{\translate{Pour l'obtention du Grade de}}}
 
-			\vspace{1em}
+			\parbox[t]{\textwidth}{\fontsize{14}{15.5}\selectfont\centering\bfseries
+				\translate{DOCTEUR DE L'}\@institute}\\[1mm]
 
-			\textsc{\large\bfseries \translate{Docteur de l'} \@institute}
+			\parbox[t]{.95\textwidth}{\centering\bfseries(\translate{Diplôme
+					National} - \translate{Arrêté du} \translate{25 mai 2016}
+				\translate{Modifié par l'Arrêté du} \translate{26 Août 2022})}
 
-			{\footnotesize (\translate{Diplôme National} - \translate{Arrêté du}
-				\translate{25 mai 2016} \translate{Modifié par l'Arrêté du}
-				\translate{26 Août 2022})}
+			\vspace{14pt}
 
-			\vspace{1em}
+			{\bfseries \translate{Ecole Doctorale}~:\\
+				\@doctoralschool}
 
-			{\footnotesize \translate{École Doctorale}~: \@doctoralschool}
+			\vspace{14pt}
 
-			{\footnotesize \translate{Secteur de Recherche}~: \@researchfield}
+			\parbox[t]{.7\textwidth}{\bfseries \translate{Secteur de Recherche}~:
+				\@researchfield}
 
-			\vspace{1em}
+			\vspace{14pt}
 
-			{\footnotesize\textit{\translate{Présentée par}}~:}
+			{\bfseries{\translate{Présentée par}}~:}
 
-			\vspace{1mm}
+			\vspace{5pt}
 
-			{\large\textbf{\@author}}
+			\parbox[t]{.7\textwidth}{\large\centering{\@author}}
 
-			\vspace{.5em}
+			\vspace{10pt}
 
-			\par\noindent\rule{.75\textwidth}{.5pt}
+			{\Large ****************************}
 
-			\vspace{1em}
+			\vspace{14pt}
 
-			\parbox{.75\textwidth}{%
-				\centering
-				\large\textbf{\@title}}
+			\parbox[t]{.75\textwidth}{\centering{\@title}}
 
-			\vspace{1em}
+			\vspace{14pt}
 
-			\par\noindent\rule{.5\textwidth}{0.6pt}
+			{\Large ****************************}
 
-			\vspace{1em}
+			{\bfseries {\bfseries\normalsize \@phddirector}}
 
-			{\footnotesize \translate{Sous la direction de} {\bfseries\normalsize \@supervisor}}
+			{\bfseries {\bfseries\normalsize \@cosupervisors}}
 
-			\vspace{1mm}
+			\vspace{14pt}
 
-			{\footnotesize \translate{Au} {\bfseries\normalsize \@laboratory}}
-			\vspace{1em}
+			{\Large ****************************}
 
-			\par\noindent\rule{.5\textwidth}{0.6pt}
-
-			\vspace{1em}
+			% \vspace{1em}
 
 			\ifpublish
-
-			{\footnotesize \translate{Soutenue le} {\@date\space}
-				\translate{devant la Commission
-					d'Examen}} %% Keeping \@date between brackets prevents font/colour bleeding
-
+			  \parbox[t]{.6\textwidth}{%
+				\centering%
+				{\bfseries\translate{Soutenue le}} {\@date\space}}\\[1em]
+				%% Keeping \@date between brackets prevents font/colour bleeding
+				{\bfseries\translate{devant la Commission d'Examen}}
 			\fi
 
-			\vspace{2em}
+			\vspace{14pt}
+
+			{\Large ****************************}
+
+			\vspace{14pt}
 
 			\ifexamboard
 
-			{\large\bfseries\underline{\translate{Jury}}}
+			{\Large\bfseries\scshape\underline{\translate{JURY}}}
 
 			\vfill
 
-			{\raggedright{{\@examboard}}}
+			{\raggedright{\normalsize {\@examboard}}}
 			\fi
-			% \vspace*{-0.05\paperheight}
-			% \vfill
 
 		\end{center}
 	\end{titlingpage}
 
 }
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Chapter Style %%%%%%%%%%

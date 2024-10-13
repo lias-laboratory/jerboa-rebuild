@@ -436,28 +436,104 @@ chacune des faces scindées par la règle \texttt{insertion\-Face}. %
 \subsection{Spécification paramétrique et DAGs}
 \label{sec:reevaluation-scripts-alternative-extension-spec-dags}
 
+
+\begin{figure}[htb!]
+  \begin{subfigure}{.5\textwidth}
+  \centering
+	\includegraphics[height=140pt]{alternative-part-then-chamfer}
+	\caption{\texttt{Then}}
+	\label{fig:reevaluation-scripts-alternative-spec-dags-objet-then}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+  \centering
+	\includegraphics[height=140pt]{alternative-part-else-chamfer}
+	\caption{\texttt{Else}}
+	\label{fig:reevaluation-scripts-alternative-spec-dags-objet-else}
+  \end{subfigure}
+  \caption{Évaluations \texttt{Then} et \texttt{Else} dans un script}
+\end{figure}
+
+Pour supporter la réévaluer des structures d'alternatives, il est nécessaire,
+une fois encore, d'adapter les spécifications paramétriques et les DAGs. %
+Toutefois, ces modifications sont plus simples que pour les deux autres
+structures. %
+
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique avec alternative,
-label=lst:reevaluation-scripts-alternative-spec-param-init] 1-creationCarre()
-2-extrusionSommet(pn0)
-3-S_insertionCarreOuTriangulationFace(pn1)
+label=lst:reevaluation-scripts-alternative-spec-param-init]
+1-creationCarre()
+2-S_insertionCarreOuTriangulationFace(%PN\textsubscript{2}%)
   Alternative - Then:
-    1-triangulationFace(pn2)
-4-chanfreinSommet(pn3)
+    1-triangulationFace(%PN\textsubscript{2}%)
+4-chanfreinSommet(%PN\textsubscript{13}%)
 \end{lstlisting}
+
+Prenons la spécification initiale décrite dans la
+liste~\ref{lst:reevaluation-scripts-alternative-spec-param-init} qui peut
+produire, l'un et l'autre des objets
+illustrés dans les figures~\ref{fig:reevaluation-scripts-alternative-spec-dags-objet-then} et
+\ref{fig:reevaluation-scripts-alternative-spec-dags-objet-else}. %
+Comme pour les autres structures, une fois dans le script, nous enregistrons un
+bloc \texttt{Alternative} en notant la branche évaluée, c'est-à-dire soit la
+branche \texttt{Then}, soit la branche \texttt{Else}. %
+Contrairement aux deux autres structures, nous n'enregistrons pas de paramètre
+topologique pour le bloc \texttt{Alternative}. %
+En effet, la branche évaluée dépend strictement du résultat d'une évaluation
+booléenne. %
+Si cette évaluation peut porter sur une entité topologique, ce n'est en aucun
+cas une obligation. %
+Ainsi, seul le paramètre topologique du script est nécessaire. %
+Dans ce bloc, nous enregistrons uniquement la séquence de règles appelées avec
+leurs paramètres topologiques respectifs de la branche évaluée. %
+
+\begin{figure}[htb!]
+  \centering
+\includegraphics[width=.55\textwidth]{tmp-alt-evaluationTree-pn13}
+  \caption{DAG d'évaluation du PN\textsubscript{13}}
+  \label{fig:reevaluation-scripts-alternative-spec-dags-pn13-eval}
+\end{figure}
+
+Dans le DAG d'évaluation
+(figure~\ref{fig:reevaluation-scripts-alternative-spec-dags-pn13-eval})
+correspondant au PN\textsubscript{2}, la branche évaluée est la branche
+\texttt{Then}. %
+Nous ajoutons donc, tout simplement, un bloc appelé \texttt{Then} sans paramètre
+topologique pour conditionner son évaluation. %
+Notons que seule la branche évaluée est tracée, car logiquement son alternative
+n'est pas appliquée. %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique avec alternative éditée,
 label=lst:reevaluation-scripts-alternative-spec-param-edit]
 1-creationCarre()
-2-contractionArete(pn0)
-3-S_triangulationOuInsertionFace(pn1)
+ADD 4-contractionArete(5)
+2-S_triangulationOuInsertionFace(PN%\textsubscript{2}%)
   Alternative - Then:
-    1-triangulationFace(pn2)
-4-chanfreinSommet(pn3)
+    1-triangulationFace(PN%\textsubscript{2}%)
+3-chanfreinSommet(PN%\textsubscript{13}%)
 \end{lstlisting}
+
+Dans la spécification paramétrique éditée
+(liste~\ref{lst:reevaluation-scripts-alternative-spec-param-edit}), nous
+ajoutons une opération qui modifie la face carrée en un triangle. %
+Avec cet ajout et la modification de topologie provoquée sur la face, le système
+de réévaluation évalue désormais la branche \texttt{Else} au lieu de la branche
+\texttt{Then}. %
+Dans la section~\ref{sec:reevaluation-scripts-alternative-appariement}, nous
+avons vu un exemple similaire avec l'appariement de plusieurs sommets au lieu
+d'un. %
+Cette stratégie est représentée de la même manière qu'une scission ajoutée dans
+le DAG de réévaluation du PN\textsubscript{13}
+(figure~\ref{fig:reevaluation-scripts-alternative-spec-dags-pn13-reeval}). %
+
+\begin{figure}[htb!]
+  \centering
+\includegraphics[width=\textwidth]{tmp-alt-reevaluationTree-pn13}
+  \caption{DAG de réévaluation du PN\textsubscript{13}}
+  \label{fig:reevaluation-scripts-alternative-spec-dags-pn13-reeval}
+\end{figure}
 
 Comme pour les autres structures de contrôle, l'extension de la spécification
 paramétrique pour l'alternative requiert d'enregistrer la séquence d'opérations

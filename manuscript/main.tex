@@ -1,5 +1,5 @@
-% \documentclass[x11names]{LiasThesis}
-\documentclass[x11names,framepage]{LiasThesis}
+\documentclass[x11names]{LiasThesis}
+% \documentclass[x11names,framepage]{LiasThesis}
 
 \usepackage{subfiles}
 \usepackage{subcaption}
@@ -63,19 +63,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Macros to print front-page informations when you have them %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \publishtrue %% Keep it commented until you have defended
+\publishtrue %% Keep it commented until you have defended
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \examboardtrue %% Keep it commented until you have a jury
+\examboardtrue %% Keep it commented until you have a jury
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % \titlelogoleft{logo_isae-ensma.pdf}
 % \titlelogoright{lias-logo.png}
 
 \title{%
-  Modélisation et rejeu basés sur des règles}
+  \large\bfseries Modélisation et rejeu basés sur des règles}
 %
 \author{%
-  Maxime GAIDE}
+  \bfseries Maxime GAIDE}
 %
 \institute{%
   École Nationale Supérieure de Mécanique et d'Aérotechnique}
@@ -86,21 +86,25 @@
 \researchfield{%
   Informatique et Applications}
 %
-\supervisor{%
-  David MARCHEIX, Xavier SKAPIN {\normalfont\footnotesize et} Stéphane JEAN}
+\phddirector{%
+     Directeur de thèse~:  Stéphane JEAN}
+%
+ \cosupervisors{%
+Co-encadrants~:  David MARCHEIX et Xavier SKAPIN
+ }
 %
 \laboratory{%
   Laboratoire d'Informatique et d'Automatique pour les Systèmes (LIAS)}
 
 \examboard{%
   \raggedright
-  \underline{\bfseries Rapporteurs~:}\\[2mm]
+  {\bfseries Rapporteurs~:}\\[2mm]
   David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
     Strasbourg}\\[1mm]%
   Guillaume DAMIAND \tabto{.35\textwidth} {\mdseries Directeur de recherche,
     Université Claude Bernard}\\%
   \vspace{.5em}%
-  \underline{\bfseries Membres du jury~:}\\[2mm]
+  {\bfseries Membres du jury~:}\\[2mm]
   Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
     Université de Poitiers}\\[1mm]%
   Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de conférences,
@@ -116,6 +120,7 @@
   Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de conférences,
     Université de Poitiers}\\%
 }
+
 %
 % \examboard{%
 % \raggedright
@@ -144,7 +149,8 @@
 % Université de Poitiers}\\%
 % }
 %
-\date{\makebox[.2\textwidth]{\dotfill}}
+
+\date{11 décembre 2024}
 
 \begin{document}
 \maketitle

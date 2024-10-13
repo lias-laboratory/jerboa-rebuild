@@ -159,12 +159,11 @@ L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
 
 
 \begin{table}[htb!]
-	% \setlength{\belowrulesep}{.65ex}
-	\centering
 	\caption{Tableaux de filtrage des sommets créés}
-	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-triangulation}
-	\begin{subtable}[t]{.49\linewidth}
-		\caption{\raggedright Triangulation}
+	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-sommets}
+	\begin{subtable}[t]{.5\textwidth}
+		\caption{Application de la triangulation}
+		\label{tab:reevaluation-scripts-alternative-appariement-filtrage-sommets-triangulation}
 		\begin{tabular}{|c||c|c|c|l@{\,}}
 			\cline{1-4}%
 			\(\mathbf{n_{0}}\) & \(n_{0}\) & \(n_{1}\) & \(n_{2}\)                        &                                                   \\
@@ -182,9 +181,11 @@ L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
 			\cline{1-4}%
 		\end{tabular}
 	\end{subtable}
-	\begin{subtable}[t]{.49\linewidth}
-		\caption{\raggedright Insertion de face}
-		\begin{tabular}{|c||c|c|c|c|c|l@{}}
+	\begin{subtable}[t]{.5\textwidth}
+		\raggedleft
+		\caption{Application de l'insertion de face}
+		\label{tab:reevaluation-scripts-alternative-appariement-filtrage-sommets-insertion}
+		\begin{tabular}{|c||c|c|c|c|c|l@{\,}}
 			\cline{1-6}%
 			\(\mathbf{n_{0}}\) & \(n_{0}\) & \(n_{1}\) & \(n_{2}\)                        & \(n_{3}\)                        & \(n_{4}\)                        &                                                   \\
 			\cline{1-6}%
@@ -192,23 +193,24 @@ L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
 			\cline{1-6}%
 			\(0\)              & \(0\)     & \(6\)     & \textcolor{mydarkorange}{\(7\)}  & \textcolor{mydarkorange}{\(8\)}  & \textcolor{mydarkorange}{\(9\)}  & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{1,2,3}(0)\)] \\
 			\(1\)              & \(1\)     & \(10\)    & \textcolor{mydarkorange}{\(11\)} & \textcolor{mydarkorange}{\(12\)} & \textcolor{mydarkorange}{\(13\)} &                                                   \\
+			\cline{1-1} \cline{4-6}%
 			\(2\)              & \(2\)     & \(14\)    & \textcolor{mydarkorange}{\(15\)} & \textcolor{mydarkorange}{\(16\)} & \textcolor{mydarkorange}{\(17\)} & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{1,2,3}(2)\)] \\
 			\(3\)              & \(3\)     & \(18\)    & \textcolor{mydarkorange}{\(19\)} & \textcolor{mydarkorange}{\(20\)} & \textcolor{mydarkorange}{\(20\)} &                                                   \\
+			\cline{1-1} \cline{4-6}%
 			\(4\)              & \(4\)     & \(21\)    & \textcolor{mydarkorange}{\(21\)} & \textcolor{mydarkorange}{\(22\)} & \textcolor{mydarkorange}{\(23\)} & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{1,2,3}(4)\)] \\
 			\(5\)              & \(24\)    & \(25\)    & \textcolor{mydarkorange}{\(26\)} & \textcolor{mydarkorange}{\(27\)} & \textcolor{mydarkorange}{\(28\)} &                                                   \\
 			\cline{1-6}%
 		\end{tabular}
 	\end{subtable}
-	\hfill
-
-
 \end{table}
 
-La deuxième étape est l'appariement des motifs gauches des deux règles. %
-Dans la conception d'un modèle paramétrique, la sélection de l'orbite, et dans
-notre cas d'un brin, caractérise un processus de conception. %
-En effet, la sélection d'un brin plutôt qu'un autre peut dans une orbite peut
-avoir divers effets sur la géométrie ainsi que la topologie. %
+
+Au cours de la conception d'un modèle paramétrique, l'application d'une
+opération est impactée par les sélections faites par l'utilisateur. %
+En effet, lors d'un parcours de la topologie, la sélection d'un brin plutôt
+qu'un autre dans une orbite peut changer certaines propriétés géométriques. %
+Par exemple, la position d'un sommet créé peut dépendre du sens de parcours des
+sous-orbites d'une face. %
 Plus généralement, un brin indique un bord particulier dans une orbite, par
 exemple une extrémité d'arête, un côté de sommet scindé, etc. %
 Il s'agit d'une intention de modélisation que le système de réévaluation doit
@@ -221,28 +223,29 @@ l'orbite transformée. \maxime{Je pense à l'exemple de l'opération qui coupe u
 Cette étape est importante pour ne pas proposer un appariement erroné lors de la
 réévaluation. %
 
-Pour faire cet appariement, regardons d'abord les n\oe uds d'accroches des deux
-règles. %
-Ils filtrent, tous les deux, une orbite face (\(\orbit{0,1,3}\)) dans sa
-totalité. %
-Ainsi, nous pouvons appairer sans difficulté les brins du n\oe ud \(n_{0}\) de
-\texttt{triangulation\-Face} avec ceux du n\oe ud \(n_{0}\) de
-\texttt{insertion\-Face}. %
+La deuxième étape est la mise en correspondance des entités filtrées par les
+deux règles. %
+Pour cela, nous regardons d'abord les n\oe uds d'accroches des deux règles et
+les brins qu'ils filtrent. %
+Dans notre exemple, chacune des règles a un seul n\oe ud d'accroche étiqueté par
+le type face (\(\orbit{0,1,3}\)). %
+Nous savons alors que dans les deux cas, une face est entièrement filtrée. %
 
-
-La première colonne \(\mathbf{n_{0}}\)  des
-tableaux~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-triangulation}
+Nous étudions ensuite le filtrage pour chaque règle. %
+Les
+tableaux~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-sommets-triangulation}
 et
-\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face}
-montrent les filtrages gauches et droites des deux règles lorsqu'elles sont
-appliquées sur le brin \(0\). %
-Un brin d'accroche est toujours à la position \texttt{0} dans la colonne de
-filtrage d'un n\oe ud d'accroche. %
+\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-sommets-insertion}
+représentent les brins filtrés par chaque n\oe ud. %
+Ici, la première colonne \(\mathbf{n_{0}}\) liste l'ensemble des brins filtrés
+par le n\oe ud d'accroche. %
+Enfin, nous faisons établissons une correspondance entre les brins des deux
+filtrages. %
 La lecture de ces tableaux montre qu'il est possible d'associer les brins \(0\)
 à \(5\) de la face carrée avec les brins \(0\) à \(5\) de la face
 triangulaire. %
-Cela n'est pas possible pour les brins \(6\) et \(7\) puisque \(n_{0}\) ne
-filtre pas de tels brins dans le triangle. %
+Cela n'est en revanche pas possible pour les brins \(6\) et \(7\) puisque
+ceux-ci n'existent pas dans le triangle. %
 
 
 
@@ -286,33 +289,42 @@ type \(\orbit{1,3}\). %
 
 
 
-Enfin, la dernière étape consiste à identifier les brins qui composent les
-orbites d'appariement dans la deuxième règle. %
+La dernière étape consiste à identifier des paramètres topologiques à retourner
+à l'utilisateur. %
 Notre face est un triangle, nous recherchons alors trois \(\orbit{1,3}\)-orbites
 à l'origine des \(\orbit{1,2,3}\)-orbites créées par \texttt{insertion\-Face}. %
 À l'aide du type d'origine \(\orbit{1,3}\) et d'au moins un des n\oe uds du
-motif droit, nous pouvons retrouver un représentant, c'est-à-dire un brin, par
+motif droit, nous pouvons désigner un représentant, c'est-à-dire un brin, par
 orbite. %
 
-D'abord, nous identifions, dans le
-tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face},
-trois couples de brins, filtrés par
-\textcolor{mydarkpurpleink}{\(\mathbf{n_{0}}\)}, qui sont les
-\(\orbit{1,3}\)-orbites d'origines. %
-Ces couples sont colorés respectivement en \textcolor{red}{rouge},
-\textcolor{myblueink}{bleu} et \textcolor{mydarkorange}{orange}. %
-Ensuite, nous savons que dans la règle trois n\oe ud composent l'orbite sommet
-qui est créée. %
-Ce n\oe ud nous indique dans quelle colonne du tableau trouver un représentant
-de l'orbite créée. %
+Dans le
+tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-sommets-insertion},
+nous identifions les trois couples de brins, filtrés par \(\mathbf{n_{0}}\), que
+nous recherchons. %
+Il s'agit des couples \((0,1)\), \((2,3)\), \((4,5)\) qui sont également les
+\(\orbit{1,3}\)-orbites d'origines des sommets créés. %
 
-Ainsi, nous récupérer un brin par orbite d'appariement à l'aide d'un couple
-\((\mathit{brin},\mathit{noeud})\) et les utiliser comme paramètres topologiques
-lors de la réévaluation. %
-Nous obtenons donc les couples \((0, n_{2})\), \((2, n_{2})\) et \((4, n_{2})\). %
+Nous savons que dans la règle \texttt{insertionFace} trois n\oe ud composent
+l'orbite sommet qui est créée. %
+À l'aide du
+tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-sommets-insertion},
+nous connaissons l'ensemble des brins créés par chacun de ces n\oe ud. %
+Il nous suffit alors, simplement, de choisir un n\oe ud de cette orbite et l'un
+de ses brins pour désigner un des sommets créés dans l'objet. %
+
+À l'aide de ces informations, nous pouvons représenter des brins comme
+paramètres topologiques avec un couple %
+\[(\mathit{brinOrigine},\mathit{noeud})\]%
+où \(\mathit{brinOrigine}\) est un brin filtré et \(\mathit{noeud}\) est un des
+n\oe ud de l'orbite d'appariement. %
+
+Dans notre exemple, nous obtenons donc les couples \((0, n_{2})\),
+\((2, n_{2})\) et \((4, n_{2})\). %
+Notons que ces couples jouent servent de coordonnées pour localiser un brin dans
+le tableau de filtrage. %
 
 Enfin, lorsque l'utilisateur accepte un appariement d'orbites moins strict, il
-est possible de le laisser choisir lesquelles il souhaite utiliser. %
+est possible de le laisser choisir quels brins il souhaite utiliser. %
 Cette approche est similaire à la stratégie présentée dans le chapitre précédent
 lorsqu'une opération ajoutée provoque la scission d'une orbite. %
 
@@ -320,10 +332,11 @@ lorsqu'une opération ajoutée provoque la scission d'une orbite. %
 \label{sec:reevaluation-scripts-alternative-appariement-scission-face}
 
 
-Passons maintenant à l'exemple suivant. %
-Nous gardons les mêmes règles et les mêmes objets, mais cette fois nous étudions
-l'appariement des faces scindées. %
+% Passons maintenant à l'exemple suivant. %
+% Nous gardons les mêmes règles et les mêmes objets, mais cette fois nous étudions
+% l'appariement des faces scindées. %
 
+Dans ce deuxième exemple, nous étudions l'appariement de faces scindées. %
 
 \paragraph{Types de suivi et d'origine et catégorie d'évènement}
 
@@ -333,18 +346,18 @@ Nous trouvons que l'orbite \(L\orbit{0,1,3}(n_{0})\) (encadrée en
 \textcolor{myblueink}{bleu} dans la figure
 \ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri}). %
 Cette orbite est scindée et est donc associée à l'évènement \texttt{SPLIT} qui
-appartient à la catégorie d'évènements \texttt{MODIFICATION}. %
+appartient à la catégorie d'évènements \texttt{MO\-DI\-FI\-CA\-T\-I\-ON}. %
 Enfin, elle a pour origine une \(\orbit{0,3}\)-orbite (soulignée en
 \textcolor{myblueink}{bleu}). %
 
 \paragraph{Appariement des n\oe uds d'accroches}
 
 \begin{table}[htb!]
-	\centering
 	\caption{Tableaux de filtrage des faces scindées}
-	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face}
-	\begin{subtable}{.49\linewidth}
-		\caption{\raggedright Triangulation}
+	\label{tab:reevaluation-scripts-alternative-appariement-filtrage-faces}
+	\begin{subtable}{.5\linewidth}
+		\caption{Application de la triangulation}
+		\label{tab:reevaluation-scripts-alternative-appariement-filtrage-faces-triangulation}
 		\begin{tabular}{|c||c|c|c|l@{\,}}
 			\cline{1-4}%
 			\(\mathbf{n_{0}}\) & \(n_{0}\)                    & \(n_{1}\)                     & \(n_{2}\)                     &                                                   \\
@@ -366,19 +379,24 @@ Enfin, elle a pour origine une \(\orbit{0,3}\)-orbite (soulignée en
 			\cline{1-4}%
 		\end{tabular}
 	\end{subtable}
-	\begin{subtable}{.49\linewidth}
-		\caption{\raggedright Insertion de face}
-		\begin{tabular}{|c||c|c|c|c|c|l@{}}
+	\begin{subtable}{.5\linewidth}
+		\raggedleft
+		\caption{Application de l'insertion de face}
+		\label{tab:reevaluation-scripts-alternative-appariement-filtrage-faces-insertion}
+		\begin{tabular}{|c||c|c|c|c|c|l@{\,}}
 			\cline{1-6}%
 			\(\mathbf{n_{0}}\) & \(n_{0}\)                     & \(n_{1}\)                     & \(n_{2}\) & \(n_{3}\) & \(n_{4}\) &                                                   \\
 			\cline{1-6}%
 			\addlinespace[2pt]
 			\cline{1-6}%
 			\(0\)              & \textcolor{myblueink}{\(0\)}  & \textcolor{myblueink}{\(6\)}  & {\(7\)}   & {\(8\)}   & {\(9\)}   & \rdelim\}{1}{*}[\hspace{2pt}\(\orbit{0,1,3}(0)\)] \\
-			\(1\)              & \textcolor{myblueink}{\(1\)}  & \textcolor{myblueink}{\(10\)} & {\(11\)}  & {\(12\)}  & {\(13\)}  & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{0,1,3}(1)\)] \\
+			\cline{1-3}%
+			\(1\)              & \textcolor{myblueink}{\(1\)}  & \textcolor{myblueink}{\(10\)} & {\(11\)}  & {\(12\)}  & {\(13\)}  & \rdelim\}{2}{*}[\(\orbit{0,1,3}(1)\)]             \\
 			\(2\)              & \textcolor{myblueink}{\(2\)}  & \textcolor{myblueink}{\(14\)} & {\(15\)}  & {\(16\)}  & {\(17\)}  &                                                   \\
-			\(3\)              & \textcolor{myblueink}{\(3\)}  & \textcolor{myblueink}{\(18\)} & {\(19\)}  & {\(20\)}  & {\(20\)}  & \rdelim\}{2}{*}[\hspace{2pt}\(\orbit{0,1,3}(3)\)] \\
+			\cline{1-3}%
+			\(3\)              & \textcolor{myblueink}{\(3\)}  & \textcolor{myblueink}{\(18\)} & {\(19\)}  & {\(20\)}  & {\(20\)}  & \rdelim\}{2}{*}[\(\orbit{0,1,3}(3)\)]             \\
 			\(4\)              & \textcolor{myblueink}{\(4\)}  & \textcolor{myblueink}{\(21\)} & {\(21\)}  & {\(22\)}  & {\(23\)}  &                                                   \\
+			\cline{1-3}%
 			\(5\)              & \textcolor{myblueink}{\(24\)} & \textcolor{myblueink}{\(25\)} & {\(26\)}  & {\(27\)}  & {\(28\)}  & \rdelim\}{1}{*}[\hspace{2pt}\(\orbit{0,1,3}(0)\)] \\
 			\cline{1-6}%
 		\end{tabular}
@@ -397,11 +415,11 @@ même. %
 
 L'analyse de la règle \texttt{insertion\-Face} montre ici aussi qu'il n'y a
 qu'une seule orbite éligible pour l'appariement. %
-Il s'agit de l'orbite \(R\orbit{0,1,3}\) (encadrée en
+Il s'agit de l'orbite \(R\orbit{0,1,3}(n_{0})\) (encadrée en
 \textcolor{myblueink}{bleu} dans la
 figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
 Elle est aussi scindée. %
-Cette fois, elle a pour origine une \(\orbit{0,3}\)-orbite. %
+Cette fois, elle aussi a pour origine une \(\orbit{0,3}\)-orbite. %
 Il est donc possible de procéder à un appariement exact entre les deux règles. %
 
 \paragraph{Sélection des instances d'une orbite d'appariement}
@@ -409,11 +427,11 @@ Il est donc possible de procéder à un appariement exact entre les deux règles
 L'appariement étant exact, nous pouvons rechercher les brins qui composent
 chacune des faces scindées. %
 Dans le
-tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-regle-insertion-face},
+tableau~\ref{tab:reevaluation-scripts-alternative-appariement-filtrage-faces},
 nous pouvons identifier trois \(\orbit{0,3}\)-orbites qui sont respectivement
 composés des brins \((0, 5)\), \((1, 2)\) et \((3, 4)\). %
-Ainsi, les couples \((0, n_{0})\), \((1, n_{0})\) et \((3, n_{0})\) permettent
-d'identifier chaque des faces scindées par la règle \texttt{insertion\-Face}. %
+Ainsi, les couples \((0, n_{0})\), \((1, n_{0})\) et \((3, n_{0})\) désignent
+chacune des faces scindées par la règle \texttt{insertion\-Face}. %
 
 \subsection{Spécification paramétrique et DAGs}
 \label{sec:reevaluation-scripts-alternative-extension-spec-dags}

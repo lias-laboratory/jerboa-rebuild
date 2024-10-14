@@ -1,11 +1,25 @@
 \chapter{État de l'art : modélisation paramétrique}
 \label{cha:etat-art-modelisation-parametrique}
 
-Le domaine de la CAO repose sur divers outils de modélisation, parmi lesquels les systèmes paramétriques qui permettent de générer des variations d'un modèle à l'aide d'un mécanisme de \textit{rejeu}, ou de
+Le domaine de la CAO repose sur divers outils de modélisation, parmi lesquels
+les systèmes paramétriques qui permettent de générer des variations d'un modèle
+à l'aide d'un mécanisme de \textit{rejeu}, ou de
 \textit{réévaluation}~\cite{dassaultCATIA,dassaultSOLIDWORKS,autodeskAUTOCAD,autodeskREVIT,siemensNX}. %
-Ces systèmes enregistrent le processus de construction, c'est-à-dire une liste d'opérations ou de contraintes appliquées à des entités géométriques (points, droites, caractéristiques de formes, etc.) permettant de modéliser un objet. L'utilisateur peut ensuite modifier certains paramètres de la construction ou ajouter, déplacer, voire supprimer des opérations et des contraintes. Le processus de construction est alors automatiquement rejoué ou réévalué, générant une version modifiée de l'objet initial, en fonction des modifications apportées.  %
+Ces systèmes enregistrent le processus de construction, c'est-à-dire une liste
+d'opérations ou de contraintes appliquées à des entités géométriques (points,
+droites, caractéristiques de formes, etc.) permettant de modéliser un objet.
+L'utilisateur peut ensuite modifier certains paramètres de la construction ou
+ajouter, déplacer, voire supprimer des opérations et des contraintes. Le
+processus de construction est alors automatiquement rejoué ou réévalué, générant
+une version modifiée de l'objet initial, en fonction des modifications
+apportées. %
 
-Dans ce chapitre, nous commençons par définir plus précisément la notion de \textit{système paramétrique}, en détaillant sa structure et les mécanismes de réévaluation des modèles. Nous verrons que la réévaluation peut échouer si le système ne gère pas correctement les références associées aux entités topologiques ; et que, dans ce cas, il est nécessaire d'intégrer un mécanisme de \textit{nomination persistante} pour garantir la robustesse du processus.
+Dans ce chapitre, nous commençons par définir plus précisément la notion de
+\textit{système paramétrique}, en détaillant sa structure et les mécanismes de
+réévaluation des modèles. Nous verrons que la réévaluation peut échouer si le
+système ne gère pas correctement les références associées aux entités
+topologiques ; et que, dans ce cas, il est nécessaire d'intégrer un mécanisme de
+\textit{nomination persistante} pour garantir la robustesse du processus.
 
 \section{Approches de modélisation paramétriques}
 \label{sec:etat-art-approches-modelisation-parametrique}
@@ -1672,15 +1686,12 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 	\end{tabularx}
 \end{sidewaystable}
 
-Dans ce chapitre, nous avons commencé par présenter les outils que nous
-utiliserons tout au long de cette thèse pour formaliser les objets et les
-opérations de modélisation géométrique. Puis, nous avons passé en revue un état
-de l'art des systèmes de réévaluation proposés dans la littérature et des
-problèmes qu'ils tentent de résoudre. Parmi ceux-ci se trouvent la nomination
-persistante des entités topologiques, leurs appariements dans la réévaluation
-d'une spécification paramétrique éditée et, parfois, l'appariement d'entités pour
-lesquelles la topologie est devenue insuffisante pour les distinguer les unes
-des autres. %
+Dans ce chapitre, nous avons passé en revue un état de l'art des systèmes de
+réévaluation proposés dans la littérature et des problèmes qu'ils tentent de
+résoudre. Parmi ceux-ci se trouvent la nomination persistante des entités
+topologiques, leurs appariements dans la réévaluation d'une spécification
+paramétrique éditée et, parfois, l'appariement d'entités pour lesquelles la
+topologie est devenue insuffisante pour les distinguer les unes des autres. %
 
 Nous avons constaté qu'une grande partie de ces approches ont développé un système
 de nomination persistante en utilisant les faces comme entités de base pour

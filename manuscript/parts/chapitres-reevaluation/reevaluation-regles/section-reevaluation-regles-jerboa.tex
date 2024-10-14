@@ -270,8 +270,10 @@ remplacés. %
 En effet, si l'application d'une règle ne modifie pas une orbite, son annulation ne
 peut pas la modifier non plus. %
 
-\maxime{J'ai tenté une comparaison de notre usage des « non évènements » au critère de persistance des références de Bidarra. Si tu as la problématique en tête je te laisse aviser sinon j'en discuterai avec David. En tout cas, c'est une phrase qui peut sauter si elle est fausse/n'apporte rien. }
-Ce suivi des évènements annulés répond à une problématique, soulevée par
+\maxime{J'ai tenté une comparaison de notre usage des « non évènements » au
+	critère de persistance des références de Bidarra. Est-ce ça te semble correct comme comparaison ? En tout cas, c'est
+	une phrase qui peut sauter, je voulais simplement renforcer le côté empirique. } Ce suivi des
+évènements annulés répond à une problématique, soulevée par
 Bidarra~\cite{bidarra2005feature}, concernant la nécessité de garantir qu'il est
 possible de réévaluer un modèle paramétrique. %
 Avec la représentation des évènements annulés, nous maintenons une forme de
@@ -343,7 +345,8 @@ pour ce nom persistant afin de respecter les intentions de conceptions de
 l'utilisateur, ce qui donne l'objet illustré dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn12}. %
 
-\xavier{Ton argumentation sur l'utilité de conserver les "non-événements" dans le DAG me paraît pertinente en tant que telles, mais j'avoue que j'ai du mal à relier cette justification avec le critère de "garantie de persistance" de Bidarra ; je n'ai pas l'impression qu'il s'agisse de la même chose. Donc vérifie avec David ce qu'il en est, tu as raison.}
+% \xavier{Ton argumentation sur l'utilité de conserver les "non-événements" dans le DAG me paraît pertinente en tant que telles, mais j'avoue que j'ai du mal à relier cette justification avec le critère de "garantie de persistance" de Bidarra ; je n'ai pas l'impression qu'il s'agisse de la même chose. Donc vérifie avec David ce qu'il en est, tu as raison.}
+
 
 \subsection{Stratégies de réévaluation}
 \label{sec:reevaluation-base-regles-reevaluation-strategies}
@@ -367,8 +370,6 @@ utilisateurs. %
 Nous présentons ici plusieurs stratégies de réévaluation qui découlent
 directement de l'édition d'une spécification paramétrique avec l'ajout et la
 suppression d'opérations. %
-
-\maxime{Dans les paragraphes suivants, je pense à mettre des tableau pour afficher différentes représentations de modèles selon les stratégie de réévaluation.} \xavier{Bonne idée.}
 
 \paragraph*{Ajout de scission}
 
@@ -396,24 +397,57 @@ branche principale du DAG. %
 Dans notre exemple, cela reviendrait à ne colorier que la face incidente au brin
 \(37\). %
 
-Enfin, une dernière stratégie consiste à proposer, lors de la réévaluation, les
-orbites sur lesquelles réappliquer une opération. %
+Enfin, nous proposons une dernière stratégie qui consiste à proposer, lors de la
+réévaluation, un ensemble d'orbites sur lesquelles réappliquer une opération. %
 Dans ce cas, les utilisateurs ont la possibilité de désigner explicitement les
 orbites de leur choix et de sauvegarder cette configuration. %
 Cette dernière option laisse alors un certain degré de liberté quant à
 l'exploration dans la conception d'un objet. %
-\maxime{J'ai tenté quelque chose, mais je ne suis pas sûr que ce soit le bon
-  endroit pour ça.} \xavier{Je ne comprends pas ta phrase "j'ai tenté quelque
-  chose" : de quoi parles-tu ?} \xavier{Et à propos de la dernière stratégie, il
-  faut préciser si elle est actuellement réalisable ou si c'est une variante qui
-  reste à l'état d'idée.}%
-\maxime{C'est vrai que ce n'est pas très clair. Cette dernière stratégie, c'est
-  celle sur laquelle ont travaillé Tom et Victor dans l'interface graphique (il
-  faudra que je teste l'ihm pour voir où ça en est de la sauvegarde de
-  stratégie). En parlant de cette stratégie, j'essaie de faire un effet
-  d'annonce avant de parler de son implantation dans la section implantation.
-  C'est pour ça que je dis que je ne suis pas sûr que ce soit le bon endroit, ou
-  que ça se fasses tout court d'ailleurs.}
+% \maxime{J'ai tenté quelque chose, mais je ne suis pas sûr que ce soit le bon
+%   endroit pour ça.} \xavier{Je ne comprends pas ta phrase "j'ai tenté quelque
+%   chose" : de quoi parles-tu ?} \xavier{Et à propos de la dernière stratégie, il
+%   faut préciser si elle est actuellement réalisable ou si c'est une variante qui
+%   reste à l'état d'idée.}%
+\maxime{ Cette dernière stratégie, c'est celle sur laquelle ont travaillé Tom et
+	Victor dans l'interface graphique. En parlant de cette stratégie, j'essaie de
+	faire un effet d'annonce avant d'en parler dans la section implantation.
+	Est-ce une bonne idée de faire ça ici, ou je l'enlève et n'en parle que dans
+	la section implantation ?}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.25\textwidth}
+	\centering
+		\includegraphics[height=80pt]{9-reevaluation-strat-no-app}
+		\caption{Aucune sélection}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-no-app}
+	\end{subfigure}
+	\begin{subfigure}{.25\textwidth}
+	\centering
+		\includegraphics[height=80pt]{9-reevaluation-strat-app-37}
+		\caption{Brin 37}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-37}
+	\end{subfigure}
+	\begin{subfigure}{.25\textwidth}
+	\centering
+		\includegraphics[height=80pt]{9-reevaluation-strat-app-52}
+		\caption{Brin 52}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-52}
+	\end{subfigure}
+	\caption{Exemples de réévaluation selon la sélection de brins}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp}
+\end{figure}
+
+La
+figure~\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp}
+illustre plusieurs exemples de réévaluation selon l'échantillon de brins
+sélectionnés par l'utilisateur pour l'appariement. %
+Par exemple, aucun brin n'est sélectionné
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-no-app}),
+ou seulement l'un des deux
+(figures~\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-37}
+et
+\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-52}). %
 
 \paragraph*{Annulation d'évènements}
 
@@ -472,23 +506,38 @@ Or, dans la réévaluation, cette application est supprimée et l'arête d'origi
 de la face à colorer n'est pas re-créée. %
 Comme illustré dans la
 figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}, la
-conséquence est que cette face n'est pas re-créée non plus. De plus, l'orbite
-sommet \(\orbit{1}\) à partir de laquelle devait être créée l'arête, même si
-elle pourrait aisément discriminer une face \(\orbit{0,1}\) d'une autre
-\xavier{Pas très clair, le fait qu'une orbite sommet puisse "discriminer" une
-  face $\rightarrow$ comment ?}\maxime{avec une image : le sommet d'orbite
-  \(\orbit{1}\) n'est incident qu'à une seule face. Si on a un sommet de type 1,
-  scindé dans la triangulation, incident à l'une des face issue de la scission,
-  on peut identifier une des faces avec ce sommet. Ça la discrimine, ce n'est
-  juste pas son orbite d'origine}\todo{}, ne correspond pas à une origine de face
-scindée par la règle de triangulation. %
+conséquence est que cette face n'est pas re-créée non plus. %
+À la place, nous gardons seulement la trace de l'orbite sommet \(\orbit{1}\) à
+partir de laquelle devait être créée l'arête. %
+Or, celle-ci ne correspond pas à une origine de face scindée par la règle de
+triangulation. %
 Ainsi, un tel appariement ne correspondrait, \textit{a priori}, en rien aux
 intentions de conceptions de l'utilisateur. %
+Néanmoins, bien que le type d'orbite sommet de face \(\orbit{1}\) n'est pas une
+origine convenable, ce sommet peut désigner une face qui possède le même
+historique de construction que celle qui n'a pas été recréée. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.19\textwidth]{cs2-8-reevaluation-coloration-strat-alternative}
+	\caption{Stratégie d'appariement pour la face non créée }
+	\label{fig:reevaluation-base-regles-reevaluation-strat-alt-non-creation-cas-2-pn57}
+\end{figure}
 Au contraire, une alternative consisterait à demander à l'utilisateur s'il
 souhaite ou non faire l'appariement sur une telle orbite. %
 Dans le cas de notre exemple, cela reviendrait à colorier la face triangulaire à
-droite. \xavier{Ajouter une image de ce coloriage sur la face de droite
-  ?}\todo{}%
+droite (figure~\ref{fig:reevaluation-base-regles-reevaluation-strat-alt-non-creation-cas-2-pn57}). % \xavier{Ajouter une image de ce coloriage sur la face de droite
+% ?}
+% , même si
+% elle pourrait aisément discriminer une face \(\orbit{0,1}\) d'une autre
+
+% \xavier{Pas très clair, le fait qu'une orbite sommet puisse "discriminer" une
+%   face $\rightarrow$ comment ?}
+% \maxime{avec une image : le sommet d'orbite
+%   \(\orbit{1}\) n'est incident qu'à une seule face. Si on a un sommet de type 1,
+%   scindé dans la triangulation, incident à l'une des face issue de la scission,
+%   on peut identifier une des faces avec ce sommet. Ça la discrimine, ce n'est
+%   juste pas son orbite d'origine}
 
 \begin{figure}[htb!]
 	\begin{subfigure}{0.5\linewidth}
@@ -532,12 +581,7 @@ droite. \xavier{Ajouter une image de ce coloriage sur la face de droite
 \end{figure}
 
 Dans certains cas, la suppression d'une application peut annuler des évènements
-de scission ou de fusion. \xavier{Pourquoi "voire" de fusion ? Supprimer un
-  événement peut annuler n'importe quel autre événement postérieur, en
-  théorie.}\maxime{Tu as raison, je crois que «ou» est un meilleur choix que le
-  «voire» qui met l'accent sur quelque chose d'attendu, comme tu le dit, tout
-  évènement peut être annulé, en théorie.}
-%
+de scission ou de fusion. %
 Ces suppressions provoquent alors, indirectement, des effets inverses de ceux des
 évènements annulés. %
 Par exemple, dans l'évaluation de notre cas d'étude nº~1
@@ -564,7 +608,7 @@ l'autre et au terme de la modélisation, la face serait coloriée en vert. %
 Au contraire, une alternative consisterait à laisser l'utilisateur choisir les
 opérations qu'il souhaite réappliquer sur cette face. %
 
-\xavier{Il manque une conclusion à ce chapitre...}\maxime{Je vais d'abord mettre une sorte de conclusion de section, mais je dois encore ajouter la section implantation avant de pouvoir metter une vraie bonne conclusion à ce chapitre.}
+% \xavier{Il manque une conclusion à ce chapitre...}\maxime{Je vais d'abord mettre une sorte de conclusion de section, mais je dois encore ajouter la section implantation avant de pouvoir metter une vraie bonne conclusion à ce chapitre.}
 
 % Dans le cas de la suppression d'une opération dans la spécification paramétrique
 % éditée, il peut arriver que la création d'une entité ne soit pas réévaluée et

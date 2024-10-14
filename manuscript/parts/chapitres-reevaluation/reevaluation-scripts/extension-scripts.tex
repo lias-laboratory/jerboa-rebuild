@@ -1,27 +1,26 @@
 \chapter{Extension de la réévaluation aux scripts}
 \label{cha:extension-scripts}
 
-Dans le chapitre~\ref{cha:outils-modelisation-base-regles}
-(section~\ref{sec:etat-art-model-regles-jerboa-scripts}
-page~\ref{sec:etat-art-model-regles-jerboa-scripts}) nous avons présenté les
-scripts Jerboa qui permettent de représenter des opérations de modélisation
-géométriques complexes en faisant appel aux règles Jerboa. %
-Toutefois, ces scripts ne peuvent pas, en l'état, être réévalués par le système
-de réévaluation que nous avons présenté dans le
+Dans les chapitres précédents, nous avons présenté les règles Jerboa et les
+moyens que nous mettons en \oe uvre afin de réévaluer des modèles paramétriques
+construits à l'aide de ces règles. %
+Or, il n'est pas possible de créer des opérations complexes avec ces règles,
+c'est-à-dire des opérations construites avec des structures de contrôle. %
+
+Bien le langage Jerboa propose des opérations sous la forme de scripts de
+règles, il nous est impossible, en l'état, de proposer leur réévaluation par le
+système de réévaluation que nous avons présenté dans le
 chapitre~\ref{cha:reevaluation-base-regles}. %
 En effet, les scripts permettent d'organiser des règles à l'aide des structures
 de contrôles largement disponibles dans la plupart des langages de
 programmation. %
-Or, le système de réévaluation que nous venons de présenter n'est pas capable de
-gérer la réévaluation de telles opérations de modélisation. %
-
 
 Dans ce chapitre, nous proposons une extension de notre système de réévaluation
 afin que celui-ci puisse réévaluer des scripts de règles. %
 Pour cela, nous proposons d'étendre notre système de réévaluation à des scripts
 présentant un ensemble limités de structures de contrôles, à savoir des
 séquences de règles, des itérations sur les sous-orbites d'une orbite ainsi que
-des alternatives «~si… sinon…~». %
+des alternatives «~si… sinon… alors…~». %
 Avec de telles structures, il est aussi nécessaire d'enregistrer tous les
 comportements associés, notamment pour les itérations et les alternatives. %
 Un tel support nous permet donc, déjà, de représenter des comportements

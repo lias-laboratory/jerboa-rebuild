@@ -137,6 +137,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% SECTION NUMBERING %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \renewcommand{\@chapter}{\addcontentsline{toc}{chapter}{\protect\numerline{\thechapter}#1}}%
 \renewcommand{\thesection}{\arabic{section}}
 \setsecnumdepth{subsubsection}
 \setcounter{tocdepth}{3}

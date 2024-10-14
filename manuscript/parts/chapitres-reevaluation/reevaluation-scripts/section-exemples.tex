@@ -1,10 +1,119 @@
+\section{Imbrication de structures et exemples}
+\label{sec:reevaluation-scripts-brincation-exemples}
 
-\section{Exemples}
-\label{sec:extension-scripts-exemples}
+Naturellement, comme dans tout langage de programmation, les structures de
+contrôles que nous venons d'étudier doivent pour être imbriquées. %
+Il doit ainsi être possible de représenter des \texttt{if-then-else} dans des
+\texttt{foreach} et inversement. %
+Dans cette section, nous présentons deux exemples de structures imbriquées.
 
-\begin{itemize}
-  \item Exemples de réévaluation de scripts avec des structures imbriquées (SI dans FOR, FOR dans SI)
-\end{itemize}
+\subsection*{Imbrication de \texttt{foreach} dans \texttt{if-then-else}}
+\label{sec:reevaluation-scripts-brincation-exemples-for-in-if}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[scale=.4]{exemple-1-creation-brin}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[scale=.4]{exemple-1-extrusion-struct-lin}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[scale=.4]{exemple-1-dual-struct-lin}
+	\end{subfigure}
+	\begin{subfigure}{.24\textwidth}
+		\centering
+		\includegraphics[scale=.4]{exemple-1-dual-struct-lin-pierce-face}
+	\end{subfigure}
+	\caption{}
+\end{figure}
+
+Pour cet exemple, nous présentons l'extrusion d'une séquence d'arêtes à partir
+d'un brin. %
+Pour chaque sommet de cette structure, nous souhaitons créer une face dont la
+topologie correspond à l'arité d'un sommet. %
+Pour garder cet exemple simple, nous posons une restriction sur le voisinage
+d'un sommet~: ceux-ci ne peuvent avoir plus de trois voisins. %
+Cette contrainte a pour conséquence de limiter les faces générée à des carrés et
+des triangles. %
+
+\begin{figure}[htbp!]
+  \centering
+\includegraphics[width=\textwidth]{tmp-example-evaluationTree-pn30}
+  \caption{DAG d'évaluation du PN\textsubscript{30}}
+  \label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-init-dag-eval-pn30}
+\end{figure}
+
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Spécification paramétrique initiale de la création du dual d'un chemin 2D,
+label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-init]
+1-creationBrin()
+2-S_extrusionStructure(PN%\textsubscript{0}%)
+  Sequence:
+    1-extrusionArete(PN%\textsubscript{0}%)
+    2-dimension2(PN%\textsubscript{1}%)
+    3-extrusionSommetArete(PN%\textsubscript{1}%)
+    4-extrusionSommetArete(PN%\textsubscript{5}%)
+
+3-creationFacesDualesStruct(PN%\textsubscript{9}%)
+  For %\textlangle{}1,2,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}% :
+    Alternative - Then :
+      1-creationFaceDualeCarree(PN%\textsubscript{0}%)
+    Alternative - Then :
+      2-creationFaceDualeCarree(PN%\textsubscript{4}%)
+    Alternative - Then :
+      3-creationFaceDualeCarree(PN%\textsubscript{8}%)
+
+4-insertionFace(PN%\textsubscript{30}%)
+\end{lstlisting}
+
+\todo{DAG eval}
+
+
+
+\begin{lstlisting}[style=script-style,
+escapechar=\%,
+caption=Spécification paramétrique initiale de la création du dual d'un chemin 2D,
+label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-reeval]
+1-creationBrin()
+2-S_extrusionStructure(PN%\textsubscript{0}%)
+  Sequence:
+    1-extrusionArete(PN%\textsubscript{0}%)
+    2-dimension2(PN%\textsubscript{1}%)
+    3-extrusionSommetArete(PN%\textsubscript{1}%)
+    4-extrusionSommetArete(PN%\textsubscript{5}%)
+
+ADD 4-extrusionSommetBranche(PN%\textsubscript{9}%)
+ADD 5-extrusionSommetArete(PN%\textsubscript{14}%)
+3-creationFacesDualesStruct(PN%\textsubscript{9}%)
+  For %\textlangle{}1,2,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}% :
+    Alternative - Then :
+      1-creationFaceDualeCarree(PN%\textsubscript{0}%)
+    Alternative - Then :
+      2-creationFaceDualeCarree(PN%\textsubscript{4}%)
+    Alternative - Then :
+      3-creationFaceDualeCarree(PN%\textsubscript{8}%)
+
+4-insertionFace(PN%\textsubscript{30}%)
+\end{lstlisting}
+
+\todo{DAG rééval}
+
+\begin{figure}[htbp!]
+  \centering
+\includegraphics[width=\textwidth]{tmp-example-reevaluationTree-pn30}
+  \caption{DAG de réévaluation du PN\textsubscript{30}}
+  \label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-dag-reeval-pn30}
+\end{figure}
+
+\subsection*{Imbrication de \texttt{if-then-else} dans \texttt{foreach}}
+\label{sec:reevaluation-scripts-brincation-exemples-if-in-for}
+
+
 
 %%% Local Variables:
 %%% mode: LaTeX

@@ -1,8 +1,6 @@
 \chapter{Outils pour la modélisation à base de règles}
 \label{cha:outils-modelisation-base-regles}
 
-\todo{Enrichir l'intro}
-
 La modélisation à base de règle est une famille d'outils de modélisation qui propose
 l'utilisation de règles pour formaliser les opérations de modélisation dans le but de créer et éditer des modèles de dimensions quelconques. %
 Pour générer et modifier ces modèles, les systèmes existants utilisent des grammaires
@@ -13,6 +11,19 @@ transformation de graphe et plus particulièrement les règles
 Jerboa~\cite{belhaouari2014jerboa} et leurs applications sur un modèle de
 représentation appelé carte
 généralisée~\cite{lienhardt1994n,Damiand-Lienhardt14}. %
+
+Dans ce chapitre, nous proposons tout d'abord des rappels et des définitions sur
+les graphes, et plus particulièrement les graphes dits «~étiquetés~», qui ont un
+intérêt central dans nos travaux. %
+Nous poursuivons avec la présentation du modèle de représentation de carte
+généralisée. %
+Ce modèle permet de formaliser d'une part un objet géométrique et, d'autre part,
+les entités topologiques à l'aide de graphes. %
+Enfin, nous présentons le langage Jerboa qui nous permet de formaliser la
+construction d'opérations de modélisation géométrique à l'aide de règles de
+transformation de graphes. %
+À l'aide de ces formalismes, nous présentons des concepts et définitions
+essentielles à la compréhension de nos travaux dans ce manuscrit. %
 
 
 \section[Graphe et transformation de graphe]{Graphe et transformation de graphe}
@@ -1289,6 +1300,38 @@ s'étend naturellement sur les règles Jerboa. %
 % \label{sec:etat-art-model-regles-jerboa-scripts}
 
 % {\HUGE \todo{}}
+
+\section{Conclusion}
+\label{sec:formalisation-modelisation-base-regles-conclusion}
+
+Dans ce chapitre, nous avons présenté les outils et des concepts nécessaires à
+la compréhension des formalismes que nous utilisons tout au long de cette
+thèse. %
+Ces formalismes nous permettent de représenter et manipuler les objets et les
+opérations de modélisation géométrique dans le contexte d'un système de
+modélisation à base de règles. %
+
+Ainsi, dans ce chapitre, nous avons commencé avec des rappels et des définitions
+générales sur une catégorie de graphes dits «~étiquetés» grâce auxquels nous
+représentons les dimensions dans les objets. %
+Nous avons aussi présenté divers outils permettant de manipuler ces graphes et
+ainsi préparer la définir les outils permettant de les transformer. %
+Afin de proposer des méthodes généralisables en toutes dimensions, nous avons
+présenté un modèle de représentation appelé carte généralisée qui formalise la
+représentation des objets géométriques de dimension \(n\). %
+Avec cet outil, nous présentons notamment la définition d'orbite que nous
+utilisons pour représenter l'ensemble des entités topologiques dans un objet. %
+Cela nous permet également de définir des opérations sous la forme de règles
+transformation de graphe. %
+Enfin, nous avons présenté le langage de règles Jerboa qui permet de construire
+des opérations sous forme de règles de transformation de graphes. %
+Nous l'avons d'abord présenté sous la forme de règles qui représentent
+explicitement les sous-graphes à transformer. %
+Ensuite, sous la forme de motifs d'orbites qui permettent de filtrer et de
+transformer des orbites dans les cartes généralisées. %
+Le langage de règles Jerboa, que nous utilisons pour formaliser des opérations
+de modélisation géométrique, nous permet alors de dégager des propriétés et
+d'exploiter pleinement le formalisme de cartes généralisées. %
 
 %%% Local Variables:
 %%% mode: latex

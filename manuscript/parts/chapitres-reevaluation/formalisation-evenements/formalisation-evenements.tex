@@ -2564,3 +2564,42 @@ explicitement fusionnée par un \(0\)-arc. %
 Ces deux cas sont mutuellement exclusifs, dans le premier cas, les deux n\oe uds
 d'accroche filtrent deux sommets de la même face, tandis que dans l'autre, ils
 filtrent des sommets appartenant à deux faces distinctes. %
+
+
+\section{Conclusion}
+\label{sec:formalisation-evenements-conclusion}
+
+Dans ce chapitre, nous exploitons le potentiel des cartes généralisés associées
+aux règles Jerboa afin de définir un ensemble d'évènements pouvant avoir lieu au
+cours de la transformation d'une carte généralisé. %
+Nous avons défini sept évènements (création, suppression, scission, fusion,
+non-changement, modification, sans effet) pouvant intervenir lors de la
+transformation d'un objet et présenté nos méthodes afin de les détecter. %
+La détection de ces évènements, afin de les suivre, est une fonctionnalité
+essentielle de noyaux géométrique dans les modeleurs paramétrique. %
+Ceux-ci permettent, avec le suivi, de proposer des mécanismes de réévaluation
+basé sur l'évolution des entités topologiques au cours de la conception d'un
+objet. %
+
+Nous avons tout d'abord présenté ces évènements de manière générale au travers
+de transformations directes de cartes généralisée, c'est-à-dire avant et après
+leurs transformations. %
+Nous avons ensuite proposé une méthode pour formaliser ces évènements grâce à
+une analyse des règles de transformation de graphes. %
+De telles analyses nous permettent de détecter des évènements statiquement,
+c'est-à-dire sans avoir besoin de les appliquer. %
+Enfin, nous avons étendu notre formalisation d'évènements aux règles Jerboa. %
+À l'aide de ce formalisme, nous pouvons déterminer l'ensemble des évènements
+appliqués sur un objet sans qu'il soit nécessaire de procéder à analyse globale
+d'un objet, sans ajout de code dans les opérations et sans avoir a appliquer les
+règles. %
+Toutefois, les règles Jerboa peuvent être conçues de diverses manières. Ces cas
+limites étant aussi défini dans nos travaux, nous pouvons ainsi déterminer
+lorsqu'il est nécessaire de contrôler, localement dans l'objet, si l'évènement
+détecté a bien eu lieu. %
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../../main"
+%%% End:

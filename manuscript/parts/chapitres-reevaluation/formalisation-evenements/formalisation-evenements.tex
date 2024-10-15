@@ -1,28 +1,32 @@
 \chapter[Formalisation des évènements]{Formalisation des évènements}
 \label{cha:formalisation-evenements}
 
-À ce jour, les noyaux des modeleurs 3D disponibles proposent un suivi de
-l'évolution des entités topologiques dans un objet. %
+Aujourd'hui, les noyaux des modeleurs 3D proposent de suivre l'évolution des
+entités topologiques dans un objet. %
 Ces évolutions sont représentées par les changements topologiques, ou plus
-simplement évènements, que les opérations de modélisation appliques aux
+simplement évènements, que les opérations de modélisation appliquent aux
 différentes entités. %
 Ces évènements, qui diffèrent selon les outils, peuvent être catégorisés avec
 une certaine précision. %
-Par exemple, la génération, la modification et la destruction d'une entité pour
-OCAF~\cite{OCAF} ou encore la création, la modification, la fusion, la
-subdivision et la préservation pour CATIA~\cite{dassaultCATIA} %
+OCAF~\cite{OCAF}, par exemple, propose de catégoriser la création de primitives,
+la génération, la modification, la destruction ou encore l'absence d'évolution
+d'une entité topologique. %
+D'autres outils, comme CATIA~\cite{dassaultCATIA} proposent de suivre la
+création, la modification, la fusion, la subdivision et la préservation
+d'entités topologiques. %
 
-Pour effectuer le suivi des entités et enregistrer les évènements, l'ensemble de
-ces outils ont recours~: (1) soit un parcours total de l'objet pour mettre
-chaque entité à jour~; (2) soit à une annotation explicite des opérations de
-modélisation avec des évènements sur des types d'entités topologiques
-précises. %
-Dans le premier cas, l'avantage est qu'il est exhaustif, mais le coût en temps
-d'exécution de cette procédure dépend de la complexité de l'objet modélisé. %
+Pour effectuer le suivi des entités et enregistrer les évènements, ces outils
+ont deux options. %
+Soit ils effectuent un parcours total de l'objet pour mettre chaque entité à
+jour~; Soit les évènements sont explicitement insérés dans le code des
+opérations de modélisation. %
+Dans le premier cas, l'approche a l'avantage d'être exhaustive, mais le coût en
+temps d'exécution de cette procédure dépend de la complexité de l'objet
+modélisé. %
 Dans le second cas, le coût en temps d'exécution est instantané, mais des
-erreurs peuvent être introduites lors de la conception de l'opération,
-c'est-à-dire référencer le mauvais évènement pour la mauvaise topologie, voire
-oublier des évènements. %
+erreurs peuvent être introduites lors de la conception de l'opération. %
+Il existe, en effet, le risque de référencer le mauvais évènement pour la
+mauvaise entité topologique, voire d'oublier d'en oublier. %
 
 Dans ce chapitre, nous présentons notre approche qui consiste à formaliser les
 opérations de modélisation géométrique à l'aide de règles Jerboa. %
@@ -44,15 +48,18 @@ d'évènements. %
 \label{sec:formalisation-evenements-transfo-objets}
 
 Considérons deux G-cartes $G$ et $H$. %
-On veut qualifier les modifications d'orbites de type $\orbit{\omega}$ entre $G$ et $H$.
-Ces dernières peuvent être créées, supprimées, scindées, fusionnées, inchangées ou modifiées.
-On parle dans ce cas d'événements survenus sur les orbites.
+Nous voulons caractériser les modifications d'orbites de type $\orbit{\omega}$ entre
+$G$ et $H$. Ces dernières peuvent être créées, supprimées, scindées, fusionnées,
+inchangées ou modifiées. Nous parlons dans ce cas d'événements survenus sur les
+orbites.
 
 \subsection{Création}
 \label{sec:formalisation-evenements-transfo-objets-creation}
 
 
-
+Nous commençons avec l'évènement de création. %
+Intuitivement, une orbite est créée lorsque celle-ci n'existait pas dans un
+objet avant sa transformation. %
 \begin{definition}[Création d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $H$.
@@ -86,7 +93,8 @@ En particulier, aucuns des brins $a_2,b_2\ldots h_2$ de $H$ n'existent dans $G$.
 \subsection{Scission}
 \label{sec:formalisation-evenements-transfo-objets-scission}
 
-
+Nous présentons la scission comme l'évènement qui divise une orbite en plusieurs
+sous-orbites de même dimensions. %
 \begin{definition}[Scission d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
 
@@ -124,8 +132,9 @@ $H\orbit{0,1,3}(g_0)$ %
 \label{sec:formalisation-evenements-transfo-objets-suppression}
 
 
-La suppression est l'inverse de la création. %
-
+Intuitivement, la suppression est l'inverse de la création. %
+Une orbite est donc supprimée lorsqu'elle celle-ci n'existe plus dans un objet
+après sa transformation. %
 \begin{definition}[Suppression d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
@@ -145,8 +154,9 @@ $a_2,b_2\ldots h_2$ dans $H$ n'existe dans $G$. %
 \label{sec:formalisation-evenements-transfo-objets-fusion}
 
 
-La fusion est l'inverse de la scission. %
-
+La fusion est l'évènement inverse de la scission. %
+Ainsi, une orbite est fusionnée lorsque plusieurs orbites toutes distinctes
+appartiennent à une orbite de même type dans un objet après sa transformation. %
 \begin{definition}[Fusion d'orbites]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ et $v'$ deux brins de $G$. %
@@ -183,7 +193,8 @@ En effet, les brins $a_0$, $c_0, e_0$ et $g_0$ appartiennent à la même face da
 \subsection{Non-changement}
 \label{sec:formalisation-evenements-transfo-objets-non-changement}
 
-
+Une orbite est considérée comme inchangée lorsqu'elle reste la même après la
+transformation d'un objet. %
 \begin{definition}[Non-changement d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$.
@@ -213,7 +224,9 @@ Dans la figure~\ref{fig:formalisation-evenements-g-carte-evenement-triangulation
 \subsection{Modification}
 \label{sec:formalisation-evenements-transfo-objets-modification}
 
-
+Présentée simplement, la modification est un évènement qui exclu les autres. %
+Ainsi, une orbite qui n'est ni créée, ni scindée, ni fusionnée, ni inchangée et
+donc simplement modifiée. %
 \begin{definition}[Modification d'orbite]
 	Soient $G$ et $H$ deux G-cartes de dimension $n \in \mathbb{N}$,
 	$\orbit{\omega}$ un type d'orbite de dimension $n$ et $v$ un brin de $G$. %
@@ -256,6 +269,7 @@ elle est appliquée. %
 De cette manière, nous pouvons réaliser le suivi des évènements pour toute règle
 et tout objet. %
 
+Posons les paramètres suivants. %
 Soient $G$ une G-carte, $r : L \longrightarrow R$ une règle, $m : L \to G$ un morphisme de
 filtrage et $H$ la transformation directe $G \xlongrightarrow{(r,m)} H$. %
 Étudions l'évolution d'une orbite d'intérêt $G\orbit{\omega}(v)$ dans $H$ en fonction
@@ -296,6 +310,8 @@ triangule une face carrée. %
 Celle-ci crée le sommet $R\orbit{1,2,3}(n16)$. %
 Nous allons montrer que pour toute face carrée filtrée par cette règle ce sommet
 est également créé pour tout objet dans la transformation directe. %
+
+~
 
 \begin{proposition}[Création d'orbite]\label{prop:base-rule-create}
 	Soient une règle $r : L \longrightarrow R$, un morphisme de filtrage $m : L \rightarrow G$, la
@@ -985,7 +1001,7 @@ nouvelles faces triangulaires. %
 Notons que le même phénomène se produit sur la règle de suppression d'arête de
 la
 figure~\ref{fig:formalisation-evenements-regles-transfo-graphe-regle-expl-suppression-arete}
-où on observe une scission entre les faces incidentes à $n0$ et $n2$ et une
+où nous observons une scission entre les faces incidentes à $n0$ et $n2$ et une
 fusion entre les faces incidentes à $n0$ et $n1$. %
 Selon l'objet transformé, l'un ou l'autre de ces évènements se produit. %
 Comme vu précédemment
@@ -1050,8 +1066,8 @@ transformation directe. %
 
 \begin{remarque}
 	En plus des orbites (partiellement) filtrées, les orbites de $G$ non filtrées
-	(telles que $G\orbit{\omega}(v) \cap m(L) = \emptyset$) sont par définition inchangées. On
-	dira que la règle est \emph{sans effet} sur l'orbite. %
+	(telles que $G\orbit{\omega}(v) \cap m(L) = \emptyset$) sont par définition inchangées. Nous
+	dirons que la règle est \emph{sans effet} sur l'orbite. %
 \end{remarque}
 
 \begin{figure}[htb!]
@@ -2309,8 +2325,8 @@ exprime leur modification dans la transformation directe. %
 	Or par hypothèse, il existe un chemin issu d'arcs explicites de $R$, qui forment un chemin de $R$ entre $w$ et $v$ qui s'instancie en un chemin entre $(w, v'_1)$ et $(v, v'_1)$ dans $R(O)$. %
 	Les arcs de $c(O)$ issus d'arcs implicites de $L$ forment un chemin de $O$ entre $v'_1$ et $v'_2$. %
 	Or pour chacun de ces arcs de $v'_i$ à $v'_j$ correspond un arc implicite de $L\orbit{\omega}(v)$, et il existe un arc implicite dans $R\orbit{\omega}(v)$ étiqueté sur $\orbit{\omega}$, éventuellement sur un autre nœud $w' \in \underline{R}\orbit{\omega}(v)$. %
-	On peut donc construire un chemin dans $R(O)$ qui utilise l'instanciation d'arcs explicites de $(w, v'_i)$ à $(w', v'_i)$, puis l'instanciation de l'arc implicite pour passer à $(w', v'_j)$, puis à nouveau l'instanciation d'arcs explicites pour passer à $(w, v'_j)$. %
-	On peut donc construire un chemin de $(w, v'_1)$ à $(w, v'_2)$ dans $R(O)$. %
+	Nous pouvons donc construire un chemin dans $R(O)$ qui utilise l'instanciation d'arcs explicites de $(w, v'_i)$ à $(w', v'_i)$, puis l'instanciation de l'arc implicite pour passer à $(w', v'_j)$, puis à nouveau l'instanciation d'arcs explicites pour passer à $(w, v'_j)$. %
+	Nous pouvons donc construire un chemin de $(w, v'_1)$ à $(w, v'_2)$ dans $R(O)$. %
 	Nous avons donc construit un chemin de $(w, v'_1)$ à $(v, v'_2)$ dans $R(O)$ étiqueté sur $\orbit{\omega}$.
 
 	La construction inverse d'un chemin de $R(O)$ vers un chemin de $L(O)$ peut se faire de la même manière. %
@@ -2569,34 +2585,37 @@ filtrent des sommets appartenant à deux faces distinctes. %
 \section{Conclusion}
 \label{sec:formalisation-evenements-conclusion}
 
-Dans ce chapitre, nous exploitons le potentiel des cartes généralisés associées
-aux règles Jerboa afin de définir un ensemble d'évènements pouvant avoir lieu au
-cours de la transformation d'une carte généralisé. %
-Nous avons défini sept évènements (création, suppression, scission, fusion,
-non-changement, modification, sans effet) pouvant intervenir lors de la
-transformation d'un objet et présenté nos méthodes afin de les détecter. %
-La détection de ces évènements, afin de les suivre, est une fonctionnalité
-essentielle de noyaux géométrique dans les modeleurs paramétrique. %
-Ceux-ci permettent, avec le suivi, de proposer des mécanismes de réévaluation
-basé sur l'évolution des entités topologiques au cours de la conception d'un
-objet. %
+Dans ce chapitre, nous exploitons les formalismes des cartes généralisées
+associé à celui des règles Jerboa afin de caractériser un ensemble d'évènements
+pouvant avoir lieu au cours de la transformation d'une carte généralisé. %
+Nous nous sommes intéressés à sept évènements (création, suppression, scission,
+fusion, non-changement, modification, sans effet) pouvant intervenir lors de la
+transformation d'un objet et avons présenté nos méthodes afin de les détecter. %
+Ces détections sont essentielles, car dans les chapitres suivants, elles nous
+permettent de procéder à un enregistrement et un suivi riche des évolutions
+d'entités topologiques. %
+Ce suivi est ainsi essentiel pour proposer des appariements d'entités lors de la
+réévaluation d'un modèle. %
+
 
 Nous avons tout d'abord présenté ces évènements de manière générale au travers
 de transformations directes de cartes généralisée, c'est-à-dire avant et après
 leurs transformations. %
-Nous avons ensuite proposé une méthode pour formaliser ces évènements grâce à
-une analyse des règles de transformation de graphes. %
-De telles analyses nous permettent de détecter des évènements statiquement,
+Nous avons ensuite proposé plusieurs méthodes pour formaliser chacun de ces
+évènements grâce à une analyse des règles de transformation de graphes. %
+Ces analyses nous permettent de détecter des évènements statiquement,
 c'est-à-dire sans avoir besoin de les appliquer. %
-Enfin, nous avons étendu notre formalisation d'évènements aux règles Jerboa. %
+Enfin, nous avons étendu nos formalisations d'évènements aux règles Jerboa qui
+exploitent pleinement le potentiel des orbites dans les cartes généralisées. %
 À l'aide de ce formalisme, nous pouvons déterminer l'ensemble des évènements
 appliqués sur un objet sans qu'il soit nécessaire de procéder à analyse globale
-d'un objet, sans ajout de code dans les opérations et sans avoir a appliquer les
+d'un objet, sans ajout de code dans les opérations et sans avoir à appliquer les
 règles. %
-Toutefois, les règles Jerboa peuvent être conçues de diverses manières. Ces cas
-limites étant aussi défini dans nos travaux, nous pouvons ainsi déterminer
-lorsqu'il est nécessaire de contrôler, localement dans l'objet, si l'évènement
-détecté a bien eu lieu. %
+Enfin, les règles Jerboa peuvent être conçues de diverses manières, or l'analyse
+d'une règle dépend de comment celle-ci est écrite. %
+Les cas limites de nos méthodes de détection sont donc définis. %
+Cela nous permet de mettre en \oe uvre des vérifications locales, dans l'objet,
+afin de déterminer si l'évènement détecté a bien eu lieu ou non. %
 
 
 %%% Local Variables:

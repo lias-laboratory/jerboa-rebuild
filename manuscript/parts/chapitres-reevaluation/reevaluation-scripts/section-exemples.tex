@@ -1,32 +1,30 @@
-\section{Imbrication de structures et exemples}
-\label{sec:reevaluation-scripts-brincation-exemples}
+\section{Exemple d'imbrication de structures de contrôle}
+\label{sec:reevaluation-scripts-brincation-exemple}
 
-Naturellement, comme dans tout langage de programmation, les structures de
-contrôles que nous venons d'étudier doivent pour être imbriquées. %
+Comme dans tout langage de programmation, les structures de contrôles que nous
+venons d'étudier doivent pour être imbriquées. %
 Il doit ainsi être possible de représenter des \texttt{if-then-else} dans des
 \texttt{foreach} et inversement. %
-Dans cette section, nous présentons deux exemples de structures imbriquées.
-
-\subsection*{Imbrication de \texttt{foreach} dans \texttt{if-then-else}}
-\label{sec:reevaluation-scripts-brincation-exemples-for-in-if}
+Dans cette section, nous présentons un exemple de structure
+\texttt{if-then-else} imbriquée dans un \texttt{foreach}.
 
 \begin{figure}[htb!]
 	\centering
 	\begin{subfigure}{.24\textwidth}
 		\centering
-		\includegraphics[scale=.4]{exemple-1-creation-brin}
+		\includegraphics[scale=.3]{exemple-1-creation-brin}
 	\end{subfigure}
 	\begin{subfigure}{.24\textwidth}
 		\centering
-		\includegraphics[scale=.4]{exemple-1-extrusion-struct-lin}
+		\includegraphics[scale=.3]{exemple-1-extrusion-struct-lin}
 	\end{subfigure}
 	\begin{subfigure}{.24\textwidth}
 		\centering
-		\includegraphics[scale=.4]{exemple-1-dual-struct-lin}
+		\includegraphics[scale=.3]{exemple-1-dual-struct-lin}
 	\end{subfigure}
 	\begin{subfigure}{.24\textwidth}
 		\centering
-		\includegraphics[scale=.4]{exemple-1-dual-struct-lin-pierce-face}
+		\includegraphics[scale=.3]{exemple-1-dual-struct-lin-pierce-face}
 	\end{subfigure}
 	\caption{}
 \end{figure}
@@ -37,29 +35,48 @@ Pour chaque sommet de cette structure, nous souhaitons créer une face dont la
 topologie correspond à l'arité d'un sommet. %
 Pour garder cet exemple simple, nous posons une restriction sur le voisinage
 d'un sommet~: ceux-ci ne peuvent avoir plus de trois voisins. %
-Cette contrainte a pour conséquence de limiter les faces générée à des carrés et
-des triangles. %
+Les faces générées sont donc restreintes à des carrés et des triangles. %
 
 \begin{figure}[htbp!]
-  \centering
-\includegraphics[width=\textwidth]{tmp-example-evaluationTree-pn30}
-  \caption{DAG d'évaluation du PN\textsubscript{30}}
-  \label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-init-dag-eval-pn30}
+	\centering
+	\includegraphics[width=\textwidth]{tmp-example-evaluationTree-pn30}
+	\caption{DAG d'évaluation du PN\textsubscript{30}}
+	\label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-init-dag-eval-pn15}
 \end{figure}
+
+Étudions la spécification paramétrique, détaillée dans le
+listing~\ref{lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-init},
+correspondant à la construction de l'objet illustré dans la
+figure~\ref{fig:reevaluation-scripts-alternative-spec-dags-pn13-reeval}. %
+La première opération enregistrée est la création d'un brin. %
+Ce brin est ensuite désigné comme paramètre topologique pour l'opération
+suivante. %
+La deuxième opération est un script similaire à celui étudié dans la
+section~\ref{sec:extension-scripts-sequences}. %
+Ce script, au lieu de créer un ruban à partir de l'extrusion d'une face, crée un
+chemin à partir de l'extrusion d'un brin. %
+La troisième opération est un script qui contient une boucle avec une
+alternative imbriquée. %
+Cette opération créée une face pour chacun des sommets d'une composante
+connexe. %
+Cette face est triangulaire si le sommet à trois voisins et carrée sinon. %
+Enfin, la quatrième opération insère une face dans la face désignée par le brin
+15. %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique initiale de la création du dual d'un chemin 2D,
-label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-init]
+label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-init,
+captionpos=b]
 1-creationBrin()
 2-S_extrusionStructure(PN%\textsubscript{0}%)
   Sequence:
-    1-extrusionArete(PN%\textsubscript{0}%)
+    1-extrusionSommet(PN%\textsubscript{0}%)
     2-dimension2(PN%\textsubscript{1}%)
     3-extrusionSommetArete(PN%\textsubscript{1}%)
     4-extrusionSommetArete(PN%\textsubscript{5}%)
 
-3-creationFacesDualesStruct(PN%\textsubscript{9}%)
+3-S_creationFacesDualesStruct(PN%\textsubscript{9}%)
   For %\textlangle{}1,2,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}% :
     Alternative - Then :
       1-creationFaceDualeCarree(PN%\textsubscript{0}%)
@@ -68,17 +85,84 @@ label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-init]
     Alternative - Then :
       3-creationFaceDualeCarree(PN%\textsubscript{8}%)
 
-4-insertionFace(PN%\textsubscript{30}%)
+4-insertionFace(PN%\textsubscript{15}%)
 \end{lstlisting}
 
-\todo{DAG eval}
+Cette spécification paramétrique contient deux scripts qui construisent, entre
+autres, la face désignée par le brin \(15\) dans l'application
+\texttt{4-insertionFace}. %
+Étudions le DAG d'évaluation de ce brin illustré dans la
+figure~\ref{fig:reevaluation-scripts-exemple-imbrication-if-in-for-init-dag-eval-pn15}. %
+Ce DAG retrace l'histoire d'une face (\(\orbit{0,1,3}\)) créé par le script
+\texttt{3\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}creation\-Faces\-Duales\-Struct}. %
 
+Tout d'abord, la face est créée à l'issue d'une itération de la boucle par
+l'opération
+\texttt{1\allowbreak{}-\allowbreak{}creation\-Face\-Duale\-Triangle}. %
+Nous pouvons observer que le n\oe ud d'orbite \orbitnode{\orbit{0,1,3}}, est
+intégré dans un ensemble de structures imbriquées. %
+Tout comme décrit dans la spécification paramétrique, l'alternative
+\texttt{Then} est imbriquée dans un \texttt{For} lui-même à l'intérieur du bloc
+correspondant à l'application
+\texttt{3\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}creation\-Faces\-Duales\-Struct}. %
 
+Comme expliqué plus tôt, les structures \texttt{foreach} disposent de deux
+paramètres topologiques pour lesquels il est aussi nécessaire de tracer les
+évolutions. %
+Le DAG d'évaluation du PN\textsubscript{15} trace alors l'historique du
+paramètre topologique du script, à savoir une surface, ainsi que de ceux de la
+boucle, une surface et un sommet. %
+Cela nous donne quatre orbites dont les évolutions sont représentées. %
+
+Les évolutions de ces orbites sont ensuite tracées au travers du bloc
+correspondant au script
+\texttt{2\allowbreak{}-\allowbreak{}S\allowbreak{}\_extrusion\-Structure}. %
+Chacune des règles appelées dans ce script modifient les surfaces suivies. %
+Elle crée également deux sommets dans l'historique du sommet désigné comme
+paramètre du \texttt{For} ainsi que deux brins dans l'historique du sommet
+désigné comme paramètre de l'application
+\texttt{4\allowbreak{}-\allowbreak{}insertion\-Face}.
+
+Enfin, une fois l'historique de chaque orbite entièrement tracé, nous pouvons
+voir que ce DAG comporte cinq historiques de paramètres. %
+Dans l'ordre, de gauche à droite, les branches représentent les paramètres dont
+l'existence conditionne la réévaluation de script
+\texttt{2\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}extrusion\-Structure}, du script de la
+structure \texttt{For} et de la règle \texttt{creation\-Face\-Duale\-Triangle}
+dans la structure \texttt{Then}. %
+
+\begin{figure}[htb!]
+	\centering
+  \begin{subfigure}{.2\textwidth}
+  \includegraphics[scale=.3]{exemple-1-ajout-branche}
+  \end{subfigure}
+  \begin{subfigure}{.2\textwidth}
+  \includegraphics[scale=.3]{exemple-1-extrusion-sommet-branche-b14}
+  \end{subfigure}
+  \begin{subfigure}{.2\textwidth}
+  \includegraphics[scale=.3]{exemple-1-dual-struct-triangle}
+  \end{subfigure}
+  \begin{subfigure}{.2\textwidth}
+  \includegraphics[scale=.3]{exemple-1-dual-struct-triangle-insertion-face}
+  \end{subfigure}
+	\caption{Réévaluation de l'exemple}
+	\label{fig:reevaluation-scripts-imbrication-exemple-reevaluation}
+\end{figure}
+
+Étudions maintenant la réévaluation cette spécification paramétrique suivant
+l'édition présentée dans le
+listing~\ref{lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-reeval}. %
+Cette édition propose simplement d'ajouter deux applications. %
+D'abord \texttt{ADD 4\allowbreak{}-\allowbreak{}extrusionSommetBranche}, qui
+crée deux branches à partir du sommet désigné par le brin \(9\), et \texttt{ADD
+	5\allowbreak{}\-\allowbreak{}extrusionAreteSommet} qui extrude une arete à
+partir du sommet désigné par le brin \(14\). %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique initiale de la création du dual d'un chemin 2D,
-label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-reeval]
+label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-reeval,
+captionpos=b]
 1-creationBrin()
 2-S_extrusionStructure(PN%\textsubscript{0}%)
   Sequence:
@@ -104,15 +188,11 @@ ADD 5-extrusionSommetArete(PN%\textsubscript{14}%)
 \todo{DAG rééval}
 
 \begin{figure}[htbp!]
-  \centering
-\includegraphics[width=\textwidth]{tmp-example-reevaluationTree-pn30}
-  \caption{DAG de réévaluation du PN\textsubscript{30}}
-  \label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-dag-reeval-pn30}
+	\centering
+	\includegraphics[width=\textwidth]{tmp-example-reevaluationTree-pn30}
+	\caption{DAG de réévaluation du PN\textsubscript{30}}
+	\label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-dag-reeval-pn30}
 \end{figure}
-
-\subsection*{Imbrication de \texttt{if-then-else} dans \texttt{foreach}}
-\label{sec:reevaluation-scripts-brincation-exemples-if-in-for}
-
 
 
 %%% Local Variables:

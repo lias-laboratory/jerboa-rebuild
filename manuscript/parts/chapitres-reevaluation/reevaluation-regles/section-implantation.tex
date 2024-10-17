@@ -1,5 +1,133 @@
-
 \section{Implantation}
 \label{sec:reevaluation-base-regles-implantation}
 
-\todo{}
+La mise en \oe uvre de notre approche, permettant la réévaluation d'un modèle
+paramétrique, nécessite l'implantation des méthodes dont nous avons parlé tout
+au long de ce chapitre. %
+Plus précisément, au cours l'évaluation initiale, il est nécessaire de gérer la
+création et la mise à jour des noms persistants puis de reconstituer
+l'historique d'évolution de chacune des orbites enregistrées dans une
+spécification paramétrique. %
+Lors de la réévaluation, il est nécessaire de créer des DAG de réévaluations à
+partir des DAGs d'évaluation afin d'effectuer l'appariement des orbites. %
+Afin d'assister les utilisateurs pour la réévaluation, des stratégies
+configurables ont été conçues. %
+
+Au moment de la rédaction de ce manuscrit, les fonctionnalités implantées pour
+la réévaluation à base de règles sont les suivantes~: la construction et la mise
+à jour des noms persistants~; la construction des DAGs d'évaluation et de
+réévaluation~; deux stratégies de support des scissions ajoutées. %
+
+\subsection{Nomination persistante des brins}
+
+Comme expliqué dans la
+section~\ref{sec:reevaluation-nomination-persistante-brins}, les noms
+persistants de brins sont créés et mis à jour à chaque fois qu'une opération est
+appliquée. %
+Il est donc nécessaire d'identifier chacun des brins filtrés par un n\oe ud
+précis dans le membre droit d'une règle. %
+Si le n\oe ud est préservé les noms persistants de ses brins sont mis à jour,
+sinon, s'il est créé, un nouveau nom persistant est créé pour chacun de ses
+brins. %
+
+\todo{je sais pas comment faire}
+
+Pour permettre la nomination persistante des brins, nous avons tout d'abord créé
+une classe \(\mathit{PersistentID}\). %
+Chaque instance de cette classe est une liste de couples
+\((\mathit{appID}, \mathit{nodeName})\) où \(\mathit{appID}\) est le numéro
+d'application d'une règle et où \(\mathit{nodeName}\) est un nom de n\oe ud. %
+Nous avons ensuite déclaré la classe \(\mathit{JerboaRebuiltModeler}\) qui étend
+la classe \(\mathit{JerboaModelerGeneric}\) définie dans la bibliothèque
+Jerboa. %
+Dans \(\mathit{JerboaRebuiltModeler}\), nous déclarons \(\mathit{PersistentID}\)
+comme étant un plongement de brin dans une carte généralisée. %
+Grâce à cela, à chaque fois qu'une règle Jerboa est appliquée, nous obtenons
+l'accès à la liste des brins filtrés par le membre gauche d'une règle. %
+Nous pouvons alors calculer les noms persistants pour chacun des brins créés ou
+préservés par une règle appliquée. %
+
+Détaillons la procédure de nomination persistante décrite dans
+l'algorithme~\ref{alg:reevaluation-base-regles-implantation-algo-pn}. %
+Celle-ci détermine si, pour un n\oe ud donné, celui-ci est créé ou non et à
+calculer un nom persistant en conséquence. %
+Pour calculer un nom persistant, nous devons avoir accès à la règle appliquée,
+son numéro d'application, aux brins qu'elle filtre et à
+\(\mathit{noeudCourant}\) l'un de ses n\oe uds. %
+Nous commençons par initialiser trois variables \(\mathit{brin}\),
+\(\mathit{PI}\) et \(\mathit{noeudReference}\). %
+
+Si le \(\mathit{noeudCourant}\) est créé, alors il y a deux possibilités~: soit
+il est créé \(\mathit{ex nihilo}\), dans ce cas la règle ne filtre pas de
+sous-graphe~; soit il est créé par copie. %
+Dans le premier cas, tout brin créé par le \(\mathit{noeudCourant}\) dispose
+d'un nouveau nom persistant \(\{\mathit{appNum\;nomNoeud}\}\). %
+La règle de création d'une face carrée, par exemple, ne filtre pas de
+sous-graphe. %
+Dans le second cas, nous pouvons récupérer le nom persistant de son plus proche
+voisin préservé, s'il existe, ou récupérer celui du n\oe ud d'accroche de la
+règle. %
+
+Nous devons déterminer si \(\mathit{regle}\) filtre un sous-graphe ou non. %
+Si oui, nous vérifions si \(\mathit{noeudCourant}\) est créé ou non. %
+Dans le cas où il est créé, nous cherchons un n\oe ud préservé dans son
+voisinage. %
+Si un tel n\oe ud existe, alors nous l'enregistrons en tant que
+\(\mathit{noeudReference}\). %
+Au contraire, si 
+
+Une fois
+
+
+
+\begin{algorithm}
+	\caption{construireNomPersistant}
+  \label{alg:reevaluation-base-regles-implantation-algo-pn}
+
+	\Donnees{%
+		\begin{itemize}
+			\item[\textbullet] \(\mathit{regle}\)~: une règle Jerboa,
+			\item[\textbullet] \(\mathit{numeroApplication}\)~: le numéro d'application de \(\mathit{regle}\),
+			\item[\textbullet] \(\mathit{filtrageGauche}\)~: les brins filtrés par \(\mathit{regle}\),
+			\item[\textbullet] \(\mathit{noeudCourant}\)~: un nœud de \(\mathit{regle}\)
+		\end{itemize}
+	}%
+	\Sortie{\(\mathit{PI~: PersistentID}\)}%
+	\vspace{1em}
+	\(\mathit{brin} := \emptyset\)\;
+	\(\mathit{PI}  := \mathit{creerPI()}\)\;
+	\(\mathit{noeudReference}:= -1\)\;
+	\Si{\(\mathit{filtrageGauche}\) est vide}{%
+		\eSi{\(\mathit{noeudCourant}\) est créé}{%
+			\(\mathit{noeudReference} \leftarrow \mathit{trouverVoisinPreserveGauche(regle,\;noeudCourant)}\)\;
+			\Si{aucun voisin préservé n'existe}{%
+				\(\mathit{noeudCourant} \leftarrow \mathit{obtenirNoeudAccroche{regle}} \)\;
+			}
+		}{%
+			\(\mathit{noeudReference} \leftarrow \mathit{obtenirNoeudGauche(regle,\;noeudCourant)} \)\;
+		}
+		\(\mathit{brin} \leftarrow \mathit{obtenirBrin(filtrageGauche,\;noeudReference)}\)\;
+	}
+	\Retour{\(\mathit{miseAJourPI(PI,\;numeroApplication,\;noeudCourant)}\)}\;
+\end{algorithm}
+
+\subsection{DAG d'évaluation \textit{HistoryRecord}}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\textwidth]{class-diagram-hr-datastructure}
+	\caption{Diagramme de la classe \textit{HistoryRecord}}
+\end{figure}
+
+\subsection{DAG de réévaluation \textit{ReevaluationTree}}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=\textwidth]{class-diagram-rt-datastructure}
+	\caption{Diagramme de la classe \textit{ReevaluationTree}}
+\end{figure}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../../main"
+%%% End:

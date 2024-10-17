@@ -27,7 +27,7 @@ Elle fait alors le choix d'utiliser \textit{un ensemble de brins} pour représen
 manière exhaustive les transformations appliquées sur une orbite. %
 Toutefois, puisque chaque paramètre topologique se voit attribuer un nom, les
 différentes opérations appliquées sur des parties distinctes d'une même orbite
-sont nécessairement identifiées par un nom persistant spécifique. %
+sont nécessairement identifiées par un nom persistant spécifique. \david{je ne comprends pas cette dernière phrase.}\maxime{J'essaie d'argumenter notre choix de n'utiliser qu'un seul brin pour la nomination persistante, comparé aux travaux d'Anaïs Cardot. Pour ça, je dis que si une orbite est touchée par deux règles qui ne se touchent pas entre elles, ce n'est en principe pas grave de n'avoir qu'un seul brin dans un PN chacun des brin désigné par l'application sera réévalué séparément parce qu'ils ont tous les deux un PN propre.}
 Nous proposons donc, dans un premier temps, de désigner une orbite à l'aide de
 l'historique d'un \textit{unique} brin, ce brin étant celui sélectionné explicitement
 lors de la construction pour désigner l'orbite à transformer. %
@@ -40,11 +40,12 @@ lors de la construction de l'objet nº~1 (figure~\ref{fig:reevaluation-base-regl
 spécification~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1})
 
 \begin{remarque}
-	Les illustrations d'applications suivantes représentent
-	uniquement les résultats des applications des opérations. %
-	Ainsi, chacun des brins affichés dans ces illustrations est un paramètre
-	topologique de l'application suivante. %
+ Les figures suivantes (figures~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-1-carre} à \ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}) représentent (a) des règles et (b) les résultat de leurs applications sur les instances correspondantes de la spécification paramétrique. %
+ Afin de rendre le résultat plus lisible, seuls quelques brins sont explicitement décrits avec leurs numéros et, entre crochets, leurs historiques. %
+% \maxime{j'ai un peu modifié ta proposition mais dans l'essence c'est la même. Et t'as raison, ça me plaît mieux. Par contre, je me demande si c'était judicieux de ma part d'en faire une remarque}
 \end{remarque}
+
+% \david{la remarque est formulée de manière très lourde et du coup je n'y comprends pas grand chose. Proposition : Les figures suivantes (Fig 4.1 à 4.10) représentent des règles (a) et le résultat de leur application sur l'instance courante de la spécification paramétrique (b). Afin de rendre le résultat plus lisible, seuls quelques brins sont explicitement décrits avec le numéro du brin et entre crochets son historique.}
 
 \begin{figure}[htb!]
 	\centering
@@ -107,20 +108,30 @@ Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
 L'application \texttt{2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-2-extrusion})
 est ensuite appliquée sur le brin \(6\). %
-Puisque le n\oe ud d'accroche de cette règle
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion})
-est de type \texttt{face} \(\orbit{0,1,3}\), alors le brin \(6\) désigne sa face
-incidente. %
+% Puisque le n\oe ud d'accroche de cette règle
+% (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion})
+% est de type \texttt{face} \(\orbit{0,1}\), alors le brin \(6\) désigne sa face
+% incidente.
+Puisque le n\oe ud d'accroche de cette règle (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion}) est de type \texttt{face} \(\orbit{0,1}\), cela revient à utiliser la face incidente à ce brin comme paramètre de d'application. %
+% \david{je dirais plutôt : Puisque le n\oe ud d'accroche de cette règle (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion})
+% est de type \texttt{face} \(\orbit{0,1}\), cela revient à utiliser la face incidente à ce brin comme paramètre de cette application.}%
 Toutefois, le numéro d'un brin n'est pas une information robuste et son
 historique doit évoluer au fur et à mesure de la construction. %
-Pour cette raison, à l'instant où une règle est appliquée, nous réalisons une
-"photographie" de l'historique de chacun des brins désignés et les enregistrons
-comme des noms persistants dans la spécification paramétrique. %
-Ainsi, pour la deuxième application, le brin sélectionné ne peut pas être un
-autre brin, indépendamment de son numéro, que celui créé par
-\texttt{1-\allowbreak{}creation\-Carre()} et le n\oe ud \(n_{6}\). %
+% Pour cette raison, à l'instant où une règle est appliquée, nous réalisons une
+% "photographie" de l'historique de chacun des brins désignés et les enregistrons
+% comme des noms persistants dans la spécification paramétrique.
+Pour cette raison, à l'instant où une règle est appliquée, nous enregistrons, non pas le numéro, mais l'historique du brin comme nom persistant dans la spécification paramétrique. %
+Cela revient à faire, quelque part, une sorte de "photographie" de l'historique des brins désignés que l'on enregistre dans la spécification paramétrique.
+% \david{Proposition remplacer la phrase précédente par : Pour cette raison, à l'instant où une règle est appliquée, nous enregistrons, non pas le numéro du brin mais plutôt l'historique de ce brin comme nom persistant dans la spécification paramétrique. Cela revient à faire quelque part une sorte de "photographie" de l'historique des brins désignés que l'on enregistre dans la spécification paramétrique.}%
+% Ainsi, pour la deuxième application, le brin sélectionné ne peut pas être un
+% autre brin, indépendamment de son numéro, que celui créé par
+% \texttt{1-\allowbreak{}creation\-Carre()} et le n\oe ud \(n_{6}\).
+ Ainsi, si les numéros de brins venaient à être différents au moment de la réévaluation de la deuxième application, le brin sélectionné ne pourrait être différent de celui créé par le n\oe ud \(n_{6}\) de
+\texttt{1-\allowbreak{}creation\-Carre()}.
+% \david{proposition remplacer la phrase précédente par : Ainsi, si lors d'une deuxième application les numéros de brins venaient à être différents, le brin sélectionné ne pourrait être différent de celui créé par le n\oe ud \(n_{6}\) de
+% \texttt{1-\allowbreak{}creation\-Carre()}.} %
 
-Comme nous venons de l'expliquer, l'historique d'un brin évolue à chaque fois
+Au fil du processus de modélisation, l'historique d'un brin évolue à chaque fois
 que celui-ci est filtré par une règle. %
 Si nous observons le cube issu de l'extrusion, nous constatons que les brins
 filtrés par la règle sont préservés, parce que le n\oe ud qui les filtre
@@ -206,20 +217,20 @@ sont mis à jour en \texttt{[1n5;\allowbreak{}2n5;\allowbreak{}3n0]} et \texttt{
 
 L'application
 \texttt{4-\allowbreak{}extrusion\-FaceVolume(\pndart{47}{1n5;\allowbreak{}2n6;\allowbreak{}3n0})}
-crée un nouveau cube en extrudant la face supérieurz de l'objet
+crée un nouveau cube en extrudant la face supérieure de l'objet
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-extrusion}). %
 Cette face est désignée par le brin \(47\) et le nom persistant enregistré est
 donc \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0]}. %
-Les brins \(55\) et \(63\) sont créés par les n\oe uds \(n_{5}\) et \(n_{6}\)
-respectivement
+Les brins \(55\) et \(63\) sont créés par les n\oe uds \(n_{4}\) et \(n_{6}\)
+respectivement %\david{Il y a une erreur. Il faut remplacer n5 par n4 à deux endroits dans ton texte dans cette phrase.}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion})
 et leurs historiques sont
-\texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n5]} et
+\texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4]} et
 \texttt{[1n4;\allowbreak{}2n6;\allowbreak{}4n6]} % \xavier{Il manque un élément dans ce
   % dernier historique, non ? Où est passée la 3ème opération ?}
 respectivement. %
 Notons que la création du brin \(63\) est indépendante de la troisième
-application qui n’apparaît donc pas dans son historique. %
+application. Elle n’apparaît donc pas dans son historique. %
 
 
 \begin{figure}[htb!]
@@ -270,9 +281,9 @@ respectivement
 	\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-contraction}
 \end{figure}
 
-L'application \texttt{6-\allowbreak{}contraction\-Face(\pndart{55}{1n4;\allowbreak{}2n6;\allowbreak{}4n6})}
+L'application \texttt{6-\allowbreak{}contraction\-Face(\pndart{63}{1n4;\allowbreak{}2n6;\allowbreak{}4n6})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-contraction})
-contracte la face désignée par le brin \(63\), au sommet de la pile de cubes, en
+contracte la face supérieure du cube du haut désignée par le brin \(63\) en
 un sommet
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}). %
 Le nom persistant enregistré dans la spécification paramétrique est
@@ -308,7 +319,7 @@ En particulier, l'historique du brin \(55\) devient \texttt{[1n5;\allowbreak{}2n
 L'application \texttt{7-\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2})}
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-7-chanfrein})
 est appliquée sur le sommet issu de l'application précédente, désigné par le
-brin \(55\) lui-même filtré par le n\oe ud \(n0\)
+brin \(55\), lui-même filtré par le n\oe ud \(n0\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-chanfrein}). %
 Comme dans les étapes précédentes, l'historique \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2]}, avant
 sa mise à jour par la règle, est enregistré dans la spécification
@@ -386,19 +397,19 @@ Le processus de création de chacun des noms persistants enregistrés dans la
 spécification paramétrique du cas d'étude nº~1, que nous venons de détailler,
 nous permet de mettre deux propriétés en évidence. %
 La première est que la nomination des brins est, par construction, unique. %
-Un tel historique construit pas à pas, \textit{via} les règles appliquées, et de
+Un tel historique construit pas à pas, \textit{via} les règles appliquées et de
 manière explicite % \xavier{au contraire, je trouve que ce chemin est explicite ,
   % mais bon...}
 % \maxime{Tu as entièrement raison, j'ai mélangé deux idées quand
 %   j'ai écrit.}
 , un chemin qui relie un brin et son ancêtre le plus ancien (créé
 \textit{ex nihilo}). %
-La seconde propriété est que la nomination persistante est, à elle-seule,
-insuffisante, car l'historique de création d'un brin ne permet pas de
+La seconde propriété est que la nomination persistante via l'historique des brins est, à elle-seule,
+insuffisante, car l'historique d'évolution d'un brin ne permet pas de
 caractériser l'historique des évènements qui ont impacté une orbite. %
 De manière plus évidente, en omettant le cas où un n\oe ud d'accroche désigne
 explicitement un brin, un brin n'est pas une orbite. %
-Cette nomination, seule, n'est donc pas robuste, car non représentative des
+Cette nomination, seule, n'est donc pas suffisante, car non représentative des
 transformations subies par une orbite. %
 Dans notre approche, ces deux propriétés renforcent l'idée que représenter
 l'historique des évolutions d'une orbite est nécessaire pour permettre son

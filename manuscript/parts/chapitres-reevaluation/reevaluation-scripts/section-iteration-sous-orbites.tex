@@ -162,22 +162,29 @@ escapechar=\%,
 caption=Spécification paramétrique avec boucle,
 label=lst:reevaluation-scripts-boucle-spec-param-edit]
 1-creationCarre()
-ADD 5-fusionretes(3)
+ADD 5-fusionAretes(3)
 2-subdivisionQuad(PN%\textsubscript{0}%)
-3-S_colorationColonne(PN%\textsubscript{0}%)
-  For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(PN%\textsubscript{1}%)
+3-S_colorationSurface(PN%\textsubscript{0}%)
+  For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(PN%\textsubscript{0}%)
     1-colorationFace(PN%\textsubscript{0}%)
-    2-colorationFace(PN%\textsubscript{8}%)
-    3-colorationFace(PN%\textsubscript{16}%)
-    4-colorationFace(PN%\textsubscript{24}%)
-4-triangulationFace(PN%\textsubscript{16}%)
+    2-colorationFace(PN%\textsubscript{2}%)
+    3-colorationFace(PN%\textsubscript{4}%)
+    4-colorationFace(PN%\textsubscript{6}%)
+4-triangulationFace(PN%\textsubscript{3}%)
 \end{lstlisting}
 
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=.9\linewidth]{tmp-boucle-reevaluationTree-pn12}
-	\caption{DAG de réévaluation du PN\textsubscript{12}}
+	\caption{DAG de réévaluation du PN\textsubscript{3}}
 	\label{fig:reevaluation-scripts-iteration-extension-dags-reevaluation-pn12}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.3\linewidth]{boucle-coloration-surface-triangulation-reevaluation}
+	\caption{DAG de réévaluation du PN\textsubscript{3}}
+	\label{fig:reevaluation-scripts-iteration-reevaluation}
 \end{figure}
 
 Étudions maintenant le DAG de réévaluation du PN\textsubscript{3}
@@ -192,7 +199,8 @@ de la sous-orbite d'itération pour laquelle nous enregistrons la suppression
 totale d'un sommet. %
 Étant donné que ce sommet est supprimé, cette itération ne peut être réévaluée. %
 En effet, la suppression du sommet empêche la création d'une face lors de l'application de \texttt{subdivisionQuad}. %
-Ainsi, cette face ne peut être ni colorée ni triangulée. %
+Ainsi, cette face ne peut être ni colorée ni triangulée et à l'issue de la réévaluation nous obtenons l'objet illustré dans la figure~\ref{fig:reevaluation-scripts-iteration-reevaluation}. %
+
 
 %%% Local Variables:
 %%% mode: LaTeX

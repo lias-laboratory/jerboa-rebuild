@@ -4,7 +4,7 @@
 
 Tout au long de ce chapitre, nous présentons nos différentes approches pour la
 réévaluation, notamment la nomination persistante des entités topologiques et
-leurs appariements. Nous nous appuyons pour cela de deux constructions et de leurs réévaluations, qui
+leurs appariements. Nous nous appuyons, pour cela, sur deux exemples de constructions et leurs réévaluations, qui
 nous servent de cas d'études. %
 Pour chacune de ces constructions, nous proposons les représentations
 géométriques (par étape de construction) accompagnées de leurs spécifications
@@ -145,41 +145,13 @@ paramétriques. %
 	\label{fig:reevaluation-base-regles-cs1-reevaluation}
 \end{sidewaysfigure}
 
-\begin{lstlisting}[escapechar=\%,
-style=script-style,
-caption=Spécification paramétrique initiale du cas nº~1,
-label=lst:reevaluation-regles-specification-parametrique-init-cas-1]
-1-%\allowbreak{}creation\-Carre(pos)%
-2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6}, vec)%
-3-%\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;2n5})%
-4-%\allowbreak{}extrusion\-Face\-Volume(\pndart{47}{1n5;2n6;3n0}, vec)%
-5-%\allowbreak{}tri\-an\-gu\-la\-t\-i\-on\-Face(\pndart{33}{1n3;2n2})%
-6-%\allowbreak{}contraction\-Face(\pndart{63}{1n4;2n6;4n6})%
-7-%\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;2n6;3n0;4n4;6n2})%
-8-%\allowbreak{}coloration\-Face(\pndart{35}{1n3;2n4;5n0}, Bleu)%
-9-%\allowbreak{}coloration\-Face(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1}, Rouge)%
-\end{lstlisting}
-
-% \xavier{Dans la spéc. paramétrique, parfois tu précises sur quelle entité topologique l'opération a lieu : par exemple, "extrusionFace", parfois non, par exemple, "insertionSommet" $\rightarrow$ sois homogène et précise l'entité pour toutes les opérations.
-% \begin{itemize}
-% \item carre $\rightarrow$ creationCarre
-% \item extrusionFace  $\rightarrow$ OK
-% \item extrusionFace\-Volume $\rightarrow$ OK
-% \item triangulation $\rightarrow$ triangulationFace (attention, il faut aussi remettre le texte explicatif à jour. En particulier, tu nommes actuellement cette opération "triangulate")
-% \item contractionFace  $\rightarrow$ OK
-% \item chanfrein $\rightarrow$ chanfreinSommet
-% \item coloration $\rightarrow$ colorationFace ou colorationBleuFace
-% \item coloration $\rightarrow$ colorationFace ou colorationRougeFace
-% \end{itemize}
-% }
-
 La première construction, illustrée
 figure~\ref{fig:reevaluation-base-regles-cs1-evaluation}, sera notre principal
 fil rouge pour ce chapitre. %
 Celui-ci va nous permettre d'illustrer nos méthodes de nomination persistante
 et de réévaluation. %
 Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
-liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1}. %
+liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1}. \david{ici et dans la suite, j'utiliserais plutôt le terme "listing" que "liste", d'autant plus que c'est celui apparaissant sur tes légendes. Je mettrais les légendes plutôt e dessous qu'au dessus des listings, et j'essayerais de mettre les paragaphes faisant références à ces listing avant les listing eux-mêmes}%
 
 L'application de l'opération, \texttt{1-\allowbreak{}creation\-Carre}, crée une face carrée
 (figure~\ref{fig:reevaluation-base-regles-cs1-1-evaluation-square}). %
@@ -209,19 +181,33 @@ au brin \(68\)
 
 \begin{lstlisting}[escapechar=\%,
 style=script-style,
-caption=Spécification paramétrique éditée du cas nº~1,
-label=lst:reevaluation-regles-specification-parametrique-edit-cas-1]
-1-%carre(pos)%
-ADD 9-%\allowbreak{}insertion\-Sommet(3)%
+caption=Spécification paramétrique initiale du cas nº~1,
+label=lst:reevaluation-regles-specification-parametrique-init-cas-1,
+captionpos=b]
+1-%\allowbreak{}creation\-Carre(pos)%
 2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6}, vec)%
-DELETE 3%-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;2n4})%
+3-%\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;2n5})%
 4-%\allowbreak{}extrusion\-Face\-Volume(\pndart{47}{1n5;2n6;3n0}, vec)%
 5-%\allowbreak{}tri\-an\-gu\-la\-t\-i\-on\-Face(\pndart{33}{1n3;2n2})%
 6-%\allowbreak{}contraction\-Face(\pndart{63}{1n4;2n6;4n6})%
-7-%chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})%
-8-%coloration(\pndart{35}{1n3;2n4;5n0}, Bleu)%
-9-%coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1},Rouge)%
+7-%\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;2n6;3n0;4n4;6n2})%
+8-%\allowbreak{}coloration\-Face(\pndart{35}{1n3;2n4;5n0}, Bleu)%
+9-%\allowbreak{}coloration\-Face(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1}, Rouge)%
 \end{lstlisting}
+
+% \xavier{Dans la spéc. paramétrique, parfois tu précises sur quelle entité topologique l'opération a lieu : par exemple, "extrusionFace", parfois non, par exemple, "insertionSommet" $\rightarrow$ sois homogène et précise l'entité pour toutes les opérations.
+% \begin{itemize}
+% \item carre $\rightarrow$ creationCarre
+% \item extrusionFace  $\rightarrow$ OK
+% \item extrusionFace\-Volume $\rightarrow$ OK
+% \item triangulation $\rightarrow$ triangulationFace (attention, il faut aussi remettre le texte explicatif à jour. En particulier, tu nommes actuellement cette opération "triangulate")
+% \item contractionFace  $\rightarrow$ OK
+% \item chanfrein $\rightarrow$ chanfreinSommet
+% \item coloration $\rightarrow$ colorationFace ou colorationBleuFace
+% \item coloration $\rightarrow$ colorationFace ou colorationRougeFace
+% \end{itemize}
+% }
+
 
 % \xavier{Même remarque que précédemment pour le renommage des opérations, dans la spéc. param. et dans le texte explicatif.}
 
@@ -242,6 +228,26 @@ réévaluée. %
 
 % Nous devrions donc, en toute logique, nous attendre à des changements
 % significatifs dans la topologie du modèle réévalué. %
+
+
+
+\begin{lstlisting}[escapechar=\%,
+style=script-style,
+caption=Spécification paramétrique éditée du cas nº~1,
+label=lst:reevaluation-regles-specification-parametrique-edit-cas-1,
+captionpos=b]
+1-%carre(pos)%
+ADD 9-%\allowbreak{}insertion\-Sommet(3)%
+2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6}, vec)%
+DELETE 3%-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;2n4})%
+4-%\allowbreak{}extrusion\-Face\-Volume(\pndart{47}{1n5;2n6;3n0}, vec)%
+5-%\allowbreak{}tri\-an\-gu\-la\-t\-i\-on\-Face(\pndart{33}{1n3;2n2})%
+6-%\allowbreak{}contraction\-Face(\pndart{63}{1n4;2n6;4n6})%
+7-%chanfrein(\pndart{55}{1n5;2n6;3n0;4n4;6n2})%
+8-%coloration(\pndart{35}{1n3;2n4;5n0}, Bleu)%
+9-%coloration(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1},Rouge)%
+\end{lstlisting}
+
 
 \subsection{Construction nº~2}
 \label{sec:reevaluation-base-regles-deuxieme-cas}
@@ -359,19 +365,6 @@ réévaluée. %
 	\label{fig:reevaluation-base-regles-cs2-reevaluation}
 \end{sidewaysfigure}
 
-\begin{lstlisting}[escapechar=\%,
-style=script-style,
-caption=Spécification paramétrique initiale du cas nº~2,
-label=lst:reevaluation-regles-specification-parametrique-init-cas-2]
-1-%\allowbreak{}creation\-Carre()%
-2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6})%
-3-%\allowbreak{}contraction\-Face(\pndart{47}{1n5; 2n6})%
-4-%\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})%
-5-%\allowbreak{}triangulation\-Face(\pndart{33}{1n3; 2n2})%
-6-%\allowbreak{}coloration\-Face(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)%
-7-%\allowbreak{}coloration\-Face(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)%
-\end{lstlisting}
-
 La seconde construction est illustrée
 figure~\ref{fig:reevaluation-base-regles-cs2-evaluation}. %
 Celle-ci va nous permettre de préciser la définition de \textit{stratégies
@@ -394,18 +387,18 @@ Ce sommet est ensuite chanfreiné par la quatrième application
 \texttt{4-\allowbreak{}chanfrein\-Sommet}. %
 L'application \texttt{5-\allowbreak{}triangulation\-Face} triangule la face frontale de l'objet. %
 Enfin, les applications \texttt{6-\allowbreak{}coloration\-Face} et \texttt{7-\allowbreak{}coloration\-Face} colorient respectivement
-deux faces de l'objet respectivement en rouge et en bleu. %
+deux faces de l'objet en rouge et en bleu. %
 Notons que la face coloriée en rouge est la face issue du chanfreinage
 (\texttt{4-\allowbreak{}chanfrein\-Sommet}). %
 
 \begin{lstlisting}[escapechar=\%,
 style=script-style,
-caption=Spécification paramétrique éditée du cas nº~2,
-label=lst:reevaluation-regles-specification-parametrique-edit-cas-2]
+caption=Spécification paramétrique initiale du cas nº~2,
+label=lst:reevaluation-regles-specification-parametrique-init-cas-2]
 1-%\allowbreak{}creation\-Carre()%
 2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6})%
 3-%\allowbreak{}contraction\-Face(\pndart{47}{1n5; 2n6})%
-DELETE 4-%\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})%
+4-%\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})%
 5-%\allowbreak{}triangulation\-Face(\pndart{33}{1n3; 2n2})%
 6-%\allowbreak{}coloration\-Face(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)%
 7-%\allowbreak{}coloration\-Face(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)%
@@ -414,11 +407,10 @@ DELETE 4-%\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})%
 La version éditée de la spécification paramétrique consiste à supprimer la
 quatrième opération, comme l'illustre la liste
 ~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}. %
-Cette édition se traduit, dans la réévaluation, a un impact direct sur
-l'application \texttt{6-\allowbreak{}coloration\-Face} et indirect sur l'application
-\texttt{7-\allowbreak{}coloration\-Face}, ainsi que l'atteste la
-figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}.%
-
+L'application \texttt{4-\allowbreak{}chanfreinSommet} ne doit donc pas être réévaluée. %
+Les applications \texttt{6-\allowbreak{}coloration\-Face} et
+\texttt{7-\allowbreak{}coloration\-Face}, quant à elles, sont indirectement annulées, car les faces qu'elles doivent colorer ne sont pas recréées ainsi que l'atteste la
+figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}.
 %Dans la version éditée de la spécification paramétrique
 %(liste~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}),
 %figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
@@ -433,6 +425,21 @@ En effet, l'application \texttt{6-coloration\-Face} référence la face créée 
 De la même manière, la face initialement coloriée par \texttt{7-\allowbreak{}coloration\-Face}
 n'est plus créée lors de la triangulation et ne peut donc pas être coloriée dans
 la réévaluation. %
+
+\begin{lstlisting}[escapechar=\%,
+style=script-style,
+caption=Spécification paramétrique éditée du cas nº~2,
+label=lst:reevaluation-regles-specification-parametrique-edit-cas-2]
+1-%\allowbreak{}creation\-Carre()%
+2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6})%
+3-%\allowbreak{}contraction\-Face(\pndart{47}{1n5; 2n6})%
+DELETE 4-%\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})%
+5-%\allowbreak{}triangulation\-Face(\pndart{33}{1n3; 2n2})%
+6-%\allowbreak{}coloration\-Face(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)%
+7-%\allowbreak{}coloration\-Face(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)%
+\end{lstlisting}
+
+
 
 %%% Local Variables:
 %%% mode: LaTeX

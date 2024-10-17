@@ -2,20 +2,27 @@
 \label{sec:reevaluation-nomination-persistante-orbites}
 
 
-Pour compléter la nomination des entités topologiques, nous construison les
-arbres d'évaluations, ou DAGs d'évaluations, à partir des noms persistants des
-brins. %
-Ces noms persistants sont des enregistrements de toutes les applications qui
-impactent les orbites. %
-Les brins représentent ainsi les historiques d'évolutions des orbites auxquelles
-ils appartiennent. %
+% \davidSup{Pour compléter la nomination des entités topologiques, nous construisons les
+% arbres d'évaluations, ou DAGs d'évaluations, à partir des noms persistants des
+% brins. Ces noms persistants sont des enregistrements de toutes les applications qui
+% impactent les orbites. Les brins représentent ainsi les historiques d'évolutions des orbites auxquelles
+% ils appartiennent.}
+Pour compléter la nomination des entités topologiques, nous construisons, pour chaque nom persistant de la spécification paramétrique, un arbre d'évaluation, ou DAG d'évaluation. %
+Nous allons voir que l'utilisation combinée de ces noms persistants avec la détection automatique des évènements, obtenus par analyses syntaxiques des règles (chapitre~\ref{cha:formalisation-evenements}), permet de reconstruire les historiques d'évolutions des orbites et ainsi garantir les bases d'une nomination persistante. %
+
+%\david{en affirmant ça, tu vas bien trop vite en besogne. D'autre part tu parles des brins alors que ce sont plutôt les noms persistants des brins qui ont cette info. %
+% Proposition de texte :
+% Pour compléter la nomination des entités topologiques, nous construisons pour chaque nom persistant de la spécification paramétrique, un arbre d'évaluation, ou DAG d'évaluation.
+% Nous allons voir que l'utilisation de ces noms persistants, combinée à la détection automatique des évènements par analyse syntaxique des règles introduite dans le chapitre~\ref{cha:formalisation-evenements}, permet de reconstruire l'historique d'évolution des orbites et de garantir ainsi les bases d'un nommage persitant.%
+%} %
+%\maxime{Je te rejoins sur ce que tu dis. J'ai repris ta proposition, mais j'aimerais la découper en deux phrases. }
 
 
 \subsection{Reconstitution de l'historique des évolutions d'une orbite}
 \label{sec:reevaluation-base-regles-nomination-persistante-orbites-reconstitution-historique}
 
 
-Détaillons la construction du DAG d'évaluation pour le paramètre topologique de l'application
+Pour expliciter les mécanismes mis en \oe uvre, détaillons la construction du DAG d'évaluation pour le paramètre topologique de l'application
 \texttt{8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;2n4;5n0}, Bleu)}, dans la construction nº~1. %
 %
 \begin{figure}[htb!]
@@ -29,14 +36,14 @@ La première étape consiste à identifier le
 type d'orbite filtré par la règle. %
 Comme expliqué dans les chapitres précédents, cette information est représentée
 dans l'étiquette du n\oe ud d'accroche de la règle. %
-Pour notre exemple, le type d'orbite qui nous intéresse, \(\orbit{0,1}\) en l'occurrence, est déterminée par l'étiquette du n\oe
-ud \(n_{0}\) affichée en {\color{orange}orange} dans la
+Pour notre exemple, le type d'orbite qui nous intéresse, \(\orbit{0,1}\) en l'occurrence, est
+déterminée par l'étiquette du n\oe ud \(n_{0}\) affichée en {\color{orange}orange} dans la
 figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}. %
 À partir de cette information, nous pouvons commencer à remonter l'historique
 des évolutions de l'orbite sur laquelle l'opération de coloration a été
 appliquée. %
 Autrement dit, l'historique que nous reconstituons est un DAG qui se construit
-et se lit de la fin jusqu'au début, de l'état le plus récent de l'orbite jusqu'à
+de la fin jusqu'au début, de l'état le plus récent de l'orbite jusqu'à
 ses ancêtres les plus anciens. %
 
 \begin{figure}[htb!]
@@ -55,8 +62,8 @@ La suite de la reconstitution consiste à remonter l'historique du nom persistan
 du brin, application par application. %
 Dans le DAG d'évaluation, une application est représentée par un couple de
 niveaux~: (1) un \emph{niveau d'orbite} qui contient l'ensemble des types d'orbites
-suivis dans l'application courante~; (2) un \emph{niveau d'événements} qui ont impacté
-les orbites suivies. %
+suivis dans l'application courante~; (2) un \emph{niveau d'événements} qui liste les
+évènements qui ont impacté les orbites suivies. %
 %
 \begin{figure}[htb!]
 	\centering
@@ -131,7 +138,7 @@ l'application courante dans l'historique. %
 \end{figure}
 %
 
-À l'étape suivante, nous remontons l'historique d'un niveau. %
+À l'étape suivante, nous remontons l'historique du nom persistant du brin \(35\) d'un niveau. %
 Cette fois, l'application concerne la règle d'extrusion d'une face et son n\oe
 ud \(n_{4}\). %
 Comme pour la triangulation, nous procédons à l'analyse de la règle à la
@@ -188,7 +195,7 @@ arête et l'arête incidente à \(n_{4}\) est créée par l'extrusion d'un brin.
 \end{figure}
 %
 
-Nous remontons l'historique d'un cran et arrivons à la dernière étape de cette
+Nous remontons encore l'historique d'un cran et arrivons à la dernière étape de cette
 reconstitution de l'historique des évolutions de notre orbite de suivi. %
 L'application désignée est la toute première enregistrée dans la spécification,
 c'est-à-dire la règle de triangulation et son n\oe ud \(n_{3}\). %
@@ -277,9 +284,10 @@ incidents en un seul sommet qui est celui désigné par le DAG. %
 Ainsi, la face supprimée est à l'origine de la fusion, mais elle ne permet pas,
 seule, de représenter les sommets fusionnés qui sont filtrés par l'orbite
 \(L\orbit{1,2}(n_{2})\). %
-Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui
-permet de faire la distinction entre l'origine d'un événement et une orbite
-d'origine. %
+%\davidSup{Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui
+%%d'origine.}
+%\david{si tu dis ça, il faut que tu définisses ce qu'est l'origine d'un évènement et en quoi c'est différent d'une orbite d'origine. Personnellement, je ne me lancerais pas dans cette direction. Je dirais plutôt : Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui permet d'atteindre le n\oe ud d'accroche de la règle.} %
+Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui permet d'atteindre le n\oe ud d'accroche de la règle. %
 %
 \begin{figure}[htb!]
 	\begin{minipage}[s]{.25\textwidth}
@@ -333,42 +341,38 @@ Par exemple, dans la règle de contraction, pour \(n_{2}\) comme n\oe ud de
 départ, ce chemin est constitué des arcs explicites \(1\) et \(2\). %
 Dans le DAG, il est ajouté au n\oe ud de l'orbite face qui devient
 \orbitnode{@1.@2\orbit{0,1}}. %
-%
-% \begin{figure}[htb!]
-% \end{figure}
 
-Une autre raison de créer ce chemin est le fait que si nous observons la règle
-d'extrusion de face, l'orbite \(R\orbit{0,1}(n_{0})\) ne filtre pas la face dont
-la suppression provoque la fusion (dans notre exemple, cela filtre une face de
-côté du cube plutôt que sa face du dessus)
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}). %
-L'annotation du n\oe ud avec un chemin nous permet donc de remonter jusqu'à la
-face à l'origine de la fusion. %
-En effet, le parcours des arcs explicites \(1\) et \(2\) à partir du n\oe ud
-\(n_{4}\) nous donne le n\oe ud \(n_{6}\). %
-C'est bien ce n\oe ud qui crée la face qui provoquera la fusion de ses sommets
-incidents lors de l'application suivante. %
 
+%\david{
+En effet, le DAG est construit à partir du nom persistant du brin 55 (\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2}). Comme vu précédemment, les n\oe uds apparaissant dans le DAG sont bien ceux du nom persistant. Un simple calcul d'origine sans prise en compte du chemin indiquerait que le sommet désigné par \(\orbit{1,2}(n_{2})\) aurait pour origine une face directement incidente au n\oe ud \(n_{4}\), n\oe ud provenant du membre droit de la règle d'extrusion. Or, en analysant cette règle, nous voyons que la face incidente à \(n_{4}\) correspond à une face latérale et non à la face supérieure du cube créé par extrusion. En revanche, nous pouvons observer que l'utilisation du chemin depuis \(n_{4}\) (le parcours des arcs explicites \(1\) et \(2\) à partir du n\oe ud \(n_{4}\)) permet bien de désigner le n\oe ud \(n_{6}\), et donc la face supérieur de ce cube (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}).
+L'annotation du n\oe ud avec un chemin nous permet donc de remonter jusqu'au n\oe ud désignant la face à l'origine de la fusion de ses sommets incidents lors de l'application suivante. %
+%}
+
+\subsection{Résumé}
+
+\david{bizarre que ce qui suit soit dans cette section sur les chemins. C'est plutôt un résumé/conclusion de la section 3. Je le mettrais donc plutôt dans un 3.3 Résumé, par exemple}\maxime{Oui, j'ai peut-être pris la consigne "faire comme dans la présentation" de manière trop littérale. Cela dit même si ça ne m'a pas semblé superflu, je voudrais bien ton avis, j'ai pas non plus envie que le manuscrit soit trop lourd à lire} %
 La mise en \oe uvre de cette procédure, pour reconstituer l'historique des
 évolutions d'une orbite, ne nécessite qu'un nom persistant de brin et les règles
 enregistrées dans une spécification paramétrique. %
-Comme démontré dans l'exemple, l'analyse statique des règles nous permet de
-représenter les évolutions d'une orbite jusqu'à ses origines sans devoir
-réappliquer les règles. %
-Enfin, ce mécanisme est exécuté  pour les paramètres topologiques uniquement,
+Comme illustré
+%\david{rem : un exemple ne démontre rien. Il illustre tout au plus}
+dans l'exemple, combiner l'analyse statique des règles aux noms persistants des brins enregistrés dans la spécification paramétrique nous permet de calculer et
+représenter les évolutions d'une orbite jusqu'à ses origines. %
+Avec cette approche, il n'est alors pas nécessaire de ré-appliquer les règles pour déterminer les évènements au fur et à mesure de l'évolution du modèle. %
+Ce mécanisme est exécuté uniquement pour les paramètres topologiques,
 c'est-à-dire les entités topologiques enregistrées dans la spécification
-paramétrique. %
-En outre, le mécanisme de nommage que nous proposons combine les avantages de
+paramétrique.%
+Il combine ainsi les avantages de
 l'analyse statique des règles (faible coût en calcul pour la détection des
 événements) et la nomination d'un échantillon d'orbites restreint à celles qui
-sont explicitement désignées par l'utilisateur lors du processus de construction d'un objet. %
+sont explicitement désignées par l'utilisateur lors du processus de construction d'un objet, ce qui limite grandement les calculs à effectuer.%
 
-Tous comme dans les travaux de Cardot, la reconstitution des évolutions
+Même si cela n'a pas été évoqué plus haut, remarquons que, tout comme dans les travaux de Cardot, la reconstitution des évolutions
 d'orbites peuvent intégrer un type d'évènement appelé \texttt{NOEFFECT}, qui
 permet de représenter les opérations qui ne filtrent pas les orbites suivies
 dans l'historique d'une orbite. %
 Par simplicité pédagogique, nous ne présentons pas, dans ce chapitre, d'exemple
-qui intègre les n\oe uds d'évènements \noeffectnodeevent dans les DAGs. %
+qui intègre les n\oe uds d'évènements \noeffectnodeevent{} dans les DAGs. %
 De tels exemples peuvent être trouvés en annexes de ce manuscrit. %
 % \maxime{Je pense que ce sera pas du luxe des proposer des exemples plus complets en Annexes.}
 % \xavier{Oui, il y a intérêt, surtout si tu écris dans le manuscrit que de tels exemples s'y trouveront. :)}

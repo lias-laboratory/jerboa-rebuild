@@ -2,7 +2,7 @@ package fr.ensma.lias.jerboa.datastructures;
 
 public enum Event {
   CREATION(EventCategories.GENERATION),
-  SUPPRESSION(EventCategories.DESTRUCTION),
+  DELETION(EventCategories.DESTRUCTION),
   NOMODIF(EventCategories.MODIFICATION),
   SPLIT(EventCategories.MODIFICATION),
   MERGE(EventCategories.MODIFICATION),

@@ -118,6 +118,8 @@ class ScriptConditionalReevaluation {
         // REVIEW: computing matchingOrbit only once (check needed)
         List<JerboaRuleNode> matchingOrbit = JerboaRuleNode.orbit(rightNode, orbitType);
         Event computedEvent = detector.getEventFromOrbit(rightNode, orbitType, matchingOrbit);
+        // RHSBOriginType is computed from trace orbitType then all test are for
+        // the same traced orbit type
         JerboaOrbit RHSBOriginType = detector.computeOrigin(rightNode, orbitType);
 
         // mark orbits to avoid compute orbits more than once

@@ -37,8 +37,8 @@ public class DemoTestEngine {
         new RebuildEngine(
             modeler, //
             "./examples", //
-            "alt-2-eval.json", //
-            "alt-2-reeval.json", //
+            "exemple-if-in-for-eval.json", //
+            "exemple-if-in-for-eval.json", //
             false);
 
     SwingUtilities.invokeLater(

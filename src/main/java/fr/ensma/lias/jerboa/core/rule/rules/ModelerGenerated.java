@@ -98,7 +98,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeIndependentVertex;
 import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeEdgeVertexYAxis;
 import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.S_ExtrusionSquelette;
 import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_VertexDualToVolume;
-import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreateSquareFace;
+import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreateTriangle;
 import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeIndependentFaceWithSide;
 import fr.ensma.lias.jerboa.core.rule.rules.Dual.S_DualToSkeleton;
 import fr.ensma.lias.jerboa.core.rule.rules.ExtrudeFaceToPyramid;
@@ -115,6 +115,7 @@ import fr.ensma.lias.jerboa.core.rule.rules.Extrusion.ExtrudeIndependentFaceZAxi
 import fr.ensma.lias.jerboa.core.rule.rules.EdgeDim2;
 import fr.ensma.lias.jerboa.core.rule.rules.squareOrTriangulate;
 import fr.ensma.lias.jerboa.core.rule.rules.Color.MakeFaceOrange;
+import fr.ensma.lias.jerboa.core.rule.rules.Creation.CreateSquareFace;
 
 
 
@@ -236,7 +237,7 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new ExtrudeEdgeVertexYAxis(this));
         this.registerRule(new S_ExtrusionSquelette(this));
         this.registerRule(new S_VertexDualToVolume(this));
-        this.registerRule(new CreateSquareFace(this));
+        this.registerRule(new CreateTriangle(this));
         this.registerRule(new ExtrudeIndependentFaceWithSide(this));
         this.registerRule(new S_DualToSkeleton(this));
         this.registerRule(new ExtrudeFaceToPyramid(this));
@@ -253,6 +254,7 @@ public class ModelerGenerated extends JerboaRebuiltModeler {
         this.registerRule(new EdgeDim2(this));
         this.registerRule(new squareOrTriangulate(this));
         this.registerRule(new MakeFaceOrange(this));
+        this.registerRule(new CreateSquareFace(this));
     }
 
     public final JerboaEmbeddingInfo getPos() {

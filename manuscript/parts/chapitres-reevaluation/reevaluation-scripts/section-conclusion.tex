@@ -1,0 +1,45 @@
+\section{Conclusion}
+\label{sec:reevaluation-scripts-conclusion}
+
+Dans ce chapitre, nous proposons d'étendre notre mécanisme de réévaluation afin
+de supporter les opérations construites à l'aide du langage de scripts de
+Jerboa. %
+Nous étudions plus particulièrement trois structures de contrôles qui sont
+respectivement les séquences, les boucles \texttt{foreach} et les alternatives
+\texttt{if-then-else}. %
+Une première problématique que nous abordons concerne le mode de représentation
+des scripts pour déterminer comment traiter leurs contenus. %
+La première option concernait la représentation boîte fermée. %
+Dans ce cas, un script ne nécessite pas de traitement particulier et, en
+contrepartie, les développeurs de scripts doivent construire une sortie à la
+manière des règles Jerboa. %
+La seconde option, que nous avons choisie, est la boîte ouverte. %
+Dans ce mode de représentation, nous avons connaissances du contenu des scripts,
+à savoir les règles appelées et leurs paramètres ainsi que les structures de
+contrôle utilisées. %
+Dans cette démarche, nous proposons d'étendre nos structures de spécification
+paramétrique et de DAGs. %
+L'extension des spécifications paramétriques consiste à représenter un script
+comme une spécification imbriquée et à lister son contenu, c'est-à-dire les
+opérations appliquées et les structures de contrôles utilisées. %
+Pour les DAGs, nous considérons qu'il est nécessaire d'ajouter une branche pour
+chacun des paramètres qui conditionnent la réévaluation d'une orbite. %
+Ainsi, dont l'évolution dépend d'un script, est conditionnée par l'existance du
+paramètre topologique de ce script. %
+De même, nous considérons chaque itération d'une boucle \texttt{foreach} dispose
+de deux paramètres topologiques qui sont l'orbite à itérer et l'instance
+d'itération qui impacte l'orbite que nous souhaitons apparier. %
+Enfin, nous proposons une dernière contribution relative à la structure
+d'alternative \texttt{if-then-else}. %
+Cette structure permet, étant donné l'évaluation d'une condition, appliquer une
+séquence d'instruction ou une autre. %
+Dans le cas où une autre branche que celle évaluée initialement serait
+appliquée, il est nécessaire d'identifier précisément les orbites sur lesquelles
+les utilisateurs souhaitent travailler. %
+En effet deux orbites appelées de la sorte peuvent être très différentes. %
+Pour respecter les intentions de modélisation, nous procédons une procédure,
+basée sur l'analyse des règles alternatives, qui fait l'appariement des orbites
+qui subissent des transformations similaires. %
+Enfin, puisque ces appariement ne sont explicitement exprimés par les
+utilisateurs, nous proposons la sélection de stratégies pour configurer la
+qualité d'appariement recherchée. %

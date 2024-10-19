@@ -1,8 +1,53 @@
-
 \section{Conclusion}
 \label{sec:reevaluation-base-regles-conclusion}
 
-\todo{}
+Dans ce chapitre, nous présentons les structures de données et procédure
+nécessaires à l'implantation d'un mécanisme de réévaluation dans un système de
+modélisation à base de règles. %
+La difficulté d'un tel mécanisme est la phase d'appariement entre les entités
+topologiques du modèle initial et celles du modèle réévalué. %
+Pour cela, nous présentons une approche exploitant les formalismes des cartes
+généralisées, des règles Jerboa et des évènements que nous avons définis dans le
+chapitre~\ref{cha:formalisation-evenements}. %
+
+Lors de la conception d'un objet, tout brin d'une carte généralisée est
+représenté par son historique d'évolutions. %
+Celui-ci référence l'ensemble des applications et les n\oe uds de règles ayant
+conduit à sa création ou sa modification. %
+Puisqu'un brin est explicitement désigné lors de l'application d'une règle et
+que son historique est unique, nous utilisons celui-ci comme nom persistant pour
+désigner une orbite. %
+Toutefois, la nomination des brins ne suffit pas, car elle ne représente pas
+explicitement l'historique des évolutions d'une orbite. %
+Nous présentons alors un second mécanisme permettant de reconstituer les
+historiques d'évolutions des orbites identifiées par des noms persistants. %
+Pour cela, nous enregistrons dans un DAG chacune des applications qui
+interviennent dans l'évolution d'une orbite. %
+Les évènements sont détectés par analyse statique des règles, ce qui nous permet
+de représenter à la fois le suivi d'une orbite et le suivi de chacune des
+origines qui peuvent être détectées. %
+De plus, nous complétons la notion d'origine à l'aide d'un contexte,
+automatiquement calculé au moment de l'analyse, qui nous permet de garantir la
+cohérence du suivi d'orbite. %
+Ces deux mécanismes de reconstitution d'historiques pour les brins et les
+orbites représentent, en réalité, notre mécanisme de nomination persistante. %
+Celui a ainsi l'avantage d'être robuste et efficace dans le sens où seules les
+orbites disposant d'un nom persistant sont décrites par un historique enrichi. %
+Enfin, nous présentons notre mécanisme d'appariement des entités pour la
+réévaluation. %
+Dans cette contribution, les DAGs d'évaluation nous servent de bases pour créer
+des DAGs de réévaluations, c'est-à-dire des DAGs qui prennent en compte les
+modifications apportées au modèle géométrique en fonction de l'édition d'une
+spécification paramétrique. %
+Afin d'offrir un certain degré de liberté lors de la réévaluation, nous
+proposons également des stratégies configurables par les utilisateurs. %
+Ces stratégies leur permettent, entre autre, de sélectionner un ensemble de
+paramètres sur lesquels réappliquer des opérations lorsque, par exemple, une
+entité est scindée par une opération ajoutée. %
+D'autres stratégies permettant de prendre en compte la suppression d'orbite
+ainsi que le déplacement d'opérations sont en cours d'implantation. %
+Enfin, nous avons présenté les structures de DAGs que nous avons implanté pour
+permettre la réévaluation dans un système de modélisation à base de règles. %
 
 %%% Local Variables:
 %%% mode: LaTeX

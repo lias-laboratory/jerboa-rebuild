@@ -927,14 +927,14 @@ Dans le DAG d'évaluation, une application est représentée par un couple de
 niveaux~: (1) un \emph{niveau d'orbite} qui contient l'ensemble des types d'orbites
 suivis dans l'application courante~; (2) un \emph{niveau d'événements} qui liste les
 évènements qui ont impacté les orbites suivies. %
-
+%
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=50pt]{rule-face-triangulation-3D-n0-highlight-boxed-v2}
 	\caption{Analyse de la règle de triangulation}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-triangulation}
 \end{figure}
-
+%
 Reprenons notre exemple. %
 La deuxième étape de la reconstitution d'historique commence avec la dernière
 application enregistrée dans le nom persistant du brin \(35\), c'est-à-dire
@@ -951,15 +951,15 @@ de tous les \(1\)-arcs implicites dans des dimensions hors du type
 De plus, nous pouvons voir dans l'orbite \(R\orbit{0,1}(n_{0})\) que les \(0\)
 et \(1\)-arcs implicites, à droite en \textcolor{orange}{orange}, sont des
 réécritures d'un \(0\)-arc implicite dans le n\oe ud d'accroche, à gauche aussi
-en \textcolor{orange}{orange}. % \xavier{Précise
-
+en \textcolor{orange}{orange}. %
+%
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[scale=.45]{pn35-dag-eval-step-2}
 	\caption{Étape 2 \texttt{[1n3;2n4;{\color{orange}5n0}]} de la construction du DAG}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-2}
 \end{figure}
-
+%
 Ainsi, l'orbite que nous suivons, d'une part, est scindée, et, d'autre part, a
 pour origine une arête de type \(\orbit{0}\). %
 Ces informations, acquises lors de l'analyse statique de la règle, sont reportées
@@ -1126,6 +1126,7 @@ pour illustrer le calcul et l'utilisation d'un chemin pour compléter les orbite
 d'origines. %
 Ce DAG décrit l'historique des évolutions d'un sommet issu d'une fusion
 provoquée par l'application \texttt{6-\allowbreak{}contraction\-Face}. %
+%
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=50pt]{rule-face-collapse-origin-highlight}
@@ -1145,7 +1146,7 @@ Ainsi, la face supprimée est à l'origine de la fusion, mais elle ne permet pas
 seule, de représenter les sommets fusionnés qui sont filtrés par l'orbite
 \(L\orbit{1,2}(n_{2})\). %
 Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui permet d'atteindre le n\oe ud d'accroche de la règle. %
-
+%
 \begin{figure}[htb!]
 	\begin{minipage}[s]{.25\textwidth}
 		\begin{subfigure}{\textwidth}
@@ -1180,7 +1181,7 @@ Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui per
 		la règle d'extrusion
 		(\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})}
 \end{figure}
-
+%
 Ce contexte prend la forme d'un chemin entre les n\oe{}uds. Pour calculer un tel
 chemin, nous effectuons un parcours depuis le n\oe ud enregistré par
 l'application jusqu'au n\oe ud d'accroche (voir le chemin en
@@ -1304,6 +1305,7 @@ Ainsi, la méthode consiste, pour chaque application d'un type donné, à~:
 	\caption{Appariement des orbites issues de \texttt{INIT 1-\allowbreak{}creation\-Carre()}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1}
 \end{figure}
+
 Le nom persistant PN\textsubscript{35} du cas d'étude et son DAG d'évaluation
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}),
 comme point de départ pour illustrer la création d'un DAG de réévaluation et les
@@ -1400,6 +1402,7 @@ En effet, une branche suit désormais l'évolution des orbites incidentes au bri
 	\caption{Appariement des orbites issues de \texttt{INIT 2-\allowbreak{}extrusion\-Face}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3}
 \end{figure}
+
 Suite à la scission ajoutée à l'étape précédente, nous suivons l'impact de
 l'application suivante dans la spécification paramétrique éditée, \texttt{INIT
   2-\allowbreak{}extrusion\-Face}, pour chaque branche du DAG

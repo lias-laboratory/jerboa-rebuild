@@ -128,7 +128,7 @@
 \newif\ifdev
 
 \DeclareOption{framepage}{%
-\devtrue
+	\devtrue
 }
 
 \ProcessOptions\relax
@@ -311,9 +311,9 @@
 			% \vspace{1em}
 
 			\ifpublish
-			  \parbox[t]{.6\textwidth}{%
-				\centering%
-				{\bfseries\translate{Soutenue le}} {\@date\space}}\\[1em]
+				\parbox[t]{.6\textwidth}{%
+					\centering%
+					{\bfseries\translate{Soutenue le}} {\@date\space}}\\[1em]
 				%% Keeping \@date between brackets prevents font/colour bleeding
 				{\bfseries\translate{devant la Commission d'Examen}}
 			\fi
@@ -382,16 +382,13 @@
 	{\normalsize\bfseries #1}
 
 	\vspace{1em}
-
-	\begin{minipage}{1.0\linewidth}
-	  \noindent
-	  \renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
-	  \renewcommand{\abstractname}{\translate{Résumé~:}}
-	  \begin{abstract}
-	  }{%
-	  \end{abstract}
-	\end{minipage}
-  }
+	\renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
+	\renewcommand{\abstractname}{\translate{Résumé~:}}
+	\noindent
+	\begin{abstract}
+		}{%
+	\end{abstract}
+}
 
 %%% Local Variables:
 %%% mode: latex

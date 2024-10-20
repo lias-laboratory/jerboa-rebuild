@@ -1,3 +1,45 @@
+\chapter{Réévaluation à base de règles}
+\label{cha:reevaluation-base-regles}
+
+Dans le chapitre~\ref{cha:etat-art-modelisation-parametrique}, nous avons passé
+en revue différents systèmes de modélisation, leurs méthodes pour la
+réévaluation de spécifications paramétriques et les différentes solutions qu'ils
+proposent pour la nomination persistante des entités topologiques. %
+Nous avons constaté que la plupart des systèmes ne sont adaptés qu'à la
+conception et la réévaluation de modèles paramétriques d'une dimension donnée
+(généralement en 3D) et définissent des mécanismes de nommage hétérogènes en
+fonction de la dimension des cellules. %
+De ce fait, leurs méthodes ne sont définies que pour un certain ensemble
+d'entités topologiques. %
+Ces méthodes sont ainsi difficiles à étendre vers d'autres dimensions et donc
+non généralisables. %
+
+Dans ce chapitre, nous nous appuyons sur les travaux de Cardot~\cite{cardot2019}
+et les concepts qu'elle propose pour mettre en \oe uvre un système de
+réévaluation générique grâce à l'utilisation des cartes généralisées et des
+règles Jerboa. %
+En particulier, nous nous appuyons sur ses contributions pour l'implantation d'un système de
+nomination persistante en enrichissant la reconstitution des historiques d'évolution des
+orbites à l'aide du suivi des orbites et de leurs origines. %
+Cette amélioration participe à l'amélioration de la procédure
+d'appariement des entités topologiques ainsi qu'à la définition de stratégies
+accessibles aux utilisateurs pour la réévaluation. %
+
+Nous commençons avec une première section dans laquelle nous
+présentons deux cas d'études de réévaluation. %
+Dans une deuxième section, nous présentons notre approche de la
+nomination persistante avec, d'une part, la nomination des brins grâce aux
+règles Jerboa et, d'autre part, la nomination des orbites grâce à la
+formalisation des évènements (voir
+chapitre~\ref{cha:formalisation-evenements}). %
+Dans une troisième section, nous présentons notre mécanisme d'appariement des
+orbites lors du processus de réévaluation. %
+Nous proposons, ensuite, un système de stratégie pour paramétrer la réévaluation
+d'une spécification paramétrique. %
+Enfin, dans la quatrième section, nous donnons un état des lieux de ce qui a été
+implanté avant de conclure le chapitre. %
+
+
 \section{Cas d'études}
 \label{sec:reevaluation-base-regles-cas-etude}
 
@@ -484,10 +526,3 @@ DELETE 4-%\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})%
 6-%\allowbreak{}coloration\-Face(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)%
 7-%\allowbreak{}coloration\-Face(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)%
 \end{lstlisting}
-
-
-
-%%% Local Variables:
-%%% mode: LaTeX
-%%% TeX-master: "../../../main"
-%%% End:

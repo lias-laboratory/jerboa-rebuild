@@ -25,8 +25,14 @@ spécification paramétrique éditée. %
 Enfin, et à l'inverse de la construction d'un DAG d'évaluation, un DAG de
 réévaluation est construit dans l'ordre d'application des règles. %
 
-\david{Je te laisse adapter mes phrases, parce que j'utilise le terme instance courante et je ne suis pas sûr que tu t'en serves beaucoup : L'objectif de l'appariement est d'arriver à identifier explicitement les orbites utilisées comme paramètre de la spécification paramétrique initiale dans le modèle réévalué. Cela se fait en utilisant directement les brins de l'instance courante du modèle en cours de réévaluation et non en utilisant des n\oe uds de règles Jerboa qui peuvent filtrer plusieurs instances de brins.}
-Les DAGs de réévaluation n'enregistrent donc pas des n\oe uds de règles Jerboa mais directement des brins.
+L'objectif de l'appariement est d'identifier dans un modèle réévalué les orbites
+utilisées comme paramètres dans une spécification paramétrique lors de
+l'évaluation initiale. %
+Cette procédure a lieu en cours de réévaluation en utilisant directement les
+brins de l'instance courante du modèle et non les n\oe uds de règles Jerboa. %
+Ceux-ci peuvent en effet filtrer plusieurs instances de brins et conduire à des
+erreurs d'appariement. %
+Les DAGs de réévaluation enregistrent donc directement des brins. %
 Ainsi, la méthode consiste, pour chaque application d'un type donné, à~:
 \begin{description}
 	\item[\texttt{INIT}~:] mettre à jour les évènements initialement détectés
@@ -56,25 +62,30 @@ Ainsi, la méthode consiste, pour chaque application d'un type donné, à~:
 	\caption{Appariement des orbites issues de \texttt{INIT 1-\allowbreak{}creation\-Carre()}}
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1}
 \end{figure}
-\davidSup{Reprenons l'application} le nom persistant PN\textsubscript{35} du cas d'étude \david{et son DAG d'évaluation (figure...)}, comme point de départ pour
-illustrer la création d'un DAG de réévaluation et les différentes étapes
-d'appariement des paramètres topologiques. \david{Pour rappel, la spécification paramétrique éditée était présentée listing... et le résultat d'application était illustré sur la figure...} %
+Le nom persistant PN\textsubscript{35} du cas d'étude et son DAG d'évaluation
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}),
+comme point de départ pour illustrer la création d'un DAG de réévaluation et les
+différentes étapes d'appariement des paramètres topologiques. %
+Pour rappel, la spécification paramétrique éditée était présentée dans le
+listing~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-1} et
+le résultat de la réévaluation était illustré sur la
+figure~\ref{fig:reevaluation-base-regles-cs1-reevaluation}. %
 
 La première étape d'appariement concerne l'application \texttt{INIT
-	1-\allowbreak{}creation\-Carre}
-(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1}). %
+  1-\allowbreak{}creation\-Carre} illustrée
+figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1}. %
 Pour commencer, nous vérifions que la règle est toujours applicable. %
-Puisque \texttt{1-\allowbreak{}creation\-Carre} ne référence aucun paramètre topologique, elle est
-immédiatement ré-applicable. %
+Puisque \texttt{1-\allowbreak{}creation\-Carre} ne référence aucun paramètre
+topologique, elle est réappliquée immédiatement. %
 % Logiquement, comme nous l'avons démontré dans le
 % chapitre~\ref{cha:formalisation-evenements}
 % (page~\pageref{cha:formalisation-evenements}), les évènements de création sont
 % produits pour toute application sur tout objet. \david{je ne comprends pas cette dernière phrase.}\maxime{on peut l'enlever, je me comprends pas non plus et elle n'apporte rien entre la phrase précédente et la suivante} %
 
-Nous pouvons alors reproduire \david{dans le DAG de réévaluation} le premier niveau d'application du DAG
-d'évaluation qui contient deux n\oe uds d'évènements \creationnodeevent{} et
-deux n\oe uds d'orbites brin \orbitnode{\orbit{}} et arête
-\orbitnode{\orbit{0}} incidentes au n\oe ud \(n_{3}\). %
+Nous pouvons alors reproduire dans le DAG de réévaluation le premier niveau
+d'application du DAG d'évaluation qui contient deux n\oe uds d'évènements
+\creationnodeevent{} et deux n\oe uds d'orbites brin \orbitnode{\orbit{}} et
+arête \orbitnode{\orbit{0}} incidentes au n\oe ud \(n_{3}\). %
 Comme évoqué plus tôt, dans un DAG de réévaluation les niveaux d'orbites sont
 annotés par des brins et non des n\oe uds. %
 Pour cela, nous récupérons un brin parmi ceux filtrés par le n\oe ud \(n_{3}\)
@@ -104,8 +115,8 @@ c'est ce brin que nous enregistrons dans le DAG de réévaluation
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2}
 \end{figure}
 
-L'édition de la spécification paramétrique ajoute l'application \texttt{ADD
-	10-\allowbreak{}insertion\-Sommet(3)}
+Lors de l'édition de la spécification paramétrique, nous ajoutons l'application
+\texttt{ADD 10-\allowbreak{}ins\-ert\-ion\-Som\-met(3)}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-2}). %
 Puisqu'elle est ajoutée, nous vérifions tout d'abord si elle a un impact sur les
 évolutions d'orbites représentées dans ce DAG. %
@@ -115,18 +126,20 @@ Si ce n'est pas le cas, le niveau d'application inséré est une simple copie du
 niveau précédent dans lequel les n\oe uds d'évènements sont tous remplacés par
 des \noeffectnodeevent{}. %
 
-Dans notre exemple, \davidSup{l'application désigne l'arête incidente au brin $3$, donc nous poursuivons avec la détection des évènements.} l'insertion du sommet sur l'arête incidente au brin \(3\) scinde cette arête en deux. %
+Dans notre exemple, l'insertion du sommet sur l'arête incidente au brin \(3\)
+scinde cette arête en deux. %
 La détection d'une scission, provoquée par une application ajoutée, provoque le
-\emph{dédoublement} de la branche de suivi pour suivre l'évolution de chacune des
-entités issues de la scission. %
+\emph{dédoublement} de la branche de suivi pour suivre l'évolution de chacune
+des entités issues de la scission. %
 Nous avons alors deux branches de suivi avec chacune un niveau d'évènement qui
-contient un n\oe ud d'évènement \nomodifnodeevent{}, car l'orbite \(\orbit{}(3)\) (le brin à
-l'extrémité de l'arête) est inchangée, et un n\oe ud d'évènement
-\splitnodeevent{}, car l'orbite \(\orbit{0}(3)\) (l'arête)\david{on appelle ça arête et pas demi-arête, c'est ce qu'on avait dit pour simplifier la lecture ? }\maxime{on peut dire arête de face, apparemment je l'ai utilisé dans le chapitre de formalisation.} est scindée en deux (figure~
+contient un n\oe ud d'évènement \nomodifnodeevent{}, car l'orbite
+\(\orbit{}(3)\) (le brin à l'extrémité de l'arête) est inchangée, et un n\oe ud
+d'évènement \splitnodeevent{}, car l'orbite \(\orbit{0}(3)\) (l'arête de face)
+est scindée en deux (figure~
 \ref{fig:reevaluation-base-regle-reevaluation-pn35-step-2-appariement} ). %
 De même, chaque branche contient un niveau d'orbites avec les n\oe uds d'orbites
-\orbitnode{\orbit{}} et \orbitnode{\orbit{0}} et sont distinguées par
-leurs brins respectifs. %
+\orbitnode{\orbit{}} et \orbitnode{\orbit{0}} et sont distinguées par leurs
+brins respectifs. %
 En effet, une branche suit désormais l'évolution des orbites incidentes au brin
 \(3\) tandis que l'autre suit les orbites incidentes au brin \(4\)
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-2-dag}). %
@@ -150,8 +163,9 @@ En effet, une branche suit désormais l'évolution des orbites incidentes au bri
 	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3}
 \end{figure}
 Suite à la scission ajoutée à l'étape précédente, nous suivons l'impact de
-l'application \david{suivante dans la spécification paramétrique éditée,} \texttt{INIT 2-\allowbreak{}extrusion\-Face}, pour chaque branche
-du DAG (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3}). %
+l'application suivante dans la spécification paramétrique éditée, \texttt{INIT
+  2-\allowbreak{}extrusion\-Face}, pour chaque branche du DAG
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3}). %
 Comme lors du jeu initial, l'application de la règle crée des arêtes par
 extrusion de brins et des faces par extrusion d'arêtes. %
 Nous enregistrons donc deux n\oe uds d'évènements \creationnodeevent{} et deux
@@ -188,8 +202,11 @@ La dernière étape pour l'appariement du PN\textsubscript{35} est l'application
 \texttt{INIT 5-\allowbreak{}triangulation\-Face}
 (figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
 Lors de cette scission, les faces suivies dans chacune des branches sont
-scindées, mais puisque cet évènement était prévu dans l'évaluation initiale \david{et que seule la face ayant pour origine \(\orbit{0}(n_{4})\) était suivie},
-alors aucun dédoublement de branche n'est nécessaire, \david{et seules les faces ayant pour origine \(\orbit{0}(37)\) et \(\orbit{0}(52)\) seront suivies dans le DAG de réévaluation}. %
+scindées, mais puisque cet évènement était prévu dans l'évaluation initiale et
+que seule la face ayant pour origine \(\orbit{0}(n_{4})\) était suivie, alors
+aucun dédoublement de branche n'est nécessaire. %
+Seules les faces ayant pour origine \(\orbit{0}(37)\) et \(\orbit{0}(52)\)
+seront suivies dans le DAG de réévaluation. %
 Nous enregistrons donc un n\oe ud d'évènement \splitnodeevent{} ainsi qu'un n\oe
 ud d'orbite \orbitnode{\orbit{0,1}} dans les niveaux d'évènements et d'orbites
 de chaque branche
@@ -230,18 +247,20 @@ Dans le cas du DAG de réévaluation du PN\textsubscript{55}
 la mise à jour de l'historique d'évolutions ne provoque pas la création de
 nouvelle branche et identifie un unique sommet pour réappliquer la règle de
 chanfreinage. %
-L'application \texttt{1-\allowbreak{}creation\-Carre} produit une face carrée et identifie les orbites
-\(\orbit{1}(5)\) et \(\orbit{0,1}(5)\). %
-L'application ajoutée \texttt{ADD~10-\allowbreak{}insertion\-Sommet} filtre partiellement ces deux
-orbites donc nous n'enregistrons pas de \noeffectnodeevent{} dans le DAG \david{mais des \nomodifnodeevent{}}. %
-À l'exception de \texttt{DELETE~3-\allowbreak{}insertion\-Sommet}, les autres applications se déroulent
-de manière quasi identique à l'évaluation initiale. %
+L'application \texttt{1-\allowbreak{}creation\-Carre} produit une face carrée et
+identifie les orbites \(\orbit{1}(5)\) et \(\orbit{0,1}(5)\). %
+L'application ajoutée \texttt{ADD~10-\allowbreak{}insertion\-Sommet} filtre
+partiellement ces deux orbites donc nous n'enregistrons pas de
+\noeffectnodeevent{} dans le DAG mais des \nomodifnodeevent{}. %
+À l'exception de \texttt{DELETE~3-\allowbreak{}insertion\-Sommet}, les autres
+applications se déroulent de manière quasi identique à l'évaluation initiale. %
 Contrairement à l'évaluation initiale, où le DAG
 (figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
 (page~\pageref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
-enregistre les n\oe uds d'évènements \modifnodeevent{} et \nomodifnodeevent{}, nous pouvons voir lors
-de la réévaluation que la suppression de \texttt{3-\allowbreak{}insertion\-Sommet} annule ces deux
-évènements qui sont alors remplacés par des n\oe uds \nomodifnodeevent{}. %
+enregistre les n\oe uds d'évènements \modifnodeevent{} et \nomodifnodeevent{},
+nous pouvons voir lors de la réévaluation que la suppression de
+\texttt{3-\allowbreak{}insertion\-Sommet} annule le n\oe ud \modifnodeevent{}
+qui est alors remplacé par \nomodifnodeevent{}. %
 
 Lors de la réévaluation d'une spécification paramétrique éditée, et plus
 précisément lorsqu'une application est supprimée, nous gardons dans les DAGs une
@@ -258,12 +277,14 @@ remplacés. %
 En effet, si l'application d'une règle ne modifie pas une orbite, son annulation ne
 peut pas la modifier non plus. %
 
-Ce suivi des évènements annulés \david{permet de garder trace de toutes les évolutions entre les évènements composant l'histoire d'un nom au jeu initial et ceux survenus au rejeu, et de permettre ainsi la mise en oeuvre de toutes les stratégies d'appariement possibles. Par exemple, }%
-%Avec la représentation des évènements annulés, nous maintenons une forme de
-%persistance des évènements entre l'évaluation initiale et la réévaluation. %
-lorsqu'une orbite référencée dans la spécification paramétrique n'est pas
-re-créée lors de la réévaluation, nous pouvons tout simplement interrompre
-l'étape d'appariement et terminer la réévaluation sans erreurs d'appariement. %
+Ce suivi des évènements annulés permet de garder trace de toutes les évolutions
+entre les évènements composant l'histoire d'une orbite du modèle évalué et ceux
+survenus dans la réévaluation. %
+Cela rend également possible la mise en \oe uvre de stratégies d'appariement. %
+Par exemple, lorsqu'une orbite référencée dans la spécification paramétrique
+n'est pas re-créée lors de la réévaluation, nous pouvons tout simplement
+interrompre l'étape d'appariement et terminer la réévaluation sans erreurs
+d'appariement. %
 %
 \begin{figure}[htb!]
 	\begin{subfigure}{0.5\linewidth}
@@ -468,6 +489,47 @@ et
 	\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57}
 \end{figure}
 
+\begin{figure}[htb!]
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{9-evaluation-color}
+		\caption{}
+		\label{fig:reevaluation-base-regles-evaluation-cas1-pn68}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{9-reevaluation-color}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}
+	\end{subfigure}
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[height=420pt]{cs1-pn68-dag-eval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}
+	\end{subfigure}
+	\vrule
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[height=420pt]{cs1-pn68-dag-reeval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval}
+	\end{subfigure}
+	\caption{Appariement du PN\textsubscript{68} du cas d'étude nº~1, objet
+		initial (\subref{fig:reevaluation-base-regles-evaluation-cas1-pn68}),
+		objet re-généré
+		(\subref{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}),
+		DAGs d'évaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval})
+		et de réévaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval})
+	}
+	\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}
+\end{figure}
+
 Dans l'exemple de l'appariement du PN\textsubscript{12}
 (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12}),
 nous avons montré que le suivi des évènements et de leurs annulations nous
@@ -514,46 +576,7 @@ droite (figure~\ref{fig:reevaluation-base-regles-reevaluation-strat-alt-non-crea
 %   on peut identifier une des faces avec ce sommet. Ça la discrimine, ce n'est
 %   juste pas son orbite d'origine}
 
-\begin{figure}[hp!]
-	\begin{subfigure}{0.5\linewidth}
-		\centering
-		\includegraphics[width=.3\textwidth]{9-evaluation-color}
-		\caption{}
-		\label{fig:reevaluation-base-regles-evaluation-cas1-pn68}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{.5\linewidth}
-		\centering
-		\includegraphics[width=.3\textwidth]{9-reevaluation-color}
-		\caption{}
-		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}
-	\end{subfigure}
-	\begin{subfigure}[t]{.5\textwidth}
-		\vskip 0pt
-		\centering
-		\includegraphics[height=420pt]{cs1-pn68-dag-eval}
-		\caption{}
-		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}
-	\end{subfigure}
-	\vrule
-	\begin{subfigure}[t]{.5\textwidth}
-		\vskip 0pt
-		\centering
-		\includegraphics[height=420pt]{cs1-pn68-dag-reeval}
-		\caption{}
-		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval}
-	\end{subfigure}
-	\caption{Appariement du PN\textsubscript{68} du cas d'étude nº~1, objet
-		initial (\subref{fig:reevaluation-base-regles-evaluation-cas1-pn68}),
-		objet re-généré
-		(\subref{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}),
-		DAGs d'évaluation
-		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval})
-		et de réévaluation
-		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval})
-	}
-	\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}
-\end{figure}
+
 
 Dans certains cas, la suppression d'une application peut annuler des évènements
 de scission ou de fusion. %

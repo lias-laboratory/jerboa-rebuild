@@ -20,14 +20,21 @@ L'étude des travaux antérieurs a montré que la nécessité de créer et d'att
 des noms persistants concerne uniquement les entités topologiques référencées
 dans une spécification paramétrique, autrement dit les paramètres topologiques
 des opérations. %
-Les travaux de Cardot~\cite{cardot2019} ont indiqué que dans un système à base de
-règles, chaque brin peut être représenté par un historique de construction qui
-l'identifie de manière unique. %
-Elle fait alors le choix d'utiliser \textit{un ensemble de brins} pour représenter de
-manière exhaustive les transformations appliquées sur une orbite. %
-Toutefois, puisque chaque paramètre topologique se voit attribuer un nom, les
-différentes opérations appliquées sur des parties distinctes d'une même orbite
-sont nécessairement identifiées par un nom persistant spécifique. \david{je ne comprends pas cette dernière phrase.}\maxime{J'essaie d'argumenter notre choix de n'utiliser qu'un seul brin pour la nomination persistante, comparé aux travaux d'Anaïs Cardot. Pour ça, je dis que si une orbite est touchée par deux règles qui ne se touchent pas entre elles, ce n'est en principe pas grave de n'avoir qu'un seul brin dans un PN chacun des brin désigné par l'application sera réévalué séparément parce qu'ils ont tous les deux un PN propre.}
+Les travaux de Cardot~\cite{cardot2019} ont indiqué que dans un système à base
+de règles, chaque brin peut être représenté par un historique de construction
+qui l'identifie de manière unique. %
+Elle fait alors le choix d'utiliser \textit{un ensemble de brins} pour
+représenter de manière exhaustive les transformations appliquées sur une
+orbite. %
+\maxime{Toutefois, dans notre approche, nous estimons qu'utiliser plusieurs
+  brins pour un nom persistant n'est pas nécessaire pour représenter la totalité
+  des changements impactant une orbite. %
+  En effet, si une orbite est modifiée par plusieurs règles, alors elle est
+  identifiée par autant de noms persistants. %
+}% Toutefois, puisque chaque paramètre topologique se voit attribuer un nom, les
+% différentes opérations appliquées sur des parties distinctes d'une même orbite
+% sont nécessairement identifiées par un nom persistant spécifique. \david{je ne
+% comprends pas cette dernière phrase.}
 Nous proposons donc, dans un premier temps, de désigner une orbite à l'aide de
 l'historique d'un \textit{unique} brin, ce brin étant celui sélectionné explicitement
 lors de la construction pour désigner l'orbite à transformer. %
@@ -90,7 +97,7 @@ Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 90pt]{rule-face-extrusion-compact}
+		\includegraphics[height = 95pt]{rule-face-extrusion-compact}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion}
 	\end{subfigure}
@@ -170,7 +177,7 @@ respectivement
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-insert-vertex-coloured}
+		\includegraphics[height = 45pt]{rule-insert-vertex-coloured}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-insertion}
 	\end{subfigure}
@@ -199,14 +206,14 @@ sont mis à jour en \texttt{[1n5;\allowbreak{}2n5;\allowbreak{}3n0]} et \texttt{
 \begin{figure}[htb!]
 	\centering
 	\begin{subfigure}{.6\textwidth}
-		\centering
+		\raggedright{}
 		\includegraphics[height = 90pt]{rule-volume-face-extrusion-compact-color}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-volume-extrusion}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{.35\textwidth}
-		\centering
+		\raggedleft{}
 		\includegraphics[width = .9\textwidth]{cs1-nodematch-4-evaluation-extrusion}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion}
@@ -237,7 +244,7 @@ application. Elle n’apparaît donc pas dans son historique. %
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-face-triangulation-3D}
+		\includegraphics[height = 45pt]{rule-face-triangulation-3D}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-triangulation}
 	\end{subfigure}
@@ -266,7 +273,7 @@ respectivement
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-face-collapse}
+		\includegraphics[height = 45pt]{rule-face-collapse}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}
 	\end{subfigure}
@@ -301,7 +308,7 @@ En particulier, l'historique du brin \(55\) devient \texttt{[1n5;\allowbreak{}2n
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-vertex-chamfer-coloured}
+		\includegraphics[height = 45pt]{rule-vertex-chamfer-coloured}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-chanfrein}
 	\end{subfigure}
@@ -335,7 +342,7 @@ est \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-colour-face}
+		\includegraphics[height = 45pt]{rule-colour-face}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-bleu}
 	\end{subfigure}
@@ -354,7 +361,7 @@ est \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{
 	\centering
 	\begin{subfigure}{.6\textwidth}
 		\centering
-		\includegraphics[height = 40pt]{rule-colour-face}
+		\includegraphics[height = 45pt]{rule-colour-face}
 		\caption{}
 		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-rouge}
 	\end{subfigure}

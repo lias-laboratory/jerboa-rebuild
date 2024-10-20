@@ -27,8 +27,8 @@ Pour expliciter les mécanismes mis en \oe uvre, détaillons la construction du 
 %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height = 40pt]{rule-colour-face-n0-highlight}
-	\caption{}
+	\includegraphics[height = 45pt]{rule-colour-face-n0-highlight}
+	\caption{Entrée de la règle de coloration de face}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}
 \end{figure}
 %
@@ -67,7 +67,7 @@ suivis dans l'application courante~; (2) un \emph{niveau d'événements} qui lis
 %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=45pt]{rule-face-triangulation-3D-n0-highlight-boxed-v2}
+	\includegraphics[height=50pt]{rule-face-triangulation-3D-n0-highlight-boxed-v2}
 	\caption{Analyse de la règle de triangulation}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-triangulation}
 \end{figure}
@@ -132,7 +132,7 @@ l'application courante dans l'historique. %
 %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=110pt]{rule-face-extrusion-compact-n4-highlight-v3}
+	\includegraphics[height=115pt]{rule-face-extrusion-compact-n4-highlight-v3}
 	\caption{Analyse de la règle d'extrusion d'une face}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}
 \end{figure}
@@ -189,7 +189,7 @@ arête et l'arête incidente à \(n_{4}\) est créée par l'extrusion d'un brin.
 %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=160pt]{rule-create-square-face-n3-highlight}
+	\includegraphics[height=165pt]{rule-create-square-face-n3-highlight}
 	\caption{Analyse de la règle d'extrusion d'une face}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-carre}
 \end{figure}
@@ -233,6 +233,15 @@ Malgré le fait que le type d'une telle orbite soit calculé à partir d'un n\oe
 d'accroche, celui-ci ne filtre pas toujours l'orbite d'origine, elle peut
 simplement se trouver dans sa composante connexe. %
 
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[scale=.45]{cs1-pn55-dag-evaluation}
+	\caption{DAG d'évaluation du PN\textsubscript{55}}
+	\label{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55}
+\end{figure}
+
+
 Comme nous venons de le voir, un DAG est construit à partir de l'historique d'un
 brin. %
 Ainsi, chaque niveau d'orbite contient un n\oe ud de règle dont l'association à
@@ -253,12 +262,6 @@ En effet, dans l'extrusion (respectivement la triangulation), l'arête
 arête) filtré(e) par le n\oe ud d'accroche. %
 Ainsi, puisque l'origine est dans le n\oe ud d'accroche, ces chemins sont
 nuls. %
-\begin{figure}[htb!]
-	\centering
-	\includegraphics[scale=.45]{cs1-pn55-dag-evaluation}
-	\caption{DAG d'évaluation du PN\textsubscript{55}}
-	\label{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55}
-\end{figure}
 
 Considérons le DAG d'évaluation du PN\textsubscript{55}
 (figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
@@ -268,7 +271,7 @@ Ce DAG décrit l'historique des évolutions d'un sommet issu d'une fusion
 provoquée par l'application \texttt{6-\allowbreak{}contraction\-Face}. %
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=45pt]{rule-face-collapse-origin-highlight}
+	\includegraphics[height=50pt]{rule-face-collapse-origin-highlight}
 	\caption{Analyse de la règle de contraction}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}
 \end{figure}
@@ -301,8 +304,8 @@ Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui per
 	\hfill
 	\begin{minipage}{.74\textwidth}
 		\begin{subfigure}{\textwidth}
-			\centering
-			\includegraphics[width=.65\textwidth]{rule-face-collapse-n2-path-n0}
+			\raggedleft{}
+			\includegraphics[height=45pt]{rule-face-collapse-n2-path-n0}
 			% \caption{Chemin entre \(n_{2}\) et \(n_{0}\) dans la contraction}
 			\caption{}
 			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}
@@ -311,8 +314,8 @@ Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui per
 		~
 
 		\begin{subfigure}{\textwidth}
-			\centering
-			\includegraphics[width=.85\textwidth]{rule-volume-face-extrusion-compact-n4-path-n6}
+			\raggedleft{}
+			\includegraphics[height=95pt]{rule-volume-face-extrusion-compact-n4-path-n6}
 			% \caption{Chemin entre \(n_{4}\) et \(n_{6}\) dans l'extrusion}
 			\caption{}
 			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}
@@ -344,13 +347,14 @@ Dans le DAG, il est ajouté au n\oe ud de l'orbite face qui devient
 
 
 %\david{
-En effet, le DAG est construit à partir du nom persistant du brin 55 (\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2}). Comme vu précédemment, les n\oe uds apparaissant dans le DAG sont bien ceux du nom persistant. Un simple calcul d'origine sans prise en compte du chemin indiquerait que le sommet désigné par \(\orbit{1,2}(n_{2})\) aurait pour origine une face directement incidente au n\oe ud \(n_{4}\), n\oe ud provenant du membre droit de la règle d'extrusion. Or, en analysant cette règle, nous voyons que la face incidente à \(n_{4}\) correspond à une face latérale et non à la face supérieure du cube créé par extrusion. En revanche, nous pouvons observer que l'utilisation du chemin depuis \(n_{4}\) (le parcours des arcs explicites \(1\) et \(2\) à partir du n\oe ud \(n_{4}\)) permet bien de désigner le n\oe ud \(n_{6}\), et donc la face supérieur de ce cube (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}).
+En effet, le DAG est construit à partir du nom persistant du brin 55 (\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2}). Comme vu précédemment, les n\oe uds apparaissant dans le DAG sont bien ceux du nom persistant. Un simple calcul d'origine sans prise en compte du chemin indiquerait que le sommet désigné par \(\orbit{1,2}(n_{2})\) aurait pour origine une face directement incidente au n\oe ud \(n_{4}\), n\oe ud provenant du membre droit de la règle d'extrusion. Or, en analysant cette règle, nous voyons que la face incidente à \(n_{4}\) correspond à une face latérale et non à la face supérieure du cube créé par extrusion. En revanche, nous pouvons observer que l'utilisation du chemin depuis \(n_{4}\) (le parcours des arcs explicites \(1\) et \(2\) à partir du n\oe ud \(n_{4}\)) permet bien de désigner le n\oe ud \(n_{6}\), et donc la face supérieure de ce cube (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}).
 L'annotation du n\oe ud avec un chemin nous permet donc de remonter jusqu'au n\oe ud désignant la face à l'origine de la fusion de ses sommets incidents lors de l'application suivante. %
 %}
 
+
 \subsection{Résumé}
 
-\david{bizarre que ce qui suit soit dans cette section sur les chemins. C'est plutôt un résumé/conclusion de la section 3. Je le mettrais donc plutôt dans un 3.3 Résumé, par exemple}\maxime{Oui, j'ai peut-être pris la consigne "faire comme dans la présentation" de manière trop littérale. Cela dit même si ça ne m'a pas semblé superflu, je voudrais bien ton avis, j'ai pas non plus envie que le manuscrit soit trop lourd à lire} %
+
 La mise en \oe uvre de cette procédure, pour reconstituer l'historique des
 évolutions d'une orbite, ne nécessite qu'un nom persistant de brin et les règles
 enregistrées dans une spécification paramétrique. %

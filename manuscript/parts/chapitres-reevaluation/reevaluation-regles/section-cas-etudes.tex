@@ -150,8 +150,8 @@ figure~\ref{fig:reevaluation-base-regles-cs1-evaluation}, sera notre principal
 fil rouge pour ce chapitre. %
 Celui-ci va nous permettre d'illustrer nos méthodes de nomination persistante
 et de réévaluation. %
-Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
-liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1}. \david{ici et dans la suite, j'utiliserais plutôt le terme "listing" que "liste", d'autant plus que c'est celui apparaissant sur tes légendes. Je mettrais les légendes plutôt e dessous qu'au dessus des listings, et j'essayerais de mettre les paragaphes faisant références à ces listing avant les listing eux-mêmes}%
+Nous détaillons, ci-après, sa spécification paramétrique contenue dans le
+listing~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1}. %
 
 L'application de l'opération, \texttt{1-\allowbreak{}creation\-Carre}, crée une face carrée
 (figure~\ref{fig:reevaluation-base-regles-cs1-1-evaluation-square}). %
@@ -369,8 +369,8 @@ La seconde construction est illustrée
 figure~\ref{fig:reevaluation-base-regles-cs2-evaluation}. %
 Celle-ci va nous permettre de préciser la définition de \textit{stratégies
 	de réévaluation}, notamment pour la suppression d'opérations. %
-Nous détaillons, ci-après, sa spécification paramétrique contenue dans la
-liste~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-2}. %
+Nous détaillons, ci-après, sa spécification paramétrique contenue dans le
+listing~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-2}. %
 
 % \xavier{Attention :\\
 % 1) même remarque concernant le nom des fonctions\\
@@ -394,7 +394,8 @@ Notons que la face coloriée en rouge est la face issue du chanfreinage
 \begin{lstlisting}[escapechar=\%,
 style=script-style,
 caption=Spécification paramétrique initiale du cas nº~2,
-label=lst:reevaluation-regles-specification-parametrique-init-cas-2]
+label=lst:reevaluation-regles-specification-parametrique-init-cas-2,
+captionpos=b]
 1-%\allowbreak{}creation\-Carre()%
 2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6})%
 3-%\allowbreak{}contraction\-Face(\pndart{47}{1n5; 2n6})%
@@ -405,7 +406,7 @@ label=lst:reevaluation-regles-specification-parametrique-init-cas-2]
 \end{lstlisting}
 
 La version éditée de la spécification paramétrique consiste à supprimer la
-quatrième opération, comme l'illustre la liste
+quatrième opération, comme l'illustre le listing
 ~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}. %
 L'application \texttt{4-\allowbreak{}chanfreinSommet} ne doit donc pas être réévaluée. %
 Les applications \texttt{6-\allowbreak{}coloration\-Face} et
@@ -429,7 +430,8 @@ la réévaluation. %
 \begin{lstlisting}[escapechar=\%,
 style=script-style,
 caption=Spécification paramétrique éditée du cas nº~2,
-label=lst:reevaluation-regles-specification-parametrique-edit-cas-2]
+label=lst:reevaluation-regles-specification-parametrique-edit-cas-2,
+captionpos=b]
 1-%\allowbreak{}creation\-Carre()%
 2-%\allowbreak{}extrusion\-Face(\pndart{6}{1n6})%
 3-%\allowbreak{}contraction\-Face(\pndart{47}{1n5; 2n6})%

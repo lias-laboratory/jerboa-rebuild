@@ -262,22 +262,6 @@ captionpos=b]
 9-%\allowbreak{}coloration\-Face(\pndart{68}{1n5;2n6;3n0;4n4;6n2;7n1}, Rouge)%
 \end{lstlisting}
 
-% \xavier{Dans la spéc. paramétrique, parfois tu précises sur quelle entité topologique l'opération a lieu : par exemple, "extrusionFace", parfois non, par exemple, "insertionSommet" $\rightarrow$ sois homogène et précise l'entité pour toutes les opérations.
-% \begin{itemize}
-% \item carre $\rightarrow$ creationCarre
-% \item extrusionFace  $\rightarrow$ OK
-% \item extrusionFace\-Volume $\rightarrow$ OK
-% \item triangulation $\rightarrow$ triangulationFace (attention, il faut aussi remettre le texte explicatif à jour. En particulier, tu nommes actuellement cette opération "triangulate")
-% \item contractionFace  $\rightarrow$ OK
-% \item chanfrein $\rightarrow$ chanfreinSommet
-% \item coloration $\rightarrow$ colorationFace ou colorationBleuFace
-% \item coloration $\rightarrow$ colorationFace ou colorationRougeFace
-% \end{itemize}
-% }
-
-
-% \xavier{Même remarque que précédemment pour le renommage des opérations, dans la spéc. param. et dans le texte explicatif.}
-
 Nous procédons ensuite à l'édition de cette spécification paramétrique, dont la
 représentation géométrique, à chaque étape, est illustrée dans la
 figure~\ref{fig:reevaluation-base-regles-cs1-reevaluation}. %
@@ -286,17 +270,6 @@ Cette édition consiste à ajouter une opération d'insertion de sommet
 (figure~\ref{fig:reevaluation-base-regles-cs1-add-10-reevaluation-insert}) et
 à supprimer l'opération \texttt{3-\allowbreak{}insertion\-Sommet} afin que celle-ci ne soit pas
 réévaluée. %
-
-% \xavier{Je ne vois pas l'intérêt de la phrase suivante, c'est une redite exacte de la précédente.}
-% Les aspects remarquables de la construction et de sa réévaluation que nous
-% venons de présenter sont le fait que nous ajoutons une opération et en
-% supprimons une autre lors de l'édition de la spécification paramétrique. %
-
-
-% Nous devrions donc, en toute logique, nous attendre à des changements
-% significatifs dans la topologie du modèle réévalué. %
-
-
 
 \begin{lstlisting}[escapechar=\%,
 style=script-style,
@@ -316,8 +289,10 @@ DELETE 3%-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;2n4})%
 \end{lstlisting}
 
 
+
 \subsection{Construction nº~2}
 \label{sec:reevaluation-base-regles-deuxieme-cas}
+
 
 
 \begin{sidewaysfigure}
@@ -456,11 +431,6 @@ Celle-ci va nous permettre de préciser la définition de \textit{stratégies
 Nous détaillons, ci-après, sa spécification paramétrique contenue dans le
 listing~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-2}. %
 
-% \xavier{Attention :\\
-% 1) même remarque concernant le nom des fonctions\\
-% 2) cette fois-ci, tu précises aussi le \textbf{numéro} des fonctions, par exemple "1-carre" au lieu de "carre" précédemment $\rightarrow$ sois homogène et précise \textbf{partout} le numéro, ou bien nulle part (et si c'est partout, simplifie ton texte : ce n'est pas la peine de préciser deux fois le numéro d'une opération avec le texte du style "La \textbf{troisième} application \textbf{3}-contraction[...])."
-% }
-
 La construction de cet objet est semblable à la construction nº~1. %
 Le processus de modélisation commence avec l'application \texttt{1-\allowbreak{}creation\-Carre}
 qui crée une face. %
@@ -498,15 +468,6 @@ L'application \texttt{4-\allowbreak{}chanfreinSommet} ne doit donc pas être ré
 Les applications \texttt{6-\allowbreak{}coloration\-Face} et
 \texttt{7-\allowbreak{}coloration\-Face}, quant à elles, sont indirectement annulées, car les faces qu'elles doivent colorer ne sont pas recréées ainsi que l'atteste la
 figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}.
-%Dans la version éditée de la spécification paramétrique
-%(liste~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-2}),
-%figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
-%Les différentes étapes de réévaluation sont illustrées dans la
-%figure~\ref{fig:reevaluation-base-regles-cs2-reevaluation}. %
-%Les aspects remarquables de cette construction et de sa réévaluation sont le
-%fait que la suppression de l'application \texttt{4-chanfrein} a un impact direct
-%sur l'application \texttt{6-coloration} et indirect sur l'application
-%\texttt{7-coloration}. %
 En effet, l'application \texttt{6-coloration\-Face} référence la face créée par
 \texttt{4-\allowbreak{}chanfrein\-Sommet} qui n'existe plus dans la réévaluation. %
 De la même manière, la face initialement coloriée par \texttt{7-\allowbreak{}coloration\-Face}
@@ -526,3 +487,1487 @@ DELETE 4-%\allowbreak{}chanfrein\-Sommet(\pndart{40}{1n4; 2n4; 3n2})%
 6-%\allowbreak{}coloration\-Face(\pndart{12}{1n4; 2n4; 3n2; 4n2}, Rouge)%
 7-%\allowbreak{}coloration\-Face(\pndart{57}{1n4; 2n4; 3n2; 4n1; 5n2}, Bleu)%
 \end{lstlisting}
+
+
+
+\section{Nomination persistante des brins}
+\label{sec:reevaluation-nomination-persistante-brins}
+
+
+
+L'étude des travaux antérieurs a montré que la nécessité de créer et d'attribuer
+des noms persistants concerne uniquement les entités topologiques référencées
+dans une spécification paramétrique, autrement dit les paramètres topologiques
+des opérations. %
+Les travaux de Cardot~\cite{cardot2019} ont indiqué que dans un système à base
+de règles, chaque brin peut être représenté par un historique de construction
+qui l'identifie de manière unique. %
+Elle fait alors le choix d'utiliser \textit{un ensemble de brins} pour
+représenter de manière exhaustive les transformations appliquées sur une
+orbite. %
+Toutefois, dans notre approche, nous estimons qu'utiliser plusieurs
+  brins pour un nom persistant n'est pas nécessaire pour représenter la totalité
+  des changements impactant une orbite. %
+  En effet, si une orbite est modifiée par plusieurs règles, alors elle est
+  identifiée par autant de noms persistants. %
+% Toutefois, puisque chaque paramètre topologique se voit attribuer un nom, les
+% différentes opérations appliquées sur des parties distinctes d'une même orbite
+% sont nécessairement identifiées par un nom persistant spécifique. \david{je ne
+% comprends pas cette dernière phrase.}
+Nous proposons donc, dans un premier temps, de désigner une orbite à l'aide de
+l'historique d'un \textit{unique} brin, ce brin étant celui sélectionné explicitement
+lors de la construction pour désigner l'orbite à transformer. %
+Dans un second temps, nous procédons à la reconstitution de l'historique des
+évolutions de l'orbite désignée pour l'identifier formellement par son
+historique de construction. %
+
+Commençons par la construction des noms persistants des brins sélectionnés
+lors de la construction de l'objet nº~1 (figure~\ref{fig:reevaluation-base-regles-cs1-evaluation} et
+spécification~\ref{lst:reevaluation-regles-specification-parametrique-init-cas-1})
+
+\begin{remarque}
+ Les figures suivantes (figures~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-1-carre} à \ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}) représentent (a) des règles et (b) les résultat de leurs applications sur les instances correspondantes de la spécification paramétrique. %
+ Afin de rendre le résultat plus lisible, seuls quelques brins sont explicitement décrits avec leurs numéros et, entre crochets, leurs historiques. %
+\end{remarque}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 160pt]{rule-create-square-face}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-carre}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .75\textwidth]{cs1-nodematch-1-evaluation-square}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-1-evaluation-carre}
+	\end{subfigure}
+	\caption{\texttt{1-\allowbreak{}creation\-Carre()}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-1-carre}
+\end{figure}
+
+
+L'application \texttt{1-\allowbreak{}creation\-Carre()} %
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-1-carre})
+de la règle %
+figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-carre}
+crée \textit{ex nihilo} une face carrée
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-1-evaluation-carre}). %
+Plus précisément, chacun des huit n\oe uds de cette règle crée un unique brin. %
+Par exemple, les n\oe uds \(n_{3}\), \(n_{4}\), \(n_{5}\) et \(n_{6}\), dont les
+étiquettes sont vides, créent respectivement les brins \(3\), \(4\), \(5\) et
+\(6\). %
+Rappelons que nous représentons l'historique de chaque brin avec l'ensemble des
+numéros d'application et les n\oe uds qui les créent ou filtrent. %
+Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
+\(6\)) est \([1n_{3}]\) (respectivement \([1n_{4}]\), \([1n_{5}]\),
+\([1n_{6}]\)). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 95pt]{rule-face-extrusion-compact}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .85\textwidth]{cs1-nodematch-2-evaluation-extrusion}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-2-evaluation-extrusion}
+	\end{subfigure}
+	\caption{\texttt{2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-2-extrusion}
+\end{figure}
+
+L'application \texttt{2-\allowbreak{}extrusion\-Face(\pndart{6}{1n6})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-2-extrusion})
+est ensuite appliquée sur le brin \(6\). %
+Puisque le n\oe ud d'accroche de cette règle (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-extrusion}) est de type \texttt{face} \(\orbit{0,1}\), cela revient à utiliser la face incidente à ce brin comme paramètre de d'application. %
+Toutefois, le numéro d'un brin n'est pas une information robuste et son
+historique doit évoluer au fur et à mesure de la construction. %
+Pour cette raison, à l'instant où une règle est appliquée, nous enregistrons, non pas le numéro, mais l'historique du brin comme nom persistant dans la spécification paramétrique. %
+Cela revient à faire, quelque part, une sorte de "photographie" de l'historique des brins désignés que l'on enregistre dans la spécification paramétrique.
+ Ainsi, si les numéros de brins venaient à être différents au moment de la réévaluation de la deuxième application, le brin sélectionné ne pourrait être différent de celui créé par le n\oe ud \(n_{6}\) de
+\texttt{1-\allowbreak{}creation\-Carre()}.
+
+Au fil du processus de modélisation, l'historique d'un brin évolue à chaque fois
+que celui-ci est filtré par une règle. %
+Si nous observons le cube issu de l'extrusion, nous constatons que les brins
+filtrés par la règle sont préservés, parce que le n\oe ud qui les filtre
+(\(n_{1}\)) %
+est lui-même préservé dans la règle (pour rappel, un nœud dans
+la partie gauche d’une règle est préservé si on le retrouve dans la partie droite). %
+Pour les brins préservés par \(n_{1}\), % \xavier{\(n_{1}\) plutôt?}
+leurs historiques sont mis à jour par l'ajout d'un couple \texttt{{2n1}}. %
+Ainsi, l'historique du brin \(3\) (respectivement des brins \(4\), \(5\) et
+\(6\)) devient \texttt{[1n3;\allowbreak{}2n1]} %
+(respectivement \texttt{[1n4;\allowbreak{}2n1]},
+\texttt{[1n5;\allowbreak{}2n1]}, \texttt{[1n6;\allowbreak{}2n1]}). %
+Pour les autres brins, ceux qui sont créés, rappelons que ce sont des copies des
+brins filtrés. %
+Ainsi, en tant que copies, ces brins portent dans leurs historiques respectifs
+celui du brin à partir duquel ils sont copiés. %
+Par exemple, les brins \(33\) et \(35\), créés par les n\oe uds \(n_{1}\) et
+\(n_{4}\) respectivement, sont des copies du brin \(3\). %
+Leurs historiques sont \texttt{[1n3;\allowbreak{}2n1]} et \texttt{[1n3;\allowbreak{}2n4]}
+respectivement. %
+De la même manière, les brins \(46\) et \(47\), créés par les n\oe uds \(n_{5}\)
+et \(n_{6}\), sont des copies du brin \(5\). %
+Leurs historiques sont \texttt{[1n5;\allowbreak{}2n5]} et \texttt{[1n5;\allowbreak{}2n6]}
+respectivement
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-2-evaluation-extrusion}). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 45pt]{rule-insert-vertex-coloured}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-insertion}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .9\textwidth]{cs1-nodematch-3-evaluation-insert}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-3-evaluation-insertion}
+	\end{subfigure}
+	\caption{\texttt{3-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;\allowbreak{}2n5})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-3-insertion}
+\end{figure}
+
+L'application \texttt{3-\allowbreak{}insertion\-Sommet(\pndart{46}{1n5;\allowbreak{}2n4})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-3-insertion})
+est appliquée sur l'arête désignée par le brin \(46\). %
+Comme pour l'application précédente, le nom persistant enregistré est une
+photographie de l'historique du brin \(46\), c'est-à-dire \texttt{[1n5;\allowbreak{}2n5]}. %
+Suite à l'application, les historiques des brins \(46\) et \(47\), tous deux
+filtrés par le n\oe ud \(n_{0}\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-insertion}),
+sont mis à jour en \texttt{[1n5;\allowbreak{}2n5;\allowbreak{}3n0]} et \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0]} respectivement
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-3-evaluation-insertion}). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\raggedright{}
+		\includegraphics[height = 90pt]{rule-volume-face-extrusion-compact-color}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-volume-extrusion}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\raggedleft{}
+		\includegraphics[width = .9\textwidth]{cs1-nodematch-4-evaluation-extrusion}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion}
+	\end{subfigure}
+	\caption{\texttt{4-\allowbreak{}extrusion\-FaceVolume(\pndart{47}{1n5;\allowbreak{}2n6;\allowbreak{}3n0})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-4-extrusion}
+\end{figure}
+
+L'application
+\texttt{4-\allowbreak{}extrusion\-FaceVolume(\pndart{47}{1n5;\allowbreak{}2n6;\allowbreak{}3n0})}
+crée un nouveau cube en extrudant la face supérieure de l'objet
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-extrusion}). %
+Cette face est désignée par le brin \(47\) et le nom persistant enregistré est
+donc \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0]}. %
+Les brins \(55\) et \(63\) sont créés par les n\oe uds \(n_{4}\) et \(n_{6}\)
+respectivement %
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-4-evaluation-extrusion})
+et leurs historiques sont
+\texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4]} et
+\texttt{[1n4;\allowbreak{}2n6;\allowbreak{}4n6]} %
+respectivement. %
+Notons que la création du brin \(63\) est indépendante de la troisième
+application. Elle n’apparaît donc pas dans son historique. %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 45pt]{rule-face-triangulation-3D}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-triangulation}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .6\textwidth]{cs1-nodematch-5-evaluation-triangulation}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-5-evaluation-triangulation}
+	\end{subfigure}
+	\caption{\texttt{5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3;\allowbreak{}2n2})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-5-triangulation}
+\end{figure}
+
+L'application \texttt{5-\allowbreak{}triangulation\-Face(\pndart{33}{1n3;\allowbreak{}2n2})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-5-triangulation})
+triangule la face désignée par le brin \(33\) et le nom persistant \texttt{[1n3;\allowbreak{}2n2]}
+est enregistré dans la spécification paramétrique. %
+Les brins \(33\) et \(35\) sont filtrés par le n\oe ud \(n_{0}\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-triangulation}),
+leurs historiques évoluent donc en \texttt{[1n3;\allowbreak{}2n2;\allowbreak{}5n0]} et \texttt{[1n3;\allowbreak{}2n4;\allowbreak{}5n0]}
+respectivement
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-5-evaluation-triangulation}). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 45pt]{rule-face-collapse}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .65\textwidth]{cs1-nodematch-6-evaluation-collapse}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}
+	\end{subfigure}
+	\caption{\texttt{6-\allowbreak{}contraction\-Face(\pndart{63}{1n4;\allowbreak{}2n6;\allowbreak{}4n6})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-contraction}
+\end{figure}
+
+L'application
+\texttt{6-\allowbreak{}contraction\-Face(\pndart{63}{1n4;\allowbreak{}2n6;\allowbreak{}4n6})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-contraction})
+contracte la face supérieure du cube du haut désignée par le brin \(63\) en un
+sommet
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}). %
+Le nom persistant enregistré dans la spécification paramétrique est
+\texttt{[1n4;\allowbreak{}2n6;\allowbreak{}4n6]}. %
+Puisque toute la face est filtrée par le n\oe ud \(n_{0}\), lequel est supprimé
+dans la règle
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-contraction}),
+le brin \(63\) est lui-même supprimé. %
+Les historiques des brins filtrés par \(n2\), qui composent maintenant le sommet
+issu de la contraction, sont mis à jour. %
+En particulier, l'historique du brin \(55\) devient
+\texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2]}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-contraction}). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 45pt]{rule-vertex-chamfer-coloured}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-chanfrein}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .65\textwidth]{cs1-nodematch-7-evaluation-chamfer}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-chanfrein}
+	\end{subfigure}
+	\caption{\texttt{7-\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-7-chanfrein}
+\end{figure}
+
+L'application \texttt{7-\allowbreak{}chanfrein\-Sommet(\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-7-chanfrein})
+est appliquée sur le sommet issu de l'application précédente, désigné par le
+brin \(55\), lui-même filtré par le n\oe ud \(n0\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-chanfrein}). %
+Comme dans les étapes précédentes, l'historique \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2]}, avant
+sa mise à jour par la règle, est enregistré dans la spécification
+paramétrique. %
+L'application crée une face à partir du chanfreinage du sommet désigné. %
+Parmi les brins créés, nous trouvons notamment le brin \(68\) dont l'historique
+est \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1]}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-6-evaluation-chanfrein})
+. %
+
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 45pt]{rule-colour-face}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-bleu}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .6\textwidth]{8-evaluation-colour}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-8-evaluation-coloration-bleu}
+	\end{subfigure}
+	\caption{\texttt{8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;\allowbreak{}2n4;\allowbreak{}5n0})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-8-coloration-bleu}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.6\textwidth}
+		\centering
+		\includegraphics[height = 45pt]{rule-colour-face}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-rouge}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.35\textwidth}
+		\centering
+		\includegraphics[width = .6\textwidth]{9-evaluation-color}
+		\caption{}
+		\label{fig:reevaluation-base-regle-nomination-persistante-brins-9-evaluation-coloration-rouge}
+	\end{subfigure}
+	\caption{\texttt{9-\allowbreak{}coloration\-Face(\pndart{68}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1})}}
+	\label{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}
+\end{figure}
+
+
+Enfin, les deux dernières applications enregistrées,
+\texttt{8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;\allowbreak{}2n4;\allowbreak{}5n0})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-8-coloration-bleu})
+et
+\texttt{9-\allowbreak{}coloration\-Face(\pndart{68}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1})}
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}),
+colorient les faces désignées par les brins \(35\) et \(68\)
+(figures~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-8-evaluation-coloration-bleu}
+et
+\ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-evaluation-coloration-rouge}),
+filtrés par l'unique n\oe ud \(n_{0}\) de chacune des deux règles de coloration
+(figures~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-bleu}
+et
+\ref{fig:reevaluation-base-regle-nomination-persistante-brins-regle-coloration-rouge},
+seul le plongement de couleur change). %
+L'historique du brin \(35\) (respectivement \(68\)) est enregistré dans la
+spécification paramétrique comme nom persistant de la huitième application
+(respectivement la neuvième), puis mis à jour en
+\texttt{[1n3;\allowbreak{}2n4;\allowbreak{}5n0;\allowbreak{}8n0]} (respectivement
+\texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1;\allowbreak{}9n0]}). %
+
+~
+
+Le processus de création de chacun des noms persistants enregistrés dans la
+spécification paramétrique du cas d'étude nº~1, que nous venons de détailler,
+nous permet de mettre deux propriétés en évidence. %
+La première est que la nomination des brins est, par construction, unique. %
+Un tel historique construit pas à pas, \textit{via} les règles appliquées et de
+manière explicite, un chemin qui relie un brin et son ancêtre le plus ancien
+(créé \textit{ex nihilo}). %
+La seconde propriété est que la nomination persistante via l'historique des
+brins est, à elle-seule, insuffisante, car l'historique d'évolution d'un brin ne
+permet pas de caractériser l'historique des évènements qui ont impacté une
+orbite. %
+De manière plus évidente, en omettant le cas où un n\oe ud d'accroche désigne
+explicitement un brin, un brin n'est pas une orbite. %
+Cette nomination, seule, n'est donc pas suffisante, car non représentative des
+transformations subies par une orbite. %
+Dans notre approche, ces deux propriétés renforcent l'idée que représenter
+l'historique des évolutions d'une orbite est nécessaire pour permettre son
+appariement lors de la réévaluation. %
+
+
+
+\section{Nomination persistante des orbites}
+\label{sec:reevaluation-nomination-persistante-orbites}
+
+
+
+Pour compléter la nomination des entités topologiques, nous construisons, pour chaque nom persistant de la spécification paramétrique, un arbre d'évaluation, ou DAG d'évaluation. %
+Nous allons voir que l'utilisation combinée de ces noms persistants avec la détection automatique des évènements, obtenus par analyses syntaxiques des règles (chapitre~\ref{cha:formalisation-evenements}), permet de reconstruire les historiques d'évolutions des orbites et ainsi garantir les bases d'une nomination persistante. %
+
+
+
+\subsection{Reconstitution de l'historique des évolutions d'une orbite}
+\label{sec:reevaluation-base-regles-nomination-persistante-orbites-reconstitution-historique}
+
+
+
+Pour expliciter les mécanismes mis en \oe uvre, détaillons la construction du DAG d'évaluation pour le paramètre topologique de l'application
+\texttt{8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;2n4;5n0}, Bleu)}, dans la construction nº~1. %
+%
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height = 45pt]{rule-colour-face-n0-highlight}
+	\caption{Entrée de la règle de coloration de face}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}
+\end{figure}
+%
+La première étape consiste à identifier le
+type d'orbite filtré par la règle. %
+Comme expliqué dans les chapitres précédents, cette information est représentée
+dans l'étiquette du n\oe ud d'accroche de la règle. %
+Pour notre exemple, le type d'orbite qui nous intéresse, \(\orbit{0,1}\) en l'occurrence, est
+déterminée par l'étiquette du n\oe ud \(n_{0}\) affichée en {\color{orange}orange} dans la
+figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}. %
+À partir de cette information, nous pouvons commencer à remonter l'historique
+des évolutions de l'orbite sur laquelle l'opération de coloration a été
+appliquée. %
+Autrement dit, l'historique que nous reconstituons est un DAG qui se construit
+de la fin jusqu'au début, de l'état le plus récent de l'orbite jusqu'à
+ses ancêtres les plus anciens. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[scale=1]{pn35-dag-eval-step-0}
+	\caption{Racine du DAG d'évaluation}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-racine}
+\end{figure}
+
+Ce type d'orbite est qualifié de \emph{type d'orbite de suivi}~; il représente
+ le premier élément que nous intégrons dans le DAG en tant que racine
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-racine}). %
+
+La suite de la reconstitution consiste à remonter l'historique du nom persistant
+du brin, application par application. %
+Dans le DAG d'évaluation, une application est représentée par un couple de
+niveaux~: (1) un \emph{niveau d'orbite} qui contient l'ensemble des types d'orbites
+suivis dans l'application courante~; (2) un \emph{niveau d'événements} qui liste les
+évènements qui ont impacté les orbites suivies. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=50pt]{rule-face-triangulation-3D-n0-highlight-boxed-v2}
+	\caption{Analyse de la règle de triangulation}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-triangulation}
+\end{figure}
+
+Reprenons notre exemple. %
+La deuxième étape de la reconstitution d'historique commence avec la dernière
+application enregistrée dans le nom persistant du brin \(35\), c'est-à-dire
+l'application \texttt{5-\allowbreak{}triangulation\-Face} et son n\oe ud \(n_{0}\). %
+Grâce à ces informations, nous pouvons procéder à l'analyse de la règle de
+triangulation
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-triangulation})
+et plus particulièrement à la face incidente à \(n0\), \(\orbit{0,1}(n_{0})\). %
+L'étude de cette orbite, comme nous l'avons vu dans la
+section~\ref{sec:formalisation-evenements-regles-transfo-graphe-scission},
+montre que l'orbite \(L\orbit{0,1}(n_{0})\) est scindée du fait de la réécriture
+de tous les \(1\)-arcs implicites dans des dimensions hors du type
+\(\orbit{0,1}\), voire de leur suppression. %
+De plus, nous pouvons voir dans l'orbite \(R\orbit{0,1}(n_{0})\) que les \(0\)
+et \(1\)-arcs implicites, à droite en \textcolor{orange}{orange}, sont des
+réécritures d'un \(0\)-arc implicite dans le n\oe ud d'accroche, à gauche aussi
+en \textcolor{orange}{orange}. % \xavier{Précise
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[scale=.45]{pn35-dag-eval-step-2}
+	\caption{Étape 2 \texttt{[1n3;2n4;{\color{orange}5n0}]} de la construction du DAG}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-2}
+\end{figure}
+
+Ainsi, l'orbite que nous suivons, d'une part, est scindée, et, d'autre part, a
+pour origine une arête de type \(\orbit{0}\). %
+Ces informations, acquises lors de l'analyse statique de la règle, sont reportées
+dans le DAG d'évaluation de la manière suivante~: %
+%
+\begin{enumerate}
+	\item la racine du DAG est intégrée dans un niveau d'orbite qui est annoté par le n\oe ud \(n_{0}\) issu du nom persistant~;
+	\item un niveau d'événement, annoté par le numéro d'application et le nom de la règle, est ensuite créé et contient un n\oe ud d'événement correspondant à la scission détectée pour l'orbite \(\orbit{0,1}(n_{0})\)~;
+	\item une flèche \textbf{noire} est créée entre le n\oe ud d'événement
+	      \splitnodeevent{} et le n\oe ud d'orbite \orbitnode{\orbit{0,1}}
+	      pour marquer une \emph{relation de suivi}~;
+	\item les n\oe uds d'orbites de suivi \orbitnode{\orbit{0,1}} et d'origine
+	      \orbitnode{\orbit{0}} sont ajoutés au DAG, au-dessus du niveau de l'événement~;
+	\item enfin, le n\oe ud d'événement \splitnodeevent{} est relié au n\oe ud
+	      d'orbite \orbitnode{\orbit{0,1}} par une relation de suivi et au
+	      n\oe ud d'orbite \orbitnode{\orbit{0}} par une \emph{relation
+		      d'origine} (représentée par une flèche \textbf{\color{red}rouge}). %
+\end{enumerate}
+%
+Au terme de cette étape, le DAG
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-2})
+se lit de bas en haut de la manière suivante~: L'orbite face \(\orbit{0,1}\) provient de la
+scission, par triangulation, d'une autre face \(\orbit{0,1}\) et a pour origine
+une arête \(\orbit{0}\). %
+
+Notons que les n\oe uds d'orbites ne sont, à ce stade, pas encore intégrés dans
+un niveau d'orbite car ils sont issus d'une application antérieure à
+l'application courante dans l'historique. %
+%
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=115pt]{rule-face-extrusion-compact-n4-highlight-v3}
+	\caption{Analyse de la règle d'extrusion d'une face}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}
+\end{figure}
+%
+
+À l'étape suivante, nous remontons l'historique du nom persistant du brin \(35\) d'un niveau. %
+Cette fois, l'application concerne la règle d'extrusion d'une face et son n\oe
+ud \(n_{4}\). %
+Comme pour la triangulation, nous procédons à l'analyse de la règle à la
+différence près que cette fois-ci, nous suivons deux types d'orbites~: une face
+\(\orbit{0,1}\) (l'orbite encadrée en {\color{myblueink}bleu}) et une arête
+\(\orbit{0}\) (l'orbite encadrée en {\color{orange}orange}), toutes deux
+incidentes au n\oe ud \(n_{4}\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}). %
+L'analyse révèle que la face et l'arête sont toutes les deux créées, car les
+orbites sont constituées uniquement de n\oe uds créées. %
+La face a pour origine une arête (\(\orbit{0}\)), car les \(0\)-arcs implicites
+(surlignés en {\color{myblueink}bleu}) sont réécrits à partir d'un \(0\)-arc
+dans le n\oe ud d'accroche. %
+L'arête à pour origine un brin (\(\orbit{}\)) du fait de l'absence d'arc implicite réécrit en
+\(0\) dans son orbite. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[scale=.45]{pn35-dag-eval-step-3}
+	\caption{Étape 3 \texttt{[1n3;{\color{orange}2n4};5n0]} de la construction du DAG}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-3}
+\end{figure}
+
+Encore une fois, les informations issues de l'analyse de la règle sont reportées
+dans le DAG~: %
+\begin{enumerate}
+	\item nous créons un niveau d'orbite, annoté par le n\oe ud \(n_{4}\), qui contient les n\oe uds d'orbites de suivi, calculés à l'étape précédente~;
+	\item nous créons un niveau d'événement, annoté par le numéro d'application et
+	      le nom de la règle, qui contient deux n\oe uds d'événements
+	      \creationnodeevent{} (un pour chaque n\oe ud d'orbite)~;
+	\item les n\oe uds d'origines sont ajoutés au DAG~;
+	\item chacun des deux n\oe uds d'événement est relié par une relation de suivi
+	      aux n\oe uds d'orbites de suivis~;
+	\item enfin, chacun des n\oe uds d'orbite d'origine est relié au n\oe ud
+	      d'événement qui convient, c'est-à-dire, l'orbite origine
+	      \orbitnode{\orbit{0}} (respectivement \orbitnode{\orbit{}}) est
+	      connectée à un n\oe ud d'évènement \creationnodeevent{} qui est lui-même
+	      connecté à \orbitnode{\orbit{0,1}} (respectivement
+	      \orbitnode{\orbit{0}}).
+\end{enumerate}
+
+Ce niveau du DAG
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-3})
+se lit ainsi~: l'orbite face incidente à \(n_{4}\) est créée par l'extrusion d'une
+arête et l'arête incidente à \(n_{4}\) est créée par l'extrusion d'un brin. %
+%
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=165pt]{rule-create-square-face-n3-highlight}
+	\caption{Analyse de la règle d'extrusion d'une face}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-carre}
+\end{figure}
+%
+
+Nous remontons encore l'historique d'un cran et arrivons à la dernière étape de cette
+reconstitution de l'historique des évolutions de notre orbite de suivi. %
+L'application désignée est la toute première enregistrée dans la spécification,
+c'est-à-dire la règle de triangulation et son n\oe ud \(n_{3}\). %
+L'analyse de la règle révèle que l'arête (encadrée en {\color{myblueink}bleu})
+et le brin (encadré en {\color{orange}orange}) sont créés \textit{ex nihilo} par
+la règle, car son membre gauche est vide.%
+\begin{figure}[htb!]
+	\centering
+	% \includegraphics[height=220pt]{pn35-dag-eval-step-4}
+	\includegraphics[scale=.45]{pn35-dag-eval-step-4}
+	\caption{Étape 4 \texttt{[{\color{orange}1n3};2n4;5n0]} de la construction du DAG}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}
+\end{figure}
+Comme pour les étapes précédentes, nous créons les niveaux d'orbite et
+d'événement qui correspondent à l'application courante et les remplissons avec
+les n\oe uds d'orbites issues de l'étape précédente et les événements que nous
+avons détectés. %
+
+Dans cet exemple, nous avons illustré la reconstitution de l'historique des
+évolutions d'une orbite à l'aide de relations de suivi et d'origine. %
+Ces relations nous permettent de représenter des orbites par
+leur historique  d'évolution complet et ainsi de les distinguer les unes des
+autres lorsqu'elles partagent le même processus de construction. %
+
+
+\subsection{Intégration d'un chemin d'origine}
+\label{sec:reevaluation-base-regles-nomination-persistante-orbites-integration-chemin}
+
+Reprenons la notion d'orbite d'origine d'après la
+définition~\ref{def:orbite-origine} (page~\pageref{def:orbite-origine}). %
+Du fait de la propriété d'isomorphisme des n\oe uds dans les règles Jerboa, un
+type d'origine est calculé uniquement à partir de la réécriture des arcs
+implicites d'un n\oe ud d'accroche et d'un type d'orbite \(\orbit{\omega}\). %
+Malgré le fait que le type d'une telle orbite soit calculé à partir d'un n\oe ud
+d'accroche, celui-ci ne filtre pas toujours l'orbite d'origine, elle peut
+simplement se trouver dans sa composante connexe. %
+
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[scale=.45]{cs1-pn55-dag-evaluation}
+	\caption{DAG d'évaluation du PN\textsubscript{55}}
+	\label{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55}
+\end{figure}
+
+
+Comme nous venons de le voir, un DAG est construit à partir de l'historique d'un
+brin. %
+Ainsi, chaque niveau d'orbite contient un n\oe ud de règle dont l'association à
+un n\oe ud d'orbite désigne une orbite dans une règle Jerboa. %
+Or, dans le processus de construction, l'orbite associée à ce n\oe ud est
+elle-même filtrée par le n\oe ud d'accroche de la règle suivante. %
+Par conséquent, l'association entre un n\oe ud de règle et un n\oe ud d'origine
+peut désigner une orbite qui n'est pas une orbite d'origine. %
+Pour cette raison, nous intégrons dans les n\oe uds d'orbite une information
+complémentaire sous la forme d'un chemin. %
+Ce chemin permet, dans la règle, de remonter jusqu'au n\oe ud de l'orbite
+d'origine à partir du n\oe ud enregistré dans le DAG. %
+
+Dans l'exemple que nous venons de traiter, les orbites d'origines sont
+systématiquement filtrées par le n\oe ud d'accroche. %
+En effet, dans l'extrusion (respectivement la triangulation), l'arête
+(respectivement la face) est créée à partir d'un brin (respectivement d'une
+arête) filtré(e) par le n\oe ud d'accroche. %
+Ainsi, puisque l'origine est dans le n\oe ud d'accroche, ces chemins sont
+nuls. %
+
+Considérons le DAG d'évaluation du PN\textsubscript{55}
+(figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
+pour illustrer le calcul et l'utilisation d'un chemin pour compléter les orbites
+d'origines. %
+Ce DAG décrit l'historique des évolutions d'un sommet issu d'une fusion
+provoquée par l'application \texttt{6-\allowbreak{}contraction\-Face}. %
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[height=50pt]{rule-face-collapse-origin-highlight}
+	\caption{Analyse de la règle de contraction}
+	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}
+\end{figure}
+%
+L'analyse de la règle de contraction nous apprend que l'origine de cette fusion
+est une face, comme nous pouvons aussi le voir dans le DAG, mais que cette face
+est filtrée par le n\oe ud d'accroche \(n_{0}\)
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-contraction}).
+Or, le sommet \(R\orbit{1,2}(n_{2})\) n'est créé ni par copie ni par la
+réécriture des arcs de la face incidente à \(n_{0}\). %
+Au contraire, la suppression de cette face provoque la fusion de ses sommets
+incidents en un seul sommet qui est celui désigné par le DAG. %
+Ainsi, la face supprimée est à l'origine de la fusion, mais elle ne permet pas,
+seule, de représenter les sommets fusionnés qui sont filtrés par l'orbite
+\(L\orbit{1,2}(n_{2})\). %
+Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui permet d'atteindre le n\oe ud d'accroche de la règle. %
+
+\begin{figure}[htb!]
+	\begin{minipage}[s]{.25\textwidth}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{cs1-path-to-collapse-origin}
+			\caption{}
+			\label{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet}
+		\end{subfigure}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{.74\textwidth}
+		\begin{subfigure}{\textwidth}
+			\raggedleft{}
+			\includegraphics[height=45pt]{rule-face-collapse-n2-path-n0}
+			\caption{}
+			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}
+		\end{subfigure}
+
+		~
+
+		\begin{subfigure}{\textwidth}
+			\raggedleft{}
+			\includegraphics[height=95pt]{rule-volume-face-extrusion-compact-n4-path-n6}
+			\caption{}
+			\label{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}
+		\end{subfigure}
+	\end{minipage}
+	\caption{Chemin \(@1.@2\) dans l'objet
+		(\subref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet})~;
+		règle de contraction
+		(\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction})~;
+		la règle d'extrusion
+		(\subref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion})}
+\end{figure}
+
+Ce contexte prend la forme d'un chemin entre les n\oe{}uds. Pour calculer un tel
+chemin, nous effectuons un parcours depuis le n\oe ud enregistré par
+l'application jusqu'au n\oe ud d'accroche (voir le chemin en
+{\color{orange}orange} dans la
+figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}
+et le filtrage associé dans l'objet
+figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet}). %
+Par exemple, dans la règle de contraction, pour \(n_{2}\) comme n\oe ud de
+départ, ce chemin est constitué des arcs explicites \(1\) et \(2\). %
+Dans le DAG, il est ajouté au n\oe ud de l'orbite face qui devient
+\orbitnode{@1.@2\orbit{0,1}}. %
+
+En effet, le DAG est construit à partir du nom persistant du brin 55
+(\pndart{55}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2}).
+Comme vu précédemment, les n\oe uds apparaissant dans le DAG sont bien ceux du
+nom persistant. Un simple calcul d'origine sans prise en compte du chemin
+indiquerait que le sommet désigné par \(\orbit{1,2}(n_{2})\) aurait pour origine
+une face directement incidente au n\oe ud \(n_{4}\), n\oe ud provenant du membre
+droit de la règle d'extrusion. Or, en analysant cette règle, nous voyons que la
+face incidente à \(n_{4}\) correspond à une face latérale et non à la face
+supérieure du cube créé par extrusion. En revanche, nous pouvons observer que
+l'utilisation du chemin depuis \(n_{4}\) (le parcours des arcs explicites \(1\)
+et \(2\) à partir du n\oe ud \(n_{4}\)) permet bien de désigner le n\oe ud
+\(n_{6}\), et donc la face supérieure de ce cube
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-extrusion}).
+L'annotation du n\oe ud avec un chemin nous permet donc de remonter jusqu'au
+n\oe ud désignant la face à l'origine de la fusion de ses sommets incidents lors
+de l'application suivante. %
+
+
+
+\subsection{Résumé}
+
+
+
+La mise en \oe uvre de cette procédure, pour reconstituer l'historique des
+évolutions d'une orbite, ne nécessite qu'un nom persistant de brin et les règles
+enregistrées dans une spécification paramétrique. %
+Comme illustré
+dans l'exemple, combiner l'analyse statique des règles aux noms persistants des brins enregistrés dans la spécification paramétrique nous permet de calculer et
+représenter les évolutions d'une orbite jusqu'à ses origines. %
+Avec cette approche, il n'est alors pas nécessaire de ré-appliquer les règles pour déterminer les évènements au fur et à mesure de l'évolution du modèle. %
+Ce mécanisme est exécuté uniquement pour les paramètres topologiques,
+c'est-à-dire les entités topologiques enregistrées dans la spécification
+paramétrique.%
+Il combine ainsi les avantages de
+l'analyse statique des règles (faible coût en calcul pour la détection des
+événements) et la nomination d'un échantillon d'orbites restreint à celles qui
+sont explicitement désignées par l'utilisateur lors du processus de construction d'un objet, ce qui limite grandement les calculs à effectuer.%
+
+Même si cela n'a pas été évoqué plus haut, remarquons que, tout comme dans les travaux de Cardot, la reconstitution des évolutions
+d'orbites peuvent intégrer un type d'évènement appelé \texttt{NOEFFECT}, qui
+permet de représenter les opérations qui ne filtrent pas les orbites suivies
+dans l'historique d'une orbite. %
+Par simplicité pédagogique, nous ne présentons pas, dans ce chapitre, d'exemple
+qui intègre les n\oe uds d'évènements \noeffectnodeevent{} dans les DAGs. %
+De tels exemples peuvent être trouvés en annexes de ce manuscrit. %
+
+
+
+\section{Réévaluation}
+\label{sec:reevaluation-base-regles-reevaluation}
+
+
+
+Désormais, lorsque la spécification paramétrique est éditée puis réévaluée, les DAGs d'évaluation peuvent être utilisés pour réaliser un appariement. %
+Pour cela, à partir des DAGs d'évaluation et au fur et à mesure de la réévaluation, nous construisons des \emph{DAGs de réévaluation} qui intègrent les modifications apportées à la spécification paramétrique. %
+Comme nous allons le voir, l'enregistrement dans les DAGs d'évaluation du suivi des entités mais aussi de leurs origines permet d'une part un appariement robuste et autorise d'autre part la mise en \oe uvre de stratégies de réévaluation configurables par l'utilisateur. %
+
+
+
+\subsection{Appariement des orbites}
+\label{sec:reevaluation-base-regles-reevaluation-dag-reevaluation}
+
+
+
+La construction d'un DAG de réévaluation
+consiste simplement à utiliser, étape par étape, le DAG d'évaluation et la spécification paramétrique éditée en
+prenant en compte le \emph{type} de chacune des applications, c'est-à-dire:
+\texttt{INIT} si elles proviennent de l'évaluation \textbf{initiale}, sinon
+\texttt{ADD}, \texttt{DELETE} ou encore \texttt{MOVE} si elles sont respectivement
+\textbf{ajoutées}, \textbf{supprimées} ou \textbf{déplacées} dans la
+spécification paramétrique éditée. %
+Enfin, et à l'inverse de la construction d'un DAG d'évaluation, un DAG de
+réévaluation est construit dans l'ordre d'application des règles. %
+
+L'objectif de l'appariement est d'identifier dans un modèle réévalué les orbites
+utilisées comme paramètres dans une spécification paramétrique lors de
+l'évaluation initiale. %
+Cette procédure a lieu en cours de réévaluation en utilisant directement les
+brins de l'instance courante du modèle et non les n\oe uds de règles Jerboa. %
+Ceux-ci peuvent en effet filtrer plusieurs instances de brins et conduire à des
+erreurs d'appariement. %
+Les DAGs de réévaluation enregistrent donc directement des brins. %
+Ainsi, la méthode consiste, pour chaque application d'un type donné, à~:
+\begin{description}
+	\item[\texttt{INIT}~:] mettre à jour les évènements initialement détectés
+	      lorsque nécessaire~;
+	\item[\texttt{ADD}~:] intégrer des niveaux d'applications supplémentaires~;
+	\item[\texttt{DELETE}~:] gérer l'annulation des évènements initialement détectés, voire interrompre l'appariement~;
+	\item[\texttt{MOVE}~:] gérer les conséquences d'un déplacement, c'est-à-dire si
+	      l'opération déplacée ou les suivantes sont toujours applicables. %
+\end{description}
+
+\begin{figure}[htb!]
+	% \centering
+	\begin{subfigure}{.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{1-reevaluation-square}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1-appariement}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.79\textwidth}
+		\raggedleft
+		\includegraphics[scale=.45]{reevaluationTree-6-export-step-1}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1-dag}
+
+	\end{subfigure}
+	\caption{Appariement des orbites issues de \texttt{INIT 1-\allowbreak{}creation\-Carre()}}
+	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-1}
+\end{figure}
+Le nom persistant PN\textsubscript{35} du cas d'étude et son DAG d'évaluation
+(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}),
+comme point de départ pour illustrer la création d'un DAG de réévaluation et les
+différentes étapes d'appariement des paramètres topologiques. %
+Pour rappel, la spécification paramétrique éditée était présentée dans le
+listing~\ref{lst:reevaluation-regles-specification-parametrique-edit-cas-1} et
+le résultat de la réévaluation était illustré sur la
+figure~\ref{fig:reevaluation-base-regles-cs1-reevaluation}. %
+
+La première étape d'appariement concerne l'application \texttt{INIT
+  1-\allowbreak{}creation\-Carre} illustrée
+figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1}. %
+Pour commencer, nous vérifions que la règle est toujours applicable. %
+Puisque \texttt{1-\allowbreak{}creation\-Carre} ne référence aucun paramètre
+topologique, elle est réappliquée immédiatement. %
+
+Nous pouvons alors reproduire dans le DAG de réévaluation le premier niveau
+d'application du DAG d'évaluation qui contient deux n\oe uds d'évènements
+\creationnodeevent{} et deux n\oe uds d'orbites brin \orbitnode{\orbit{}} et
+arête \orbitnode{\orbit{0}} incidentes au n\oe ud \(n_{3}\). %
+Comme évoqué plus tôt, dans un DAG de réévaluation les niveaux d'orbites sont
+annotés par des brins et non des n\oe uds. %
+Pour cela, nous récupérons un brin parmi ceux filtrés par le n\oe ud \(n_{3}\)
+dans l'application \texttt{1-\allowbreak{}creation\-Carre}. %
+Puisque \(n_{3}\) ne crée qu'un unique brin \(3\)
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1-appariement}),
+c'est ce brin que nous enregistrons dans le DAG de réévaluation
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-1-dag}). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{cs1-ADD-10-reevaluation-insert}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2-appariement}
+	\end{subfigure}
+	% \hspace{0.06\textwidth}
+	\hfill
+	\begin{subfigure}{.79\textwidth}
+		\raggedleft
+		\includegraphics[scale=.45]{reevaluationTree-6-export-step-2}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2-dag}
+	\end{subfigure}
+	\caption{Appariement des orbites issues de \texttt{ADD 10-\allowbreak{}insertion\-Sommet}}
+	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-2}
+\end{figure}
+
+Lors de l'édition de la spécification paramétrique, nous ajoutons l'application
+\texttt{ADD 10-\allowbreak{}ins\-ert\-ion\-Som\-met(3)}
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-2}). %
+Puisqu'elle est ajoutée, nous vérifions tout d'abord si elle a un impact sur les
+évolutions d'orbites représentées dans ce DAG. %
+Pour cela, nous vérifions si la règle filtre tout ou partie d'orbite incidente
+au brin \(3\) enregistré dans le DAG. %
+Si ce n'est pas le cas, le niveau d'application inséré est une simple copie du
+niveau précédent dans lequel les n\oe uds d'évènements sont tous remplacés par
+des \noeffectnodeevent{}. %
+
+Dans notre exemple, l'insertion du sommet sur l'arête incidente au brin \(3\)
+scinde cette arête en deux. %
+La détection d'une scission, provoquée par une application ajoutée, provoque le
+\emph{dédoublement} de la branche de suivi pour suivre l'évolution de chacune
+des entités issues de la scission. %
+Nous avons alors deux branches de suivi avec chacune un niveau d'évènement qui
+contient un n\oe ud d'évènement \nomodifnodeevent{}, car l'orbite
+\(\orbit{}(3)\) (le brin à l'extrémité de l'arête) est inchangée, et un n\oe ud
+d'évènement \splitnodeevent{}, car l'orbite \(\orbit{0}(3)\) (l'arête de face)
+est scindée en deux (figure~
+\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-2-appariement} ). %
+De même, chaque branche contient un niveau d'orbites avec les n\oe uds d'orbites
+\orbitnode{\orbit{}} et \orbitnode{\orbit{0}} et sont distinguées par leurs
+brins respectifs. %
+En effet, une branche suit désormais l'évolution des orbites incidentes au brin
+\(3\) tandis que l'autre suit les orbites incidentes au brin \(4\)
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-2-dag}). %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{cs1-2-reevaluation-extrusion}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3-appariement}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.79\textwidth}
+		\raggedleft
+		\includegraphics[scale=.45]{reevaluationTree-6-export-step-3}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3-dag}
+	\end{subfigure}
+	\caption{Appariement des orbites issues de \texttt{INIT 2-\allowbreak{}extrusion\-Face}}
+	\label{fig:reevaluation-base-regle-reevaluation-pn35-step-3}
+\end{figure}
+Suite à la scission ajoutée à l'étape précédente, nous suivons l'impact de
+l'application suivante dans la spécification paramétrique éditée, \texttt{INIT
+  2-\allowbreak{}extrusion\-Face}, pour chaque branche du DAG
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3}). %
+Comme lors du jeu initial, l'application de la règle crée des arêtes par
+extrusion de brins et des faces par extrusion d'arêtes. %
+Nous enregistrons donc deux n\oe uds d'évènements \creationnodeevent{} et deux
+n\oe uds d'orbites \orbitnode{\orbit{0}} et \orbitnode{\orbit{0,1}} dans chaque
+branche du DAG
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3-dag}). %
+Le n\oe ud de règle initialement enregistré, \(n_{4}\), crée un ensemble de
+brins, mais seuls deux d'entre eux sont directement issus des brins \(3\) et
+\(4\). %
+Ce sont respectivement les brins \(37\) et \(52\)
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-3-appariement}),
+que nous enregistrons dans les niveaux d'orbites du DAG. %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{cs1-5-reevaluation-triangulation}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-pn35-step-4-appariement}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.79\textwidth}
+		\raggedleft
+		\includegraphics[scale=.45]{reevaluationTree-6-export}
+		\caption{}
+		\label{fig:reevaluation-base-regle-reevaluation-cs1-pn35-dag-reevaluation}
+	\end{subfigure}
+	\caption{Appariement des orbites issues de \texttt{INIT 5-\allowbreak{}triangulation\-Face}}
+	\label{fig:reevaluation-base-regle-reevaluation-pn35}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width = .19\textwidth]{cs1-pn35-8-reevaluation-color}
+	\caption{Fin de l'appariement du PN\textsubscript{35}}
+	\label{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}
+\end{figure}
+
+La dernière étape pour l'appariement du PN\textsubscript{35} est l'application
+\texttt{INIT 5-\allowbreak{}triangulation\-Face}
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
+Lors de cette scission, les faces suivies dans chacune des branches sont
+scindées, mais puisque cet évènement était prévu dans l'évaluation initiale et
+que seule la face ayant pour origine \(\orbit{0}(n_{4})\) était suivie, alors
+aucun dédoublement de branche n'est nécessaire. %
+Seules les faces ayant pour origine \(\orbit{0}(37)\) et \(\orbit{0}(52)\)
+seront suivies dans le DAG de réévaluation. %
+Nous enregistrons donc un n\oe ud d'évènement \splitnodeevent{} ainsi qu'un n\oe
+ud d'orbite \orbitnode{\orbit{0,1}} dans les niveaux d'évènements et d'orbites
+de chaque branche
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-cs1-pn35-dag-reevaluation}). %
+Dans cette règle, les brins \(37\) et \(52\) ont été filtrés et préservés par le
+n\oe ud \(n0\) de la règle de triangulation. %
+Ainsi, nous enregistrons ces deux brins dans les niveaux d'orbites du DAG. %
+
+À ce stade de la réévaluation, la procédure d'appariement pour le paramètre
+topologique de l'application \texttt{INIT~8-\allowbreak{}coloration\-Face(PN\textsubscript{35},
+	Bleu)} est terminée. %
+Le DAG de réévaluation indique que deux orbites peuvent être sélectionnées par
+l'utilisateur pour la réévaluation~: les faces \(\orbit{0,1}(37)\) et
+\(\orbit{0,1}(52)\)
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35-step-4-appariement}). %
+Dans cet exemple, nous avons fait le choix de réappliquer la coloration sur les
+deux faces désignées par le DAG
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}),
+mais il est tout à fait possible de faire un choix différent, c'est-à-dire
+appliquer de paramétrer le comportement du mécanisme de réévaluation. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[scale=.45]{cs1-pn55-dag-reevaluation}
+	\caption{Appariement du PN\textsubscript{55}}
+	\label{fig:reeavulation-base-regles-reevaluation-cs1-pn55-dag-reevaluation}
+\end{figure}
+
+Dans le cas du DAG de réévaluation du PN\textsubscript{55}
+(figure~\ref{fig:reeavulation-base-regles-reevaluation-cs1-pn55-dag-reevaluation}),
+la mise à jour de l'historique d'évolutions ne provoque pas la création de
+nouvelle branche et identifie un unique sommet pour réappliquer la règle de
+chanfreinage. %
+L'application \texttt{1-\allowbreak{}creation\-Carre} produit une face carrée et
+identifie les orbites \(\orbit{1}(5)\) et \(\orbit{0,1}(5)\). %
+L'application ajoutée \texttt{ADD~10-\allowbreak{}insertion\-Sommet} filtre
+partiellement ces deux orbites donc nous n'enregistrons pas de
+\noeffectnodeevent{} dans le DAG mais des \nomodifnodeevent{}. %
+À l'exception de \texttt{DELETE~3-\allowbreak{}insertion\-Sommet}, les autres
+applications se déroulent de manière quasi identique à l'évaluation initiale. %
+Contrairement à l'évaluation initiale, où le DAG
+(figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
+(page~\pageref{fig:reevaluation-base-regles-nomination-persistante-orbites-dag-evaluation-pn-55})
+enregistre les n\oe uds d'évènements \modifnodeevent{} et \nomodifnodeevent{},
+nous pouvons voir lors de la réévaluation que la suppression de
+\texttt{3-\allowbreak{}insertion\-Sommet} annule le n\oe ud \modifnodeevent{}
+qui est alors remplacé par \nomodifnodeevent{}. %
+
+Lors de la réévaluation d'une spécification paramétrique éditée, et plus
+précisément lorsqu'une application est supprimée, nous gardons dans les DAGs une
+trace des évènements qui sont annulés. %
+Afin de correspondre à la réalité de la réévaluation, ces évènements sont remplacés
+par d'autres évènements qui décrivent leurs annulations dans la phase
+d'appariement. %
+Ainsi un n\oe ud \creationnodeevent{} est remplacé par un
+\nocreationnodeevent{}~; \splitnodeevent{} est remplacé par
+\nosplitnodeevent{}~; \mergenodeevent{} est remplacé par \nomergenodeevent{}~;
+\modifnodeevent{} est remplacé par \nomodifnodeevent{}. %
+Notons que les n\oe uds d'évènements \nomodifnodeevent{} ne sont pas
+remplacés. %
+En effet, si l'application d'une règle ne modifie pas une orbite, son annulation ne
+peut pas la modifier non plus. %
+
+Ce suivi des évènements annulés permet de garder trace de toutes les évolutions
+entre les évènements composant l'histoire d'une orbite du modèle évalué et ceux
+survenus dans la réévaluation. %
+Cela rend également possible la mise en \oe uvre de stratégies d'appariement. %
+Par exemple, lorsqu'une orbite référencée dans la spécification paramétrique
+n'est pas re-créée lors de la réévaluation, nous pouvons tout simplement
+interrompre l'étape d'appariement et terminer la réévaluation sans erreurs
+d'appariement. %
+%
+\begin{figure}[htb!]
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{cs2-6-evaluation-colourFaceRed}
+		\caption{}
+		\label{fig:reevaluation-base-regles-evaluation--cas2-pn12}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{cs2-7-reevaluation-colourFaceBlue}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn12}
+	\end{subfigure}
+	\begin{subfigure}[t]{.5\textwidth}\vskip 0pt
+		\centering
+		\includegraphics[height=250pt]{cs2-evaluationTree-4}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-eval}
+	\end{subfigure}
+	\vrule
+	\begin{subfigure}[t]{.5\textwidth}\vskip 0pt
+		\centering
+		\includegraphics[height=250pt]{cs2-pn12-dag-reeval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval}
+	\end{subfigure}
+	\caption{Appariement du PN\textsubscript{12} du cas d'étude nº~2, objet initial (\subref{fig:reevaluation-base-regles-evaluation--cas2-pn12}),
+		objet re-généré
+		(\subref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn12}),
+		DAGs d'évaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-eval})
+		et de réévaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval})
+	}
+	\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12}
+\end{figure}
+%
+\begin{figure}[htb!]
+
+\end{figure}
+%
+Par exemple, dans le cas d'étude nº~2
+(figures~\ref{fig:reevaluation-base-regles-cs2-4-evaluation-chamfer} et
+\ref{fig:reevaluation-base-regles-cs2-reevaluation}
+page~\pageref{fig:reevaluation-base-regles-cs2-reevaluation}), l'opération de
+chanfrein n'est pas réévaluée et la face à colorier en rouge n'existe plus. %
+Dans ces circonstances, il apparaît contraire à l'intention de conception d'un
+utilisateur de colorier une autre face qui ne serait pas issue de ce
+chanfrein. %
+Dans le DAG d'évaluation du PN\textsubscript{12}
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-eval}),
+au niveau d'évènement 4, nous observons que l'application
+\texttt{4-\allowbreak{}chanfrein\-Sommet} crée un sommet qui n'est pas recréé dans le DAG de
+réévaluation
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12-reeval});
+celui-ci est remplacé un n\oe ud d'évènement \nocreationnodeevent[red]{} en
+	{\color{red}rouge}. %
+La conséquence immédiate de cet évènement est l'interruption de l'appariement
+pour ce nom persistant afin de respecter les intentions de conceptions de
+l'utilisateur, ce qui donne l'objet illustré dans la
+figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn12}. %
+
+
+
+\subsection{Stratégies de réévaluation}
+\label{sec:reevaluation-base-regles-reevaluation-strategies}
+
+
+
+Nous venons de voir que les DAGs de réévaluation permettent non seulement de représenter les historiques
+d'évolutions des orbites, mais aussi les évènements
+annulés et ajoutés suivant l'édition d'une spécification paramétrique. %
+À l'aide de ces évènements, nous pouvons donc mettre en \oe uvre des stratégies pour
+adapter le comportement du mécanisme de réévaluation selon les préférences des
+utilisateurs. %
+Nous présentons ici plusieurs stratégies de réévaluation qui découlent
+directement de l'édition d'une spécification paramétrique avec l'ajout et la
+suppression d'opérations. %
+
+\paragraph*{Ajout de scission}
+
+Nous présentons un premier exemple de scission ajoutée avec le DAG de
+réévaluation du PN\textsubscript{35}
+(figure~\ref{fig:reevaluation-base-regle-reevaluation-pn35}). %
+De manière générale, lorsqu'une scission est ajoutée, une branche de suivi
+d'orbites est ajoutée dans le DAG pour chacune des orbites issues de la scission
+de l'orbite initialement suivie. %
+Ce comportement nous permet de représenter plusieurs historiques d'évolutions et
+ainsi proposer plusieurs options de réévaluation aux utilisateurs. %
+C'est à partir de ces choix que nous pouvons définir des stratégies de
+réévaluations et ainsi permettre aux utilisateurs de configurer le comportement
+du mécanisme de réévaluation selon leurs projets de modélisation. %
+
+Une première stratégie, celle que nous avons utilisée par défaut lors de la
+réévaluation du PN\textsubscript{35}, est de réappliquer une opération sur la
+totalité des orbites désignées par un DAG. %
+Le résultat obtenu est la coloration des deux faces incidentes aux brins \(37\)
+et \(52\)
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-cs1-8-reevaluation-color}). %
+
+Une deuxième stratégie serait de ne réévaluer que l'orbite désignée par la
+branche principale du DAG. %
+Dans notre exemple, cela reviendrait à ne colorier que la face incidente au brin
+\(37\). %
+
+Enfin, nous proposons une dernière stratégie qui consiste à proposer, lors de la
+réévaluation, un ensemble d'orbites sur lesquelles réappliquer une opération, à laisser aux utilisateurs la possibilité de désigner explicitement les
+orbites de leur choix et à sauvegarder cette configuration. %
+Cette dernière option laisse alors un certain degré de liberté quant à
+l'exploration dans la conception d'un objet. %
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{.25\textwidth}
+	\centering
+		\includegraphics[height=80pt]{9-reevaluation-strat-no-app}
+		\caption{Aucune sélection}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-no-app}
+	\end{subfigure}
+	\begin{subfigure}{.25\textwidth}
+	\centering
+		\includegraphics[height=80pt]{9-reevaluation-strat-app-37}
+		\caption{Brin 37}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-37}
+	\end{subfigure}
+	\begin{subfigure}{.25\textwidth}
+	\centering
+		\includegraphics[height=80pt]{9-reevaluation-strat-app-52}
+		\caption{Brin 52}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-52}
+	\end{subfigure}
+	\caption{Exemples de réévaluation selon la sélection de brins}
+	\label{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp}
+\end{figure}
+
+La
+figure~\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp}
+illustre plusieurs exemples de réévaluations selon l'échantillon de brins
+sélectionnés par l'utilisateur pour l'appariement. %
+Par exemple, aucun brin n'est sélectionné
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-no-app}),
+ou seulement l'un des deux
+(figures~\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-37}
+et
+\ref{fig:reevaluation-base-regles-reevaluation-strategie-ajout-scission-exemple-supp-app-52}). %
+
+\paragraph*{Annulation d'évènements}
+
+\begin{figure}[htb!]
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{cs2-7-evaluation-colourFaceBlue}
+		\caption{}
+		\label{fig:reevaluation-base-regles-evaluation-cas2-pn57}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{cs2-7-reevaluation-colourFaceBlue}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}
+	\end{subfigure}
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[width=.98\textwidth]{cs2-pn57-dag-eval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-eval}
+	\end{subfigure}
+	\vrule
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[width=.98\textwidth]{cs2-pn57-dag-reeval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-reeval}
+	\end{subfigure}
+	\caption{Appariement du PN\textsubscript{57} du cas d'étude nº~2, objet initial (\subref{fig:reevaluation-base-regles-evaluation-cas2-pn57}),
+		objet re-généré
+		(\subref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}),
+		DAGs d'évaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-eval})
+		et de réévaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57-reeval})
+	}
+	\label{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57}
+\end{figure}
+
+\begin{figure}[htb!]
+	\begin{subfigure}{0.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{9-evaluation-color}
+		\caption{}
+		\label{fig:reevaluation-base-regles-evaluation-cas1-pn68}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{.5\linewidth}
+		\centering
+		\includegraphics[width=.3\textwidth]{9-reevaluation-color}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}
+	\end{subfigure}
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[height=420pt]{cs1-pn68-dag-eval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}
+	\end{subfigure}
+	\vrule
+	\begin{subfigure}[t]{.5\textwidth}
+		\vskip 0pt
+		\centering
+		\includegraphics[height=420pt]{cs1-pn68-dag-reeval}
+		\caption{}
+		\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval}
+	\end{subfigure}
+	\caption{Appariement du PN\textsubscript{68} du cas d'étude nº~1, objet
+		initial (\subref{fig:reevaluation-base-regles-evaluation-cas1-pn68}),
+		objet re-généré
+		(\subref{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}),
+		DAGs d'évaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval})
+		et de réévaluation
+		(\subref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval})
+	}
+	\label{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}
+\end{figure}
+
+Dans l'exemple de l'appariement du PN\textsubscript{12}
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn12}),
+nous avons montré que le suivi des évènements et de leurs annulations nous
+permet de prévenir le risque d'un appariement erroné d'orbites et de produire
+des objets qui respectent les intentions de conception d'un utilisateur. %
+Nous illustrons cette stratégie dans le cas d'une origine qui n'est pas créée et d'une face qui ne peut donc pas être générée à partir de cette origine au rejeu (figure~\ref{fig:reevaluation-base-regles-reevaluation-non-creation-cas-n2-pn57}).%
+Dans cet exemple, lors de l'évaluation initiale, la face à colorier en bleu
+provient d'une face scindée et est désignée par une arête (elle-même créée par
+l'application \texttt{4-\allowbreak{}chanfrein\-Sommet}). %
+Or, dans la réévaluation, cette application est supprimée et l'arête d'origine
+de la face à colorer n'est pas re-créée. %
+Comme illustré dans la
+figure~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas2-pn57}, la
+conséquence est que cette face n'est pas re-créée non plus. %
+À la place, nous gardons seulement la trace de l'orbite sommet \(\orbit{1}\) à
+partir de laquelle devait être créée l'arête. %
+Or, celle-ci ne correspond pas à une origine de face scindée par la règle de
+triangulation. %
+Ainsi, un tel appariement ne correspondrait, \textit{a priori}, en rien aux
+intentions de conceptions de l'utilisateur. %
+Néanmoins, bien que le type d'orbite sommet de face \(\orbit{1}\) n'est pas une
+origine convenable, ce sommet peut désigner une face qui possède le même
+historique de construction que celle qui n'a pas été recréée. %
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=.19\textwidth]{cs2-8-reevaluation-coloration-strat-alternative}
+	\caption{Stratégie d'appariement pour la face non créée }
+	\label{fig:reevaluation-base-regles-reevaluation-strat-alt-non-creation-cas-2-pn57}
+\end{figure}
+Au contraire, une alternative consisterait à demander à l'utilisateur s'il
+souhaite ou non faire l'appariement sur une telle orbite. %
+Dans le cas de notre exemple, cela reviendrait à colorier la face triangulaire à
+droite (figure~\ref{fig:reevaluation-base-regles-reevaluation-strat-alt-non-creation-cas-2-pn57}). %
+
+Dans certains cas, la suppression d'une application peut annuler des évènements
+de scission ou de fusion. %
+Ces suppressions provoquent alors, indirectement, des effets inverses de ceux des
+évènements annulés. %
+Par exemple, dans l'évaluation de notre cas d'étude nº~1
+(figure~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68}),
+l'application \texttt{3-\allowbreak{}insertion\-Sommet} crée un sommet qui est extrudé en une arête par
+l'application \texttt{4-\allowbreak{}extrusion\-Face\-Volume}. %
+L'une des faces, le long de cette arête, est ensuite coloriée en rouge par
+l'application \texttt{7-\allowbreak{}coloration\-Face}
+(figures~\ref{fig:reevaluation-base-regles-evaluation-cas1-pn68} et
+\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-eval}). %
+Dans la spécification paramétrique éditée, l'application \texttt{3-\allowbreak{}insertion\-Sommet} est
+supprimée. %
+Le sommet n'est donc plus créé ni extrudé dans la réévaluation
+(figures~\ref{fig:reevaluation-base-regles-reevaluation-appariement-cas1-pn68}
+et~\ref{fig:reevaluation-base-regles-reevaluation-non-scission-cas1-pn68-reeval}). %
+Ainsi, et de manière indirecte, la suppression de cette application a fusionné
+deux faces qui étaient distinctes dans l'évaluation initiale. %
+Dans l'hypothèse où les deux faces sont transformées dans l'évaluation initiale,
+une stratégie pourrait être de ne rien faire et laisser les transformations être
+résolues de manière séquentielle. %
+Par exemple, si l'autre face avait été coloriée en vert après que la face rouge
+ait été coloriée, alors la stratégie résoudrait ces deux opérations l'une après
+l'autre et au terme de la modélisation, la face serait coloriée en vert. %
+Au contraire, une alternative consisterait à laisser l'utilisateur choisir les
+opérations qu'il souhaite réappliquer sur cette face. %
+
+
+
+\section{Implantation}
+\label{sec:reevaluation-base-regles-implantation}
+
+
+
+Les procédures permettant le support de la suppression d'orbite et le
+déplacement d'une opération suite à l'édition d'une spécification paramétrique
+sont, au moment de la rédaction de ce manuscrit, des travaux en cours. %
+Dans cette section, nous détaillons les implantations des structures de données
+des DAGs d'évaluation et de réévaluation grâce auxquels nous pouvons apparier
+des orbites. %
+Pour permettre le mécanisme de réévaluation que nous proposons, nous avons
+implanté les structures illustrées dans les
+figures~\ref{fig:reevaluation-scripts-implantation-struct-dag-eval} et
+\ref{fig:reevaluation-scripts-implantation-struct-dag-reeval}. %
+
+\begin{figure}[p!]
+	\centering
+	\includegraphics[width=.8\textwidth]{class-diagram-hr-datastructure}
+	\caption{Diagramme de la classe \textit{Evaluation\-DAG}}
+	\label{fig:reevaluation-scripts-implantation-struct-dag-eval}
+\end{figure}
+
+\begin{figure}[p!]
+	\centering
+	\includegraphics[width=.8\textwidth]{class-diagram-rt-datastructure}
+	\caption{Diagramme de la classe \textit{Reevaluation\-DAG}}
+	\label{fig:reevaluation-scripts-implantation-struct-dag-reeval}
+\end{figure}
+
+Les DAGs d'évaluation et de réévaluation sont deux structures représentant
+l'historique d'évolution d'une orbite dans deux contextes différents~:
+l'évaluation et la réévaluation. %
+Ainsi, un DAG trace un historique au travers des opérations enregistrées dans
+une spécification paramétrique. %
+
+Pour l'implantation de ces structures, nous avons fait le choix de représenter
+une application en deux classes distinctes qui décrivent un niveau
+d'application. %
+La première classe \textit{EventLevel} décrit une application du point de vue de
+la règle. %
+Cette classe spécifie qu'un niveau d'évènements détient un numéro d'application
+\textit{appNum}, un type d'application \textit{appType} et la liste des
+évènements détectés \textit{eventList} pour une orbite donnée. %
+Notons que lors de l'évaluation initiale, \textit{appType} est initialisée à
+\textit{INIT}. %
+La deuxième classe \textit{OrbitLevel} décrit une application du point de vue
+d'une orbite suivie. %
+Dû à la différence de contexte dans lequel nous utilisons les DAGs d'évaluation
+et de réévaluation, ces deux classes sont implantées comme des classes
+abstraites. %
+Une instance \textit{EventLevelEval} (ou \textit{EventLevelReeval}) détient
+également une référence vers le niveau d'orbite relatif à la même application. %
+Pour les niveaux d'orbites, rappelons que si à l'évaluation nous enregistrons
+des noms n\oe uds afin d'être le plus générique possible, ce n'est pas le cas
+pour la réévaluation. %
+En effet, dans la phase d'appariement, un DAGs de réévaluation enregistre
+directement des identifiants de brins. %
+Ainsi, une instance de \textit{OrbitLevelEval} détient un nom de n\oe ud
+\textit{nodeName} et une référence vers le niveau d'évènement de l'application
+suivante. %
+Au contraire, une instance de \textit{OrbitLevelReeval} détient un identifiant
+de brin \textit{dartID} et une référence vers le niveau d'évènement de
+l'application suivante. %
+
+À l'intérieur de ces niveaux d'applications, nous organisons en alternance des
+orbites et des évènements et leurs relations de suivi ou d'origine. %
+Pour représenter les d'évènements, nous implantons la classe \textit{EventNode}
+qui détient un tag de type \textit{Event} (une simple énumération des évènements
+que nous pouvons détecter), un numéro de branche \textit{branchIndex} et une
+référence vers une unique orbite \textit{child}. %
+Pour les orbites, nous implémentons la classe \textit{OrbitNode} qui détient un
+type d'orbite \textit{orbitType}, un chemin \textit{alphaPath}, un numéro de
+branche \textit{branchIndex} et une liste d'enfants \textit{children}. %
+Avec cette implantation, nous exprimons deux faits, un n\oe ud d'évènement ne
+peut référencer qu'un seul n\oe ud d'orbite, car tout évènement dans une règle
+n'est étudié que pour une orbite donnée. %
+Au contraire, une orbite peut être impactée par plusieurs évènements. %
+Notons également que l'enfant d'un n\oe ud d'orbite est une instance de la
+classe \textit{Link} que nous créons pour associer un n\oe ud d'évènements à un
+type de relation \textit{LinkType}, c'est-à-dire soit un suivi \textit{TRACE},
+soit une origine \textit{ORIGIN}. %
+
+Enfin, nous avons décidé d'encapsuler les niveaux d'application dans une liste
+afin de pouvoir itérer le contenu d'un DAG. %
+Toutefois, cela ne considère pas la possibilité que plusieurs branches soient
+nécessaires pour représenter pleinement l'historique des évolutions d'une
+orbite. %
+Ainsi, pour les DAGs d'évaluation, nous décidons d'encapsuler la structure de
+données dans une \textit{Map} où chaque niveau d'application est accessible
+directement à partir de son \textit{appID}. %
+Le choix d'une \textit{Map} revêt un aspect pratique, car au cours de la
+procédure de réévaluation nous avons besoin de récupérer des morceaux de DAGs
+d'évaluation niveau par niveau. %
+Au contraire, pour les DAGs de réévaluation, la structure de données est
+simplement encapsulée dans une autre liste, puisque l'accès se fait toujours par
+rapport au dernier niveau inséré. %
+
+
+
+\section{Conclusion}
+\label{sec:reevaluation-base-regles-conclusion}
+
+
+
+Dans ce chapitre, nous présentons les structures de données et procédure
+nécessaires à l'implantation d'un mécanisme de réévaluation dans un système de
+modélisation à base de règles. %
+La difficulté d'un tel mécanisme est la phase d'appariement entre les entités
+topologiques du modèle initial et celles du modèle réévalué. %
+Pour cela, nous présentons une approche exploitant les formalismes des cartes
+généralisées, des règles Jerboa et des évènements que nous avons définis dans le
+chapitre~\ref{cha:formalisation-evenements}. %
+
+Lors de la conception d'un objet, tout brin d'une carte généralisée est
+représenté par son historique d'évolutions. %
+Celui-ci référence l'ensemble des applications et les n\oe uds de règles ayant
+conduit à sa création ou sa modification. %
+Puisqu'un brin est explicitement désigné lors de l'application d'une règle et
+que son historique est unique, nous utilisons celui-ci comme nom persistant pour
+désigner une orbite. %
+Toutefois, la nomination des brins ne suffit pas, car elle ne représente pas
+explicitement l'historique des évolutions d'une orbite. %
+Nous présentons alors un second mécanisme permettant de reconstituer les
+historiques d'évolutions des orbites identifiées par des noms persistants. %
+Pour cela, nous enregistrons dans un DAG chacune des applications qui
+interviennent dans l'évolution d'une orbite. %
+Les évènements sont détectés par analyse statique des règles, ce qui nous permet
+de représenter à la fois le suivi d'une orbite et le suivi de chacune des
+origines qui peuvent être détectées. %
+De plus, nous complétons la notion d'origine à l'aide d'un contexte,
+automatiquement calculé au moment de l'analyse, qui nous permet de garantir la
+cohérence du suivi d'orbite. %
+Ces deux mécanismes de reconstitution d'historiques pour les brins et les
+orbites représentent, en réalité, notre mécanisme de nomination persistante. %
+Celui a ainsi l'avantage d'être robuste et efficace dans le sens où seules les
+orbites disposant d'un nom persistant sont décrites par un historique enrichi. %
+Enfin, nous présentons notre mécanisme d'appariement des entités pour la
+réévaluation. %
+Dans cette contribution, les DAGs d'évaluation nous servent de bases pour créer
+des DAGs de réévaluations, c'est-à-dire des DAGs qui prennent en compte les
+modifications apportées au modèle géométrique en fonction de l'édition d'une
+spécification paramétrique. %
+Afin d'offrir un certain degré de liberté lors de la réévaluation, nous
+proposons également des stratégies configurables par les utilisateurs. %
+Ces stratégies leur permettent, entre autre, de sélectionner un ensemble de
+paramètres sur lesquels réappliquer des opérations lorsque, par exemple, une
+entité est scindée par une opération ajoutée. %
+D'autres stratégies permettant de prendre en compte la suppression d'orbite
+ainsi que le déplacement d'opérations sont en cours d'implantation. %
+Enfin, nous avons présenté les structures de DAGs que nous avons implanté pour
+permettre la réévaluation dans un système de modélisation à base de règles. %

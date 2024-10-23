@@ -1,6 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{LiasThesis}[2024/02/28 Lias Thesis class]
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% MEMOIR EXTENSION FOR THESIS TEMPLATE %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -11,27 +12,25 @@
 \RequirePackage[utf8]{inputenc} %% On veut tous les caractères et diacritiques
 \RequirePackage[T1]{fontenc} %% T1 est suffisamment complet pour avoir textbf + textsc
 \RequirePackage{graphicx} %% À titre personnel
-\RequirePackage{hyperref}
+\RequirePackage{xcolor} %
 \RequirePackage{tabto} %% Pour aligner arbitrairement du text
-\RequirePackage{xcolor}
-\RequirePackage{translator}
-\RequirePackage{tikz}
-\RequirePackage[french]{minitoc}
-\RequirePackage{tgtermes}
+\RequirePackage{translator} %
+\RequirePackage{tikz} %
+\RequirePackage[french]{minitoc} %
+\RequirePackage{tgtermes} %
 \RequirePackage{datetime2}
 % \RequirePackage[scaled]{helvet}
 % \renewcommand\familydefault{\sfdefault}
 
 \usetikzlibrary{positioning,calc}
 
-
 \usedictionary{translator-basic-dictionnary}
 \newtranslation[to = french]{THESIS}{THÈSE}
 \newtranslation[to = english]{THÈSE}{THESIS}
 \newtranslation[to = french]{Submitted for the degree of}{Pour l'obtention du Grade de}
 \newtranslation[to = english]{Pour l'obtention du Grade de}{Submitted for the degree of}
-\newtranslation[to = french]{Doctor of Philosophy from}{Docteur de l'}
-\newtranslation[to = english]{Docteur de l'}{Doctor of Philosophy from}
+\newtranslation[to = french]{Doctor of Philosophy from~}{Docteur de l'}
+\newtranslation[to = english]{Docteur de l'}{Doctor of Philosophy from~}
 \newtranslation[to = french]{National Degree}{Diplôme National}
 \newtranslation[to = english]{Diplôme National}{National Degree}
 \newtranslation[to = french]{Decree of}{Arrêté du}
@@ -251,7 +250,7 @@
 
 \renewcommand{\maketitle}{%
 	\begin{titlingpage}
-		\fontfamily{phv}\selectfont
+		% \fontfamily{phv}\selectfont
 		\AddToHook{shipout/firstpage}{%
 			\put(0,-\paperheight)
 			{\TitleFrame\TitleLogos}}
@@ -261,28 +260,28 @@
 
 			{\vspace{14.5pt}}
 
-			{\bfseries{\translate{Pour l'obtention du Grade de}}}
+			{{\translate{Pour l'obtention du Grade de}}}
 
-			\parbox[t]{\textwidth}{\fontsize{14}{15.5}\selectfont\centering\bfseries
-				\translate{DOCTEUR DE L'}\@institute}\\[1mm]
+			\parbox[t]{\textwidth}{\fontsize{14}{15.5}\selectfont\centering\scshape\bfseries
+				\translate{Docteur de l'}\@institute}\\[1mm]
 
-			\parbox[t]{.95\textwidth}{\centering\bfseries(\translate{Diplôme
+			\parbox[t]{.95\textwidth}{\small\centering(\translate{Diplôme
 					National} - \translate{Arrêté du} \translate{25 mai 2016}
 				\translate{Modifié par l'Arrêté du} \translate{26 Août 2022})}
 
 			\vspace{14pt}
 
-			{\bfseries \translate{Ecole Doctorale}~:\\
+			{ \translate{Ecole Doctorale}~:\\
 				\@doctoralschool}
 
 			\vspace{14pt}
 
-			\parbox[t]{.7\textwidth}{\bfseries \translate{Secteur de Recherche}~:
+			\parbox[t]{.7\textwidth}{ \translate{Secteur de Recherche}~:
 				\@researchfield}
 
 			\vspace{14pt}
 
-			{\bfseries{\translate{Présentée par}}~:}
+			{{\translate{Présentée par}}~:}
 
 			\vspace{5pt}
 
@@ -300,9 +299,11 @@
 
 			{\Large ****************************}
 
-			{\bfseries {\bfseries\normalsize \@phddirector}}
+			{ { \@phddirector}}
 
-			{\bfseries {\bfseries\normalsize \@cosupervisors}}
+			\vspace{0.25em}
+
+			{ { \@cosupervisors}}
 
 			\vspace{14pt}
 
@@ -313,9 +314,9 @@
 			\ifpublish
 				\parbox[t]{.6\textwidth}{%
 					\centering%
-					{\bfseries\translate{Soutenue le}} {\@date\space}}\\[1em]
+					{\translate{Soutenue le}} {\@date\space}}\\[1em]
 				%% Keeping \@date between brackets prevents font/colour bleeding
-				{\bfseries\translate{devant la Commission d'Examen}}
+				{\translate{devant la Commission d'Examen}}
 			\fi
 
 			\vspace{14pt}
@@ -376,10 +377,20 @@
 	\underline{\translate{Mots clés~:}} (#1)
 }
 
+\renewenvironment{abstract}{%
+	\small
+	\raggedright{\underline\abstractname}\vspace{.5em}\vspace{0pt}
+	\list{}{%
+		\setlength{\leftmargin}{0pt}%
+		\setlength{\rightmargin}{0pt}%
+	}%
+	\item\relax}
+{\endlist}
+
 \newenvironment{resume}[1]{%
 
 	\centering
-	{\normalsize\bfseries #1}
+	{\normalsize\bfseries\textsc{#1}}
 
 	\vspace{1em}
 	\renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}

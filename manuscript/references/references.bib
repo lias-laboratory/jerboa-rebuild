@@ -40,8 +40,8 @@ url = "http://www.theses.fr/2019POIT2252",
 title = "Développement d'un langage de programmation dédié à la modélisation géométrique à base topologique, application à la reconstruction de modèles géologiques 3D",
 author = "Gauthier, Valentin",
 year = "2019",
-note = "Thèse de doctorat dirigée par Lienhardt, Pascal et Belhaouari, Hakim Informatique Poitiers 2019",
-note = "2019POIT2252",
+NOTnote = "Thèse de doctorat dirigée par Lienhardt, Pascal et Belhaouari, Hakim Informatique Poitiers 2019",
+NOTnote = "2019POIT2252",
 url = "http://www.theses.fr/2019POIT2252/document",
 }
 
@@ -358,7 +358,7 @@ volume = {29},
 number = {2},
 pages = {113--122},
 year = {1997},
-note = {Solid Modelling},
+NOTnote = {Solid Modelling},
 IGNOREissn = {0010-4485},
 author = {J. Kripac}
 }
@@ -524,7 +524,7 @@ author = {Marcheix, D.}
   booktitle = {Computer Graphics and Visual Computing},
   IGNOREeditor = {Vangorp, Peter and Hunter, David},
   title = {{Automatic Detection of Topological Changes in Geometric Modeling Operations}},
-  author = {Gaide, M and Marcheix, D. and Arnould, A. and Skapin, X. and Belhaouari, H. and Jean, S.},
+  author = {\underline{Gaide, M} and Marcheix, D. and Arnould, A. and Skapin, X. and Belhaouari, H. and Jean, S.},
   year = {2023},
   pages = {9--18},
   IGNOREpublisher = {The Eurographics Association},
@@ -535,7 +535,7 @@ author = {Marcheix, D.}
   booktitle = {Computer Graphics and Visual Computing},
   IGNOREeditor = {Vangorp, Peter and Hunter, David},
   title = {{Model Reevaluation Based on Graph Transformation Rules}},
-  author = {Gaide, M. and Marcheix, D. and Arnould, A. and Skapin, X. and Belhaouari, H. and Jean, S.},
+  author = {\underline{Gaide, M.} and Marcheix, D. and Arnould, A. and Skapin, X. and Belhaouari, H. and Jean, S.},
   year = {2023},
   pages = {61--63},
   IGNOREpublisher = {The Eurographics Association},
@@ -544,7 +544,7 @@ author = {Marcheix, D.}
 @inproceedings{gaide2024reevaluation,
   keywords = "own",
   title={Reevaluation in Rule-Based Graph Transformation Modeling Systems},
-  author={Gaide, M. and Marcheix, D. and Arnould, A. and Skapin, X. and Belhaouari, H. and Jean, S.},
+  author={\underline{Gaide, M.} and Marcheix, D. and Arnould, A. and Skapin, X. and Belhaouari, H. and Jean, S.},
   booktitle={WSCG 2024--32. International Conference in Central Europe on Computer Graphics, Visualization and Computer Vision 2024},
   year={2024}
 }
@@ -670,6 +670,14 @@ pages="69--83",
   month={09},
 }
 
+@book{ehrig2006fundamentals,
+  title={Fundamentals of algebraic graph transformation},
+  author={Ehrig, {K.} and Ehrig, {H.} and Taentzer, {G.} and Prange, {U.}},
+  year={2006},
+  publisher={Springer}
+}
+
+
 @book{prusinkiewicz2013lindenmayer,
   title={Lindenmayer systems, fractals, and plants},
   author={Prusinkiewicz, P. and Hanan, J.},
@@ -688,7 +696,7 @@ pages="69--83",
   title           = {{Détection statique des modifications topologiques dans les opérations de modélisation géométrique}},
   eventtitle      = {Journées du Groupe de Travail en Modélisation Géométrique},
   date            = {2023},
-  note={Communication orale}
+  NOTnote={Communication orale}
 }
 
 
@@ -698,18 +706,11 @@ pages="69--83",
   title           = {{Réévaluation de modèle basée sur les règles de transformation de graphe}},
   eventtitle      = {Rencontres des Jeunes Chercheurs du Groupe de Travail en Modélisation Géométrique},
   date            = {2024},
-  note={Communication orale}
+  NOTnote={Communication orale}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % miscellaneous
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-@misc{ehrig2006fundamentals,
-  title={Fundamentals of algebraic graph transformation},
-  author={Ehrig, {K.} and Ehrig, {H.} and Taentzer, {G.} and Prange, {U.}},
-  year={2006},
-  publisher={Springer}
-}
 
 @misc{esri2023cityengine,
   author = {{ESRI}},
@@ -719,14 +720,14 @@ pages="69--83",
 }
 
 @misc{dassaultCATIA,
- author = {{Dassault Systèmes}},
+ author = {{Dassault~Systèmes}},
  title = {{3DS CATIA product page}},
  howpublished = {\url{https://www.3ds.com/products/catia}},
  note ={Accessed 2024-07-05}
 }
 
 @misc{dassaultSOLIDWORKS,
- author = {{Dassault Systèmes}},
+ author = {{Dassault~Systèmes}},
  title = {{3DS Solidworks 3D CAD product page}},
  howpublished = {\url{https://www.solidworks.com/product/solidworks-3d-cad}},
  note ={Accessed 2024-07-05}
@@ -763,14 +764,14 @@ pages="69--83",
 @misc{blenderSculpting,
 author = {{Blender}},
 title = {{Blender is for Scuplters}},
-howpublished ={https://www.blender.org/features/sculpting/},
+howpublished = {{https://www.blender.org/features/sculpting/}},
 note ={Accessed 2024-10-20}
 }
 
 @misc{godotEngine,
 author = {{Godot}},
 title = {{Procedural geometry generation}},
-howpublished ={https://docs.godotengine.org/en/3.1/\allowbreak{}tuto\allowbreak{}rials/content/procedural\_geometry.html},
+howpublished ={\url{https://docs.godotengine.org/en/3.1/tutorials/content/procedural\_geometry.html}},
 note ={Accessed 2024-10-20}
 }
 
@@ -784,14 +785,14 @@ note = {Accessed 2024-09-03}
 @misc{unrealEngine,
 author = {{EpicGames}},
 title = {{Procedural Content Generation Overview}},
-howpublished ={https://dev.epicgames.com/\allowbreak{}documentation/en-us/unreal-engine/procedural-content-generation-overview},
+howpublished ={\url{https://dev.epicgames.com/documentation/en-us/unreal-engine/procedural-content-generation-overview}},
 note ={Accessed 2024-10-20}
 }
 
 @misc{unityEngine,
 author = {{Unity}},
 title = {{Unity Engine}},
-howpublished ={https://unity.com/products/unity-engine},
+howpublished ={\url{https://unity.com/products/unity-engine}},
 note ={Accessed 2024-10-20}
 }
 @misc{siemensNX,

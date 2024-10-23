@@ -1,23 +1,82 @@
 \chapter*[Introduction]{Introduction}
 \label{cha:introduction}
 \addstarredchapter{Introduction}
+\defbibheading{bibliography}[Publications]{\section*{#1}}
+
 
 
 \section*{Contexte}
 
 
+Depuis le début des années 60, les communautés de l'informatique graphique n'ont
+de cesse de proposer des outils offrant toujours plus de possibilités. %
+Tout d'abord avec la conception de
+plans~\cite{autodeskAUTOCAD,dassaultCATIA,siemensNX,dassaultSOLIDWORKS} pour la
+conception de pièces industrielles, ces outils ont gagné les domaines de la
+créativité et du divertissement au travers du cinéma et des jeux
+vidéos~\cite{autodesk3ds,autodeskMaya}, mais aussi l'architecture et
+l'aménagement urbain~\cite{autodeskREVIT,esri2023cityengine}. %
+
+Tous ces domaines ont un point en commun. %
+Il s'agit de la construction d'objets virtuels issus d'un processus de
+conception ou bien restitués à partir d'un objet réel. %
+
+
+Génération automatique d'objets
+\begin{itemize}
+	\item construction suivant un corpus de données (génération procédurale,
+	      grammaire formelle L-systems)
+	\item Formalisation et cohérence des objets transformés
+	\item construction manuelle d'un objet (CAO)
+\end{itemize}
+
+
+
 \section*{Problématique}
+
+
+
+\begin{itemize}
+	\item Réévaluation de modèles paramétriques
+\end{itemize}
+
 
 
 \section*{Démarche et contributions}
 
 
+
+Intersection de trois domaines
+\begin{itemize}
+	\item Réévaluation : génération procédurale et CAO
+	\item Génération de structures végétales : génération procédurale et
+	      formalisation
+	\item cohérence des objets modifiés : formalisation et CAO
+\end{itemize}
+
+Contribution
+\begin{itemize}
+	\item Formalisation des impacts des opérations sur un objet
+	\item Formalisation et réévaluation automatique à partir de règles formelles
+	\item Extension à des scripts
+\end{itemize}
+
+
+
 \section*{Organisation du manuscrit}
 
 
-\section*{Publications}
 
-\printbibliography[keyword={own}]
+\begin{itemize}
+	\item chapitre 1 : rappels et présentation des outils de formalisation
+	\item chapitre 2 : état de l'art sur la modélisation paramétrique et la réévaluation
+	\item chapitre 3 : formalisation des évènements
+	\item chapitre 4 : réévaluation à partir des règles Jerboa
+	\item chapitre 5 : extension aux scripts
+\end{itemize}
+
+\nocite{gaide2023automatic,gaide2023model,gaide2024reevaluation}
+\printbibliography[keyword={own},title=Publications]
 
 %%% Local Variables:
 %%% mode: LaTeX

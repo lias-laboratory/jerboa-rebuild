@@ -1,5 +1,5 @@
-% \documentclass[x11names]{LiasThesis}
-\documentclass[x11names,framepage]{LiasThesis}
+\documentclass[x11names]{LiasThesis}
+% \documentclass[x11names,framepage]{LiasThesis}
 
 \usepackage{subfiles}
 \usepackage{subcaption}
@@ -24,17 +24,26 @@
 \usepackage{booktabs}
 \usepackage{pifont}
 \usepackage[linesnumbered,ruled,french,frenchkw]{algorithm2e}
-% \usepackage{algpseudocode}
 
 %% Pour causer français
-\usepackage[main=french, english]{babel}
+\usepackage[english, french]{babel}
 % \frenchsetup{StandardItemLabels=true}
 % \frenchsetup{StandardItemLabels=true, StandardItemizeEnv=true}
 % \frenchsetup{ StandardItemizeEnv=true}
 \usepackage[style=french]{csquotes}
 
 %% Pour la bibliographie
-\usepackage[backend=biber,maxbibnames=99,bibstyle=alphabetic,citestyle=alphabetic,backref=true]{biblatex}
+\usepackage[%
+backend=biber,%
+maxbibnames=99,%
+bibstyle=authortitle,%
+citestyle=alphabetic,%
+backref=true]{biblatex}%
+\setcounter{biburlnumpenalty}{9000}%
+\setcounter{biburllcpenalty}{9000}%
+\setcounter{biburlucpenalty}{9000}%
+\setlength\bibitemsep{1.5\itemsep}%
+
 \addbibresource{references/references.bib}
 %%
 
@@ -47,6 +56,11 @@
 \usepackage[breakable,most]{tcolorbox}
 \usepackage{listings}
 
+
+\usepackage[%
+	linkbordercolor=nord11!60!red,%
+	citebordercolor=nord14!60!green,%
+	urlbordercolor=nord15!60!blue]{hyperref} %
 
 \def\gResourcesPath{../resources-figures-jerboa}
 \graphicspath{{../logos/}%
@@ -89,10 +103,10 @@
   Informatique et Applications}
 %
 \phddirector{%
-     Directeur de thèse~:  Stéphane JEAN}
+     Directeur de thèse~:  \textbf{Stéphane JEAN}}
 %
  \cosupervisors{%
-Co-encadrants~:  David MARCHEIX et Xavier SKAPIN
+Co-encadrants~:  \textbf{David MARCHEIX} et \textbf{Xavier SKAPIN}
  }
 %
 \laboratory{%
@@ -123,35 +137,6 @@ Co-encadrants~:  David MARCHEIX et Xavier SKAPIN
     Université de Poitiers}\\%
 }
 
-%
-% \examboard{%
-% \raggedright
-% \underline{\bfseries Présidente~:}\\[2mm]
-% Pascale LE GALLE \tabto{.35\textwidth} {\mdseries Professeur,
-% CentraleSupélec}\\%
-% \vspace{.5em}%
-% \underline{\bfseries Rapporteurs~:}\\[2mm]
-% David CAZIER \tabto{.35\textwidth} {\mdseries Professeur, Université de
-% Strasbourg}\\[1mm]%
-% Guillaume DAMIAND \tabto{.35\textwidth} {\mdseries Directeur de recherche,
-% Université Claude Bernard}\\%
-% \vspace{.5em}%
-% \underline{\bfseries Membres du jury~:}\\[2mm]
-% Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur, Aix-Marseille
-% Université}\\[1mm]%
-% Agnès ARNOULD \tabto{.35\textwidth} {\mdseries Maître de conférences,
-% Université de Poitiers}\\[1mm]%
-% Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de conférences,
-% Université de Poitiers}\\[1mm]%
-% Stéphane JEAN \tabto{.35\textwidth} {\mdseries Professeur, Université de
-% Poitiers}\\[1mm]%
-% David MARCHEIX \tabto{.35\textwidth} {\mdseries Maître de conférences,
-% Université de Poitiers}\\[1mm]%
-% Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de conférences,
-% Université de Poitiers}\\%
-% }
-%
-
 \date{11 décembre 2024}
 
 \begin{document}
@@ -163,19 +148,19 @@ Co-encadrants~:  David MARCHEIX et Xavier SKAPIN
 \mainmatter
 \ifpublish
 \else
-	\linenumbers
+	% \linenumbers
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Style options : take a look at LaTeX memoir manual if you want %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapterstyle{customveelo}
 
-\setlength{\parskip}{5pt plus 2pt minus 2pt}
+\setlength{\parskip}{5pt plus 1pt minus 1pt}
 %%%%%%%%%% Chapitre introduction %%%%%%%%%%
 \subfile{parts/introduction/introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\chapterstyle{customveelo}
 %%%%%%%%%% Chapitre etat art %%%%%%%%%%
 \subfile{parts/chapitres-reevaluation/outils-modelisation-base-regles/outils-modelisation-base-regles}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -186,57 +171,45 @@ Co-encadrants~:  David MARCHEIX et Xavier SKAPIN
 
 %%%%%%%%%% Chapitre formalisation évènements %%%%%%%%%%
 \subfile{parts/chapitres-reevaluation/formalisation-evenements/formalisation-evenements}
-
-% \subfile{parts/chapitres-reevaluation/formalisation-evenements/section-transformation-objets}
-% \subfile{parts/chapitres-reevaluation/formalisation-evenements/section-regles-transformation-graphe}
-% \subfile{parts/chapitres-reevaluation/formalisation-evenements/section-regles-jerboa}
-% \subfile{parts/chapitres-reevaluation/formalisation-evenements/section-implantation}
-% \subfile{parts/chapitres-reevaluation/formalisation-evenements/section-conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre réévaluation règles %%%%%%%%%%
 \subfile{parts/chapitres-reevaluation/reevaluation-regles/reevaluation-regles-jerboa}
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/systeme-modelisation-base-regles}
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/section-cas-etudes}
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/section-nomination-persistante-brins}
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/section-nomination-persistante-orbites}
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/section-reevaluation-regles-jerboa}
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/section-implantation}
-% \subfile{parts/chapitres-reevaluation/reevaluation-regles/section-conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre réévaluation scripts %%%%%%%%%%
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/extension-scripts}
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/section-scripts}
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/section-sequence}
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/section-iteration-sous-orbites}
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/section-alternative}
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/section-exemples}
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/section-implantation}
-\subfile{parts/chapitres-reevaluation/reevaluation-scripts/section-conclusion}
+\subfile{parts/chapitres-reevaluation/reevaluation-scripts/reevaluation-scripts}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%% Chapitre annotation temporelle %%%%%%%%%%
 % \subfile{parts/chapitres-animation/annotation-temporelle-specification-parametrique}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
 %%%%%%%%%% Chapitre conclusions %%%%%%%%%%
-% \subfile{parts/conclusions/conclusions}
+\subfile{parts/conclusions/conclusions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%% Post-rédaction : annexes + bibliographie
 
-\chapterstyle{default} %% Pour ne pas avoir la bibliographie et son titre séparés par une page
+\backmatter
 \clearpage
 \pagebreak
 \listoffigures
 \clearpage
 \pagebreak
-% \printbibliography*
-\printbibliography
+\listoftables
 \clearpage
 \pagebreak
-\backmatter
+\renewcommand\lstlistlistingname{Table des listings}
+\lstlistoflistings
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\clearpage
+\pagebreak
+% \printbibliography*
+\printbibliography[notkeyword={own}]
+\clearpage
+\pagebreak
 \pagestyle{empty}
 \subfile{resume}
 \end{document}

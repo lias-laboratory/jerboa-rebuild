@@ -42,11 +42,6 @@ industrielles~\cite{autodeskAUTOCAD, dassaultCATIA, freecad, siemensNX,
 Ces dernières années, avec l'apparition des imprimantes 3D ont trouvé leur place
 dans la conception de prothèse médicale\todo{ref} et, pour le grand public, dans
 la conception de pièces de rechanges et d'accessoires. %
-Ces logiciels sont devenus incontournables notamment pour leurs mécanismes dits
-de réévaluation. %
-Celui-ci permet, suite à l'édition d'un processus de construction ou
-\emph{spécification paramétrique} d'un objet, de générer automatiquement de
-nouvelles représentations géométriques.
 
 Avec les années et le besoin de construire des objets toujours plus complexes,
 sont apparues des initiatives basées sur des méthodes formelles afin de garantir
@@ -75,41 +70,49 @@ afin de permettre la réévaluation d'objets~\cite{babaali2010systeme,
 
 \section*{Problématique}
 
+%% difficulté nécessitant la réévaluation
+La modélisation d'un objet est une tâche fastidieuse impliquant des cycles
+successifs d'essais et de correction. %
+Ainsi, la modification d'un objet nécessite de reprendre manuellement
+l'intégralité du processus de modélisation. %
+Les logiciels de modélisation paramétrique proposent, pour alléger cette
+difficulté, d'enregistrer chacune des étapes de modélisation dans une
+\emph{spécification paramétrique}. %
+Il est alors possible d'éditer les paramètres des opérations enregistrées puis
+de réévaluer, c'est-à-dire réappliquer successivement, les opérations en prenant
+en compte les éventuelles modifications apportées. %
+De cette manière, un mécanisme de réévaluation doit permettre la génération
+automatique d'une nouvelle représentation géométrique à partir d'un modèle
+paramétrique initial. %
 
+%% introduction du problème de la nomination persistante
+Dès les années 90, la réévaluation de modèles paramétriques fait l'objet de
+nombreuses études pour la réévaluation de modèles 3D. %
+En effet, la mise un \oe uvre de ce mécanisme se heurte au problème de
+l'évolution des entités topologiques lors de la réévaluation. %
+Afin de permettre l'appariement de ces entités, il est alors indispensable de
+mettre en place un mécanisme d'identification dit persistant. %
+Un tel mécanisme doit permettre une identification à la fois unique et sans
+ambiguïté de chacune des entités enregistrées dans une spécification
+paramétrique. %
+Ce problème est celui de la \emph{nomination persistante}. %
 
-La construction d'un objet étant une tâche fastidieuse, la modification de la
-spécification paramétrique d'un objet nécessite de reprendre manuellement
-l'intégralité du processus de modélisation %
-Les mécanismes de réévaluation permettent, en outre, d'éditer une spécification
-paramétrique et de la réévaluer automatiquement pour générer de nouvelles
-représentations géométriques. %
+Pour résoudre ce problème ce problème, la plupart des approches consistent à
+identifier une entité d'après son voisinage topologique et, le cas échéant de
+l'enrichir avec des informations géométriques lorsque la topologie ne suffit
+plus. %
+Dans ce cas, l'évolution de chacune des entités est suivie de deux manières
+possibles~: Soit par un parcours exhaustif ou localisé du modèle initial par
+rapport au modèle réévalué~; soit par le codage explicite des changements
+topologiques directement dans le code d'une opération de modélisation. %
 
-Dès le début des années 90, la réévaluation de modèles paramétriques fait
-l'objet de nombreuses études pour la réévaluation de modèles
-3D~\cite{hoffmann1992erep, kripac1995mechanism, chen1995representation,
-  CAPOYLEAS199617, wu2001face, agbodan2002nomination, bidarra2005feature,
-  wang2005geometry, cheon2012name, farjana2018mechanisms, cardot2019,
-  safdar2020feature, cascaval2023lineage, dai2024sweeping}. %
-En effet, permettre la réévaluation d'un objet suite à l'édition de son
-processus constructif requiert l'identification est l'appariement de ses entités
-topologiques entre le modèle initial et le modèle réévalué. %
-Ce problème est comme étant le problème de la \textit{nomination persistante}. %
-
-Un schéma de nomination des entités topologiques doit, pour être dit persistant,
-identifier toute entité topologique d'un modèle de manière unique et sans
-ambiguïté. %
-La difficulté de ce problème est d'autant plus important qu'il doit être
-suffisamment robuste pour identifier toute entité malgré les changements subis
-par un modèle lors de la réévaluation de son processus constructif. %
-
-À ce jour, deux grandes approches existent dans le but de résoudre ce
-problème. %
-La première consiste à comparer intégralement deux objets pour estimer les
-modifications apportés en cours de réévaluation. %
+La première consiste à comparer les deux pour tracer les modifications apportées
+en cours de réévaluation. %
 Celle-ci est efficace, car permettant de produire un suivi exhaustif et non
 ambiguë des entités topologiques. %
 Cependant, elle est aussi coûteuse en temps de calcul, car dépendant de la
 complexité du modèle. %
+
 La seconde approche consiste à lister, directement dans les opérations de
 modélisation, l'ensemble des changements attendus suite à l'application d'une
 opération. %
@@ -119,11 +122,24 @@ Toutefois, le risque d'y introduire des erreurs ou de ne pas prendre certaines
 modifications de la topologie est important. %
 
 De plus, les solutions existantes se heurtent à deux principales limitations. %
-Premièrement, les systèmes conçus considèrent uniquement des opérations écrites
-sous forme de code dont l'analyse est complexe. %
+Premièrement, les systèmes disponibles considèrent uniquement des opérations
+écrites sous forme de code dont l'analyse est complexe. %
+Il est donc très difficile de procéder à l'analyse d'une opération afin d'en
+extraire automatiquement l'ensemble des changements topologiques qu'elle
+applique sur un ensemble d'entités topologiques. %
+Dans cette configuration, la détection d'un changement implique d'appliquer
+l'opération. %
 Deuxièmement, les schémas de nomination proposés sont généralement basés sur un
 type d'entité topologique spécifique, le plus souvent la face, rendant difficile
 la généralisation des méthodes liées à la réévaluation. %
+Dans le cas des faces, cela rend particulièrement difficile la caractérisation
+et le suivi des volumes et autres entités de plus hautes dimensions dans le
+cadre de la réévaluation. %
+
+% \cite{hoffmann1992erep, kripac1995mechanism, chen1995representation,
+%   CAPOYLEAS199617, wu2001face, bidarra2005feature, wang2005geometry,
+%   cheon2012name, farjana2018mechanisms, cardot2019, safdar2020feature,
+%   cascaval2023lineage, dai2024sweeping}
 
 
 
@@ -131,22 +147,66 @@ la généralisation des méthodes liées à la réévaluation. %
 
 
 La nomination persistante, dans le cadre de la réévaluation de modèles
-paramétriques, est un problème étudié de manière extensive depuis plusieurs
-décennies. %
-Néanmoins, dans ce manuscrit, nous proposons d'étendre le problème de la
-nomination persistante aux systèmes de modélisation à base de règles. %
+paramétriques, est un problème étudié depuis plusieurs décennies. %
+Cependant, aucune des approches présentées à ce jour ne définit de schéma de
+nomination réellement générique et, à plus forte raison, permettant de réévaluer
+des objets de dimension quelconque. %
+De plus, les possibilités d'évaluation proposées par la plupart des modeleurs
+paramétriques se limitent aux éditions des paramètres géométriques. %
+De même, aucun de ces systèmes ne garantie la cohérence topologique des modèles
+réévalués qui doivent alors être analysés puis réparés le cas échéant
+\maxime{J'ai quand même un gros doute sur ce point}. %
 
+Dans cette thèse, nous proposons des méthodes formelles pour la détection
+automatique des changements topologiques survenant lors de l'application de
+règles Jerboa.
 
-% La nomination persistante est un problème
+Nous proposons également un système de nomination en deux couches, qui permet la
+caractérisation d'une entité d'après les règles qui contribuent à sa création
+et son évolution. %
 
+Nous avons implantés des algorithmes nous permettant de reconstituer, de manière
+riche, l'historique des évolutions d'une entité uniquement à l'aide de l'analyse
+des opérations qui l'ont faite évoluer. %
 
-% Intersection de trois domaines
-% \begin{itemize}
-% 	\item Réévaluation : génération procédurale et CAO
-% 	\item Génération de structures végétales : génération procédurale et
-% 	      formalisation
-% 	\item cohérence des objets modifiés : formalisation et CAO
-% \end{itemize}
+Enfin, nous proposons de évolutions de nos structures de données afin de
+supporter le langage de scripts Jerboa permettant de créer des opérations de
+modélisation complexes. %
+
+% Dans ce manuscrit, nous proposons d'étendre le problème de la nomination
+% persistante aux systèmes de modélisation à base de règles. %
+% Pour cela, nous tirons avantage de deux outils de formalisation nous permettant
+% de dégager des propriétés topologiques essentielles à notre mécanisme de
+% réévaluation. %
+% Nous proposons ainsi d'utiliser des cartes généralisées qui permettent
+% d'identifier un large panel d'entités topologiques qui ne se limitent pas aux
+% sommets, arêtes et aux faces. %
+% Nous proposons aussi de d'utiliser le langage de règles Jerboa pour formaliser
+% les opérations de modélisation. %
+
+% Grâce à ces outils formels, il nous est possible de procéder à l'analyse
+% syntaxique des règles de modélisations. %
+% Ainsi, nous proposons dans un premier temps de caractériser les changements
+% topologiques directement à partir des règles Jerboa. %
+% Dans un second temps, nous proposons des critères d'analyses pour la détection
+% automatique des changements topologiques dans les règles Jerboa. %
+% De cette manière, la détection peut-être opérée statiquement en pré-calcul au
+% lancement du modeleur. %
+
+% Pour la nomination persistante, proposons un système en deux couches. %
+% Pour cela, nous reprenons et adaptons les travaux de Cardot~\cite{cardot2019}
+% afin de proposer un mécanisme de nomination persistante qui se construit
+% progressivement à chaque application d'une opération. %
+% Avec ce système de nomination, la première couche créée un historique basé sur
+% l'ensemble des règles dont l'application impacte une entité topologique, et plus
+% particulièrement les brins d'une carte généralisée. %
+% La deuxième reconstitue l'ensemble des évolutions d'une entité sur la base des
+% applications enregistrées dans son historique. %
+% Grâce à cela, nous proposons un système de réévaluation capable d'apparier des
+% entités topologique sur la base de leurs évolutions respectives. %
+
+% Enfin, nous proposons d'étendre notre système de réévaluation aux
+
 
 % Contribution
 % \begin{itemize}

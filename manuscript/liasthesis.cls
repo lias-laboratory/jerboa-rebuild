@@ -360,15 +360,11 @@
 	\addtolength{\midchapskip}{-\textwidth}
 	\addtolength{\midchapskip}{-\spinemargin}
 	\renewcommand*{\printchapternum}{%
-		\makebox[.4\numberheight][l]{\hspace{1em}%
+		\hspace{.4\numberheight}
+		\makebox[.4\numberheight][r]{
 			\resizebox{!}{\numberheight}{\chapnumfont \thechapter}%
-			\hspace{0.35em}%
-			\rule{1.2\barlength}{\numberheight}%
 		}
-	}%
-	% \renewcommand*{\printchaptertitle}{%
-	%   \color{nord0}
-	%   \chaptitlefont}
+	}
 	\renewcommand*{\afterchaptertitle}{\vfill\minitoc\vfill\clearpage}
 }
 
@@ -378,7 +374,7 @@
 }
 
 \renewenvironment{abstract}{%
-	\small
+	\footnotesize
 	\raggedright{\underline\abstractname}\vspace{.5em}\vspace{0pt}
 	\list{}{%
 		\setlength{\leftmargin}{0pt}%
@@ -392,7 +388,7 @@
 	\centering
 	{\normalsize\bfseries\textsc{#1}}
 
-	\vspace{1em}
+	\vspace{0.25em}
 	\renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
 	\renewcommand{\abstractname}{\translate{Résumé~:}}
 	\noindent

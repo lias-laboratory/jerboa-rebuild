@@ -1,6 +1,13 @@
 \chapter{Réévaluation à base de règles}
 \label{cha:reevaluation-base-regles}
 
+
+
+\section{Introduction}
+\label{sec:reevaluation-base-regles-introduction}
+
+
+
 Dans le chapitre~\ref{cha:etat-art-modelisation-parametrique}, nous avons passé
 en revue différents systèmes de modélisation, leurs méthodes pour la
 réévaluation de spécifications paramétriques et les différentes solutions qu'ils
@@ -901,7 +908,7 @@ type d'orbite filtré par la règle. %
 Comme expliqué dans les chapitres précédents, cette information est représentée
 dans l'étiquette du n\oe ud d'accroche de la règle. %
 Pour notre exemple, le type d'orbite qui nous intéresse, \(\orbit{0,1}\) en l'occurrence, est
-déterminée par l'étiquette du n\oe ud \(n_{0}\) affichée en {\color{orange}orange} dans la
+déterminée par l'étiquette du n\oe ud \(n_{0}\) affichée en {\color{myvividorange}jaune} dans la
 figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-type-orbite}. %
 À partir de cette information, nous pouvons commencer à remonter l'historique
 des évolutions de l'orbite sur laquelle l'opération de coloration a été
@@ -949,14 +956,14 @@ montre que l'orbite \(L\orbit{0,1}(n_{0})\) est scindée du fait de la réécrit
 de tous les \(1\)-arcs implicites dans des dimensions hors du type
 \(\orbit{0,1}\), voire de leur suppression. %
 De plus, nous pouvons voir dans l'orbite \(R\orbit{0,1}(n_{0})\) que les \(0\)
-et \(1\)-arcs implicites, à droite en \textcolor{orange}{orange}, sont des
+et \(1\)-arcs implicites, à droite en \textcolor{myvividorange}{jaune}, sont des
 réécritures d'un \(0\)-arc implicite dans le n\oe ud d'accroche, à gauche aussi
-en \textcolor{orange}{orange}. %
+en \textcolor{myvividorange}{jaune}. %
 %
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[scale=.45]{pn35-dag-eval-step-2}
-	\caption{Étape 2 \texttt{[1n3;2n4;{\color{orange}5n0}]} de la construction du DAG}
+	\caption{Étape 2 \texttt{[1n3;2n4;{\color{myvividorange}5n0}]} de la construction du DAG}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-2}
 \end{figure}
 %
@@ -1003,7 +1010,7 @@ ud \(n_{4}\). %
 Comme pour la triangulation, nous procédons à l'analyse de la règle à la
 différence près que cette fois-ci, nous suivons deux types d'orbites~: une face
 \(\orbit{0,1}\) (l'orbite encadrée en {\color{myblueink}bleu}) et une arête
-\(\orbit{0}\) (l'orbite encadrée en {\color{orange}orange}), toutes deux
+\(\orbit{0}\) (l'orbite encadrée en {\color{myvividorange}jaune}), toutes deux
 incidentes au n\oe ud \(n_{4}\)
 (figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-analyse-regle-extrusion}). %
 L'analyse révèle que la face et l'arête sont toutes les deux créées, car les
@@ -1017,7 +1024,7 @@ L'arête à pour origine un brin (\(\orbit{}\)) du fait de l'absence d'arc impli
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[scale=.45]{pn35-dag-eval-step-3}
-	\caption{Étape 3 \texttt{[1n3;{\color{orange}2n4};5n0]} de la construction du DAG}
+	\caption{Étape 3 \texttt{[1n3;{\color{myvividorange}2n4};5n0]} de la construction du DAG}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-3}
 \end{figure}
 
@@ -1057,13 +1064,13 @@ reconstitution de l'historique des évolutions de notre orbite de suivi. %
 L'application désignée est la toute première enregistrée dans la spécification,
 c'est-à-dire la règle de triangulation et son n\oe ud \(n_{3}\). %
 L'analyse de la règle révèle que l'arête (encadrée en {\color{myblueink}bleu})
-et le brin (encadré en {\color{orange}orange}) sont créés \textit{ex nihilo} par
+et le brin (encadré en {\color{myvividorange}jaune}) sont créés \textit{ex nihilo} par
 la règle, car son membre gauche est vide.%
 \begin{figure}[htb!]
 	\centering
 	% \includegraphics[height=220pt]{pn35-dag-eval-step-4}
 	\includegraphics[scale=.45]{pn35-dag-eval-step-4}
-	\caption{Étape 4 \texttt{[{\color{orange}1n3};2n4;5n0]} de la construction du DAG}
+	\caption{Étape 4 \texttt{[{\color{myvividorange}1n3};2n4;5n0]} de la construction du DAG}
 	\label{fig:reevaluation-base-regle-nomination-persistante-orbites-construction-dag-etape-4}
 \end{figure}
 Comme pour les étapes précédentes, nous créons les niveaux d'orbite et
@@ -1185,7 +1192,7 @@ Nous devons alors compléter la notion d'origine à l'aide d'un contexte qui per
 Ce contexte prend la forme d'un chemin entre les n\oe{}uds. Pour calculer un tel
 chemin, nous effectuons un parcours depuis le n\oe ud enregistré par
 l'application jusqu'au n\oe ud d'accroche (voir le chemin en
-{\color{orange}orange} dans la
+{\color{myvividorange}jaune} dans la
 figure~\ref{fig:reevaluation-base-regle-nomination-persistante-orbites-chemin-regle-contraction}
 et le filtrage associé dans l'objet
 figure~\ref{fig:reevaluation-base-regles-nomination-persistante-orbites-chemin-objet}). %

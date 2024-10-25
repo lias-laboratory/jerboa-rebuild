@@ -8,48 +8,27 @@
 
 
 
-Dans les chapitres précédents, nous avons présenté les règles Jerboa et les
-moyens que nous mettons en \oe uvre afin de réévaluer des modèles paramétriques
-construits à l'aide de ces règles. %
-Or, il n'est pas possible de créer des opérations complexes avec ces règles,
-c'est-à-dire des opérations construites avec des structures de contrôle. %
+Dans les chapitres précédents, nous avons présenté les règles Jerboa et les moyens mis en \oe uvre pour réévaluer des modèles paramétriques construits à l'aide de ces règles. Cependant, cette approche ne permet pas de créer des opérations complexes avec ces règles, c'est-à-dire des opérations structurées à l'aide de structures de contrôle. Or, le langage Jerboa propose des opérations sous forme de scripts de règles, permettant d'organiser les règles avec des structures de contrôle largement répandues dans la plupart des langages de programmation. L'objectif de ce chapitre est donc d'étendre notre système de réévaluation pour permettre la réévaluation des scripts de règles.
 
-Bien que le langage Jerboa propose des opérations sous la forme de scripts de
-règles, il nous est impossible, en l'état, de proposer leur réévaluation par le
-système de réévaluation que nous avons présenté dans le
-chapitre~\ref{cha:reevaluation-base-regles}. %
-En effet, les scripts permettent d'organiser des règles à l'aide des structures
-de contrôles largement disponibles dans la plupart des langages de
-programmation. %
-
-Dans ce chapitre, nous proposons une extension de notre système de réévaluation
-afin que celui-ci puisse réévaluer des scripts de règles. %
 Pour cela, nous proposons d'étendre notre système de réévaluation à des scripts
 présentant un ensemble limités de structures de contrôles, à savoir des
 séquences de règles, des itérations sur les sous-orbites d'une orbite ainsi que
 des alternatives «~si…alors…sinon…~». %
-Avec de telles structures, nous allons voir qu'il est nécessaire de pouvoir
-enregistrer dans les DAG tous les paramètres associés à l'usage de ces
-structures (les conditions, les paramètres d'itération, etc.). Si par exemple
-une boucle était utilisée pour appliquer une opération sur chacun de ses
-sommets, il serait nécessaire de pouvoir enregistrer dans les DAG l'histoire de
-la face parcourue, car si cette face venait à disparaître la boucle ne serait
-par rejouée, les opérations sur les sommets ne seraient pas appliqués et les
-appariements liés à ces opérations en seraient affectés. %
+Avec de telles structures, il devient nécessaire d'enregistrer dans les DAG tous les paramètres associés à l'utilisation de ces structures, tels que les conditions, les paramètres d'itération, et autres éléments de contrôle. Si, par exemple, une boucle était utilisée pour appliquer une opération sur chacun de ses sommets, il est essentiel d'enregistrer dans les DAG l'historique de la face parcourue. En effet, si cette face venait à disparaître, la boucle ne pourrait pas être rejouée, ce qui empêcherait l'application des opérations sur les sommets. Cela affecterait directement les appariements liés à ces opérations, compromettant ainsi la cohérence du modèle et de son réévaluation.%
 
-Nous commençons donc ce chapitre avec une description du langage de script
-Jerboa. Nous détaillons les fonctionnalités nécessaires que nous retenons dans
-le cadre de l'étude de la réévaluation de scripts. %
-La section suivante présente les séquences de règles et les problématiques liées
-à l'enregistrement des opérations contenues dans un script. %
-Nous présentons ensuite dans les sections suivantes le support des structures
+Ce chapitre est structuré comme suit. Nous commençons par une description du langage de script
+Jerboa dans la section~\ref{sec:extension-scripts-scripts}. Nous y détaillons les fonctionnalités que nous retenons dans le cadre de l'étude de la réévaluation de scripts. Nous présentons ensuite, dans la section~\ref{sec:extension-scripts-sequences}, les séquences de règles et les problématiques liées à l'enregistrement des opérations contenues dans un script. %
+Par la suite, dans les sections~\ref{sec:extension-scripts-iteration} et~\ref{sec:extension-scripts-alternatives}, nous détaillons le support des structures
 itératives puis alternatives et nous voyons la façon dont ces structures sont
 intégrées dans les DAG d'évaluation et de réévaluation pour permettre les
 appariements. %
-Nous présentons ensuite des exemples de réévaluations ou nous combinons les
-différentes structures de contrôles. %
-Enfin, nous proposons, dans une dernière section, un état des lieux de
-l'implantation pour la réévaluation avec des scripts. %
+Nous illustrons ensuite notre approche dans la section~\ref{sec:reevaluation-scripts-brincation-exemple} en présentant des exemples de réévaluations ou nous combinons les
+différentes structures de contrôle. %
+Enfin, nous proposons, dans la section~\ref{sec:reevaluation-scripts-implantation}, un état des lieux de
+l'implantation réalisée pour la réévaluation avec des scripts avant de conclure dans la section~\ref{sec:reevaluation-scripts-conclusion}. %
+
+
+
 \section{Scripts}
 \label{sec:extension-scripts-scripts}
 
@@ -151,16 +130,16 @@ connexe
 Ce motif est composé d'un unique n\oe ud d'accroche appelé \texttt{volume}. %
 Son étiquette désigne un brin (\(\orbit{}\)) ainsi qu'une information de
 \textit{multiplicité} (\texttt{{1}}) qui indique le nombre d'orbites sur
-lesquelles ce script peut être appliqué, ici une seule orbite. %
+lesquelles ce script peut être appliqué ; ici, une seule orbite. %
 %% Les paramètres topologiques : montrer avec le script
 Une différence notable, entre les motifs gauches des règles et de scripts, est
 que les motifs de scripts ne filtrent pas d'orbites. %
-Ceux-ci récupèrent simplement une liste de brin, un par orbite, et délèguent le
+Ceux-ci récupèrent simplement une liste de brins, un par orbite, et délèguent le
 filtrage aux règles qu'ils appellent. %
 Étudions maintenant le script
 (liste~\ref{lst:reevaluation-scripts-scripts-scripts-jerboa-script-decousure-volume}). %
 %% Structures dans un script
-La principale structure de ce script est une boucle qui itère chacune des faces
+La principale structure de ce script est une boucle qui itère sur chacune des faces
 d'un volume incident à un brin obtenu par le n\oe ud \texttt{volume}. %
 L'itération est formalisée par l'instruction
 \texttt{<0,1,3>\_<0,1>(volume\#{}0)} qui retourne une liste de brins à raison
@@ -173,7 +152,7 @@ Dans cette boucle, un bloc \texttt{try-catch} contient un appel de la règle
 \texttt{UnsewFace01A3} qui doit alors être appliquée à chacune des faces du volume. %
 Celui-ci empêche une sortie prématurée du programme lorsque la règle échoue
 suite à son application sur une face libre. %
-Enfin, notons que dans les règles, le motif droit construit automatiquement la sortie de son application, c'est-à-dire un tableau listant tous les brins préservés ou créés par les n\oe uds du motif. %
+Enfin, notons que, dans les règles, le motif droit construit automatiquement la sortie de son application, c'est-à-dire un tableau listant tous les brins préservés ou créés par les n\oe uds du motif. %
 Pour exploiter le résultat d'application d'une règle, celui-ci doit être enregistré dans une variable de type \texttt{JerboaRuleResult}. %
 Au contraire, pour les scripts, une telle sortie n'est pas créée automatiquement. %
 Ainsi, si elle existe, elle doit être explicitement construite par le développeur et retournée. %
@@ -181,7 +160,7 @@ Ainsi, si elle existe, elle doit être explicitement construite par le développ
 Ainsi, les scripts Jerboa permettent d'écrire des opérations plus complexes que
 les règles puisqu'ils proposent d'organiser des opérations à l'aide de
 structures de contrôle. %
-Une opération, voire une séquence d'opérations, peut être répété un certain
+Une opération, voire une séquence d'opérations, peut être répétée un certain
 nombre de fois à l'aide de boucles. %
 Une application peut être soumise à condition et le script peut contenir une
 alternative selon l'évaluation de la condition. %
@@ -205,9 +184,7 @@ boucles \texttt{foreach} et aux alternatives de règles. %
 Une première question se pose sur l'intégration des scripts dans notre système
 de réévaluation~: comment représenter un script dans une spécification
 paramétrique ? %
-À travers cette question, nous nous intéressons aux changements qui doivent être
-apporté à une spécification paramétrique ainsi qu'aux DAG d'évaluation et de
-réévaluation. %
+À travers cette question, nous nous intéressons aux changements qui doivent être apportés à la spécification paramétrique ainsi qu'aux DAG d'évaluation et de réévaluation. %
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Exemple de spécification «~boîte fermée~»,
@@ -217,30 +194,20 @@ label=lst:reevaluation-scripts-scripts-scripts-reevaluation-boite-fermee]
 3-uneAutreRegle(PN%\textsubscript{2}%);
 \end{lstlisting}
 Une première possibilité consiste à représenter un script uniquement par ses entrées et
-ses sorties, c'est-à-dire selon le modèle de représentation de boîte fermée (ou
+ses sorties, c'est-à-dire selon selon un modèle de boîte fermée (ou
 \textit{black box} en anglais) comme présenté dans
 le listing~\ref{lst:reevaluation-scripts-scripts-scripts-reevaluation-boite-fermee}.
 %
-S'agissant d'une boîte fermée, le système de réévaluation ne pourra pas ni
-connaître l'ensemble des règles évaluées, ni procéder à leurs analyses pour
-tracer l'évolution des orbites. %
-Il revient, dans ce cas, au développeur la responsabilité de définir précisément
-les paramètres de sortie du script, et ce de manière persistante, en particulier
-lorsque le script est réévalué dans un contexte différent. %
+Étant donné qu'il s'agit d'une boîte fermée, le système de réévaluation ne pourra ni connaître l'ensemble des règles évaluées, ni analyser leur déroulement pour suivre l'évolution des orbites. %
+Dans ce cas, il revient au développeur de définir précisément et de manière persistante les paramètres de sortie du script, en particulier lorsque celui-ci est réévalué dans un contexte différent. %
 Imaginons, par exemple, que dans le
 listing~\ref{lst:reevaluation-scripts-scripts-scripts-reevaluation-boite-fermee},
 \texttt{3\allowbreak{}-\allowbreak{}uneAutreRegle(PN\textsubscript{2})} soit
 appliquée sur un sommet retourné par l'application
 \texttt{2\allowbreak{}-\allowbreak{}unScript(PN\textsubscript{1})}. %
-La boite du script étant fermée, il revient aux développeurs de s'assurer que,
-dans un contexte de réévaluation différent, le sommet retourné soit toujours
-celui représentant l'intention de conception. %
-Quelque part, cela revient à demander au développeur du script de résoudre
-manuellement le problème de nomination persistante. %
-Cette approche est évidemment limitée dans la mesure où un script un peu
-complexe peut créer, supprimer ou modifier une multitude d'orbites, mais il peut
-toutefois être intéressant de définir explicitement quelques orbites
-caractéristiques comme sorties du script.
+La boîte du script étant fermée, il revient aux développeurs de s'assurer que, dans un contexte de réévaluation différent, le sommet retourné représente toujours l'intention de conception. %
+Cela revient donc à demander au développeur du script de résoudre manuellement le problème de la nomination persistante. %
+Cette approche est évidemment limitée, car un script complexe peut créer, supprimer ou modifier de nombreuses orbites. Cependant, il peut être pertinent de définir explicitement quelques orbites caractéristiques comme sorties du script.
 
 Une seconde possibilité consiste à utiliser une boîte ouverte (ou \textit{glass
 	box}). %
@@ -249,12 +216,11 @@ l'intérieur du script restent accessibles. %
 Elles doivent pouvoir être suivies, nommées de manière persistantes et
 appareillées de façon automatique, au même titre que les orbites gérées par de
 simples règles. %
-Nous étudions en détail dans les sections suivantes l'utilisation de boites
+Dans les sections suivantes, nous étudions en détail l'utilisation de boites
 ouvertes. %
-Nous analysons les différentes structures de contrôle (la séquence, la boucle et
-la conditionnelle), la façon dont elles sont intégrées dans la spécification
-paramétrique et dans les DAG d'évaluation, puis utilisées dans les DAG de
-réévaluation.
+Nous analysons les différentes structures de contrôle (la séquence, la boucle et la conditionnelle) ainsi que leur intégration dans la spécification paramétrique et dans les DAG d'évaluation, avant de voir comment elles sont utilisées dans les DAG de réévaluation.
+
+
 
 \section{Structure de séquence}
 \label{sec:extension-scripts-sequences}
@@ -268,7 +234,7 @@ La première structure contenue dans un script, que nous étudions est la séque
 Une séquence permet d'appeler successivement plusieurs opérations. %
 Le script peut donc dans ce  cas être comparé à une spécification paramétrique qui appelle successivement les règles qui la compose. %
 %En effet, nous pouvons très bien représenter un script comme l'enregistrement d'un ensemble de règles, chacune avec ses paramètres topologiques et géométriques. %
-Travaillant en boîtes ouvertes, les règles contenues dans le script et leurs paramètres sont alors directement enregistrés dans la spécification paramétrique, ce qui permet de tracer les évolutions des paramètres de manière très similaire à ce qui était réalisé dans le chapitre ~\ref{cha:reevaluation-base-regles} précédent au travers des noms persistants des brins et des DAG d'évaluation. %
+En adoptant une approche en boîtes ouvertes, les règles contenues dans le script et leurs paramètres sont directement enregistrés dans la spécification paramétrique. Cela permet de suivre les évolutions des paramètres de manière très similaire à ce qui était réalisé dans le chapitre~\ref{cha:reevaluation-base-regles} précédent, grâce aux noms persistants des brins et aux DAG d'évaluation.
 %Disposer d'un accès au contenu d'un script donne, de fait, aussi accès au contenu des règles pour tracer les évolutions d'orbites. %
 %Or, comme nous l'avons vu dans le chapitre~\ref{cha:reevaluation-base-regles}, tracer les évolutions de ces orbites est indispensable pour la réévaluation. %
 %Dans cette section, nous proposons les modifications nécessaires aux
@@ -309,7 +275,7 @@ construit la rangée de faces illustrée dans la
 figure~\ref{fig:reevaluation-scripts-sequence-illustration-script}. %
 Ce script prend une face en entrée et contient trois appels de la règle
 \texttt{extrusionAreteFace}. %
-Chaque appel crée une nouvelle face dans l'objet par l'extrusion d'une arête %
+Chaque appel crée une nouvelle face dans l'objet par l'extrusion d'une arête. %
 Le premier appel prend en paramètre le premier brin filtré par le n\oe ud
 d'accroche (appelé \texttt{face}). %
 Ce brin, \texttt{face\#0}, désigne l'arête à extruder. %
@@ -337,7 +303,9 @@ Enfin, le troisième appel est exécuté de la même manière. %
 	\label{fig:reevaluation-scripts-sequence-illustration-pn9}
 \end{figure}
 
-Pour pouvoir nommer de façon persistante les orbites utilisées comme paramètres à l'intérieur des scripts, nous devons enregistrer explicitement dans la spécification paramétrique chacune des règles appelées ainsi que leurs paramètres. %
+
+
+Pour assurer une nomination persistante des orbites utilisées comme paramètres à l'intérieur des scripts, il est nécessaire d'enregistrer explicitement, dans la spécification paramétrique, chacune des règles invoquées ainsi que leurs paramètres. %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
@@ -351,6 +319,8 @@ captionpos=b]
 %\indentrule% 3-extrusionAreteFace(PN%\textsubscript{23}%)
 3-colorationFace(PN%\textsubscript{9}, Orange%)
 \end{lstlisting}
+
+
 
 %Une séquence de règles dans un script peut être vue comme spécification paramétrique. %
 %En effet, un ensemble de règles sont enregistrés avec leurs paramètres topologiques et géométriques. %
@@ -368,7 +338,7 @@ application de script sera représentée selon le schéma suivant~: %
 \[[\mathit{S\{R~noeud\}}]\] %
 où \(S\) est le numéro d'application d'un script et \(R\) le numéro
 d'application d'une règle dans un script. %
-Notons, que le motif \((R~noeud)\) est répété pour chaque évolution du brin à l'intérieur du script ? %
+Notons que le motif \((R~noeud)\) est répété pour chaque évolution du brin à l'intérieur du script. %
 
 Détaillons la spécification paramétrique dans le
 listing~\ref{lst:reevaluation-scripts-sequence-spec-param-init} de l'objet
@@ -398,11 +368,9 @@ Enfin, dans le bloc principal, la dernière application
 par le brin \(15\). %
 
 
-L'ouverture des scripts permet ainsi de garder les opérations internes
-accessible, ce qui permet de nommer de manière persistante les brins de façon
-très similaire à ce qui était fait lorsque nous n'utilisions pas encore de
-script et comme nous allons le voir, de procéder au suivi des orbites au travers
-des DAG d'évaluation. %
+L'ouverture des scripts permet ainsi de garder les opérations internes accessibles, ce qui facilite la nomination persistante des brins, de manière très similaire à ce qui était réalisé avant l'utilisation des scripts. Comme nous allons le voir, cela permet également de suivre les orbites à travers les DAG d'évaluation. %
+
+
 
 \subsection{DAG}
 \label{sec:reevaluation-scripts-sequence-extension-DAG}
@@ -417,11 +385,11 @@ appariements (s'ils existent) lors de la réévaluation. %
 Pour mettre en \oe uvre ce support, nous ajoutons deux propriétés aux DAG. %
 Premièrement, les applications internes à un script sont regroupées dans le bloc
 de ce script avec leur propre numérotation. %
-Ensuite, la réévaluation d'un script est conditionné par le suivi de son
+Ensuite, la réévaluation d'un script est conditionnée par le suivi de son
 paramètre topologique dans une nouvelle branche. %
 Pour cela, une nouvelle relation est définie entre un n\oe ud d'orbite et un
 bloc de script. %
-Ainsi, en fonction de la stratégie mise en oeuvre, la réévaluation pourra tenir
+Ainsi, en fonction de la stratégie mise en \oe uvre, la réévaluation pourra tenir
 compte de l'évolution du paramètre topologique, et par exemple, ne plus
 réévaluer le script si l'orbite correspondant à ce paramètre est supprimée. %
 
@@ -443,7 +411,7 @@ Tout d'abord, une boîte de script englobe les applications qui appartient à
 l'application \texttt{2\allowbreak{}-\allowbreak{}S\_extrusion\-Ruban}. %
 Ensuite, le suivi du paramètre topologique du script est effectué dans une
 nouvelle branche. %
-L'orbite représentée par le n\oe ud \orbitnode{\orbit{0,1,3}} est lié au bloc de
+L'orbite représentée par le n\oe ud \orbitnode{\orbit{0,1,3}} est liée au bloc de
 script par une flèche \textcolor{mydarkgreenink}{verte}. %
 Cette branche identifie une face qui est créée par la
 première application. %
@@ -481,7 +449,7 @@ la réévaluation de son contenu. %
 \section{Structure d'itération}
 \label{sec:extension-scripts-iteration}
 
-La deuxième structure contenue dans un script, que nous étudions est la boucle de type \texttt{foreach}. %
+La deuxième structure contenue dans un script, que nous étudions, est la boucle de type \texttt{foreach}. %
 \begin{lstlisting}[style=script-style,language=jerboa-script]
 for(JerboaDart brin_sous-orbite : <type_orbite>_<type_sous-orbite>(brin_orbite))
 {
@@ -525,7 +493,7 @@ colorie toutes les faces (\(\orbit{0,1,3}\)) d'une composante connexe
 (\(\orbit{0,1,2,3}\)) illustrée dans la figure~\ref{fig:reevaluation-scripts-iteration-coloration-surface}. %
 Ce script prend une composante connexe et répète l'application \texttt{coloration\-Face} sur chacune de ses faces.
 À chaque itération, l'application prend en paramètre une instance de face,
-c'est-à-dire un brin, obtenu dans la boucle. %
+c'est-à-dire un brin, obtenue dans la boucle. %
 L'instruction \texttt{return null} indique qu'aucun résultat d'application n'est
 retourné par le script. %
 
@@ -543,9 +511,8 @@ retourné par le script. %
 \end{figure}
 
 De la même manière que nous avons introduit les séquences dans la spécification paramétrique, nous ajoutons un bloc \texttt{For} lorsqu'un script possède une boucle de type foreach. %
-
 Cependant, un bloc \texttt{For} nécessite l'enregistrement de  ses paramètres d'itération. %
-L'un représente l'orbite principale sur laquelle est effectuée la boucle et l'autre représente l'itérateur, la sous-orbite. %
+L'un représente l'orbite principale sur laquelle est effectuée la boucle et l'autre représente l'itérateur, c'est-à-dire la sous-orbite. %
 Lors d'une réévaluation, l'ordre de parcours des sous-orbites peut être amené à changer en fonction des modifications apportées à la topologie. %
 Cet ordre est donc considéré comme une information instable et ne peut être utilisé pour identifier une sous-orbite. %
 C'est donc un nom persistant qui doit discriminer cette sous-orbite parmi les autres itérées. %
@@ -607,10 +574,9 @@ le \pndart{3}{1n3;2n0;3\{2n0\}}. %
 	\label{fig:reevaluation-scripts-iteration-extension-DAG-evaluation-pn3}
 \end{figure}
 
-Encore une fois, nous reportons ces nouvelles informations dans le DAG d'évaluation. %
+Comme précédemment, nous reportons les nouvelles informations identifiées dans la section précédente dans le DAG d'évaluation.  %
 Le bloc de la boucle \texttt{For} est conditionné par ses paramètres d'itérations. %
-Cela signifie que deux branches doivent être ajoutées
-dans l'historique de l'orbite suivie pour tracer les historiques de ces paramètres~: Une pour l'orbite~; l'autre pour la sous-orbite d'itération. %
+Cela signifie que deux branches doivent être ajoutées dans l'historique de l'orbite suivie afin de tracer les historiques de ces paramètres : l'une pour l'orbite et l'autre pour la sous-orbite d'itération.  %
 Cette branche s'ajoute à celles correspondant respectivement aux paramètres topologiques du bloc de script et de l'application appelée à l'intérieur de la boucle.
 
 Prenons, par exemple, le DAG du PN\textsubscript{3} illustré dans la
@@ -669,20 +635,18 @@ listing~\ref{lst:reevaluation-scripts-boucle-spec-param-edit}. %
 Dans cette édition, nous ajoutons la règle \texttt{suppressionSommet}. %
 Du point de vue du paramètre topologique du script, la composante connexe
 (\(\orbit{0,1,2,3}\)) est simplement modifiée. %
-Du point de vue des paramètres de la boucle, c'est aussi le cas, à l'exception
-de la sous-orbite d'itération pour laquelle nous enregistrons la suppression
-totale de l'orbite sommet. %
+Du point de vue des paramètres de la boucle, c'est également le cas, à l'exception de la sous-orbite d'itération, pour laquelle nous enregistrons la suppression totale de l'orbite sommet. %
 Étant donné que ce sommet est supprimé, cette itération ne peut être
 réévaluée. %
 En effet, la suppression du sommet empêche la création d'une face lors de
 l'application de \texttt{subdivisionQuad}. %
-Ainsi, cette face ne peut être ni colorée ni triangulée et à l'issue de la
-réévaluation nous obtenons l'objet illustré dans la
+Ainsi, cette face ne peut être ni colorée ni triangulée, et à l'issue de la
+réévaluation, nous obtenons l'objet illustré dans la
 figure~\ref{fig:reevaluation-scripts-iteration-reevaluation}. %
 
 
-J'ai ajouté un petit peu de texte sur la fusion et quelques options que l'on
-pourrait avoir en stratégies : %
+%%J'ai ajouté un petit peu de texte sur la fusion et quelques options que l'on
+%%pourrait avoir en stratégies : %
 Dans cet exemple nous avons montré le cas ou une sous-orbite d'itération est
 supprimée. %
 Évidemment, si l'orbite principale n'est pas recréée, alors la boucle n'est pas
@@ -696,8 +660,10 @@ Si c'est une sous-orbite qui est scindée, la boucle est naturellement prolongé
 sur les instances de sous-orbites issues de la scission. %
 Dans le cas où deux orbites sont fusionnées, nous appliquons l'itération sur
 l'ensemble de la nouvelle orbite. %
-Enfin si des sous-orbites sont fusionnées, la boucle est réduite aux
+Enfin, si des sous-orbites sont fusionnées, la boucle est réduite aux
 sous-orbites restantes. %
+
+
 Il ne s'agit là, toutefois, que de stratégies par défaut. %
 Dans le cas d'une scission l'utilisateur pourrait souhaiter ne pas vouloir
 itérer sur les nouvelles orbites ou sous-orbites. %
@@ -724,8 +690,7 @@ if(CONDITION)
 
 Une structure d'alternative
 \texttt{if\allowbreak{}-\allowbreak{}then\allowbreak{}-\allowbreak{}else} permet
-d'appliquer, alternativement, une séquence d'opérations ou une autre selon
-l'évaluation d'une condition. %
+d'appliquer, alternativement, une séquence d'opérations ou une autre en fonction de l'évaluation d'une condition donnée. %
 L'intégration de cette structure pour la réévaluation nécessite, tout comme pour
 la séquence et la boucle, un enregistrement des opérations évaluées dans la
 spécification paramétrique ainsi que dans les DAG. %
@@ -760,7 +725,7 @@ entre deux règles alternatives. %
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
-caption=Script \texttt{S\_insertionCarreOuTriangulationFace},
+caption=Script de triangulation ou d'insertion de face dépendante du nombre de sommets,
 label=lst:reevaluation-scripts-alternative-exemple,
 captionpos=b
 ]
@@ -775,10 +740,8 @@ else
 }
 \end{lstlisting}
 
-Prenons le script listing~\ref{lst:reevaluation-scripts-alternative-exemple} qui
-triangule une face si elle est carrée ou y insère une autre face, isomorphe,
-sinon (voir figure~\ref{fig:reevaluation-scripts-alternatives-exemple-part-then}
-et figure~\ref{fig:reevaluation-scripts-alternatives-exemple-part-else}). %
+Considérons le script présenté au listing~\ref{lst:reevaluation-scripts-alternative-exemple}, qui applique une triangulation sur une face si celle-ci est carrée, ou bien insère une autre face, isomorphe, dans le cas contraire (voir figures~\ref{fig:reevaluation-scripts-alternatives-exemple-part-then}
+et~\ref{fig:reevaluation-scripts-alternatives-exemple-part-else}). %
 Ce script prend en entrée une face (\(\orbit{0,1,3}\)) dont nous comptons le
 nombre de sommets. %
 Si \texttt{face} possède quatre sommets, alors le script appelle la règle
@@ -786,11 +749,7 @@ Si \texttt{face} possède quatre sommets, alors le script appelle la règle
 
 Comme pour les autres structures, l'alternative implique un certain nombre de
 changements pour les spécifications paramétriques et les DAG. %
-Toutefois, elle implique aussi la mise en \oe uvre d'une procédure
-supplémentaire, liée au fait que dans une alternative, deux règles appelées
-peuvent provoquer des évènements très différents sur une orbite et que
-parallèlement, il convient de proposer un mécanisme d'appariement qui respecte
-l'intention de conception. %
+Cependant, cette approche nécessite également la mise en place d’une procédure supplémentaire. En effet, dans une structure alternative, les deux règles appliquées peuvent engendrer des événements très différents sur une même orbite. Par conséquent, il est crucial de mettre en \oe uvre un mécanisme d’appariement qui respecte l'intention initiale de conception. %
 
 
 
@@ -832,13 +791,13 @@ captionpos=b]
 3-chanfreinSommet(%\pndart{13}{1n2;2\{1n2\}}%)
 \end{lstlisting}
 
-Prenons la spécification initiale décrite dans le
-listing~\ref{lst:reevaluation-scripts-alternative-spec-param-init} qui produit,
-l'objet illustré dans la
-figures~\ref{fig:reevaluation-scripts-alternative-spec-DAG-objet-then} puisque
+Prenons la spécification initiale donnée dans le listing~\ref{lst:reevaluation-scripts-alternative-spec-param-init}. Celle-ci produit l'objet illustré dans la
+figure~\ref{fig:reevaluation-scripts-alternative-spec-DAG-objet-then} puisque
 la face créée par \texttt{1-creationCarre} est carrée (l'objet qui aurait été
 produit avec une face initiale triangulaire est illustré sur la figure
 \ref{fig:reevaluation-scripts-alternative-spec-DAG-objet-else}). %
+
+
 Comme pour les autres structures, une fois dans le script, nous enregistrons un
 bloc \texttt{Alternative} en notant la branche évaluée, c'est-à-dire soit la
 branche \texttt{Then}, soit la branche \texttt{Else}. %
@@ -866,11 +825,10 @@ Le DAG d'évaluation présenté
 figure~\ref{fig:reevaluation-scripts-alternative-spec-DAG-pn13-eval} correspond
 au PN\textsubscript{13}, le sommet utilisé comme paramètre de l'opération
 \texttt{3-chanfreinSommet}.
-
 La branche évaluée étant la branche \texttt{Then}, nous ajoutons donc, tout
 simplement, un bloc appelé \texttt{Then} sans paramètre topologique pour
 conditionner son évaluation. %
-Notons que seule la branche évaluée est tracée, car logiquement son alternative
+Notons que seule la branche évaluée est tracée, car, logiquement, son alternative
 n'est pas appliquée. %
 
 \noindent
@@ -898,9 +856,9 @@ Avec cet ajout et la modification de topologie provoquée sur la face, le systè
 de réévaluation évalue désormais la branche \texttt{Else} au lieu de la branche
 \texttt{Then}. %
 Le DAG de réévaluation du PN\textsubscript{13} est présenté
-figure~\ref{fig:reevaluation-scripts-alternative-spec-DAG-pn13-reeval}, mais
+figure~\ref{fig:reevaluation-scripts-alternative-spec-DAG-pn13-reeval}. Cependant,
 comme évoqué précédemment, les règles appelées dans ces deux branches pouvant
-être différentes, il a été nécessaire d'effectuer un travail spécifique
+être différentes, il est nécessaire d'effectuer un travail spécifique
 d'appariement entre ces deux règles afin de pouvoir construire ce DAG. %
 C'est ce travail d'appariement que nous présentons dans la section suivante.
 
@@ -936,7 +894,7 @@ C'est ce travail d'appariement que nous présentons dans la section suivante.
 	\label{fig:reevaluation-scripts-alternative-appariement-orbite}
 \end{figure}
 
-Comme évoqué à l'instant, l'appariement d'orbites entre deux règles est une
+L'appariement d'orbites entre deux règles est une
 procédure particulière puisqu'elle propose d'apparier des orbites qui peuvent
 évoluer de manières très différentes. %
 À ce titre, nous proposons de définir des catégories d'évènements. %
@@ -977,10 +935,10 @@ règles, l'appariement d'une face scindée. %
 
 
 
-L'appariement entre les orbites de deux règles distinctes nécessite dans un
-premier temps de définir le type de suivi et d'origine ainsi que la catégorie
+L'appariement entre les orbites de deux règles distinctes nécessite, dans un
+premier temps, de définir le type de suivi et d'origine ainsi que la catégorie
 d'évènement sur la règle utilisée à l'évaluation. %
-Puis, dans un second temps d'identifier les orbites éligibles à l'appariement
+Puis, dans un second temps, d'identifier les orbites éligibles à l'appariement
 sur la règle utilisée à la réévaluation.
 
 
@@ -995,7 +953,7 @@ Dans notre exemple, il s'agit du sommet \(\orbit{1,2,3}(n2)\) de la règle de
 triangulation. %
 L'analyse de la règle
 (figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri})
-montre que ce sommet (encadré en \textcolor{orange}{orange}) est créé, son
+montre que ce sommet (encadré en \textcolor{orange}{orange}) est créé. Son
 évènement appartient donc à la catégorie d'évènement \texttt{GENERATION}. %
 L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
 (surligné en \textcolor{orange}{orange}). %
@@ -1010,13 +968,13 @@ La deuxième étape est l'identification des orbites éligibles pour
 l'appariement. %
 Pour cela, nous cherchons dans le membre droit d'\texttt{insertion\-Face} les
 orbites de type sommet (\(\orbit{1,2,3}\)) qui partagent la même catégorie
-d'évènement (\textit{i.e.} un sommet créé). %
+d'évènement (c'est-à-dire, un sommet créé). %
 Dans notre exemple, nous ne trouvons qu'une seule orbite sommet créée dans la
 règle \texttt{insertion\-Face}, c'est l'orbite \(R\orbit{1,2,3}(n2)\)
 (encadrée en \textcolor{mydarkorange}{orange} dans la
 figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
 
-Toutefois, l'origine de cette orbite n'est pas identique à celle du sommet créé
+Cependant, l'origine de cette orbite n'est pas identique à celle du sommet créé
 par la règle \texttt{triangulation\-Face}. %
 En effet, l'orbite \(R\orbit{1,2,3}(n2)\) de \texttt{insertion\-Face} a pour
 origine une orbite de type \(\orbit{1,3}\), c'est-à-dire une sous-orbite de
@@ -1027,11 +985,15 @@ La première consiste à rechercher un appariement exact et, dans ce cas, les de
 types d'origines doivent être exactement identiques. %
 La seconde consiste en un appariement moins strict autorisant des sur ou
 sous-orbites pour origine. %
+
+
 Pour cette deuxième stratégie, il faut considérer que l'appariement entre une
 orbite et une sous-orbite n'est pas forcément \texttt{1:1}, cette dernière
 pouvant correspondre à plusieurs instances dans l'objet. %
 Dans le cas d'un appariement avec une sur-orbite, l'orbite initiale, ainsi que
 plusieurs autres, peuvent être comprises dans la sur-orbite trouvée. %
+
+
 Dans notre exemple, il n'existe pas d'appariement exact. %
 Nous poursuivons donc avec un appariement moins strict, c'est-à-dire
 l'appariement d'un sommet d'origine de type \(\orbit{1,2,3}\) avec les sommets
@@ -1080,7 +1042,7 @@ Il s'agit de l'orbite \(R\orbit{0,1,3}(n0)\) (encadrée en
 \textcolor{myblueink}{bleu} dans la
 figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
 Elle est aussi scindée. %
-Cette fois, elle aussi a pour origine une \(\orbit{0,3}\)-orbite. %
+Cette fois, elle a aussi pour origine une \(\orbit{0,3}\)-orbite. %
 Il est donc possible de procéder à un appariement exact entre les deux règles.
 Prenons l'exemple de l'opération \texttt{3-chanfreinSommet} des spécifications
 initiale et réévaluée. %
@@ -1141,13 +1103,13 @@ Dans cette section, nous présentons un exemple de structure
 		\includegraphics[scale=.3]{exemple-1-dual-struct-lin-pierce-face}
 		\caption{}
 	\end{subfigure}
-	\caption{Évaluation initiale de la création du dual d'un chemin 2D}
+	\caption{Évaluation initiale de la création du dual d'un squelette 1D}
 	\label{fig:reevaluation-scripts-exemple-imbrication-dual-fil-fer-init}
 \end{figure}
 
 Pour cet exemple, nous présentons l'extrusion d'une séquence d'arêtes à partir
-d'un brin. %
-Pour chaque sommet de cette structure, nous souhaitons créer une face dont la
+d'un brin permettant de construire un squelette. %
+Pour chaque sommet de ce squelette, nous souhaitons créer une face dont la
 topologie correspond à l'arité d'un sommet. %
 Pour garder cet exemple simple, nous posons une restriction sur le voisinage
 d'un sommet~: ceux-ci ne peuvent avoir plus de trois voisins. %
@@ -1161,6 +1123,8 @@ Enfin, nous ne traitons pas non plus leurs coutures. %
 	\label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-init-dag-eval-pn15}
 \end{figure}
 
+
+
 Étudions la spécification paramétrique, détaillée dans le
 listing~\ref{lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-init},
 correspondant à la construction de l'objet illustré dans la
@@ -1171,22 +1135,21 @@ suivante. %
 La deuxième opération est un script, contenant une séquence, similaire à celui
 étudié dans la section~\ref{sec:extension-scripts-sequences}. %
 Ce script, au lieu de créer un ruban à partir de l'extrusion d'une face, crée un
-fil de fer à partir de l'extrusion d'un sommet. %
+squelette à partir de l'extrusion d'un sommet. %
 La troisième opération est un script qui contient une boucle avec une
 alternative imbriquée. %
-Cette opération crée une face pour chacun des sommets d'une composante
-connexe. %
-Cette face est triangulaire si le sommet à trois voisins et carrée sinon. %
+Cette opération crée une face pour chacun des sommets du squelette. %
+Cette face est triangulaire si le sommet a trois voisins et carrée sinon. %
 Enfin, la quatrième opération insère une face dans la face désignée par le brin
 \(15\). %
 
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
-caption=Spécification paramétrique initiale de la création du dual d'un chemin 2D,
+caption=Spécification paramétrique initiale de la création du dual d'un chemin 1D,
 label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-init,
 captionpos=b]
 1-creationSommet()
-2-S_extrusionFilDeFerStruct(%\pndart{0}{1n0}%)
+2-S_extrusionSquelette(%\pndart{0}{1n0}%)
 %\indentrule% 1-extrusionSommet(%\pndart{0}{1n0}%)
 %\indentrule% 2-extrusionSommetArete(%\pndart{2}{1n0;2\{1n1\}}%)
 %\indentrule% 3-extrusionSommetArete(%\pndart{5}{1n0;2\{1n1;2n2\}}%)
@@ -1203,8 +1166,9 @@ captionpos=b]
 4-insertionFace(%\pndart{15}{1n0;2\{1n1;2n2;3n2\};3\{1n4\}}%)
 \end{lstlisting}
 
-Cette spécification paramétrique contient deux scripts qui construisent la
-structure fil de fer et la face désignée par le brin \(15\) dans l'application
+
+
+Cette spécification paramétrique contient deux scripts qui construisent le squelette et la face désignée par le brin \(15\) dans l'application
 \texttt{4-insertionFace}. %
 Étudions le DAG d'évaluation de ce brin illustré dans la
 figure~\ref{fig:reevaluation-scripts-exemple-imbrication-if-in-for-init-dag-eval-pn15}. %
@@ -1215,8 +1179,8 @@ Cette face est créée à l'issue d'une itération de la boucle par l'opération
 \texttt{1\allowbreak{}-\allowbreak{}creation\-Face\-Duale\-Carre}. %
 Nous pouvons observer que le n\oe ud d'orbite \orbitnode{\orbit{0,1,3}}, est
 intégré dans un ensemble de structures imbriquées. %
-Tout comme décrit dans la spécification paramétrique, l'alternative
-\texttt{Then} est imbriquée dans un \texttt{For} lui-même à l'intérieur du bloc
+Comme décrit dans la spécification paramétrique, l'alternative
+\texttt{Then} est imbriquée dans un \texttt{For}, lui-même à l'intérieur du bloc
 correspondant à l'application
 \texttt{3\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}creation\-Faces\-Duales\-Struct}. %
 
@@ -1225,26 +1189,26 @@ permettant de tracer quatre orbites. %
 La première correspond à l'origine de la face désignée par le brin 15 (flèche
 rouge). %
 La deuxième correspond au paramètre topologique du script (la composante connexe
-représentant le fil de fer - flèche verte de gauche). %
+représentant le squelette - flèche verte de gauche). %
 La troisième et la quatrième correspondent aux deux paramètres de la boucle (la
-composante connexe représentant le fil de fer et un sommet - deux flèches vertes
+composante connexe représentant le squelette et un sommet - deux flèches vertes
 centrales). %
 
 Les évolutions de ces orbites sont ensuite tracées au travers du bloc
 correspondant au script
-\texttt{2\allowbreak{}-\allowbreak{}S\allowbreak{}\_extrusion\-FilDeFerStruct}. %
+\texttt{2\allowbreak{}-\allowbreak{}S\allowbreak{}\_extrusion\-Squelette}. %
 Cela induit l'ajout d'une cinquième branche dans le DAG permettant de tracer
 l'historique du paramètre de ce script (flèche verte). %
 Chacune des règles appelées dans ce script modifie la composante connexe
-correspondant au fil de fer. %
-Elles créent deux sommets dans l'historique du sommet désigné comme paramètre du
+correspondant au squelette. %
+Ces règles créent deux sommets dans l'historique du sommet désigné comme paramètre du
 \texttt{For} ainsi que deux brins dans l'historique du sommet désigné comme
 paramètre de l'application \texttt{4\allowbreak{}-\allowbreak{}insertion\-Face}.
 
 Une fois l'historique de chaque orbite entièrement tracé, nous obtenons ainsi,
 dans l'ordre de gauche à droite, cinq branches conditionnant la réévaluation du
 script
-\texttt{2\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}extrusion\-Fil\-De\-Fer\-Struct},
+\texttt{2\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}extrusion\-Squelette},
 du script
 \texttt{3\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}creation\-Faces\-Duales\-Struct},
 de la structure \texttt{For} et de la règle
@@ -1252,7 +1216,7 @@ de la structure \texttt{For} et de la règle
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[height=.95\textheight]{tmp-example-reevaluationTree-pn30}
+	\includegraphics[width=\textwidth]{tmp-example-reevaluationTree-pn30}
 	\caption{DAG de réévaluation du PN\textsubscript{15}}
 	\label{fig:reevaluation-scripts-exemple-imbrication-if-in-for-dag-reeval-pn15}
 \end{figure}
@@ -1262,7 +1226,7 @@ l'édition présentée dans le
 listing~\ref{lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-reeval}. %
 Cette édition propose simplement d'ajouter deux applications. %
 D'abord \texttt{ADD 5\allowbreak{}-\allowbreak{}extrusionSommetDoubleArete}, qui
-crée deux arêtes en forme d'embranchement à partir du sommet désigné par le brin
+ajoute deux arêtes en forme d'embranchement au squelette à partir du sommet désigné par le brin
 \(9\), et \texttt{ADD 6\allowbreak{}\-\allowbreak{}extrusionAreteSommet} qui
 extrude une arête à partir du sommet désigné par le brin \(14\). %
 
@@ -1270,11 +1234,11 @@ extrude une arête à partir du sommet désigné par le brin \(14\). %
 \begin{minipage}{\textwidth}
 	\begin{lstlisting}[style=script-style,
 escapechar=\%,
-caption=Spécification paramétrique initiale de la création du dual d'un chemin 2D,
+caption=Spécification paramétrique initiale de la création du dual d'un squelette 1D,
 label=lst:reevaluation-scripts-imbrication-exemples-for-in-if-spec-reeval,
 captionpos=b]
 1-creationSommet()
-2-S_extrusionFilDeFerStruct(%\pndart{0}{1n0}%)
+2-S_extrusionSquelette(%\pndart{0}{1n0}%)
 %\indentrule% 1-extrusionSommet(%\pndart{0}{1n0}%)
 %\indentrule% 2-extrusionSommetArete(%\pndart{2}{1n0;2\{1n1\}}%)
 %\indentrule% 3-extrusionSommetArete(%\pndart{5}{1n0;2\{1n1;2n2\}}%)
@@ -1354,7 +1318,7 @@ créé par le n\oe ud \(n4\) nous donne le brin \(27\). %
 		\caption{}
 		\label{fig:reevaluation-scripts-imbrication-exemple-reevaluation-init-4}
 	\end{subfigure}
-	\caption{Réévaluation de la création du dual d'un chemin 2D}
+	\caption{Réévaluation de la création du dual d'un chemin 1D}
 	\label{fig:reevaluation-scripts-imbrication-exemple-reevaluation}
 \end{figure}
 
@@ -1378,12 +1342,12 @@ dernière opération \texttt{4-insertionFace} et d'obtenir ainsi l'objet final.
 
 
 
-\section{Implantation}
-\label{sec:reevaluation-scripts-implantation}
+\section{Conclusion}
+\label{sec:reevaluation-scripts-conclusion}
 
 
 
-Les contributions présentées dans ce chapitre sont des travaux en cours. %
+Les implantations des contributions présentées dans ce chapitre sont des travaux en cours. %
 Au moment de la rédaction de ce manuscrit, seules la procédure d'appariement des
 orbites et les stratégies de degré d'exactitude détaillées dans la
 section~\ref{sec:reevaluation-scripts-alternative-appariement-creation-sommet}
@@ -1392,31 +1356,23 @@ Les extensions de spécification paramétrique et de DAG relatives à chacune de
 structures de contrôles ne sont, quant à elles, pas encore implantées dans notre
 modeleur. %
 
-
-
-\section{Conclusion}
-\label{sec:reevaluation-scripts-conclusion}
-
-
-
-Dans ce chapitre, nous proposons d'étendre notre mécanisme de réévaluation afin
+Dans ce chapitre, nous avons proposé d'étendre notre mécanisme de réévaluation afin
 de supporter les opérations construites à l'aide du langage de scripts de
 Jerboa. %
-Nous étudions plus particulièrement trois structures de contrôles qui sont
-respectivement les séquences, les boucles \texttt{foreach} et les alternatives
+Nous avons étudié plus particulièrement trois structures de contrôle : les séquences, les boucles \texttt{foreach} et les alternatives
 \texttt{if-then-else}. %
-Une première problématique que nous abordons concerne le mode de représentation
+Une première problématique que nous avons abordée concerne le mode de représentation
 des scripts pour déterminer comment traiter leurs contenus. %
 La première option concernait la représentation boîte fermée. %
 Dans ce cas, un script ne nécessite pas de traitement particulier et, en
 contrepartie, les développeurs de scripts doivent construire une sortie à la
 manière des règles Jerboa. %
 La seconde option, que nous avons choisie, est la boîte ouverte. %
-Dans ce mode de représentation, nous avons connaissances du contenu des scripts,
+Dans ce mode de représentation, nous avons connaissance du contenu des scripts,
 à savoir les règles appelées et leurs paramètres ainsi que les structures de
 contrôle utilisées. %
 
-Dans cette démarche, nous proposons d'étendre nos structures de spécification
+Dans cette démarche, nous avons proposé d'étendre nos structures de spécification
 paramétrique et de DAG. %
 L'extension des spécifications paramétriques consiste à représenter un script
 comme une spécification imbriquée et à lister son contenu, c'est-à-dire les
@@ -1428,17 +1384,17 @@ aussi conditionnée par l'existence du paramètre topologique de ce script. %
 De même, nous considérons qu'une boucle \texttt{foreach} dispose de deux
 paramètres topologiques, à savoir l'orbite à itérer et l'instance de sous-orbite
 d'itération que nous souhaitons apparier. %
-Enfin, nous proposons une dernière contribution relative à la structure
+
+
+Enfin, nous avons proposé une dernière contribution relative à la structure
 d'alternative \texttt{if-then-else}. %
-Cette structure permet, étant donné l'évaluation d'une condition, appliquer une
+Cette structure permet, étant donné l'évaluation d'une condition, d'appliquer une
 séquence d'instruction ou une autre. %
 Dans le cas où une autre branche que celle évaluée initialement serait
 appliquée, il est nécessaire d'identifier précisément les orbites sur lesquelles
 les utilisateurs souhaitent travailler. %
 En effet, deux orbites appelées de la sorte peuvent être très différentes. %
-Pour respecter les intentions de modélisation, nous procédons une procédure,
-basée sur l'analyse des règles alternatives, qui fait l'appariement des orbites
-qui subissent des transformations similaires. %
+Pour respecter les intentions de modélisation, nous mettons en \oe uvre une procédure basée sur l'analyse des règles alternatives. Cette procédure effectue l'appariement des orbites en fonction des transformations similaires qu'elles subissent. %
 Enfin, puisque ces appariements ne sont pas explicitement exprimés par les
 utilisateurs, nous proposons la sélection de stratégies pour configurer la
 qualité d'appariement recherchée et permettre de les adapter à différents

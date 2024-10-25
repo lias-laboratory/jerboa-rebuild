@@ -3,28 +3,242 @@
 \label{cha:conclusion}
 \addstarredchapter{Conclusion}
 
-\section*{Contributions}
+% \section*{Contributions}
+
+La réévaluation de modèles paramétrique est une fonctionnalité incontournable
+des modeleurs paramétriques. %
+Ceux-ci présentent en effet l'avantage d'éviter de concevoir un nouvel objet du
+début à la fin. %
+Cela s'avère particulièrement avantageux lorsque le processus de conception ne
+change pas de manière substantielle. %
+Par exemple, avec la modification des paramètres géométrique des opérations qui
+n'implique aucun ajout, suppression ou déplacement d'opération. %
+
+Afin d'être considéré comme efficaces, un mécanisme de réévaluation doit
+respecter un certain nombre de contraintes. %
+Le mécanisme doit permettre l'identification de manière unique et non ambiguë
+des entités topologiques. %
+L'objet issu de réévaluation doit respecter les intentions de modélisation de
+l'utilisateur, c'est-à-dire que le programme ne doit pas prendre d'initiative à
+la place de l'utilisateur. %
+L'objet doit être topologiquement et géométriquement cohérent afin de pouvoir
+être fabriqué. %
+
+Dans les solutions existantes, nous avons identifié plusieurs faiblesses liées à
+ces différentes contraintes. %
+Premièrement, si les systèmes de nomination permettent déjà d'identifier des
+entités topologiques avec une certaine fidélité, ceux-ci ne sont pas
+génériques. %
+Leurs schémas de nomination sont adaptés à une dimension précise de
+modélisation. %
+Les étendre à d'autres dimensions nécessite alors des efforts important ainsi
+que la définition de nouvelles procédures d'appariement. %
+Deuxièmement, le recours à la géométrie de certaines méthodes introduit des
+ambiguïtés lors de l'appariement. %
+Ces ambiguïtés entraînent elles-mêmes des erreurs d'appariement et, par
+conséquent, le non-respect des intentions de modélisation exprimées par un
+utilisateur. %
+Enfin, ces mêmes erreurs d'appariement peuvent produire des objets qui ne sont
+pas cohérents du point de vue topologique. %
+Il est donc nécessaire de contrôler et, le cas échéant, de réparer l'objet
+produit. %
+
 
 
 \paragraph*{Détection automatique des évènements}
 
 
+
+Notre première contribution concerne la détection des évènements (création,
+suppression, scission, fusion, non-changement, modification). %
+Nous avons formalisé un ensemble de critères permettant de caractériser chacun
+des évènements aussi bien dans les objets que dans les règles de transformation
+de graphe. %
+
+Nous avons ensuite étendu ce formalisme au langage de règle Jerboa qui permet de
+représenter des opérations de modélisation géométrique. %
+De plus, l'analyse étant effectuée uniquement à partir des règles Jerboa, les
+évènements sont déterminés indépendamment de l'objet sur lequel une règle est
+appliquée. %
+Ce formalisme définit également des cas limites où il devient nécessaire de
+réaliser, localement, une vérification dans l'objet. %
+
+Avec ce formalisme, nous proposons une nouvelle méthode permettant de suivre
+l'évolution des entités topologiques dans un modèle exclusivement grâce à une
+analyse syntaxique des règles Jerboa. %
+Celle-ci peut être opérée statiquement en pré-calcul au premier lancement du
+modeleur, ce qui s'avère particulièrement efficace en temps de calcul. %
+Ainsi, cette méthode s'affranchit de la nécessiter de parcourir deux objets pour
+le comparer. %
+De même, il devient inutile de spécifier explicitement quels évènements sont
+attendus suite à l'application d'une opération. %
+
+Enfin, cette méthode de détection est générique. %
+Celle-ci étant basée sur l'analyse des règles, elle n'est conçue pour aucune
+dimension spécifique et permet alors la détection des évènements peu importe la
+dimension de modélisation définie par le modeleur. %
+
+
+
 \paragraph*{Réévaluation dans un système de modélisation à base de règles}
+
+
+
+À l'aide des formalismes des cartes généralisée et des règles Jerboa enrichi de
+notre formalisation des évènements, nous avons implanté un mécanisme de
+nomination persistante en deux couches. %
+Ce mécanisme consiste, dans un premier temps, à construire puis maintenir un
+historique d'opérations et de n\oe uds de règles pour chacun des brins d'une
+carte généralisée. %
+Grâce à cela, tout brin peut être identifié de manière unique et non-ambiguë. %
+Ainsi, à chaque fois qu'une règle est appliquée, l'historique du brin
+sélectionné à l'instance courante de modélisation est enregistré dans une
+spécification paramétrique. %
+Cet historique ainsi enregistré est immuable devient alors un nom persistant de
+brin. %
+
+Dans un deuxième temps, nous avons implanté une procédure qui, pour chaque nom
+persistant enregistré au cours de la modélisation, permet la reconstitution de
+l'historique des évolutions d'une orbite incidente au brin désigné. %
+Un tel historique est représenté par un DAG dit d'évaluation nous permettant de
+traiter l'information qu'il contient. %
+Dans cette procédure, nous utilisons la formalisation d'évènements pour détecter
+et enregistrer dans un DAG chacun des évènements impactant une orbite au cours
+de la modélisation. %
+De plus, cet historique est enrichi de la notion d'origine qui nous permet alors
+d'identifier formellement une orbite lors de la réévaluation sur la base de son
+historique de construction. %
+Ces origines sont elles-mêmes tracée jusqu'à représenter leur ancêtre les plus
+anciens. %
+
+Pour la réévaluation à proprement parler, nous avons implanté une
+procédure d'appariement qui crée de nouveaux DAG de réévaluation en reproduisant
+et mettant à jour les DAG d'évaluation. %
+De cette manière, nous pouvons conserver à la fois les DAG d'évaluation et de
+réévaluation. %
+Les DAG de réévaluation, au fur et à mesure de la réévaluation, mettent en \oe uvre
+la phase d'appariement. %
+Ainsi, une fois que le DAG est complété, celui-ci désigne les brins à utiliser
+comme paramètres topologiques pour l'application suivante. %
+
+Enfin, afin de répondre aux attentes des utilisateurs, nous proposons deux fonctionnalités~:
+la possibilité d'ajouter, supprimer ou déplacer des opérations dans la spécification paramétrique~; et d'adapter la réévaluation à l'aide de stratégies configurables. %
+Par exemple, lorsqu'une orbite est scindée par une application ajoutée dans la
+spécification réévaluée, il est possible de choisir les différents paramètres
+topologiques sur lesquels poursuivre la réévaluation. %
+Au contraire, lorsque deux orbites sont fusionnées par la suppression d'une
+sous-orbite, nous proposons qu'il soit possible de choisir de préserver l'une ou
+l'autre ou les deux historiques de ces orbites dans celle issue de la fusion. %
+
 
 
 \paragraph*{Extension aux scripts}
 
 
+
+Les règles Jerboa ne permettent pas de représenter des opérations complexes,
+c'est-à-dire faisant appels à plusieurs autres opérations. %
+Nous proposons une extension de notre mécanisme de réévaluation afin de
+supporter les scripts Jerboa et donc des opérations complexes. %
+Dans un premier temps, nous définissons les extensions nécessaires à nos
+structures de données pour trois des structures de contrôles usuelles, la
+séquence, l'itération de type \texttt{foreach} et l'alternative. %
+
+Les scripts représentent, d'une certaine façon, des spécifications paramétriques
+à part entière. %
+Dans notre démarche, nous avons fait le choix d'opter pour la représentation en
+boîte ouverte qui nous permet d'accéder au contenu des scripts, à savoir les
+opérations, les paramètres topologiques et géométriques ainsi que les structures
+de contrôle utilisées. %
+
+Nous proposons ainsi, sur la base de la représentation boîte ouverte, des
+extensions de structures de spécification paramétrique et de DAG d'évaluation et
+de réévaluation. %
+Dans les spécifications paramétriques, l'extension doit nous permettre
+d'enregistrer des paramètres topologiques à la fois pour les scripts et pour les
+règles qu'ils appellent. %
+Il est également nécessaire d'enregistrer les structures de contrôles employées
+afin de représenter fidèlement le processus constructif d'un objet. %
+Dans les DAG, nous réutilisons les informations de scripts ajoutées dans la
+spécification paramétriques. %
+Ainsi, les opérations appartenant à un script sont englobées dans celui-ci. %
+De plus, nous proposons de conditionner la réévaluation d'une orbite en fonction
+des paramètres topologiques des scripts qui impactent son évolution ainsi qu'à
+leurs structures de contrôles. %
+De cette manière, une structure itérative est conditionnée par l'existence de
+l'orbite itérée ainsi que celles de ses instances de sous-orbites d'itération. %
+
+Enfin, nous avons implanté une nouvelle procédure d'appariement d'orbite dans le
+cadre de l'alternative. %
+Étant donné que deux règles peuvent être très différentes, nous proposons une
+procédure capable d'apparier des orbites initialement évaluées à celles
+réévaluées sur la base de leurs origines et de leurs types d'évolutions
+respectives. %
+Cette procédure d'appariement est, elle aussi, configurable par le moyen d'une
+stratégie de qualité d'appariement. %
+Nous offrons ainsi la possibilité de rechercher un appariement exact ou moins
+strict dans la règle alternative. %
+
+
 \section*{Perspectives}
 
-\paragraph*{Support des opérations déplacées et des suppressions ajoutées}
 
 
-\paragraph*{Support des scripts}
+Certains des travaux présentés dans ce manuscrit étant en cours d'implantation,
+nous pouvons identifier un certain nombre de perspectives à court terme. %
+
+Nous prévoyons, tout d'abord, de terminer l'implantation des modifications qui
+peuvent être faites dans une spécification paramétrique et ainsi compléter la
+liste de stratégies que nous proposons dans notre modeleur. %
+Ainsi, nous pourrons proposer à un utilisateur de changer l'ordre des opérations
+dans une spécification paramétrique, mais aussi en supprimer. %
+Nous compléterons, dans le même temps, les stratégies de réévaluation lors de
+l'ajout d'une suppression d'orbite de sorte à gérer l'interruption d'un
+appariement ou encore la fusion de deux orbites. %
+
+Nous poursuivrons, ensuite, avec le support des scripts dans notre modeleur. %
+Nous implanterons les extensions identifiées dans le dernier chapitre pour les
+spécifications paramétriques ainsi que les DAG. %
+Nous mettrons en \oe uvre des tests afin de contrôler le bon fonctionnement des
+procédures de réévaluation. %
+Puis, nous étendrons encore nos scripts avec des fonctionnalités telles que des
+boucles itérant sur autre chose que des sous-orbites. %
+
+À moyen terme, nous prévoyons d'étendre l'interface graphique de notre
+modeleur. %
+Ainsi, lors de la conception d'un modèle, les utilisateurs pourront interagir
+avec chacune des fonctionnalités présentées dans ce manuscrit. %
+
+Pendant la réalisation de ces travaux, nous avons identifié plusieurs
+perspectives à plus long terme. %
+Celles-ci nous permettant d'ouvrir nos travaux à d'autres champs d'études.
+
+Une première piste que nous avons identifiée est l'annotation temporelle des
+opérations. %
+Il s'agit, avec une telle contribution, d'associer des dates aux opérations
+appliquées et ainsi de réévaluer les opérations suivant un ordre
+chronologique. %
+Cette piste semble être une perspective crédible dans la mesure où les DAG
+permettent déjà d'identifier les conditions de création des paramètres
+topologiques. %
+Ainsi, nous pouvons, à l'aide de nos DAG, garantir la cohérence des annotations
+temporelles pour les opérations d'une spécification paramétrique. %
+
+À terme, une telle extension permettrait de réévaluer des bâtiments, par
+exemple, suivant un ordre chronologique supposé. %
+Les résultats de ces réévaluations permettant, \textit{in fine}, de confronter
+des hypothèses sur la construction et l'évolution de certains biens patrimoniaux
+au cours du temps. %
 
 
-\paragraph*{Annotation temporelle des opérations ou Application à la modélisation spatio-temporelle}
-
+Une autre piste envisagée est l'intégration, dans le modeleur, l'annotation à
+partir de données historiques hétérogènes (photographies, notes, mesures,
+textures, propriétés physiques, etc.). %
+Ces annotations seront définies avec un modèle de référence comme
+CIDO-CRM~\cite{cidoccrm}. %
+Une telle contribution nécessiterait alors de garantir la cohérence entre les
+modèles et les annotations. %
+\maxime{Je suis complètement perdu pour celle-ci, on n'a jamais eu le temps d'en parler donc peut-être que je devrais l'enlever ?}
 
 %%% Local Variables:
 %%% mode: LaTeX

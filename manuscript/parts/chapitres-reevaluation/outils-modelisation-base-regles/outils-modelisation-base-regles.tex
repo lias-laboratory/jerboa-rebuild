@@ -1,51 +1,24 @@
 \chapter{Outils pour la modélisation à base de règles}
 \label{cha:outils-modelisation-base-regles}
 
-
-
 \section{Introduction}
 \label{sec:outils-modelisation-base-regles-introduction}
 
+En informatique, de nombreuses applications utilisent la création et la restitution d'objets virtuels, notamment dans le domaine de la conception assistée par ordinateur (CAO) et la
+génération procédurale \cite{dassaultCATIA,siemensNX,OCAF,dassaultSOLIDWORKS} .
+Dans le cas de la CAO, un objet est construit en appliquant une succession de contraintes ou d'opérations de modélisation géométrique, ou bien par édition directe, comme avec la fonction sculpture de Blender~\cite{blenderSculpting}. %
+En revanche, pour la génération procédurale, un objet est construit suivant un ensemble de règles. Celles-ci peuvent être définies par une grammaire formelle, comme les L-Systems~\cite{lindenmayer1974adding}, ou par des instructions fondées sur des opérations. %
+Les systèmes de génération procédurale sont utilisés dans diverses applications, notamment dans les jeux vidéo et le cinéma~\cite{autodesk3ds,autodeskMaya,godotEngine,unityEngine,unrealEngine}, ainsi que pour la génération de structures végétales~\cite{terraz20093gmap,bohl2015modeling} et la création d'espaces urbains~\cite{esri2023cityengine}. %
+Nos travaux se concentrent sur la conception d’un modeleur CAO dans lequel les opérations sont définies par un langage de règles de transformation de graphe. %
 
-
-En informatique, nous retrouvons de nombreuses applications pour la création et
-la restitution d'objets virtuels avec, notamment, la conception assistée par
-ordinateur (CAO) \cite{dassaultCATIA,siemensNX,OCAF,dassaultSOLIDWORKS} et la
-génération procédurale. %
-Dans le cas de la CAO, un objet est construit en appliquant une succession de
-contraintes ou d'opérations de modélisation géométriques ou par édition directe
-(par exemple la fonction sculpture de Blender~\cite{blenderSculpting}). %
-En revanche, pour la génération procédurale, un objet est construit suivant un
-ensemble de règles. %
-Celles-ci peuvent être définies par une grammaire formelle telle que les
-L-Systems~\cite{lindenmayer1974adding} ou des instructions à base d'opérations. %
-Les systèmes de générations procédurales sont utilisés pour diverses
-applications telles que les jeux vidéos et le
-cinéma\cite{autodesk3ds,autodeskMaya,godotEngine,unityEngine,unrealEngine}, la
-génération de structures végétales~\cite{terraz20093gmap,bohl2015modeling} ou
-encore la génération d'espaces urbains\cite{esri2023cityengine}. %
-Nos travaux s'intéressent particulièrement à la conception d'un modeleur CAO
-dont les opérations sont définies par un langage de règles de transformation de
-graphe. %
-
-Dans ce chapitre, nous donnons tout d'abord quelques rappels et des définitions
-sur les graphes, et plus particulièrement les graphes dits «~étiquetés~», qui
-ont un intérêt central dans nos travaux. %
-Nous poursuivons avec la présentation du modèle de représentation de carte
-généralisée~\cite{lienhardt1994n,Damiand-Lienhardt14}. %
-Ce modèle de représentation permet de formaliser d'une part un objet
-géométrique et, d'autre part, les entités topologiques à l'aide de graphes. %
-Enfin, nous présentons le langage \emph{Jerboa}~\cite{belhaouari2014jerboa} qui
-formalise la construction d'opérations de modélisation géométrique à l'aide de
-règles de transformation de graphes. %
-Munis de ces formalismes, nous sommes en mesure de présenter les concepts et
-définitions essentielles à la compréhension de nos travaux dans ce manuscrit. %
+Dans ce chapitre, nous commençons par quelques rappels et définitions concernant les graphes, en particulier les graphes dits «~étiquetés~», qui occupent une place centrale dans nos travaux (section~\ref{sec:etat-art-model-regles-graphe-et-transfo}). Ensuite, nous présentons, dans la section~\ref{sec:etat-art-model-regles-gcartes}, le modèle de représentation des cartes généralisées~\cite{lienhardt1994n,Damiand-Lienhardt14}, qui permet de formaliser non seulement un objet géométrique, mais aussi ses entités topologiques à travers l'usage de graphes.
+Enfin, dans la section~\ref{sec:etat-art-model-regles-lang-jerboa}, nous introduisons le langage \emph{Jerboa}~\cite{belhaouari2014jerboa}, conçu pour formaliser les opérations de modélisation géométrique au moyen de règles de transformation de graphes. %
+Avec ces formalismes, nous disposerons des outils nécessaires pour introduire les définitions et concepts fondamentaux qui sous-tendent nos travaux tout au long de ce manuscrit. %
 
 
 
 \section[Graphes et transformations de graphes]{Graphes et transformations de graphes}
 \label{sec:etat-art-model-regles-graphe-et-transfo}
-
 
 
 Afin de formaliser la représentation et la transformation d'objets issus d'un
@@ -55,7 +28,7 @@ Les graphes dits topologiques appartiennent à la catégorie des \emph{graphes
   étiquetés}, c'est-à-dire des graphes dont chaque n\oe ud est porteur d'une
 information de dimension. % , et dont les n\oe uds \xavier{tous les n\oe{}uds ou
 %   seulement certains n\oe{}ds ? Dans le premier cas, tu peux réduire la phrase ;
-%   dans le second cas, il faut bien préciser "certains n\oe{}uds.} sont porteurs
+%   dans le second cas, il faut bien préciser certains n\oe{}uds.} sont porteurs
 % d'information géométrique
 . %
 % Toutefois, les travaux présentés dans cette thèse traitent uniquement des
@@ -68,6 +41,7 @@ information de dimension. % , et dont les n\oe uds \xavier{tous les n\oe{}uds ou
 %   de traiter cet aspect ; en d'autres termes ; quitte à ne traiter que la
 %   topologie, pourquoi utiliser Jerboa et pas un autre outil ? On peut en
 %   discuter si tu ne vois pas comment répondre.}
+
 
 \begin{definition}[Graphe étiqueté]
 	\label{def:graphe-etiquete}
@@ -91,23 +65,30 @@ information de dimension. % , et dont les n\oe uds \xavier{tous les n\oe{}uds ou
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[height=90pt]{graphe-etiquete}
+	\includegraphics[height=110pt]{graphe-etiquete}
 	\caption{Graphe dont les n\oe uds et arêtes sont étiquetés par des couleurs}
 	\label{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}
 \end{figure}
 
-Prenons l'exemple du graphe étiqueté illustré dans la
+
+
+
+Prenons, par exemple, le graphe étiqueté représenté dans la
 figure~\ref{fig:etat-art-modelisation-regles-graphe-etiquete-couleurs}. %
 Pour ce graphe, les ensembles d'étiquettes pour les n\oe uds $\mathcal{C}_{V}$ et pour les
 arcs $\mathcal{C}_{E}$ sont définis sur le même ensemble de couleurs
-$\{{\color{orange}orange},{\color{mydarkgreenink}vert},{\color{DodgerBlue1}bleu},{\color{purple}violet}\}$. %
-L'ensemble $V$ des n\oe uds est constitué des n\oe uds $a,b,c$ et $d$ et l'ensemble
-$E$ des arcs est constitué des arcs $e_{1}, e_{2}, e_{3}$ et $e_{4}$. %
-Ce graphe est construit de telle sorte que $e_{1}$ a  pour source
-et cible les n\oe uds $a$ et $b$, respectivement. %
+$\{{\color{mydarkorange}orange}, {\color{mydarkgreenink}vert}, {\color{myblueink}bleu},
+{\color{mydarkpurpleink}violet}\}$. %
+L'ensemble $V$ des n\oe uds est constitué des n\oe uds $a,b,c$ et $d$ et
+l'ensemble $E$ des arcs est constitué des arcs $e_{1}, e_{2}, e_{3}$ et
+$e_{4}$. %
+Ce graphe est construit de telle sorte que $e_{1}$ a pour source et cible les
+n\oe uds $a$ et $b$, respectivement. %
 Enfin, les n\oe uds $a$ et $b$ sont respectivement étiquetés par les couleurs
-${\color{orange}orange}$ et ${\color{purple}violet}$ et l'arc $e_{1}$ est étiqueté par
-la couleur ${\color{mydarkgreenink}vert}$. %
+${\color{mydarkorange}orange}$ et ${\color{mydarkpurpleink}violet}$ et l'arc $e_{1}$ est
+étiqueté par la couleur ${\color{mydarkgreenink}vert}$. %
+
+
 
 \begin{definition}[Morphisme]
 	\label{def:morphismes-graphes}
@@ -124,22 +105,22 @@ la couleur ${\color{mydarkgreenink}vert}$. %
 	\noindent $m$ est~:
 	\begin{itemize}
 		\item \emph{injectif} si ses fonctions $m_{V}$ et $m_{E}$ sont
-		      injectives\protect\footnotemark,
+		      injectives\footnotemark,
 		\item un \emph{isomorphisme} si ses fonctions $m_{V}$ et $m_{E}$ sont des
-		      bijections\protect\footnotemark,
+		      bijections\footnotemark,
 		\item une \emph{inclusion}, noté $\iota : G \hookrightarrow G'$ ou simplement $G \hookrightarrow G'$, si
 		      $\iota_{V}$ et $\iota_{E}$ sont les applications identités.
 	\end{itemize}
 \end{definition}
 
 \addtocounter{footnote}{-1}%
-\protect\footnotetext{Pour rappel, une fonction
+\footnotetext{Pour rappel, une fonction
 	$f : A \to B$ est injective si et seulement si tout élément $b \in B$ a au plus un
 	antécédent par $f$, c'est-à-dire $\forall a,a' \in A^{2}$, si $f(a) = f(a')$ alors
 	$a = a'$.} %
 %
 \stepcounter{footnote}%
-\protect\footnotetext{Pour rappel, une fonction $f : A \to B$ est
+\footnotetext{Pour rappel, une fonction $f : A \to B$ est
 	bijective si et seulement si tout élément de $b \in B$ a exactement un
 	antécédent par $f$, c'est-à-dire $\forall b \in B$, $\exists!$ $a \in A$ tel que $f(a) =
 		b$.} %
@@ -176,7 +157,7 @@ la couleur ${\color{mydarkgreenink}vert}$. %
 		\label{fig:etat-art-model-regles-regles-concepts-morphismes-injectif}
 	\end{subfigure}
 
-	~
+	\vspace{1em}
 
 	\begin{subfigure}{.49\textwidth}
 		\includegraphics[width=.9\textwidth]{graphe-morphisme-isomorphisme-unfit}
@@ -222,33 +203,36 @@ notions ensemblistes aux graphes. %
 Ces notions ensemblistes sont, entre autres, l'union, l'intersection ou encore
 la différence entre deux graphes. %
 
-\begin{definition}[Inclusion, union (disjointe), intersection, différence]
+\noindent
+\begin{minipage}{1.0\linewidth}
+  \begin{definition}[Inclusion, union (disjointe), intersection, différence]
 	\label{def:graphe-notions-ensemblistes}
 	Soient $G = (V,E,s,t,l_{V},l_{E})$ et $G'=(V',E',s',t',l'_{V},l'_{E})$ deux
 	graphes étiquetés. %
 
 	\begin{itemize}
-		\item $G$ est  \emph{inclus} dans $G'$, si et seulement si il existe un morphisme d'inclusion $G \hookrightarrow G'$.
+      \item $G$ est  \emph{inclus} dans $G'$, si et seulement si il existe un morphisme d'inclusion $G \hookrightarrow G'$.
 
-		\item L'\emph{intersection} $G \cap G'$, quand elle existe, est le graphe
-		      $K$ dont les n\oe uds sont $V \cap V'$ et les arcs sont $E \cap E'$, tel
-		      que $G \hookleftarrow K \hookrightarrow G'$.
+      \item L'\emph{intersection} $G \cap G'$, quand elle existe, est le graphe
+            $K$ dont les n\oe uds sont $V \cap V'$ et les arcs sont $E \cap E'$, tel
+            que $G \hookleftarrow K \hookrightarrow G'$.
 
-		\item L'\emph{union} $G \cup G'$, quand elle existe, est le graphe $J$ sont
-		      les n\oe uds sont $V \cup V'$ et les arcs sont $E \cup E'$, tel que
-		      $G \hookrightarrow J \hookleftarrow G'$.
+      \item L'\emph{union} $G \cup G'$, quand elle existe, est le graphe $J$ sont
+            les n\oe uds sont $V \cup V'$ et les arcs sont $E \cup E'$, tel que
+            $G \hookrightarrow J \hookleftarrow G'$.
 
-		\item L'\emph{union disjointe} $G \sqcup G'$ est l'union de deux graphes
-		      disjoints $G$ et $G'$ (\emph{i.e.} tels que $V \cap V' = \emptyset$ et
-		      $E \cap E' = \emptyset$).
+      \item L'\emph{union disjointe} $G \sqcup G'$ est l'union de deux graphes
+            disjoints $G$ et $G'$ (\emph{c'est-à-dire} tels que $V \cap V' = \emptyset$ et
+            $E \cap E' = \emptyset$).
 
-		\item La \emph{différence} $G \setminus G'$ est la structure
-		      $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, l_{V_{|V \setminus V'}}, l_{E_{|E \setminus E'}})$.
+      \item La \emph{différence} $G \setminus G'$ est la structure
+            $(V \setminus V', E \setminus E', s_{|E \setminus E'}, t_{|E \setminus E'}, l_{V_{|V \setminus V'}}, l_{E_{|E \setminus E'}})$.
 
-		\item Soit $\emptyset$ le \emph{graphe vide}, c'est-à-dire l'unique graphe
-		      ayant un ensemble vide de n\oe uds et d'arcs.
+      \item Soit $\emptyset$ le \emph{graphe vide}, c'est-à-dire l'unique graphe
+            ayant un ensemble vide de n\oe uds et d'arcs.
 	\end{itemize}
-\end{definition}
+  \end{definition}
+\end{minipage}
 
 \begin{figure}[!htb]
 	\begin{subfigure}[t]{0.33\textwidth}
@@ -259,7 +243,7 @@ la différence entre deux graphes. %
 	\end{subfigure}
 	\begin{subfigure}[t]{0.33\textwidth}
 		\centering
-		\includegraphics[width=70pt]{graphe-etiquete-gprime}
+		\includegraphics[width=50pt]{graphe-etiquete-gprime}
 		\caption{$G'$}
 		\label{fig:etat-art-model-regle-ensemble-graphe-gprime}
 	\end{subfigure}
@@ -306,6 +290,8 @@ la différence entre deux graphes. %
 	\label{fig:etat-art-model-regle-ensemble-graphes}
 \end{figure}
 
+
+
 De tels graphes, issus de l'union ou de l'intersection de deux graphes distincts sont
 présentés dans la figure~\ref{fig:etat-art-model-regle-ensemble-graphes}. %
 Dans le cas de l'union de $G$ avec $G'$
@@ -318,6 +304,8 @@ Le graphe $G \cap G'$
 constitué uniquement des n\oe uds $a,b$ et de l'arc $e_{1}$ de $G$, car ils sont
 associés, par leurs étiquettes, aux n\oe uds $a,b$ et l'arc $e_{1}$,
 respectivement, de $G'$. %
+
+
 La différence entre deux graphes peut produire une structure qui n'est pas un
 graphe. %
 Par exemple, la structure illustrée dans la
@@ -328,11 +316,11 @@ Le graphe $G \sqcup G''$
 (figure~\ref{fig:etat-art-model-regle-ensemble-graphe-squnion-g-gseconde}) est
 constitué de l'union $G$ et $G'$ privée de leur intersection. %
 Dans ce cas-ci, $G$ et $G''$ sont tous deux entièrement compris dans l'union
-disjointe puisque leur intersection est vide. %
+disjointe puisque leur intersection est vide. Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 
-Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
-
-\begin{definition}[Sous-graphe]
+% \noindent
+% \begin{minipage}{1.0\linewidth}
+  \begin{definition}[Sous-graphe]
 	\label{def:sous-graphe}
 	Soient deux graphes $G=(V,E,s,t,l_{V},l_{E})$ et
 	$G'=(V',E',s',t',l'_{V},l'_{E})$, $\omega$ un mot sur $l_{E}$
@@ -340,8 +328,8 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 
 	$G'$ est un \emph{sous-graphe} de $G$ si et seulement si, $G' \subset G$.
 	On note $G\orbit{\omega}(v)$ le plus petit sous-graphe qui contient le n\oe ud $v$, tous les n\oe uds atteignables par des arcs étiquetés par des lettres de $\omega$ et ces arcs eux-mêmes. %
-
-\end{definition}
+  \end{definition}
+% \end{minipage}
 
 \begin{figure}[htb]
 	\begin{subfigure}[t]{.5\textwidth}
@@ -357,32 +345,38 @@ Ces propriétés permettent, à leur tour, de définir la notion de sous-graphe.
 		\label{fig:etat-art-model-regles-sous-graphe-genere}
 	\end{subfigure}
 	\caption{Génération du sous-graphe
-		$G' = G\orbit{{\color{mydarkgreenink}vert},{\color{orange}orange}}(a)$}
+		$G' = G\orbit{{\color{mydarkgreenink}vert},{\color{mydarkorange}orange}}(a)$}
 	\label{fig:etat-art-model-regles-sous-graphe}
 \end{figure}
 
-Dans la figure~\ref{fig:etat-art-model-regles-sous-graphe}, nous
-définissons $G'$ comme un sous-graphe de $G$ généré à partir du n\oe ud $a$ et des
-étiquettes d'arcs $\orbit{{\color{mydarkgreenink}vert},{\color[HTML]{ff8000}orange}}$. %
+Dans la figure~\ref{fig:etat-art-model-regles-sous-graphe}, nous définissons
+$G'$ comme un sous-graphe de $G$ généré à partir du n\oe ud $a$ et des
+étiquettes d'arcs
+$\orbit{{\color{mydarkgreenink}vert},{\color{mydarkorange}orange}}$. %
 Le sous-graphe illustré dans la
-figure~\ref{fig:etat-art-model-regles-sous-graphe-genere} est généré
-à partir du n\oe ud $a$, les n\oe uds $b$ et $c$ sont atteints au travers des arcs
-$e_{1}$ et $e_{2}$ respectivement à travers {\color{mydarkgreenink}vert} et {\color{orange}orange}. %
-En fin de compte, $G'$ comporte les n\oe uds $a, b, c$ et les arcs $e_{1}, e_{2}$. %
+figure~\ref{fig:etat-art-model-regles-sous-graphe-genere} est généré à partir du
+n\oe ud $a$. Les n\oe uds $b$ et $c$ sont atteints au travers des arcs $e_{1}$
+et $e_{2}$ respectivement à travers \({\color{mydarkgreenink}vert}\) et
+\({\color{mydarkorange}orange}\). %
+En fin de compte, $G'$ comporte les n\oe uds $a, b, c$ et les arcs
+$e_{1}, e_{2}$. %
 
 Un dernier concept essentiel pour l'utilisation des graphes et celui de chemin. %
 Intuitivement, un chemin est une suite d'arcs consécutifs. %
 
-\begin{definition}[Chemin et cycle]
+\noindent
+\begin{minipage}{1.0\linewidth}
+  \begin{definition}[Chemin et cycle]
 	\label{def:chemin-et-cycle}
 	Un \emph{chemin} $e_{1}e_{2} \dots e_{k}$ dans un graphe $G$ est
 	une suite d'arcs tels que pour $1 \leq i < k$, $t(e_{i}) = s(e_{i+1})$.
 	La source d'un tel chemin est $s(e_{1})$, sa cible est $t(e_{k})$ et son
 	étiquette est le mot $\alpha(e_{1}) \alpha(e_{2}) \dots \alpha(e_{k})$.
 
-	\noindent Un \emph{cycle} est un chemin $e_1,e_2,\dots e_k$ pour lequel la
+	\noindent Un \emph{cycle} est un chemin $e_1e_2\dots e_k$ pour lequel la
 	source est également la cible, \textit{i.e.} $s(e_{1}) = t(e_{k})$.
-\end{definition}
+  \end{definition}
+\end{minipage}
 
 \begin{figure}[htb]
 	\begin{subfigure}[t]{.5\textwidth}
@@ -430,15 +424,15 @@ Le graphe $G'$ contient la boucle $e_{1},e_{2},e_{3},e_{4}$ dont le n\oe ud $a$ 
 \begin{figure}[htb]
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[height=65pt]{regle-transformation-graphe-long}
+		\includegraphics[height=45pt]{regle-transformation-graphe-long}
 		\caption{Règle avec interface explicite $r : L \hookleftarrow K \hookrightarrow R$}
 	\end{subfigure}
 
-	\vspace{1em}
+	~
 
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[height=65pt]{regle-transformation-graphe}
+		\includegraphics[height=45pt]{regle-transformation-graphe}
 		\caption{Règle $r : L \longrightarrow R$}
 	\end{subfigure}
 	\caption{Règle de transformation de graphe $r$}
@@ -452,12 +446,14 @@ transforme l'élément filtré par le membre gauche. %
 Une manière simple d'assurer que l'intersection $L \cap R$ (ou $K$) est un graphe est que
 $L$ et $R$ n'aient pas d'arête commune. %
 
-\begin{figure}[htb!]
+\begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=.75\textwidth]{application-regle-v4-transfo-graphe}
 	\caption{Application d'une règle de transformation de graphe}
 	\label{fig:etat-art-model-regles-inst-application}
 \end{figure}
+
+
 \begin{figure}[htb!]
   \begin{subfigure}{.5\textwidth}
     \centering
@@ -484,7 +480,9 @@ L'application de la règle $r: L \longrightarrow R$ sur un graphe $G$ le long d'
 filtrage $m: L \rightarrow G$ produit un graphe transformé $H$, où $m'$ est un morphisme
 injectif qui étend $m$ sur $R$. %
 
-\begin{definition}[Application d'une règle de transformation de graphe]
+\noindent
+\begin{minipage}{1.0\linewidth}
+  \begin{definition}[Application d'une règle de transformation de graphe]
 	\label{def:application-regle-transformation-graphe}
 	Soient $r: L \longrightarrow R$ une règle d'interface $K$ et
 	$m : L \rightarrow G$ un morphisme injectif appelé morphisme de filtrage. %
@@ -499,19 +497,19 @@ injectif qui étend $m$ sur $R$. %
 	$m'$, et donc $H$, est unique à isomorphisme près. %
 	$H$ est la transformation directe de $G$ par la règle $r$ le long du
 	morphisme de filtrage $m$. %
-\end{definition}
+  \end{definition}
+\end{minipage}
 
 Intuitivement, $m(L \setminus R)$ est supprimé dans $G$, puis $m'(R \setminus L)$ est ajouté
 pour produire la transformation directe~$H$. %
 Prenons l'exemple de l'application illustrée
-figure~\ref{fig:etat-art-model-regles-inst-application} ainsi que les morphismes
-figures~\ref{fig:etat-art-model-regles-inst-application-morphisme-m} et
+figure~\ref{fig:etat-art-model-regles-inst-application} ainsi que les morphismes présentés sur les figures~\ref{fig:etat-art-model-regles-inst-application-morphisme-m} et
 \ref{fig:etat-art-model-regles-inst-application-morphisme-m-prime}. %
 La différence de \(G\) et \(m(L \setminus R)\) donne le graphe \(D\), puis l'union de
 \(D\) avec \(m'(R \setminus L)\) donne le graphe \(H\). %
 Le morphisme $m'$ est construit de telle manière que la partie ajoutée est
-disjointe de $G$, \textit{i.e.} les nouveaux n\oe uds et arcs ont des noms
-«~frais~» (disjoints de ceux de $G$) donc $m'$ et $H$ sont définis à
+disjointe de $G$, \textit{c'est-à-dire } que les nouveaux n\oe uds et arcs ont des noms
+«~frais~» (disjoints de ceux de $G$). Donc, $m'$ et $H$ sont définis à
 isomorphisme près. %
 
 \begin{remarque}
@@ -536,8 +534,10 @@ Dans la transformation directe présentée, le n\oe ud $d$ est l'arc $e_{3}$
 sont supprimés et remplacés par la boucle $e_{5}$. %
 
 
+
 \section[Les cartes généralisées]{Les cartes généralisées}
 \label{sec:etat-art-model-regles-gcartes}
+
 
 
 Les \emph{cartes généralisées} (ou «~G-cartes~»)
@@ -583,7 +583,7 @@ topologiques cellulaires de dimension quelconque.
 	\hfill
 	\begin{subfigure}[t]{.16\textwidth}
 		\includegraphics[width=\textwidth]{decomposition-3D-2-cell}
-		\caption{2-liaisons\\ ({\color{DodgerBlue1}\textbf{—}})}
+		\caption{2-liaisons\\ ({\color{myblueink}\textbf{—}})}
 		\label{fig:etat-art-model-regle-gcarte-2-cell}
 	\end{subfigure}
 	\hfill
@@ -602,10 +602,10 @@ topologiques cellulaires de dimension quelconque.
 	\label{fig:etat-art-model-regle-gcarte-decomp}
 \end{figure}
 
-Les G-cartes permettent de représenter les objets quasi-vériétés par leurs décompositions
+Les G-cartes permettent de représenter les objets quasi-variétés par leurs décompositions
 successives selon les dimensions, comme illustré dans la
-figure~\ref{fig:etat-art-model-regle-gcarte-decomp}: %
-un objet (figure~\ref{fig:etat-art-model-regle-gcarte-nodecomp})
+figure~\ref{fig:etat-art-model-regle-gcarte-decomp}. %
+Un objet (figure~\ref{fig:etat-art-model-regle-gcarte-nodecomp})
 peut être décomposé en volumes connectés par des \emph{3-liaisons}, en vert
 (figure~\ref{fig:etat-art-model-regle-gcarte-3-cell}). %
 Ces volumes peuvent se décomposer en faces, connectées par des
@@ -634,7 +634,7 @@ Les G-cartes représentent les cellules et plus généralement les orbites à l'
 \begin{definition}[Orbite]\label{def:orbite}%
 	Soient $G$ une G-carte de dimension $n \in \mathbb{N}$, $\orbit{\omega}$ un mot de $[0, n]$ et $b$ un brin de $G$.
 
-	L'\emph{orbite} incidente à $b$ et de type $\orbit{\omega}$, ou
+	L'\emph{orbite} incidente à $b$ et de type $\orbit{\omega}$, où
 	$\orbit{\omega}$-orbite, est le sous-graphe de $G\orbit{\omega}(b)$. %
 	Lorsqu'il n'y a pas d'ambiguïté sur le graphe $G$ considéré, on notera une
 	telle orbite $\orbit{\omega}(b)$.
@@ -687,31 +687,27 @@ $\orbit{0,1,2}(b)$, la face
 l'arête (figure~\ref{fig:etat-art-model-regle-gcarte-orbite-023})
 $\orbit{0,2,3}(b)$. %
 Notons qu'il est également possible de représenter des entités topologiques plus
-générales que des cellules, par exemple, l'arête de volume dans la
+générales que des cellules. Par exemple, l'arête de volume dans la
 figure~\ref{fig:etat-art-model-regle-gcarte-orbite-02} contient les brins
 accessibles par des liaisons $0$ et $2$. %
+
+
 
 \section[Le langage Jerboa]{Le langage Jerboa}
 \label{sec:etat-art-model-regles-lang-jerboa}
 
-% \todo{Dans cette thèse, on ne s'intéresse qu'à un aspect purement topologique
-% 	des règles de transformation. Toutefois, j'y présente tout de même la notion
-% 	de plongement pour que le lecteur comprenne où se pose la géométrie dans tout
-% 	ça.}
 
-Dans la section~\ref{sec:etat-art-model-regles-gcartes}, nous avons défini les
+
+Dans la section précédente, nous avons défini les
 cartes généralisées comme des graphes étiquetés vérifiant certaines
 contraintes de cohérence. %
 Les opérations sur ces graphes peuvent être définies par des règles de
 transformation de graphes. %
-Dans cette section, nous abordons en trois
-temps la formalisation des opérations de
-modélisation sous la forme de règles de transformation de graphe. %
+Dans cette section, nous abordons la formalisation des opérations de modélisation sous la forme de règles de transformation de graphe. %
 Tout d'abord, nous présentons les règles de transformation de graphe et les
 concepts nécessaires à leur mise en \oe uvre. %
 Ensuite, nous étendons ces concepts aux règles de transformations de graphes
 Jerboa~\cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological}. %
-%Enfin, nous terminons avec les scripts de règles~\cite{gauth2019}. \xavier{Attention, les scripts de règles ne sont pas encore définis, il vaut peut-être mieux retirer cette phrase pour le moment.}%
 
 \subsection[Règles de transformation de graphe]{Règles de transformation de graphe}
 \label{sec:etat-art-model-regles-lang-jerboa-regles-inst}
@@ -720,7 +716,6 @@ Jerboa~\cite{belhaouari2014jerboa,arnould2022preserving,pascual2022topological}.
 
 Les règles de transformation de graphe (définition~\ref{def:regle-transformation-graphe})
 permettent de construire des objets représentés par des G-cartes.
-
 Des conditions syntaxiques sur les règles définies dans
 \cite{poudr2009,pascual2022topological} garantissent la préservation
 des G-cartes. %
@@ -766,13 +761,14 @@ des G-cartes. %
 	Dans la suite, nous utiliserons uniquement des règles qui vérifient ces
 	conditions de préservation des G-cartes. %
 	Ainsi, lorsque $G$ est une G-carte, sa transformation directe $H$ l'est
-	aussi. %
+	aussi. Notons que d'autres conditions permettent de préserver la cohérence géométrique \cite{bellet2011rule,arnould2022preserving}.
 \end{remarque}
-D'autres conditions permettent de préserver la cohérence géométrique \cite{bellet2011rule,arnould2022preserving}.
+
+
 
 \begin{figure}
 	\centering
-	\includegraphics[height=.4\paperheight]{application-regle-instanciee}
+	\includegraphics[height=.38\paperheight]{application-regle-instanciee}
 	\caption{Application de la règle de triangulation d'une face carrée}
 	\label{fig:etat-art-model-regle-application-regle-instanciee}
 \end{figure}
@@ -786,9 +782,7 @@ de $L$ est son brin d'accroche (en surbrillance en orange). %
 Son association au brin $b$ de $G$ définit un unique morphisme de filtrage $m$
 grâce à la condition d'arcs incidents. %
 Pour cela, chaque règle comporte un brin d'accroche par composante connexe de
-$L$.
-
-Grâce à la condition d'arcs incidents, nous pouvons déterminer si une orbite de
+$L$. Grâce à la condition d'arcs incidents, nous pouvons déterminer si une orbite de
 la règle filtre entièrement, ou non, l'orbite correspondante dans l'objet et
 ce, indépendamment de l'objet. %
 
@@ -806,6 +800,8 @@ ce, indépendamment de l'objet. %
 \begin{remarque}
 	Grâce à la condition d'arc incident, l'orbite $L\orbit{\omega}(n)$ est complète si et seulement si $G\orbit{\omega}(m(n))$ est entièrement filtrée. %
 \end{remarque}
+
+
 
 \subsection[Règles Jerboa]{Règles Jerboa}
 \label{sec:etat-art-model-regles-regles-jerboa}
@@ -837,7 +833,7 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 		      où pour toute dimension $i$, un n\oe ud $v$ est source d'un arc implicite d'étiquette $i$
 		      si l'étiquette d'orbite de $v$ comprend $i$~;
 		      \vspace{3pt}
-		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ tel que
+		\item \emph{condition de cycle} : pour toutes dimensions $i$ et $j$ telles que
 		      $i+2 \geq j$, la condition de cycle est celle des règles de base en considérant les
 		      cycles ayant des arcs implicites ou explicites :
 		      \begin{itemize}
@@ -855,7 +851,7 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 			            étiquette d'orbite ;
 			      \item $v$ est un n\oe ud de $R$ qui contient $i$ et $j$ dans son
 			            étiquette d'orbite et que ces dernières renomment un cycle
-			            de $L$, c'est-à-dire tel qu'il existe un n\oe ud $v'$ de $L$
+			            de $L$, c'est-à-dire telles qu'il existe un n\oe ud $v'$ de $L$
 			            avec $l(v) \mapsto l(v') (i) +2 \geq l(v) \mapsto l(v') (j)$ ou
 			            $l(v) \mapsto l(v') (j) +2 \geq l(v) \mapsto l(v') (i)$ ;
 			      \item $v$ est la source d'un $i$-arc explicite de cible $v'$ (dans $L$ ou
@@ -864,12 +860,12 @@ Comme pour les règles de base, les conditions syntaxiques suivantes sur les rè
 			            $l(v) \mapsto l(v') (j) = j$ ;
 			      \item inversement, $v$ est la source d'un $j$-arc de cible $v'$
 			            tel que les deux n\oe uds $v$ et $v'$ ont $i$ non renommé dans leurs
-			            étiquettes d'orbites  ;
+			            étiquettes d'orbites ;
 		      \end{itemize}
 	\end{itemize}
 \end{theoreme}
 
-La règle que nous avons vu plus tôt
+La règle que nous avons vue plus tôt
 (figure~\ref{fig:etat-art-model-regle-application-regle-instanciee}) est dite
 \emph{instanciée}, c'est-à-dire que ses membres représentent des parties transformées des objets.
 % Comme nous l'avons vu, les motifs des règles instanciées sont des parties des
@@ -885,7 +881,7 @@ leur nombre d'arêtes. %
 	Un \emph{motif avec orbite} est un graphe $M=(V,E,s,t,l,\alpha)$ tel que sa \emph{structure} $\underline{M} = (V,E,s,t,\alpha)$ est un graphe topologique  de dimension $n \in \mathbb{N}$ et
 	$l : V \rightarrow ([0,n] \cup \{ \_ \})^*$ est une
 	fonction d'étiquetage des n\oe uds par des mots sur les dimensions topologiques
-	et le symbole "$\_$", telle que toutes les étiquettes des n\oe uds du motif
+	et le symbole «~$\_$~», telle que toutes les étiquettes des n\oe uds du motif
 	soient des mots de la même longueur.
 \end{definition}
 
@@ -893,26 +889,26 @@ leur nombre d'arêtes. %
 	\centering
 	\begin{subfigure}[t]{.15\textwidth}
 		\centering
-		\includegraphics[height=50pt]{left-scheme-rule-face-triangulation-3D}
+		\includegraphics[height=45pt]{left-scheme-rule-face-triangulation-3D}
 		\caption{Face $M1$
 		}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m1}
 	\end{subfigure}
 	\begin{subfigure}[t]{.15\textwidth}
 		\centering
-		\includegraphics[height=50pt]{suppression-dans-motif-n0.pdf}
+		\includegraphics[height=45pt]{suppression-dans-motif-n0.pdf}
 		\caption{Arêtes $M2$}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m2}
 	\end{subfigure}
 	\begin{subfigure}[t]{.18\textwidth}
 		\centering
-		\includegraphics[height=50pt]{renommage-dans-motif-n2.pdf}
+		\includegraphics[height=45pt]{renommage-dans-motif-n2.pdf}
 		\caption{\centering Sommet dual $M3$}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m3}
 	\end{subfigure}
 	\begin{subfigure}[t]{.5\textwidth}
 		\centering
-		\includegraphics[height=50pt]{right-scheme-rule-face-triangulation-3D}
+		\includegraphics[height=45pt]{right-scheme-rule-face-triangulation-3D}
 		\caption{Face triangulée $M4$}
 		\label{fig:etat-art-model-regle-regles-jerboa-motif-m4}
 	\end{subfigure}
@@ -920,7 +916,7 @@ leur nombre d'arêtes. %
 	\label{fig:etat-art-model-base-regle-motifs-triangulation}
 \end{figure}
 
-Pour bien saisir ce qu'est un motif avec orbite, nous allons travailler avec les
+Pour décrire ce qu'est un motif avec orbite, nous allons travailler avec les
 motifs illustrés dans la
 figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation} où tous les n\oe uds sont étiquetés avec des orbites de longueur 3. %
 Commençons avec le motif $M1$
@@ -975,7 +971,7 @@ figure~\ref{fig:etat-art-model-base-regle-motifs-triangulation}. %
 Par l'observation des étiquettes de $M1$ et $M2$, nous pouvons en déduire que la
 fonction de renommage $\orbit{0,1,3}\mapsto\orbit{0,\_,3}$ est définie entre $M1$ et
 $M2$. %
-Cette fonction permet de supprimer toutes les liaisons $1$ (noté par le
+Cette fonction permet de supprimer toutes les liaisons $1$ (notées par le
 caractère «~\_~» en deuxième position) et laisse les liaisons $0$ et $3$
 (respectivement en première et troisième positions) inchangées. %
 De même, l'observation des étiquettes de $M1$ et $M3$ nous permet de déduire que
@@ -1051,12 +1047,14 @@ L'instanciation de $M1$ figure~\ref{fig:etat-art-modelisation-base-regle-inst-qu
 isomorphe à la face d'instanciation, car le renommage est l'identité. %
 Pour rappel, les liaisons $3$ sont toutes des boucles car la face d'instanciation est un bord de la G-carte. %
 Elles ne sont pas représentées dans les figures. %
+
 L'instanciation de $M2$ figure~\ref{fig:etat-art-modelisation-base-regle-quad-motif-m2} est isomorphe
 au quatre arêtes de la face d'instanciation, car le renommage supprime les
 liaisons $1$ qui relient les arêtes deux-à-deux. %
 L'instanciation de $M3$ figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m3} est un sommet
 dual de la face d'instanciation, car les liaisons $0$ et $1$ sont renommées
 respectivement en $1$ et $2$. %
+
 L'instanciation de $M4$ figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-motif-m4} est une
 triangulation de la face d'instanciation, où les brins $a_0, b_0\dots$ en jaune
 sont les instanciations du n\oe ud $n0$, les brins $a_1,b_1,\dots$ en vert sont les instanciations du n\oe ud $n1$ et les brins $a_2,b_2,\dots$ en bleu sont les
@@ -1115,14 +1113,14 @@ se déroulent de la même manière pour la face carrée (figure~\ref{fig:etat-ar
 \begin{definition}[Règle transformation de graphe Jerboa]\label{def:regle-transfo-graphe-jerboa}%
 	Une \emph{règle} Jerboa  $r: L \longrightarrow R$  est définie par un couple  de motifs avec
 	orbites $L$ et $R$ dont toutes  les étiquettes d'orbites ont la même longueur,
-	tels que $\underline{L} \longrightarrow \underline{R} $ est une règle de transformation de graphe, dont un sous-ensemble des
+	telles que $\underline{L} \longrightarrow \underline{R} $ est une règle de transformation de graphe, dont un sous-ensemble des
 	n\oe uds  de $L$  sont  appelés  n\oe uds d'accroche  (\emph{hooks}  en anglais)  et
-	portent des étiquettes d'orbites pleines, c'est-à-dire sans~"$\_$".
+	portent des étiquettes d'orbites pleines, c'est-à-dire sans~«~$\_$~».
 \end{definition}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[height=50pt]{rule-face-triangulation-3D}
+	\includegraphics[height=45pt]{rule-face-triangulation-3D}
 	\caption{Règle de triangulation}
 	\label{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}
 \end{figure}
@@ -1155,12 +1153,9 @@ directe. %
 Par exemple, le morphisme de filtrage qui associe l'unique n\oe ud $n0$ du motif gauche de la règle de triangulation (figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-regle-triangulation}) au brin $b$ de la G-carte $G$ (figure~\ref{fig:etat-art-modelisation-base-regle-instanciation-quad-objet}) définit l'orbite d'instanciation de la figure~\ref{fig:etat-art-modelisation-base-regle-inst-quad-motif-m1}. %
 Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-carte $G$ définit l'orbite d'instanciation de la figure~\ref{fig:jerboa-tri-before-triangulation}.%
 
-% \xavier{[Je ne vois pas le lien entre cet exemple et la définition 15 de l'orbite d'instanciation : dans cette définition, tu considères le cas où la règle $r$ a (au moins) deux n\oe{}uds d'accroche. Mais dans l'exemple que tu cites concernant la règle de triangulation, il y a un seul n\oe{}ud d'accroche... Par ailleurs, les deux orbites d'instanciation illustrées respectivement en figures 12b et 13b ne sont pas isomorphes... Bref, j'ai l'impression que l'exemple que tu donnes n'est pas "raccod" avec la définition 15... Mais c'est peut-être moi qui comprends de travers :)]}
-
-
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=50pt]{rule-sewA3}
+	\includegraphics[height=45pt]{rule-sewA3}
 	\caption{Règle de coutures de faces}
 	\label{fig:etat-art-modelisation-base-regle-jerboa-regle-couture-faces}
 \end{figure}
@@ -1169,13 +1164,13 @@ Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-c
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\centering
-		\includegraphics[width=.8\textwidth]{g-carte-couture-a3-faces-incompatibles}
+		\includegraphics[width=.9\textwidth]{g-carte-couture-a3-faces-incompatibles}
 		\caption{Faces non isomorphes}
 		\label{fig:etat-art-modelisation-base-regle-jerboa-couture-non-isomorphes}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\centering
-		\includegraphics[width=.8\textwidth]{g-carte-couture-a3-faces-compatibles}
+		\includegraphics[width=.9\textwidth]{g-carte-couture-a3-faces-compatibles}
 		\caption{Faces isomorphes}
 		\label{fig:etat-art-modelisation-base-regle-jerboa-couture-isomorphes}
 	\end{subfigure}
@@ -1185,7 +1180,7 @@ Le morphisme de filtrage qui associe le même n\oe ud $n0$ au brin $j$ de la G-c
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[height=130pt]{g-carte-couture-a3-faces-compatibles-H}
+	\includegraphics[height=140pt]{g-carte-couture-a3-faces-compatibles-H}
 	\caption{Résultat de la couture
 	  figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-couture-isomorphes}}
 	\label{fig:etat-art-modelisation-base-regle-jerboa-couture-cube-pyramide}
@@ -1232,7 +1227,7 @@ où nous connectons la face du dessus du cube à la base de la pyramide. %
 	Si le morphisme de filtrage $m$ existe, il est unique en raison de la
 	contrainte d'arc incident de la G-carte $G$ (définition \ref{def:gcarte})
     et de la condition d'arc incident du motif $L$
-	(voir le Théorème~\ref{thm:preservation-coherence-topo-regles}).
+	(voir le théorème~\ref{thm:preservation-coherence-topo-regles}).
 \end{remarque}
 
 Pour montrer qu'un filtrage est unique, prenons une face carrée de l'objet
@@ -1286,10 +1281,10 @@ Ces deux motifs sont respectivement les motifs $L$ et $R$ de la règle de
 triangulation. %
 Ainsi, pour l'instanciation de la règle de triangulation sur une face carrée,
 nous obtenons la règle instanciée illustrée dans la
-figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-quad}
-et pour son instanciation sur une face triangulaire, nous obtenons la règle
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-quad}.
+Pour son instanciation sur une face triangulaire, nous obtenons la règle
 instanciée illustrée dans la
-figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-tri}
+figure~\ref{fig:etat-art-modelisation-base-regle-jerboa-instanciation-triangulation-tri}.
 
 \begin{remarque}
 	Les règles instanciées sont aussi des règles Jerboa dont les n\oe uds sont
@@ -1357,13 +1352,12 @@ s'étend naturellement sur les règles Jerboa. %
 	et seulement si $G\orbit{\omega}(b)$ est entièrement filtrée. %
 \end{remarque}
 
-% \subsection[Scripts de règles]{Scripts de règles}
-% \label{sec:etat-art-model-regles-jerboa-scripts}
 
-% {\HUGE \todo{}}
 
 \section{Conclusion}
 \label{sec:formalisation-modelisation-base-regles-conclusion}
+
+
 
 Dans ce chapitre, nous avons présenté les outils et des concepts nécessaires à
 la compréhension des formalismes que nous utilisons tout au long de cette
@@ -1377,6 +1371,8 @@ catégorie de graphes dits «~étiquetés» grâce auxquels nous représentons l
 dimensions dans les objets. %
 Nous avons aussi présenté divers outils permettant de manipuler ces graphes et
 ainsi préparer la définition des outils permettant de les transformer. %
+
+
 Afin de proposer des méthodes généralisables en toutes dimensions, nous avons
 présenté un modèle appelé \emph{carte généralisée} qui formalise la
 représentation des objets géométriques de dimension \(n\). %
@@ -1384,6 +1380,8 @@ Avec cet outil, nous présentons notamment la définition d'\emph{orbite} que no
 utilisons pour représenter l'ensemble des entités topologiques dans un objet. %
 Cela nous permet également de définir des opérations sous la forme de
 \emph{règles de transformation de graphe}. %
+
+
 Enfin, nous avons présenté le langage de règles Jerboa qui permet de construire
 des opérations à l'aide de ces règles~: %
 Tout d'abord, sous la forme de règles qui représentent explicitement les

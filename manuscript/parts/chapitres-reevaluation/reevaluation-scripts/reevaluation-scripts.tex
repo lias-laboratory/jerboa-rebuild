@@ -24,7 +24,8 @@ intégrées dans les DAG d'évaluation et de réévaluation pour permettre les
 appariements. %
 Nous illustrons ensuite notre approche dans la section~\ref{sec:reevaluation-scripts-brincation-exemple} en présentant des exemples de réévaluations ou nous combinons les
 différentes structures de contrôle. %
-Enfin, nous proposons, dans la section~\ref{sec:reevaluation-scripts-implantation}, un état des lieux de
+Enfin, nous proposons %, dans la section~\ref{sec:reevaluation-scripts-implantation},
+un état des lieux de
 l'implantation réalisée pour la réévaluation avec des scripts avant de conclure dans la section~\ref{sec:reevaluation-scripts-conclusion}. %
 
 
@@ -66,7 +67,7 @@ illustre un exemple où la décousure d'un volume par ses 3-liaisons
 (figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure-volume})
 est impossible, car certaines des faces du volume sont libres. %
 Elles ne possèdent pas de 3-liaisons à découdre et le volume
-\textcolor{orange}{orange} ne peut pas être déconnecté du reste de la composante
+\textbf{\textcolor{mylightorange}{jaune}} ne peut pas être déconnecté du reste de la composante
 connexe. %
 Pour déconnecter ce volume, il faudrait appliquer la règle de décousure de face
 (figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-regle-decousure-face})
@@ -83,7 +84,7 @@ Les scripts Jerboa~\cite{belhaouari2014jerboa,gauth2019} permettent, à l'aide
 d'un langage de script, de construire des opérations avec des comportements plus
 complexes que les règles. %
 Un script peut faciliter, par exemple, le processus de décousure du volume
-\textcolor{orange}{orange} en évitant de réappliquer manuellement la règle de
+\textbf{\textcolor{mylightorange}{jaune}} en évitant de réappliquer manuellement la règle de
 décousure de face
 (figure~\ref{fig:reevaluation-scripts-scripts-scripts-jerboa-non-decousure}). %
 Le langage utilisé pour écrire les scripts Jerboa définit l'ensemble des
@@ -251,6 +252,8 @@ En adoptant une approche en boîtes ouvertes, les règles contenues dans le scri
 \end{figure}
 
 
+\noindent
+\begin{minipage}{1.0\linewidth}
 \begin{lstlisting}[style=script-style,
 language=jerboa-script,
 escapechar=\%,
@@ -262,6 +265,7 @@ JerboaRuleResult face2 = @rule<extrusionAreteFace>(face#0);
 JerboaRuleResult face3 = @rule<extrusionAreteFace>(face2#4#0);
 @rule<extrusionAreteFace>(face3#4#0);
 \end{lstlisting}
+\end{minipage}
 
 \begin{figure}[htb!]
 	\centering
@@ -395,7 +399,7 @@ réévaluer le script si l'orbite correspondant à ce paramètre est supprimée.
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[scale=.6]{tmp-evaluationTree-pn9}
+	\includegraphics[scale=.5]{tmp-evaluationTree-pn9}
 	\caption{DAG d'évaluation du PN\textsubscript{9}}
 	\label{fig:reevaluation-scripts-sequence-extension-DAG-eval-pn9}
 \end{figure}
@@ -404,7 +408,7 @@ Prenons, par exemple, le DAG d'évaluation du PN\textsubscript{9} illustré
 dans la
 figure~\ref{fig:reevaluation-scripts-sequence-extension-DAG-eval-pn9}. %
 Ce DAG représente l'évolution de l'orbite face qui est coloriée en
-\textcolor{orange}{orange} par l'application
+\textbf{\textcolor{mylightorange}{jaune}} par l'application
 \texttt{3\allowbreak{}-\allowbreak{}coloration\-Face}. %
 Nous pouvons observer les propriétés que nous venons de présenter. %
 Tout d'abord, une boîte de script englobe les applications qui appartient à
@@ -412,7 +416,7 @@ l'application \texttt{2\allowbreak{}-\allowbreak{}S\_extrusion\-Ruban}. %
 Ensuite, le suivi du paramètre topologique du script est effectué dans une
 nouvelle branche. %
 L'orbite représentée par le n\oe ud \orbitnode{\orbit{0,1,3}} est liée au bloc de
-script par une flèche \textcolor{mydarkgreenink}{verte}. %
+script par une flèche \textbf{\textcolor{mydarkgreenink}{verte}}. %
 Cette branche identifie une face qui est créée par la
 première application. %
 
@@ -431,7 +435,7 @@ DELETE 1-creationCarre()
 
 \begin{figure}[htb!]
 	\centering
-	\includegraphics[scale=.6]{tmp-reevaluationTree-pn9}
+	\includegraphics[scale=.5]{tmp-reevaluationTree-pn9}
 	\caption{DAG de réévaluation du PN\textsubscript{9}}
 	\label{fig:reevaluation-scripts-scripts-sequence-extension-DAG-reeval-pn9}
 \end{figure}
@@ -518,6 +522,8 @@ Cet ordre est donc considéré comme une information instable et ne peut être u
 C'est donc un nom persistant qui doit discriminer cette sous-orbite parmi les autres itérées. %
 
 
+\noindent
+\begin{minipage}{1.0\linewidth}
 \begin{lstlisting}[style=script-style,
 escapechar=\%,
 caption=Spécification paramétrique avec boucle,
@@ -526,13 +532,14 @@ captionpos=b]
 1-creationCarre()
 2-subdivisionQuad(%\pndart{0}{1n0}%)
 3-S_colorationFaceComposante(%\pndart{0}{1n0;2n0}%)
-%\indentrule% For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(%\pndart{0}{1n0;2n0}%)
-%\indentrule% %\indentrule% 1-colorationFace(%\pndart{0}{1n0;2n0}%)
-%\indentrule% %\indentrule% 2-colorationFace(%\pndart{2}{1n2;2n0}%)
-%\indentrule% %\indentrule% 3-colorationFace(%\pndart{4}{1n4;2n0}%)
-%\indentrule% %\indentrule% 4-colorationFace(%\pndart{6}{1n6;2n0}%)
+% \indentrule% For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(%\pndart{0}{1n0;2n0}%)
+% \indentrule% %\indentrule% 1-colorationFace(%\pndart{0}{1n0;2n0}%)
+% \indentrule% %\indentrule% 2-colorationFace(%\pndart{2}{1n2;2n0}%)
+% \indentrule% %\indentrule% 3-colorationFace(%\pndart{4}{1n4;2n0}%)
+% \indentrule% %\indentrule% 4-colorationFace(%\pndart{6}{1n6;2n0}%)
 4-triangulationFace(%\pndart{3}{1n3;2n0};3\{2n0\}%)
 \end{lstlisting}
+\end{minipage}
 
 
 Détaillons l'exemple de la spécification paramétrique dans le
@@ -593,7 +600,7 @@ Tout comme pour le bloc de script, les deux n\oe uds d'orbites de cette nouvelle
 branche conditionnent la réévaluation de la boucle et plus précisément d'une de
 ses itérations. %
 Ainsi les n\oe uds \orbitnode{\orbit{0,1,2,3}} et \orbitnode{\orbit{0,1,3}} sont
-liés par des flèches \textcolor{mydarkgreenink}{vertes} au même bloc
+liés par des flèches \textbf{\textcolor{mydarkgreenink}{vertes}} au même bloc
 \texttt{For}. %
 
 
@@ -953,10 +960,10 @@ Dans notre exemple, il s'agit du sommet \(\orbit{1,2,3}(n2)\) de la règle de
 triangulation. %
 L'analyse de la règle
 (figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri})
-montre que ce sommet (encadré en \textcolor{orange}{orange}) est créé. Son
+montre que ce sommet (encadré en \textbf{\textcolor{mylightorange}{jaune}}) est créé. Son
 évènement appartient donc à la catégorie d'évènement \texttt{GENERATION}. %
 L'analyse montre aussi que son origine est de type face \(\orbit{0,1,3}\)
-(surligné en \textcolor{orange}{orange}). %
+(surligné en \textbf{\textcolor{mylightorange}{jaune}}). %
 
 
 
@@ -971,7 +978,7 @@ orbites de type sommet (\(\orbit{1,2,3}\)) qui partagent la même catégorie
 d'évènement (c'est-à-dire, un sommet créé). %
 Dans notre exemple, nous ne trouvons qu'une seule orbite sommet créée dans la
 règle \texttt{insertion\-Face}, c'est l'orbite \(R\orbit{1,2,3}(n2)\)
-(encadrée en \textcolor{mydarkorange}{orange} dans la
+(encadrée en \textbf{\textcolor{mylightorange}{jaune}} dans la
 figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
 
 Cependant, l'origine de cette orbite n'est pas identique à celle du sommet créé
@@ -1023,12 +1030,12 @@ en nous basant sur les mêmes règles et les mêmes objets. %
 Pour la première étape, nous analysons à nouveau la règle
 \texttt{triangulation\-Face}. %
 Nous trouvons que l'orbite \(L\orbit{0,1,3}(n0)\) (encadrée en
-\textcolor{myblueink}{bleu} dans la figure
+\textbf{\textcolor{myblueink}{bleu}} dans la figure
 \ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri}) est scindée
 et est donc associée à l'évènement \texttt{SPLIT} qui appartient à la catégorie
 d'évènements \texttt{OTHER}. %
 Elle a pour origine une \(\orbit{0,3}\)-orbite (soulignée en
-\textcolor{myblueink}{bleu}). %
+\textbf{\textcolor{myblueink}{bleu}}). %
 
 
 
@@ -1039,7 +1046,7 @@ Elle a pour origine une \(\orbit{0,3}\)-orbite (soulignée en
 L'analyse de la règle \texttt{insertion\-Face} montre ici aussi qu'il n'y a
 qu'une seule orbite éligible pour l'appariement. %
 Il s'agit de l'orbite \(R\orbit{0,1,3}(n0)\) (encadrée en
-\textcolor{myblueink}{bleu} dans la
+\textbf{\textcolor{myblueink}{bleu}} dans la
 figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-insert}). %
 Elle est aussi scindée. %
 Cette fois, elle a aussi pour origine une \(\orbit{0,3}\)-orbite. %
@@ -1347,15 +1354,6 @@ dernière opération \texttt{4-insertionFace} et d'obtenir ainsi l'objet final.
 
 
 
-Les implantations des contributions présentées dans ce chapitre sont des travaux en cours. %
-Au moment de la rédaction de ce manuscrit, seules la procédure d'appariement des
-orbites et les stratégies de degré d'exactitude détaillées dans la
-section~\ref{sec:reevaluation-scripts-alternative-appariement-creation-sommet}
-ont été implantées. %
-Les extensions de spécification paramétrique et de DAG relatives à chacune des
-structures de contrôles ne sont, quant à elles, pas encore implantées dans notre
-modeleur. %
-
 Dans ce chapitre, nous avons proposé d'étendre notre mécanisme de réévaluation afin
 de supporter les opérations construites à l'aide du langage de scripts de
 Jerboa. %
@@ -1400,7 +1398,14 @@ utilisateurs, nous proposons la sélection de stratégies pour configurer la
 qualité d'appariement recherchée et permettre de les adapter à différents
 contextes d'application. %
 
-
+Les implantations des contributions présentées dans ce chapitre sont des travaux en cours. %
+Au moment de la rédaction de ce manuscrit, seules la procédure d'appariement des
+orbites et les stratégies de degré d'exactitude détaillées dans la
+section~\ref{sec:reevaluation-scripts-alternative-appariement-creation-sommet}
+ont été implantées. %
+Les extensions de spécification paramétrique et de DAG relatives à chacune des
+structures de contrôles ne sont, quant à elles, pas encore implantées dans notre
+modeleur. %
 
 %%% Local Variables:
 %%% mode: LaTeX

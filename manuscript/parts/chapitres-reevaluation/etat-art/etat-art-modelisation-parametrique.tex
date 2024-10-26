@@ -8,25 +8,11 @@
 
 
 
-Le domaine de la CAO repose sur divers outils de modélisation, parmi lesquels
-les systèmes paramétriques qui permettent de générer des variations d'un modèle
-à l'aide d'un mécanisme de \textit{rejeu}, ou de
+Le domaine de la CAO repose sur divers outils de modélisation, parmi lesquels les systèmes paramétriques qui permettent de générer des variations d'un modèle à l'aide d'un mécanisme de \textit{rejeu}, ou de
 \textit{réévaluation}~\cite{dassaultCATIA,dassaultSOLIDWORKS,autodeskAUTOCAD,autodeskREVIT,siemensNX}. %
-Ces systèmes enregistrent le processus de construction, c'est-à-dire une liste
-d'opérations ou de contraintes appliquées à des entités géométriques (points,
-droites, caractéristiques de formes, etc.) permettant de modéliser un objet.
-L'utilisateur peut ensuite modifier certains paramètres de la construction ou
-ajouter, déplacer, voire supprimer des opérations et des contraintes. Le
-processus de construction est alors automatiquement rejoué ou réévalué, générant
-une version modifiée de l'objet initial, en fonction des modifications
-apportées. %
+Ces systèmes enregistrent le processus de construction, c'est-à-dire une liste d'opérations ou de contraintes appliquées à des entités géométriques (points, droites, caractéristiques de formes, etc.) permettant de modéliser un objet. L'utilisateur peut ensuite modifier certains paramètres de la construction ou ajouter, déplacer, voire supprimer des opérations et des contraintes. Le processus de construction est alors automatiquement rejoué ou réévalué, générant une version modifiée de l'objet initial, en fonction des modifications apportées.  %
 
-Dans ce chapitre, nous commençons par définir plus précisément la notion de
-\textit{système paramétrique}, en détaillant sa structure et les mécanismes de
-réévaluation des modèles. Nous verrons que la réévaluation peut échouer si le
-système ne gère pas correctement les références associées aux entités
-topologiques ; et que, dans ce cas, il est nécessaire d'intégrer un mécanisme de
-\textit{nomination persistante} pour garantir la robustesse du processus.
+Dans ce chapitre, nous commençons par définir plus précisément la notion de \textit{système paramétrique}, en détaillant sa structure et les mécanismes de réévaluation des modèles. Nous verrons que la réévaluation peut échouer si le système ne gère pas correctement les références associées aux entités topologiques ; et que, dans ce cas, il est nécessaire d'intégrer un mécanisme de \textit{nomination persistante} pour garantir la robustesse du processus.
 
 \section{Approches de modélisation paramétriques}
 \label{sec:etat-art-approches-modelisation-parametrique}
@@ -46,15 +32,6 @@ Ces deux approches sont décrites dans les sections suivantes.
 
 Dans l'approche équationnelle, la représentation implicite (ou spécification paramétrique) d'un modèle est définie par un ensemble de contraintes géométriques (telles que des angles, distances, longueurs, parallélismes, tangences, etc.) appliquées à des entités géométriques. Un solveur est ensuite utilisé pour résoudre ce système de contraintes (lorsqu'une solution existe), afin de calculer une représentation explicite du modèle, c'est-à-dire un objet. Une définition plus formelle est présentée ci-dessous~\cite{pierra1996general}~: %
 
-% \david{Je te propose de mettre plutôt cette définition qui colle à ce que Dago
-% 	reprenait de Pierra. Je te propose en particulier d'utiliser la lettre V (pour
-% 	variable) plutôt que E (pour entités) car dans cette définition on voit plutôt
-% 	les choses sous la forme système d'équation avec des variables. Idem pour la
-% 	déf suivante sur les modèle fonctionnel, garde le V. Parle aussi dans la déf
-% 	de modèle paramétrique plutôt que de système car un système c'est quelque
-% 	chose d'un peu plus large (le système contient le modèle paramètrique, mais
-% 	aussi une IHM, etc.). Même si par abus de langage, on parle de système
-% 	paramétrique pour parler du modèle.}
 \begin{definition}[Modèle paramétrique équationnel]
 	Soit $P$ l'ensemble des paramètres définis sur un domaine $\mathcal{D}$, où
 	$\mathcal{D}$ est souvent égal à $\mathbb{R}^{n}$. %
@@ -373,7 +350,7 @@ où $ID_{trajectoire}$ est l'arête $e_{1}$ d'identifiant $1$. %
 		Identifiant & 4 & 3 & 1       & 2       & 3       & 4       & 5       & 6       & 7       & 1        & 2        & 3        & 4        \\
 		\hline
 	\end{tabular}
-	\caption{Nomination des entités lors d'une extrusion}
+	\caption{Exemple de nomination des entités lors d'une extrusion, Baba-Ali}
 	\label{fig:etat-art-modelisation-parametrique-concepts-extrusion}
 \end{figure}
 
@@ -450,7 +427,7 @@ Dans ce DAG, un n\oe ud, appelé un \textit{FaceIdNode}, représente une face
 \begin{figure}[htbp!]
 	\centering
 	\includegraphics[width=.5\textwidth]{kripac-faceid-graph}
-	\caption{DAG de suivi de face dans un modèle~\cite{kripac1995mechanism}}
+	\caption{Exemple de DAG de suivi de face dans un modèle, Kripac}
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-kripac}
 \end{figure}
 
@@ -508,7 +485,7 @@ $f_{1.1}$, $f_{3.1}$ et $f_{4.1}$ sont présentes dans le modèle. %\david{il me
 		\caption{Fusion}
 		\label{fig:etat-art-modelisation-parametrique-concepts-historique-wu-fusion}
 	\end{subfigure}
-	\caption{Propagation de nom persistant, Wu}
+	\caption{Exemple de propagation de nom persistant, Wu}
 	\label{fig:etat-art-modelisation-parametrique-concepts-historique-exemples-wu}
 \end{figure}
 
@@ -560,15 +537,15 @@ deux faces, un sommet une intersection de trois faces. %
 
 
 Un tel choix mène à nommer les entités topologiques en fonction de leur
-voisinage~\cite{CAPOYLEAS199617, chen1995representation, kripac1995mechanism, agbodan2000persistent},
+voisinage~\cite{CAPOYLEAS199617,chen1995representation,kripac1995mechanism,agbodan2000persistent},
 voire à ajouter des informations
-géométriques~\cite{wu2001face, bidarra2005feature, wang2005geometry} (espace
+géométriques~\cite{wu2001face,bidarra2005feature,wang2005geometry} (espace
 paramétrique, orientation, gradient, etc.) lorsque la topologie seule ne suffit
 plus à lever les ambiguïtés. Par exemple, cela est nécessaire lorsque deux arêtes issues d'une opération de différence partagent un voisinage identique. %
 L'inconvénient de définir un schéma de nomination de cette manière est que chaque système est conçu pour une dimension de modélisation spécifique, rendant la généralisation vers d'autres dimensions complexe et nécessitant une redéfinition complète des mécanismes de nomination.
 
 Dans ses travaux, Baba-Ali~\cite{babaali2010systeme} met en évidence une conséquence liée à la nomination hétérogène des entités topologiques.
-Dans la littérature, peu de méthodes traitent la nomination d'entités de dimensions supérieures au faces ou d'agrégats
+Dans la littérature, peu de méthodes traitent la nomination d'entités de dimensions supérieures aux faces ou d'agrégats
 d'entités, tels que les agrégats de faces aussi appelées coques dans les
 systèmes de modélisation 3D. %
 Rappelons que la plupart des systèmes de nomination persistante reposent sur les faces pour définir les autres entités, généralement les arêtes et les sommets, qui sont considérés comme des intersections de faces. De plus, ces systèmes utilisent des mécanismes de nomination hétérogènes en fonction de la dimension. Par essence, ces systèmes sont donc inadaptés à une extension naturelle des mécanismes de nomination vers de nouvelles entités. %
@@ -594,8 +571,7 @@ Les systèmes de nomination utilisent la plupart du temps d'abord la topologie
 pour caractériser les entités. %
 En effet, dans le cas d'intersections planaires, les voisinages plus ou
 moins étendus~\cite{chen1995representation} permettent systématiquement de distinguer les entités. %
-A
-l'inverse, lors de l'intersection avec une ou plusieurs entités non-planaires,
+À l'inverse, lors de l'intersection avec une ou plusieurs entités non-planaires,
 l'information topologique seule ne suffit plus toujours à distinguer les entités
 générées. %
 En effet, les entités issues d'une telle intersection peuvent partager
@@ -626,7 +602,7 @@ d'utiliser des informations géométriques permettant de lever ces ambiguïtés.
 	       \caption{Réévaluation}
 		\label{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme-3}
 	\end{subfigure}
-	\caption{Exemple d'intersection de cylindres par Chen}
+	\caption{Exemple d'intersection de cylindres, Chen}
 	\label{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme}
 \end{figure}
 Prenons l'exemple illustré dans la figure~\ref{fig:etat-art-modelisation-parametrique-concepts-intersection-non-planaires-probleme}. %
@@ -799,7 +775,7 @@ opérations~:
 		\caption{Pièce extrudée}
 		\label{fig:etat-art-modelisation-parametrique-systemes-capoylease-extruded-part}
 	\end{subfigure}
-	\caption{Exemple de nomination d'entités topologique par Capoyleas}
+	\caption{Exemple de nomination d'entités topologique, Capoyleas}
 	\label{fig:etat-art-modelisation-parametrique-systemes-capoylease-generated-entities}
 \end{figure}
 
@@ -823,7 +799,7 @@ d'arrivée de l'extrusion, la face de côté générée à partir de \(e_{3}\) e
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=150pt]{capoyleas-cut-part}
-	\caption{Résultat d'une différence entre deux objets par Capoyleas}
+	\caption{Résultat d'une différence entre deux objets, Capoyleas}
 	\label{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}
 \end{figure}
 
@@ -859,7 +835,8 @@ Précisons que \(nbOccurence\) représente le nombre d'entités qui partagent le
 même nom et la même distance dans le voisinage. %
 Le contexte est étendu de cette manière jusqu'à trouver une classe d'équivalence
 unique qui permette alors de discriminer une entité dont le nom est partagé. %
-Prenons, par exemple, les deux arêtes \(I_e\) encadrées en {\color{orange}orange} dans la
+Prenons, par exemple, les deux arêtes \(I_e\) encadrées en
+{\bfseries\color{orange}orange} dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}.
 % \xavier{De manière générale, sur la figure, il faudrait faire ressortir les entités que tu évoques. Par exemple, on a du mal à repérer cette arête \(I_e\).} %
 À terme, pour la première entité \(I_{e}\), nous obtenons~:
@@ -878,7 +855,7 @@ et pour la seconde~:
 \end{flalign*}
 Ainsi, la première arête \(I_{e}\) est caractérisée par l'arête \(e(v_{4})\) et
 la seconde est caractérisée par l'arête \(e(v_{3})\) encadré en
-{\color{Chartreuse4}vert} dans la
+{\bfseries\color{mydarkgreenink}vert} dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-systemes-capoyleas-cut-part}. %
 
 Cependant, cette approche basée sur le voisinage topologique peut ne plus
@@ -1136,7 +1113,7 @@ et les \emph{classes de caractéristiques procédurales}. Elles sont définies c
 			      \caption{}
 			      \label{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete-2}
 		      \end{subfigure}
-		      \caption{Nomination d'une arête par Bidarra et al.}
+		      \caption{Exemple de nomination d'une arête, Bidarra et al.}
 		      \label{fig:etat-art-modelisation-parametrique-synthese-bidarra-nomination-arete}
 	      \end{figure}
 
@@ -1172,7 +1149,7 @@ et les \emph{classes de caractéristiques procédurales}. Elles sont définies c
 	\end{subfigure}
 	\caption{Résolution de l'ambiguïté % dans le cas
 		d'une intersection
-		non-planaire par Bidarra et al.}
+		non-planaire, Bidarra et al.}
 	\label{fig:etat-art-modelisation-parametrique-synthese-bidarra-ambiguite}
 \end{figure}
 
@@ -1280,7 +1257,7 @@ persistant du brin copié auquel s'ajoute sa propre histoire. %
 	~
 
 	\includegraphics[width=\textwidth]{cardot-fil-rouge-long-2}
-	\caption{Exemple de construction de Cardot }
+	\caption{Exemple de construction, Cardot }
 	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}
 \end{figure}
 
@@ -1304,8 +1281,8 @@ persistant du brin copié auquel s'ajoute sa propre histoire. %
 
 Dans l'exemple de construction illustré
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemple-construction}, les
-brins \(a\) et \(b\) sont tous les deux créés par la première règle de création d'une face carrée (fig.~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemples-regles-carre}) et plus spécifiquement par les n\oe uds \(n_{4}\) (en {\color{DodgerBlue1}bleu}) et \(n_{3}\) (en
-	{\color{orange}orange}) respectivement. %
+brins \(a\) et \(b\) sont tous les deux créés par la première règle de création d'une face carrée (fig.~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-exemples-regles-carre}) et plus spécifiquement par les n\oe uds \(n_{4}\) (en {\bfseries\color{myblueink}bleu}) et \(n_{3}\) (en
+	{\bfseries\color{mylightorange}jaune}) respectivement. %
 Leurs identifiants persistants sont \(PI_{a1} = \{1 - n_{4}\}\) et
 \(PI_{b1} = \{1 - n_{3}\}\). %
 Dans la deuxième étape de la construction, \(a\) et \(b\) sont réécrits à
@@ -1345,7 +1322,7 @@ l'évaluation initiale.%
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=.65\textwidth]{cardot-journal-bord-triangulation}
-	\caption{Journal de bord de la triangulation par Cardot}
+	\caption{Journal de bord de la triangulation, Cardot}
 	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-bord}
 \end{figure}
 
@@ -1359,14 +1336,21 @@ fusion, le non-changement et la modification d'entités topologiques. %
 
 Considérons le journal de bord de la règle de triangulation illustré dans la
 figure~\ref{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-bord}. %
-Nous constatons, par exemple, dans l'entrée de type \texttt{face} (orbite \(\orbit{0,1}\)) (encadrée en {\color{DodgerBlue1}bleu}), que
-la face filtrée par la règle est scindée ("\textit{split}") en autant de parties qu'il y avait d'arêtes (orbite \(\orbit{0}\)) dans la face initiale. %
-Si l'on considère l'entrée de type \texttt{sommet} \(\orbit{1,2}\) (encadrée en {\color{orange}orange}), nous observons deux événements : d'une part, la modification ("\textit{Modif.}") des sommets (orbite \(\orbit{1,2}\)) de la face initiale après la triangulation ; et d'autre part, la création ("\textit{Creat.}") du sommet central de la face triangulée à partir de la face (orbite \(\orbit{0,1}\)) initiale.
+Nous constatons, par exemple, dans l'entrée de type \texttt{face} (orbite
+\(\orbit{0,1}\)) (encadrée en {\bfseries\color{myblueink}bleu}), que la face
+filtrée par la règle est scindée («~\textit{split}~») en autant de parties qu'il y
+avait d'arêtes (orbite \(\orbit{0}\)) dans la face initiale. %
+Si l'on considère l'entrée de type \texttt{sommet} \(\orbit{1,2}\) (encadrée en
+{\bfseries\color{mylightorange}jaune}), nous observons deux événements : d'une part,
+la modification («~\textit{Modif.}~») des sommets (orbite \(\orbit{1,2}\)) de la
+face initiale après la triangulation ; et d'autre part, la création
+(«~\textit{Creat.}~») du sommet central de la face triangulée à partir de la face
+(orbite \(\orbit{0,1}\)) initiale.
 
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\textwidth]{cardot-journal-historique}
-	\caption{Journal d'historique de \(PI_{7a}\) par Cardot}
+	\caption{Journal d'historique de \(PI_{7a}\), Cardot}
 	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-journal-historique}
 \end{figure}
 
@@ -1406,7 +1390,7 @@ dans une spécification paramétrique. %
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[height=.32\paperheight]{cardot-arbre-reevaluation-pn7a}
-	\caption{Arbre d'appariement de \(PI_{7a}\) par Cardot}
+	\caption{Arbre d'appariement de \(PI_{7a}\), Cardot}
 	\label{fig:etat-art-modelisation-parametrique-synthese-cardot-arbre-appariement}
 \end{figure}
 
@@ -1444,10 +1428,12 @@ omettent d'intégrer une origine (et leurs propres suivis) pour les entités
 suivies, ce qui peut conduire à un appariement erroné des entités topologiques
 lors de la réévaluation et à plus forte raison lorsque des opérations ont été
 ajoutées, supprimées ou encore déplacées dans l'édition de la spécification
-paramétrique.
-Notons aussi que dans ses travaux, Cardot étudie uniquement des opérations élémentaires (règles simples) et non des opérations complexes correspondant à des scripts règles. %
-De plus, comme l'indique Cardot, la méthode proposée est "purement théorique" et
-n'a pas été implémentée~\cite{cardot2019}~(page~117). %
+paramétrique. %
+Notons aussi que dans ses travaux, Cardot étudie uniquement des opérations
+élémentaires (règles simples) et non des opérations complexes, c'est-à-dire des
+opérations dont la structure interne fait usage de boucles ou d'alternatives. %
+De plus, comme l'indique Cardot, la méthode proposée est «~purement théorique~»
+et n'a pas été implantée~\cite{cardot2019}~(page~117). %
 Il est difficile dans ce contexte de mesurer l'impact réel de cette approche et
 la pertinence du mécanisme de nomination sur des cas concrets.
 
@@ -1478,7 +1464,7 @@ devrait, selon eux,~respecter.  Premièrement, il devrait permettre la sélectio
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\textwidth]{cascaval-types-relations}
-	\caption{Types de relations pour le suivi des entités par Cascaval et al.}
+	\caption{Types de relations pour le suivi des entités, Cascaval et al.}
 	\label{fig:etat-art-modelisation-parametrique-systemes-cascaval-types-relations}
 \end{figure}
 Dans ce contexte, Cascaval et al. proposent un langage spécifique à la
@@ -1663,8 +1649,6 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 \begin{sidewaystable}[htbp!]
 	\centering
 	\small
-	\caption{Synthèse des systèmes de réévaluation par approches}
-	\label{tab:etat-art-modelisation-parametrique-synthes-systemes-approches}
 	\begin{tabularx}{\textwidth}{|p{4.55cm}||Y|Y|Y|Y|Y|Y|}
 		\bottomrule%
 		\diagbox[width=142pt, height=41pt,font=\small, innerrightsep=1em]{Approche}{Système} & Kripac                  & Capoyleas et al.        & Wu et al.               & Bidarra et al.          & Cardot                                                              & Cascaval et al.                                         \\
@@ -1691,14 +1675,19 @@ Néanmoins, cette approche présente plusieurs inconvénients~:
 		Résolution  d'ambiguïté géométrique                                                  & \cmark                  & \cmark                  & \cmark                  & \cmark                  & \xmark                                                              & \cmark                                                  \\
 		\hline %
 	\end{tabularx}
+ 	\caption{Synthèse des systèmes de réévaluation par approches}
+	\label{tab:etat-art-modelisation-parametrique-synthes-systemes-approches}
 \end{sidewaystable}
 
-Dans ce chapitre, nous avons passé en revue un état de l'art des systèmes de
-réévaluation proposés dans la littérature et des problèmes qu'ils tentent de
-résoudre. Parmi ceux-ci se trouvent la nomination persistante des entités
-topologiques, leurs appariements dans la réévaluation d'une spécification
-paramétrique éditée et, parfois, l'appariement d'entités pour lesquelles la
-topologie est devenue insuffisante pour les distinguer les unes des autres. %
+Dans ce chapitre, nous avons commencé par présenter les outils que nous
+utiliserons tout au long de cette thèse pour formaliser les objets et les
+opérations de modélisation géométrique. Puis, nous avons passé en revue un état
+de l'art des systèmes de réévaluation proposés dans la littérature et des
+problèmes qu'ils tentent de résoudre. Parmi ceux-ci se trouvent la nomination
+persistante des entités topologiques, leurs appariements dans la réévaluation
+d'une spécification paramétrique éditée et, parfois, l'appariement d'entités pour
+lesquelles la topologie est devenue insuffisante pour les distinguer les unes
+des autres. %
 
 Nous avons constaté qu'une grande partie de ces approches ont développé un système
 de nomination persistante en utilisant les faces comme entités de base pour

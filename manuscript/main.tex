@@ -1,5 +1,5 @@
-% \documentclass[x11names]{LiasThesis}
-\documentclass[x11names,framepage]{LiasThesis}
+\documentclass[x11names]{LiasThesis}
+% \documentclass[x11names,framepage]{LiasThesis}
 
 \usepackage{subfiles}
 \usepackage{subcaption}
@@ -196,10 +196,11 @@ Co-encadrants~:  \textbf{David MARCHEIX} et \textbf{Xavier SKAPIN}
 \backmatter
 \clearpage
 \pagebreak
-\listoffigures
+% \printbibliography*
+\printbibliography[notkeyword={own}]
 \clearpage
 \pagebreak
-\listoftables
+\listoffigures
 \clearpage
 \pagebreak
 \renewcommand\lstlistlistingname{Table des listings}
@@ -207,8 +208,7 @@ Co-encadrants~:  \textbf{David MARCHEIX} et \textbf{Xavier SKAPIN}
 \addcontentsline{toc}{chapter}{\lstlistlistingname}
 \clearpage
 \pagebreak
-% \printbibliography*
-\printbibliography[notkeyword={own}]
+\listoftables
 \clearpage
 \pagebreak
 \pagestyle{empty}

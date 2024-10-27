@@ -8,18 +8,20 @@
 \section*{Contexte}
 
 
-Depuis le début des années 60, l'informatique graphique n'a de cesse de gagner
-en popularité, au point d'être présent dans tous les aspects du quotidien. %
-Tout d'abord développés pour la conception de
-plans~\cite{autodeskAUTOCAD,dassaultCATIA,siemensNX,dassaultSOLIDWORKS} pour la
-conception de pièces industrielles, les logiciels de modélisation géométrique
-ont gagné les domaines de la créativité et du divertissement au travers du
-cinéma et des jeux vidéos~\cite{autodesk3ds,autodeskMaya,blenderSculpting}, mais
-aussi ceux de l'architecture et l'aménagement
-urbain~\cite{autodeskREVIT,esri2023cityengine}. %
-Au travers de ces nombreux domaines d'applications, diverses façons de créer des
-objets virtuels, des \textit{modèles}, ont été implantés sous formes de
-logiciels spécialisés. %
+Depuis le début des années 60, les logiciels d'informatique graphique n'ont eu
+de cesse de gagner en popularité, à tel point que ceux-ci sont présents dans
+tous les aspects du quotidien. %
+Tout d'abord développés pour conception et la fabrication de pièces
+industrielles~\cite{autodeskAUTOCAD,dassaultCATIA,siemensNX,dassaultSOLIDWORKS},
+les logiciels de modélisation géométrique se sont étendus vers de nombreux
+autres domaines. %
+Nous pouvons identifier, notamment, les domaines de la créativité et du
+divertissement au travers du cinéma et des jeux
+vidéos~\cite{autodesk3ds,autodeskMaya,blenderSculpting}, mais aussi ceux de
+l'architecture~\cite{autodeskREVIT} et l'aménagement
+urbain~\cite{esri2023cityengine}. %
+Avec ces logiciels, nous pouvons observer que diverses façons de créer et
+manipuler des objets virtuels, des \textit{modèles}, ont été implantés. %
 Nous retrouvons, entre autres, la génération procédurale et la modélisation
 paramétrique. %
 
@@ -29,191 +31,195 @@ formelles~\cite{lindenmayer1974adding} ou des instructions composées
 d'opérations de modélisation. %
 Ces règles peuvent alors être paramétrées afin de générer des familles d'objets
 comme des végétaux~\cite{terraz20093gmap,bohl2015modeling}, des
-bâtiments~\cite{Quattrini_Baleani_2015} ou des villes~\cite{esri2023cityengine},
-voire des mondes entiers pour le cinéma et le jeu
+bâtiments~\cite{muller2006procedural, haegler2009procedural,
+  Quattrini_Baleani_2015} ou des villes~\cite{parish2001procedural,
+  esri2023cityengine}, voire des mondes entiers pour le cinéma et le jeu
 vidéo~\cite{autodesk3ds,godotEngine,autodeskMaya,unityEngine,unrealEngine}. %
 
-La modélisation paramétrique est une autre approche au cours de laquelle un
-utilisateur applique une séquence d'opérations pour créer, au fur et à mesure,
-la représentation géométrique. %
-Ces logiciels sont communément utilisés pour la fabrication de pièces
-industrielles~\cite{autodeskAUTOCAD, dassaultCATIA, freecad, siemensNX,
-  autodeskREVIT, dassaultSOLIDWORKS}. %
-Ces dernières années, avec l'apparition des imprimantes 3D ont trouvé leur place
-dans la conception de prothèse médicale\todo{ref} et, pour le grand public, dans
-la conception de pièces de rechanges et d'accessoires. %
+La modélisation paramétrique est une autre approche de création où un modèle est
+construit par les applications successives d'opération aussi appelé
+\emph{processus constructif}. %
+À chaque étape de construction (ou \emph{instance de modélisation}), l'opération
+appliquée est enregistrée dans une \emph{spécification paramétrique} et une
+nouvelle représentation géométrique est générée. %
+Cette approche de création est particulièrement populaire dans la conception de
+pièces industrielles, mais aussi pour la conception de mobiliers ou encore dans
+la fabrication de prothèses médicales. %
+Pour le grand public, ces outils offrent aussi la possibilité de concevoir des
+pièces de rechanges afin de les fabriquer à l'aide d'imprimantes 3D. %
 
-Avec les années et le besoin de construire des objets toujours plus complexes,
-sont apparues des initiatives basées sur des méthodes formelles afin de garantir
-la construction d'objets cohérents aussi bien du point de vue
-géométrique~\cite{arnould2022preserving} que
-topologique~\cite{pascual2022topological}. %
-Nous retrouvons ainsi des outils tels que les cartes combinatoires et les cartes
-généralisées~\cite{lienhardt1991topological,Damiand-Lienhardt14}. %
-Dans cette même logique, la formalisation de langages pour la construction et la
-génération de modèles complètent cette démarche. %
-Des langages spécialisés sont alors apparus comme les \textit{3gmap
-  L-System}~\cite{terraz20093gmap} les règles
-Jerboa~\cite{poudret2008graph,bellet2011rule,belhaouari2014jerboa} plus tard
-étendu au langage de scripts Jerboa~\cite{gauth2019}. %
+Avec les années et les avancées technologiques est apparu le besoin de modéliser
+des objets toujours plus complexes. %
+Dans certains cas ces besoins se concrétisent la modélisation d'objets de
+dimension quelconques. %
+Des modèles de représentations comme les cartes
+combinatoires~\cite{vince1983combinatorial} ou les cartes
+généralisées~\cite{lienhardt1991topological, Damiand-Lienhardt14} ont alors été
+élaborés pour permettre la construction de modèle \(n\)-dimensionnels,
+c'est-à-dire génériques en toutes dimensions. %
+Dans cette logique, des librairies telles que CGAL~\cite{cgal:d-cm-24b,
+	cgal:d-gm-24b} et CGoGN~\cite{kraemer2014cgogn} ont proposé des modules
+permettant de traiter ces modèles. %
+Par la suite, d'autres approches permettant la manipulation des cartes
+généralisées ont été proposées. %
 
-Aujourd'hui, ces outils de formalisations permettent, entre autres choses, de
-générer de manière procédurale des fruits et des
-végétaux~\cite{terraz20093gmap,bohl2015modeling}, de reconstruire des modèles de
-bâtiments~\cite{horna2009consistency}, voire de réservoirs
+Ainsi, des approches formelles sont apparues avec l'utilisation de
+grammaires~\cite{peyrat2008generating, terraz20093gmap, petrenko20133gmap,
+	bohl2015modeling} pour la génération procédurale de végétaux, ou encore des
+règles de transformation de graphes~\cite{poudret2008graph}. %
+Ces règles de transformation de graphe ont, par la suite, été étendues au
+langage de règles Jerboa~\cite{belhaouari2014jerboa} puis au langage de script
+Jerboa~\cite{gauth2019}. %
+Les règles Jerboa, en particulier, suivent un ensemble de contraintes
+garantissant que l'application d'une règle sur une carte de dimension \(n\)
+préserve à la fois sa cohérence topologique et géométrique. %
+
+Aujourd'hui, des modeleurs utilisant ces formalismes, tels que ceux basés sur la
+bibliothèque Jerboa, permettent la reconstruction de modèles de
+bâtiments~\cite{horna2009consistency} et de réservoirs
 géologiques~\cite{gauth2019}. %
-Nous les retrouvons également dans le domaine de la modélisation paramétrique
-afin de permettre la réévaluation d'objets~\cite{babaali2010systeme,
-  cardot2019}. %
+Ils sont également intégrés dans des modeleurs paramétriques pour implanter des
+mécanismes dits de \emph{réévaluation} (ou \emph{rejeu}) de
+modèles~\cite{babaali2010systeme, cardot2019}. %
 
 
 
 \section*{Problématique}
+
+
+
 
 %% difficulté nécessitant la réévaluation
 La modélisation d'un objet est une tâche fastidieuse impliquant des cycles
 successifs d'essais et de correction. %
 Ainsi, la modification d'un objet nécessite de reprendre manuellement
 l'intégralité du processus de modélisation. %
-Les logiciels de modélisation paramétrique proposent, pour alléger cette
-difficulté, d'enregistrer chacune des étapes de modélisation dans une
-\emph{spécification paramétrique}. %
+Pour alléger cette difficulté, les logiciels de modélisation paramétrique
+proposent d'enregistrer chacune des étapes de modélisation dans une
+spécification paramétrique. %
 Il est alors possible d'éditer les paramètres des opérations enregistrées puis
-de réévaluer, c'est-à-dire réappliquer successivement, les opérations en prenant
-en compte les éventuelles modifications apportées. %
-De cette manière, un mécanisme de réévaluation doit permettre la génération
-automatique d'une nouvelle représentation géométrique à partir d'un modèle
-paramétrique initial. %
+de réévaluer la spécification paramétrique, c'est-à-dire réappliquer une à une
+les opérations en prenant en compte les éventuelles modifications apportées. %
+Un mécanisme de réévaluation doit, ainsi, permettre la génération automatique
+d'une nouvelle représentation géométrique à partir d'un modèle paramétrique
+initial. %
 
 %% introduction du problème de la nomination persistante
-Dès les années 90, la réévaluation de modèles paramétriques fait l'objet de
+Dès les années 90, la réévaluation de modèle paramétrique fait l'objet de
 nombreuses études pour la réévaluation de modèles 3D. %
 En effet, la mise un \oe uvre de ce mécanisme se heurte au problème de
 l'évolution des entités topologiques lors de la réévaluation. %
 Afin de permettre l'appariement de ces entités, il est alors indispensable de
 mettre en place un mécanisme d'identification dit persistant. %
 Un tel mécanisme doit permettre une identification à la fois unique et sans
-ambiguïté de chacune des entités enregistrées dans une spécification
-paramétrique. %
+ambiguïté de chacune des entités topologiques enregistrées dans une
+spécification paramétrique. %
 Ce problème est celui de la \emph{nomination persistante}. %
 
-Pour résoudre ce problème ce problème, la plupart des approches consistent à
-identifier une entité d'après son voisinage topologique et, le cas échéant de
-l'enrichir avec des informations géométriques lorsque la topologie ne suffit
-plus. %
-Dans ce cas, l'évolution de chacune des entités est suivie de deux manières
-possibles~: Soit par un parcours exhaustif ou localisé du modèle initial par
-rapport au modèle réévalué~; soit par le codage explicite des changements
-topologiques directement dans le code d'une opération de modélisation. %
+Pour résoudre ce problème, la plupart des approches consistent en la
+construction d'un nom référençant le voisinage topologique d'une
+entité~\cite{chen1995representation, kripac1995mechanism, CAPOYLEAS199617,
+  agbodan2000persistent}. %
+Dans certains cas ambigus, c'est-à-dire lorsque la topologie seule ne suffit pas
+à identifier une unique entité topologique, des informations géométriques sont
+ajoutées au nom
+persistant~\cite{wu2001face,bidarra2005feature,wang2005geometry}. %
 
-La première consiste à comparer les deux pour tracer les modifications apportées
-en cours de réévaluation. %
-Celle-ci est efficace, car permettant de produire un suivi exhaustif et non
-ambiguë des entités topologiques. %
-Cependant, elle est aussi coûteuse en temps de calcul, car dépendant de la
+Pour la nomination basée sur le voisinage topologique, il est nécessaire
+d'effectuer le suivi des évolutions des entités topologiques au cours de
+l'évolution du modèle. %
+Ce suivi permet, au rejeu, de mettre en \oe uvre une phase d'\emph{appariement}
+où les entités du modèle initiales sont mises en correspondance avec des entités
+équivalentes dans le modèle rejoué. %
+
+Aujourd'hui, plusieurs solutions existent pour effectuer un tel suivi, néanmoins
+celles-ci se heurtent à limitation concernant la construction des opérations de
+modélisation. %
+Celle-ci sont construites suivant un langage de code dont l'analyse est
+particulièrement difficile. %
+En particulier, plusieurs opérations structurées différemment peuvent, en
+réalité, décrire une seule et même procédure. %
+
+Ainsi, l'évolution de chacune des entités est généralement suivie comme suit~:
+Soit par un parcours exhaustif ou localisé du modèle initial par rapport au
+modèle réévalué~; soit par le codage explicite des changements topologiques
+directement dans le code d'une opération de modélisation. %
+Un parcours total en vue de comparer deux versions d'un même modèle peut
+s'avérer exhaustif, néanmoins coûteux en temps de calcul en fonction de la
 complexité du modèle. %
+Au contraire, l'intégration des changements topologiques à détecter directement
+dans les opérations est instantané, mais des erreurs humaines peuvent
+survenir. %
+En effet, le risque d'introduire des erreurs et ainsi conduire à des erreurs de
+détection est important. %
 
-La seconde approche consiste à lister, directement dans les opérations de
-modélisation, l'ensemble des changements attendus suite à l'application d'une
-opération. %
-Cette approche est moins exhaustive, car limitée aux zones d'applications des
-opérations, et donc plus efficiente en temps de calcul. %
-Toutefois, le risque d'y introduire des erreurs ou de ne pas prendre certaines
-modifications de la topologie est important. %
-
-De plus, les solutions existantes se heurtent à deux principales limitations. %
-Premièrement, les systèmes disponibles considèrent uniquement des opérations
-écrites sous forme de code dont l'analyse est complexe. %
-Il est donc très difficile de procéder à l'analyse d'une opération afin d'en
-extraire automatiquement l'ensemble des changements topologiques qu'elle
-applique sur un ensemble d'entités topologiques. %
-Dans cette configuration, la détection d'un changement implique d'appliquer
-l'opération. %
-Deuxièmement, les schémas de nomination proposés sont généralement basés sur un
-type d'entité topologique spécifique, le plus souvent la face, rendant difficile
-la généralisation des méthodes liées à la réévaluation. %
+De plus, les schémas de nomination persistante proposés sont majoritairement
+basés sur un type d'entité topologique spécifique, le plus souvent des cellules
+de type face, rendant difficile la généralisation des méthodes liées à la
+réévaluation. %
 Dans le cas des faces, cela rend particulièrement difficile la caractérisation
-et le suivi des volumes et autres entités de plus hautes dimensions dans le
-cadre de la réévaluation. %
-
-% \cite{hoffmann1992erep, kripac1995mechanism, chen1995representation,
-%   CAPOYLEAS199617, wu2001face, bidarra2005feature, wang2005geometry,
-%   cheon2012name, farjana2018mechanisms, cardot2019, safdar2020feature,
-%   cascaval2023lineage, dai2024sweeping}
+et le suivi des volumes et autres entités de plus hautes dimensions et plus
+particulièrement dans le cadre de la réévaluation. %
 
 
 
 \section*{Démarche et contributions}
 
 
+
 La nomination persistante, dans le cadre de la réévaluation de modèles
 paramétriques, est un problème étudié depuis plusieurs décennies. %
-Cependant, aucune des approches présentées à ce jour ne définit de schéma de
-nomination réellement générique et, à plus forte raison, permettant de réévaluer
-des objets de dimension quelconque. %
-De plus, les possibilités d'évaluation proposées par la plupart des modeleurs
-paramétriques se limitent aux éditions des paramètres géométriques. %
-De même, aucun de ces systèmes ne garantie la cohérence topologique des modèles
-réévalués qui doivent alors être analysés puis réparés le cas échéant
-\maxime{Je crois avoir vu ça dans la doc' d'OCAF mais je suis pas sûr de moi}. %
+La réévaluation est, à ce jour, devenu une fonctionnalité incontournable dans
+les modeleurs paramétriques tels que Revit~\cite{autodeskREVIT},
+SolidWorks~\cite{dassaultSOLIDWORKS} et bien d'autres. %
+Cependant, la réévaluation, en fonction des modeleurs, propose des résultats
+variables ne respectant pas toujours les intentions de conceptions des
+utilisateurs. %
 
-Dans cette thèse, nous proposons des méthodes formelles pour la détection
-automatique des changements topologiques survenant lors de l'application de
-règles Jerboa.
+Par ailleurs, aucune de ces approches ne définit de schéma de nomination
+réellement générique et, à plus forte raison, permettant de réévaluer des objets
+de dimension quelconque. %
+Cela fait que chaque modeleur ne permet de modéliser des objets que pour un
+ensemble défini de dimension. %
 
-Nous proposons également un système de nomination en deux couches, qui permet la
-caractérisation d'une entité d'après les règles qui contribuent à sa création
-et son évolution. %
+Aussi, les possibilités d'évaluation proposées par la plupart des modeleurs
+paramétriques ne concernent que l'édition des paramètres géométriques. %
+Les utilisateurs ne peuvent donc pas éditer le processus constructif avec
+l'ajout, la suppression ou encore le déplacement d'opérations. %
 
-Nous avons implanté des algorithmes nous permettant de reconstituer, de manière
-riche, l'historique des évolutions d'une entité uniquement à l'aide de l'analyse
-des opérations qui l'ont fait évoluer. %
+Enfin, aucun de ces systèmes n'offre de garantie sur la cohérence topologique
+des objets créés. %
+Ainsi, sans garantie de cohérence topologique et avec les variations induites
+par l'édition d'une spécification paramétrique, les modèles réévalués doivent
+être analysés puis réparés le cas échéant afin d'être utilisables. %
 
-Enfin, nous proposons d'étendre nos structures de données afin de
-supporter le langage de scripts Jerboa permettant de créer des opérations de
-modélisation complexes. %
-
-% Dans ce manuscrit, nous proposons d'étendre le problème de la nomination
-% persistante aux systèmes de modélisation à base de règles. %
-% Pour cela, nous tirons avantage de deux outils de formalisation nous permettant
-% de dégager des propriétés topologiques essentielles à notre mécanisme de
-% réévaluation. %
-% Nous proposons ainsi d'utiliser des cartes généralisées qui permettent
-% d'identifier un large panel d'entités topologiques qui ne se limitent pas aux
-% sommets, arêtes et aux faces. %
-% Nous proposons aussi de d'utiliser le langage de règles Jerboa pour formaliser
-% les opérations de modélisation. %
-
-% Grâce à ces outils formels, il nous est possible de procéder à l'analyse
-% syntaxique des règles de modélisations. %
-% Ainsi, nous proposons dans un premier temps de caractériser les changements
-% topologiques directement à partir des règles Jerboa. %
-% Dans un second temps, nous proposons des critères d'analyses pour la détection
-% automatique des changements topologiques dans les règles Jerboa. %
-% De cette manière, la détection peut-être opérée statiquement en pré-calcul au
-% lancement du modeleur. %
-
-% Pour la nomination persistante, proposons un système en deux couches. %
-% Pour cela, nous reprenons et adaptons les travaux de Cardot~\cite{cardot2019}
-% afin de proposer un mécanisme de nomination persistante qui se construit
-% progressivement à chaque application d'une opération. %
-% Avec ce système de nomination, la première couche créée un historique basé sur
-% l'ensemble des règles dont l'application impacte une entité topologique, et plus
-% particulièrement les brins d'une carte généralisée. %
-% La deuxième reconstitue l'ensemble des évolutions d'une entité sur la base des
-% applications enregistrées dans son historique. %
-% Grâce à cela, nous proposons un système de réévaluation capable d'apparier des
-% entités topologique sur la base de leurs évolutions respectives. %
-
-% Enfin, nous proposons d'étendre notre système de réévaluation aux
-
-
-% Contribution
-% \begin{itemize}
-% 	\item Formalisation des impacts des opérations sur un objet
-% 	\item Formalisation et réévaluation automatique à partir de règles formelles
-% 	\item Extension à des scripts
-% \end{itemize}
+Pour aborder ces problèmes, nous nous basons sur les travaux de
+Cardot~\cite{cardot2019}. %
+Ses travaux proposent en effet d'utiliser le formalisme des cartes généralisées
+et des règles Jerboa pour garantir la cohérence topologique des modèles ainsi
+que la généricité des procédures pour la réévaluation. %
+Ainsi, dans ce manuscrit, nous proposons un modeleur paramétrique répondant à
+ces besoins. %
+\begin{itemize}
+	\item Nous avons formalisé la détection de changements topologiques à partir
+        de l'analyse syntaxique des règles Jerboa. %
+	\item Nous avons implanté un mécanisme de nomination persistante à deux
+        niveaux~:
+	      \begin{itemize}
+		      \item le premier niveau identifie une entité topologique par les
+                opérations qui impactent son évolution,
+		      \item le second niveau réutilise la formalisation des changements
+                topologiques pour reconstituer à l'aide de graphes orientés
+                acycliques (DAG) un historique enrichi de ses évolutions. %
+	      \end{itemize}
+	\item Nous avons implanté une procédure d'appariement des entités topologiques pour le rejeu. %
+	\item Nous avons proposé des stratégies permettant de configurer la
+	      réévaluation en fonction des préférences des utilisateurs. %
+	\item Nous avons proposé une extension de structures de données pour intégrer
+        le support de scripts à notre mécanisme de réévaluation. %
+  \item Nous avons implanté une procédure d'appariement d'entités topologiques
+        entre deux règles alternatives pour le rejeu. %
+\end{itemize}
 
 
 
@@ -293,8 +299,8 @@ alternative imbriquée dans une itération. %
 
 Une conclusion générale vient achever la présentation des travaux effectués tout
 au long de cette thèse. %
-Nous y proposons un récapitulatif des contributions ainsi que des perspectives à
-court et long terme de travaux futurs. %
+Nous y proposons un récapitulatif des contributions ainsi que des perspectives
+de travaux futurs. %
 
 \nocite{gaide2023automatic,gaide2023model,gaide2024reevaluation}
 \printbibliography[keyword={own},title=Publications]

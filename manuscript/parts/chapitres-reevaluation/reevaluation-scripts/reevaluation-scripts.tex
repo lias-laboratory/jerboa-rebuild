@@ -203,9 +203,9 @@ le listing~\ref{lst:reevaluation-scripts-scripts-scripts-reevaluation-boite-ferm
 Dans ce cas, il revient au développeur de définir précisément et de manière persistante les paramètres de sortie du script, en particulier lorsque celui-ci est réévalué dans un contexte différent. %
 Imaginons, par exemple, que dans le
 listing~\ref{lst:reevaluation-scripts-scripts-scripts-reevaluation-boite-fermee},
-\texttt{3\allowbreak{}-\allowbreak{}uneAutreRegle(PN\textsubscript{2})} soit
+\texttt{3\allowbreak{}-\allowbreak{}uneAutreRegle(\allowbreak{}PN\textsubscript{2})} soit
 appliquée sur un sommet retourné par l'application
-\texttt{2\allowbreak{}-\allowbreak{}unScript(PN\textsubscript{1})}. %
+\texttt{2\allowbreak{}-\allowbreak{}unScript(\allowbreak{}PN\textsubscript{1})}. %
 La boîte du script étant fermée, il revient aux développeurs de s'assurer que, dans un contexte de réévaluation différent, le sommet retourné représente toujours l'intention de conception. %
 Cela revient donc à demander au développeur du script de résoudre manuellement le problème de la nomination persistante. %
 Cette approche est évidemment limitée, car un script complexe peut créer, supprimer ou modifier de nombreuses orbites. Cependant, il peut être pertinent de définir explicitement quelques orbites caractéristiques comme sorties du script.
@@ -554,7 +554,7 @@ carrés par l'application
 \texttt{2\allowbreak{}-\allowbreak{}subdivision\-Quad}. %
 L'application
 \texttt{3\allowbreak{}-\allowbreak{}S\allowbreak{}\_\allowbreak{}coloration\-Face\-Composante}
-sur la composante connexe désignée par le \pndart{0}{1n0}, déclenche l'enregistrement d'un
+sur la composante conn\-exe désignée par le \pndart{0}{1n0}, déclenche l'enregistrement d'un
 bloc \texttt{For}. %
 Celui-ci contient quatre applications de l'opération \texttt{coloration\-Face},
 et plus particulièrement, une pour chaque face. %
@@ -565,7 +565,7 @@ Les noms persistants des brins \(0\), \(2\), \(3\), \(4\) et \(6\) deviennent
 et \([1n6;2n0;3\{4n0\}]\). %
 Enfin, à nouveau dans le bloc principal de la spécification paramétrique,
 l'opération \texttt{triangulation\-Face} est appliquée sur la face désignée par
-le \pndart{3}{1n3;2n0;3\{2n0\}}. %
+le \pndart{3}{1n3;2n0;3\{\allowbreak{}2n0\}}. %
 
 
 
@@ -697,7 +697,7 @@ if(CONDITION)
 
 Une structure d'alternative
 \texttt{if\allowbreak{}-\allowbreak{}then\allowbreak{}-\allowbreak{}else} permet
-d'appliquer, alternativement, une séquence d'opérations ou une autre en fonction de l'évaluation d'une condition donnée. %
+d'appliquer, alternativement, une séqu\-ence d'opérations ou une autre en fonction de l'évaluation d'une condition donnée. %
 L'intégration de cette structure pour la réévaluation nécessite, tout comme pour
 la séquence et la boucle, un enregistrement des opérations évaluées dans la
 spécification paramétrique ainsi que dans les DAG. %
@@ -806,7 +806,7 @@ produit avec une face initiale triangulaire est illustré sur la figure
 
 
 Comme pour les autres structures, une fois dans le script, nous enregistrons un
-bloc \texttt{Alternative} en notant la branche évaluée, c'est-à-dire soit la
+bloc \texttt{Alt\-er\-na\-tive} en notant la branche évaluée, c'est-à-dire soit la
 branche \texttt{Then}, soit la branche \texttt{Else}. %
 Contrairement aux deux autres structures, nous n'enregistrons pas de paramètre
 topologique pour le bloc \texttt{Alternative}. %
@@ -956,7 +956,7 @@ sur la règle utilisée à la réévaluation.
 
 La première étape pour effectuer l'appariement consiste donc à récupérer
 l'évènement et l'origine de l'orbite que l'on souhaite apparier. %
-Dans notre exemple, il s'agit du sommet \(\orbit{1,2,3}(n2)\) de la règle de
+Dans notre exemple, il s'agit du sommet \(\orbit{1,2,3}(\allowbreak{}n2)\) de la règle de
 triangulation. %
 L'analyse de la règle
 (figure~\ref{fig:reevaluation-scripts-alternative-appariement-orbite-tri})

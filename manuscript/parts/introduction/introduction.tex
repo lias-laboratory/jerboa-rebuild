@@ -11,13 +11,13 @@
 Depuis le début des années 60, les logiciels d'informatique graphique n'ont eu
 de cesse de gagner en popularité, à tel point que ceux-ci sont présents dans
 tous les aspects du quotidien. %
-Tout d'abord développés pour conception et la fabrication de pièces
+Tout d'abord développés pour la conception et la fabrication de pièces
 industrielles~\cite{autodeskAUTOCAD,dassaultCATIA,siemensNX,dassaultSOLIDWORKS},
 les logiciels de modélisation géométrique se sont étendus vers de nombreux
 autres domaines. %
 Nous pouvons identifier, notamment, les domaines de la créativité et du
 divertissement au travers du cinéma et des jeux
-vidéos~\cite{autodesk3ds,autodeskMaya,blenderSculpting}, mais aussi ceux de
+vidéos~\cite{autodesk3ds,autodeskMaya,blender}, mais aussi ceux de
 l'architecture~\cite{autodeskREVIT} et l'aménagement
 urbain~\cite{esri2023cityengine}. %
 Avec ces logiciels, nous pouvons observer que diverses façons de créer et
@@ -32,12 +32,12 @@ d'opérations de modélisation. %
 Ces règles peuvent alors être paramétrées afin de générer des familles d'objets
 comme des végétaux~\cite{terraz20093gmap,bohl2015modeling}, des
 bâtiments~\cite{muller2006procedural, haegler2009procedural,
-  Quattrini_Baleani_2015} ou des villes~\cite{parish2001procedural,
-  esri2023cityengine}, voire des mondes entiers pour le cinéma et le jeu
+	Quattrini_Baleani_2015} ou des villes~\cite{esri2023cityengine}, voire des
+mondes entiers pour le cinéma et le jeu
 vidéo~\cite{autodesk3ds,godotEngine,autodeskMaya,unityEngine,unrealEngine}. %
 
 La modélisation paramétrique est une autre approche de création où un modèle est
-construit par les applications successives d'opération aussi appelé
+construit par les applications manuelles successives d'opérations aussi appelé
 \emph{processus constructif}. %
 À chaque étape de construction (ou \emph{instance de modélisation}), l'opération
 appliquée est enregistrée dans une \emph{spécification paramétrique} et une
@@ -45,18 +45,18 @@ nouvelle représentation géométrique est générée. %
 Cette approche de création est particulièrement populaire dans la conception de
 pièces industrielles, mais aussi pour la conception de mobiliers ou encore dans
 la fabrication de prothèses médicales. %
-Pour le grand public, ces outils offrent aussi la possibilité de concevoir des
+Pour le grand public~\cite{blender, freecad}, ces outils offrent aussi la possibilité de concevoir des
 pièces de rechanges afin de les fabriquer à l'aide d'imprimantes 3D. %
 
 Avec les années et les avancées technologiques est apparu le besoin de modéliser
 des objets toujours plus complexes. %
-Dans certains cas ces besoins se concrétisent la modélisation d'objets de
+Dans certains cas ces besoins se concrétisent par la modélisation d'objets de
 dimension quelconques. %
 Des modèles de représentations comme les cartes
 combinatoires~\cite{vince1983combinatorial} ou les cartes
 généralisées~\cite{lienhardt1991topological, Damiand-Lienhardt14} ont alors été
 élaborés pour permettre la construction de modèle \(n\)-dimensionnels,
-c'est-à-dire génériques en toutes dimensions. %
+c'est-à-dire génériques en dimensions. %
 Dans cette logique, des librairies telles que CGAL~\cite{cgal:d-cm-24b,
 	cgal:d-gm-24b} et CGoGN~\cite{kraemer2014cgogn} ont proposé des modules
 permettant de traiter ces modèles. %
@@ -84,28 +84,29 @@ modèles~\cite{babaali2010systeme, cardot2019}. %
 
 
 
-\section*{Problématique}
+\section*{Problématiques}
 
 
 
 
 %% difficulté nécessitant la réévaluation
 La modélisation d'un objet est une tâche fastidieuse impliquant des cycles
-successifs d'essais et de correction. %
+successifs d'essais et de corrections. %
 Ainsi, la modification d'un objet nécessite de reprendre manuellement
 l'intégralité du processus de modélisation. %
-Pour alléger cette difficulté, les logiciels de modélisation paramétrique
+Pour alléger cette tâche, les logiciels de modélisation paramétrique
 proposent d'enregistrer chacune des étapes de modélisation dans une
 spécification paramétrique. %
 Il est alors possible d'éditer les paramètres des opérations enregistrées puis
 de réévaluer la spécification paramétrique, c'est-à-dire réappliquer une à une
 les opérations en prenant en compte les éventuelles modifications apportées. %
 Un mécanisme de réévaluation doit, ainsi, permettre la génération automatique
-d'une nouvelle représentation géométrique à partir d'un modèle paramétrique
-initial. %
+d'une nouvelle représentation géométrique à partir d'une spécification paramétrique éditée. %
+%\agnes{pas très clair pour moi... qu'entends-tu par modèle paramétrique initial ? Ne faudrait-il pas plutôt parler de "spécification paramétrique éditée" ?}%
+% \maxime{Je me suis mélangé entre deux points vue (1) créer une variation d'un modèle initial et (2) générer une variation à partir d'une spec éditée. Donc je prends ta correction.}
 
 %% introduction du problème de la nomination persistante
-Dès les années 90, la réévaluation de modèle paramétrique fait l'objet de
+Dès les années 90, la réévaluation spécification paramétrique fait l'objet de
 nombreuses études pour la réévaluation de modèles 3D. %
 En effet, la mise un \oe uvre de ce mécanisme se heurte au problème de
 l'évolution des entités topologiques lors de la réévaluation. %
@@ -119,7 +120,7 @@ Ce problème est celui de la \emph{nomination persistante}. %
 Pour résoudre ce problème, la plupart des approches consistent en la
 construction d'un nom référençant le voisinage topologique d'une
 entité~\cite{chen1995representation, kripac1995mechanism, CAPOYLEAS199617,
-  agbodan2000persistent}. %
+	agbodan2000persistent}. %
 Dans certains cas ambigus, c'est-à-dire lorsque la topologie seule ne suffit pas
 à identifier une unique entité topologique, des informations géométriques sont
 ajoutées au nom
@@ -132,34 +133,36 @@ Ce suivi permet, au rejeu, de mettre en \oe uvre une phase d'\emph{appariement}
 où les entités du modèle initiales sont mises en correspondance avec des entités
 équivalentes dans le modèle rejoué. %
 
-Aujourd'hui, plusieurs solutions existent pour effectuer un tel suivi, néanmoins
-celles-ci se heurtent à limitation concernant la construction des opérations de
-modélisation. %
-Celle-ci sont construites suivant un langage de code dont l'analyse est
-particulièrement difficile. %
-En particulier, plusieurs opérations structurées différemment peuvent, en
-réalité, décrire une seule et même procédure. %
+Aujourd'hui, plusieurs solutions existent pour suivre les évolutions d'entités topologiques. %
+Néanmoins, il est particulièrement difficile d'effectuer un tel suivi à partir des seules
+opérations de modélisation, car celles-ci sont écrites sous forme de code. %
+% Les opérations sont construites suivant un langage de code dont l'analyse est
+% particulièrement difficile. %
+% En particulier, plusieurs opérations structurées différemment peuvent, en
+% réalité, décrire une seule et même procédure.
+% \agnes{ce § ne me semble pas très clair}%
+% \maxime{certainement que cette dernière phrase embrouille plus qu'autre chose. J'essaie de dire que l'analyse d'un code est déjà particulièrement difficile, sans compter les différentes façons d'écrire la même chose. Sans méthode formelle pour analyser ce que fait une opération, il est difficile de les analyser pour déterminer leurs impacts sur des entités topologiques.}
+% \maxime{J'ai essayé de simplifier}
 
 Ainsi, l'évolution de chacune des entités est généralement suivie comme suit~:
-Soit par un parcours exhaustif ou localisé du modèle initial par rapport au
+soit par un parcours exhaustif ou localisé du modèle initial par rapport au
 modèle réévalué~; soit par le codage explicite des changements topologiques
-directement dans le code d'une opération de modélisation. %
+directement dans le code des opérations de modélisation. %
 Un parcours total en vue de comparer deux versions d'un même modèle peut
 s'avérer exhaustif, néanmoins coûteux en temps de calcul en fonction de la
 complexité du modèle. %
 Au contraire, l'intégration des changements topologiques à détecter directement
 dans les opérations est instantané, mais des erreurs humaines peuvent
 survenir. %
-En effet, le risque d'introduire des erreurs et ainsi conduire à des erreurs de
-détection est important. %
+En effet, le risque d'introduire des erreurs et ainsi conduire à des mauvaises
+détections est important. %
 
 De plus, les schémas de nomination persistante proposés sont majoritairement
 basés sur un type d'entité topologique spécifique, le plus souvent des cellules
 de type face, rendant difficile la généralisation des méthodes liées à la
 réévaluation. %
 Dans le cas des faces, cela rend particulièrement difficile la caractérisation
-et le suivi des volumes et autres entités de plus hautes dimensions et plus
-particulièrement dans le cadre de la réévaluation. %
+et le suivi des volumes et autres entités de plus hautes dimensions. %
 
 
 
@@ -184,14 +187,15 @@ ensemble défini de dimension. %
 
 Aussi, les possibilités d'évaluation proposées par la plupart des modeleurs
 paramétriques ne concernent que l'édition des paramètres géométriques. %
-Les utilisateurs ne peuvent donc pas éditer le processus constructif avec
+Les utilisateurs ne peuvent pas éditer le processus constructif avec
 l'ajout, la suppression ou encore le déplacement d'opérations. %
 
 Enfin, aucun de ces systèmes n'offre de garantie sur la cohérence topologique
 des objets créés. %
 Ainsi, sans garantie de cohérence topologique et avec les variations induites
 par l'édition d'une spécification paramétrique, les modèles réévalués doivent
-être analysés puis réparés le cas échéant afin d'être utilisables. %
+être analysés puis réparés le cas échéant afin d'être utilisables~\cite{gonzalez2017survey}.
+% \agnes{ref ?}\maxime{Il me semble que ce papier en parle, ça devrait rentrer dans la catégorie "erreurs morphologique - topologie locale - éléments non-variétés. Dans le doute, je me dis qu'il vaut peut-être mieux enlever ce paragraphe.} %
 
 Pour aborder ces problèmes, nous nous basons sur les travaux de
 Cardot~\cite{cardot2019}. %
@@ -243,7 +247,7 @@ l'approche de modélisation à base de règles sur laquelle nous nous appuyons. 
 Le deuxième chapitre concerne les concepts et notions liés à la modélisation
 paramétrique. %
 Dans ce chapitre, nous commençons par distinguer les approches de modélisation
-paramétrique dites \textit{variationnelle} et \textit{fonctionnelle} pour la
+paramétrique dites \textit{variationnelles} et \textit{fonctionnelles} pour la
 réévaluation. %
 Nous abordons ensuite le problème de la nomination persistante dans le cadre des
 systèmes paramétriques fonctionnels. %
@@ -256,7 +260,7 @@ Enfin, nous positionnons nos travaux par rapport à la littérature. %
 
 Dans le troisième chapitre, nous présentons notre première contribution sur la
 formalisation des changements topologiques (ou \textit{évènements}). %
-Nous proposons, tout d'abord, de définir ces évènements de manière au travers de
+Nous proposons, tout d'abord, de caractériser ces évènements lors de
 la transformation de cartes généralisées. %
 Nous formalisons, ensuite, ces évènements dans les règles de transformation de
 graphes. %
@@ -264,8 +268,8 @@ Nous y définissons notamment la notion d'origine permettant d'enrichir le suivi
 des évènements. %
 Nous étendons cette formalisation des évènements aux règles Jerboa qui nous
 servent à représenter les opérations de modélisation. %
-Enfin, nous proposons un échantillon d'évènements détectés à partir de deux
-règles Jerboa. %
+%Enfin, nous proposons un échantillon d'évènements détectés à partir de deux
+%règles Jerboa. \agnes{cette dernière phrase est curieuse, à supprimer ?}\maxime{pourquoi pas, je savais si ce serait intéressant de dire qu'il y avait deux petits exemples de détections d'évènements} %
 
 
 Dans le quatrième chapitre, nous présentons notre seconde contribution sur la
@@ -286,9 +290,12 @@ scripts de règles. %
 Nous présentons brièvement le langage de scripts Jerboa permettant d'organiser
 des règles à l'aide des structures de contrôles (itération, alternatives,
 etc.). %
-Nous proposons, pour étendre notre mécanisme de réévaluation aux scripts, de
-nous intéresser, pour commencer par supporter trois des structures de contrôles
-usuelles~: la séquence, l'itération et l'alternative. %
+%Nous proposons, pour étendre notre mécanisme de réévaluation aux scripts, de
+%nous intéresser, pour commencer par supporter trois des structures de contrôles
+%usuelles~: la séquence, l'itération et l'alternative. %
+L'extension de notre mécanisme de réévaluation aux scripts, se concentre sur
+les trois des structures de contrôles usuelles~: la séquence, l'itération et
+l'alternative.
 Nous présentons, ensuite, les extensions requises pour nos structures de données
 afin de supporter la réévaluation de scripts présentant des séquences de règles,
 des itérations sur les entités topologiques ainsi que des alternatives. %

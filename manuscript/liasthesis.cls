@@ -384,15 +384,12 @@
 {\endlist}
 
 \newenvironment{resume}[1]{%
-
 	\centering
 	{\normalsize\bfseries\textsc{#1}}
 
-	\vspace{0.25em}
 	\renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
 	\renewcommand{\abstractname}{\translate{Résumé~:}}
-	\noindent
-	\begin{abstract}
+	\begin{abstract}\vspace{-.5\baselineskip}
 		}{%
 	\end{abstract}
 }

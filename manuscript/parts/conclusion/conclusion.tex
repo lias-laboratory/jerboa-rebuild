@@ -1,18 +1,24 @@
+\clearpage\markboth{}{}
 \adjustmtc
 \chapter*{Conclusion}
 \label{cha:conclusion}
 \addstarredchapter{Conclusion}
 
-\section*{Contributions}
 
-La réévaluation de modèles paramétrique est une fonctionnalité incontournable
-des modeleurs paramétriques. %
-Ceux-ci permettent, en effet, d'éviter de reprendre la conception d'un
-modèle pour en générer une simple variation. %
+
+\section*{Contributions}
+\newcommand\sectionname{Contributions}
+\markboth{Conclusion}{\sectionname}
+
+
+La réévaluation de modèles paramétriques est une fonctionnalité incontournable
+des modeleurs interactifs. %
+Ceux-ci permettent en effet d'éviter de refaire le travail fastidieux de
+conception d'un modèle pour en générer une simple variation. %
 Cela s'avère particulièrement avantageux lorsque le processus de conception ne
-change pas de manière substantielle. %
-Par exemple, avec la modification des paramètres géométrique des opérations qui
-n'implique aucun ajout, suppression ou déplacement d'opération. %
+change pas de manière substantielle~; par exemple, avec la modification des
+paramètres géométriques des opérations qui n'implique aucun ajout, suppression
+ou déplacement d'opération. %
 
 Afin d'être considéré fonctionnel, un mécanisme de réévaluation doit respecter
 un certain nombre de contraintes. %
@@ -21,8 +27,7 @@ non ambiguë des entités topologiques. %
 L'objet issu du processus de réévaluation doit respecter les intentions de
 modélisation de l'utilisateur, c'est-à-dire que le programme ne doit pas prendre
 d'initiative à la place de l'utilisateur. %
-L'objet doit être topologiquement et géométriquement cohérent pour pouvoir être
-fabriqué. %
+L'objet doit être topologiquement et géométriquement cohérent. %
 
 Dans les solutions existantes, nous avons identifié plusieurs faiblesses liées à
 ces différentes contraintes. %
@@ -31,7 +36,7 @@ entités topologiques avec une certaine fidélité, ceux-ci ne sont pas
 génériques. %
 Leurs schémas de nomination sont adaptés à une dimension précise de
 modélisation. %
-Les étendre à d'autres dimensions nécessite alors des efforts important ainsi
+Les étendre à d'autres dimensions nécessite alors des efforts importants ainsi
 que la définition de nouvelles procédures d'appariement. %
 Deuxièmement, le recours à la géométrie de certaines méthodes introduit des
 ambiguïtés lors de l'appariement. %
@@ -50,7 +55,7 @@ produit. %
 
 
 Notre première contribution concerne la détection des évènements (création,
-suppression, scission, fusion, non-changement, modification). %
+suppression, scission, fusion, non-changement et modification). %
 Nous avons formalisé un ensemble de critères permettant de caractériser chacun
 des évènements aussi bien dans les objets que dans les règles de transformation
 de graphe. %
@@ -65,19 +70,20 @@ Dans de tels cas, une simple vérification locale, dans l'objet, permet de
 confirmer ou non la détection d'un évènement. %
 
 Avec ce formalisme, nous proposons une nouvelle méthode permettant de suivre
-l'évolution des entités topologiques dans un modèle exclusivement grâce à une
+l'évolution des entités topologiques dans un modèle, exclusivement grâce à une
 analyse syntaxique des règles Jerboa. %
 Celle-ci peut être opérée statiquement en pré-calcul au premier lancement du
 modeleur, ce qui s'avère particulièrement efficace en temps de calcul. %
-Ainsi, cette méthode s'affranchit de la nécessiter de parcourir deux objets pour
-le comparer. %
+Ainsi, cette méthode s'affranchit de la nécessité de parcourir en parallèle
+deux objets pour les comparer. %
 De même, il devient inutile de spécifier explicitement quels évènements sont
 attendus suite à l'application d'une opération. %
 
 Enfin, cette méthode de détection est générique. %
-Celle-ci étant basée sur l'analyse des règles, elle n'est conçue pour aucune
-dimension spécifique et permet alors la détection des évènements peu importe la
-dimension de modélisation définie par le modeleur. %
+Celle-ci étant basée sur l'analyse des règles, elle n'est pas conçue pour une
+dimension spécifique. % %%MAXIME: revoir le découpage de cette phrase
+Elle permet alors la détection des évènements quelle que soit la
+dimension de modélisation du modeleur ou des orbites manipulées par l'opération. %
 
 
 
@@ -85,7 +91,7 @@ dimension de modélisation définie par le modeleur. %
 
 
 
-À l'aide des formalismes des cartes généralisée et des règles Jerboa enrichi de
+À l'aide des formalismes des cartes généralisée et des règles Jerboa enrichis de
 notre formalisation des évènements, nous avons implanté un mécanisme de
 nomination persistante en deux couches. %
 Ce mécanisme consiste, dans un premier temps, à construire puis maintenir un
@@ -95,7 +101,7 @@ Grâce à cela, tout brin peut être identifié de manière unique et non ambigu
 Ainsi, à chaque fois qu'une règle est appliquée, l'historique du brin
 sélectionné à l'instance courante de modélisation est enregistré dans une
 spécification paramétrique. %
-Cet historique ainsi enregistré est immuable devient alors un nom persistant de
+Cet historique ainsi enregistré est immuable et devient alors un nom persistant de
 brin. %
 
 Dans un deuxième temps, nous avons implanté une procédure qui, pour chaque nom
@@ -104,12 +110,12 @@ l'historique des évolutions d'une orbite incidente au brin désigné. %
 Un tel historique est représenté par un DAG dit d'évaluation nous permettant de
 traiter l'information qu'il contient. %
 Dans cette procédure, nous utilisons la formalisation d'évènements pour détecter
-et enregistrer dans un DAG chacun des évènements impactant une orbite au cours
+et enregistrer dans le DAG chacun des évènements impactant une orbite au cours
 de la modélisation. %
 De plus, cet historique est enrichi de la notion d'origine qui nous permet alors
-d'identifier formellement une orbite lors de la réévaluation sur la base de son
+d'identifier sans ambiguïté une orbite lors de la réévaluation sur la base de son
 historique de construction. %
-Ces origines sont elles-mêmes tracée jusqu'à représenter leur ancêtre les plus
+Ces origines sont elles-mêmes tracées jusqu'à représenter leurs ancêtres les plus
 anciens. %
 
 Pour la réévaluation à proprement parler, nous avons implanté une
@@ -117,21 +123,26 @@ procédure d'appariement qui crée de nouveaux DAG de réévaluation en reprodui
 et mettant à jour les DAG d'évaluation. %
 De cette manière, nous pouvons conserver à la fois les DAG d'évaluation et de
 réévaluation. %
-Les DAG de réévaluation, au fur et à mesure de la réévaluation, mettent en \oe uvre
-la phase d'appariement. %
-Ainsi, une fois que le DAG est complété, celui-ci désigne les brins à utiliser
+Les DAG de réévaluation permettent la mise en \oe uvre de procédures d'appariement
+au fur et à mesure de leur construction. %
+Ainsi, une fois  le DAG est complété, celui-ci désigne les brins à utiliser
 comme paramètres topologiques pour l'application suivante. %
 
-Enfin, afin de répondre aux attentes des utilisateurs, nous proposons deux
-fonctionnalités~: la possibilité d'ajouter, supprimer ou déplacer des opérations
-dans la spécification paramétrique~; et d'adapter la réévaluation à l'aide de
-stratégies configurables. %
+Enfin, nous proposons de prendre en compte l'ajout, la suppression et le
+déplacement d'opérations. %
+Ce type de modification au niveau de l'historique de construction a un impact
+plus important sur la réévaluation et les mécanismes
+de nomination persistante que la simple édition des paramètres géométriques,
+qui s'avère restrictive. %
+En complément, nous proposons des stratégies paramétrables pour adapter la réévaluation. %
 Par exemple, lorsqu'une orbite est scindée par une application ajoutée dans la
 spécification réévaluée, il est possible de choisir les différents paramètres
 topologiques sur lesquels poursuivre la réévaluation. %
 Au contraire, lorsque deux orbites sont fusionnées par la suppression d'une
-sous-orbite, nous proposons qu'il soit possible de choisir de préserver l'une ou
-l'autre ou les deux historiques de ces orbites dans celle issue de la fusion. %
+sous-orbite, nous proposons de choisir de préserver l'une ou
+l'autre ou les deux historiques de ces orbites dans celle fusionnée. %
+Actuellement, seuls l'ajout et la suppression d'opération sont supportés par le
+mécanisme de réévaluation. % %%MAXIME: tout relire pour voir si ça ne casse pas la lecture
 
 
 
@@ -140,23 +151,28 @@ l'autre ou les deux historiques de ces orbites dans celle issue de la fusion. %
 
 
 Les règles Jerboa ne permettent pas de représenter des opérations complexes,
-c'est-à-dire faisant appels à plusieurs autres opérations. %
+c'est-à-dire faisant appels à plusieurs orbites non isomorphes. %
+Ces opérations complexes sont réalisées par les scripts Jerboa qui composent
+plusieurs règles. %
 Nous proposons une extension de notre mécanisme de réévaluation afin de
-supporter les scripts Jerboa et donc des opérations complexes. %
+supporter les scripts Jerboa et donc ces opérations complexes. %
 Dans un premier temps, nous définissons les extensions nécessaires à nos
-structures de données pour trois des structures de contrôles usuelles, la
+structures de données pour trois des structures de contrôles usuelles~: la
 séquence, l'itération de type \texttt{foreach} et l'alternative. %
 
 Les scripts représentent, d'une certaine façon, des spécifications paramétriques
 à part entière. %
-Dans notre démarche, nous avons fait le choix d'opter pour la représentation en
-boîte ouverte qui nous permet d'accéder au contenu des scripts, à savoir les
-opérations, les paramètres topologiques et géométriques ainsi que les structures
-de contrôle utilisées. %
+Dans notre démarche, nous avons fait le choix de la représentation en «~boîte
+ouverte~». %
+En effet, contrairement à la «~boîte fermée~» qui permet seulement de gérer un
+script comme une règle, la boîte ouverte nous permet d'accéder au contenu des
+scripts, à savoir les opérations, les paramètres topologiques et géométriques
+ainsi que les structures de contrôle utilisées. %
 
 Nous proposons ainsi, sur la base de la représentation boîte ouverte, des
 extensions de structures de spécification paramétrique et de DAG d'évaluation et
 de réévaluation. %
+% \xavier{[Remarque : pourquoi parler de boîte fermée ? Tout ton discours précédent et suivant repose sur la boîtes ouverte. Si tu veux simplement rappeler la différence entre les deux, fais-le en début de paragraphe, puis explique le choix de la boîte ouverte et ne parle plus de la boîte fermée.]}%
 Dans les spécifications paramétriques, l'extension doit nous permettre
 d'enregistrer des paramètres topologiques à la fois pour les scripts et pour les
 règles qu'ils appellent. %
@@ -169,7 +185,7 @@ De plus, nous proposons de conditionner la réévaluation d'une orbite en foncti
 des paramètres topologiques des scripts qui impactent son évolution ainsi qu'à
 leurs structures de contrôles. %
 De cette manière, une structure itérative est conditionnée par l'existence de
-l'orbite itérée ainsi que celles de ses instances de sous-orbites d'itération. %
+l'orbite itérée ainsi que celle de ses instances de sous-orbites d'itération. %
 
 Enfin, nous avons implanté une nouvelle procédure d'appariement d'orbite dans le
 cadre de l'alternative. %
@@ -184,22 +200,27 @@ strict dans la règle alternative. %
 
 
 \section*{Perspectives}
-
+\renewcommand\sectionname{Perspectives}
+\markboth{Conclusion}{\sectionname}
 
 
 Certains des travaux présentés dans ce manuscrit étant en cours d'implantation,
 nous disposons déjà d'un certain nombre de perspectives à court terme. %
 
-Nous prévoyons, tout d'abord, de terminer l'implantation des modifications qui
-peuvent être faites dans une spécification paramétrique et ainsi compléter la
-liste de stratégies que nous proposons dans notre modeleur. %
+Tout d'abord, nous prévoyons de terminer l'implantation des déplacements
+d'opérations qui peuvent être faites dans une spécification paramétrique et
+ainsi compléter la liste de stratégies que nous proposons dans notre modeleur. %
 Ainsi, nous pourrons proposer à un utilisateur de changer l'ordre des opérations
-dans une spécification paramétrique, mais aussi en supprimer. %
+dans une spécification
+paramétrique. %, mais aussi en supprimer. \david{que le changement d'ordre ne soit pas encore implémenté, ce n'est pas trop grave. Par contre il faudrait que ce soit le cas pour la suppression. Ca te semble jouable d'intégrer ça d'ici la soutenance ?} %
+% \xavier{[Remarque : ATTENTION, dans la partie précédente, tu as écrit que le déplacement d'opération est déjà pris en compte (comme l'ajout et la suppression). Mais ici, tu signales que c'est une perspective => contradiction]}
 Nous compléterons, dans le même temps, les stratégies de réévaluation lors de
-l'ajout d'une suppression d'orbite de sorte à gérer l'interruption d'un
+l'ajout d'une suppression d'orbite, de sorte à gérer l'interruption d'un
 appariement ou encore la fusion de deux orbites. %
 
-Nous poursuivrons, ensuite, avec le support des scripts dans notre modeleur. %
+Ensuite, nous poursuivrons l'extension de notre mécanisme de réévaluation pour
+permettre la réévaluation de spécifications paramétriques comportant des scripts
+Jerboa. %\agnes{pb dans cette phrase}\maxime{mieux ?}%
 Nous implanterons les extensions identifiées dans le dernier chapitre pour les
 spécifications paramétriques ainsi que les DAG. %
 Nous mettrons en \oe uvre des tests afin de contrôler le bon fonctionnement des
@@ -216,27 +237,43 @@ Cette extension concerne les stratégies présentées dans ce manuscrit. %
 
 Pendant la réalisation de ces travaux, nous avons identifié plusieurs
 perspectives à plus long terme. %
-Celles-ci nous permettant d'ouvrir nos travaux à d'autres champs d'études.
+Celles-ci nous permettent d'ouvrir nos travaux à d'autres champs d'études.
 
-Une première piste que nous avons identifiée est l'annotation temporelle des
-opérations. %
-L'objectif, dans un premier temps, est de permettre l'annotation temporelle des
-opérations avec des dates. %
+La première piste concerne le domaine de l'archéologie. %
+L'objectif est de développer des opérations complexes à l'aide de scripts pour
+la modélisation en archéologie. %
+En effet, dans le cadre de leur recherche, les archéologues peuvent être amenés
+à créer des restitutions virtuelles d'artefacts archéologiques ou des bâtiments
+historiques, issus de fouilles et dans des états souvent dégradés. %
+Afin de mener à bien ces travaux, ils émettent des hypothèses sur l'état initial
+de leur sujet d'étude et ont alors besoin de confronter les différentes
+hypothèses de restitution. %
+Cette démarche implique ainsi la création d'une variation pour chaque
+hypothèse. %
+Il s'agit, autrement dit, d'un problème qui peut être pris en compte par la
+réévaluation. %
+Ainsi, nous prévoyons d'étudier l'applicabilité de notre modeleur et de son
+mécanisme de réévaluation pour l'archéologie. %
+
+
+Une seconde piste que nous avons identifiée, dans la continuité de la première,
+est l'annotation temporelle des opérations. %
+L'objectif, dans un premier temps, est d'ajouter une annotation temporelle aux opérations. %
 Puis, dans un second temps, de permettre la réévaluation du modèle suivant
 l'ordre chronologique, c'est-à-dire réappliquer les opérations de la
-spécification en fonction des dates qui leur sont attribuées. %
+spécification en fonction des dates qui leur ont été attribuées. %
 Pour cela, nous pouvons utiliser les DAG conçus au cours de nos travaux. %
-Puisqu'un DAG représente l'évolution d'une orbite, il est donc possible de les
-utiliser pour définir à partir de quand une orbite est créé et à quel moment
+Puisque les DAG représentent des évolutions d'orbites, il est donc possible de les
+utiliser pour déterminer l'instant de création d'une orbite et à quel moment
 celle-ci est supprimée. %
 Ainsi, il est possible de garantir la cohérence des annotations temporelles
 vis-à-vis des paramètres topologiques d'une application. %
-À terme, une telle extension permettrait de réévaluer des bâtiments, par
+À terme, une telle extension permettrait de réévaluer des bâtiments historiques, par
 exemple, suivant un ordre chronologique supposé. %
 Les résultats de ces réévaluations permettant, \textit{in fine}, de confronter
 des hypothèses sur la construction et l'évolution de certains biens patrimoniaux
 au cours du temps. %
-
+% \david{peut être peux tu ajouter un point avant d'en arriver aux annotations temporelles (histoire d'avoir au moins 2 perspectives à long terme). Je te propose d'ajouter l'idée de développer des opérations complexes à l'aide des scripts dans le domaine de l'archéologie qui a justement un fort besoin de reévaluation pour générer des variantes de ce qui aurait pu exister, car les fouilles ne révèlent que quelques vestiges et il y a une part importante d'hypothèses. Ca nous permet de tester nos scripts et leur réévaluation à un domaine d'application. Si c'est pas très clair, n'hésites pas à m'appeler.}
 
 % Une autre piste envisagée est l'intégration, dans le modeleur, d'annotations à
 % partir de données historiques hétérogènes (photographies, notes, mesures,

@@ -818,10 +818,12 @@ est \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{
 
 Enfin, les deux dernières applications enregistrées,
 \texttt{8-\allowbreak{}coloration\-Face(\pndart{35}{1n3;\allowbreak{}2n4;\allowbreak{}5n0})}
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-8-coloration-bleu})
 et
 \texttt{9-\allowbreak{}coloration\-Face(\pndart{68}{1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1})}
-(figure~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}),
+(figures
+~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-8-coloration-bleu}
+et
+\ref{fig:reevaluation-base-regle-nomination-persistante-brins-9-coloration-rouge}\allowbreak{}),
 colorient les faces désignées par les brins \(35\) et \(68\)
 (figures~\ref{fig:reevaluation-base-regle-nomination-persistante-brins-8-evaluation-coloration-bleu}
 et
@@ -834,7 +836,8 @@ seul le plongement de couleur change). %
 L'historique du brin \(35\) (respectivement \(68\)) est enregistré dans la
 spécification paramétrique comme nom persistant de la huitième application
 (respectivement la neuvième), puis mis à jour en
-\texttt{[1n3;\allowbreak{}2n4;\allowbreak{}5n0;\allowbreak{}8n0]} (respectivement
+\texttt{[1n3;\allowbreak{}2n4;\allowbreak{}5n0;\allowbreak{}8n0]}
+(respectivement
 \texttt{[1n5;\allowbreak{}2n6;\allowbreak{}3n0;\allowbreak{}4n4;\allowbreak{}6n2;\allowbreak{}7n1;\allowbreak{}9n0]}). %
 
 ~
@@ -1212,7 +1215,7 @@ enregistrées dans une spécification paramétrique. %
 Comme illustré
 dans l'exemple, combiner l'analyse statique des règles aux noms persistants des brins enregistrés dans la spécification paramétrique nous permet de calculer et
 représenter les évolutions d'une orbite jusqu'à ses origines. %
-Avec cette approche, il n'est alors pas nécessaire de ré-appliquer les règles pour déterminer les évènements au fur et à mesure de l'évolution du modèle. %
+Avec cette approche, il n'est alors pas nécessaire de réappliquer les règles pour déterminer les évènements au fur et à mesure de l'évolution du modèle. %
 Ce mécanisme est exécuté uniquement pour les paramètres topologiques,
 c'est-à-dire les entités topologiques enregistrées dans la spécification
 paramétrique.%
@@ -1797,8 +1800,9 @@ opérations qu'il souhaite réappliquer sur cette face. %
 \section{Implantation}
 \label{sec:reevaluation-base-regles-implantation}
 
-L'approche de réévaluation à base de règles présentée dans les sections précédentes a été partiellement implantée dans Jerboa. Les procédures permettant le support de la suppression d'orbite et le
-déplacement d'une opération suite à l'édition d'une spécification paramétrique
+L'approche de réévaluation à base de règles présentée dans les sections précédentes a été partiellement implantée dans Jerboa. %
+Les procédures permettant le support %de la suppression d'orbite et 
+du déplacement d'une opération suite à l'édition d'une spécification paramétrique
 sont, au moment de la rédaction de ce manuscrit, des travaux en cours. %
 Dans cette section, nous décrivons les implantations des structures de données
 des DAG d'évaluation et de réévaluation grâce auxquels nous pouvons apparier
@@ -1946,9 +1950,9 @@ Afin d'offrir un certain degré de liberté lors de la réévaluation, nous
 proposons également des stratégies configurables par les utilisateurs. %
 Ces stratégies leur permettent, entre autre, de sélectionner un ensemble de
 paramètres sur lesquels réappliquer des opérations lorsque, par exemple, une
-entité est scindée par une opération ajoutée. % D'autres stratégies permettant de prendre en compte la suppression d'orbite
+entité est scindée par une opération ajoutée. % ua
+D'autres stratégies permettent de prendre en compte la suppression d'orbite
 ainsi que le déplacement d'opérations sont en cours d'implantation. %
- %
 
 
 %%% Local Variables:

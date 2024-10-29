@@ -1,5 +1,5 @@
-\documentclass[x11names]{LiasThesis}
-% \documentclass[x11names,framepage]{LiasThesis}
+% \documentclass[x11names]{LiasThesis}
+\documentclass[x11names,framepage]{LiasThesis}
 
 \usepackage{subfiles}
 \usepackage{subcaption}
@@ -9,7 +9,7 @@
 % \usepackage{lmodern} % la font est très sympa, mais aussi très (trop) fine
 
 %% Pour avoir encore plus niveau de section -> surtout redéfinir paragraph
-\usepackage{titlesec}
+\usepackage[pagestyles]{titlesec}
 \titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
 \titleformat{\subparagraph}[hang]{\normalfont\normalsize}{\thesubparagraph}{1em}{\ul}
@@ -133,11 +133,11 @@ Co-encadrants~:  \textbf{David MARCHEIX} et \textbf{Xavier SKAPIN}
   Jean-Luc MARI \tabto{.35\textwidth} {\mdseries Professeur des Universités, Aix-Marseille
     Université}\\[1mm]%
   Xavier SKAPIN \tabto{.35\textwidth} {\mdseries Maître de Conférences,
-    Université de Poitiers}\\[1mm]%
-  \vspace{.5em}%
-  {\bfseries Invité~:}\\[2mm]
-  Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de Conférences,
-    Université de Poitiers}\\%
+    Université de Poitiers}\\%[1mm]%
+  % \vspace{.5em}%
+  % {\bfseries Invité~:}\\[2mm]
+  % Hakim BELHAOUARI \tabto{.35\textwidth} {\mdseries Maître de Conférences,
+  %   Université de Poitiers}\\%
 }
 
 \date{11 décembre 2024}
@@ -196,7 +196,10 @@ Co-encadrants~:  \textbf{David MARCHEIX} et \textbf{Xavier SKAPIN}
 %%%%%%%%% Post-rédaction : annexes + bibliographie
 
 \backmatter
+\begingroup
+\setlength{\emergencystretch}{0.5em}
 \printbibliography[notkeyword={own}]
+\endgroup
 \cleardoublepage
 \listoffigures
 \cleardoublepage

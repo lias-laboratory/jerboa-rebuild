@@ -1,0 +1,102 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass[aspectratio=169]{beamer}
+
+\input{preamble/commands.tex}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{subfiles}
+\usepackage{subcaption}
+
+
+\usefolder{lias-theme}                  % to load the lias' theme
+
+\usetheme[numbering=fraction]{lias}
+\liasset{block=fill}                    % to have blocks within frames
+
+\input{commands.tex}
+
+
+\noframetitlelogo
+
+\def\dbasepath{../resources-figures-jerboa}
+\def\dlogopath{../logos}
+\graphicspath{{\dbasepath/article2/}%
+		{\dbasepath/figures/}%
+		{\dbasepath/concepts/}%
+		{\dbasepath/rules/}%
+		{\dbasepath/persistent-naming/}%
+		{\dlogopath}}
+
+\author[Maxime Gaide et al.]{\centering Maxime Gaide}
+
+\institute{}
+
+\date{}
+% \date{\today}
+
+\title{\centering Modélisation et rejeu basés sur des règles}
+
+\BeforeBeginEnvironment{document}{%
+	\titlegraphic{
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south west) [above right]{
+				\includegraphics[width=5em]{\dlogopath/lias-logo}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north west) [below right]{
+				\includegraphics[width=5em]{\dlogopath/logo_isae-ensma}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south east) [above left]{
+				\includegraphics[width=5em]{\dlogopath/xlim-logo}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north east) [below left]{
+				\includegraphics[width=5em]{\dlogopath/logo-up}
+			};
+		\end{tikzpicture}
+	}
+}
+
+
+\begin{document}
+
+\begin{frame}[noframenumbering,plain]
+	\titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+  \frametitle{Contexte}
+
+\end{frame}
+
+\section{Formalismes}
+
+
+
+\section[Nommage Persistant]{Nommage Persistant}
+
+\subsection[Nommage Persistant des brins]{Nommage Persistant des brins}
+
+
+\subsection[Nommage Persistant des orbites]{Nommage Persistant des orbites}
+
+
+\section[Réévaluation]{Réévaluation}
+
+
+\section{Conclusion}
+
+
+\end{document}

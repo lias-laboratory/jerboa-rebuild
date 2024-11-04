@@ -1,0 +1,72 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemelias}[2023/06/29 v0.1 Lias Beamer Theme]
+\RequirePackage{etoolbox}
+\RequirePackage{pgfopts}
+\pgfkeys{/lias/.cd,
+  .search also={
+    /lias/inner,
+    /lias/outer,
+    /lias/color,
+    /lias/font,
+  }
+}
+
+
+\pgfkeys{
+    /lias/titleformat plain/.cd,
+      .is choice,
+      regular/.code={%
+        \let\lias@plaintitleformat\@empty%
+        \setbeamerfont{standout}{shape=\normalfont}%
+      },
+      smallcaps/.code={%
+        \let\lias@plaintitleformat\@empty%
+        \setbeamerfont{standout}{shape=\scshape}%
+      },
+}
+
+
+\pgfkeys{
+    /lias/titleformat/.code=\pgfkeyalso{
+        font/titleformat title=#1,
+        font/titleformat subtitle=#1,
+        font/titleformat section=#1,
+        font/titleformat frame=#1,
+        titleformat plain=#1,
+    }
+}
+
+\pgfkeys{/lias/.cd,
+    usetitleprogressbar/.code=\pgfkeyalso{outer/progressbar=frametitle},
+    noslidenumbers/.code=\pgfkeyalso{outer/numbering=none},
+    usetotelslideindicator/.code=\pgfkeyalso{outer/numbering=fraction},
+    nosectionslide/.code=\pgfkeyalso{outer/sectionpage=none},
+    blockbg/.code=\pgfkeyalso{color/block=fill, inner/block=fill},
+}
+
+\newcommand{\lias@setdefaults}{
+    \pgfkeys{/lias/.cd,
+        titleformat plain=regular,
+    }
+}
+\useinnertheme{lias}
+\useoutertheme{lias}
+\usecolortheme{lias}
+\usefonttheme{lias}
+
+\newcommand{\liasset}[1]{\pgfkeys{/lias/.cd,#1}}
+\def\lias@plaintitleformat#1{#1}
+\newcommand{\plain}[2][]{%
+    \PackageWarning{beamerthemelias}{%
+        The syntax `\plain' may be deprecated in further versions.
+    }
+    \begin{frame}[standout]{#1}
+        \lias@plaintitleformat{#2}
+    \end{frame}
+}
+
+\newcommand{\mreducelistspacing}{\vspace{-\topsep}}
+\lias@setdefaults
+\ProcessPgfOptions{/lias}
+\endinput
+%%

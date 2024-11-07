@@ -1,5 +1,5 @@
 % \PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=1610]{beamer}
 
 \input{preamble/commands.tex}
 
@@ -81,17 +81,62 @@
 
 
 \begin{frame}
-	\frametitle{Contexte}
+	\frametitle{Modélisation géométrique}
+	\begin{itemize}
+		\item Faire un tour d'horizon des approches de modélisation géométrique
+		      (génération procédurale, modélisation paramétrique), montrer qu'il y
+		      a plusieurs mondes (façon de parler),
+		\item illustrer ces approches.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Modélisation paramétrique}
+	\begin{itemize}
+		\item Expliquer le fonctionnement d'un système de modélisation
+		      paramétrique (application manuelle d'opérations, enregistrement du
+		      processus de construction, rejeu)
+		\item Présenter les problématiques (placer un mini état de l'art ici)
+		      \begin{itemize}
+			      \item Problèmes liés au rejeu avec la nomination persistante,
+			      \item édition limitée d'un processus constructif,
+			      \item absence de garantie de cohérence topologique dans les objets
+			            construits.
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Objectifs}
+	Conception et développement d'un système de réévaluation permettant~:
+	\begin{itemize}
+		\item une édition étendue des processus de construction (ajout,
+		      suppression et réorganisation des opérations)~;
+		\item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
+		      d'erreurs d'appariement~;
+		\item de garantir la cohérence topologique des constructions.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Démarche}
-
+	Utilisations de formalismes pour permettre~:
+	\begin{itemize}
+		\item le traitement des opérations sans devoir analyser le code,
+		\item un traitement générique en dimension d'une construction,
+		\item garantir la cohérence topologique des objets construits
+	\end{itemize}
 \end{frame}
+
+
+
+
+
 
 \begin{frame}[plain,noframenumbering]
 	\frametitle{Plan}
-	\tableofcontents[currentsection]
+	\tableofcontents
 \end{frame}
 
 
@@ -99,15 +144,56 @@
 \section{Outils de formalisation}
 
 
+\begin{frame}
+	\frametitle{Outils de formalisation}
+	\begin{block}{Idée}
+		Dans cette slide, expliquer pourquoi nous faisons appels à des outils
+		formels dans nos travaux. %
+		Expliquer comment nous proposons de les utiliser pour répondre à nos
+		problématiques.
+	\end{block}
+
+	\begin{itemize}
+		\item Formalisation des objets pour la mise en œuvre de procédures
+		      génériques en dimension, notamment grâce aux orbites. %
+		\item Formalisation des opérations pour permettre leur analyse. %
+		      Étude des impacts d'une opération sur un objet avec la détection des
+		      changements topologiques et le suivi des évolutions d'orbites. %
+	\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}
 	\frametitle{Cartes généralisées}
-
+	\begin{block}{Idée}
+		Ici, je dois pouvoir reprendre la décomposition présentée dans la
+		présentation à Marseille. %
+		Il faudra faire attention à nos pas rentrer dans le détail. %
+		L'essentiel est de faire comprendre que l'on peut distinguer tout type de
+		cellule topologique. %
+	\end{block}
+	\begin{itemize}
+		\item illustrer la décomposition d'un objet par ses dimensions
+		\item introduire les termes brin et orbite
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Règles Jerboa}
-
+	\begin{block}{Idée}
+		Dans cette slide, expliquer que les règles Jerboa rendent possible une
+		analyse qui n'est pas basée sur du code, mais sur une grammaire formelle. %
+		L'analyse du code permettant d'arriver au même résultat serait
+		particulièrement complexe. %
+		Une grammaire formelle nous permet de repérer plus facilement des entités
+		topologiques qui sont entre autres créés, supprimés et préservés. %
+	\end{block}
+	\begin{itemize}
+		\item illustrer l'application d'une règle et la transformation qui correspond
+		\item introduire création, suppression, préservation de nœud, arcs
+		      implicites et explicites.
+	\end{itemize}
 \end{frame}
 
 
@@ -117,32 +203,117 @@
 
 
 \begin{frame}
-	\frametitle{Création}
+	\frametitle{Détection automatique des évènements}
+	\begin{block}{Idée}
+		Dans cette slide, remettre en contexte la question de la détection des
+		évènements. %
+		Expliquer que cette première contribution propose une extension de l'analyse présentée dans la slide précédente.
+	\end{block}
+	\begin{itemize}
+		\item Extension de l'analyse pour la détection d'évènements (création,
+		      suppression, scission, \textit{etc.}),
+		\item Enrichissement de la détection avec la distinction entre orbite de
+		      suivi et d'origine. %
+	\end{itemize}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Création}
+	\begin{block}{Idée}
+		Règle de triangulation, présentation de la création de l'orbite sommet. %
+		D'abord exprimer visuellement dans un objet, puis donner les conditions
+		dans la règle. %
+	\end{block}
+	\begin{itemize}
+		\item illustrer la création dans un objet,
+		\item illustrer les conditions pour détecter la création d'une orbite
+		      \begin{itemize}
+			      \item uniquement des nœuds créés (à droite)
+			      \item toutes les dimensions sont filtrées par l'ensemble des nœuds de
+			            l'orbite
+		      \end{itemize}
+		\item introduire le terme d'orbite complète ? (ce sera utile pour les
+		      prochains évènements)
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Suppression}
-
+	\begin{block}{Idée}
+		Expliquer que le problème de la suppression est symétrique à celui de la
+		création. %
+		C'est le cas dans les objets et dans les règles. %
+		Ça devrait me permettre de ménager l'auditoire pour les évènements
+		suivants (la scission et son symétrique~: la fusion). %
+	\end{block}
+	\begin{itemize}
+		\item illustrer la suppression dans un objet,
+		\item illustrer les conditions pour détecter la suppression d'une orbite,
+		\item C'est le symétrique de la création.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Scission}
+	\begin{block}{Idée}
+		Toucher un mot sur la notion de scission, expliquer que c'est la
+		conséquence de toute division d'une orbite en plusieurs orbites de même
+		type. %
+		Ça comprend les subdivisions et les découpages d'orbites (par exemple
+		l'insertion d'une arête dans une face ou l'intersection entre un volume et
+		un plan). %
+	\end{block}
+	\begin{itemize}
+		\item Illustrer la scission dans un objet,
+		\item illustrer les conditions pour détecter la scission d'une orbite,
+		\item Montrer qu'une scission est provoquée par la rupture de l'ensemble
+		      des arcs implicites pour une dimension donnée. %
+	\end{itemize}
 
 \end{frame}
 
 \begin{frame}
 	\frametitle{Fusion}
-
+	\begin{block}{Idée}
+		Moment de pause pour l'auditoire, cet évènement est le symétrique de la scission. %
+		Les conditions de détection sont aussi symétriques à ceux de la scission. %
+	\end{block}
+	\begin{itemize}
+		\item Illustrer la fusion dans un objet,
+		\item illustrer les conditions pour détecter la fusion de plusieurs
+		      orbites,
+		\item C'est le symétrique de la scission.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Non-changement}
-
+	\begin{block}{Idée}
+		Présenter qu'une orbite filtrée qui n'est pas modifiée demeure inchangée
+		dans la transformation. %
+		Il faut garder cette slide simple et ne pas y passer trop de temps. %
+	\end{block}
+	\begin{itemize}
+		\item Tout ce qui est filtré et inchangé dans une règle demeure inchangé dans l'objet,
+		\item c'est aussi l'occasion de dire que ce qui n'est pas filtré ne peut
+		      être transformé.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Modification}
+	\begin{block}{Idée}
+		Une modification, au sens large, est tout ce qui n'est pas traité par les
+		autres évènements. %
+		Pour une face, c'est représenté par l'ajout ou la suppression d'une partie
+		de ses sommets. %
+	\end{block}
+	\begin{itemize}
+		\item Illustrer la modification dans un objet,
+		\item ne pas s'étendre sur les conditions, c'est trop complexe,
+		\item en pratique, on peut résumer ça a une augmentation ou réduction de
+		      la topologie d'une cellule. %
+	\end{itemize}
 
 \end{frame}
 
@@ -153,23 +324,75 @@
 
 
 \begin{frame}
-	\frametitle{Nomination persistante des brins}
-
+	\frametitle{Réévaluation à base de règles}
+	\begin{block}{Idée}
+		Dans cette slide, ça doit valoir la peine de repasser un peu de temps sur la
+		question des modeleurs paramétriques. %
+		Expliquer qu'avec les outils et notre première contribution notre deuxième
+		contribution est un modeleur paramétrique à base de règles disposant d'une
+		fonctionnalité de rejeu. %
+	\end{block}
+	À partir de l'enregistrement du processus de construction, nous proposons~:
+	\begin{itemize}
+		\item un mécanisme de nomination persistante, pour identifier les orbites
+		      de manière unique y compris dans le modèle regénéré,
+		\item un mécanisme de réévaluation, permettant de regénérer des objets à
+		      partir de l'édition d'un processus constructif. %
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Nomination persistante des orbites}
+	\frametitle{Cas d'étude}
+	\begin{block}{Idée}
+		Comme d'habitude, présenter un cas d'étude. %
+		Ça permet à l'audience de raccrocher les bouts et d'avoir quelque chose de
+		concret pour suivre. %
+	\end{block}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Nomination persistante : brins}
+	\begin{block}{Idée}
+		Le plan ici, c'est de concrétiser l'approche par historique pour
+		l'identification des entités topologiques. %
+		On le fait pour les brins, car c'est générique et sans ambiguïté. %
+		Par contre, ça devient technique, j'ai besoin de prendre du recul. %
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nomination persistante : orbites}
+	\begin{block}{Idée}
+		Je ne sais pas trop comment m'y prendre, mais il faudra de toute façon
+		montrer un DAG (c'est une contribution mise en avant). %
+		Continuer d'exploiter le cas d'étude et créer le DAG d'évaluation d'une
+		orbite. %
+		Montrer qu'à l'aide d'un nom persistant de brin et de l'analyse syntaxique
+		des opérations, on peut reconstituer l'historique des évolutions d'une
+		orbite dans un objet. %
+	\end{block}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Réévaluation}
-
+	\begin{block}{Idée}
+		Même problème que la slide précédente, je n'arrive pas à imaginer une
+		présentation simple. %
+		Expliquer que l'on peut procéder à la réévaluation, de manière
+		relativement simple, grâce aux DAG d'évaluation. %
+		Le principe est simplement de les recréer sous forme de DAG de rejeu qui
+		prennent en compte l'édition du processus constructif. %
+	\end{block}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Configuration de la réévaluation ou stratégies}
-
+	\begin{block}{Idée}
+		Je pense que ça peut être intéressant de s'attarder une minute sur les
+		possibilités qu'offrent les stratégies pour le rejeu. %
+		Ça peut passer par l'illustration d'exemples avec différentes
+		configurations comme dans le manuscrit. %
+	\end{block}
 \end{frame}
 
 
@@ -179,23 +402,67 @@
 
 
 \begin{frame}
-	\frametitle{Structure de séquence}
+	\frametitle{Extension aux scripts}
+	\begin{block}{Idée}
+		Dans cette slide, remettre en contexte avec la question des opérations
+		complexes. %
+		Les modeleurs paramétriques existants proposent des opérations basées sur du
+		code et comprennent nativement des structures de contrôle (séquence,
+		répétition (itération), alternative). %
+		Notre troisième contribution est l'extension de notre mécanisme de rejeu pour le support de scripts. %
+		Serait-ce une bonne idée de représenter ces structures à l'aide de schémas ?
+	\end{block}
+	\begin{itemize}
+		\item Extension de notre mécanisme de rejeu aux scripts,
+		\item trois structures pour commencer (séquence, itération de sous-orbite, alternative),
+		\item et une procédure d'appariement d'orbite entre deux règles alternatives
+	\end{itemize}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Structure de séquence}
+	\begin{itemize}
+		\item Problématique de la représentation d'un script boîte fermée vs boîte ouverte,
+		\item conditionnement de l'appariement à l'orbite sur laquelle est appliqué un script,
+		\item extension pour les spécifications paramétriques,
+		\item extension pour les DAG
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Structure de boucle d'itération de sous-orbites}
-
+	\begin{itemize}
+		\item Problématique de l'itération de sous-orbite avec conditionnement sur
+		      l'orbite itéré et ses sous-orbites d'itération,
+		\item extension pour les spécifications paramétriques,
+		\item extension pour les DAG
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Structure d'alternative de règles}
-
+	\begin{itemize}
+		\item Problématique de l'alternative avec des règles qui peuvent filtrer
+		      différemment et appliquer des transformations différentes,
+		\item extension pour les spécifications paramétriques,
+		\item extension pour les DAG
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Appariement de règles alternatives}
-
+	\begin{block}{Note}
+		Je manque encore trop de recul, besoin d'en discuter. %
+	\end{block}
+	\begin{itemize}
+		\item Définition de classe d'évènements,
+		\item filtrage droit de la règle évaluée,
+		\item filtrage gauche des deux règles,
+		\item appariement à droite sur la base des origines qui peuvent être
+		      strictement identiques ou des sur ou sous-orbites et à condition que
+		      les orbites à apparier soient définies appartiennent à une même
+		      classe d'évènements topologiques
+	\end{itemize}
 \end{frame}
 
 
@@ -206,7 +473,19 @@
 
 \begin{frame}
 	\frametitle{Contributions}
-
+	Trois contributions concrétisent notre démarche~:
+	\begin{itemize}
+		\item la formalisation des changements topologiques
+		\item la mise en œuvre d'un mécanisme de réévaluation à base de règles avec
+		      \begin{itemize}
+			      \item la définition d'un mécanisme de nomination persistante à deux
+			            couches~;
+			      \item l'appariement des entités sur la base de leurs évolutions et en
+			            tenant compte des modifications~;
+			      \item la définition de stratégie pour configurer le processus de rejeu
+		      \end{itemize}
+		\item une extension de ce mécanisme pour le rejeu de processus comprenant des scripts
+	\end{itemize}
 \end{frame}
 
 \begin{frame}

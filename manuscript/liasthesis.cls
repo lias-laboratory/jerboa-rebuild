@@ -370,12 +370,12 @@
 
 \newcommand{\keywords}[1]{%
 	\noindent
-	\underline{\translate{Mots clés~:}} (#1)
+	\textbf{\translate{Mots clés~:}} #1
 }
 
 \renewenvironment{abstract}{%
 	\footnotesize
-	\raggedright{\underline\abstractname}\vspace{.5em}\vspace{0pt}
+	\raggedright{\underline\abstractname}%\vspace{-.5em}\vspace{0pt}
 	\list{}{%
 		\setlength{\leftmargin}{0pt}%
 		\setlength{\rightmargin}{0pt}%
@@ -387,9 +387,9 @@
 	\centering
 	{\normalsize\bfseries\textsc{#1}}
 
-	\renewcommand{\abstractnamefont}{\raggedright\normalfont\small\underline}
-	\renewcommand{\abstractname}{\translate{Résumé~:}}
-	\begin{abstract}\vspace{-.5\baselineskip}
+	\renewcommand{\abstractnamefont}{}%\raggedright\normalfont\small\underline}
+	\renewcommand{\abstractname}{}%\translate{Résumé~:}}
+	\begin{abstract}\vspace{-1\baselineskip}
 		}{%
 	\end{abstract}
 }

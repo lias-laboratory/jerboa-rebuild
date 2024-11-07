@@ -2,109 +2,93 @@
 	\justifying
 
 	La construction d'un objet complexe est un processus fastidieux, impliquant
-	des cycles successifs d'essais et de corrections. %
-	Pour alléger la difficulté de la conception, les systèmes de modélisation
-	paramétrique actuels proposent une fonctionnalité de rejeu permettant de
-	regénérer un objet grâce à l'édition de ses paramètres. %
-	Cependant, ce processus nécessite soit une détection des changements
-	topologiques basée sur une analyse complète de l'objet modifié, ce qui est
-	coûteux ; soit ces changements sont codés explicitement dans les opérations,
-	ce qui peut être source d'erreurs. %
-	Pour répondre à ces limites, nos travaux se concentrent sur le développement
-	d'un système de modélisation basé sur des règles, permettant de rejouer un
+	des cycles successifs d'essais et de corrections. Pour alléger la difficulté
+	de la conception, les systèmes de modélisation paramétrique actuels
+	proposent une fonctionnalité de rejeu permettant de regénérer un objet grâce
+	à l'édition de ses paramètres. Cependant, ce processus nécessite soit une
+	détection des changements topologiques basée sur une analyse complète de
+	l'objet modifié, ce qui est coûteux ; soit ces changements sont codés
+	explicitement dans les opérations, ce qui peut être source d'erreurs. Pour
+	répondre à ces limites, nos travaux se concentrent sur le développement d'un
+	système de modélisation basé sur des règles, permettant de rejouer un
 	processus constructif, notamment avec l'ajout, la suppression et le
-	déplacement d'opérations. %
-	Nous considérons des opérations formalisées par des règles de transformation
-	de graphe Jerboa. %
-	Notre première contribution est une analyse syntaxique des opérations
-	permettant de détecter les changements topologiques (création, scission,
-	fusion, etc.). %
-	Cette analyse des règles est statique et indépendante des objets auxquels
-	celles-ci sont appliquées. %
-	Ainsi, les changements topologiques peuvent être détectés et suivis
-	automatiquement. %
-	Dans certains cas définis, une analyse localisée au sein de l'objet permet
-	de confirmer ou non les changements détectés. %
-	La seconde contribution s'appuie sur notre approche de détection des
-	changements topologiques pour proposer un mécanisme de rejeu. %
-	Un processus constructif est une suite d'opérations appliquées sur des
-	entités topologiques spécifiques. %
-	Rejouer un processus constructif nécessite de résoudre le problème classique
-	de la nomination persistante des entités topologiques dans un modèle
-	géométrique. %
-	Pour répondre à ce problème, nous proposons une reconstitution de
-	l'historique des entités topologiques référencées dans le processus
-	constructif. %
-	Chaque entité possède une histoire unique qui l'identifie. %
-	Grâce à ce mécanisme, nous proposons un référencement robuste des entités
-	topologiques lors du rejeu. %
-	Notre troisième contribution vise à étendre notre mécanisme de rejeu aux
-	scripts de règles qui permettent de construire des opérations complexes à
-	l'aide de structures de contrôles. %
-	Nous proposons pour cela d'utiliser les scripts Jerboa avec des structures
-	de contrôles classiques telles que les itérations et les alternatives. %
-	Nous proposons une extension de notre mécanisme de rejeu pour inclure ces
-	structures de contrôle, offrant ainsi une plus grande flexibilité dans la
-	modélisation et la gestion des opérations complexes. %
+	déplacement d'opérations. Nous considérons des opérations formalisées par
+	des règles de transformation de graphe Jerboa. Notre première contribution
+	est une analyse syntaxique des opérations permettant de détecter les
+	changements topologiques (création, scission, fusion, etc.). Cette analyse
+	des règles est statique et indépendante des objets auxquels celles-ci sont
+	appliquées. Ainsi, les changements topologiques peuvent être détectés et
+	suivis automatiquement. Dans certains cas définis, une analyse localisée au
+	sein de l'objet permet de confirmer ou non les changements détectés. La
+	seconde contribution s'appuie sur notre approche de détection des
+	changements topologiques pour proposer un mécanisme de rejeu. Un processus
+	constructif est une suite d'opérations appliquées sur des entités
+	topologiques spécifiques. Rejouer un processus constructif nécessite de
+	résoudre le problème classique de la nomination persistante des entités
+	topologiques dans un modèle géométrique. Pour répondre à ce problème, nous
+	proposons une reconstitution de l'historique des entités topologiques
+	référencées dans le processus constructif. Chaque entité possède une
+	histoire unique qui l'identifie. Grâce à ce mécanisme, nous proposons un
+	référencement robuste des entités topologiques lors du rejeu. Notre
+	troisième contribution vise à étendre notre mécanisme de rejeu aux scripts
+	de règles qui permettent de construire des opérations complexes à l'aide de
+	structures de contrôles. Nous proposons pour cela d'utiliser les scripts
+	Jerboa avec des structures de contrôles classiques telles que les itérations
+	et les alternatives. Nous proposons une extension de notre mécanisme de
+	rejeu pour inclure ces structures de contrôle, offrant ainsi une plus grande
+	flexibilité dans la modélisation et la gestion des opérations complexes.
 \end{resume}
 \footnotesize{\keywords{Modélisation 3D~/ Graphes topologiques, Théorie des~/
-		Topologie Combinatoire~/ Réécriture, Systèmes de (informatique)~/
-		Modélisation à base topologique~/ Règles de transformation de graphe~/
-		Nomination persistante~/ Réévaluation~/ Détection de changements
-		topologiques~/ Cartes Généralisées}}
+Topologie Combinatoire~/ Réécriture, Systèmes de (informatique)~/
+Modélisation à base topologique~/ Règles de transformation de graphe~/
+Nomination persistante~/ Réévaluation~/ Détection de changements topologiques~/
+Cartes généralisées}}
 
 \vspace{0.5em}
 
 \begin{otherlanguage}{english} % `otherlanguage` requires babel package !
 	\begin{resume}{Rule-based modelling and reevaluation}
-		\justifying%
-		Designing a complex object is a tedious process involving repeated
-		cycles of trial and error. %
-		In order to alleviate such a difficulty in the designing process, current
-		parametric modelling systems offer some reevaluation mechanisms allowing a user
-		to rebuild an object based on the editing of its parameters. %
-		However, such a process requires either  processing an entire mesh in
-		order to detect topological changes, which is computationally expensive,
-		or hard-coding the changes in the modelling operations, which is
-		computationally efficient but increases the risks to introduce detection
-		errors. %
-		To address these limitations, our works focus on the development of a
-		rule-based modelling system dedicated to the reevaluation of modelling processes.
-		In particular, this system allows the addition, deletion and reordering of the
-		operations defining those processes.%
-		We consider operations formalised with Jerboa's graph transformation rules. %
-		Our first contribution is the syntactic analysis of the operations allowing for
-		the detection of topological changes (creation, split, merge, and so on). %
-		These analyses are statically performed on rules, independently of the object
-		onto which they are being applied. %
-		Thus, topological changes can be automatically detected and tracked. %
-		In some defined cases, a localised analysis performed within the object can
-		assert whether the event has occurred or not. %
-		Our second contribution makes use of our topological changes detection
-		approach in order to offer a reevaluation mechanism. %
-		Considering that a modelling process is a record of operations sequentially applied on specific
-		topological entities, reevaluating a modelling process first requires solving the long-standing
-		problem of persistently naming topological entities in a geometric model. %
-		To achieve this goal, we offer to reconstitute the histories of
-		topological entities referenced within a modelling process. %
-		Each entity can be identified through its history, which is unique. %
-		With this mechanism, we reference topological entities in a robust
-		way throughout reevaluation. %
-		Our third contribution aims to extend our reevaluation mechanism to include
-		scripts of rules which can be used to create more complex operations. %
-		The Jerboa script language makes it possible to create such scripts with usual
-		control structures such as alternatives and iterations. %
-		We extend our reevaluation mechanism by including these control
-		structures, hence, enabling the user with greater versatility in modelling and
-		managing complex operations. %
+	  \justifying%
+	  Designing a complex object is a tedious process involving repeated cycles
+	  of trial and error. In order to alleviate such a difficulty in the
+	  designing process, current parametric modelling systems offer some
+	  reevaluation mechanisms allowing a user to rebuild an object based on the
+	  editing of its parameters. However, such a process requires either
+	  processing an entire mesh in order to detect topological changes, which is
+	  computationally expensive, or hard-coding the changes in the modelling
+	  operations, which is computationally efficient but increases the risks to
+	  introduce detection errors. To address these limitations, our works focus
+	  on the development of a rule-based modelling system dedicated to the
+	  reevaluation of modelling processes. In particular, this system allows the
+	  addition, deletion and reordering of the operations defining those
+	  processes. %
+	  We consider operations formalised with Jerboa's graph transformation
+	  rules. Our first contribution is the syntactic analysis of the operations
+	  allowing for the detection of topological changes (creation, split, merge,
+	  and so on). These analyses are statically performed on rules,
+	  independently of the object onto which they are being applied. Thus,
+	  topological changes can be automatically detected and tracked. In some
+	  defined cases, a localised analysis performed within the object can assert
+	  whether the event has occurred or not. Our second contribution makes use
+	  of our topological changes detection approach in order to offer a
+	  reevaluation mechanism. Considering that a modelling process is a record
+	  of operations sequentially applied on specific topological entities,
+	  reevaluating a modelling process first requires solving the long-standing
+	  problem of persistently naming topological entities in a geometric model.
+	  To achieve this goal, we offer to reconstitute the histories of
+	  topological entities referenced within a modelling process. Each entity
+	  can be identified through its history, which is unique. With this
+	  mechanism, we reference topological entities in a robust way throughout
+	  reevaluation. Our third contribution aims to extend our reevaluation
+	  mechanism to include scripts of rules which can be used to create more
+	  complex operations. The Jerboa script language makes it possible to create
+	  such scripts with usual control structures such as alternatives and
+	  iterations. We extend our reevaluation mechanism by including these
+	  control structures, hence, enabling the user with greater versatility in
+	  modelling and managing complex operations.
 	\end{resume}
-	\footnotesize{\keywords{Three-dimensional modeling~/ Topological Graph
-			Theory~/ Combinatorial Topology~/ Graph rewriting systems (Computer
-			science)~/ Topology-based modeling~/ Graph transformation rules~/
-			Persistant naming~/ Reevaluation~/ Topological change detection~/
-			Generalized Maps}}
+	\footnotesize{\keywords{Three-dimensional modeling~/ Topological Graph Theory~/ Combinatorial Topology~/ Graph rewriting systems (Computer science)~/ Topology-based modeling~/ Graph transformation rules~/ Persistant naming~/ Reevaluation~/ Topological change detection~/ Generalized Maps}}
 \end{otherlanguage}
-
 
 %%% Local Variables:
 %%% mode: LaTeX

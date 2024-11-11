@@ -82,11 +82,14 @@
 
 \begin{frame}
 	\frametitle{Modélisation géométrique}
+
 	\begin{itemize}
-		\item Faire un tour d'horizon des approches de modélisation géométrique
-		      (génération procédurale, modélisation paramétrique), montrer qu'il y
-		      a plusieurs mondes (façon de parler),
-		\item illustrer ces approches.
+		\item « dans le monde de tous les jours, la modélisation géométrique est
+		      utilisée dans de nombreux domaines » (illustrer)
+		\item Il y a des domaines qui nécessitent de générer plusieurs variantes
+		      d'un même modèle (archéo, CAO…) (illustrer),
+		\item Focaliser le discours sur la CAO avec la modélisation paramétrique
+		      (avantages) (illustrer),
 	\end{itemize}
 \end{frame}
 
@@ -97,12 +100,16 @@
 		\item Expliquer le fonctionnement d'un système de modélisation
 		      paramétrique (application manuelle d'opérations, enregistrement du
 		      processus de construction, rejeu)
-		\item Présenter les problématiques (placer un mini état de l'art ici)
+		\item Présenter la problématique du nom persistant au rejeu
+		\item mini état de l'art
+		\item Présenter les limitations
 		      \begin{itemize}
-			      \item Problèmes liés au rejeu avec la nomination persistante,
+			      \item absence de généricité dans les mécanismes de nomination
+			            persistante (nommage différent en fonction de la dimension
+			            de la cellule),
+			      \item modèles limités en dimension 3 (la plupart),
 			      \item édition limitée d'un processus constructif,
-			      \item absence de garantie de cohérence topologique dans les objets
-			            construits.
+				  \item (à compléter en fonction des contributions)
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -110,27 +117,15 @@
 \begin{frame}
 	\frametitle{Objectifs}
 	Conception et développement d'un système de réévaluation permettant~:
+	(autant d'objectifs que de limitations)
 	\begin{itemize}
 		\item une édition étendue des processus de construction (ajout,
 		      suppression et réorganisation des opérations)~;
-		\item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
-		      d'erreurs d'appariement~;
+		% \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
+		%       d'erreurs d'appariement~;
 		\item de garantir la cohérence topologique des constructions.
 	\end{itemize}
 \end{frame}
-
-\begin{frame}
-	\frametitle{Démarche}
-	Utilisations de formalismes pour permettre~:
-	\begin{itemize}
-		\item le traitement des opérations sans devoir analyser le code,
-		\item un traitement générique en dimension d'une construction,
-		\item garantir la cohérence topologique des objets construits
-	\end{itemize}
-\end{frame}
-
-
-
 
 
 
@@ -141,7 +136,7 @@
 
 
 
-\section{Outils de formalisation}
+\section{Formalismes}
 
 
 \begin{frame}
@@ -232,8 +227,7 @@
 			      \item toutes les dimensions sont filtrées par l'ensemble des nœuds de
 			            l'orbite
 		      \end{itemize}
-		\item introduire le terme d'orbite complète ? (ce sera utile pour les
-		      prochains évènements)
+		\item introduire le terme d'orbite complète
 	\end{itemize}
 \end{frame}
 
@@ -341,17 +335,9 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Cas d'étude}
-	\begin{block}{Idée}
-		Comme d'habitude, présenter un cas d'étude. %
-		Ça permet à l'audience de raccrocher les bouts et d'avoir quelque chose de
-		concret pour suivre. %
-	\end{block}
-\end{frame}
 
 \begin{frame}
-	\frametitle{Nomination persistante : brins}
+	\frametitle{Nomination persistante des brins}
 	\begin{block}{Idée}
 		Le plan ici, c'est de concrétiser l'approche par historique pour
 		l'identification des entités topologiques. %
@@ -361,7 +347,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Nomination persistante : orbites}
+	\frametitle{Nomination persistante des orbites}
 	\begin{block}{Idée}
 		Je ne sais pas trop comment m'y prendre, mais il faudra de toute façon
 		montrer un DAG (c'est une contribution mise en avant). %
@@ -414,8 +400,7 @@
 	\end{block}
 	\begin{itemize}
 		\item Extension de notre mécanisme de rejeu aux scripts,
-		\item trois structures pour commencer (séquence, itération de sous-orbite, alternative),
-		\item et une procédure d'appariement d'orbite entre deux règles alternatives
+		\item trois structures de contrôle (séquence, itération, alternative)
 	\end{itemize}
 \end{frame}
 
@@ -423,7 +408,6 @@
 	\frametitle{Structure de séquence}
 	\begin{itemize}
 		\item Problématique de la représentation d'un script boîte fermée vs boîte ouverte,
-		\item conditionnement de l'appariement à l'orbite sur laquelle est appliqué un script,
 		\item extension pour les spécifications paramétriques,
 		\item extension pour les DAG
 	\end{itemize}

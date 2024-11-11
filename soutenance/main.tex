@@ -1,4 +1,3 @@
-% \PassOptionsToPackage{dvipsnames}{xcolor}
 \documentclass[aspectratio=1610]{beamer}
 
 \input{preamble/commands.tex}
@@ -159,19 +158,96 @@
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Cartes généralisées}
-	\begin{block}{Idée}
-		Ici, je dois pouvoir reprendre la décomposition présentée dans la
-		présentation à Marseille. %
-		Il faudra faire attention à nos pas rentrer dans le détail. %
-		L'essentiel est de faire comprendre que l'on peut distinguer tout type de
-		cellule topologique. %
+% \begin{frame}
+% 	\frametitle{Cartes généralisées}
+% 	\begin{block}{Idée}
+% 		Ici, je dois pouvoir reprendre la décomposition présentée dans la
+% 		présentation à Marseille. %
+% 		Il faudra faire attention à nos pas rentrer dans le détail. %
+% 		L'essentiel est de faire comprendre que l'on peut distinguer tout type de
+% 		cellule topologique. %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item illustrer la décomposition d'un objet par ses dimensions
+% 		\item introduire les termes brin et orbite
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{Cartes généralisées (G-cartes)}
+	\begin{minipage}[t][.6\textheight][t]{\textwidth}
+		\begin{columns}[t]
+			\begin{column}{.49\textwidth}
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{figure}
+						\centering
+						\includegraphics<1>[height=.6\textheight]{decomposition-3D-no-decomp}%
+						\includegraphics<2>[height=.6\textheight]{decomposition-3D-3-cell}%
+						\includegraphics<3>[height=.6\textheight]{decomposition-3D-2-cell}%
+						\includegraphics<4>[height=.6\textheight]{decomposition-3D-1-cell}%
+						\includegraphics<5>[height=.6\textheight]{decomposition-3D-0-cell}%
+					\end{figure}
+				\end{overlayarea}
+			\end{column}
+			\hfill
+			\begin{column}{.49\textwidth}
+				\begin{overlayarea}{\textwidth}{\textheight}
+					\begin{block}<2->{Décomposition d'un objet en :}
+						\begin{itemize}
+							\item<2-> Volumes connectés par des $3$-liaisons ({\color{mydarkgreenink} —})%
+							\item<3-> Faces connectées par des $2$-liaisons ({\color{myblueink} —})%
+							\item<4-> Arêtes connectées par des $1$-liaisons ({\color{red} —})%
+							\item<5> Sommets connectés par des $0$-liaisons ({\color{black} —})%
+						\end{itemize}
+					\end{block}
+				\end{overlayarea}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{overlayarea}{\textwidth}{.4\textheight}
+		\begin{block}{}<5>
+			Graphe dont les nœuds sont des \emph{brins} et les arcs des \emph{liaisons}.
+		\end{block}
+	\end{overlayarea}
+\end{frame}
+
+\begin{frame}{Orbites}
+	\begin{minipage}[t][.6\textheight][c]{\textwidth}
+		\begin{columns}
+			\begin{column}{.49\textwidth}
+				\begin{overlayarea}{\textwidth}{.5\textheight}
+					\begin{figure}
+						\centering
+						\includegraphics<1>[height=.5\textheight]{orbit-3D-vertex-123}%
+						\includegraphics<2>[height=.5\textheight]{orbit-3D-edge-023}%
+						\includegraphics<3>[height=.5\textheight]{orbit-3D-face-013}%
+						\includegraphics<4>[height=.5\textheight]{orbit-3D-volume-012}%
+						\includegraphics<5>[height=.5\textheight]{orbit-3D-edge-02}%
+					\end{figure}
+				\end{overlayarea}
+			\end{column}
+			\hfill
+			\begin{column}{.49\textwidth}
+				\begin{block}{Orbites~:}
+					\begin{overlayarea}{\textwidth}{.45\textheight}
+						\begin{itemize}
+							\item<1-> Sommet {\color{red}$\orbit{1,2,3}$}{\color{mydarkgreenink}$(a)$}%
+							\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{mydarkgreenink}$(a)$}%
+							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{mydarkgreenink}$(a)$}%
+							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{mydarkgreenink}$(a)$}%
+							\item<5> Arête de volume {\color{red}$\orbit{0,2}$}{\color{mydarkgreenink}$(a)$}
+							\item<5> \ldots
+						\end{itemize}
+					\end{overlayarea}
+				\end{block}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{block}{}
+		\begin{minipage}[t][.05\textheight][t]{1.0\linewidth}
+			Sous-graphe de type {\color{red}$\orbit{o}$} incident à un brin
+				{\color{mydarkgreenink}(b)}.
+		\end{minipage}
 	\end{block}
-	\begin{itemize}
-		\item illustrer la décomposition d'un objet par ses dimensions
-		\item introduire les termes brin et orbite
-	\end{itemize}
 \end{frame}
 
 \begin{frame}

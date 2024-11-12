@@ -25,7 +25,8 @@
 
 \def\dbasepath{../resources-figures-jerboa}
 \def\dlogopath{../logos}
-\graphicspath{{\dbasepath/article2/}%
+\graphicspath{{\dbasepath/soutenance/}%
+		{\dbasepath/article-figures/}%
 		{\dbasepath/figures/}%
 		{\dbasepath/concepts/}%
 		{\dbasepath/rules/}%
@@ -108,7 +109,7 @@
 			            de la cellule),
 			      \item modèles limités en dimension 3 (la plupart),
 			      \item édition limitée d'un processus constructif,
-				  \item (à compléter en fonction des contributions)
+			      \item (à compléter en fonction des contributions)
 		      \end{itemize}
 	\end{itemize}
 \end{frame}
@@ -120,8 +121,8 @@
 	\begin{itemize}
 		\item une édition étendue des processus de construction (ajout,
 		      suppression et réorganisation des opérations)~;
-		% \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
-		%       d'erreurs d'appariement~;
+		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
+		      %       d'erreurs d'appariement~;
 		\item de garantir la cohérence topologique des constructions.
 	\end{itemize}
 \end{frame}
@@ -174,49 +175,48 @@
 % \end{frame}
 
 \begin{frame}{Cartes généralisées (G-cartes)}
-	\begin{minipage}[t][.6\textheight][t]{\textwidth}
-		\begin{columns}[t]
-			\begin{column}{.49\textwidth}
-				\begin{overlayarea}{\textwidth}{\textheight}
+	\begin{minipage}[t][.6\textheight][c]{\textwidth}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{overlayarea}{\textwidth}{.6\textheight}
 					\begin{figure}
 						\centering
-						\includegraphics<1>[height=.6\textheight]{decomposition-3D-no-decomp}%
-						\includegraphics<2>[height=.6\textheight]{decomposition-3D-3-cell}%
-						\includegraphics<3>[height=.6\textheight]{decomposition-3D-2-cell}%
-						\includegraphics<4>[height=.6\textheight]{decomposition-3D-1-cell}%
-						\includegraphics<5>[height=.6\textheight]{decomposition-3D-0-cell}%
+						\includegraphics<1>[height=.5\textheight]{decomposition-3D-no-decomp}%
+						\includegraphics<2>[height=.5\textheight]{decomposition-3D-3-cell}%
+						\includegraphics<3>[height=.5\textheight]{decomposition-3D-2-cell}%
+						\includegraphics<4>[height=.5\textheight]{decomposition-3D-1-cell}%
+						\includegraphics<5>[height=.5\textheight]{decomposition-3D-0-cell}%
 					\end{figure}
 				\end{overlayarea}
 			\end{column}
 			\hfill
-			\begin{column}{.49\textwidth}
-				\begin{overlayarea}{\textwidth}{\textheight}
-					\begin{block}<2->{Décomposition d'un objet en :}
-						\begin{itemize}
-							\item<2-> Volumes connectés par des $3$-liaisons ({\color{mydarkgreenink} —})%
-							\item<3-> Faces connectées par des $2$-liaisons ({\color{myblueink} —})%
-							\item<4-> Arêtes connectées par des $1$-liaisons ({\color{red} —})%
-							\item<5> Sommets connectés par des $0$-liaisons ({\color{black} —})%
-						\end{itemize}
-					\end{block}
-				\end{overlayarea}
+			\begin{column}{.4\textwidth}
+				\begin{block}<2->{Décomposition d'un objet en :}
+					% \begin{overlayarea}{\textwidth}{.3\textheight}
+					\begin{itemize}
+						\item<2-> Volumes connectés par des $3$-liaisons ({\color{mydarkgreenink} —})%
+						\item<3-> Faces connectées par des $2$-liaisons ({\color{myblueink} —})%
+						\item<4-> Arêtes connectées par des $1$-liaisons ({\color{red} —})%
+						\item<5> Sommets connectés par des $0$-liaisons ({\color{black} —})%
+					\end{itemize}
+					% \end{overlayarea}
+				\end{block}
 			\end{column}
 		\end{columns}
 	\end{minipage}
-	\begin{overlayarea}{\textwidth}{.4\textheight}
-		\begin{block}{}<5>
+	\begin{block}{}
+		\begin{minipage}[t][.05\textheight][t]{1.0\linewidth}
 			Graphe dont les nœuds sont des \emph{brins} et les arcs des \emph{liaisons}.
-		\end{block}
-	\end{overlayarea}
+		\end{minipage}
+	\end{block}
 \end{frame}
 
 \begin{frame}{Orbites}
 	\begin{minipage}[t][.6\textheight][c]{\textwidth}
 		\begin{columns}
-			\begin{column}{.49\textwidth}
-				\begin{overlayarea}{\textwidth}{.5\textheight}
+			\begin{column}{.3\textwidth}
+				\begin{overlayarea}{\textwidth}{.6\textheight}
 					\begin{figure}
-						\centering
 						\includegraphics<1>[height=.5\textheight]{orbit-3D-vertex-123}%
 						\includegraphics<2>[height=.5\textheight]{orbit-3D-edge-023}%
 						\includegraphics<3>[height=.5\textheight]{orbit-3D-face-013}%
@@ -226,18 +226,18 @@
 				\end{overlayarea}
 			\end{column}
 			\hfill
-			\begin{column}{.49\textwidth}
+			\begin{column}{.4\textwidth}
 				\begin{block}{Orbites~:}
-					\begin{overlayarea}{\textwidth}{.45\textheight}
-						\begin{itemize}
-							\item<1-> Sommet {\color{red}$\orbit{1,2,3}$}{\color{mydarkgreenink}$(a)$}%
-							\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{mydarkgreenink}$(a)$}%
-							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{mydarkgreenink}$(a)$}%
-							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{mydarkgreenink}$(a)$}%
-							\item<5> Arête de volume {\color{red}$\orbit{0,2}$}{\color{mydarkgreenink}$(a)$}
-							\item<5> \ldots
-						\end{itemize}
-					\end{overlayarea}
+					% \begin{overlayarea}{.5\textwidth}{.45\textheight}
+					\begin{itemize}
+						\item<1-> Sommet {\color{red}$\orbit{1,2,3}$}{\color{mydarkgreenink}$(a)$}%
+						\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{mydarkgreenink}$(a)$}%
+						\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{mydarkgreenink}$(a)$}%
+						\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{mydarkgreenink}$(a)$}%
+						\item<5> Arête de volume {\color{red}$\orbit{0,2}$}{\color{mydarkgreenink}$(a)$}
+						\item<5> \ldots
+					\end{itemize}
+					% \end{overlayarea}
 				\end{block}
 			\end{column}
 		\end{columns}
@@ -250,24 +250,37 @@
 	\end{block}
 \end{frame}
 
+% \begin{frame}
+% 	\frametitle{Règles Jerboa}
+% 	\begin{block}{Idée}
+% 		Dans cette slide, expliquer que les règles Jerboa rendent possible une
+% 		analyse qui n'est pas basée sur du code, mais sur une grammaire formelle. %
+% 		L'analyse du code permettant d'arriver au même résultat serait
+% 		particulièrement complexe. %
+% 		Une grammaire formelle nous permet de repérer plus facilement des entités
+% 		topologiques qui sont entre autres créés, supprimés et préservés. %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item illustrer l'application d'une règle et la transformation qui correspond
+% 		\item introduire création, suppression, préservation de nœud, arcs
+% 		      implicites et explicites.
+% 	\end{itemize}
+% \end{frame}
+
 \begin{frame}
-	\frametitle{Règles Jerboa}
-	\begin{block}{Idée}
-		Dans cette slide, expliquer que les règles Jerboa rendent possible une
-		analyse qui n'est pas basée sur du code, mais sur une grammaire formelle. %
-		L'analyse du code permettant d'arriver au même résultat serait
-		particulièrement complexe. %
-		Une grammaire formelle nous permet de repérer plus facilement des entités
-		topologiques qui sont entre autres créés, supprimés et préservés. %
-	\end{block}
-	\begin{itemize}
-		\item illustrer l'application d'une règle et la transformation qui correspond
-		\item introduire création, suppression, préservation de nœud, arcs
-		      implicites et explicites.
-	\end{itemize}
+	\frametitle{Règles de transformation Jerboa}
+	\begin{figure}
+		\centering
+		\includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view-3D}%
+		\includegraphics<2>[height=.8\textheight]{triangulation-application-1-3D}%
+		\includegraphics<3>[height=.8\textheight]{triangulation-application-2-left-3D}%
+		\includegraphics<4>[height=.8\textheight]{triangulation-application-n0}%
+		\includegraphics<5>[height=.8\textheight]{triangulation-application-n2}%
+		\includegraphics<6>[height=.8\textheight]{triangulation-application-n1}%
+		\includegraphics<7>[height=.8\textheight]{triangulation-application-n0-n1}%
+		\includegraphics<8>[height=.8\textheight]{triangulation-application-n1-n2}%
+	\end{figure}
 \end{frame}
-
-
 
 \section{Détection automatique des évènements}
 
@@ -412,39 +425,178 @@
 \end{frame}
 
 
-\begin{frame}
-	\frametitle{Nomination persistante des brins}
-	\begin{block}{Idée}
-		Le plan ici, c'est de concrétiser l'approche par historique pour
-		l'identification des entités topologiques. %
-		On le fait pour les brins, car c'est générique et sans ambiguïté. %
-		Par contre, ça devient technique, j'ai besoin de prendre du recul. %
-	\end{block}
+% \begin{frame}
+% 	\frametitle{Nomination persistante des brins}
+% 	\begin{block}{Idée}
+% 		Le plan ici, c'est de concrétiser l'approche par historique pour
+% 		l'identification des entités topologiques. %
+% 		On le fait pour les brins, car c'est générique et sans ambiguïté. %
+% 		Par contre, ça devient technique, j'ai besoin de prendre du recul. %
+% 	\end{block}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Nomination persistante des orbites}
+% 	\begin{block}{Idée}
+% 		Je ne sais pas trop comment m'y prendre, mais il faudra de toute façon
+% 		montrer un DAG (c'est une contribution mise en avant). %
+% 		Continuer d'exploiter le cas d'étude et créer le DAG d'évaluation d'une
+% 		orbite. %
+% 		Montrer qu'à l'aide d'un nom persistant de brin et de l'analyse syntaxique
+% 		des opérations, on peut reconstituer l'historique des évolutions d'une
+% 		orbite dans un objet. %
+% 	\end{block}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Réévaluation}
+% 	\begin{block}{Idée}
+% 		Même problème que la slide précédente, je n'arrive pas à imaginer une
+% 		présentation simple. %
+% 		Expliquer que l'on peut procéder à la réévaluation, de manière
+% 		relativement simple, grâce aux DAG d'évaluation. %
+% 		Le principe est simplement de les recréer sous forme de DAG de rejeu qui
+% 		prennent en compte l'édition du processus constructif. %
+% 	\end{block}
+% \end{frame}
+
+\begin{frame}[c,fragile]
+	\frametitle{Nommage Persistant de brins}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
+		\begin{overlayarea}{\textwidth}{.25\textheight}
+			\centering
+			\includegraphics<1-2>[height=.35\textheight]{rule-create-square-face-n3-n6-highlight}%
+
+				\only<1-2>{Création de carré}
+
+			\includegraphics<3-5>[height=.3\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
+
+				\only<3-5>{Extrusion de face}
+
+			\includegraphics<6-8>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
+
+				\only<6-8>{Triangulation de face}
+
+			\includegraphics<9-11>[height=.175\textheight]{rule-colour-face}%
+
+				\only<9-11>{Coloration de face}
+
+
+		\end{overlayarea}
+	\end{minipage}
+	\begin{columns}[b]
+		\begin{column}{.45\textwidth}
+			\begin{minipage}[t][.4\textheight][b]{1.0\linewidth}
+				\centering
+				\includegraphics<2-4>[width=.6\columnwidth]{persistent-naming-step-1}%
+				\includegraphics<5>[width=.6\columnwidth]{persistent-naming-step-2}%
+					\includegraphics<6-7>[width=.6\columnwidth]{persistent-naming-step-2}%
+				\includegraphics<8-10>[width=.6\columnwidth]{persistent-naming-step-3}%
+				\includegraphics<11>[width=.6\columnwidth]{persistent-naming-step-4}%
+			\end{minipage}
+		\end{column}
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[t][.4\textheight][c]{1.0\linewidth}
+				\begin{block}{Spécification paramétrique}
+					\begin{overlayarea}{\textwidth}{.2\textheight}
+						\footnotesize
+						\begin{semiverbatim}
+							\only<1->{1-{\color{mydarkgreenink}square}(pos)}
+							\only<3->{2-{\color{mydarkgreenink}extrusion}(\alt<3>{6}{[1n6]}, vec)}
+							\only<6->{3-{\color{mydarkgreenink}triangulation}(\alt<6>{33}{[1n3;2n2]})}
+							\only<9->{4-{\color{mydarkgreenink}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}
+						\end{semiverbatim}
+
+					\end{overlayarea}
+				\end{block}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Nomination persistante des orbites}
-	\begin{block}{Idée}
-		Je ne sais pas trop comment m'y prendre, mais il faudra de toute façon
-		montrer un DAG (c'est une contribution mise en avant). %
-		Continuer d'exploiter le cas d'étude et créer le DAG d'évaluation d'une
-		orbite. %
-		Montrer qu'à l'aide d'un nom persistant de brin et de l'analyse syntaxique
-		des opérations, on peut reconstituer l'historique des évolutions d'une
-		orbite dans un objet. %
-	\end{block}
+	\frametitle{Nommage Persistant d'une orbite}
+	\begin{columns}[b]
+		\begin{column}{.45\textwidth}
+			\begin{minipage}[t][.25\textheight][t]{\textwidth}
+				\begin{overlayarea}{\textwidth}{.25\textheight}
+					\centering
+					\includegraphics<1>[width=.6\textwidth]{rule-colour-face-n0-highlight}%
+					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed}%
+					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight}%
+					\includegraphics<4>[width=\textwidth]{rule-create-square-face-n3-highlight}%
+				\end{overlayarea}
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics[width=.6\columnwidth]{persistent-naming-pn3}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.45\textwidth}
+			\hfill
+			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
+			  \ttfamily\scriptsize
+				1-{\color{mydarkgreenink}\alt<4>{\color{orange}}{}square}(pos)\\
+				2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6],vec)\\
+				3-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}triangulation}([1n3;2n2])\\
+			  4-{\color{mydarkgreenink}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4>{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[height=.5\textheight]{pn7-short-nolevels-step-1}%
+					\includegraphics<2>[height=.5\textheight]{pn7-short-nolevels-step-2}%
+					\includegraphics<3>[height=.5\textheight]{pn7-short-nolevels-step-3}%
+					\includegraphics<4>[height=.5\textheight]{pn7-short-nolevels-step-4}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 \end{frame}
+
+\subsection{Réévaluation}
 
 \begin{frame}
 	\frametitle{Réévaluation}
-	\begin{block}{Idée}
-		Même problème que la slide précédente, je n'arrive pas à imaginer une
-		présentation simple. %
-		Expliquer que l'on peut procéder à la réévaluation, de manière
-		relativement simple, grâce aux DAG d'évaluation. %
-		Le principe est simplement de les recréer sous forme de DAG de rejeu qui
-		prennent en compte l'édition du processus constructif. %
-	\end{block}
+	\begin{columns}
+		\begin{column}{.35\textwidth}
+			\begin{minipage}[t][.3\textheight][c]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[width=.6\columnwidth]{short-1-reevaluation-create-face-darts}%
+					\includegraphics<2>[width=.6\columnwidth]{short-1ADD-reevaluation-insert-vertex-darts}%
+					\includegraphics<3>[width=.6\columnwidth]{short-2-reevaluation-extrude-face-darts}%
+					\includegraphics<4>[width=.601\columnwidth]{short-3-reevaluation-triangulate-face-darts}%
+					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face-nodarts}%
+				\end{figure}
+			\end{minipage}
+			%
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics[height=.5\textheight]{pn7-short-nolevels}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.65\textwidth}
+			\hfill
+			\begin{minipage}[t][.3\textheight][c]{.65\textwidth}
+				\ttfamily\scriptsize
+				1-{\color{mydarkgreenink}\alt<1>{\color{orange}}{}square}(pos)\\
+				ADD1-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}insert}({\color{red}3})\\
+				2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6], vec)\\
+				3-{\color{mydarkgreenink}\alt<4>{\color{orange}}{}triangulation}([1n3;2n2])\\
+				4-{\color{mydarkgreenink}\alt<5>{\color{orange}}{}colour}([1n3;2n4;3n0])
+			\end{minipage}
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[height=.6\textheight]{pn7-reval-short-nolevels-step-1}%
+					\includegraphics<2>[height=.6\textheight]{pn7-reval-short-nolevels-step-2}%
+					\includegraphics<3>[height=.6\textheight]{pn7-reval-short-nolevels-step-3}%
+					\includegraphics<4>[height=.6\textheight]{pn7-reval-short-nolevels-step-4}%
+					\includegraphics<5>[height=.6\textheight]{pn7-reval-short-nolevels}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}

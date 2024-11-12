@@ -11,15 +11,16 @@
 \usepackage{subfiles}
 \usepackage{subcaption}
 \usepackage[autoplay, loop]{animate}
-\usetheme[numbering=fraction,sectionpage=none]{lias}
+% \usetheme[numbering=fraction,sectionpage=none]{lias}
 
 \input{commands.tex}
 
-\noframetitlelogo
+% \noframetitlelogo
 
 \def\dbasepath{../../resources-figures-jerboa}
 \def\dlogopath{../../logos}
-\graphicspath{{\dbasepath/article2/}%
+\graphicspath{{\dbasepath/article-figures/}%
+		{\dbasepath/soutenance/}%
 		{\dbasepath/figures/}%
 		{\dbasepath/concepts/}%
 		{\dbasepath/rules/}%
@@ -42,30 +43,30 @@
 
 \title[Reevaluation in rule-based modeling systems]{Reevaluation in rule-based Graph Transformation Modeling Systems}
 
-\BeforeBeginEnvironment{document}{%
-	\titlegraphic{
-		\begin{tikzpicture}[overlay, remember picture]
-			\node at (current page.south west) [above right]{
-				\includegraphics[width=5em]{logo_lias.png}
-			};
-		\end{tikzpicture}
-		\begin{tikzpicture}[overlay, remember picture]
-			\node at (current page.north west) [below right]{
-				\includegraphics[width=5em]{Logo_ISAE-ENSMA}
-			};
-		\end{tikzpicture}
-		\begin{tikzpicture}[overlay, remember picture]
-			\node at (current page.south east) [above left]{
-				\includegraphics[width=5em]{xlim-logo.png}
-			};
-		\end{tikzpicture}
-		\begin{tikzpicture}[overlay, remember picture]
-			\node at (current page.north east) [below left]{
-				\includegraphics[width=5em]{Logo_up.png}
-			};
-		\end{tikzpicture}
-	}
-}
+% \BeforeBeginEnvironment{document}{%
+% 	\titlegraphic{
+% 		\begin{tikzpicture}[overlay, remember picture]
+% 			\node at (current page.south west) [above right]{
+% 				\includegraphics[width=5em]{logo_lias.png}
+% 			};
+% 		\end{tikzpicture}
+% 		\begin{tikzpicture}[overlay, remember picture]
+% 			\node at (current page.north west) [below right]{
+% 				\includegraphics[width=5em]{Logo_ISAE-ENSMA}
+% 			};
+% 		\end{tikzpicture}
+% 		\begin{tikzpicture}[overlay, remember picture]
+% 			\node at (current page.south east) [above left]{
+% 				\includegraphics[width=5em]{xlim-logo.png}
+% 			};
+% 		\end{tikzpicture}
+% 		\begin{tikzpicture}[overlay, remember picture]
+% 			\node at (current page.north east) [below left]{
+% 				\includegraphics[width=5em]{Logo_up.png}
+% 			};
+% 		\end{tikzpicture}
+% 	}
+% }
 
 % \noframetitlelogo
 

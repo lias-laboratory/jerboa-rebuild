@@ -55,53 +55,46 @@
 % 	\end{block}
 % \end{frame}
 
-\begin{frame}[c,fragile]
-	\frametitle{Nommage Persistant de brins}
+\begin{frame}
+	\frametitle{Nomination Persistante de brins}
 	\begin{minipage}[t][.4\textheight][t]{\textwidth}
-		\begin{overlayarea}{\textwidth}{.25\textheight}
-			\centering
-			\includegraphics<1-2>[height=.35\textheight]{rule-create-square-face-n3-n6-highlight}%
+		\centering
+		\includegraphics<1-2>[height=.4\textheight]{rule-create-square-face-n3-n6-highlight}%
 
-			\only<1-2>{Création de carré}
+		\only<1-2>{Création de carré}
 
-			\includegraphics<3-5>[height=.3\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
+		\includegraphics<3-5>[height=.29\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
 
-			\only<3-5>{Extrusion de face}
+		\only<3-5>{Extrusion de face}
 
-			\includegraphics<6-8>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
+		\includegraphics<6-8>[height=.141\textheight]{rule-face-triangulation-3D-n0-highlight}%
 
-			\only<6-8>{Triangulation de face}
+		\only<6-8>{Triangulation de face}
 
-			\includegraphics<9-11>[height=.175\textheight]{rule-colour-face}%
+		\includegraphics<9-11>[height=.115\textheight]{rule-colour-face}%
 
-			\only<9-11>{Coloration de face}
-
-
-		\end{overlayarea}
+		\only<9-11>{Coloration de face}
 	\end{minipage}
-	\begin{columns}[b]
-		\begin{column}{.45\textwidth}
-			\begin{minipage}[t][.25\textheight][b]{\textwidth}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\begin{minipage}[b][.4\textheight][b]{\textwidth}
 				\centering
-				\includegraphics<2-4>[width=.6\columnwidth]{persistent-naming-step-1}%
-				\includegraphics<5>[width=.6\columnwidth]{persistent-naming-step-2}%
-				\includegraphics<6-7>[width=.6\columnwidth]{persistent-naming-step-2}%
-				\includegraphics<8-10>[width=.6\columnwidth]{persistent-naming-step-3}%
-				\includegraphics<11>[width=.6\columnwidth]{persistent-naming-step-4}%
+				\includegraphics<2-4>[width=.5\columnwidth]{persistent-naming-step-1}%
+				\includegraphics<5>[width=.5\columnwidth]{persistent-naming-step-2}%
+				\includegraphics<6-7>[width=.5\columnwidth]{persistent-naming-step-2}%
+				\includegraphics<8-10>[width=.5\columnwidth]{persistent-naming-step-3}%
+				\includegraphics<11>[width=.5\columnwidth]{persistent-naming-step-4}%
 			\end{minipage}
 		\end{column}
-		\hfill
-		\begin{column}{.49\textwidth}
-			\begin{minipage}[c][.4\textheight][c]{\textwidth}
+		\begin{column}{.5\textwidth}
+			\begin{minipage}[t][.25\textheight][t]{\textwidth}
 				\begin{block}{Spécification paramétrique}
 					\begin{overlayarea}{\textwidth}{.2\textheight}
 						\ttfamily\footnotesize
-						% \begin{semiverbatim}
-						\only<1->{1-{\color{mydarkgreenink}square}(pos)}\\
-						\only<3->{2-{\color{mydarkgreenink}extrusion}(\alt<3>{6}{[1n6]}, vec)}
-						\only<6->{3-{\color{mydarkgreenink}triangulation}(\alt<6>{33}{[1n3;2n2]})}
-						\only<9->{4-{\color{mydarkgreenink}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}
-						% \end{semiverbatim}
+						\only<1->{1-{\color{mydarkgreenink}square}(pos)}\newline
+						\only<3->{2-{\color{mydarkgreenink}extrusion}(\alt<3>{6}{[1n6]}, vec)}\newline
+						\only<6->{3-{\color{mydarkgreenink}triangulation}(\alt<6>{33}{[1n3;2n2]})}\newline
+						\only<9->{4-{\color{mydarkgreenink}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}\newline
 					\end{overlayarea}
 				\end{block}
 			\end{minipage}
@@ -110,41 +103,37 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Nommage Persistant d'une orbite}
-	\begin{columns}[b]
-		\begin{column}{.45\textwidth}
-			\begin{minipage}[t][.25\textheight][t]{\textwidth}
-				\begin{overlayarea}{\textwidth}{.25\textheight}
-					\centering
-					\includegraphics<1>[width=.6\textwidth]{rule-colour-face-n0-highlight}%
-					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed}%
-					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight}%
-					\includegraphics<4->[width=\textwidth]{rule-create-square-face-n3-highlight}%
-				\end{overlayarea}
+	\frametitle{Nomination Persistante d'une orbite}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			\begin{minipage}[t][.4\textheight][t]{\textwidth}
+				\centering
+				\includegraphics<1>[height=.115\textheight]{rule-colour-face-n0-highlight}%
+				\includegraphics<2>[height=.141\textheight]{rule-face-triangulation-3D-n0-highlight-boxed}%
+				\includegraphics<3>[height=.325\textheight]{rule-face-extrusion-compact-n4-highlight}%
+				\includegraphics<4->[height=.4\textheight]{rule-create-square-face-n3-highlight}%
 			\end{minipage}
-			\begin{minipage}[t][.5\textheight][b]{\textwidth}
-				\begin{figure}
-					\includegraphics[width=.6\columnwidth]{persistent-naming-pn3}%
-				\end{figure}
+			\begin{minipage}[b][.4\textheight][b]{\textwidth}
+				\centering
+				\includegraphics[width=.5\columnwidth]{persistent-naming-pn3}%
 			\end{minipage}
 		\end{column}
-		\hfill
-		\begin{column}{.49\textwidth}
-			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
+		\begin{column}{.5\textwidth}
+		  \hfill
+			\begin{minipage}[t][.3\textheight][c]{.7\textwidth}
 				\ttfamily\scriptsize
 				1-{\color{mydarkgreenink}\alt<4->{\color{orange}}{}square}(pos)\\
 				2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6],vec)\\
 				3-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}triangulation}([1n3;2n2])\\
 				4-{\color{mydarkgreenink}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4->{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
 			\end{minipage}
-			\begin{minipage}[t][.5\textheight][b]{\textwidth}
-				\begin{figure}
-					\includegraphics<1>[height=.5\textheight]{pn7-short-nolevels-step-1}%
-					\includegraphics<2>[height=.5\textheight]{pn7-short-nolevels-step-2}%
-					\includegraphics<3>[height=.5\textheight]{pn7-short-nolevels-step-3}%
-					\includegraphics<4>[height=.5\textheight]{pn7-short-nolevels-step-4}%
-					\includegraphics<5>[height=.5\textheight]{pn7-short-nolevels}%
-				\end{figure}
+			\begin{minipage}[t][.4\textheight][t]{\textwidth}
+				\centering
+				\includegraphics<1>[height=.5\textheight]{pn7-short-nolevels-step-1}%
+				\includegraphics<2>[height=.5\textheight]{pn7-short-nolevels-step-2}%
+				\includegraphics<3>[height=.5\textheight]{pn7-short-nolevels-step-3}%
+				\includegraphics<4>[height=.5\textheight]{pn7-short-nolevels-step-4}%
+				\includegraphics<5>[height=.5\textheight]{pn7-short-nolevels}%
 			\end{minipage}
 		\end{column}
 	\end{columns}
@@ -156,7 +145,7 @@
 	\frametitle{Réévaluation}
 	\begin{columns}
 		\begin{column}{.35\textwidth}
-			\begin{minipage}[t][.3\textheight][c]{\textwidth}
+			\begin{minipage}[b][.3\textheight][b]{\textwidth}
 				\begin{figure}
 					\includegraphics<1>[width=.6\columnwidth]{short-1-reevaluation-create-face-darts}%
 					\includegraphics<2>[width=.6\columnwidth]{short-1ADD-reevaluation-insert-vertex-darts}%
@@ -165,10 +154,9 @@
 					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face-nodarts}%
 				\end{figure}
 			\end{minipage}
-			%
-			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+			\begin{minipage}[b][.75\textheight][t]{\textwidth}
 				\begin{figure}
-					\includegraphics[height=.5\textheight]{pn7-short-nolevels}%
+					\includegraphics[height=.4\textheight]{pn7-short-nolevels}%
 				\end{figure}
 			\end{minipage}
 		\end{column}
@@ -182,13 +170,13 @@
 				3-{\color{mydarkgreenink}\alt<4>{\color{orange}}{}triangulation}([1n3;2n2])\\
 				4-{\color{mydarkgreenink}\alt<5>{\color{orange}}{}colour}([1n3;2n4;3n0])
 			\end{minipage}
-			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+			\begin{minipage}[b][.75\textheight][t]{\textwidth}
 				\begin{figure}
-					\includegraphics<1>[height=.6\textheight]{pn7-reval-short-nolevels-step-1}%
-					\includegraphics<2>[height=.6\textheight]{pn7-reval-short-nolevels-step-2}%
-					\includegraphics<3>[height=.6\textheight]{pn7-reval-short-nolevels-step-3}%
-					\includegraphics<4>[height=.6\textheight]{pn7-reval-short-nolevels-step-4}%
-					\includegraphics<5>[height=.6\textheight]{pn7-reval-short-nolevels}%
+					\includegraphics<1>[height=.5\textheight]{pn7-reval-short-nolevels-step-1}%
+					\includegraphics<2>[height=.5\textheight]{pn7-reval-short-nolevels-step-2}%
+					\includegraphics<3>[height=.5\textheight]{pn7-reval-short-nolevels-step-3}%
+					\includegraphics<4>[height=.5\textheight]{pn7-reval-short-nolevels-step-4}%
+					\includegraphics<5>[height=.5\textheight]{pn7-reval-short-nolevels}%
 				\end{figure}
 			\end{minipage}
 		\end{column}

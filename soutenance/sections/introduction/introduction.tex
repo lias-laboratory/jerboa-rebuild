@@ -1,13 +1,13 @@
 \begin{frame}
-  \frametitle{Modélisation géométrique}
+	\frametitle{Modélisation géométrique}
 
-  « dans le monde de tous les jours, la modélisation géométrique est utilisée
-  dans de nombreux domaines » (illustrer: archi(revit), jv et animation
-  (blender, godot, UE), pièces industrielles (catia, freecad))
+	« dans le monde de tous les jours, la modélisation géométrique est utilisée
+	dans de nombreux domaines » (illustrer: archi(revit), jv et animation
+	(blender, godot, UE), pièces industrielles (catia, freecad))
 \end{frame}
 
 \begin{frame}
-  \frametitle{Domaines d'applications}
+	\frametitle{Domaines d'applications}
 
 	Il y a des domaines qui nécessitent de générer plusieurs variantes
 	d'un même modèle (archéo, CAO…) (illustrer),
@@ -16,8 +16,8 @@
 \begin{frame}
 	\frametitle{Modélisation paramétrique}
 
-		 Focaliser le discours sur la CAO avec la modélisation paramétrique
-		      (avantages) (illustrer),
+	Focaliser le discours sur la CAO avec la modélisation paramétrique
+	(avantages) (illustrer),
 \end{frame}
 
 \begin{frame}
@@ -29,37 +29,38 @@
 \end{frame}
 
 \begin{frame}[c,fragile]
-  \frametitle{Problématique de la nomination persistante}
+	\frametitle{Problématique de la nomination persistante}
 
 	\begin{overlayarea}{\textwidth}{.7\textheight}
 		\begin{columns}
 			\begin{column}{.49\textwidth}
 				\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
 					\centering
-					\includegraphics<1>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
-					\includegraphics<2>[width=.7\textwidth]{\dbasepath/classic-figures/2-face-extrusion}%
-					\includegraphics<3>[width=.7\textwidth]{\dbasepath/classic-figures/4-face-triangulation}%
-					\includegraphics<4>[width=.7\textwidth]{\dbasepath/classic-figures/5-colour-face}%
-					\includegraphics<5>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
-					\includegraphics<6>[width=.7\textwidth]{\dbasepath/classic-figures/2-reeval-insert-vertex}%
-					\includegraphics<7>[width=.7\textwidth]{\dbasepath/classic-figures/3-reeval-face-extrusion}%
+					\includegraphics<1>[width=.7\textwidth]{1-square-thin}%
+					\includegraphics<2>[width=.7\textwidth]{2-face-extrusion}%
+					\includegraphics<3>[width=.7\textwidth]{4-face-triangulation}%
+					\includegraphics<4>[width=.7\textwidth]{5-colour-face}%
+					\includegraphics<5>[width=.7\textwidth]{1-square-thin}%
+					\includegraphics<6>[width=.7\textwidth]{2-reeval-insert-vertex}%
+					\includegraphics<7>[width=.7\textwidth]{3-reeval-face-extrusion}%
 				\end{minipage}
 
 			\end{column}
 			\begin{column}{.49\textwidth}
 				\begin{minipage}[c]{1.0\linewidth}
 					\begin{block}{%
-							\begin{overlayarea}{\textwidth}{1em}
+							% \begin{overlayarea}{\textwidth}{1em}
 								\alt<5->{Réévaluation}{Évaluation}
-							\end{overlayarea}} \ttfamily
-						\only<1->{1-{\color{mydarkgreenink}square}({\color{orange}pos})}
+							% \end{overlayarea} %
+						} \ttfamily
+						\only<1->{1-{\color{mydarkgreenink}square}({\color{orange}pos})}\\
 						\only<1-4>{%
 						\alt<2-4>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},
 						{\color{orange}vec})}
 						{2-{\color{gray}extrusion}({\color{myblueink}f1},
 						{\color{orange}vec})}
 						\alt<3-4>{3-{\color{mydarkgreenink}triangulation}({\color{myblueink}f2})}
-						{3-{\color{gray}triangulation}({\color{myblueink}f2})}
+						{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
 						\alt<4>{4-{\color{mydarkgreenink}colour}({\color{myblueink}f7})}
 						{4-{\color{gray}colour}({\color{myblueink}f7})}%
 						}%
@@ -69,7 +70,7 @@
 						\alt<7>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
 						{2-{\color{gray}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
 						\alt<7->{3-{\color{mydarkgreenink}triangulation}({\color{red}f2?})}
-						{3-{\color{gray}triangulation}({\color{myblueink}f2})}
+						{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
 						\alt<7>{4-{\color{mydarkgreenink}colour}({\color{red}f7?})}
 						{4-{\color{gray}colour}({\color{myblueink}f7})}%
 						}
@@ -93,8 +94,8 @@
 	\frametitle{État de l'art pour la nomination persistante}
 
 	\begin{itemize}
-	  \item utilisation d'un historique de noms
-	  \item nomination hétérogène des entités
+		\item utilisation d'un historique de noms
+		\item nomination hétérogène des entités
 	\end{itemize}
 \end{frame}
 

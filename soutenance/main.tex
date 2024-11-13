@@ -33,11 +33,11 @@
 		{\dbasepath/persistent-naming/}%
 		{\dlogopath}}
 
-\author{\centering Maxime Gaide}
+\author[Maxime Gaide]{\centering Maxime Gaide}
 
 \institute{}
 
-\date{}
+\date{11 décembre 2024}
 % \date{\today}
 
 \title{\centering Modélisation et rejeu basés sur des règles}
@@ -96,21 +96,32 @@
 
 \begin{frame}
 	\frametitle{Modélisation paramétrique}
+
+	Expliquer le fonctionnement d'un système de modélisation
+	paramétrique (application manuelle d'opérations, enregistrement du
+	processus de construction, rejeu)
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problématique de la nomination persistante}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{État de l'art pour la nomination persistante}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limitations des approches existantes}
+
 	\begin{itemize}
-		\item Expliquer le fonctionnement d'un système de modélisation
-		      paramétrique (application manuelle d'opérations, enregistrement du
-		      processus de construction, rejeu)
-		\item Présenter la problématique du nom persistant au rejeu
-		\item mini état de l'art
-		\item Présenter les limitations
-		      \begin{itemize}
-			      \item absence de généricité dans les mécanismes de nomination
-			            persistante (nommage différent en fonction de la dimension
-			            de la cellule),
-			      \item modèles limités en dimension 3 (la plupart),
-			      \item édition limitée d'un processus constructif,
-			      \item (à compléter en fonction des contributions)
-		      \end{itemize}
+		\item absence de généricité dans les mécanismes de nomination
+		      persistante (nommage différent en fonction de la dimension
+		      de la cellule),
+		\item modèles limités en dimension 3 (la plupart),
+		\item édition limitée d'un processus constructif,
+		\item (à compléter en fonction des contributions)
 	\end{itemize}
 \end{frame}
 
@@ -129,10 +140,10 @@
 
 
 
-\begin{frame}[plain,noframenumbering]
-	\frametitle{Plan}
-	\tableofcontents
-\end{frame}
+% \begin{frame}[plain,noframenumbering]
+% 	\frametitle{Plan}
+% 	\tableofcontents
+% \end{frame}
 
 
 
@@ -467,46 +478,46 @@
 			\centering
 			\includegraphics<1-2>[height=.35\textheight]{rule-create-square-face-n3-n6-highlight}%
 
-				\only<1-2>{Création de carré}
+			\only<1-2>{Création de carré}
 
 			\includegraphics<3-5>[height=.3\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
 
-				\only<3-5>{Extrusion de face}
+			\only<3-5>{Extrusion de face}
 
 			\includegraphics<6-8>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
 
-				\only<6-8>{Triangulation de face}
+			\only<6-8>{Triangulation de face}
 
 			\includegraphics<9-11>[height=.175\textheight]{rule-colour-face}%
 
-				\only<9-11>{Coloration de face}
+			\only<9-11>{Coloration de face}
 
 
 		\end{overlayarea}
 	\end{minipage}
 	\begin{columns}[b]
 		\begin{column}{.45\textwidth}
-			\begin{minipage}[t][.4\textheight][b]{1.0\linewidth}
+			\begin{minipage}[t][.25\textheight][t]{\textwidth}
 				\centering
 				\includegraphics<2-4>[width=.6\columnwidth]{persistent-naming-step-1}%
 				\includegraphics<5>[width=.6\columnwidth]{persistent-naming-step-2}%
-					\includegraphics<6-7>[width=.6\columnwidth]{persistent-naming-step-2}%
+				\includegraphics<6-7>[width=.6\columnwidth]{persistent-naming-step-2}%
 				\includegraphics<8-10>[width=.6\columnwidth]{persistent-naming-step-3}%
 				\includegraphics<11>[width=.6\columnwidth]{persistent-naming-step-4}%
 			\end{minipage}
 		\end{column}
+		\hfill
 		\begin{column}{.49\textwidth}
-			\begin{minipage}[t][.4\textheight][c]{1.0\linewidth}
+			\begin{minipage}[t][.4\textheight][t]{\textwidth}
 				\begin{block}{Spécification paramétrique}
 					\begin{overlayarea}{\textwidth}{.2\textheight}
-						\footnotesize
-						\begin{semiverbatim}
-							\only<1->{1-{\color{mydarkgreenink}square}(pos)}
-							\only<3->{2-{\color{mydarkgreenink}extrusion}(\alt<3>{6}{[1n6]}, vec)}
-							\only<6->{3-{\color{mydarkgreenink}triangulation}(\alt<6>{33}{[1n3;2n2]})}
-							\only<9->{4-{\color{mydarkgreenink}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}
-						\end{semiverbatim}
-
+						\ttfamily\footnotesize
+						% \begin{semiverbatim}
+						\only<1->{1-{\color{mydarkgreenink}square}(pos)}\\
+						\only<3->{2-{\color{mydarkgreenink}extrusion}(\alt<3>{6}{[1n6]}, vec)}
+						\only<6->{3-{\color{mydarkgreenink}triangulation}(\alt<6>{33}{[1n3;2n2]})}
+						\only<9->{4-{\color{mydarkgreenink}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}
+						% \end{semiverbatim}
 					\end{overlayarea}
 				\end{block}
 			\end{minipage}
@@ -524,7 +535,7 @@
 					\includegraphics<1>[width=.6\textwidth]{rule-colour-face-n0-highlight}%
 					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed}%
 					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight}%
-					\includegraphics<4>[width=\textwidth]{rule-create-square-face-n3-highlight}%
+					\includegraphics<4->[width=\textwidth]{rule-create-square-face-n3-highlight}%
 				\end{overlayarea}
 			\end{minipage}
 			\begin{minipage}[t][.5\textheight][b]{\textwidth}
@@ -533,14 +544,14 @@
 				\end{figure}
 			\end{minipage}
 		\end{column}
-		\begin{column}{.45\textwidth}
-			\hfill
+		\hfill
+		\begin{column}{.49\textwidth}
 			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
-			  \ttfamily\scriptsize
-				1-{\color{mydarkgreenink}\alt<4>{\color{orange}}{}square}(pos)\\
+				\ttfamily\scriptsize
+				1-{\color{mydarkgreenink}\alt<4->{\color{orange}}{}square}(pos)\\
 				2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6],vec)\\
 				3-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}triangulation}([1n3;2n2])\\
-			  4-{\color{mydarkgreenink}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4>{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
+				4-{\color{mydarkgreenink}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4->{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
 			\end{minipage}
 			\begin{minipage}[t][.5\textheight][b]{\textwidth}
 				\begin{figure}
@@ -548,6 +559,7 @@
 					\includegraphics<2>[height=.5\textheight]{pn7-short-nolevels-step-2}%
 					\includegraphics<3>[height=.5\textheight]{pn7-short-nolevels-step-3}%
 					\includegraphics<4>[height=.5\textheight]{pn7-short-nolevels-step-4}%
+					\includegraphics<5>[height=.5\textheight]{pn7-short-nolevels}%
 				\end{figure}
 			\end{minipage}
 		\end{column}
@@ -565,7 +577,7 @@
 					\includegraphics<1>[width=.6\columnwidth]{short-1-reevaluation-create-face-darts}%
 					\includegraphics<2>[width=.6\columnwidth]{short-1ADD-reevaluation-insert-vertex-darts}%
 					\includegraphics<3>[width=.6\columnwidth]{short-2-reevaluation-extrude-face-darts}%
-					\includegraphics<4>[width=.601\columnwidth]{short-3-reevaluation-triangulate-face-darts}%
+					\includegraphics<4>[width=.6\columnwidth]{short-3-reevaluation-triangulate-face-darts}%
 					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face-nodarts}%
 				\end{figure}
 			\end{minipage}

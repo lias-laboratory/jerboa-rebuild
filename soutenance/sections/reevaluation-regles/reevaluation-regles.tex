@@ -1,0 +1,214 @@
+
+
+
+\begin{frame}
+	\frametitle{Réévaluation à base de règles}
+	\begin{block}{Idée}
+		Dans cette slide, ça doit valoir la peine de repasser un peu de temps sur la
+		question des modeleurs paramétriques. %
+		Expliquer qu'avec les outils et notre première contribution notre deuxième
+		contribution est un modeleur paramétrique à base de règles disposant d'une
+		fonctionnalité de rejeu. %
+	\end{block}
+	À partir de l'enregistrement du processus de construction, nous proposons~:
+	\begin{itemize}
+		\item un mécanisme de nomination persistante, pour identifier les orbites
+		      de manière unique y compris dans le modèle regénéré,
+		\item un mécanisme de réévaluation, permettant de regénérer des objets à
+		      partir de l'édition d'un processus constructif. %
+	\end{itemize}
+\end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{Nomination persistante des brins}
+% 	\begin{block}{Idée}
+% 		Le plan ici, c'est de concrétiser l'approche par historique pour
+% 		l'identification des entités topologiques. %
+% 		On le fait pour les brins, car c'est générique et sans ambiguïté. %
+% 		Par contre, ça devient technique, j'ai besoin de prendre du recul. %
+% 	\end{block}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Nomination persistante des orbites}
+% 	\begin{block}{Idée}
+% 		Je ne sais pas trop comment m'y prendre, mais il faudra de toute façon
+% 		montrer un DAG (c'est une contribution mise en avant). %
+% 		Continuer d'exploiter le cas d'étude et créer le DAG d'évaluation d'une
+% 		orbite. %
+% 		Montrer qu'à l'aide d'un nom persistant de brin et de l'analyse syntaxique
+% 		des opérations, on peut reconstituer l'historique des évolutions d'une
+% 		orbite dans un objet. %
+% 	\end{block}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Réévaluation}
+% 	\begin{block}{Idée}
+% 		Même problème que la slide précédente, je n'arrive pas à imaginer une
+% 		présentation simple. %
+% 		Expliquer que l'on peut procéder à la réévaluation, de manière
+% 		relativement simple, grâce aux DAG d'évaluation. %
+% 		Le principe est simplement de les recréer sous forme de DAG de rejeu qui
+% 		prennent en compte l'édition du processus constructif. %
+% 	\end{block}
+% \end{frame}
+
+\begin{frame}[c,fragile]
+	\frametitle{Nommage Persistant de brins}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
+		\begin{overlayarea}{\textwidth}{.25\textheight}
+			\centering
+			\includegraphics<1-2>[height=.35\textheight]{rule-create-square-face-n3-n6-highlight}%
+
+			\only<1-2>{Création de carré}
+
+			\includegraphics<3-5>[height=.3\textheight]{rule-face-extrusion-compact-n2-n4-highlight}%
+
+			\only<3-5>{Extrusion de face}
+
+			\includegraphics<6-8>[height=.175\textheight]{rule-face-triangulation-3D-n0-highlight}%
+
+			\only<6-8>{Triangulation de face}
+
+			\includegraphics<9-11>[height=.175\textheight]{rule-colour-face}%
+
+			\only<9-11>{Coloration de face}
+
+
+		\end{overlayarea}
+	\end{minipage}
+	\begin{columns}[b]
+		\begin{column}{.45\textwidth}
+			\begin{minipage}[t][.25\textheight][b]{\textwidth}
+				\centering
+				\includegraphics<2-4>[width=.6\columnwidth]{persistent-naming-step-1}%
+				\includegraphics<5>[width=.6\columnwidth]{persistent-naming-step-2}%
+				\includegraphics<6-7>[width=.6\columnwidth]{persistent-naming-step-2}%
+				\includegraphics<8-10>[width=.6\columnwidth]{persistent-naming-step-3}%
+				\includegraphics<11>[width=.6\columnwidth]{persistent-naming-step-4}%
+			\end{minipage}
+		\end{column}
+		\hfill
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[c][.4\textheight][c]{\textwidth}
+				\begin{block}{Spécification paramétrique}
+					\begin{overlayarea}{\textwidth}{.2\textheight}
+						\ttfamily\footnotesize
+						% \begin{semiverbatim}
+						\only<1->{1-{\color{mydarkgreenink}square}(pos)}\\
+						\only<3->{2-{\color{mydarkgreenink}extrusion}(\alt<3>{6}{[1n6]}, vec)}
+						\only<6->{3-{\color{mydarkgreenink}triangulation}(\alt<6>{33}{[1n3;2n2]})}
+						\only<9->{4-{\color{mydarkgreenink}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}
+						% \end{semiverbatim}
+					\end{overlayarea}
+				\end{block}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nommage Persistant d'une orbite}
+	\begin{columns}[b]
+		\begin{column}{.45\textwidth}
+			\begin{minipage}[t][.25\textheight][t]{\textwidth}
+				\begin{overlayarea}{\textwidth}{.25\textheight}
+					\centering
+					\includegraphics<1>[width=.6\textwidth]{rule-colour-face-n0-highlight}%
+					\includegraphics<2>[width=\textwidth]{rule-face-triangulation-3D-n0-highlight-boxed}%
+					\includegraphics<3>[width=\textwidth]{rule-face-extrusion-compact-n4-highlight}%
+					\includegraphics<4->[width=\textwidth]{rule-create-square-face-n3-highlight}%
+				\end{overlayarea}
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics[width=.6\columnwidth]{persistent-naming-pn3}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\hfill
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[t][.25\textheight][t]{.85\textwidth}
+				\ttfamily\scriptsize
+				1-{\color{mydarkgreenink}\alt<4->{\color{orange}}{}square}(pos)\\
+				2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6],vec)\\
+				3-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}triangulation}([1n3;2n2])\\
+				4-{\color{mydarkgreenink}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4->{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
+			\end{minipage}
+			\begin{minipage}[t][.5\textheight][b]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[height=.5\textheight]{pn7-short-nolevels-step-1}%
+					\includegraphics<2>[height=.5\textheight]{pn7-short-nolevels-step-2}%
+					\includegraphics<3>[height=.5\textheight]{pn7-short-nolevels-step-3}%
+					\includegraphics<4>[height=.5\textheight]{pn7-short-nolevels-step-4}%
+					\includegraphics<5>[height=.5\textheight]{pn7-short-nolevels}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\subsection{Réévaluation}
+
+\begin{frame}
+	\frametitle{Réévaluation}
+	\begin{columns}
+		\begin{column}{.35\textwidth}
+			\begin{minipage}[t][.3\textheight][c]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[width=.6\columnwidth]{short-1-reevaluation-create-face-darts}%
+					\includegraphics<2>[width=.6\columnwidth]{short-1ADD-reevaluation-insert-vertex-darts}%
+					\includegraphics<3>[width=.6\columnwidth]{short-2-reevaluation-extrude-face-darts}%
+					\includegraphics<4>[width=.6\columnwidth]{short-3-reevaluation-triangulate-face-darts}%
+					\includegraphics<5>[width=.6\columnwidth]{short-4-reevaluation-color-face-nodarts}%
+				\end{figure}
+			\end{minipage}
+			%
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics[height=.5\textheight]{pn7-short-nolevels}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.65\textwidth}
+			\hfill
+			\begin{minipage}[t][.3\textheight][c]{.65\textwidth}
+				\ttfamily\scriptsize
+				1-{\color{mydarkgreenink}\alt<1>{\color{orange}}{}square}(pos)\\
+				ADD1-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}insert}({\color{red}3})\\
+				2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6], vec)\\
+				3-{\color{mydarkgreenink}\alt<4>{\color{orange}}{}triangulation}([1n3;2n2])\\
+				4-{\color{mydarkgreenink}\alt<5>{\color{orange}}{}colour}([1n3;2n4;3n0])
+			\end{minipage}
+			\begin{minipage}[b][.7\textheight][t]{\textwidth}
+				\begin{figure}
+					\includegraphics<1>[height=.6\textheight]{pn7-reval-short-nolevels-step-1}%
+					\includegraphics<2>[height=.6\textheight]{pn7-reval-short-nolevels-step-2}%
+					\includegraphics<3>[height=.6\textheight]{pn7-reval-short-nolevels-step-3}%
+					\includegraphics<4>[height=.6\textheight]{pn7-reval-short-nolevels-step-4}%
+					\includegraphics<5>[height=.6\textheight]{pn7-reval-short-nolevels}%
+				\end{figure}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Configuration de la réévaluation ou stratégies}
+	\begin{block}{Idée}
+		Je pense que ça peut être intéressant de s'attarder une minute sur les
+		possibilités qu'offrent les stratégies pour le rejeu. %
+		Ça peut passer par l'illustration d'exemples avec différentes
+		configurations comme dans le manuscrit. %
+	\end{block}
+\end{frame}
+
+
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

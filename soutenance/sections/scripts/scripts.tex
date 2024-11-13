@@ -1,0 +1,76 @@
+
+
+\begin{frame}
+	\frametitle{Scripts de règles}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Extension aux scripts}
+	\begin{block}{Idée}
+		Dans cette slide, remettre en contexte avec la question des opérations
+		complexes. %
+		Les modeleurs paramétriques existants proposent des opérations basées sur du
+		code et comprennent nativement des structures de contrôle (séquence,
+		répétition (itération), alternative). %
+		Notre troisième contribution est l'extension de notre mécanisme de rejeu pour le support de scripts. %
+		Serait-ce une bonne idée de représenter ces structures à l'aide de schémas ?
+	\end{block}
+	\begin{itemize}
+		\item Extension de notre mécanisme de rejeu aux scripts,
+		\item trois structures de contrôle (séquence, itération, alternative)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Structure de séquence}
+	\begin{itemize}
+		\item Problématique de la représentation d'un script boîte fermée vs boîte ouverte,
+		\item extension pour les spécifications paramétriques,
+		\item extension pour les DAG
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Structure de boucle d'itération de sous-orbites}
+	\begin{itemize}
+		\item Problématique de l'itération de sous-orbite avec conditionnement sur
+		      l'orbite itéré et ses sous-orbites d'itération,
+		\item extension pour les spécifications paramétriques,
+		\item extension pour les DAG
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Structure d'alternative de règles}
+	\begin{itemize}
+		\item Problématique de l'alternative avec des règles qui peuvent filtrer
+		      différemment et appliquer des transformations différentes,
+		\item extension pour les spécifications paramétriques,
+		\item extension pour les DAG
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Appariement de règles alternatives}
+	\begin{block}{Note}
+		Je manque encore trop de recul, besoin d'en discuter. %
+	\end{block}
+	\begin{itemize}
+		\item Définition de classe d'évènements,
+		\item filtrage droit de la règle évaluée,
+		\item filtrage gauche des deux règles,
+		\item appariement à droite sur la base des origines qui peuvent être
+		      strictement identiques ou des sur ou sous-orbites et à condition que
+		      les orbites à apparier soient définies appartiennent à une même
+		      classe d'évènements topologiques
+	\end{itemize}
+\end{frame}
+
+
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

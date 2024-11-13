@@ -1,0 +1,140 @@
+\begin{frame}
+  \frametitle{Modélisation géométrique}
+
+  « dans le monde de tous les jours, la modélisation géométrique est utilisée
+  dans de nombreux domaines » (illustrer: archi(revit), jv et animation
+  (blender, godot, UE), pièces industrielles (catia, freecad))
+\end{frame}
+
+\begin{frame}
+  \frametitle{Domaines d'applications}
+
+	Il y a des domaines qui nécessitent de générer plusieurs variantes
+	d'un même modèle (archéo, CAO…) (illustrer),
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modélisation paramétrique}
+
+		 Focaliser le discours sur la CAO avec la modélisation paramétrique
+		      (avantages) (illustrer),
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modélisation paramétrique}
+
+	Expliquer le fonctionnement d'un système de modélisation
+	paramétrique (application manuelle d'opérations, enregistrement du
+	processus de construction, rejeu)
+\end{frame}
+
+\begin{frame}[c,fragile]
+  \frametitle{Problématique de la nomination persistante}
+
+	\begin{overlayarea}{\textwidth}{.7\textheight}
+		\begin{columns}
+			\begin{column}{.49\textwidth}
+				\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
+					\centering
+					\includegraphics<1>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+					\includegraphics<2>[width=.7\textwidth]{\dbasepath/classic-figures/2-face-extrusion}%
+					\includegraphics<3>[width=.7\textwidth]{\dbasepath/classic-figures/4-face-triangulation}%
+					\includegraphics<4>[width=.7\textwidth]{\dbasepath/classic-figures/5-colour-face}%
+					\includegraphics<5>[width=.7\textwidth]{\dbasepath/classic-figures/1-square-thin}%
+					\includegraphics<6>[width=.7\textwidth]{\dbasepath/classic-figures/2-reeval-insert-vertex}%
+					\includegraphics<7>[width=.7\textwidth]{\dbasepath/classic-figures/3-reeval-face-extrusion}%
+				\end{minipage}
+
+			\end{column}
+			\begin{column}{.49\textwidth}
+				\begin{minipage}[c]{1.0\linewidth}
+					\begin{block}{%
+							\begin{overlayarea}{\textwidth}{1em}
+								\alt<5->{Réévaluation}{Évaluation}
+							\end{overlayarea}} \ttfamily
+						\only<1->{1-{\color{mydarkgreenink}square}({\color{orange}pos})}
+						\only<1-4>{%
+						\alt<2-4>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},
+						{\color{orange}vec})}
+						{2-{\color{gray}extrusion}({\color{myblueink}f1},
+						{\color{orange}vec})}
+						\alt<3-4>{3-{\color{mydarkgreenink}triangulation}({\color{myblueink}f2})}
+						{3-{\color{gray}triangulation}({\color{myblueink}f2})}
+						\alt<4>{4-{\color{mydarkgreenink}colour}({\color{myblueink}f7})}
+						{4-{\color{gray}colour}({\color{myblueink}f7})}%
+						}%
+						\only<5->{
+						\alt<6->{{\color{red}ADD1-insert}({\color{myblueink}e1})}
+						{ADD1-{\color{gray}insert({\color{myblueink}e1})}}
+						\alt<7>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
+						{2-{\color{gray}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
+						\alt<7->{3-{\color{mydarkgreenink}triangulation}({\color{red}f2?})}
+						{3-{\color{gray}triangulation}({\color{myblueink}f2})}
+						\alt<7>{4-{\color{mydarkgreenink}colour}({\color{red}f7?})}
+						{4-{\color{gray}colour}({\color{myblueink}f7})}%
+						}
+					\end{block}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+		\only<7>{%
+			\begin{block}{}
+				\color{red}\(\to\) Nommage persistant nécessaire
+			\end{block}
+		}
+	\end{overlayarea}
+	\vfill
+	\begin{block}{}
+		{\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{État de l'art pour la nomination persistante}
+
+	\begin{itemize}
+	  \item utilisation d'un historique de noms
+	  \item nomination hétérogène des entités
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Limitations des approches existantes}
+
+	\begin{itemize}
+		\item absence de généricité dans les mécanismes de nomination
+		      persistante (nommage différent en fonction de la dimension
+		      de la cellule),
+		\item modèles limités en dimension 3 (la plupart),
+		\item édition limitée d'un processus constructif,
+		\item (à compléter en fonction des contributions)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Objectifs}
+	Conception et développement d'un système de réévaluation permettant~:
+	(autant d'objectifs que de limitations)
+	\begin{itemize}
+		\item une édition étendue des processus de construction (ajout,
+		      suppression et réorganisation des opérations)~;
+		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
+		      %       d'erreurs d'appariement~;
+		\item de garantir la cohérence topologique des constructions.
+	\end{itemize}
+\end{frame}
+
+
+
+% \begin{frame}[plain,noframenumbering]
+% 	\frametitle{Plan}
+% 	\tableofcontents
+% \end{frame}
+
+
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

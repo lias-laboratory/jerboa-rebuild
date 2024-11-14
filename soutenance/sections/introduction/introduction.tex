@@ -28,13 +28,14 @@
 	processus de construction, rejeu)
 \end{frame}
 
+
 \begin{frame}[c,fragile]
 	\frametitle{Problématique de la nomination persistante}
 
-	\begin{overlayarea}{\textwidth}{.7\textheight}
+	% \begin{overlayarea}{\textwidth}{.7\textheight}
 		\begin{columns}
 			\begin{column}{.49\textwidth}
-				\begin{minipage}[t][.6\textheight][b]{1.0\linewidth}
+				\begin{minipage}[c][.5\textheight][b]{1.0\linewidth}
 					\centering
 					\includegraphics<1>[width=.7\textwidth]{1-square-thin}%
 					\includegraphics<2>[width=.7\textwidth]{2-face-extrusion}%
@@ -44,15 +45,13 @@
 					\includegraphics<6>[width=.7\textwidth]{2-reeval-insert-vertex}%
 					\includegraphics<7>[width=.7\textwidth]{3-reeval-face-extrusion}%
 				\end{minipage}
-
 			\end{column}
 			\begin{column}{.49\textwidth}
-				\begin{minipage}[c]{1.0\linewidth}
-					\begin{block}{%
-							% \begin{overlayarea}{\textwidth}{1em}
-								\alt<5->{Réévaluation}{Évaluation}
-							% \end{overlayarea} %
-						} \ttfamily
+			  \centering
+				\begin{minipage}[c][.7\textheight][t]{.7\linewidth}
+				    \vspace{.2\textheight}
+					\begin{myblock}[\alt<5->{\vspace{1.3pt}Réévaluation}{Évaluation}]
+					  \ttfamily
 						\only<1->{1-{\color{mydarkgreenink}square}({\color{orange}pos})}\\
 						\only<1-4>{%
 						\alt<2-4>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},
@@ -74,21 +73,25 @@
 						\alt<7>{4-{\color{mydarkgreenink}colour}({\color{red}f7?})}
 						{4-{\color{gray}colour}({\color{myblueink}f7})}%
 						}
-					\end{block}
+					\end{myblock}
 				\end{minipage}
 			\end{column}
 		\end{columns}
+	\begin{overlayarea}{\textwidth}{.1\textheight}
 		\only<7>{%
-			\begin{block}{}
-				\color{red}\(\to\) Nommage persistant nécessaire
-			\end{block}
+			\begin{myblock}{}
+				\color{red} \textrightarrow Nommage persistant nécessaire
+			\end{myblock}
 		}
 	\end{overlayarea}
 	\vfill
-	\begin{block}{}
+	\begin{overlayarea}{\textwidth}{.1\textheight}
+	\begin{myblock}{}
 		{\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
-	\end{block}
+	\end{myblock}
+	\end{overlayarea}
 \end{frame}
+
 
 \begin{frame}
 	\frametitle{État de l'art pour la nomination persistante}

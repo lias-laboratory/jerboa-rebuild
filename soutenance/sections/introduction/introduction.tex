@@ -10,22 +10,47 @@
 	\frametitle{Domaines d'applications}
 
 	Il y a des domaines qui nécessitent de générer plusieurs variantes
-	d'un même modèle (archéo, CAO…) (illustrer),
+	d'un même modèle (archéo, CAO…) (illustrer avec l'exemple de cardot, pièces mécanismes comme des boulons à tête hexa/octogonales)
 \end{frame}
 
 \begin{frame}
 	\frametitle{Modélisation paramétrique}
 
-	Focaliser le discours sur la CAO avec la modélisation paramétrique
-	(avantages) (illustrer),
+	« dans ces travaux, nous nous focalisons sur la CAO et plus particulièrement
+	la modélisation paramétrique. Parmi les avantages liés à ces outils se
+	trouvent, d'une part, la possibilité de concevoir des pièces uniques, à
+	l'aide d'opérations de modélisation géométrique, et d'autre part de
+	regénérer ce modèle pour en créer des variations. »
+
+	Focaliser le discours sur la CAO avec la
+	modélisation paramétrique (avantages) (illustrer),
+
 \end{frame}
 
 \begin{frame}
-	\frametitle{Modélisation paramétrique}
+	\frametitle{Processus de modélisation paramétrique}
 
-	Expliquer le fonctionnement d'un système de modélisation
-	paramétrique (application manuelle d'opérations, enregistrement du
-	processus de construction, rejeu)
+	% Expliquer le fonctionnement d'un système de modélisation
+	% paramétrique (application manuelle d'opérations, enregistrement du
+	% processus de construction, rejeu)
+
+	\begin{columns}[t]
+		\begin{column}<1->{.33\textwidth}
+			\begin{myblock}[Construction]
+			  \vspace{.3\textheight}
+			\end{myblock}
+		\end{column}
+		\begin{column}<2->{.33\textwidth}
+			\begin{myblock}[Édition]
+			  \vspace{.3\textheight}
+			\end{myblock}
+		\end{column}
+		\begin{column}<3->{.33\textwidth}
+			\begin{myblock}[Rejeu]
+			  \vspace{.3\textheight}
+			\end{myblock}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 
@@ -33,50 +58,50 @@
 	\frametitle{Problématique de la nomination persistante}
 
 	% \begin{overlayarea}{\textwidth}{.7\textheight}
-		\begin{columns}
-			\begin{column}{.49\textwidth}
-				\begin{minipage}[c][.5\textheight][b]{1.0\linewidth}
-					\centering
-					\includegraphics<1>[width=.7\textwidth]{1-square-thin}%
-					\includegraphics<2>[width=.7\textwidth]{2-face-extrusion}%
-					\includegraphics<3>[width=.7\textwidth]{4-face-triangulation}%
-					\includegraphics<4>[width=.7\textwidth]{5-colour-face}%
-					\includegraphics<5>[width=.7\textwidth]{1-square-thin}%
-					\includegraphics<6>[width=.7\textwidth]{2-reeval-insert-vertex}%
-					\includegraphics<7>[width=.7\textwidth]{3-reeval-face-extrusion}%
-				\end{minipage}
-			\end{column}
-			\begin{column}{.49\textwidth}
-			  \centering
-				\begin{minipage}[c][.7\textheight][t]{.7\linewidth}
-				    \vspace{.2\textheight}
-					\begin{myblock}[\alt<5->{\vspace{1.3pt}Réévaluation}{Évaluation}]
-					  \ttfamily
-						\only<1->{1-{\color{mydarkgreenink}square}({\color{orange}pos})}\\
-						\only<1-4>{%
-						\alt<2-4>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},
-						{\color{orange}vec})}
-						{2-{\color{gray}extrusion}({\color{myblueink}f1},
-						{\color{orange}vec})}
-						\alt<3-4>{3-{\color{mydarkgreenink}triangulation}({\color{myblueink}f2})}
-						{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
-						\alt<4>{4-{\color{mydarkgreenink}colour}({\color{myblueink}f7})}
-						{4-{\color{gray}colour}({\color{myblueink}f7})}%
-						}%
-						\only<5->{
-						\alt<6->{{\color{red}ADD1-insert}({\color{myblueink}e1})}
-						{ADD1-{\color{gray}insert({\color{myblueink}e1})}}
-						\alt<7>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
-						{2-{\color{gray}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
-						\alt<7->{3-{\color{mydarkgreenink}triangulation}({\color{red}f2?})}
-						{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
-						\alt<7>{4-{\color{mydarkgreenink}colour}({\color{red}f7?})}
-						{4-{\color{gray}colour}({\color{myblueink}f7})}%
-						}
-					\end{myblock}
-				\end{minipage}
-			\end{column}
-		\end{columns}
+	\begin{columns}
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[c][.5\textheight][b]{1.0\linewidth}
+				\centering
+				\includegraphics<1>[width=.7\textwidth]{1-square-thin}%
+				\includegraphics<2>[width=.7\textwidth]{2-face-extrusion}%
+				\includegraphics<3>[width=.7\textwidth]{4-face-triangulation}%
+				\includegraphics<4>[width=.7\textwidth]{5-colour-face}%
+				\includegraphics<5>[width=.7\textwidth]{1-square-thin}%
+				\includegraphics<6>[width=.7\textwidth]{2-reeval-insert-vertex}%
+				\includegraphics<7>[width=.7\textwidth]{3-reeval-face-extrusion}%
+			\end{minipage}
+		\end{column}
+		\begin{column}{.49\textwidth}
+			\centering
+			\begin{minipage}[c][.7\textheight][t]{.7\linewidth}
+				\vspace{.2\textheight}
+				\begin{myblock}[\alt<5->{\vspace{1.3pt}Réévaluation}{Évaluation}]
+					\ttfamily
+					\only<1->{1-{\color{mydarkgreenink}square}({\color{orange}pos})}\\
+					\only<1-4>{%
+					\alt<2-4>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},
+					{\color{orange}vec})}
+					{2-{\color{gray}extrusion}({\color{myblueink}f1},
+					{\color{orange}vec})}
+					\alt<3-4>{3-{\color{mydarkgreenink}triangulation}({\color{myblueink}f2})}
+					{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
+					\alt<4>{4-{\color{mydarkgreenink}colour}({\color{myblueink}f7})}
+					{4-{\color{gray}colour}({\color{myblueink}f7})}%
+					}%
+					\only<5->{
+					\alt<6->{{\color{red}ADD1-insert}({\color{myblueink}e1})}
+					{ADD1-{\color{gray}insert({\color{myblueink}e1})}}
+					\alt<7>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
+					{2-{\color{gray}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
+					\alt<7->{3-{\color{mydarkgreenink}triangulation}({\color{red}f2?})}
+					{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
+					\alt<7>{4-{\color{mydarkgreenink}colour}({\color{red}f7?})}
+					{4-{\color{gray}colour}({\color{myblueink}f7})}%
+					}
+				\end{myblock}
+			\end{minipage}
+		\end{column}
+	\end{columns}
 	\begin{overlayarea}{\textwidth}{.1\textheight}
 		\only<7>{%
 			\begin{myblock}{}
@@ -86,9 +111,9 @@
 	\end{overlayarea}
 	\vfill
 	\begin{overlayarea}{\textwidth}{.1\textheight}
-	\begin{myblock}{}
-		{\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
-	\end{myblock}
+		\begin{myblock}{}
+			{\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
+		\end{myblock}
 	\end{overlayarea}
 \end{frame}
 

@@ -1,16 +1,46 @@
 \begin{frame}
 	\frametitle{Modélisation géométrique}
 
-	« dans le monde de tous les jours, la modélisation géométrique est utilisée
-	dans de nombreux domaines » (illustrer: archi(revit), jv et animation
-	(blender, godot, UE), pièces industrielles (catia, freecad))
+	\begin{tikzpicture}
+		\node (img1) at (current page.north west)[] {\includegraphics[width=3cm]{example-image-a}};
+		\node (img2) at (img1.south east)[] {\includegraphics[width=3cm]{example-image-b}};
+		\node (img3) at (img2.north east)[] {\includegraphics[width=3cm]{example-image-c}};
+	\end{tikzpicture}
+
+	% « dans le monde de tous les jours, la modélisation géométrique est utilisée
+	% dans de nombreux domaines » (illustrer: archi(revit), jv et animation
+	% (blender, godot, UE), pièces industrielles (catia, freecad))
 \end{frame}
 
 \begin{frame}
 	\frametitle{Domaines d'applications}
 
-	Il y a des domaines qui nécessitent de générer plusieurs variantes
-	d'un même modèle (archéo, CAO…) (illustrer avec l'exemple de cardot, pièces mécanismes comme des boulons à tête hexa/octogonales)
+	\begin{tikzpicture}[]
+		\node<1-> (archeo) at (current page.north west)[] {%
+			\begin{minipage}{.3\textwidth}
+				\begin{myblock}[Archéologie]
+					\includegraphics[width=\textwidth]{example-image-a}
+				\end{myblock}
+			\end{minipage}
+		};
+		\node<2-> (industrie) at (archeo.east)[] {%
+			\begin{minipage}{.3\textwidth}
+				\begin{myblock}[Mécanique]
+					\includegraphics[width=\textwidth]{example-image-b}
+				\end{myblock}
+			\end{minipage}
+		};
+		\node<3> at (industrie.east)[] {%
+			\begin{minipage}{.3\textwidth}
+				\begin{myblock}[Jouet]
+					\includegraphics[width=\textwidth]{example-image-b}
+				\end{myblock}
+			\end{minipage}
+		};
+	\end{tikzpicture}
+
+	% Il y a des domaines qui nécessitent de générer plusieurs variantes
+	% d'un même modèle (archéo, CAO…) (illustrer avec l'exemple de cardot, pièces mécanismes comme des boulons à tête hexa/octogonales)
 \end{frame}
 
 \begin{frame}
@@ -37,28 +67,28 @@
 	\begin{columns}[t]
 		\begin{column}<1->{.33\textwidth}
 			\begin{myblock}[Construction]
-			  \begin{minipage}[c][.7\textheight][t]{\columnwidth}
-				\centering
-				\includegraphics[width=\columnwidth]{mystdlego-2x2-fit}
-				\textrightarrow Bloc de taille 2x2
-			  \end{minipage}
+				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
+					\centering
+					\includegraphics[height=.39\textheight]{mystdlego-2x2-fit}
+					\textrightarrow Bloc de taille 2x2
+				\end{minipage}
 			\end{myblock}
 		\end{column}
 		\begin{column}<2->{.34\textwidth}
 			\begin{myblock}[Édition]
-			  \begin{minipage}[c][.7\textheight][t]{\columnwidth}
-				\centering
-				\includegraphics[width=\columnwidth]{lego-spec}
-			  \end{minipage}
+				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
+					\centering
+					\includegraphics[width=\columnwidth]{lego-spec}
+				\end{minipage}
 			\end{myblock}
 		\end{column}
 		\begin{column}<3->{.33\textwidth}
 			\begin{myblock}[Rejeu]
-			  \begin{minipage}[c][.7\textheight][t]{\columnwidth}
-				\centering
-				\includegraphics[width=\columnwidth]{mystdlego-2x4-fit}
-				\textrightarrow Bloc de taille 2x4
-			  \end{minipage}
+				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
+					\centering
+					\includegraphics[height=.39\textheight]{mystdlego-2x4-fit}
+					\textrightarrow Bloc de taille 2x4
+				\end{minipage}
 			\end{myblock}
 		\end{column}
 	\end{columns}
@@ -132,35 +162,81 @@
 \begin{frame}
 	\frametitle{État de l'art pour la nomination persistante}
 
-	\begin{itemize}
-		\item utilisation d'un historique de noms
-		\item nomination hétérogène des entités
-	\end{itemize}
+	\begin{columns}
+		\begin{column}{.5\textwidth}
+			Suivi des entités topologiques
+			\begin{itemize}
+				\item<1-> Analyse de modèle
+				\item<2-> Intégration dans les opérations
+			\end{itemize}
+			Historique de noms
+			\begin{itemize}
+				\item<3-> Explicite avec un graphe
+				\item<4-> Implicite par propagation de noms
+			\end{itemize}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			\includegraphics<3>[width=\columnwidth]{kripac-faceid-graph}
+			\includegraphics<4>[width=\columnwidth]{wu-exemple-propagation-fusion}
+		\end{column}
+	\end{columns}
+
+
 \end{frame}
 
 \begin{frame}
 	\frametitle{Limitations des approches existantes}
 
 	\begin{itemize}
-		\item absence de généricité dans les mécanismes de nomination
-		      persistante (nommage différent en fonction de la dimension
-		      de la cellule),
-		\item modèles limités en dimension 3 (la plupart),
-		\item édition limitée d'un processus constructif,
+		\item absence de généricité dans la nomination,
+		\item conception généralement limitée à la 3D,
+		\item édition limitée aux paramètres géométriques,
 		\item (à compléter en fonction des contributions)
 	\end{itemize}
 \end{frame}
 
+% \begin{frame}
+% 	\frametitle{Objectifs}
+% 	Conception et développement d'un système de réévaluation permettant le rejeu
+% 	d'un processus constructif grâce à~: % (autant d'objectifs que de limitations)
+% 	\begin{itemize}
+% 		\item l'édition étendue (ajout, suppression et réorganisation des
+% 		      opérations)~;
+% 		\item un schéma de nomination homogène~;
+% 		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
+% 		      %       d'erreurs d'appariement~;
+% 	\end{itemize}
+% 	notamment pour la construction d'objets génériques. %
+% \end{frame}
+
 \begin{frame}
-	\frametitle{Objectifs}
-	Conception et développement d'un système de réévaluation permettant~:
-	(autant d'objectifs que de limitations)
+	\frametitle{Plan}
 	\begin{itemize}
-		\item une édition étendue des processus de construction (ajout,
-		      suppression et réorganisation des opérations)~;
-		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
-		      %       d'erreurs d'appariement~;
-		\item de garantir la cohérence topologique des constructions.
+		\item<1-> Objectifs~:
+		      \onslide<1->%
+		      \begin{itemize}
+			      \item Rejeu de processus constructifs~;
+			      \item Édition étendue (ajout, suppression et déplacement d'opérations)
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item<2-> Formalismes~:
+		      \onslide<2->%
+		      \begin{itemize}
+			      \item Cartes généralisées : formalisation des objets
+			      \item Règles Jerboa : formalisation des opérations
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item<3-> Contributions~:
+		      \onslide<3->%
+		      \begin{itemize}
+			      \item Méthodes de détection des changements topologiques
+			      \item Mécanisme de rejeu basé sur des règles Jerboa
+			      \item Extension pour le support d'opérations complexes
+		      \end{itemize}
 	\end{itemize}
 \end{frame}
 

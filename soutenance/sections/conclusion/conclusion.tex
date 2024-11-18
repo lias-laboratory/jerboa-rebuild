@@ -3,10 +3,14 @@
 % 	\frametitle{Conclusion}
 
 % 	\begin{tabular}{|c|c|c|c|}
+% 		\bottomrule%
 % 		\diagbox[width=142pt, height=41pt,font=\small, innerrightsep=1em]{Contributions}{Limitations} & foo & bar & baz \\
+% 		\toprule%
+% 		\bottomrule%
 % 		G-cartes                                                                                      &     &     &     \\
 % 		Règles Jerboa                                                                                 &     &     &     \\
 % 		Détection évènements                                                                          &     &     &
+% 		\toprule%
 % 	\end{tabular}
 % \end{frame}
 
@@ -15,16 +19,16 @@
 	\frametitle{Contributions}
 	Trois contributions concrétisent notre démarche~:
 	\begin{itemize}
-		\item la formalisation des changements topologiques
-		\item la mise en œuvre d'un mécanisme de réévaluation à base de règles avec
+		\item<1-> la formalisation des changements topologiques
+		\item<2-> la mise en œuvre d'un mécanisme de réévaluation à base de règles avec
 		      \begin{itemize}
-			      \item la définition d'un mécanisme de nomination persistante à deux
+			      \item<2-> la définition d'un mécanisme de nomination persistante à deux
 			            couches~;
-			      \item l'appariement des entités sur la base de leurs évolutions et en
+			      \item<3-> l'appariement des entités sur la base de leurs évolutions et en
 			            tenant compte des modifications~;
-			      \item la définition de stratégie pour configurer le processus de rejeu
+			      \item<4-> la définition de stratégie pour configurer le processus de rejeu
 		      \end{itemize}
-		\item une extension de ce mécanisme pour le rejeu de processus comprenant des scripts
+		\item<5> une extension de ce mécanisme pour le rejeu de processus comprenant des scripts
 	\end{itemize}
 \end{frame}
 
@@ -32,10 +36,10 @@
 	\frametitle{Perspectives}
 	\begin{itemize}
 		\item<1-> Compléter l'édition avec le déplacement d'opération~;
-		\item<2-> Intégration des scripts au mécanisme de rejeu~;
-		\item<3-> Développement de scripts de rejeu pour la modélisation en archéologie~;
-		\item<4> Annotation temporelle des opérations~;
-\item
+		% \item<2-> Intégration des scripts au mécanisme de rejeu~;
+		\item<2-> Développement de scripts de rejeu pour la modélisation en archéologie~;
+		\item<3-> Annotation temporelle des opérations~;
+		\item<4> .
 	\end{itemize}
 \end{frame}
 

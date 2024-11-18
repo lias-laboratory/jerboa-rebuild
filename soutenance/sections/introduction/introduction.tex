@@ -2,9 +2,9 @@
 	\frametitle{Modélisation géométrique}
 
 	\begin{tikzpicture}
-		\node (img1) at (current page.north west)[] {\includegraphics[width=3cm]{example-image-a}};
-		\node (img2) at (img1.south east)[] {\includegraphics[width=3cm]{example-image-b}};
-		\node (img3) at (img2.north east)[] {\includegraphics[width=3cm]{example-image-c}};
+		\node (img1) at (current page.north west)[] {\includegraphics[width=5cm]{revit-modeling-interior}};
+		\node (img2) at (img1.south east)[] {\includegraphics[width=6cm]{furniture-3D-modelling}};
+		\node (img3) at (img2.north east)[] {\includegraphics[width=5cm]{blender_render}};
 	\end{tikzpicture}
 
 	% « dans le monde de tous les jours, la modélisation géométrique est utilisée
@@ -17,48 +17,40 @@
 
 	\begin{tikzpicture}[]
 		\node<1-> (archeo) at (current page.north west)[] {%
-			\begin{minipage}{.3\textwidth}
-				\begin{myblock}[Archéologie]
-					\includegraphics[width=\textwidth]{example-image-a}
-				\end{myblock}
-			\end{minipage}
+					\includegraphics[width=.7\textwidth]{exemple-archeo}
 		};
-		\node<2-> (industrie) at (archeo.east)[] {%
-			\begin{minipage}{.3\textwidth}
-				\begin{myblock}[Mécanique]
-					\includegraphics[width=\textwidth]{example-image-b}
-				\end{myblock}
-			\end{minipage}
+		\node<2> (industrie) at (archeo.east)[] {%
+					\includegraphics[width=.7\textwidth]{freecad-gears}
 		};
-		\node<3> at (industrie.east)[] {%
-			\begin{minipage}{.3\textwidth}
-				\begin{myblock}[Jouet]
-					\includegraphics[width=\textwidth]{example-image-b}
-				\end{myblock}
-			\end{minipage}
-		};
+		% \node<3> at (industrie.east)[] {%
+		% 	\begin{minipage}{.3\textwidth}
+		% 		\begin{myblock}[Jouet]
+		% 			\includegraphics[width=\textwidth]{example-image-b}
+		% 		\end{myblock}
+		% 	\end{minipage}
+		% };
 	\end{tikzpicture}
 
 	% Il y a des domaines qui nécessitent de générer plusieurs variantes
 	% d'un même modèle (archéo, CAO…) (illustrer avec l'exemple de cardot, pièces mécanismes comme des boulons à tête hexa/octogonales)
 \end{frame}
 
+% \begin{frame}
+% 	\frametitle{Modélisation paramétrique}
+
+% 	« dans ces travaux, nous nous focalisons sur la CAO et plus particulièrement
+% 	la modélisation paramétrique. Parmi les avantages liés à ces outils se
+% 	trouvent, d'une part, la possibilité de concevoir des pièces uniques, à
+% 	l'aide d'opérations de modélisation géométrique, et d'autre part de
+% 	regénérer ce modèle pour en créer des variations. »
+
+% 	Focaliser le discours sur la CAO avec la
+% 	modélisation paramétrique (avantages) (illustrer),
+
+% \end{frame}
+
 \begin{frame}
 	\frametitle{Modélisation paramétrique}
-
-	« dans ces travaux, nous nous focalisons sur la CAO et plus particulièrement
-	la modélisation paramétrique. Parmi les avantages liés à ces outils se
-	trouvent, d'une part, la possibilité de concevoir des pièces uniques, à
-	l'aide d'opérations de modélisation géométrique, et d'autre part de
-	regénérer ce modèle pour en créer des variations. »
-
-	Focaliser le discours sur la CAO avec la
-	modélisation paramétrique (avantages) (illustrer),
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Processus de modélisation paramétrique}
 
 	% Expliquer le fonctionnement d'un système de modélisation
 	% paramétrique (application manuelle d'opérations, enregistrement du
@@ -146,7 +138,7 @@
 	\begin{overlayarea}{\textwidth}{.1\textheight}
 		\only<7>{%
 			\begin{myblock}{}
-				\color{red} \textrightarrow Nommage persistant nécessaire
+				\color{red} Problème de la nomination persistante
 			\end{myblock}
 		}
 	\end{overlayarea}
@@ -160,7 +152,7 @@
 
 
 \begin{frame}
-	\frametitle{État de l'art pour la nomination persistante}
+	\frametitle{État de l'art}
 
 	\begin{columns}
 		\begin{column}{.5\textwidth}
@@ -180,8 +172,6 @@
 			\includegraphics<4>[width=\columnwidth]{wu-exemple-propagation-fusion}
 		\end{column}
 	\end{columns}
-
-
 \end{frame}
 
 \begin{frame}
@@ -191,7 +181,7 @@
 		\item absence de généricité dans la nomination,
 		\item conception généralement limitée à la 3D,
 		\item édition limitée aux paramètres géométriques,
-		\item (à compléter en fonction des contributions)
+		      % \item (à compléter en fonction des contributions)
 	\end{itemize}
 \end{frame}
 
@@ -215,8 +205,10 @@
 		\item<1-> Objectifs~:
 		      \onslide<1->%
 		      \begin{itemize}
-			      \item Rejeu de processus constructifs~;
-			      \item Édition étendue (ajout, suppression et déplacement d'opérations)
+			      \item Conception d'un schéma de nomination homogène~;
+			      \item Rejeu de constructions en toutes dimensions~;
+				\item Édition étendue de constructions (ajout, suppression et
+					  déplacement d'opérations)
 		      \end{itemize}
 
 		      \vspace{1em}

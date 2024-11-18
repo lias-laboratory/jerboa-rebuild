@@ -1,0 +1,433 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+
+\section{Introduction}
+
+
+Ces dernières 10aines d'années, les outils d'informatique graphique se sont fait
+une place de choix dans notre quotidien. %
+Ces outils, sont utilisés pour l'aménagement avec la modélisation d'espaces en
+intérieur et en extérieur. Ils permettent de créer des objets virtuels, du
+mobilier, mais aussi des personnages. %
+Grâce à cela, nous pouvons, par exemple, regarder des films avec des effets
+spéciaux remarquables et des films dont les personnages, plus ou moins
+réalistes, sont animés. %
+
+
+Autrement dit, ces outils, et plus particulièrement ceux dits de modélisation
+géométrique, touchent de nombreux domaines d'applications. %
+Parmi ces domaines, certains tels que l'archéologie et la conception assistée
+par ordinateur (ou CAO) nécessite de créer des objets précis et de faire varier
+leurs processus de constructions. %
+Dans cet exemple, il s'agit d'ajouter une pergola sur une façade de maison, mais
+pour les applications industrielles, il s'agit de concevoir toute une variété
+de rouages.  %
+
+Pour cela, nous nous intéressons plus particulièrement aux systèmes de
+modélisation paramétrique. %
+Ceux-ci présentent plusieurs avantages qui, à terme, permettent de faire varier
+des constructions. %
+Notamment, ces outils permettent de concevoir des pièces uniques à l'aide
+d'opérations de modélisation géométriques. %
+D'autre part, ces opérations, qui constituent alors ce que l'on appelle une
+spécification paramétrique sont sauvegardés. %
+Ainsi, il est possible de modifier les paramètres géométrique des opérations et
+rejouer une construction. %
+
+
+Modéliser un objet complexe, c'est un processus long où on enchaîne
+plein d'opérations de modélisation.
+
+Aujourd'hui, tous les modeleurs enregistrent ces processus dans ce qu'on appelle
+des spécifications paramétriques pour les modifier et les rejouer. On peut
+modifier les paramètres topologiques ou géométriques, voire ajouter, supprimer
+ou déplacer des opérations.
+
+On va voir un exemple de spécification qui sera notre fil rouge~:
+\begin{itemize}
+	\item Une première opération crée la face carrée f1 et ses arêtes dont e1.
+	\item La suivante extrude f1 en un cube et e1 en la face f2.
+	\item La triangulation de f2 crée plusieurs faces dont f7.
+	\item La dernière opération colore f7.
+\end{itemize}
+
+Maintenant, on modifie cette spécification~: on ajoute l'opération qui
+insère un sommet sur l'arête e1 et on la réévalue.
+
+\begin{itemize}
+	\item f1 et e1 sont recréées à l'identique
+	\item Le sommet inséré scinde e1 en e5 et e6
+	\item L'extrusion s'applique sur f1 mais cette fois e5 et e6 sont extrudés en f3 et
+	      f4.
+\end{itemize}
+
+Et maintenant, comment on réévalue puisque f2 n'existe plus sous sa forme initiale,
+pareil pour f7 ?
+
+Intuitivement, f2 est scindée en f3 et f4 alors on voudrait trianguler f3 et/ou f4.
+
+Autrement dit, mettre f2 comme référence, c'est pas robuste ici elle n'existe plus.
+
+C'est là qu'on a besoin d'un nom persistant pour identifier les cellules par
+leurs histoires et dire, par exemple, «~f3 et f4 sont construits comme f2, alors
+on triangule ces deux faces~».
+
+
+
+\section{Formalismes}
+
+
+
+On commence avec les cartes généralisées, ou G-cartes, pour représenter des
+objets
+
+
+
+\subsection{G-cartes}
+
+
+On prend un objet
+
+Il se décompose en deux volumes connectés par des liaisons 3 en vert
+
+Ses volumes se décomposent en faces connectées par des liaisons 2 en bleu
+
+Qui se décomposent elles-mêmes en arêtes connectées par des liaisons 1 en rouge
+
+Qui se décomposent en sommets connectés par des liaisons 0 en noir
+
+Cette G-carte, c'est un graphe dont les nœuds sont des brins et les arcs des
+liaisons.
+
+
+
+\subsection{Orbites}
+
+
+
+Dans les G-cartes, on représente les cellules avec des sous-graphes que l'on
+appelle orbites.
+
+Par exemple~:
+
+Le sommet incident au brin «~a~» contient «~a~», tous les brins atteignables par des
+liaisons 1, 2 et 3 et les liaisons elles-mêmes.
+
+Cette arête contient le brin «~a~» et tous ceux atteignables par des liaisons 0,2,3.
+
+Une face contient tous les brins atteignables par des liaisons 0,1,3
+
+un volume contient ceux atteignables par des liaisons 0,1,2
+
+Les orbites représentent aussi toutes sortes d'entités topologiques plus générales que des
+cellules comme cette arête de volume.
+
+Une orbite c'est un sous-graphe de type o incident à un brin ((b) en vert)
+
+
+
+\subsection{Règles de transformation de graphe Jerboa}
+
+
+
+Maintenant qu'on a formalisé les objets avec les G-cartes, on formalise les
+opérations avec les règles de transformations de graphe Jerboa.
+
+On prend l'exemple de la triangulation barycentrique d'une face.
+
+De manière générale, une règle se compose d'une partie gauche qui filtre un
+sous-graphe d'un objet à transformer et d'une partie droite qui décrit la transformation.
+
+À gauche, le nœud n0 porte le type d'orbite face <0,1,3>.
+
+Quand on applique la règle sur le brin a0, on filtre toute la face incidente à a0 en orange.
+
+À droite, on retrouve le nœud n0, il est préservé donc ses brins sont préservés. La liaison 1 à gauche est remplacée par un «~underscore~» à droite, donc on supprime les liaisons 1 dans l'objet.
+
+n2 est un nœud créé, donc ses brins sont créés comme des copies des brins filtrés par n0. %
+Dans la règle, les liaisons 0 sont renommées en liaisons 1 et les liaisons 1 en liaisons 2. %
+%Les liaisons 0, 1 de n0 à gauche sont renommés respectivement en 1,2 dans n2 à droite
+%Donc, dans l'objet, il y a des liaisons 1 et 2 entre les brins.
+Donc, dans l'objet, le sommet bleu et créé comme le dual de la face orange en remplaçant les liaisons 0,1 par des liaisons 1,2. %respectivement
+
+Enfin, n1 est créé, avec des suppressions et du renommage.
+
+Dans la règle, une liaison 1 connecte n0 à n1, ce qui lie les brins 2 à 2 dans l'objet.
+Même principe pour la liaison 0 entre n1 et n2.
+
+Les liaisons, dans les nœuds, sont appelées des arcs implicites.
+Celles entre les nœuds sont des arcs explicites.
+
+\subsection{Orbites}
+
+Grâce aux règles, on peut suivre l'évolution des orbites.
+
+On prend la face de volume incidente à n0.
+
+À gauche, elle contient n0 avec ses arcs 0,1
+
+À droite, elle contient n0 son arcs 0, l'arc 1 qui le connecte à
+n1, n1, l'arc 0 qui connecte n1 à n2, n2 et son arc 1.
+
+On remarque qu'il y a une seule orbite face dans la règle, alors qu'il y en a 4
+dans l'objet. %
+
+C'est parce que à gauche ce deuxième arc implicite 1, à droite, il est soit supprimé soit renommé en 2, en dehors du type d'orbite 0,1.
+Donc on a une scission de la face filtrée. %
+
+D'ailleurs, on voit qu'il n'y a pas de liaison 0,1 entre les faces
+
+
+
+\section{Détection des évènements}
+
+
+
+Venons-en au événements que l'on souhaite détecter à partir des formalismes
+présentés plus tôt.
+
+Nous allons vous présenter, dans cet ordre, comment repérer les événements de
+créations, scission, fusion, suppression, modification et de non-changement à
+partir des règles.
+
+\subsection{Création}
+
+Tout d'abord, une entité topologique est créée dans un objet lorsque n'existait
+pas dans la version précédente de ce même objet.
+Dans cet exemple, un sommet est créé sur une arête.
+
+Ici, nous avons une règle où les nœuds n1 et n2 sont créés et filtrent donc les dimensions 0,1 et 2.
+Suivant l'orbite R<02>(n1), cette règle crée au moins une arête.
+
+Dans le graph H, n1 et n2 créent 4 arêtes dont les brins sont vert et bleu et connectés par des 0-arcs.
+
+\subsection{Scission}
+
+Une entité topologique est scindée dans un objet lorsque ses brins, entre G et
+H, alors qu'ils sont préservés, cessent d'appartenir à une même cellule. Les
+cellules résultantes de la scissions sont de la même nature.
+
+Dans cette règle, nous présentons une scission explicite, c'est-à-dire qu'une
+composante connexe est scindée en deux par la rupture d'un arc explicite.
+Ici, la rupture d'un 2-arc sépare deux orbites <0>
+
+G<02>(a0) est équivalent à G<02>(c1) et est composé de 4 brins.
+H<02>(a0) n'en dispose plus que de 2 et est distinct de H<02>(c1).
+
+Pour le cas implicite, L<01>(n0), autrement dit le nœud n0 a pour arcs
+implicites 0 en première position et 1 en deuxième position. L'orbite associée
+dans R comporte les nœuds n0, n1 et n2. Or aucun de ces nœuds n'a d'arc
+implicite étiqueté 0 ou 1 en deuxième position. Il faut comprendre par là, qu'un
+ensemble de brins est scindé en sous-ensembles distincts les uns des autres.
+
+On peut voir que la face filtré G<01>(a0) a été scindée en 4 faces
+H<01>(a0, c0, e0 et g0) toutes distinctes puisque 2 n'est pas suivi.
+
+\subsection{Fusion}
+
+Deux entités topologiques sont dites fusionnées lorsqu'au moins deux de leurs
+brins, qui appartenaient à deux orbites distinctes appartiennent à une même
+orbite.
+Ici, nous avons la fusion de deux sommet par contraction d'une arête.
+
+Cas explicite et symétrique à celui de la scission. Deux orbites <02> sont
+reliées par couture d'un 2-arc entre elles.
+
+De mêmes, deux arêtes G<02>(a0) et G<02>(c1) sont fusionnées en une arête
+H<02>(a0).
+
+Dans ce cas, implicite, l'orbite L<1>(n1) est composée des nœuds n0 et n1. Aucun
+de ces nœuds n'a d'1-arc implicite. Or, R<1>(n1) a pour deuxième arc implicite
+un 1-arc. Il y a donc fusion.
+
+Dans cet exemple, nous mettons en évidence la fusion de sommets de faces. En
+effet, les sommets G<1>(j1) et G<1>(d1) sont fusionnés en H<1>(j1) et les
+sommets G<1>(m1) et G<1>(c1) sont fusionnés en H<1>(m1).
+
+Notons un cas, limite. Ici, deux faces sont fusionnées, cependant L<01>(n1) est
+incomplète, la fusion ne peut donc être garantie et nécessite une confirmation
+en analysant les cellules correspondantes.
+
+\subsection{Autres événements}
+
+Nous abordons désormais les trois derniers événements
+
+\subsection{Suppression}
+
+La suppression est en quelque sorte le symétrique de la création, pour qu'une orbite soit entièrement supprimée, il est nécessaire qu'elle soit complète.
+
+Ici, l'orbite sommet L<02>(n0) est supprimée. Il en résulte, dans G la
+suppression de l'arête d'orbite G<02>(a0) dont tous les brins sont supprimés
+dans H.
+
+\subsection{Modification}
+
+La modification est un événement où au moins un arc d'une orbite est réécrite,
+avec suppression ou création de nœud, et ne résulte ni en scission ni en fusion.
+
+Ici, l'orbite sommet L<1,2>(n1) est modifiée car il existe un deuxième arc
+implicite écrit 2 dans n0 et dans R<1,2>(n1), le deuxième arc implicite de n1
+est réécrit en 2. Il n'y a donc ni scission, ni fusion et il y a réécriture
+d'un arc implicite avec une étiquette issue du type <1,2>.
+
+\subsection{Non-changement}
+
+Cet événement est le symétrique de la modification. Une orbite est inchangée si
+elle ne subit aucune réécriture sur son type et qu'elle n'est ni augmentée ou
+réduite.
+
+Ici, L<0>(n0) filtre des arêtes de faces et puisque dans R<0>(n0) le premier arc
+implicite de n0 est toujours 0, l'orbite est inchangée.
+
+Concrètement, les arêtes de la face triangulée sont inchangées : relation
+identiques entre les mêmes brins.
+
+\section{Rejeu à base de règles}
+
+
+\subsection{Nomination Persistante}
+
+Avec ces formalismes, on peut maintenant voir la nomination persistante.
+On reprend l'exemple de l'introduction.
+
+
+
+% \subsubsection{Nom persistant brin}
+
+
+
+Ici, on propose d'enregistrer l'histoire des brins comme étant leurs noms
+persistants. %
+%Chaque brin contient alors les numéros d'opérations et de nœuds qui les créent
+%ou réécrivent.
+
+Cette première règle crée une face carrée.
+Elle a 8 nœuds dont n3 et n6.
+
+Dans cette première application, n3 crée le brin 3, son histoire c'est le numéro de l'application suivi du nom du nœud qui le crée, elle se lit [1n3] et on l'enregistre dans le brin 3.
+
+n6 crée le brin 6, on enregistre son histoire [1n6].
+
+Quand on applique l'extrusion sur le carré, on sélectionne le brin 6 pour désigner sa face incidente. %
+Sauf qu'à la réévaluation le brin pourrait changer, alors dans la spécification, à cet instant, on enregistre une photographie de son nom persistant [1n6].
+
+n1 à gauche filtre les brins 3 et 6 et n2 et n4 à droite créent les copies de 3, 33 et 35. %
+On construit leurs histoires à partir de celle du brin 3. %
+
+L'histoire de 33 c'est [1n3;2n2]. %
+Celle de 35 c'est [1n3;2n4]. %
+L'histoire de 3 devient [1n3;2n1], pareil pour le brin 6. %
+
+Ensuite, pour trianguler la face de devant, on sélectionne le brin 33 pour désigner sa face incidente et on enregistre son nom persistant.
+
+À droite, n0 réécrit les brins 33 et 35.
+C'est la troisième application, l'histoire du brin 33 devient [1n3;2n2;3n0], même principe pour 35.% qui devient [1n3;2n4;3n0].
+
+Enfin, on colorie la face incidente au brin 35 et on enregistre son nom persistant.
+
+On vient de nommer des brins de manière unique en représentant leurs histoires,
+il s'agit de la nomination persistante des brins.
+
+Mais, dans une spécification, les paramètres topologiques sont des orbites.
+Donc, on doit représenter les histoires de ces orbites.
+
+
+
+% \subsubsection{Nom persistant orbite}
+
+
+
+Pour reconstituer l'histoire d'une orbite, on remonte
+l'histoire du nom persistant de brin qui la désigne.
+
+On va prendre l'orbite désignée par [1n3;2n4;3n0] dans l'opération de coloration.
+
+Les arcs implicites de ce n0, en orange, désignent une face de volume.
+
+On commence l'histoire par la fin à la troisième opération appliquée qui est la triangulation.
+On s'intéresse à la face de volume incidente à n0 ce qui correspond à la face orange dans la règle
+
+Comme on l'a vu plus tôt, cette face en orange provient de la scission de la face filtrée à gauche et a pour origine une arête.
+
+On reporte ces informations dans l'histoire de l'orbite.
+
+Donc la face qui nous intéresse, c'est la face incidente à n0, en orange.
+Elle est produite par la triangulation, qui scinde la face filtrée à gauche, notée avec la flèche noire, et a pour origine une arête notée par la flèche rouge.
+
+On remonte l'histoire d'un cran à la deuxième opération, qui est l'extrusion, et son nœud n4.
+
+Ce qu'on doit suivre maintenant, c'est la face et l'arête incidentes à n4, notées par les boîtes bleue et orange dans la règle.
+
+La face est créée par l'extrusion d'une arête et l'arête par l'extrusion d'un brin.
+
+Enfin, on remonte encore l'histoire, cette fois à la toute première opération de création de carré et son nœud n3.
+
+Les orbites que l'on suit sont créées par la règle de création de carré.
+
+On vient de reconstituer l'histoire d'une orbite à partir du nom persistant d'un brin et des règles de la spécification.
+
+On fait ça uniquement à partir de la spécification et de ses règles, sans les réappliquer et sans utiliser l'objet.
+
+On suit la même procédure pour chacun des noms persistants de brins enregistrés comme paramètres topologiques enregistrés dans la spécification et uniquement ceux-ci.
+
+%Donc les histoires des orbites, on les reconstitue à la demande seulement si elles sont utilisées dans la spécification.
+
+Donc on ne reconstitue l'histoire des orbites que si elles sont utilisées dans la spécification.
+
+Avec les noms persistants d'orbites, on peut maintenant passer à la réévaluation.
+
+
+
+% \section{Réévaluation}
+
+
+
+On reprend l'histoire précédente, cette fois de haut en bas, et on réévalue
+la spécification modifiée. %
+
+La première opération recrée la face carrée à l'identique.
+
+Le nœud n3 de la règle de création de carré crée un unique brin, 3.
+
+L'opération suivante a été ajoutée, j'affiche pas la règle mais si on l'analyse on voit qu'elle scinde en deux l'arête filtrée.
+À partir de ses nœuds on retrouve les deux arêtes scindées, l'une désignée par le brin 3, l'autre par le brin 4.
+
+Donc on a une histoire par arête. %
+
+Pour l'opération d'extrusion, on aura déterminé son paramètre topologique au
+préalable dans un autre arbre, exactement comme on fait là.
+
+Chaque arête est extrudée en une nouvelle face, et chaque brin en une
+arête.
+
+Ici, n4 crée plusieurs brins, mais une seule copie de 3, qui est 37, et une seule
+copie de 4, qui est 52.
+
+
+
+% \subsection{stratégies de rejeu}
+
+
+
+Enfin, on peut réappliquer la triangulation sur chaque branche.
+
+n0 réécrit 37 et 52 à l'identique.
+
+C'est la dernière application enregistrée, 37 et 52 désignent les faces à colorer.
+
+Notre procédure permet de retrouver tous les paramètres potentiels, ici on peut laisser le choix à l'utilisateur de réappliquer les opérations sur l'une et/ou l'autre branche. %
+
+\section{Extension aux scripts}
+
+\section{Conclusion}
+
+
+\end{document}

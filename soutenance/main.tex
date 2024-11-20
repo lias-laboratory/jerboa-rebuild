@@ -6,29 +6,29 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{biblatex}
-\usepackage{booktabs}
+% \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage[normalem]{ulem}
 \usepackage{hyperref}
 \usepackage{extarrows}
+\usepackage{pifont}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{subfiles}
 \usepackage{subcaption}
-\usepackage{tabularx}
-\usepackage{diagbox}
+% \usepackage{tabularx}
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs}
+\UseTblrLibrary{diagbox}
+% \usepackage{diagbox}
 \usepackage[most]{tcolorbox}
 \usepackage[linesnumbered,ruled,french,frenchkw]{algorithm2e}
 \usepackage{listings}
 
 \usefolder{lias-theme}                  % to load the lias' theme
-
 \usetheme[numbering=fraction, sectionpage=none, subsectionpage=none]{lias}
-% \liasset{block=fill}                    % to have blocks within frames
 
-\input{custom.tex}
-
+\input{preamble/custom.tex}
 \input{commands.tex}
-
 
 \noframetitlelogo
 
@@ -91,13 +91,15 @@
 
 \section{Introduction}
 \subfile{sections/introduction/introduction}
+\section{État de l'art}
+\subfile{sections/etat-art/etat-art}
 \section{Formalismes}
 \subfile{sections/formalismes/formalismes}
-\section[Détection]{Détection des évènements}
+\section[Évènements]{Détection des évènements}
 \subfile{sections/detection-evenements/detection-evenements}
-\section[Réévaluation]{Réévaluation à base de règles}
+\section[Rejeu]{Rejeu à base de règles}
 \subfile{sections/reevaluation-regles/reevaluation-regles}
-\section[Scripts]{Extension aux scripts}
+\section[Extension]{Extension à des opérations complexes}
 \subfile{sections/scripts/scripts}
 \section{Conclusion}
 \subfile{sections/conclusion/conclusion}

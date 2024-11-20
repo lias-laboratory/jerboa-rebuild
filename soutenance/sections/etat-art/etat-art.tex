@@ -1,0 +1,128 @@
+
+\begin{frame}[fragile]
+	\frametitle{État de l'art}
+	\centering
+	\tiny
+	\begin{tblr}{
+		colspec = {|X[l,m]|X[l,m]|X[l,m]|X[l,m]|X[l,m]|X[l,m]|X[l,m]|},
+		cell{2}{2} = {c=4}{c}, % multicolumn
+		% rowsep = 6pt,
+		hlines={black,0.5pt},
+		vlines={black,0.5pt},
+		% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
+		}
+		% \bottomrule%
+		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Approche}{Système} & Kripac                                     & Capoyleas et al.                           & Wu et al.                                  & Bidarra et al.                             & Cardot                                                  & Cascaval et al.                                         \\
+		\toprule[black,0.5pt] %
+		% \bottomrule %
+		édition                                                                                                                     & géométrique                                &                                            &                                            &                                            & géométrique + ajout/suppression/déplacement d'opération & paramètres géométriques + ajout/déplacement d'opération \\
+		% \hline
+		Historique de nom                                                                                                           & \cmark                                     & \cmark                                     & \cmark                                     & \xmark                                     & \cmark                                                  & \cmark                                                  \\
+		% \hline
+		% Base nomination                                                                                                             & face                                       & face                                       & face                                       & face                                       & brin                                                    & contraintes géométriques                                \\
+		% \hline
+		Nomination                                                                                                                  & base~: face\par homogène~: \xmark \par automatique~: \cmark                 & base~: face\par homogène~: \xmark \par automatique~: \cmark                 & base~: face \par homogène~: \xmark \par automatique~: \cmark               & base~: face \par homogène~:  \xmark \par automatique~: \cmark             & base~: brin \par homogène~:  \cmark  \par automatique~: \cmark                        & base~: aucune \par homogène~:  \cmark \par automatique~: \xmark     \\
+		% \hline
+		% Nomination  générique                                                                & \xmark & \xmark           & \xmark    & \xmark         & \cmark & \xmark          \\
+		% \hline
+		% Base nomination                                                                      &        &                  &           &                &        &                 \\
+		% \hline
+		% Nomination  automatique                                                                                                     & \cmark                                     & \cmark                                     & \cmark                                     & \cmark                                     & \cmark                                                  & \xmark                                                  \\
+		% \hline
+		Modélisation 2D/3D                                                                                                          & 3D                                         & 3D                                         & 3D                                         & 3D                                         & \(n\)-D                                                 & 2.5D                                                    \\
+		% \hline
+		Résolution  d'ambiguïté                                                                                                     & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \xmark \par topologie~: \cmark              & géométrie~: \cmark \par topologie~: \cmark              \\
+		% \hline %
+		% Résolution  d'ambiguïté géométrique                                                & \cmark      & \cmark           & \cmark    & \cmark         & \xmark                                                  & \cmark                                                  \\
+		% \hline %
+	\end{tblr}
+\end{frame}
+
+% \begin{frame}
+% 	\frametitle{État de l'art}
+
+% 	\begin{columns}
+% 		\begin{column}{.5\textwidth}
+% 			Suivi des entités topologiques
+% 			\begin{itemize}
+% 				\item<1-> Analyse de modèle
+% 				\item<2-> Intégration dans les opérations
+% 			\end{itemize}
+% 			Historique de noms
+% 			\begin{itemize}
+% 				\item<3-> Explicite avec un graphe
+% 				\item<4-> Implicite par propagation de noms
+% 			\end{itemize}
+% 		\end{column}
+% 		\begin{column}{.5\textwidth}
+% 			\includegraphics<3>[width=\columnwidth]{kripac-faceid-graph}
+% 			\includegraphics<4>[width=\columnwidth]{wu-exemple-propagation-fusion}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
+
+\begin{frame}
+	\frametitle{Limitations des approches existantes}
+
+	\begin{itemize}
+		\item absence de généricité dans la nomination,
+		\item conception généralement limitée à la 3D,
+		\item édition limitée aux paramètres géométriques,
+		      % \item (à compléter en fonction des contributions)
+	\end{itemize}
+\end{frame}
+
+% \begin{frame}
+% 	\frametitle{Objectifs}
+% 	Conception et développement d'un système de réévaluation permettant le rejeu
+% 	d'un processus constructif grâce à~: % (autant d'objectifs que de limitations)
+% 	\begin{itemize}
+% 		\item l'édition étendue (ajout, suppression et réorganisation des
+% 		      opérations)~;
+% 		\item un schéma de nomination homogène~;
+% 		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
+% 		      %       d'erreurs d'appariement~;
+% 	\end{itemize}
+% 	notamment pour la construction d'objets génériques. %
+% \end{frame}
+
+\begin{frame}
+	\frametitle{Plan}
+	\begin{itemize}
+		\item<1-> Objectifs~:
+		      \onslide<1->%
+		      \begin{itemize}
+			      \item Conception d'un schéma de nomination homogène~;
+			      \item Rejeu de constructions en toutes dimensions~;
+			      \item Édition étendue de constructions (ajout, suppression et
+			            déplacement d'opérations)
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item<2-> Formalismes~:
+		      \onslide<2->%
+		      \begin{itemize}
+			      \item Cartes généralisées : formalisation des objets
+			      \item Règles Jerboa : formalisation des opérations
+		      \end{itemize}
+
+		      \vspace{1em}
+
+		\item<3-> Contributions~:
+		      \onslide<3->%
+		      \begin{itemize}
+			      \item Méthodes de détection des changements topologiques
+			      \item Mécanisme de rejeu basé sur des règles Jerboa
+			      \item Extension pour le support d'opérations complexes
+		      \end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

@@ -41,21 +41,21 @@
 	}
 }
 
-\def\insertnavigation#1{%
-	\vbox{{%
-				\usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
-				\beamer@xpos=0\relax%
-				\beamer@ypos=1\relax%
-				\hbox to #1{\hskip.3cm\setbox\beamer@sectionbox=\hbox{\kern1sp}%
-					\ht\beamer@sectionbox=1.875ex%
-					\dp\beamer@sectionbox=0.75ex%
-					\hskip.3cm%
-					\global\beamer@section@min@dim\z@
-					\dohead%
-					\beamer@section@set@min@width
-					\box\beamer@sectionbox\hfill\hskip.3cm}%
-			}}
-}
+% \def\insertnavigation#1{%
+% 	\vbox{{%
+% 				\usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
+% 				\beamer@xpos=0\relax%
+% 				\beamer@ypos=1\relax%
+% 				\hbox to #1{\hskip.3cm\setbox\beamer@sectionbox=\hbox{\kern1sp}%
+% 					\ht\beamer@sectionbox=1.875ex%
+% 					\dp\beamer@sectionbox=0.75ex%
+% 					\hskip.3cm%
+% 					\global\beamer@section@min@dim\z@
+% 					\dohead%
+% 					\beamer@section@set@min@width
+% 					\box\beamer@sectionbox\hfill\hskip.3cm}%
+% 			}}
+% }
 
 \setbeamertemplate{navigation symbols}{}
 \defbeamertemplate{frame footer}{none}{}

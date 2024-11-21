@@ -92,6 +92,16 @@
 
 \section{Introduction}
 \subfile{sections/introduction/introduction}
+\AtBeginSection[]{%
+  \begin{frame}[noframenumbering]
+    \frametitle{Plan}
+    \ifnum \value{section}>2
+    \tableofcontents[sectionstyle=show/shaded, firstsection=-1, lastsection=-1]
+  \else
+    \tableofcontents[sectionstyle=show/show, firstsection=-1, lastsection=-1]
+    \fi
+  \end{frame}
+}
 \section{État de l'art}
 \subfile{sections/etat-art/etat-art}
 \section{Formalismes}

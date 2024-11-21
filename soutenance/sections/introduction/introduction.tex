@@ -16,12 +16,12 @@
 	\frametitle{Domaines d'applications}
 
 	\begin{tikzpicture}[]
-		\node<1-> (archeo) at (current page.north west)[] {%
-					\includegraphics[width=.7\textwidth]{exemple-archeo}
+		\node (archeo) at (current page.center)[] {%
+			\includegraphics[width=.7\textwidth]{exemple-archeo}
 		};
-		\node<2> (industrie) at (archeo.east)[] {%
-					\includegraphics[width=.7\textwidth]{freecad-gears}
-		};
+		% \node (industrie) at (archeo.east)[] {%
+		% 	\includegraphics[width=.7\textwidth]{freecad-gears}
+		% };
 		% \node<3> at (industrie.east)[] {%
 		% 	\begin{minipage}{.3\textwidth}
 		% 		\begin{myblock}[Jouet]
@@ -57,16 +57,16 @@
 	% processus de construction, rejeu)
 
 	\begin{columns}[t]
-		\begin{column}<1->{.33\textwidth}
+		\begin{column}{.33\textwidth}
 			\begin{myblock}[Construction]
 				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
 					\centering
-					\includegraphics[height=.39\textheight]{mystdlego-2x2-fit}
-					\textrightarrow Bloc de taille 2x2
+					\includegraphics[height=.3\textheight]{mystdlego-2x2-fit}
+					Bloc de dimension \texttt{2\texttimes2}
 				\end{minipage}
 			\end{myblock}
 		\end{column}
-		\begin{column}<2->{.34\textwidth}
+		\begin{column}{.34\textwidth}
 			\begin{myblock}[Édition]
 				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
 					\centering
@@ -74,12 +74,12 @@
 				\end{minipage}
 			\end{myblock}
 		\end{column}
-		\begin{column}<3->{.33\textwidth}
+		\begin{column}{.33\textwidth}
 			\begin{myblock}[Rejeu]
 				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
 					\centering
-					\includegraphics[height=.39\textheight]{mystdlego-2x4-fit}
-					\textrightarrow Bloc de taille 2x4
+					\includegraphics[height=.3\textheight]{mystdlego-2x4-fit}
+					Bloc de dimension \texttt{2\texttimes4}
 				\end{minipage}
 			\end{myblock}
 		\end{column}
@@ -108,7 +108,7 @@
 			\centering
 			\begin{minipage}[c][.7\textheight][t]{.7\linewidth}
 				\vspace{.2\textheight}
-				\begin{myblock}[\alt<5->{\vspace{1.3pt}Rejeu}{Jeu initial}]
+				\begin{myblock}[\alt<5->{\vspace{1.3pt}Rejeu\textsuperscript{*}}{Jeu initial\textsuperscript{*}}]
 					\ttfamily
 					\only<1->{1-{\color{mydarkgreenink}square}({\color{orange}pos})}\\
 					\only<1-4>{%
@@ -145,7 +145,7 @@
 	\vfill
 	\begin{overlayarea}{\textwidth}{.1\textheight}
 		\begin{myblock}{}
-			{\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
+			{\textsuperscript{*}\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
 		\end{myblock}
 	\end{overlayarea}
 \end{frame}

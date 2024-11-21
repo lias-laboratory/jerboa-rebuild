@@ -4,7 +4,7 @@
 	\centering
 	\tiny
 	\begin{tblr}{
-		colspec = {|X[l,m]|X[l,m]|X[l,m]|X[l,m]|X[l,m]|X[l,m]|X[l,m]|},
+		colspec = {|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
 		cell{2}{2} = {c=4}{c}, % multicolumn
 		% rowsep = 6pt,
 		hlines={black,0.5pt},
@@ -12,29 +12,55 @@
 		% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
 		}
 		% \bottomrule%
-		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Approche}{Système} & Kripac                                     & Capoyleas et al.                           & Wu et al.                                  & Bidarra et al.                             & Cardot                                                  & Cascaval et al.                                         \\
+		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Approche}{Système}
+		                                                        & Kripac                                       & Capoyleas et al.        & Wu et al. & Bidarra et al. & Cardot & Cascaval
+		et al.                                                                                                                                                                            \\ %
 		\toprule[black,0.5pt] %
 		% \bottomrule %
-		édition                                                                                                                     & géométrique                                &                                            &                                            &                                            & géométrique + ajout/suppression/déplacement d'opération & paramètres géométriques + ajout/déplacement d'opération \\
-		% \hline
-		Historique de nom                                                                                                           & \cmark                                     & \cmark                                     & \cmark                                     & \xmark                                     & \cmark                                                  & \cmark                                                  \\
-		% \hline
-		% Base nomination                                                                                                             & face                                       & face                                       & face                                       & face                                       & brin                                                    & contraintes géométriques                                \\
-		% \hline
-		Nomination                                                                                                                  & base~: face\par homogène~: \xmark \par automatique~: \cmark                 & base~: face\par homogène~: \xmark \par automatique~: \cmark                 & base~: face \par homogène~: \xmark \par automatique~: \cmark               & base~: face \par homogène~:  \xmark \par automatique~: \cmark             & base~: brin \par homogène~:  \cmark  \par automatique~: \cmark                        & base~: aucune \par homogène~:  \cmark \par automatique~: \xmark     \\
-		% \hline
-		% Nomination  générique                                                                & \xmark & \xmark           & \xmark    & \xmark         & \cmark & \xmark          \\
-		% \hline
-		% Base nomination                                                                      &        &                  &           &                &        &                 \\
-		% \hline
-		% Nomination  automatique                                                                                                     & \cmark                                     & \cmark                                     & \cmark                                     & \cmark                                     & \cmark                                                  & \xmark                                                  \\
-		% \hline
-		Modélisation 2D/3D                                                                                                          & 3D                                         & 3D                                         & 3D                                         & 3D                                         & \(n\)-D                                                 & 2.5D                                                    \\
-		% \hline
-		Résolution  d'ambiguïté                                                                                                     & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \cmark \par topologie~: \cmark & géométrie~: \xmark \par topologie~: \cmark              & géométrie~: \cmark \par topologie~: \cmark              \\
-		% \hline %
-		% Résolution  d'ambiguïté géométrique                                                & \cmark      & \cmark           & \cmark    & \cmark         & \xmark                                                  & \cmark                                                  \\
-		% \hline %
+		Types d'éditions~:                                        & paramètres géométriques uniquement                                   &                         &           &                &
+		paramètres géométriques\par + \par ajout, suppression, déplacement d'opérations & paramètres géométriques\par + \par ajout, suppression d'opérations                                                                            \\ %
+
+		Historique de nom                                       & \cmark                                       & \cmark                  & \cmark    & \xmark         & \cmark & \cmark   \\ %
+
+		Nomination~:
+		\raggedright
+		\par homogène
+		\par automatique                                      &
+		 ~
+		face~:
+		\par \xmark
+		\par \cmark                                           &
+		 ~
+		face~:
+		\par \xmark
+		\par \cmark                                           &
+		 ~
+		face~:
+		\par \xmark
+		\par \cmark                                           &
+		 ~
+		face~:
+		\par \xmark
+		\par \cmark                                             &
+		 ~
+		brin~:
+		\par \cmark
+		\par \cmark                                           &
+		 ~
+		contraintes~:
+		\par \cmark
+		\par  \xmark                                                                                                                                                                     \\ %
+
+		Modélisation 2D/3D                                      & 3D                                           & 3D                      & 3D
+		                                                        & 3D                                           & \(n\)-D                 & 2.5D                                           \\ %
+		Résolution d'ambiguïté                                  & géométrie~:
+		\cmark \par topologie~: \cmark                          & géométrie~: \cmark \par topologie~: \cmark   &
+		géométrie~: \cmark \par topologie~: \cmark              & géométrie~: \cmark \par topologie~:
+		\cmark                                                  & géométrie~: \xmark \par topologie~: \cmark   & géométrie~: \cmark \par
+		topologie~: \cmark                                                                                                                                                                \\ %
+
+		Opérations complexes                                    &
+		\cmark                                                  & \cmark                                       & \cmark                  & \cmark    & \xmark         & \cmark            \\ %
 	\end{tblr}
 \end{frame}
 

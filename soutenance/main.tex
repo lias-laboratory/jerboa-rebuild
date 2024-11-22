@@ -7,6 +7,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{biblatex}
 % \usepackage{booktabs}
+\usepackage{adjustbox}
 \usepackage{graphicx}
 \usepackage[normalem]{ulem}
 \usepackage{hyperref}
@@ -27,6 +28,8 @@
 
 \usefolder{lias-theme}                  % to load the lias' theme
 \usetheme[numbering=fraction, sectionpage=none, subsectionpage=none]{lias}
+
+\usetikzlibrary{positioning,calc}
 
 \input{preamble/custom.tex}
 \input{commands.tex}
@@ -91,7 +94,7 @@
 \end{frame}
 
 \section{Introduction}
-\subfile{sections/introduction/introduction}
+% \subfile{sections/introduction/introduction}
 \AtBeginSection[]{%
   \begin{frame}[noframenumbering]
     \frametitle{Plan}
@@ -104,15 +107,15 @@
 }
 \section{État de l'art}
 \subfile{sections/etat-art/etat-art}
-\section{Formalismes}
-\subfile{sections/formalismes/formalismes}
-\section[Évènements]{Détection des évènements}
-\subfile{sections/detection-evenements/detection-evenements}
-\section[Rejeu]{Rejeu à base de règles}
-\subfile{sections/reevaluation-regles/reevaluation-regles}
-\section[Extension]{Extension à des opérations complexes}
-\subfile{sections/scripts/scripts}
-\section{Conclusion}
-\subfile{sections/conclusion/conclusion}
+% \section{Formalismes}
+% \subfile{sections/formalismes/formalismes}
+% \section[Évènements]{Détection des évènements}
+% \subfile{sections/detection-evenements/detection-evenements}
+% \section[Rejeu]{Rejeu à base de règles}
+% \subfile{sections/reevaluation-regles/reevaluation-regles}
+% \section[Extension]{Extension à des opérations complexes}
+% \subfile{sections/scripts/scripts}
+% \section{Conclusion}
+% \subfile{sections/conclusion/conclusion}
 
 \end{document}

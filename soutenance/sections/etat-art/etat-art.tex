@@ -4,7 +4,8 @@
 	\centering
 	\tiny
 	\begin{tblr}{
-		colspec = {|X[l,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
+		colspec = {|m{2.5cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
+		% cell{0}{0-} = {cmd=\SetCell{wd=5cm}},
 		cell{2}{2} = {c=4}{c}, % multicolumn
 		% rowsep = 6pt,
 		hlines={black,0.5pt},
@@ -13,104 +14,115 @@
 		}
 		% \bottomrule%
 		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Approche}{Système}
-		                                                        & Kripac                                       & Capoyleas et al.        & Wu et al. & Bidarra et al. & Cardot & Cascaval
-		et al.                                                                                                                                                                            \\ %
+		                                                                                & Kripac                                                             & Capoyleas et al. & Wu et al. & Bidarra et al. & Cardot & Cascaval
+		et al.                                                                                                                                                                                                                   \\ %
 		\toprule[black,0.5pt] %
 		% \bottomrule %
-		Types d'éditions~:                                        & paramètres géométriques uniquement                                   &                         &           &                &
-		paramètres géométriques\par + \par ajout, suppression, déplacement d'opérations & paramètres géométriques\par + \par ajout, suppression d'opérations                                                                            \\ %
+		Types d'éditions~:                                                              & paramètres géométriques uniquement                                 &                  &           &                &
+		paramètres géométriques\par + \par ajout, suppression, déplacement d'opérations & paramètres géométriques\par + \par ajout, suppression d'opérations                                                                     \\ %
 
-		Historique de nom                                       & \cmark                                       & \cmark                  & \cmark    & \xmark         & \cmark & \cmark   \\ %
-
+		Historique d'une cellule~:
+		\par \textbullet~construction (complet / partiel)
+		\par \textbullet~calcul (local / global)                                        &
+		\par ~
+		\par partiel
+		\par ~
+		\par global                                                                     &
+		\par ~
+		\par partiel
+		\par ~
+		\par global                                                                     &
+		\par ~
+		\par partiel
+		\par ~
+		\par local                                                                      &
+		\par ~
+		\par partiel
+		\par ~
+		\par global                                                                     &
+		\par ~
+		\par partiel
+		\par ~
+		\par local                                                                      &
+		\par ~
+		\par partiel
+		\par ~
+		\par local                                                                                                                                                                                                               \\ %
 		Nomination~:
-		\raggedright
-		\par homogène
-		\par automatique                                      &
-		 ~
-		face~:
-		\par \xmark
-		\par \cmark                                           &
-		 ~
-		face~:
-		\par \xmark
-		\par \cmark                                           &
-		 ~
-		face~:
-		\par \xmark
-		\par \cmark                                           &
-		 ~
-		face~:
-		\par \xmark
-		\par \cmark                                             &
-		 ~
-		brin~:
-		\par \cmark
-		\par \cmark                                           &
-		 ~
-		contraintes~:
-		\par \cmark
-		\par  \xmark                                                                                                                                                                     \\ %
+		\par \textbullet~base
+		\par \textbullet~homogène                                                       &
+		\par ~
+		\par face
+		\par \xmark                                                                     &
+		\par ~
+		\par face
+		\par \xmark                                                                     &
+		\par ~
+		\par face
+		\par \xmark                                                                     &
+		\par ~
+		\par face
+		\par \xmark                                                                     &
+		\par ~
+		\par brin
+		\par \cmark                                                                     &
+		\par ~
+		\par contraintes
+		\par \cmark                                                                                                                                                                                                              \\ %
 
-		Modélisation 2D/3D                                      & 3D                                           & 3D                      & 3D
-		                                                        & 3D                                           & \(n\)-D                 & 2.5D                                           \\ %
-		Résolution d'ambiguïté                                  & géométrie~:
-		\cmark \par topologie~: \cmark                          & géométrie~: \cmark \par topologie~: \cmark   &
-		géométrie~: \cmark \par topologie~: \cmark              & géométrie~: \cmark \par topologie~:
-		\cmark                                                  & géométrie~: \xmark \par topologie~: \cmark   & géométrie~: \cmark \par
-		topologie~: \cmark                                                                                                                                                                \\ %
-
-		Opérations complexes                                    &
-		\cmark                                                  & \cmark                                       & \cmark                  & \cmark    & \xmark         & \cmark            \\ %
+		Dimension du modèle                                                             & 3D                                                                 & 3D               & 3D
+		                                                                                & 3D                                                                 & \(n\)-D          & 2.5D                                           \\ %
+		Opérations complexes                                                            &
+		\cmark                                                                          & \cmark                                                             & \cmark           & \cmark    & \xmark         & \cmark            \\ %
 	\end{tblr}
+	\begin{tikzpicture}[overlay, remember picture]
+		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+			\includegraphics<2>[width=.6\textwidth]{example-image-a}
+		};
+		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+			\includegraphics<4>[width=.35\textwidth]{kripac-faceid-graph}
+			\includegraphics<4>[width=.35\textwidth]{wu-exemple-propagation-fusion}
+		};
+		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+			\includegraphics<6>[width=.6\textwidth]{example-image-a}
+		};
+		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+			\includegraphics<8>[width=.6\textwidth]{example-image-a}
+		};
+		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+			\includegraphics<10>[width=.6\textwidth]{example-image-a}
+		};
+	\end{tikzpicture}
 \end{frame}
 
-% \begin{frame}
-% 	\frametitle{État de l'art}
 
-% 	\begin{columns}
-% 		\begin{column}{.5\textwidth}
-% 			Suivi des entités topologiques
-% 			\begin{itemize}
-% 				\item<1-> Analyse de modèle
-% 				\item<2-> Intégration dans les opérations
-% 			\end{itemize}
-% 			Historique de noms
-% 			\begin{itemize}
-% 				\item<3-> Explicite avec un graphe
-% 				\item<4-> Implicite par propagation de noms
-% 			\end{itemize}
-% 		\end{column}
-% 		\begin{column}{.5\textwidth}
-% 			\includegraphics<3>[width=\columnwidth]{kripac-faceid-graph}
-% 			\includegraphics<4>[width=\columnwidth]{wu-exemple-propagation-fusion}
-% 		\end{column}
-% 	\end{columns}
-% \end{frame}
+%
 
 \begin{frame}
 	\frametitle{Limitations des approches existantes}
 
 	\begin{itemize}
-		\item absence de généricité dans la nomination,
-		\item conception généralement limitée à la 3D,
 		\item édition limitée aux paramètres géométriques,
+		\item manque d'homogénéité dans la nomination,
+		\item suivi partiel des cellules,
+		\item conception généralement limitée à la 3D
 		      % \item (à compléter en fonction des contributions)
 	\end{itemize}
 \end{frame}
 
-% \begin{frame}
-% 	\frametitle{Objectifs}
-% 	Conception et développement d'un système de réévaluation permettant le rejeu
-% 	d'un processus constructif grâce à~: % (autant d'objectifs que de limitations)
-% 	\begin{itemize}
-% 		\item l'édition étendue (ajout, suppression et réorganisation des
-% 		      opérations)~;
-% 		\item un schéma de nomination homogène~;
-% 		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
-% 		      %       d'erreurs d'appariement~;
-% 	\end{itemize}
-% 	notamment pour la construction d'objets génériques. %
-% \end{frame}
+\begin{frame}
+	\frametitle{Objectifs}
+	Conception et développement d'un système de réévaluation permettant le rejeu
+	d'un processus constructif grâce à~: % (autant d'objectifs que de limitations)
+	\begin{itemize}
+		\item l'édition étendue (ajout, suppression et réorganisation des
+		      opérations)~;
+		\item un schéma de nomination homogène~;
+		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
+		      %       d'erreurs d'appariement~;
+	\end{itemize}
+	notamment pour la construction d'objets génériques. %
+\end{frame}
 
 % \begin{frame}
 % 	\frametitle{Plan}

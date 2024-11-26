@@ -3,19 +3,28 @@
 \begin{frame}[fragile]
 	\frametitle{Scripts de règles}
 
-	\begin{minipage}[c][.3\textheight][t]{\textwidth}
-		\centering
-		\includegraphics[height=.3\textheight]{exemple-contrainte-regles-gauthier}
-	\end{minipage}
 	\begin{minipage}[t][.45\textheight][t]{\textwidth}
 		\begin{myblock}
+			\centering
+			\includegraphics[height=45pt]{example-image-a}
+			\hspace{4em}
+			\includegraphics[height=45pt]{example-image-a}
+			\tcblower
 			\begin{lstlisting}[style=script-style,language=jerboa-script]
 for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
 {
+    if (face#0@3 != face#0@3){
         @rule<UnsewFace01A3>(face);
+    }
 }
 \end{lstlisting}
 		\end{myblock}
+	\end{minipage}
+
+	\begin{minipage}[c][.3\textheight][t]{\textwidth}
+		\includegraphics[width=.45\textwidth]{exemple-contrainte-regles-gauthier}
+		\hfill
+		\includegraphics[width=.45\textwidth]{exemple-contrainte-regles-gauthier}
 	\end{minipage}
 \end{frame}
 
@@ -74,26 +83,29 @@ for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
 \begin{frame}[fragile]
 	\frametitle{Séquence}
 
-	\begin{minipage}[c][.45\textheight][t]{.65\textwidth}
-		\centering
+	\begin{minipage}[t][.5\textheight][t]{\textwidth}
 		\begin{myblock}
-		    \hrule
+			\centering
+			\includegraphics[height=45pt]{example-image-a}
+			\hspace{4em}
+			\includegraphics[height=45pt]{example-image-a}
+			\tcblower
 			\begin{lstlisting}[style=script-style, language=jerboa-script, escapechar=\%]
 JResult face2 = @rule<extrusion>(face#0);
 JResult face3 = @rule<extrusion>(face2#4#0);
 @rule<extrusion>(face3#4#0);
 \end{lstlisting}
 		\end{myblock}
-	  \end{minipage}
-	  \hfill
-	\begin{minipage}[c][.45\textheight][t]{\textwidth}
-		\centering
-		\includegraphics[width=.9\linewidth]{sequence-extrusion-colonne-faces}
+	\end{minipage}
+	\begin{minipage}[c][.5\textheight][t]{\textwidth}
+		\includegraphics[width=.45\textwidth]{sequence-extrusion-colonne-faces}
+		\hfill
+		\includegraphics[width=.45\textwidth]{sequence-extrusion-colonne-faces}
 	\end{minipage}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Structure de séquence~: spécification paramétrique}
+	\frametitle{Structure de séquence~: représentation}
 
 	\begin{minipage}[c][.45\textheight][t]{\textwidth}
 		\centering

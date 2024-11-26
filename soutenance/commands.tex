@@ -53,7 +53,7 @@
 \lstdefinestyle{script-style}{
 	backgroundcolor=\color{backcolour!30},
 	% numberstyle=\tiny\color{codegray},
-	basicstyle=\ttfamily\footnotesize,
+	basicstyle=\ttfamily\scriptsize,
 	keywordstyle=\color{blue},
 	keywordstyle=[2]{\color{red}},
 	keywordstyle=[3]{\color{orange!80!black}},
@@ -231,6 +231,18 @@
 	% borderline west={3pt}{0.75pt}{nord9}
 }
 
+\newtcolorbox{mysidetcb}[1][]{%
+	enhanced,
+	title={#1},
+	sidebyside,
+	coltitle=textfgcolor,
+	fonttitle=\bfseries,
+	colbacktitle=white!91!black,
+	size=title,
+	drop fuzzy shadow,
+	% borderline west={3pt}{0.75pt}{nord9}
+}
+
 \newenvironment{myblock}[1][]{%
 	\begin{mytcb}[#1]
 		\color{textfgcolor}
@@ -238,6 +250,12 @@
 	\end{mytcb}
 }
 
+\newenvironment{mysideblock}[1][]{%
+	\begin{mysidetcb}[#1]
+		\color{textfgcolor}
+		}{%
+	\end{mytcb}
+}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"

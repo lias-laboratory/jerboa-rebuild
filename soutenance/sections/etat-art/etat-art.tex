@@ -76,20 +76,31 @@
 		\cmark                                                                          & \cmark                                                             & \cmark           & \cmark    & \xmark         & \cmark            \\ %
 	\end{tblr}
 	\begin{tikzpicture}[overlay, remember picture]
-		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+		\node at (current page.center)% [below = 2.15cm]
+		{%
 			\includegraphics<2>[width=.6\textwidth]{example-image-a}
 		};
-		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
-			\includegraphics<4>[width=.35\textwidth]{kripac-faceid-graph}
-			\includegraphics<4>[width=.35\textwidth]{wu-exemple-propagation-fusion}
+		\node at (current page.north)[below = 1.2cm]
+		{%
+			\only<4>{%
+				\begin{minipage}[t][\textheight][s]{.4\textwidth}
+					\begin{myblock}[]
+						\includegraphics[width=\textwidth]{kripac-faceid-graph}
+						\includegraphics[width=\textwidth]{wu-exemple-propagation-fusion}
+					\end{myblock}
+				\end{minipage}
+			}%
 		};
-		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+		\node at (current page.center)% [below left = 2.15cm and 2cm]
+		{%
 			\includegraphics<6>[width=.6\textwidth]{example-image-a}
 		};
-		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+		\node at (current page.center)% [below left = 2.15cm and 2cm]
+		{%
 			\includegraphics<8>[width=.6\textwidth]{example-image-a}
 		};
-		\node at (current page.north east)[below left = 2.15cm and 2cm]{%
+		\node at (current page.center)% [below left = 2.15cm and 2cm]
+		{%
 			\includegraphics<10>[width=.6\textwidth]{example-image-a}
 		};
 	\end{tikzpicture}
@@ -101,27 +112,34 @@
 \begin{frame}
 	\frametitle{Limitations des approches existantes}
 
-	\begin{itemize}
-		\item édition limitée aux paramètres géométriques,
-		\item manque d'homogénéité dans la nomination,
-		\item suivi partiel des cellules,
+	\begin{itemize}[<+->]
+		\item édition limitée aux paramètres géométriques
+		\item manque d'homogénéité dans la nomination
+		\item suivi partiel des cellules
 		\item conception généralement limitée à la 3D
-		      % \item (à compléter en fonction des contributions)
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Objectifs}
-	Conception et développement d'un système de réévaluation permettant le rejeu
-	d'un processus constructif grâce à~: % (autant d'objectifs que de limitations)
-	\begin{itemize}
-		\item l'édition étendue (ajout, suppression et réorganisation des
-		      opérations)~;
-		\item un schéma de nomination homogène~;
-		      % \item de limiter  les coûts (calcul et mémoire) d'analyses et les risques
-		      %       d'erreurs d'appariement~;
-	\end{itemize}
-	notamment pour la construction d'objets génériques. %
+	\frametitle{Objectifs et méthodologie}
+	\begin{columns}[onlytextwidth]
+		\begin{column}{.6\textwidth}
+			\begin{itemize}[<+->]
+				\item Édition par réorganisation des opérations (ajout, suppression, déplacement)
+				\item Schéma de nomination homogène pour tout type de cellule
+				\item Suivi complet de l'évolution des cellules
+				\item Modélisation d'objet générique en dimension
+			\end{itemize}
+		\end{column}
+		\begin{column}<+->{.4\textwidth}
+			\vspace{5.1em}%
+			$\ldelim\}{4.5}[-4.7em]{-5em}[]$%
+			\tabto{1em}formalisation des\par
+			\tabto{1em}objets\par
+			\tabto{1em}opérations\par
+			\tabto{1em}changements topologiques%
+		\end{column}
+	\end{columns}
 \end{frame}
 
 % \begin{frame}

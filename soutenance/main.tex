@@ -6,8 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{biblatex}
-% \usepackage{booktabs}
-\usepackage{adjustbox}
+\usepackage{bigdelim}
 \usepackage{graphicx}
 \usepackage[normalem]{ulem}
 \usepackage{hyperref}
@@ -16,12 +15,11 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{subfiles}
 \usepackage{subcaption}
-% \usepackage{tabularx}
 \usepackage{tabto}
 \usepackage{tabularray}
 \UseTblrLibrary{booktabs}
 \UseTblrLibrary{diagbox}
-% \usepackage{diagbox}
+
 \usepackage[most]{tcolorbox}
 \usepackage[linesnumbered,ruled,french,frenchkw]{algorithm2e}
 \usepackage{listings}
@@ -37,8 +35,7 @@
 \noframetitlelogo
 
 \def\dbasepath{../resources-figures-jerboa}
-\def\dlogopath{../logos}
-\graphicspath{{\dbasepath/soutenance/}%
+\def\dlogopath{../logos} \graphicspath{{\dbasepath/soutenance/}%
   {\dbasepath/article-figures/}%
   {\dbasepath/chapitre-evenements}%
   {\dbasepath/chapitre-reevaluation-regles}%
@@ -94,9 +91,9 @@
 \end{frame}
 
 \section{Introduction}
-% \subfile{sections/introduction/introduction}
+\subfile{sections/introduction/introduction}
 \AtBeginSection[]{%
-  \begin{frame}[noframenumbering]
+  \begin{frame}
     \frametitle{Plan}
     \ifnum \value{section}>2
     \tableofcontents[sectionstyle=show/shaded, firstsection=-1, lastsection=-1]
@@ -107,15 +104,15 @@
 }
 \section{État de l'art}
 \subfile{sections/etat-art/etat-art}
-% \section{Formalismes}
-% \subfile{sections/formalismes/formalismes}
-% \section[Évènements]{Détection des évènements}
-% \subfile{sections/detection-evenements/detection-evenements}
-% \section[Rejeu]{Rejeu à base de règles}
-% \subfile{sections/reevaluation-regles/reevaluation-regles}
-% \section[Extension]{Extension à des opérations complexes}
-% \subfile{sections/scripts/scripts}
-% \section{Conclusion}
-% \subfile{sections/conclusion/conclusion}
+\section{Formalismes}
+\subfile{sections/formalismes/formalismes}
+\section[Évènements]{Détection des évènements}
+\subfile{sections/detection-evenements/detection-evenements}
+\section[Rejeu]{Rejeu à base de règles}
+\subfile{sections/reevaluation-regles/reevaluation-regles}
+\section[Extension]{Extension à des opérations complexes}
+\subfile{sections/scripts/scripts}
+\section{Conclusion}
+\subfile{sections/conclusion/conclusion}
 
 \end{document}

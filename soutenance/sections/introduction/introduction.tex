@@ -2,9 +2,15 @@
 	\frametitle{Modélisation géométrique}
 
 	\begin{tikzpicture}
-		\node (img1) at (current page.north west){\includegraphics[height=.8\textheight]{revit-modeling-interior}};
-		\node at (img1.east)[above right]{\includegraphics[width=.45\textwidth]{furniture-3D-modelling}};
-		\node at (img1.east)[below right]{\includegraphics[width=.45\textwidth]{blender_render}};
+		\node (img1) at (current page.north west){%
+			\includegraphics[height=.8\textheight]{revit-modeling-interior}
+		};
+		\node at (img1.east)[above right]{%
+			\includegraphics[width=.45\textwidth]{furniture-3D-modelling}
+		};
+		\node at (img1.east)[below right]{%
+			\includegraphics[width=.45\textwidth]{blender_render}
+		};
 	\end{tikzpicture}
 
 	% « dans le monde de tous les jours, la modélisation géométrique est utilisée
@@ -62,6 +68,7 @@
 				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
 					\centering
 					\includegraphics[height=.3\textheight]{mystdlego-2x2-fit}
+
 					Bloc de dimension \texttt{2\texttimes2}
 				\end{minipage}
 			\end{myblock}

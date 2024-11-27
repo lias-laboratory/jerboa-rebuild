@@ -76,9 +76,15 @@
 		\cmark                                                                          & \cmark                                                             & \cmark           & \cmark    & \xmark         & \cmark            \\ %
 	\end{tblr}
 	\begin{tikzpicture}[overlay, remember picture]
-		\node at (current page.center)% [below = 2.15cm]
+		\node at (current page.north)[below = 1.2cm]
 		{%
-			\includegraphics<2>[width=.6\textwidth]{example-image-a}
+			\only<2>{%
+				\begin{minipage}[t][\textheight][s]{.4\textwidth}
+					\begin{myblock}
+						\includegraphics[width=\textwidth]{types-editions-operations-cardot}
+					\end{myblock}
+				\end{minipage}
+			}
 		};
 		\node at (current page.north)[below = 1.2cm]
 		{%
@@ -91,17 +97,37 @@
 				\end{minipage}
 			}%
 		};
-		\node at (current page.center)% [below left = 2.15cm and 2cm]
+		\node at (current page.north)[below = 1.2cm]
 		{%
-			\includegraphics<6>[width=.6\textwidth]{example-image-a}
+			\only<6>{%
+				\begin{minipage}[t][\textheight][s]{.4\textwidth}
+					\begin{myblock}
+						\centering
+						\includegraphics[width=.9\textwidth]{bidarra-exemple-nomination-arete-1}
+						\includegraphics[width=.9\textwidth]{bidarra-exemple-nomination-arete-2}
+					\end{myblock}
+				\end{minipage}
+			}
 		};
-		\node at (current page.center)% [below left = 2.15cm and 2cm]
+		\node at (current page.north)[below  = 1.2cm]
 		{%
-			\includegraphics<8>[width=.6\textwidth]{example-image-a}
+			\only<8>{%
+				\begin{minipage}[t][\textheight][s]{.6\textwidth}
+					\begin{myblock}
+						\includegraphics[width=\textwidth]{cascaval-2-5D-examples}
+					\end{myblock}
+				\end{minipage}
+			}
 		};
-		\node at (current page.center)% [below left = 2.15cm and 2cm]
+		\node at (current page.north)[below = 1.2cm]
 		{%
-			\includegraphics<10>[width=.6\textwidth]{example-image-a}
+			\only<10>{%
+				\begin{minipage}[t][\textheight][s]{.6\textwidth}
+					\begin{myblock}
+						\includegraphics<10>[width=\textwidth]{wu-diff-operation-examples}
+					\end{myblock}
+				\end{minipage}
+			}
 		};
 	\end{tikzpicture}
 \end{frame}
@@ -111,7 +137,6 @@
 
 \begin{frame}
 	\frametitle{Limitations des approches existantes}
-
 	\begin{itemize}[<+->]
 		\item édition limitée aux paramètres géométriques
 		\item manque d'homogénéité dans la nomination
@@ -121,7 +146,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Objectifs et méthodologie}
+	\frametitle{Objectifs}
 	\begin{columns}[onlytextwidth]
 		\begin{column}{.6\textwidth}
 			\begin{itemize}[<+->]
@@ -133,7 +158,7 @@
 		\end{column}
 		\begin{column}<+->{.4\textwidth}
 			\vspace{5.1em}%
-			$\ldelim\}{4.5}[-4.7em]{-5em}[]$%
+			$\rdelim\}{4.5}[-4.7em]{-5em}[]$%
 			\tabto{1em}formalisation des\par
 			\tabto{1em}objets\par
 			\tabto{1em}opérations\par
@@ -142,38 +167,35 @@
 	\end{columns}
 \end{frame}
 
-% \begin{frame}
-% 	\frametitle{Plan}
-% 	\begin{itemize}
-% 		\item<1-> Objectifs~:
-% 		      \onslide<1->%
-% 		      \begin{itemize}
-% 			      \item Conception d'un schéma de nomination homogène~;
-% 			      \item Rejeu de constructions en toutes dimensions~;
-% 			      \item Édition étendue de constructions (ajout, suppression et
-% 			            déplacement d'opérations)
-% 		      \end{itemize}
 
-% 		      \vspace{1em}
+\begin{frame}
+	\frametitle{Objectifs}
+		\begin{itemize}
+			\item Conception d'un schéma de nomination homogène
+			      \rdelim\}{5.5}{*}[Objectifs]
+			\item Suivi complet des évolutions de cellules
+			\item Édition étendue de constructions (ajout,\par suppression
+			      et déplacement d'opérations)
+			\item Rejeu de constructions en toutes dimensions
+		\end{itemize}
 
-% 		\item<2-> Formalismes~:
-% 		      \onslide<2->%
-% 		      \begin{itemize}
-% 			      \item Cartes généralisées : formalisation des objets
-% 			      \item Règles Jerboa : formalisation des opérations
-% 		      \end{itemize}
+	\vspace{1em}
 
-% 		      \vspace{1em}
+		\begin{itemize}
+			\item Cartes généralisées : formalisation des objets
+			      \rdelim\}{2.2}{*}[Formalismes]
+			\item Règles Jerboa : formalisation des opérations
+		\end{itemize}
 
-% 		\item<3-> Contributions~:
-% 		      \onslide<3->%
-% 		      \begin{itemize}
-% 			      \item Méthodes de détection des changements topologiques
-% 			      \item Mécanisme de rejeu basé sur des règles Jerboa
-% 			      \item Extension pour le support d'opérations complexes
-% 		      \end{itemize}
-% 	\end{itemize}
-% \end{frame}
+	\vspace{1em}
+
+		\begin{itemize}
+			\item Méthodes de détection des changements topologiques
+			      \rdelim\}{3.5}{*}[Contributions]
+			\item Mécanisme de rejeu basé sur des règles Jerboa
+			\item Extension pour le support d'opérations complexes
+		\end{itemize}
+\end{frame}
 
 
 

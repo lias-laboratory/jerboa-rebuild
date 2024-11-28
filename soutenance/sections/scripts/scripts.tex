@@ -194,18 +194,18 @@ JResult face3 = @rule<extrusion>(face2#4#0);
 
 % \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Séquence~: DAG de jeu initial}
 	\begin{columns}
 		\begin{column}{.5\textwidth}
 			% \centering
 			\begin{minipage}[t][.4\textheight][t]{\textwidth}
 				\centering
-				\includegraphics<1>[height=.45\textheight]{rule-create-square-face}
+				\includegraphics<1>[height=35pt]{rule-colour-face}
 				\includegraphics<2>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
 				\includegraphics<3>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
 				\includegraphics<4>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
-				\includegraphics<5>[height=35pt]{rule-colour-face}
+				\includegraphics<5>[height=.45\textheight]{rule-create-square-face}
 			\end{minipage}
 			\begin{minipage}[b][.4\textheight][b]{\textwidth}
 				\centering
@@ -215,10 +215,8 @@ JResult face3 = @rule<extrusion>(face2#4#0);
 		\begin{column}{.5\textwidth}
 			\centering
 			\begin{minipage}[t][.3\textheight][c]{.75\columnwidth}
-				% \vspace{-3em}
-				% \scriptsize
 				\begin{myblock}
-					\raggedright\scriptsize\ttfamily
+					\raggedright\tiny\ttfamily
 					1-creationCarre()\\
 					2-S\_extrusionRuban(PN\textsubscript{5})\\
 					{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
@@ -236,7 +234,7 @@ JResult face3 = @rule<extrusion>(face2#4#0);
 \end{frame}
 
 \begin{frame}
-	\frametitle{Séquence~: DAG de jeu initial}
+	\frametitle{Séquence~: DAG de rejeu}
 	\begin{columns}
 		\begin{column}{.5\textwidth}
 			% \centering
@@ -252,10 +250,8 @@ JResult face3 = @rule<extrusion>(face2#4#0);
 		\begin{column}{.5\textwidth}
 			\centering
 			\begin{minipage}[t][.3\textheight][c]{.75\columnwidth}
-				% \vspace{-3em}
-				% \scriptsize
 				\begin{myblock}
-					\raggedright\scriptsize\ttfamily
+					\raggedright\tiny\ttfamily
 					1-creationCarre()\\
 					2-S\_extrusionRuban(PN\textsubscript{5})\\
 					{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
@@ -272,16 +268,6 @@ JResult face3 = @rule<extrusion>(face2#4#0);
 	\end{columns}
 \end{frame}
 
-
-% \begin{frame}
-% 	\frametitle{Itération~: spécification paramétrique}
-% 	\begin{itemize}
-% 		\item Problématique de l'itération de sous-orbite avec conditionnement sur
-% 		      l'orbite itéré et ses sous-orbites d'itération,
-% 		\item extension pour les spécifications paramétriques,
-% 		\item extension pour les DAG
-% 	\end{itemize}
-% \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Itération}
@@ -300,7 +286,7 @@ for(JDart face : <0,1,2>_<0,1>(composante#0)){
 		\end{myblock}
 	\end{minipage}
 	\begin{minipage}[t][.45\textheight][t]{\textwidth}
-	  \centering
+		\centering
 		\includegraphics[height=.45\textheight]{boucle-coloration-surface}
 		\hspace{4em}
 		\includegraphics[height=.45\textheight]{boucle-coloration-surface}
@@ -308,95 +294,150 @@ for(JDart face : <0,1,2>_<0,1>(composante#0)){
 	\vfill
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Itération~: spécification paramétrique}
-	\begin{columns}
-		\begin{column}{.6\textwidth}
-			\begin{myblock}
-				\begin{lstlisting}[style=script-style, escapechar=\%]
-1-creationCarre()
-2-subdivisionQuad(%\pndart{0}{1n0}%)
-3-S_colorationFaceComposante(%\pndart{0}{1n0;2n0}%)
-% \indentrule% For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(%\pndart{0}{1n0;2n0}%)
-% \indentrule% %\indentrule% 1-colorationFace(%\pndart{0}{1n0;2n0}%)
-% \indentrule% %\indentrule% 2-colorationFace(%\pndart{2}{1n2;2n0}%)
-% \indentrule% %\indentrule% 3-colorationFace(%\pndart{4}{1n4;2n0}%)
-% \indentrule% %\indentrule% 4-colorationFace(%\pndart{6}{1n6;2n0}%)
-4-triangulationFace(%\pndart{3}{1n3;2n0};3\{2n0\}%)
-\end{lstlisting}
-			\end{myblock}
-		\end{column}
-		\begin{column}{.4\textwidth}
-			\centering
-			\includegraphics[width=\columnwidth]{boucle-coloration-surface-triangulation}
-		\end{column}
-	\end{columns}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Itération~: DAG de jeu initial}
-	\begin{columns}
-		\begin{column}{.35\textwidth}
-			\begin{myblock}
-				\begin{itemize}
-					\item suivi d'orbite
-					\item activation du script
-					\item rejeu de l'itération
-					\item trois branches
-				\end{itemize}
-			\end{myblock}
-		\end{column}
-		\begin{column}{.6\textwidth}
-			\includegraphics[width=\columnwidth]{tmp-boucle-evaluationTree-pn3}
-		\end{column}
-	\end{columns}
-\end{frame}
-
 % \begin{frame}[fragile]
-% 	\frametitle{Itération~: édition}
+% 	\frametitle{Itération~: spécification paramétrique}
 % 	\begin{columns}
 % 		\begin{column}{.6\textwidth}
 % 			\begin{myblock}
 % 				\begin{lstlisting}[style=script-style, escapechar=\%]
 % 1-creationCarre()
-% ADD 5-suppressionSommet(3)
 % 2-subdivisionQuad(%\pndart{0}{1n0}%)
-% 3-S_colorationCC(%\pndart{0}{1n0;2n0}%)
-% %\indentrule% For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(%\pndart{0}{1n0;2n0}%)
-% %\indentrule% %\indentrule% 1-coloration(%\pndart{0}{1n0;2n0}%)
-% %\indentrule% %\indentrule% 2-coloration(%\pndart{2}{1n2;2n0}%)
-% %\indentrule% %\indentrule% 3-coloration(%\pndart{4}{1n4;2n0}%)
-% %\indentrule% %\indentrule% 4-coloration(%\pndart{6}{1n6;2n0}%)
-% 4-triangulation(%\pndart{3}{1n3;2n0;3\{2n0\}}%)
+% 3-S_colorationFaceComposante(%\pndart{0}{1n0;2n0}%)
+% % \indentrule% For %\textlangle{}0,1,3\textrangle{}% in %\textlangle{}0,1,2,3\textrangle{}%(%\pndart{0}{1n0;2n0}%)
+% % \indentrule% %\indentrule% 1-colorationFace(%\pndart{0}{1n0;2n0}%)
+% % \indentrule% %\indentrule% 2-colorationFace(%\pndart{2}{1n2;2n0}%)
+% % \indentrule% %\indentrule% 3-colorationFace(%\pndart{4}{1n4;2n0}%)
+% % \indentrule% %\indentrule% 4-colorationFace(%\pndart{6}{1n6;2n0}%)
+% 4-triangulationFace(%\pndart{3}{1n3;2n0};3\{2n0\}%)
 % \end{lstlisting}
 % 			\end{myblock}
 % 		\end{column}
 % 		\begin{column}{.4\textwidth}
 % 			\centering
-% 			\includegraphics[width=\columnwidth]{boucle-coloration-surface-triangulation-reevaluation}
+% 			\includegraphics[width=\columnwidth]{boucle-coloration-surface-triangulation}
 % 		\end{column}
 % 	\end{columns}
 
 % \end{frame}
 
-\begin{frame}
-	\frametitle{Itération~: DAG de rejeu}
+% \begin{frame}
+% 	\frametitle{Itération~: DAG de jeu initial}
+% 	\begin{columns}
+% 		\begin{column}{.35\textwidth}
+% 			\begin{myblock}
+% 				\begin{itemize}
+% 					\item suivi d'orbite
+% 					\item activation du script
+% 					\item rejeu de l'itération
+% 					\item trois branches
+% 				\end{itemize}
+% 			\end{myblock}
+% 		\end{column}
+% 		\begin{column}{.6\textwidth}
+% 			\includegraphics[width=\columnwidth]{tmp-boucle-evaluationTree-pn3}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Itération~: DAG de jeu initial}
 	\begin{columns}
-		\begin{column}{.35\textwidth}
-			\begin{myblock}
-				\begin{itemize}
-					\item Suppression de l'orbite de suivi
-					\item Suppression de l'orbite d'itération
-					\item Boucle et script non rejoués
-				\end{itemize}
-			\end{myblock}
+		\begin{column}{.45\textwidth}
+			% \centering
+			\begin{minipage}[t][.4\textheight][t]{\textwidth}
+				\centering
+				\includegraphics<1>[height=.45\textheight]{rule-create-square-face}
+				\includegraphics<2>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
+				\includegraphics<3>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
+				\includegraphics<4>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
+				\includegraphics<5>[height=35pt]{rule-colour-face}
+			\end{minipage}
+			\begin{minipage}[b][.4\textheight][b]{\textwidth}
+				\centering
+				\includegraphics[height=.35\textheight]{boucle-coloration-surface-triangulation}
+			\end{minipage}
 		\end{column}
 		\begin{column}{.55\textwidth}
-			\includegraphics[width=\columnwidth]{tmp-boucle-reevaluationTree-pn3}
+			\centering
+			\begin{minipage}[t][.3\textheight][t]{\columnwidth}
+				\vspace{-2em}
+				\begin{myblock}
+					\raggedright\tiny\ttfamily
+					1-creationCarre()\\
+					2-subdivisionQuad(\pndart{0}{1n0})\\
+					3-S\_colorationCC(\pndart{0}{1n0;2n0})\\
+					{ \indentrule } For \textlangle{}0,1,3\textrangle{} in \textlangle{}0,1,2,3\textrangle{}(\pndart{0}{1n0;2n0})\\
+					{ \indentrule } { \indentrule } 1-coloration(\pndart{0}{1n0;2n0})\\
+					{ \indentrule } { \indentrule } 2-coloration(\pndart{2}{1n2;2n0})\\
+					{ \indentrule } { \indentrule } 3-coloration(\pndart{4}{1n4;2n0})\\
+					{ \indentrule } { \indentrule } 4-coloration(\pndart{6}{1n6;2n0})
+					4-triangulation(\pndart{3}{1n3;2n0};3\{2n0\})
+				\end{myblock}
+			\end{minipage}
+			\begin{minipage}[b][.4\textheight][c]{.84\textwidth}
+				\centering
+				\includegraphics[width=\columnwidth]{tmp-boucle-evaluationTree-pn3}
+			\end{minipage}
 		\end{column}
 	\end{columns}
 \end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Itération~: DAG de rejeu}
+	\begin{columns}
+		\begin{column}{.45\textwidth}
+			% \centering
+			\begin{minipage}[t][.4\textheight][t]{\textwidth}
+				\centering
+				\includegraphics[height=.35\textheight]{boucle-coloration-surface-triangulation}
+			\end{minipage}
+			\begin{minipage}[b][.4\textheight][b]{\textwidth}
+				\centering
+				\includegraphics[height=.4\textheight]{tmp-boucle-evaluationTree-pn3}
+			\end{minipage}
+		\end{column}
+		\begin{column}{.55\textwidth}
+			\centering
+			\begin{minipage}[t][.3\textheight][t]{\columnwidth}
+				\vspace{-2em}
+				\begin{myblock}
+					\raggedright\tiny\ttfamily
+					1-creationCarre()\\
+					2-subdivisionQuad(\pndart{0}{1n0})\\
+					3-S\_colorationCC(\pndart{0}{1n0;2n0})\\
+					{ \indentrule } For \textlangle{}0,1,3\textrangle{} in \textlangle{}0,1,2,3\textrangle{}(\pndart{0}{1n0;2n0})\\
+					{ \indentrule } { \indentrule } 1-coloration(\pndart{0}{1n0;2n0})\\
+					{ \indentrule } { \indentrule } 2-coloration(\pndart{2}{1n2;2n0})\\
+					{ \indentrule } { \indentrule } 3-coloration(\pndart{4}{1n4;2n0})\\
+					{ \indentrule } { \indentrule } 4-coloration(\pndart{6}{1n6;2n0})
+					4-triangulation(\pndart{3}{1n3;2n0};3\{2n0\})
+				\end{myblock}
+			\end{minipage}
+			\begin{minipage}[b][.4\textheight][b]{.84\textwidth}
+				\centering
+				\includegraphics[height=.4\textheight]{tmp-boucle-reevaluationTree-pn3}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+% \begin{frame}[fragile]
+% 	\frametitle{Itération~: DAG de rejeu}
+% 	\begin{columns}
+% 		\begin{column}{.35\textwidth}
+% 			\begin{myblock}
+% 				\begin{itemize}
+% 					\item Suppression de l'orbite de suivi
+% 					\item Suppression de l'orbite d'itération
+% 					\item Boucle et script non rejoués
+% 				\end{itemize}
+% 			\end{myblock}
+% 		\end{column}
+% 		\begin{column}{.55\textwidth}
+% 			\includegraphics[width=\columnwidth]{tmp-boucle-reevaluationTree-pn3}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Alternative}

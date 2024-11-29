@@ -6,25 +6,23 @@
 	\begin{minipage}[t][.45\textheight][t]{\textwidth}
 		\begin{myblock}
 			\centering
-			\includegraphics[height=45pt]{example-image-a}
-			\hspace{4em}
-			\includegraphics[height=45pt]{example-image-a}
+			\includegraphics[height=35pt]{script-unsew-volume-graph}
 			\tcblower
 			\begin{lstlisting}[style=script-style,language=jerboa-script]
-for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
+for(JDart face : <0,1,2>_<0,1>(volume#0))
 {
     if (face != face@3){
-        @rule<UnsewFace01A3>(face);
+        JRuleResult unsewFace = @rule<UnsewFace01A3>(face);
     }
 }
+return unsewFace;
 \end{lstlisting}
 		\end{myblock}
 	\end{minipage}
-
-	\begin{minipage}[c][.3\textheight][t]{\textwidth}
+	\begin{minipage}[b][.3\textheight][c]{\textwidth}
 		\includegraphics[width=.45\textwidth]{exemple-contrainte-regles-gauthier}
 		\hfill
-		\includegraphics[width=.45\textwidth]{exemple-contrainte-regles-gauthier}
+		\includegraphics[width=.45\textwidth]{exemple-contrainte-regles-resultat-gauthier}
 	\end{minipage}
 \end{frame}
 
@@ -86,15 +84,13 @@ for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
 	\begin{minipage}[t][.5\textheight][t]{\textwidth}
 		\begin{myblock}
 			\centering
-			\includegraphics[height=45pt]{example-image-a}
-			\hspace{4em}
-			\includegraphics[height=45pt]{example-image-a}
+			\includegraphics[height=40pt]{script-extrude-ribbon}
 			\tcblower
 			\begin{lstlisting}[style=script-style, language=jerboa-script, escapechar=\%]
-JResult face2 = @rule<extrusion>(face#0);
+JResult face2 = @rule<extrusion>(firstFace#0);
 JResult face3 = @rule<extrusion>(face2#4#0);
-@rule<extrusion>(face3#4#0);
-\end{lstlisting}
+JResult face4 = @rule<extrusion>(face3#4#0);
+return face4;\end{lstlisting}
 		\end{myblock}
 	\end{minipage}
 	\begin{minipage}[c][.5\textheight][t]{\textwidth}

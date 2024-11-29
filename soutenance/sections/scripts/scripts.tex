@@ -13,7 +13,7 @@
 			\begin{lstlisting}[style=script-style,language=jerboa-script]
 for(JerboaDart face : <0,1,2>_<0,1>(volume#0))
 {
-    if (face#0@3 != face#0@3){
+    if (face != face@3){
         @rule<UnsewFace01A3>(face);
     }
 }
@@ -175,30 +175,12 @@ JResult face3 = @rule<extrusion>(face2#4#0);
 	\end{columns}
 \end{frame}
 
-% \begin{frame}[fragile]
-% 	\frametitle{Séquence~: DAG de jeu initial}
-% 	\begin{columns}
-% 		\begin{column}{.45\textwidth}
-% 			\begin{myblock}
-% 				\begin{itemize}
-% 					\item boîte de script
-% 					\item relation d'activation
-% 				\end{itemize}
-% 			\end{myblock}
-% 		\end{column}
-% 		\begin{column}{.55\textwidth}
-% 			\centering
-% 			\includegraphics[width=.9\columnwidth]{tmp-evaluationTree-pn9}
-% 		\end{column}
-% 	\end{columns}
-
-% \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Séquence~: DAG de jeu initial}
 	\begin{columns}
 		\begin{column}{.5\textwidth}
-			% \centering
+			\centering
 			\begin{minipage}[t][.4\textheight][t]{\textwidth}
 				\centering
 				\includegraphics<1>[height=35pt]{rule-colour-face}
@@ -237,7 +219,7 @@ JResult face3 = @rule<extrusion>(face2#4#0);
 	\frametitle{Séquence~: DAG de rejeu}
 	\begin{columns}
 		\begin{column}{.5\textwidth}
-			% \centering
+			\centering
 			\begin{minipage}[t][.4\textheight][t]{\textwidth}
 				\centering
 				\includegraphics[width=\textwidth]{sequence-extrusion-colonne-faces-coloration}%
@@ -490,39 +472,39 @@ else
 
 \end{frame}
 
-% \begin{frame}
-% 	\frametitle{Alternative~: DAG de jeu initial}
-% 	\centering
-% 	\includegraphics[height=.6\textheight]{tmp-alt-evaluationTree-pn13}
-% \end{frame}
+\begin{frame}
+	\frametitle{Alternative~: DAG de jeu initial}
+	\centering
+	\includegraphics[height=.6\textheight]{tmp-alt-evaluationTree-pn13}
+\end{frame}
 
-% \begin{frame}[fragile]
-% 	\frametitle{Alternative~: édition}
-% 	\begin{columns}
-% 		\begin{column}{.6\textwidth}
-% 			\begin{myblock}
-% 				\begin{lstlisting}[style=script-style, escapechar=\%]
-% 1-creationCarre()
-% ADD 4-suppressionSommet(5)
-% 2-S_insertionCarreOuTriangulationFace(%\pndart{0}{1n0}%)
-% %\indentrule% Alternative - Then:
-% %\indentrule% %\indentrule% 1-triangulationFace(%\pndart{0}{1n0}%)
-% 3-chanfreinSommet(%\pndart{13}{1n2;2\{1n2\}}%)
-% \end{lstlisting}
-% 			\end{myblock}
-% 		\end{column}
-% 		\begin{column}{.4\textwidth}
-% 			\centering
-% 			\includegraphics[width=\textwidth]{alternative-part-else-chamfer}
-% 		\end{column}
-% 	\end{columns}
-% \end{frame}
+\begin{frame}[fragile]
+	\frametitle{Alternative~: édition}
+	\begin{columns}
+		\begin{column}{.6\textwidth}
+			\begin{myblock}
+				\begin{lstlisting}[style=script-style, escapechar=\%]
+1-creationCarre()
+ADD 4-suppressionSommet(5)
+2-S_insertionCarreOuTriangulationFace(%\pndart{0}{1n0}%)
+%\indentrule% Alternative - Then:
+%\indentrule% %\indentrule% 1-triangulationFace(%\pndart{0}{1n0}%)
+3-chanfreinSommet(%\pndart{13}{1n2;2\{1n2\}}%)
+\end{lstlisting}
+			\end{myblock}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{alternative-part-else-chamfer}
+		\end{column}
+	\end{columns}
+\end{frame}
 
-% \begin{frame}[fragile]
-% 	\frametitle{Alternative~: DAG de rejeu}
-% 	\centering
-% 	\includegraphics[width=\linewidth]{tmp-alt-reevaluationTree-pn13}
-% \end{frame}
+\begin{frame}[fragile]
+	\frametitle{Alternative~: DAG de rejeu}
+	\centering
+	\includegraphics[width=\linewidth]{tmp-alt-reevaluationTree-pn13}
+\end{frame}
 
 % \begin{frame}
 % 	\frametitle{Alternative~: appariement}

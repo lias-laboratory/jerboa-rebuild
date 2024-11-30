@@ -81,7 +81,7 @@ return unsewFace;
 \begin{frame}[fragile]
 	\frametitle{Séquence}
 
-	\begin{minipage}[t][.5\textheight][t]{\textwidth}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
 		\begin{myblock}
 			\centering
 			\includegraphics[height=40pt]{script-extrude-ribbon}
@@ -93,106 +93,73 @@ JResult face4 = @rule<extrusion>(face3#4#0);
 return face4;\end{lstlisting}
 		\end{myblock}
 	\end{minipage}
-	\begin{minipage}[c][.5\textheight][t]{\textwidth}
-		\includegraphics[width=.45\textwidth]{sequence-extrusion-colonne-faces}
-		\hfill
-		\includegraphics[width=.45\textwidth]{sequence-extrusion-colonne-faces}
+	\begin{minipage}[b][.4\textheight][b]{\textwidth}
+		\centering
+		\includegraphics[height=50pt]{square-face-before-after-ribbon-extrusion-2D-no-dart}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 	\frametitle{Séquence~: représentation fermée}
 
-	\begin{minipage}[c][.5\textheight][c]{\textwidth}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
 		\centering
-		\includegraphics<1>[height=.45\textheight]{rule-create-square-face}
-		\includegraphics<2>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}
+		\includegraphics<1>[height=.4\textheight]{rule-create-square-face}
+		\includegraphics<2>[height=40pt]{script-extrude-ribbon}
 		\includegraphics<3>[height=35pt]{rule-colour-face}
 	\end{minipage}
 	\begin{columns}
 		\begin{column}{.5\textwidth}
-			\begin{minipage}[t][.5\textheight][t]{\columnwidth}
-				\centering
-				\includegraphics<1>[width=\textwidth]{sequence-extrusion-colonne-faces}
-				\includegraphics<2>[width=\textwidth]{sequence-extrusion-colonne-faces}
-				\includegraphics<3>[width=\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}
+			\begin{minipage}[b][.4\textheight][b]{\columnwidth}
+				\raggedright
+				\includegraphics<1>[height=50pt]{square-face-before-ribbon-extrusion-2D}
+				\includegraphics<2>[height=50pt]{sequence-extrusion-colonne-faces-boite-noire}
+				\includegraphics<3>[height=50pt]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
 			\end{minipage}
 		\end{column}
 		\begin{column}{.5\textwidth}
-			\begin{minipage}[t][.5\textheight][t]{\columnwidth}
+			\begin{minipage}[b][.4\textheight][b]{\columnwidth}
 				\begin{myblock}
-					\begin{lstlisting}[style=script-style, escapechar=\%]
-1-creationCarre()
-2-S_extrusionRuban(PN%\textsubscript{5}%)
-3-colorationFace(PN%\textsubscript{9}%, Orange)
-			  \end{lstlisting}
+					\raggedright\tiny\ttfamily
+					1-creationCarre()\\
+					2-S\_extrusionRuban(PN\textsubscript{5})\\
+					3-colorationFace(PN\textsubscript{9}, Orange)
 				\end{myblock}
+				\vspace{16.4pt}
 			\end{minipage}
 		\end{column}
 	\end{columns}
+
 \end{frame}
 
-\begin{frame}[fragile]
+
+\begin{frame}
 	\frametitle{Séquence~: représentation ouverte}
 
-	\begin{minipage}[c][.5\textheight][c]{\textwidth}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
 		\centering
-		\includegraphics<1>[height=.45\textheight]{rule-create-square-face}
-		\includegraphics<2>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
-		\includegraphics<3>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
-		\includegraphics<4>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
+		\includegraphics<1>[height=.4\textheight]{rule-create-square-face}
+		\includegraphics<2-4>[height=40pt]{script-extrude-ribbon}
+
+		\only<2-4>{\vspace{2em}}
+
+		\includegraphics<2-4>[height=40pt]{rule-extrusion-face-edge-2D}
 		\includegraphics<5>[height=35pt]{rule-colour-face}
 	\end{minipage}
-	\begin{columns}
+	\begin{columns}[b]
 		\begin{column}{.5\textwidth}
-			\begin{minipage}[t][.5\textheight][t]{\columnwidth}
-				\centering
-				\includegraphics<1>[width=\textwidth]{sequence-extrusion-colonne-faces}%
-				\includegraphics<2>[width=\textwidth]{sequence-extrusion-colonne-faces}%
-				\includegraphics<3>[width=\textwidth]{sequence-extrusion-colonne-faces}%
-				\includegraphics<4>[width=\textwidth]{sequence-extrusion-colonne-faces}%
-				\includegraphics<5>[width=\textwidth]{sequence-extrusion-colonne-faces-coloration}%
+			\begin{minipage}[b][.4\textheight][b]{\columnwidth}
+				\raggedright
+				\includegraphics<1>[height=50pt]{square-face-before-ribbon-extrusion-2D}
+				% \vspace{-1pt}
+				\includegraphics<2>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-1}%
+				\includegraphics<3>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-2}%
+				\includegraphics<4>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-3}%
+				\includegraphics<5>[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
 			\end{minipage}
 		\end{column}
 		\begin{column}{.5\textwidth}
-			\begin{minipage}[t][.5\textheight][t]{\columnwidth}
-				\begin{myblock}
-					\begin{lstlisting}[style=script-style, escapechar=\%]
-1-creationCarre()
-2-S_extrusionRuban(PN%\textsubscript{5}%)
-%\indentrule% 1-extrusionAreteFace(PN%\textsubscript{5}%)
-%\indentrule% 2-extrusionAreteFace(PN%\textsubscript{15}%)
-%\indentrule% 3-extrusionAreteFace(PN%\textsubscript{23}%)
-3-colorationFace(PN%\textsubscript{9}%, Orange)
-			  \end{lstlisting}
-				\end{myblock}
-			\end{minipage}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-
-\begin{frame}[fragile]
-	\frametitle{Séquence~: DAG de jeu initial}
-	\begin{columns}
-		\begin{column}{.5\textwidth}
-			\centering
-			\begin{minipage}[t][.4\textheight][t]{\textwidth}
-				\centering
-				\includegraphics<1>[height=35pt]{rule-colour-face}
-				\includegraphics<2>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
-				\includegraphics<3>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
-				\includegraphics<4>[width=.4\textwidth]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
-				\includegraphics<5>[height=.45\textheight]{rule-create-square-face}
-			\end{minipage}
-			\begin{minipage}[b][.4\textheight][b]{\textwidth}
-				\centering
-				\includegraphics[width=\textwidth]{sequence-extrusion-colonne-faces-coloration}%
-			\end{minipage}
-		\end{column}
-		\begin{column}{.5\textwidth}
-			\centering
-			\begin{minipage}[t][.3\textheight][c]{.75\columnwidth}
+			\begin{minipage}[b][.4\textheight][b]{\columnwidth}
 				\begin{myblock}
 					\raggedright\tiny\ttfamily
 					1-creationCarre()\\
@@ -203,48 +170,119 @@ return face4;\end{lstlisting}
 					3-colorationFace(PN\textsubscript{9}, Orange)
 				\end{myblock}
 			\end{minipage}
-			\begin{minipage}[t][.4\textheight][t]{.84\textwidth}
-				\centering
-				\includegraphics<1->[width=.9\columnwidth]{tmp-evaluationTree-pn9}
-			\end{minipage}
 		\end{column}
 	\end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Séquence~: DAG de jeu initial}
+
+	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+		\begin{columns}
+			\begin{column}{.5\textwidth} % TOP LEFT
+				\centering
+				\includegraphics[width=\columnwidth]{rule-extrusion-face-edge-2D}
+
+				règle d'extrusion d'une arête
+			\end{column}
+			\begin{column}{.5\textwidth} % TOP RIGHT
+				\centering
+				\begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+					\centering
+					\begin{myblock}
+						\raggedright\tiny\ttfamily
+						1-creationCarre()\\
+						2-S\_extrusionRuban(PN\textsubscript{5})\\
+						{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
+						{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
+						{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
+						3-colorationFace(PN\textsubscript{9}, Orange)
+					\end{myblock}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
+		\begin{columns}[b]
+			\begin{column}{.5\textwidth} % BOTTOM LEFT
+				\raggedright
+				\includegraphics[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
+			\end{column}
+			\begin{column}{.5\textwidth} % BOTTOM RIGHT
+				\centering
+				\includegraphics[width=.8\columnwidth]{tmp-evaluationTree-pn9}
+			\end{column}
+		\end{columns}
+		\vspace{7.3pt}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Séquence~: DAG de rejeu}
-	\begin{columns}
-		\begin{column}{.5\textwidth}
-			\centering
-			\begin{minipage}[t][.4\textheight][t]{\textwidth}
+
+	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+		\begin{columns}
+			\begin{column}{.5\textwidth} % TOP LEFT
+				\raggedright
+				\includegraphics[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
+			\end{column}
+			\begin{column}{.5\textwidth} % TOP RIGHT
 				\centering
-				\includegraphics[width=\textwidth]{sequence-extrusion-colonne-faces-coloration}%
-			\end{minipage}
-			\begin{minipage}[b][.4\textheight][b]{\textwidth}
+				\begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+					\centering
+					\begin{myblock}
+						\raggedright\tiny\ttfamily
+						1-creationCarre()\\
+						ADD insertionSommet(5)\\
+						2-S\_extrusionRuban(PN\textsubscript{5})\\
+						{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
+						{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
+						{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
+						3-colorationFace(PN\textsubscript{9}, Orange)
+					\end{myblock}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
+		\begin{columns}[b]
+			\begin{column}{.5\textwidth} % BOTTOM LEFT
 				\centering
-				\includegraphics<1->[width=.9\columnwidth]{tmp-evaluationTree-pn9}
-			\end{minipage}
-		\end{column}
-		\begin{column}{.5\textwidth}
-			\centering
-			\begin{minipage}[t][.3\textheight][c]{.75\columnwidth}
-				\begin{myblock}
-					\raggedright\tiny\ttfamily
-					1-creationCarre()\\
-					2-S\_extrusionRuban(PN\textsubscript{5})\\
-					{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
-					{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
-					{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
-					3-colorationFace(PN\textsubscript{9}, Orange)
-				\end{myblock}
-			\end{minipage}
-			\begin{minipage}[t][.4\textheight][t]{.84\textwidth}
+				\includegraphics[width=.8\columnwidth]{tmp-evaluationTree-pn9}
+			\end{column}
+			\begin{column}{.5\textwidth} % BOTTOM RIGHT
 				\centering
 				\includegraphics[width=.9\columnwidth]{tmp-reevaluationTree-pn9}
-			\end{minipage}
-		\end{column}
-	\end{columns}
+			\end{column}
+		\end{columns}
+		\vspace{7.3pt}
+	\end{minipage}
 \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Séquence~: DAG de rejeu}
+% 	\begin{columns}
+% 		\begin{column}{.5\textwidth}
+% 			\centering
+% 			\begin{minipage}[t][.4\textheight][t]{\textwidth}
+% 				\centering
+% 				\includegraphics[width=\textwidth]{sequence-extrusion-colonne-faces-coloration}%
+% 			\end{minipage}
+% 			\begin{minipage}[b][.4\textheight][b]{\textwidth}
+% 				\centering
+% 				\includegraphics<1->[width=.9\columnwidth]{tmp-evaluationTree-pn9}
+% 			\end{minipage}
+% 		\end{column}
+% 		\begin{column}{.5\textwidth}
+% 			\centering
+% 			\begin{minipage}[t][.3\textheight][c]{.75\columnwidth}
+% 			\end{minipage}
+% 			\begin{minipage}[t][.4\textheight][t]{.84\textwidth}
+% 			\end{minipage}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
 
 \begin{frame}[fragile]

@@ -192,17 +192,18 @@ return face4;\end{lstlisting}
 		  \includegraphics[width=.8\columnwidth]{tmp-evaluationTree-pn9}
 		\end{column}
 	  \end{columns}
-	  \vspace{7.3pt}
+	  \vspace{5.3pt}
 	\end{minipage}
   \end{onlyenv}
   \begin{onlyenv}<7>
 	\frametitle<7>{Séquence~: DAG de rejeu}
 
 	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+		\vspace{-1em}
 	  \begin{columns}
 		\begin{column}{.5\textwidth} % TOP LEFT
 		  \raggedright
-		  \includegraphics[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
+		  \includegraphics[height=51pt]{ribbon-extrusion-reevaluation-2D}%
 		\end{column}
 		\begin{column}{.5\textwidth} % TOP RIGHT
 		  \centering
@@ -211,7 +212,7 @@ return face4;\end{lstlisting}
 			\begin{myblock}
 			  \raggedright\tiny\ttfamily
 			  1-creationCarre()\\
-			  ADD insertionSommet(5)\\
+			  ADD 4-insertionSommet(5)\\
 			  2-S\_extrusionRuban(PN\textsubscript{5})\\
 			  { \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
 			  { \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
@@ -230,7 +231,7 @@ return face4;\end{lstlisting}
 		\end{column}
 		\begin{column}{.5\textwidth} % BOTTOM RIGHT
 		  \centering
-		  \includegraphics[width=.9\columnwidth]{tmp-reevaluationTree-pn9}
+		  \includegraphics[width=.9\columnwidth]{sequence-dag-reevaluation-dart-9}
 		\end{column}
 	  \end{columns}
 	  \vspace{7.3pt}
@@ -242,7 +243,7 @@ return face4;\end{lstlisting}
 \begin{frame}[fragile]
   \begin{onlyenv}<1>
 	\frametitle<1>{Itération}
-	\begin{minipage}[t][.45\textheight][t]{\textwidth}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
 	  \begin{myblock}
 		\centering
 		\includegraphics[height=45pt]{example-image-a}
@@ -250,17 +251,19 @@ return face4;\end{lstlisting}
 		\includegraphics[height=45pt]{example-image-a}
 		\tcblower
 \begin{lstlisting}[style=script-style,language=jerboa-script,escapechar=\%]
-for(JDart face : <0,1,2>_<0,1>(composante#0)){
-    @rule<colorationFace>(face)
+JerboaRuleResult triface;
+for( JDart face : <0,1,2>_<0,1>(CC#0)){
+    triface = @rule<Triangulate>(face);
 }
+return triface;
 \end{lstlisting}
 	  \end{myblock}
 	\end{minipage}
-	\begin{minipage}[t][.45\textheight][t]{\textwidth}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
 	  \centering
-	  \includegraphics[height=.45\textheight]{boucle-coloration-surface}
+	  \includegraphics[height=.4\textheight]{square-face}
 	  \hspace{4em}
-	  \includegraphics[height=.45\textheight]{boucle-coloration-surface}
+	  \includegraphics[height=.4\textheight]{boucle-coloration-surface}
 	\end{minipage}
 	\vfill
   \end{onlyenv}
@@ -268,16 +271,17 @@ for(JDart face : <0,1,2>_<0,1>(composante#0)){
 	\frametitle<2>{Itération~: DAG de jeu initial}
 
 	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+		\vspace{-1em}
 	  \begin{columns}
 		\begin{column}{.5\textwidth} % TOP LEFT
 		  \centering
-		  \includegraphics[width=\columnwidth]{example-image-a} % graphe de script
+		  \includegraphics<2>[height=35pt]{script-triangulateCC} % graphe de script
 
 		  règle de triangulation d'une CC
 		\end{column}
 		\begin{column}{.5\textwidth} % TOP RIGHT
 		  \centering
-		  \begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+		  \begin{minipage}[t][.3\textheight][t]{.8\columnwidth}
 			\centering
 			\begin{myblock}
 			  \raggedright\tiny\ttfamily
@@ -297,13 +301,13 @@ for(JDart face : <0,1,2>_<0,1>(composante#0)){
 	\end{minipage}
 	\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
 	  \begin{columns}[b]
-		\begin{column}{.5\textwidth} % BOTTOM LEFT
-		  \raggedright
-		  \includegraphics[height=51pt]{example-image-b} % CC triangulée + coloration
+		\begin{column}{.2\textwidth} % BOTTOM LEFT
+		  % \raggedright
+		  \includegraphics<2>[width=\textwidth]{boucle-exemple-edit} % CC triangulée + coloration
 		\end{column}
-		\begin{column}{.5\textwidth} % BOTTOM RIGHT
-		  \centering
-		  \includegraphics[width=.8\columnwidth]{example-image-c} % DAG de jeu
+		\begin{column}{.8\textwidth} % BOTTOM RIGHT
+		\centering
+		  \includegraphics[width=.8\columnwidth]{boucle-exemple-init-dag} % DAG de jeu
 		\end{column}
 	  \end{columns}
 	  \vspace{7.3pt}

@@ -87,7 +87,7 @@
 				\includegraphics<4>[width=.7\textwidth]{5-colour-face}%
 				\includegraphics<5>[width=.7\textwidth]{1-square-thin}%
 				\includegraphics<6>[width=.7\textwidth]{2-reeval-insert-vertex}%
-				\includegraphics<7>[width=.7\textwidth]{3-reeval-face-extrusion}%
+				\includegraphics<7->[width=.7\textwidth]{3-reeval-face-extrusion}%
 			\end{minipage}
 		\end{column}
 		\begin{column}{.49\textwidth}
@@ -110,11 +110,11 @@
 					\only<5->{
 					\alt<6->{{\color{mydarkgreenink}ADD1-insert}({\color{myblueink}e1})}
 					{ADD1-{\color{gray}insert({\color{myblueink}e1})}}
-					\alt<7>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
+					\alt<7->{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
 					{2-{\color{gray}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
-					\alt<7->{3-{\color{gray}triangulation}({\color{red}f2?})}
+					\alt<8>{3-{\color{gray}triangulation}({\color{red}f2?})}
 					{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
-					\alt<7>{4-{\color{gray}colour}({\color{red}f7?})}
+					\alt<8>{4-{\color{gray}colour}({\color{red}f7?})}
 					{4-{\color{gray}colour}({\color{myblueink}f7})}%
 					}
 				\end{myblock}
@@ -122,7 +122,7 @@
 		\end{column}
 	\end{columns}
 	\begin{overlayarea}{\textwidth}{.1\textheight}
-		\only<7>{%
+		\only<8>{%
 			\begin{myblock}{}
 				\color{red} Problème de la nomination persistante
 			\end{myblock}

@@ -101,8 +101,8 @@ return face4;\end{lstlisting}
 					\begin{myblock}
 						\raggedright\tiny\ttfamily
 						1-creationCarre()\\
-						2-S\_extrusionRuban(PN\textsubscript{5})\\
-						3-colorationFace(PN\textsubscript{9}, Orange)
+						2-S\_extrusionRuban(\pn{1n5})\\
+						3-colorationFace(\pn{1n5;2{}lastFace}, Orange)
 					\end{myblock}
 					\vspace{16.4pt}
 				\end{minipage}
@@ -143,11 +143,11 @@ return face4;\end{lstlisting}
 					\begin{myblock}
 						\raggedright\tiny\ttfamily
 						1-creationCarre()\\
-						2-S\_extrusionRuban(PN\textsubscript{5})\\
-						{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
-						{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
-						{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
-						3-colorationFace(PN\textsubscript{9}, Orange)
+						2-S\_extrusionRuban(\pn{1n5})\\
+						{ \indentrule } 1-extrusionAreteFace(\pn{1n5;2\{1n4\}})\\
+						{ \indentrule } 2-extrusionAreteFace(\pn{1n5;2\{1n4;2n4\}})\\
+						{ \indentrule } 3-extrusionAreteFace(\pn{1n5;2\{1n4;2n4;3n4\}})\\
+						3-colorationFace(\pn{1n6;2{1n2}}, Orange)
 					\end{myblock}
 				\end{minipage}
 			\end{column}
@@ -171,11 +171,11 @@ return face4;\end{lstlisting}
 						\begin{myblock}
 							\raggedright\tiny\ttfamily
 							1-creationCarre()\\
-							2-S\_extrusionRuban(PN\textsubscript{5})\\
-							{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
-							{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
-							{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
-							3-colorationFace(PN\textsubscript{9}, Orange)
+							2-S\_extrusionRuban(\pn{1n5})\\
+							{ \indentrule } 1-extrusionAreteFace(\pn{1n5;2\{1n4\}})\\
+							{ \indentrule } 2-extrusionAreteFace(\pn{1n5;2\{1n4;2n4\}})\\
+							{ \indentrule } 3-extrusionAreteFace(\pn{1n5;2\{1n4;2n4;3n4\}})\\
+							3-colorationFace(\pn{1n6;2{1n2}}, Orange)
 						\end{myblock}
 					\end{minipage}
 				\end{column}
@@ -213,11 +213,11 @@ return face4;\end{lstlisting}
 							\raggedright\tiny\ttfamily
 							1-creationCarre()\\
 							ADD 4-insertionSommet(5)\\
-							2-S\_extrusionRuban(PN\textsubscript{5})\\
-							{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
-							{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
-							{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
-							3-colorationFace(PN\textsubscript{9}, Orange)
+							2-S\_extrusionRuban(\pn{1n5})\\
+							{ \indentrule } 1-extrusionAreteFace(\pn{1n5;2\{1n4\}})\\
+							{ \indentrule } 2-extrusionAreteFace(\pn{1n5;2\{1n4;2n4\}})\\
+							{ \indentrule } 3-extrusionAreteFace(\pn{1n5;2\{1n4;2n4;3n4\}})\\
+							3-colorationFace(\pn{1n6;2{1n2}}, Orange)
 						\end{myblock}
 					\end{minipage}
 				\end{column}
@@ -246,7 +246,7 @@ return face4;\end{lstlisting}
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\begin{myblock}
 				\centering
-				\includegraphics[height=40pt]{rule-edge-collapse-no-color}
+				\includegraphics[height=30pt]{rule-edge-collapse-no-color}
 				\tcblower
 				\begin{lstlisting}[style=script-style,language=jerboa-script,escapechar=\%]
 JerboaRuleResult triface;
@@ -284,14 +284,14 @@ return triface;
 						\begin{myblock}
 							\raggedright\tiny\ttfamily
 							1-creationCarre()\\
-							2-subdivisionQuad(\pndart{0}{1n2})\\
-							3-S\_triangulationCC(\pndart{0}{1n2;2n0})\\
+							2-subdivisionQuad(\pn{1n2})\\
+							3-S\_triangulationCC(\pn{1n2;2n0})\\
 							{ \indentrule } For \textlangle{}0,1\textrangle{} in \textlangle{}0,1,2\textrangle{}(\pndart{0}{1n2;2n0})\\
-							{ \indentrule } { \indentrule } 1-triangulation(\pndart{2}{1n2;2n0})\\
-							{ \indentrule } { \indentrule } 2-triangulation(\pndart{4}{1n4;2n0})\\
-							{ \indentrule } { \indentrule } 3-triangulation(\pndart{6}{1n6;2n0})\\
-							{ \indentrule } { \indentrule } 4-triangulation(\pndart{0}{1n0;2n0})
-							4-coloration(\pndart{3}{1n2;2n0};3\{1n0\})
+							{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2;2n0})\\
+							{ \indentrule } { \indentrule } 2-triangulation(\pn{1n4;2n0})\\
+							{ \indentrule } { \indentrule } 3-triangulation(\pn{1n6;2n0})\\
+							{ \indentrule } { \indentrule } 4-triangulation(\pn{1n0;2n0})
+							4-coloration(\pn{1n2;2n0};3\{1n0\})
 						\end{myblock}
 					\end{minipage}
 				\end{column}
@@ -328,14 +328,14 @@ return triface;
 							\raggedright\tiny\ttfamily
 							1-creationCarre()\\
 							ADD contractionArete(2)\\
-							2-subdivisionQuad(\pndart{0}{1n0})\\
-							3-S\_triangulationCC(\pndart{0}{1n0;2n0})\\
-							{ \indentrule } For \textlangle{}0,1,3\textrangle{} in \textlangle{}0,1,2,3\textrangle{}(\pndart{0}{1n0;2n0})\\
-							{ \indentrule } { \indentrule } 1-triangulation(\pndart{0}{1n0;2n0})\\
-							{ \indentrule } { \indentrule } 2-triangulation(\pndart{2}{1n2;2n0})\\
-							{ \indentrule } { \indentrule } 3-triangulation(\pndart{4}{1n4;2n0})\\
-							{ \indentrule } { \indentrule } 4-triangulation(\pndart{6}{1n6;2n0})
-							4-coloration(\pndart{3}{1n3;2n0};3\{2n0\})
+							2-subdivisionQuad(\pn{1n2})\\
+							3-S\_triangulationCC(\pn{1n2;2n0})\\
+							{ \indentrule } For \textlangle{}0,1\textrangle{} in \textlangle{}0,1,2\textrangle{}(\pndart{0}{1n2;2n0})\\
+							{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2;2n0})\\
+							{ \indentrule } { \indentrule } 2-triangulation(\pn{1n4;2n0})\\
+							{ \indentrule } { \indentrule } 3-triangulation(\pn{1n6;2n0})\\
+							{ \indentrule } { \indentrule } 4-triangulation(\pn{1n0;2n0})
+							4-coloration(\pn{1n2;2n0};3\{1n0\})
 						\end{myblock}
 					\end{minipage}
 				\end{column}

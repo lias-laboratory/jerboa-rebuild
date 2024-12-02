@@ -7,6 +7,7 @@
 		colspec = {|m{2.5cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
 		% cell{0}{0-} = {cmd=\SetCell{wd=5cm}},
 		cell{2}{2} = {c=4}{c}, % multicolumn
+		cell{2}{6} = {c=2}{c}, % multicolumn
 		% rowsep = 6pt,
 		hlines={black,0.5pt},
 		vlines={black,0.5pt},
@@ -14,74 +15,74 @@
 		}
 		% \bottomrule%
 		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Approche}{Système}
-		                                                                                & Kripac                                                             & Capoyleas et al. & Wu et al. & Bidarra et al. & Cardot & Cascaval
-		et al.                                                                                                                                                                                                                   \\ %
+		                                             & Kripac                                 & Capoyleas et al. & Wu et al. & Bidarra et al. & Cardot & Cascaval
+		et al.                                                                                                                                                    \\ %
 		\toprule[black,0.5pt] %
 		% \bottomrule %
-		Types d'éditions~:                                                              & uniquement des paramètres géométriques                                 &                  &           &                &
-		paramètres géométriques\par + \par ajout, suppression, déplacement d'opérations & paramètres géométriques\par + \par ajout, suppression d'opérations                                                                     \\ %
+		Types d'éditions~:                           & uniquement des paramètres géométriques &                  &           &                &
+		paramètres géométriques\par +\par opérations &                                                                                                            \\ %
 
 		Historique d'une cellule~:
 		\par \textbullet~construction (complet / partiel)
-		\par \textbullet~calcul (local / global)                                        &
+		\par \textbullet~calcul (local / global)     &
 		\par ~
 		\par partiel
 		\par ~
-		\par global                                                                     &
+		\par global                                  &
 		\par ~
 		\par partiel
 		\par ~
-		\par global                                                                     &
+		\par global                                  &
 		\par ~
 		\par partiel
 		\par ~
-		\par local                                                                      &
+		\par local                                   &
 		\par ~
 		\par partiel
 		\par ~
-		\par global                                                                     &
+		\par global                                  &
 		\par ~
 		\par partiel
 		\par ~
-		\par local                                                                      &
+		\par local                                   &
 		\par ~
 		\par partiel
 		\par ~
-		\par local                                                                                                                                                                                                               \\ %
+		\par local                                                                                                                                                \\ %
 		Nomination~:
 		\par \textbullet~base
-		\par \textbullet~homogène                                                       &
+		\par \textbullet~homogène                    &
 		\par ~
 		\par face
-		\par \xmark                                                                     &
+		\par \xmark                                  &
 		\par ~
 		\par face
-		\par \xmark                                                                     &
+		\par \xmark                                  &
 		\par ~
 		\par face
-		\par \xmark                                                                     &
+		\par \xmark                                  &
 		\par ~
 		\par face
-		\par \xmark                                                                     &
+		\par \xmark                                  &
 		\par ~
 		\par brin
-		\par \cmark                                                                     &
+		\par \cmark                                  &
 		\par ~
 		\par contraintes
-		\par \cmark                                                                                                                                                                                                              \\ %
+		\par \cmark                                                                                                                                               \\ %
 
-		Dimension du modèle                                                             & 3D                                                                 & 3D               & 3D
-		                                                                                & 3D                                                                 & \(n\)-D          & 2.5D                                           \\ %
-		Opérations complexes                                                            &
-		\cmark                                                                          & \cmark                                                             & \cmark           & \cmark    & \xmark         & \cmark            \\ %
+		Dimension du modèle                          & 3D                                     & 3D               & 3D
+		                                             & 3D                                     & \(n\)-D          & 2.5D                                           \\ %
+		Opérations complexes                         &
+		\cmark                                       & \cmark                                 & \cmark           & \cmark    & \xmark         & \cmark            \\ %
 	\end{tblr}
 	\begin{tikzpicture}[overlay, remember picture]
-		\node at (current page.north)[below = 1.2cm]
+		\node at (current page.north)[below right = 1.2cm and -5cm]
 		{%
 			\only<2>{%
-				\begin{minipage}[t][\textheight][s]{.4\textwidth}
+				\begin{minipage}[t][\textheight][s]{.9\textwidth}
 					\begin{myblock}
-						\includegraphics[width=\textwidth]{types-editions-operations-cardot}
+						\includegraphics[width=\textwidth]{etat-art-illustration-types-editions}
 					\end{myblock}
 				\end{minipage}
 			}
@@ -145,56 +146,77 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Objectifs}
-	\begin{columns}[onlytextwidth]
-		\begin{column}{.6\textwidth}
-			\begin{itemize}[<+->]
-				\item Édition par réorganisation des opérations (ajout, suppression, déplacement)
-				\item Schéma de nomination homogène pour tout type de cellule
-				\item Suivi complet de l'évolution des cellules
-				\item Modélisation d'objet générique en dimension
-			\end{itemize}
-		\end{column}
-		\begin{column}<+->{.4\textwidth}
-			\vspace{5.1em}%
-			$\rdelim\}{4.5}[-4.7em]{-5em}[]$%
-			\tabto{1em}formalisation des\par
-			\tabto{1em}objets\par
-			\tabto{1em}opérations\par
-			\tabto{1em}changements topologiques%
-		\end{column}
-	\end{columns}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Objectifs}
+% 	\begin{columns}[onlytextwidth]
+% 		\begin{column}{.6\textwidth}
+% 			\begin{itemize}[<+->]
+% 				\item Édition par réorganisation des opérations (ajout, suppression, déplacement)
+% 				\item Schéma de nomination homogène pour tout type de cellule
+% 				\item Suivi complet de l'évolution des cellules
+% 				\item Modélisation d'objet générique en dimension
+% 			\end{itemize}
+% 		\end{column}
+% 		\begin{column}<+->{.4\textwidth}
+% 			\vspace{5.1em}%
+% 			$\rdelim\}{4.5}[-4.7em]{-5em}[]$%
+% 			\tabto{1em}formalisation des\par
+% 			\tabto{1em}objets\par
+% 			\tabto{1em}opérations\par
+% 			\tabto{1em}changements topologiques%
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
 
 \begin{frame}
-	\frametitle{Objectifs}
-		\begin{itemize}
-			\item Conception d'un schéma de nomination homogène
-			      \rdelim\}{5.5}{*}[Objectifs]
-			\item Suivi complet des évolutions de cellules
-			\item Édition étendue de constructions (ajout,\par suppression
-			      et déplacement d'opérations)
-			\item Rejeu de constructions en toutes dimensions
-		\end{itemize}
+	% \frametitle{Objectifs}
+	\begin{minipage}[t][.4\textheight][t]{\textwidth}
+		\begin{columns}[onlytextwidth]
+			\begin{column}{.6\textwidth}
+				\begin{myblock}[Objectifs]
+					\begin{itemize}
+						\item Édition complète de la spécification (ajout,
+						      suppression, déplacement d'opérations)
+						\item Schéma de nomination homogène pour tout type de cellule
+						\item Historique complet des cellules nommées
+						\item Modélisation d'objets génériques en dimensions
+					\end{itemize}
+				\end{myblock}
+			\end{column}
+			\begin{column}{.35\textwidth}
+			  \begin{onlyenv}<2->
+				\begin{myblock}[Formalisation]
+				  \begin{itemize}
+					\item Des objets (Cartes généralisées)
+					\item Des opérations (Règles Jerboa)
+					\item Des changements topologiques
+				  \end{itemize}
+				\end{myblock}
+			  \end{onlyenv}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}[b][.4\textheight][b]{\textwidth}
+		\begin{minipage}{\columnwidth}
+		  \begin{onlyenv}<3>
+			\begin{myblock}[Contributions]
+			  \begin{itemize}
+				\item Méthodes de détection des changements topologiques
+				\item Mécanisme de rejeu basé sur des règles Jerboa
+				\item Extension pour le support d'opérations complexes
+			  \end{itemize}
+			\end{myblock}
+		  \end{onlyenv}
+		\end{minipage}
+	\end{minipage}
 
-	\vspace{1em}
-
-		\begin{itemize}
-			\item Cartes généralisées : formalisation des objets
-			      \rdelim\}{2.2}{*}[Formalismes]
-			\item Règles Jerboa : formalisation des opérations
-		\end{itemize}
-
-	\vspace{1em}
-
-		\begin{itemize}
-			\item Méthodes de détection des changements topologiques
-			      \rdelim\}{3.5}{*}[Contributions]
-			\item Mécanisme de rejeu basé sur des règles Jerboa
-			\item Extension pour le support d'opérations complexes
-		\end{itemize}
+	\begin{tikzpicture}
+		\node at (current page.center)[above left]{%
+		};
+		\node at (current page.center)[above right]{%
+		};
+	\end{tikzpicture}
 \end{frame}
 
 

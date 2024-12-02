@@ -79,386 +79,395 @@ return face4;\end{lstlisting}
 		\end{minipage}
 	\end{onlyenv}
 	\begin{onlyenv}<2->
-	  \frametitle<2->{Séquence~: représentation fermée}
+		\frametitle<2->{Séquence~: représentation fermée}
 
-	  \begin{minipage}[t][.4\textheight][t]{\textwidth}
-		\centering
-		\includegraphics<2>[height=.4\textheight]{rule-create-square-face}
-		\includegraphics<3>[height=40pt]{script-extrude-ribbon}
-		\includegraphics<4>[height=35pt]{rule-colour-face}
-	  \end{minipage}
-	  \begin{columns}
-		\begin{column}{.5\textwidth}
-		  \begin{minipage}[b][.4\textheight][b]{\columnwidth}
-			\raggedright
-			\includegraphics<2>[height=50pt]{square-face-before-ribbon-extrusion-2D}
-			\includegraphics<3>[height=50pt]{sequence-extrusion-colonne-faces-boite-noire}
-			\includegraphics<4>[height=50pt]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
-		  \end{minipage}
-		\end{column}
-		\begin{column}{.5\textwidth}
-		  \begin{minipage}[b][.4\textheight][b]{\columnwidth}
-			\begin{myblock}
-			  \raggedright\tiny\ttfamily
-			  1-creationCarre()\\
-			  2-S\_extrusionRuban(PN\textsubscript{5})\\
-			  3-colorationFace(PN\textsubscript{9}, Orange)
-			\end{myblock}
-			\vspace{16.4pt}
-		  \end{minipage}
-		\end{column}
-	  \end{columns}
+		\begin{minipage}[t][.4\textheight][t]{\textwidth}
+			\centering
+			\includegraphics<2>[height=.4\textheight]{rule-create-square-face}
+			\includegraphics<3>[height=40pt]{script-extrude-ribbon}
+			\includegraphics<4>[height=35pt]{rule-colour-face}
+		\end{minipage}
+		\begin{columns}
+			\begin{column}{.5\textwidth}
+				\begin{minipage}[b][.4\textheight][b]{\columnwidth}
+					\raggedright
+					\includegraphics<2>[height=50pt]{square-face-before-ribbon-extrusion-2D}
+					\includegraphics<3>[height=50pt]{sequence-extrusion-colonne-faces-boite-noire}
+					\includegraphics<4>[height=50pt]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
+				\end{minipage}
+			\end{column}
+			\begin{column}{.5\textwidth}
+				\begin{minipage}[b][.4\textheight][b]{\columnwidth}
+					\begin{myblock}
+						\raggedright\tiny\ttfamily
+						1-creationCarre()\\
+						2-S\_extrusionRuban(PN\textsubscript{5})\\
+						3-colorationFace(PN\textsubscript{9}, Orange)
+					\end{myblock}
+					\vspace{16.4pt}
+				\end{minipage}
+			\end{column}
+		\end{columns}
 	\end{onlyenv}
 \end{frame}
 
 
 \begin{frame}
-  \begin{onlyenv}<1-5>
-	\frametitle<1-5>{Séquence~: représentation ouverte}
+	\begin{onlyenv}<1-5>
+		\frametitle<1-5>{Séquence~: représentation ouverte}
 
-	\begin{minipage}[t][.4\textheight][t]{\textwidth}
-	  \centering
-	  \includegraphics<1>[height=.4\textheight]{rule-create-square-face}
-	  \includegraphics<2-4>[height=40pt]{script-extrude-ribbon}
-
-	  \only<2-4>{\vspace{2em}}
-
-	  \includegraphics<2-4>[height=40pt]{rule-extrusion-face-edge-2D}
-	  \includegraphics<5>[height=35pt]{rule-colour-face}
-	\end{minipage}
-	\begin{columns}[b]
-	  \begin{column}{.5\textwidth}
-		\begin{minipage}[b][.4\textheight][b]{\columnwidth}
-		  \raggedright
-		  \includegraphics<1>[height=50pt]{square-face-before-ribbon-extrusion-2D}
-		  % \vspace{-1pt}
-		  \includegraphics<2>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-1}%
-		  \includegraphics<3>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-2}%
-		  \includegraphics<4>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-3}%
-		  \includegraphics<5>[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
-		\end{minipage}
-	  \end{column}
-	  \begin{column}{.5\textwidth}
-		\begin{minipage}[b][.4\textheight][b]{\columnwidth}
-		  \begin{myblock}
-			\raggedright\tiny\ttfamily
-			1-creationCarre()\\
-			2-S\_extrusionRuban(PN\textsubscript{5})\\
-			{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
-			{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
-			{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
-			3-colorationFace(PN\textsubscript{9}, Orange)
-		  \end{myblock}
-		\end{minipage}
-	  \end{column}
-	\end{columns}
-  \end{onlyenv}
-  \begin{onlyenv}<6>
-	\frametitle<6>{Séquence~: DAG de jeu initial}
-
-	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
-	  \begin{columns}
-		\begin{column}{.5\textwidth} % TOP LEFT
-		  \centering
-		  \includegraphics[width=\columnwidth]{rule-extrusion-face-edge-2D}
-
-		  règle d'extrusion d'une arête
-		\end{column}
-		\begin{column}{.5\textwidth} % TOP RIGHT
-		  \centering
-		  \begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
-			\begin{myblock}
-			  \raggedright\tiny\ttfamily
-			  1-creationCarre()\\
-			  2-S\_extrusionRuban(PN\textsubscript{5})\\
-			  { \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
-			  { \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
-			  { \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
-			  3-colorationFace(PN\textsubscript{9}, Orange)
-			\end{myblock}
-		  \end{minipage}
-		\end{column}
-	  \end{columns}
-	\end{minipage}
-	\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
-	  \begin{columns}[b]
-		\begin{column}{.5\textwidth} % BOTTOM LEFT
-		  \raggedright
-		  \includegraphics[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
-		\end{column}
-		\begin{column}{.5\textwidth} % BOTTOM RIGHT
-		  \centering
-		  \includegraphics[width=.8\columnwidth]{tmp-evaluationTree-pn9}
-		\end{column}
-	  \end{columns}
-	  \vspace{5.3pt}
-	\end{minipage}
-  \end{onlyenv}
-  \begin{onlyenv}<7>
-	\frametitle<7>{Séquence~: DAG de rejeu}
+			\includegraphics<1>[height=.4\textheight]{rule-create-square-face}
+			\includegraphics<2-4>[height=40pt]{script-extrude-ribbon}
 
-	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
-		\vspace{-1em}
-	  \begin{columns}
-		\begin{column}{.5\textwidth} % TOP LEFT
-		  \raggedright
-		  \includegraphics[height=51pt]{ribbon-extrusion-reevaluation-2D}%
-		\end{column}
-		\begin{column}{.5\textwidth} % TOP RIGHT
-		  \centering
-		  \begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
-			\centering
-			\begin{myblock}
-			  \raggedright\tiny\ttfamily
-			  1-creationCarre()\\
-			  ADD 4-insertionSommet(5)\\
-			  2-S\_extrusionRuban(PN\textsubscript{5})\\
-			  { \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
-			  { \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
-			  { \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
-			  3-colorationFace(PN\textsubscript{9}, Orange)
-			\end{myblock}
-		  \end{minipage}
-		\end{column}
-	  \end{columns}
-	\end{minipage}
-	\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
-	  \begin{columns}[b]
-		\begin{column}{.5\textwidth} % BOTTOM LEFT
-		  \centering
-		  \includegraphics[width=.8\columnwidth]{tmp-evaluationTree-pn9}
-		\end{column}
-		\begin{column}{.5\textwidth} % BOTTOM RIGHT
-		  \centering
-		  \includegraphics[width=.9\columnwidth]{sequence-dag-reevaluation-dart-9}
-		\end{column}
-	  \end{columns}
-	  \vspace{7.3pt}
-	\end{minipage}
-  \end{onlyenv}
+			\only<2-4>{\vspace{2em}}
+
+			\includegraphics<2-4>[height=40pt]{rule-extrusion-face-edge-2D}
+			\includegraphics<5>[height=35pt]{rule-colour-face}
+		\end{minipage}
+		\begin{columns}[b]
+			\begin{column}{.5\textwidth}
+				\begin{minipage}[b][.4\textheight][b]{\columnwidth}
+					\raggedright
+					\includegraphics<1>[height=50pt]{square-face-before-ribbon-extrusion-2D}
+					% \vspace{-1pt}
+					\includegraphics<2>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-1}%
+					\includegraphics<3>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-2}%
+					\includegraphics<4>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-3}%
+					\includegraphics<5>[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
+				\end{minipage}
+			\end{column}
+			\begin{column}{.5\textwidth}
+				\begin{minipage}[b][.4\textheight][b]{\columnwidth}
+					\begin{myblock}
+						\raggedright\tiny\ttfamily
+						1-creationCarre()\\
+						2-S\_extrusionRuban(PN\textsubscript{5})\\
+						{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
+						{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
+						{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
+						3-colorationFace(PN\textsubscript{9}, Orange)
+					\end{myblock}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+	\end{onlyenv}
+	\begin{onlyenv}<6>
+		\frametitle<6>{Séquence~: DAG de jeu initial}
+
+		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+			\begin{columns}
+				\begin{column}{.5\textwidth} % TOP LEFT
+					\centering
+					\includegraphics[width=\columnwidth]{rule-extrusion-face-edge-2D}
+
+					règle d'extrusion d'une arête
+				\end{column}
+				\begin{column}{.5\textwidth} % TOP RIGHT
+					\centering
+					\begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+						\centering
+						\begin{myblock}
+							\raggedright\tiny\ttfamily
+							1-creationCarre()\\
+							2-S\_extrusionRuban(PN\textsubscript{5})\\
+							{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
+							{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
+							{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
+							3-colorationFace(PN\textsubscript{9}, Orange)
+						\end{myblock}
+					\end{minipage}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+		\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
+			\begin{columns}[b]
+				\begin{column}{.5\textwidth} % BOTTOM LEFT
+					\raggedright
+					\includegraphics[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
+				\end{column}
+				\begin{column}{.5\textwidth} % BOTTOM RIGHT
+					\centering
+					\includegraphics[width=.8\columnwidth]{tmp-evaluationTree-pn9}
+				\end{column}
+			\end{columns}
+			\vspace{5.3pt}
+		\end{minipage}
+	\end{onlyenv}
+	\begin{onlyenv}<7>
+		\frametitle<7>{Séquence~: DAG de rejeu}
+
+		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+			\vspace{-1em}
+			\begin{columns}
+				\begin{column}{.5\textwidth} % TOP LEFT
+					\raggedright
+					\includegraphics[height=51pt]{ribbon-extrusion-reevaluation-2D}%
+				\end{column}
+				\begin{column}{.5\textwidth} % TOP RIGHT
+					\centering
+					\begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+						\centering
+						\begin{myblock}
+							\raggedright\tiny\ttfamily
+							1-creationCarre()\\
+							ADD 4-insertionSommet(5)\\
+							2-S\_extrusionRuban(PN\textsubscript{5})\\
+							{ \indentrule } 1-extrusionAreteFace(PN\textsubscript{5})\\
+							{ \indentrule } 2-extrusionAreteFace(PN\textsubscript{15})\\
+							{ \indentrule } 3-extrusionAreteFace(PN\textsubscript{23})\\
+							3-colorationFace(PN\textsubscript{9}, Orange)
+						\end{myblock}
+					\end{minipage}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+		\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
+			\begin{columns}[b]
+				\begin{column}{.5\textwidth} % BOTTOM LEFT
+					\centering
+					\includegraphics[width=.8\columnwidth]{tmp-evaluationTree-pn9}
+				\end{column}
+				\begin{column}{.5\textwidth} % BOTTOM RIGHT
+					\centering
+					\includegraphics[width=.9\columnwidth]{sequence-dag-reevaluation-dart-9}
+				\end{column}
+			\end{columns}
+			\vspace{7.3pt}
+		\end{minipage}
+	\end{onlyenv}
 \end{frame}
 
 
 \begin{frame}[fragile]
-  \begin{onlyenv}<1>
-	\frametitle<1>{Itération}
-	\begin{minipage}[t][.4\textheight][t]{\textwidth}
-	  \begin{myblock}
-		\centering
-		\includegraphics[height=45pt]{example-image-a}
-		\hspace{4em}
-		\includegraphics[height=45pt]{example-image-a}
-		\tcblower
-\begin{lstlisting}[style=script-style,language=jerboa-script,escapechar=\%]
+	\begin{onlyenv}<1>
+		\frametitle<1>{Itération}
+		\begin{minipage}[t][.4\textheight][t]{\textwidth}
+			\begin{myblock}
+				\centering
+				\includegraphics[height=40pt]{rule-edge-collapse-no-color}
+				\tcblower
+				\begin{lstlisting}[style=script-style,language=jerboa-script,escapechar=\%]
 JerboaRuleResult triface;
 for( JDart face : <0,1,2>_<0,1>(CC#0)){
     triface = @rule<Triangulate>(face);
 }
 return triface;
 \end{lstlisting}
-	  \end{myblock}
-	\end{minipage}
-	\begin{minipage}[t][.4\textheight][t]{\textwidth}
-	  \centering
-	  \includegraphics[height=.4\textheight]{square-face}
-	  \hspace{4em}
-	  \includegraphics[height=.4\textheight]{boucle-coloration-surface}
-	\end{minipage}
-	\vfill
-  \end{onlyenv}
-  \begin{onlyenv}<2>
-	\frametitle<2>{Itération~: DAG de jeu initial}
-
-	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
-		\vspace{-1em}
-	  \begin{columns}
-		\begin{column}{.5\textwidth} % TOP LEFT
-		  \centering
-		  \includegraphics<2>[height=35pt]{script-triangulateCC} % graphe de script
-
-		  règle de triangulation d'une CC
-		\end{column}
-		\begin{column}{.5\textwidth} % TOP RIGHT
-		  \centering
-		  \begin{minipage}[t][.3\textheight][t]{.8\columnwidth}
-			\centering
-			\begin{myblock}
-			  \raggedright\tiny\ttfamily
-			  1-creationCarre()\\
-			  2-subdivisionQuad(\pndart{0}{1n0})\\
-			  3-S\_triangulationCC(\pndart{0}{1n0;2n0})\\
-			  { \indentrule } For \textlangle{}0,1,3\textrangle{} in \textlangle{}0,1,2,3\textrangle{}(\pndart{0}{1n0;2n0})\\
-			  { \indentrule } { \indentrule } 1-triangulation(\pndart{0}{1n0;2n0})\\
-			  { \indentrule } { \indentrule } 2-triangulation(\pndart{2}{1n2;2n0})\\
-			  { \indentrule } { \indentrule } 3-triangulation(\pndart{4}{1n4;2n0})\\
-			  { \indentrule } { \indentrule } 4-triangulation(\pndart{6}{1n6;2n0})
-			  4-coloration(\pndart{3}{1n3;2n0};3\{2n0\})
 			\end{myblock}
-		  \end{minipage}
-		\end{column}
-	  \end{columns}
-	\end{minipage}
-	\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
-	  \begin{columns}[b]
-		\begin{column}{.2\textwidth} % BOTTOM LEFT
-		  % \raggedright
-		  \includegraphics<2>[width=\textwidth]{boucle-exemple-edit} % CC triangulée + coloration
-		\end{column}
-		\begin{column}{.8\textwidth} % BOTTOM RIGHT
-		\centering
-		  \includegraphics[width=.8\columnwidth]{boucle-exemple-init-dag} % DAG de jeu
-		\end{column}
-	  \end{columns}
-	  \vspace{7.3pt}
-	\end{minipage}
-  \end{onlyenv}
-  \begin{onlyenv}<3>
-	\frametitle<3>{Itération~: DAG de rejeu}
-
-	\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
-	  \begin{columns}
-		\begin{column}{.5\textwidth} % TOP LEFT
-		  \centering
-		  \includegraphics[width=\columnwidth]{example-image-a} % graphe de script
-
-		  règle de triangulation d'une CC
-		\end{column}
-		\begin{column}{.5\textwidth} % TOP RIGHT
-		  \centering
-		  \begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+		\end{minipage}
+		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
-			\begin{myblock}
-			  \raggedright\tiny\ttfamily
-			  1-creationCarre()\\
-			  ADD contractionArete(2)\\
-			  2-subdivisionQuad(\pndart{0}{1n0})\\
-			  3-S\_triangulationCC(\pndart{0}{1n0;2n0})\\
-			  { \indentrule } For \textlangle{}0,1,3\textrangle{} in \textlangle{}0,1,2,3\textrangle{}(\pndart{0}{1n0;2n0})\\
-			  { \indentrule } { \indentrule } 1-triangulation(\pndart{0}{1n0;2n0})\\
-			  { \indentrule } { \indentrule } 2-triangulation(\pndart{2}{1n2;2n0})\\
-			  { \indentrule } { \indentrule } 3-triangulation(\pndart{4}{1n4;2n0})\\
-			  { \indentrule } { \indentrule } 4-triangulation(\pndart{6}{1n6;2n0})
-			  4-coloration(\pndart{3}{1n3;2n0};3\{2n0\})
-			\end{myblock}
-		  \end{minipage}
-		\end{column}
-	  \end{columns}
-	\end{minipage}
-	\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
-	  \begin{columns}[b]
-		\begin{column}{.5\textwidth} % BOTTOM LEFT
-		  \raggedright
-		  \includegraphics[height=51pt]{example-image-b} % CC triangulée + coloration
-		\end{column}
-		\begin{column}{.5\textwidth} % BOTTOM RIGHT
-		  \centering
-		  \includegraphics[width=.8\columnwidth]{example-image-c} % DAG de jeu
-		\end{column}
-	  \end{columns}
-	  \vspace{7.3pt}
-	\end{minipage}
-  \end{onlyenv}
+			\includegraphics[height=.4\textheight]{square-face}
+			\hspace{4em}
+			\includegraphics[height=.4\textheight]{boucle-coloration-surface}
+		\end{minipage}
+		\vfill
+	\end{onlyenv}
+	\begin{onlyenv}<2>
+		\frametitle<2>{Itération~: DAG de jeu initial}
+
+		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+			\vspace{-1em}
+			\begin{columns}
+				\begin{column}{.5\textwidth} % TOP LEFT
+					\centering
+					\includegraphics<2>[height=35pt]{rule-face-triangulation-no-color}
+
+					règle de triangulation d'une face
+				\end{column}
+				\begin{column}{.5\textwidth} % TOP RIGHT
+					\centering
+					\begin{minipage}[t][.3\textheight][t]{.8\columnwidth}
+						\centering
+						\begin{myblock}
+							\raggedright\tiny\ttfamily
+							1-creationCarre()\\
+							2-subdivisionQuad(\pndart{0}{1n2})\\
+							3-S\_triangulationCC(\pndart{0}{1n2;2n0})\\
+							{ \indentrule } For \textlangle{}0,1\textrangle{} in \textlangle{}0,1,2\textrangle{}(\pndart{0}{1n2;2n0})\\
+							{ \indentrule } { \indentrule } 1-triangulation(\pndart{2}{1n2;2n0})\\
+							{ \indentrule } { \indentrule } 2-triangulation(\pndart{4}{1n4;2n0})\\
+							{ \indentrule } { \indentrule } 3-triangulation(\pndart{6}{1n6;2n0})\\
+							{ \indentrule } { \indentrule } 4-triangulation(\pndart{0}{1n0;2n0})
+							4-coloration(\pndart{3}{1n2;2n0};3\{1n0\})
+						\end{myblock}
+					\end{minipage}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+		\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
+			\begin{columns}[b]
+				\begin{column}{.2\textwidth} % BOTTOM LEFT
+					% \raggedright
+					\includegraphics<2>[width=\textwidth]{boucle-exemple-init} % CC triangulée + coloration
+				\end{column}
+				\begin{column}{.8\textwidth} % BOTTOM RIGHT
+					\centering
+					\includegraphics[width=.8\columnwidth]{boucle-exemple-init-dag} % DAG de jeu
+				\end{column}
+			\end{columns}
+		\end{minipage}
+	\end{onlyenv}
+	\begin{onlyenv}<3>
+		\frametitle<3>{Itération~: DAG de rejeu}
+
+		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
+			\vspace{-1em}
+			\begin{columns}
+				\begin{column}{.5\textwidth} % TOP LEFT
+					\centering
+					\includegraphics[height=.3\textheight]{boucle-exemple-edit} % graphe de script
+				\end{column}
+				\begin{column}{.5\textwidth} % TOP RIGHT
+					\centering
+					\begin{minipage}[t][.3\textheight][t]{.8\columnwidth}
+						\centering
+						\begin{myblock}
+							\raggedright\tiny\ttfamily
+							1-creationCarre()\\
+							ADD contractionArete(2)\\
+							2-subdivisionQuad(\pndart{0}{1n0})\\
+							3-S\_triangulationCC(\pndart{0}{1n0;2n0})\\
+							{ \indentrule } For \textlangle{}0,1,3\textrangle{} in \textlangle{}0,1,2,3\textrangle{}(\pndart{0}{1n0;2n0})\\
+							{ \indentrule } { \indentrule } 1-triangulation(\pndart{0}{1n0;2n0})\\
+							{ \indentrule } { \indentrule } 2-triangulation(\pndart{2}{1n2;2n0})\\
+							{ \indentrule } { \indentrule } 3-triangulation(\pndart{4}{1n4;2n0})\\
+							{ \indentrule } { \indentrule } 4-triangulation(\pndart{6}{1n6;2n0})
+							4-coloration(\pndart{3}{1n3;2n0};3\{2n0\})
+						\end{myblock}
+					\end{minipage}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+		\begin{minipage}[b][.5\textheight][b]{\textwidth} % BOTTOM
+			\begin{columns}[b]
+				\begin{column}{.5\textwidth} % BOTTOM LEFT
+					\raggedright
+					\includegraphics[width=\columnwidth]{boucle-exemple-init-dag} % DAG de jeu
+				\end{column}
+				\begin{column}{.5\textwidth} % BOTTOM RIGHT
+					\centering
+					\includegraphics[width=\columnwidth]{boucle-exemple-edit-dag} % DAG de rejeu
+				\end{column}
+			\end{columns}
+		\end{minipage}
+	\end{onlyenv}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Alternative}
-	\begin{columns}
-		\begin{column}{.45\textwidth}
-			\begin{myblock}
-				\begin{lstlisting}[style=script-style, language=jerboa-script, escapechar=\%]
+	\begin{onlyenv}<1>
+		\frametitle<1>{Alternative}
+		\begin{minipage}[t][.4\textheight][t]{\textwidth}
+			\centering
+			\begin{minipage}[t][\textheight][t]{.55\textwidth}
+				\begin{myblock}
+					\centering
+					\includegraphics[height=30pt]{script-triangulation-or-face-insertion}
+					\tcblower
+					\begin{lstlisting}[style=script-style, language=jerboa-script, escapechar=\%]
 int nbSommets = <0,1>_<1>(face#0).size();
-if(nbSommets == 4)
-{
-    @rule<triangulation>(face);
-}
-else
-{
-    @rule<insertionFace>(face);
-}
+if(nbSommets == 4) { @rule<triangulation>(face); }
+else { @rule<insertionFace>(face);}
 \end{lstlisting}
-			\end{myblock}
-		\end{column}
-		\begin{column}{.45\textwidth}
-			\centering
-			\textbf{\Large then}
-			\includegraphics[width=\columnwidth]{alternative-part-then}
+				\end{myblock}
+			\end{minipage}
+		\end{minipage}
+		\begin{minipage}[t][.4\textheight][t]{\textwidth}
+			\begin{columns}
+				\centering
+				\begin{column}{.45\textwidth}
+					\centering
+					\textbf{then~: triangulation}\\[5pt]
+					\includegraphics[width=\columnwidth]{alternative-part-then}
+				\end{column}
+				\begin{column}{.02\textwidth}
+					\rule{.1mm}{.4\textheight}
+				\end{column}
+				\begin{column}{.45\textwidth}
+					\centering
+					\textbf{else~: insertion face}\\[5pt]
+					\includegraphics[width=\columnwidth]{alternative-part-else}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+	\end{onlyenv}
+	\begin{onlyenv}<2>
+		\frametitle<2>{Alternative}
 
-			\textbf{\Large else}
-			\includegraphics[width=\columnwidth]{alternative-part-else}
-		\end{column}
-	\end{columns}
+		\begin{minipage}[t][.4\textheight][t]{\textwidth}
+			\begin{columns}
+				\centering
+				\begin{column}{.45\textwidth}
+					\centering
+					\textbf{then~: triangulation + face duale}\\[5pt]
+					\includegraphics[width=.4\columnwidth]{alternative-part-then-chamfer}
+				\end{column}
+				\begin{column}{.02\textwidth}
+					\rule{.1mm}{.4\textheight}
+				\end{column}
+				\begin{column}{.45\textwidth}
+					\centering
+					\textbf{else~: insertion face + faces duales}\\[5pt]
+					\includegraphics[width=.4\columnwidth]{alternative-part-else-chamfer}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+	\end{onlyenv}
+	\begin{onlyenv}<3>
+		\frametitle<3>{Alternative~: Appariement sommets créés}
+		\begin{minipage}[t][.45\textheight][t]{\textwidth}
+			\begin{columns}
+				\begin{column}{.7\textwidth}
+					\includegraphics[height=40pt]{rule-face-triangulation-created-vertex-match}
+				\end{column}
+				\begin{column}{.3\textwidth}
+
+					\raggedleft
+					\includegraphics[height=.4\textheight]{alternative-then-created-vertex-match}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+		\begin{minipage}[t][.45\textheight][t]{\textwidth}
+			\begin{columns}
+				\begin{column}{.7\textwidth}
+					\includegraphics[height=40pt]{rule-pierce-face-cover-created-vertice-match}
+				\end{column}
+				\begin{column}{.3\textwidth}
+					\raggedleft
+					\includegraphics[height=.4\textheight]{alternative-else-created-vertice-match}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+	\end{onlyenv}
+	\begin{onlyenv}<4>
+		\frametitle<4>{Alternative~: Appariement faces scindées}
+		\begin{minipage}[t][.45\textheight][t]{\textwidth}
+			\begin{columns}
+				\begin{column}{.7\textwidth}
+					\includegraphics[height=40pt]{rule-face-triangulation-split-face-match}
+				\end{column}
+				\begin{column}{.3\textwidth}
+
+					\raggedleft
+					\includegraphics[height=.4\textheight]{alternative-then-split-face-match}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+		\begin{minipage}[t][.45\textheight][t]{\textwidth}
+			\begin{columns}
+				\begin{column}{.7\textwidth}
+					\includegraphics[height=40pt]{rule-pierce-face-cover-split-face-match}
+				\end{column}
+				\begin{column}{.3\textwidth}
+					\raggedleft
+					\includegraphics[height=.4\textheight]{alternative-else-split-face-match}
+				\end{column}
+			\end{columns}
+		\end{minipage}
+	\end{onlyenv}
 \end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Alternative~: spécification paramétrique}
-	\begin{columns}
-		\begin{column}{.6\textwidth}
-			\begin{myblock}
-				\begin{lstlisting}[style=script-style, escapechar=\%]
-1-creationCarre()
-2-S_insertionCarreOuTriangulationFace(%\pndart{0}{1n0}%)
-%\indentrule% Alternative - Then:
-%\indentrule% %\indentrule% 1-triangulationFace(%\pndart{0}{1n0}%)
-3-chanfreinSommet(%\pndart{13}{1n2;2\{1n2\}}%)
-\end{lstlisting}
-			\end{myblock}
-		\end{column}
-		\begin{column}{.4\textwidth}
-			\centering
-			\includegraphics[width=\columnwidth]{alternative-part-then-chamfer}
-		\end{column}
-	\end{columns}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Alternative~: DAG de jeu initial}
-	\centering
-	\includegraphics[height=.6\textheight]{tmp-alt-evaluationTree-pn13}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Alternative~: édition}
-	\begin{columns}
-		\begin{column}{.6\textwidth}
-			\begin{myblock}
-				\begin{lstlisting}[style=script-style, escapechar=\%]
-1-creationCarre()
-ADD 4-suppressionSommet(5)
-2-S_insertionCarreOuTriangulationFace(%\pndart{0}{1n0}%)
-%\indentrule% Alternative - Then:
-%\indentrule% %\indentrule% 1-triangulationFace(%\pndart{0}{1n0}%)
-3-chanfreinSommet(%\pndart{13}{1n2;2\{1n2\}}%)
-\end{lstlisting}
-			\end{myblock}
-		\end{column}
-		\begin{column}{.4\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{alternative-part-else-chamfer}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]
-	\frametitle{Alternative~: DAG de rejeu}
-	\centering
-	\includegraphics[width=\linewidth]{tmp-alt-reevaluationTree-pn13}
-\end{frame}
-
-% \begin{frame}
-% 	\frametitle{Alternative~: appariement}
-% 	\textcolor{myblueink}{matériel supplémentaire pour les questions}
-
-% 	Appariement en trois étapes~:
-% 	\begin{itemize}
-% 		\item Identification de l'orbite désignée dans la première règle~;
-% 		\item Détection des évènement et origine associés à l'orbite~;
-% 		\item Identification des orbites compatibles dans la deuxième règle.
-% 	\end{itemize}
-% \end{frame}
-
-
 
 
 %%% Local Variables:

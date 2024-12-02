@@ -1,6 +1,5 @@
 \begin{frame}
 	\frametitle{Modélisation géométrique}
-
 	\begin{tikzpicture}
 		\node (img1) at (current page.north west){%
 			\includegraphics[height=.8\textheight]{revit-modeling-interior}
@@ -12,10 +11,6 @@
 			\includegraphics[width=.45\textwidth]{blender_render}
 		};
 	\end{tikzpicture}
-
-	% « dans le monde de tous les jours, la modélisation géométrique est utilisée
-	% dans de nombreux domaines » (illustrer: archi(revit), jv et animation
-	% (blender, godot, UE), pièces industrielles (catia, freecad))
 \end{frame}
 
 \begin{frame}
@@ -25,42 +20,14 @@
 		\node (archeo) at (current page.center)[] {%
 			\includegraphics[width=.7\textwidth]{exemple-archeo}
 		};
-		% \node (industrie) at (archeo.east)[] {%
-		% 	\includegraphics[width=.7\textwidth]{freecad-gears}
-		% };
-		% \node<3> at (industrie.east)[] {%
-		% 	\begin{minipage}{.3\textwidth}
-		% 		\begin{myblock}[Jouet]
-		% 			\includegraphics[width=\textwidth]{example-image-b}
-		% 		\end{myblock}
-		% 	\end{minipage}
-		% };
+		\node (industrie) at (current page.east)[ left ] {%
+			\includegraphics<2>[width=.7\textwidth]{solidworks-spur-gears}
+		};
 	\end{tikzpicture}
-
-	% Il y a des domaines qui nécessitent de générer plusieurs variantes
-	% d'un même modèle (archéo, CAO…) (illustrer avec l'exemple de cardot, pièces mécanismes comme des boulons à tête hexa/octogonales)
 \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Modélisation paramétrique}
-
-% 	« dans ces travaux, nous nous focalisons sur la CAO et plus particulièrement
-% 	la modélisation paramétrique. Parmi les avantages liés à ces outils se
-% 	trouvent, d'une part, la possibilité de concevoir des pièces uniques, à
-% 	l'aide d'opérations de modélisation géométrique, et d'autre part de
-% 	regénérer ce modèle pour en créer des variations. »
-
-% 	Focaliser le discours sur la CAO avec la
-% 	modélisation paramétrique (avantages) (illustrer),
-
-% \end{frame}
 
 \begin{frame}
 	\frametitle{Modélisation paramétrique}
-
-	% Expliquer le fonctionnement d'un système de modélisation
-	% paramétrique (application manuelle d'opérations, enregistrement du
-	% processus de construction, rejeu)
 
 	\begin{columns}[t]
 		\begin{column}{.33\textwidth}
@@ -167,10 +134,6 @@
 		\end{myblock}
 	\end{overlayarea}
 \end{frame}
-
-
-
-
 
 
 %%% Local Variables:

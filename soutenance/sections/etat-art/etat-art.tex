@@ -14,13 +14,13 @@
 		% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
 		}
 		% \bottomrule%
-		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Approche}{Système}
+		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
 		                                             & Kripac                                 & Capoyleas et al. & Wu et al. & Bidarra et al. & Cardot et al. & Cascaval
-		et al.                                                                                                                                                    \\ %
+		et al.                                                                                                                                                           \\ %
 		\toprule[black,0.5pt] %
 		% \bottomrule %
 		Types d'éditions~:                           & uniquement des paramètres géométriques &                  &           &                &
-		paramètres géométriques\par +\par opérations &                                                                                                            \\ %
+		paramètres géométriques\par +\par opérations &                                                                                                                   \\ %
 
 		Historique d'une cellule~:
 		\par \textbullet~construction (complet / partiel)
@@ -36,19 +36,19 @@
 		\par ~
 		\par partiel
 		\par ~
+		\par global                                  &
+		\par ~
+		\par partiel
+		\par ~
+		\par global                                  &
+		\par ~
+		\par partiel
+		\par ~
 		\par local                                   &
 		\par ~
 		\par partiel
 		\par ~
-		\par local                                  &
-		\par ~
-		\par partiel
-		\par ~
-		\par local                                   &
-		\par ~
-		\par partiel
-		\par ~
-		\par local                                                                                                                                                \\ %
+		\par local                                                                                                                                                       \\ %
 		Nomination~:
 		\par \textbullet~base
 		\par \textbullet~homogène                    &
@@ -69,12 +69,12 @@
 		\par \cmark                                  &
 		\par ~
 		\par contraintes
-		\par \cmark                                                                                                                                               \\ %
+		\par \cmark                                                                                                                                                      \\ %
 
 		Dimension du modèle                          & 3D                                     & 3D               & 3D
-		                                             & 3D                                     & \(n\)-D          & 2.5D                                           \\ %
+		                                             & 3D                                     & \(n\)-D          & 2.5D                                                  \\ %
 		Opérations complexes                         &
-		\cmark                                       & \cmark                                 & \cmark           & \cmark    & \xmark         & \cmark            \\ %
+		\cmark                                       & \cmark                                 & \cmark           & \cmark    & \xmark         & \cmark                   \\ %
 	\end{tblr}
 	\begin{tikzpicture}[overlay, remember picture]
 		\node at (current page.north)[below right = 1.2cm and -5cm]
@@ -92,8 +92,8 @@
 			\only<4>{%
 				\begin{minipage}[t][\textheight][s]{.4\textwidth}
 					\begin{myblock}[]
-						\includegraphics[width=\textwidth]{kripac-faceid-graph}
-						\includegraphics[width=\textwidth]{wu-exemple-propagation-fusion}
+						\includegraphics[width=.9\textwidth]{kripac-faceid-graph}
+						\includegraphics[width=.9\textwidth]{wu-exemple-propagation-scission}
 					\end{myblock}
 				\end{minipage}
 			}%
@@ -136,15 +136,15 @@
 
 %
 
-\begin{frame}
-	\frametitle{Limitations des approches existantes}
-	\begin{itemize}[<+->]
-		\item édition limitée aux paramètres géométriques
-		\item manque d'homogénéité dans la nomination
-		\item suivi partiel des cellules
-		\item conception généralement limitée à la 3D
-	\end{itemize}
-\end{frame}
+% \begin{frame}
+% 	\frametitle{Limitations des approches existantes}
+% 	\begin{itemize}[<+->]
+% 		\item édition limitée aux paramètres géométriques
+% 		\item suivi partiel des cellules
+% 		\item pas d'approche à la fois générique et locale
+% 		% \item conception généralement limitée à la 3D
+% 	\end{itemize}
+% \end{frame}
 
 % \begin{frame}
 % 	\frametitle{Objectifs}
@@ -178,36 +178,36 @@
 					\begin{itemize}
 						\item Édition complète de la spécification (ajout,
 						      suppression, déplacement d'opérations)
-						\item Schéma de nomination homogène pour tout type de cellule
 						\item Historique complet des cellules nommées
-						\item Modélisation d'objets génériques en dimensions
+						\item Calcul local et générique des historiques
+						\item Modélisation en toutes dimensions
 					\end{itemize}
 				\end{myblock}
 			\end{column}
 			\begin{column}{.35\textwidth}
-			  \begin{onlyenv}<2->
-				\begin{myblock}[Formalisation]
-				  \begin{itemize}
-					\item Des objets (Cartes généralisées)
-					\item Des opérations (Règles Jerboa)
-					\item Des changements topologiques
-				  \end{itemize}
-				\end{myblock}
-			  \end{onlyenv}
+				\begin{onlyenv}<2->
+					\begin{myblock}[Formalisation]
+						\begin{itemize}
+							\item Des objets (Cartes généralisées)
+							\item Des opérations (Règles Jerboa)
+							\item Des changements topologiques
+						\end{itemize}
+					\end{myblock}
+				\end{onlyenv}
 			\end{column}
 		\end{columns}
 	\end{minipage}
 	\begin{minipage}[b][.4\textheight][b]{\textwidth}
 		\begin{minipage}{\columnwidth}
-		  \begin{onlyenv}<3>
-			\begin{myblock}[Contributions]
-			  \begin{itemize}
-				\item Méthodes de détection des changements topologiques
-				\item Mécanisme de rejeu basé sur des règles Jerboa
-				\item Extension pour le support d'opérations complexes
-			  \end{itemize}
-			\end{myblock}
-		  \end{onlyenv}
+			\begin{onlyenv}<3>
+				\begin{myblock}[Contributions]
+					\begin{itemize}
+						\item Méthodes de détection des changements topologiques
+						\item Mécanisme de rejeu basé sur des règles Jerboa
+						\item Extension aux opérations complexes
+					\end{itemize}
+				\end{myblock}
+			\end{onlyenv}
 		\end{minipage}
 	\end{minipage}
 

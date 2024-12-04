@@ -31,8 +31,7 @@
   reconstruction tel qu'il était à une période donnée.
 - Dans cet exemple, les fouilles n'ont révélé que les quelques artefacts à
   gauche, en rouge.
-- Une problématique pour l'archéologie est donc d'établir des hypothèses de
-  restitutions à partir de ces artefacts.
+- Une problématique pour l'archéologie est donc d'établir des hypothèses de restitutions à partir de ces artefacts.
 - Par exemple, ces deux illustrations sont deux hypothèses de restitution d'un
   même bâtiment.
 - Les hypothèses sont donc bien des variations d'une même construction.
@@ -105,29 +104,35 @@
 
 * État de l'art
 - Dans la littérature concernant le rejeu et la nomination persistante, nous
-  identifions un certain nombre de concepts communs aux différentes approches.
+  pouvons identifier un certain nombre de concepts communs à différentes
+  approches.
 
-- Le premier concerne les types d'éditions qui peuvent être l'édition de
-  paramètres géométriques ou, directement, des opérations.
-- Il existe, aujourd'hui deux approches, qui concernent soit l'édition des
-  paramètres géométriques uniquement, soit l'édition des paramètres géométrique
-  plus l'édition des opérations.
-- Les approches de Cardot et Cascaval, par exemple, proposent l'édition des
-  opérations.
+- Le premier concerne le type d'édition étudié.
+- La plupart des approches se limitent à l'édition des paramètres géométriques.
+- Ils étudient la problématique de la nomination dans ce contexte où seuls les paramètres géométriques peuvent modifiés.
 
 - Dans cet exemple, nous pouvons voir un tube pneumatique avec à droite ses
   paramètres géométriques qui sont les seuls éléments éditables.
 
+- Pourtant, au-delà de l'édition des paramètres géométriques, l'édition des
+  opérations, c'est-à-dire l'ajout, la suppression, le déplacement d'une
+  opération n'est pas sans effet sur la problématique de la nomination.
+- Seules les approches de Cardot et Cascaval prennent en compte ce type
+  d'édition.
 
-- Le deuxième concept est la construction de l'historique d'une cellule qui,
-  dans les différentes approches est uniquement partiel, c'est-à-dire qu'il ne
-  permet pas le suivi de toutes les cellules impliquées dans l'historique d'une
-  cellule étudiée.
-- Le calcul de cet historique peut être global, par exemple avec un graphe
-  traçant toutes les évolutions d'un type de cellule donnée, ou local, par
-  exemple, par propagation d'un nom lors d'une scission.
-- Ce calcul peut aussi être générique, ad hoc, c'est-à-dire codé dans les
-  opérations, ou encore manuel et entièrement fourni par l'utilisateur.
+- Le deuxième concept concerne la construction de l'historique d'une cellule.
+- Toutes les approches nécessitent de suivre, d'une manière ou d'une autre, l'évolution de certaines cellules (illustration, montrer graphe).
+- Mais nous observons deux choses :
+  - D'une part, l'histoire d'une cellule est systématiquement représentée de
+    façon partielle, c'est-à-dire en ne représentant qu'une partie des cellules
+    impliquées dans son histoire. (graphe)
+  - D'autre part, la construction de cet historique nécessite de pouvoir calculer l'évolution des cellules à chaque étape de modélisation.
+  - Ce calcul est, la plupart du temps, réalisé de façon globale via un journal de bord qui permet, à chaque étape de modélisation, de tracer l'évolution de chaque cellule du modèle.
+  - Mais ce calcul peut aussi, dans un certain nombre de cas, être réalisé
+    manuellement en étant codé directement dans les opération (comme le propose
+    Cascaval) ou fourni explicitement par le concepteur de l'opération (comme le
+    propose Cardot).
+
 
 - Dans cet exemple, le graph, en haut à droite, montre la création de toutes les
   faces de cet objet et l'on peut voir chacune des faces issues de la
@@ -197,3 +202,19 @@
   - la deuxième est le développement des mécanismes nécessaires au rejeu dans un
     système de modélisation basé sur les règles Jerboa et, enfin,
   - l'extension de notre modeleur à tout type d'opérations.
+
+* Plan 6
+
+- Nous arrivons maintenant à notre troisième contribution.
+- Celle-ci concerne l'extension de notre système de rejeu à tout type
+  d'opération.
+
+* Scripts de règles
+- Les règles Jerboa permettent de représenter une grande variété d'opérations de
+  modélisation.
+- Toutefois, elles ne permettent pas d'utiliser les structures de contrôle usuelles, c'est-à-dire les boucles et les alternatives.
+- Pour cela, Jerboa propose un langage de script comme celui-ci qui permet de
+  déconnecter un volume de sa composante connexe.
+- L'opération est composée :
+  - d'une part d'un graphe qui spécifie l'entrée et la sortie du script
+  - d'autre part

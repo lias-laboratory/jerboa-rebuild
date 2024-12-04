@@ -1,0 +1,199 @@
+#+title:
+#+author:
+#+options: toc:nil
+
+* page de titre
+- Merci Madame la présidente, chers membres du jury, cher auditoire, c'est avec
+  un grand plaisir que je vais vous présenter mes travaux de thèse, intitulés «
+  modélisation et rejeu basés sur des règles » qui ont été encadrés par Agnès
+  Arnould, David Marcheix, Xavier Skapin et Stéphane Jean.
+
++ Ces travaux s'inscrivent dans le domaine de la modélisation géométrique.
+
+* modélisation géométrique
+- Au cœur de ce domaine se trouvent les logiciels permettant de modéliser des
+  objets en 2D ou 3D.
+- Ces modeleurs sont utilisés pour de nombreuses applications qui touchent au
+  quotidien de chacun d'entre nous.
+- À titre d'exemple, ces logiciels sont utilisés pour :
+  - aménager des espaces en intérieur.
+  - concevoir et créer du mobilier ou
+  - créer et faire du rendu pour des scènes d'animation utilisées dans des films
+    ou jeux vidéos.
+
++ Certains domaines d'application nécessitent une approche interactive de la
+  modélisation, c'est-à-dire une approche où l'utilisateur va pouvoir tester
+  différentes variations de l'objet qu'il est en train de modéliser.
+
+* domaines d'applications
+- Par exemple, en archéologie, les fouilles effectuées sur un bâtiment ne
+  fournissent généralement que des éléments partiels pour permettre sa
+  reconstruction tel qu'il était à une période donnée.
+- Dans cet exemple, les fouilles n'ont révélé que les quelques artefacts à
+  gauche, en rouge.
+- Une problématique pour l'archéologie est donc d'établir des hypothèses de
+  restitutions à partir de ces artefacts.
+- Par exemple, ces deux illustrations sont deux hypothèses de restitution d'un
+  même bâtiment.
+- Les hypothèses sont donc bien des variations d'une même construction.
+
+- Comme autre exemple, en conception assistée par ordinateur (ou CAO), de
+  nombreuses pièces mécaniques partagent le même processus de construction.
+- Elles ne varient que par certaines propriétés géométriques comme le rouage
+  vert (à droite) qui est simplement plus petit que le jaune.
+- Il est donc important de pouvoir construire différentes variations d'une même
+  pièce.
+
+- En pratique, nous allons voir comment ces variations sont générées dans les
+  modeleurs usuels et les limites que cela pose.
+
+* modélisation paramétrique
+- La création de variation d'un même objet se base sur la notion de modélisation
+  paramétrique.
+- Elle se compose de 3 étapes :
+  - La construction d'un objet en définissant, via des paramètres, ses
+    propriétés géométriques et topologiques
+  - L'édition du processus de construction aussi appelé spécification
+    paramétrique en modifiant les paramètres de l'objet.
+  - Le rejeu de la spécification paramétrique éditée
+
+- Même si ce processus semble simple, il pose de nombreux problèmes et notamment
+  celui de la nomination persistante adressée dans nos travaux.
+- Nous allons l'illustrer avec un exemple simple.
+
+* problématique de la nomination persistante
+# - On commence par construire l'objet qui correspond à la spécification
+# paramétrique (à droite)
+- Supposons que nous construisons, à gauche, un objet à l'aide de cette
+  spécification paramétrique (à droite).
+- La première opération crée la face f1 dont son arête e1.
+- L'opération suivante crée la face f2 à partir de e1.
+- La triangulation scinde f2 en plusieurs faces dont f7.
+- Enfin, f7 est coloriée.
+
+- Nous voulons créer une variation de cet objet en ajoutant une opération dans
+  la spécification.
+
+- Au rejeu, on a toujours notre face carrée f1.
+- L'opération ajoutée scinde l'arête e1 en e5 et e6
+- L'extrusion crée les faces f3 et f4 à partir de e3 et e4.
+- Et maintenant les faces f2 et f7 n'existent plus.
+- Comment, alors, appliquer les opérations suivantes qui ont besoin de ces faces
+  ?
+- Une solution possible serait de trianguler f3 et f4 puisqu'elles sont
+  construites comme f2.
+- Nous voyons donc, sur cet exemple, le besoin d'un nom persistant pour
+  identifier les cellules par leurs historiques d'évolution.
+
+- Pour ce problème, nos travaux s'intéressent à trois questions :
+  - l'identification des changements dans la topologie (évènements)
+  - le rejeu
+  - et les stratégies pour adapter le rejeu
+
+* plan 1
+
+- Voyons maintenant le plan pour le reste de cette présentation
+- Tout d'abord, je vous propose de compléter cette introduction avec un bref
+  état de l'art.
+- Je vais ensuite présenter les formalismes que nous utiliserons pour nos
+  contributions.
+- Je poursuivrai avec nos contributions sur la détection des évènements, le
+  développement d'un mécanisme de rejeu et son extension à tout type
+  d'opération.
+- Enfin, je conclurai cette présentation et proposerai différentes perspectives
+  de travaux futurs.
+
+* État de l'art
+- Dans la littérature concernant le rejeu et la nomination persistante, nous
+  identifions un certain nombre de concepts communs aux différentes approches.
+
+- Le premier concerne les types d'éditions qui peuvent être l'édition de
+  paramètres géométriques ou, directement, des opérations.
+- Il existe, aujourd'hui deux approches, qui concernent soit l'édition des
+  paramètres géométriques uniquement, soit l'édition des paramètres géométrique
+  plus l'édition des opérations.
+- Les approches de Cardot et Cascaval, par exemple, proposent l'édition des
+  opérations.
+
+- Dans cet exemple, nous pouvons voir un tube pneumatique avec à droite ses
+  paramètres géométriques qui sont les seuls éléments éditables.
+
+
+- Le deuxième concept est la construction de l'historique d'une cellule qui,
+  dans les différentes approches est uniquement partiel, c'est-à-dire qu'il ne
+  permet pas le suivi de toutes les cellules impliquées dans l'historique d'une
+  cellule étudiée.
+- Le calcul de cet historique peut être global, par exemple avec un graphe
+  traçant toutes les évolutions d'un type de cellule donnée, ou local, par
+  exemple, par propagation d'un nom lors d'une scission.
+- Ce calcul peut aussi être générique, ad hoc, c'est-à-dire codé dans les
+  opérations, ou encore manuel et entièrement fourni par l'utilisateur.
+
+- Dans cet exemple, le graph, en haut à droite, montre la création de toutes les
+  faces de cet objet et l'on peut voir chacune des faces issues de la
+  triangulation sans moyen de les distinguer.
+- En bas à droite, chacune des faces obtiennent le même nom à partir de la face
+  scindée, ce qui n'aide pas non plus à les distinguer.
+
+- À notre connaissance, aucune approche ne propose aujourd'hui d'historique qui
+  soit complet et dont le calcul est à la fois local et générique.
+
+- Un troisième concept est celui de la nomination d'une cellule.
+- Cette nomination est généralement basée sur les faces du voisinage topologique
+  et impose de définir un schéma de nomination différent pour chaque type de
+  cellule et n'est donc pas homogène.
+
+- Dans cet exemple, on peut voir deux arêtes nommées d'après leur faces
+  incidentes et les faces à leurs extrémités.
+- Un sommet sera nommé uniquement nommé par ses trois faces incidentes.
+
+- L'essentiel des approches utilisent les faces, car simples à caractériser en
+  2D et 3D.
+- Néanmoins, aucune de ces approche ne propose de schéma de nomination qui soit
+  homogène, c'est-à-dire le même pour tous les types de cellules.
+
+- Le quatrième concept est la dimension de modélisation proposée par un modeleur
+  qui est généralement fixé en 3D.
+
+- Dans cet exemple, nous avons un ensemble d'objets en 2.5D construits par
+  Cascaval et al.
+
+- Enfin, le cinquième concept est le type d'opérations traitées par un modeleur.
+- La quasi-totalité des modeleurs permet d'utiliser tout type d'opérations, à
+  l'exception de Cardot et al. qui ne proposent de traiter qu'un ensemble réduit
+  d'opérations.
+
+- Au travers de cet état de l'art, 4 points nous apparaissant comme limitant
+  dans la modélisation paramétrique :
+  + L'édition des spécifications paramétriques qui concerne, très
+    majoritairement, uniquement la modification de paramètres géométriques
+  + Les approches actuelles ne sont pas capables de représenter complètement les
+    historiques des cellules et laissent ainsi de la place à l'ambiguïté lors de
+    l'identification.
+  + De plus, toujours pour les historiques, aucune des approches proposées
+    n'effectue de calcul qui soit à la fois local et générique.
+  + Enfin, aucun des modeleurs existant n'apporte la flexibilité nécessaire pour
+    construire des modèles génériques en dimension
+
+* Plan 2
+- Au travers de cet état de l'art, nous avons donc identifié 4 objectifs:
+  - l'édition complète d'une spécification comprenant l'ajout, la suppression et
+    le déplacement d'opérations
+  - la construction d'historiques complets pour le suivi des évolutions de
+    cellules
+  - le développement d'une méthode locale et générique pour créer ces
+    historiques
+  - enfin, l'implantation d'un modeleur capable de modéliser des objets
+    génériques en dimension.
+
+- Pour mener à bien ces objectifs, nous utilisons trois formalismes :
+  - un pour les objets, avec les cartes généralisées
+  - un pour les opérations avec les règles Jerboa
+  - enfin, un pour les changements topologiques.
+
+- Nos travaux donnent lieu à 3 contributions :
+  - la première est la formalisation des changements topologiques sur les
+    cellules et est au cœur de nos travaux
+  - la deuxième est le développement des mécanismes nécessaires au rejeu dans un
+    système de modélisation basé sur les règles Jerboa et, enfin,
+  - l'extension de notre modeleur à tout type d'opérations.

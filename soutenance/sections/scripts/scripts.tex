@@ -166,7 +166,7 @@ return face4;\end{lstlisting}
 				\end{column}
 				\begin{column}{.5\textwidth} % TOP RIGHT
 					\centering
-					\begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+					\begin{minipage}[t][.3\textheight][t]{\columnwidth}
 						\centering
 						\begin{myblock}
 							\raggedright\tiny\ttfamily
@@ -207,7 +207,7 @@ return face4;\end{lstlisting}
 				\end{column}
 				\begin{column}{.5\textwidth} % TOP RIGHT
 					\centering
-					\begin{minipage}[t][.3\textheight][t]{.75\columnwidth}
+					\begin{minipage}[t][.3\textheight][t]{\columnwidth}
 						\centering
 						\begin{myblock}
 							\raggedright\tiny\ttfamily
@@ -217,7 +217,7 @@ return face4;\end{lstlisting}
 							{ \indentrule } 1-extrusionAreteFace(\pn{1n5;2\{1n4\}})\\
 							{ \indentrule } 2-extrusionAreteFace(\pn{1n5;2\{1n4;2n4\}})\\
 							{ \indentrule } 3-extrusionAreteFace(\pn{1n5;2\{1n4;2n4;3n4\}})\\
-							3-colorationFace(\pn{1n6;2{1n2}}, Orange)
+							3-colorationFace(\pn{1n6;2\{1n2\}}, Orange)
 						\end{myblock}
 					\end{minipage}
 				\end{column}
@@ -291,7 +291,7 @@ return triface;
 							{ \indentrule } { \indentrule } 2-triangulation(\pn{1n4;2n0})\\
 							{ \indentrule } { \indentrule } 3-triangulation(\pn{1n6;2n0})\\
 							{ \indentrule } { \indentrule } 4-triangulation(\pn{1n0;2n0})
-							4-coloration(\pn{1n2;2n0};3\{1n0\})
+							4-coloration(\pn{1n2;2n0;3\{1n0\}})
 						\end{myblock}
 					\end{minipage}
 				\end{column}
@@ -335,7 +335,7 @@ return triface;
 							{ \indentrule } { \indentrule } 2-triangulation(\pn{1n4;2n0})\\
 							{ \indentrule } { \indentrule } 3-triangulation(\pn{1n6;2n0})\\
 							{ \indentrule } { \indentrule } 4-triangulation(\pn{1n0;2n0})
-							4-coloration(\pn{1n2;2n0};3\{1n0\})
+							4-coloration(\pn{1n2;2n0;3\{1n0\}})
 						\end{myblock}
 					\end{minipage}
 				\end{column}
@@ -396,24 +396,46 @@ else { @rule<insertionFace>(face);}
 	\begin{onlyenv}<2>
 		\frametitle<2>{Alternative}
 
-		\begin{minipage}[t][.4\textheight][t]{\textwidth}
+		% \begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\begin{columns}
 				\centering
 				\begin{column}{.45\textwidth}
-					\centering
-					\textbf{then~: triangulation + face duale}\\[5pt]
-					\includegraphics[width=.4\columnwidth]{alternative-part-then-chamfer}
+					\begin{minipage}[t][.4\textheight][t]{\columnwidth}
+						\begin{myblock}
+							\raggedright\tiny\ttfamily
+							1-creationCarre()\\
+							% ADD contractionArete(2)\\
+							2-S\_triangulationOuInsertion(\pn{1n2})\\
+							{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2})
+							3-chanfreinSommet(\pn{1n2;2\{1n2\}})
+						\end{myblock}
+					\end{minipage}
+					\begin{minipage}[t][.4\textheight][t]{\columnwidth}
+						\centering
+						\includegraphics[width=.4\columnwidth]{alternative-part-then-chamfer}
+					\end{minipage}
 				\end{column}
 				\begin{column}{.02\textwidth}
 					\rule{.1mm}{.4\textheight}
 				\end{column}
 				\begin{column}{.45\textwidth}
+				  \begin{minipage}[t][.4\textheight][t]{\columnwidth}
+					\begin{myblock}
+					  \raggedright\tiny\ttfamily
+					  1-creationCarre()\\
+					  ADD 3 contractionArete(2)\\
+					  2-S\_triangulationOuInsertion(\pn{1n2})\\
+					  { \indentrule } { \indentrule } 1-triangulation(\pn{1n2})
+					  3-chanfreinSommet(\pn{1n2;2\{1n2\}})
+					\end{myblock}
+				  \end{minipage}
+				  \begin{minipage}[t][.4\textheight][t]{\columnwidth}
 					\centering
-					\textbf{else~: insertion face + faces duales}\\[5pt]
 					\includegraphics[width=.4\columnwidth]{alternative-part-else-chamfer}
+				  \end{minipage}
 				\end{column}
 			\end{columns}
-		\end{minipage}
+		% \end{minipage}
 	\end{onlyenv}
 	\begin{onlyenv}<3>
 		\frametitle<3>{Alternative~: Appariement sommets créés}

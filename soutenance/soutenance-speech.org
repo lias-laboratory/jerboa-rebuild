@@ -218,3 +218,71 @@
 - L'opération est composée :
   - d'une part d'un graphe qui spécifie l'entrée et la sortie du script
   - d'autre part
+
+
+* Scripts de règles
+- règles -> opérations limités -> pas de structure de contrôle
+- exemple scripts qui découd un volume d'une composante connexe
+- opérations en deux partie :
+  - partie graphe -> entrée sortie
+  - partie code de l'opération
+  - Pour chaque face du volume
+    - Si la face est connectée à un autre volume
+      - Alors on découd les 3-liaisons de cette face
+- trois structures de contrôle :
+  - séquence
+  - itération de sous-orbites
+  - alternative
+
+* Séquence
+- commencer avec séquence
+- exemple extrude une face en un ruban
+- séquence -> pas de difficulté particulière
+- se pose la question de la représentation
+- exemple
+  - option 1 : représentation boîte fermée
+    - application du script sur le brin 5
+    - coloration de la face brin 31
+    - rien à faire
+    - construction explicite de la sortie par les développeurs
+  - option 2 : représentation boîte ouverte -> on choisit cette option
+    - séquence comme une spécification -> accès aux opérations
+    - représentation pas à pas des opérations avec paramètres
+    - nom persistant montre opérations dans script
+  - affichage du script dans le DAG -> trace évolution paramètre qui conditionne
+    application script -> flèche verte
+  - rejeu : ajout d'un sommet sur l'arête extrudée
+  - tout se passe à l'identique, en 2 fois, parce que split donc deux affichages
+    de la boîte
+
+* Itération
+- deuxième structure de contrôle : itération càd une boucle qui parcourt des sous-orbites
+- dans cet exemple, ce script parcourt chacune des faces d'une composante
+  connexe et la triangule
+- pour l'itération 1 seul ajout :
+  - dans la spec : enregistrement de l'orbite à itérer comme paramètre
+  - dans le DAG : une boîte FOR avec deux flèche verte :
+    - une pour l'orbite d'itération qui conditionne l'entrée dans la boucle (montrer branche et spec)
+    - une pour l'instance (montre branche et spec) qui conditionne la ré-application de la ou des
+      opérations dans la boucle
+- au rejeu on ajoute une opération qui contracte (supprime) une arête
+- la face qui avait pour origine cette arête n'est pas recréée
+- donc pas de coloration
+- cependant on a fusion des sommet et une seule application
+- donc pas de triangulation sur-numéraire
+
+* Alternative
+- troisième structure de contrôle : alternative car application d'une opération ou d'une autre si une condition précise est rencontrée
+- dans cet exemple, ce script regarder si une face est un carré ou triangle
+- si carré ALORS la face est triangulée
+- SINON (si déjà carrée), alors on insère une face au milieu
+- À gauche exemple de jeu initial
+- création d'une face carrée -> le script triangule -> chanfrein du sommet central
+- À droite exemple de rejeu
+- contraction d'arête -> face entrée triangle -> le script insère une face -> chanfrein de trois sommets
+- rien de nouveau côté DAG
+- par contre -> nécessité d'identifier les évènements similaires entre opération then et opération else
+- Dans cet exemple, on identifie ce sommet comme étant l'orbite encadrée en jaune, celle-ci est créée.
+- dans la règle alternative -> orbite encadrée désigne les sommets créés
+- ces trois sommets, tous créés, seront donc proposés à l'utilisateur pour ré-appliquer le chanfrein
+- on peut faire ça pour tous les évènements, comme ici avec les faces scindées.

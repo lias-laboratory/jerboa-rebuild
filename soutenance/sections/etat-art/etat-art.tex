@@ -4,10 +4,10 @@
 	\centering
 	\tiny
 	\begin{tblr}{
-		colspec = {|m{2.5cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
-		% cell{0}{0-} = {cmd=\SetCell{wd=5cm}},
-		cell{2}{2} = {c=4}{c}, % multicolumn
-		cell{2}{6} = {c=2}{c}, % multicolumn
+		colspec = {|m{2.6cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
+		% cells={cmd=\visible<\arabic{rownum}->},
+		% cell{2}{2} = {c=4}{c}, % multicolumn
+		% cell{2}{6} = {c=2}{c}, % multicolumn
 		% rowsep = 6pt,
 		hlines={black,0.5pt},
 		vlines={black,0.5pt},
@@ -15,110 +15,53 @@
 		}
 		% \bottomrule%
 		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
-		                                                      & Kripac                                 & Capoyleas et al. & Wu et al. & Bidarra et al. & Cardot et al. & Cascaval
-		et al.                                                                                                                                                                    \\ %
+		                                         & Kripac                                        & Capoyleas et al.                              & Wu et al.                                     & Bidarra et al.                                 & Cardot et al.                            & Cascaval
+		et al.                                                                                                                                                                                                                                                                                                                          \\ %
 		\toprule[black,0.5pt] %
-		% \bottomrule %
-		Types d'éditions~:                                    & uniquement des paramètres géométriques &                  &           &                &
-		paramètres géométriques\par +\par opérations          &                                                                                                                   \\ %
-
-		Historique d'une cellule~:
-		\par \textbullet~construction (complet / partiel)
-		\par \textbullet~calcul (local / global)
-		\par \textbullet~calcul (générique / ad hoc / manuel) &
-		\par ~
-		\par partiel
-		\par ~
-		\par global                                           &
-		\par ~
-		\par partiel
-		\par ~
-		\par global                                           &
-		\par ~
-		\par partiel
-		\par ~
-		\par global                                           &
-		\par ~
-		\par partiel
-		\par ~
-		\par global                                           &
-		\par ~
-		\par partiel
-		\par ~
-		\par local                                            &
-		\par ~
-		\par partiel
-		\par ~
-		\par local                                                                                                                                                                \\ %
-		Nomination~:                                          &
-		\par face
-		                                                      &
-		\par face
-		                                                      &
-		\par face
-		                                                      &
-		\par face
-		                                                      &
-		\par brin
-		                                       &
-		\par contraintes
-		\\ %
-
-		Dimension du modèle                                   & 3D                                     & 3D               & 3D
-		                                                      & 3D                                     & \(n\)-D          & 2.5D                                                  \\ %
-		Opérations complexes                                  &
-		\cmark                                                & \cmark                                 & \cmark           & \cmark    & \xmark         & \cmark                   \\ %
+		\visible<1->{Type d'édition~:
+			\par paramètres géométriques
+		\par opérations}                         & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}            & \visible<1->{\par~\cmark\par\cmark}      & \visible<1->{\par~\cmark\par\cmark}      \\
+		\visible<3-> {Suivi de cellule
+		\par (global/local)}                     & \visible<3-> {Global}                         & \visible<3-> {Global}                         & \visible<3-> {Global}                         & \visible<3-> {Global}                          & \visible<3->{Local}                      & \visible<3-> {Global}                    \\
+		\visible<4->{Historique d'une Cellule
+		\par ({Partiel}/complet)}                & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                         & \visible<4-> {Partiel}                   & \visible<4-> {complet}                   \\
+		\visible<5-> {Calcul des évènements~:
+			\par \textbullet~Dynamique/Statique
+		\par \textbullet~Automatique/Manuel}     & \visible<5->{\par Dynamique \par Automatique} & \visible<5->{\par Dynamique \par Automatique} & \visible<5->{\par Dynamique \par Automatique} & \visible<5-> {\par Dynamique \par Automatique} & \visible<5-> {\par Statique \par Manuel} & \visible<5-> {\par Statique \par Manuel} \\
+		\visible<7-> {Base de nomination}        & \visible<7->{face }                           & \visible<7->{face }                           & \visible<7->{face}                            & \visible<7->{face}                             & \visible<7->{brin}                       & \visible<7->{contraintes}                \\
+		\visible<9->{Dimensions de modélisation} & \visible<9->{3D}                              & \visible<9->{3D}                              & \visible<9->{3D}                              & \visible<9->{3D}                               & \visible<9->{\(n\)-D}                    & \visible<9->{2.5D}                       \\
+		\visible<10>{Types d'opérations}         & \visible<10>{tout type}                       & \visible<10>{tout type}                       & \visible<10>{tout type}                       & \visible<10>{tout type}                        & \visible<10>{sous-ensemble}              & \visible<10>{tout-type}                  \\
 	\end{tblr}
 	\begin{tikzpicture}[overlay, remember picture]
 		\node at (current page.north)[below right = 1.2cm and -5cm]
 		{%
 			\only<2>{%
 				\begin{minipage}[t][\textheight][s]{.9\textwidth}
-					\begin{myblock}
+					\begin{myblock}[Édition]
 						\includegraphics[width=\textwidth]{etat-art-illustration-types-editions}
 					\end{myblock}
 				\end{minipage}
 			}
 		};
-		\node at (current page.north)[below = 1.2cm]
+		\node at (current page.north)[below = 2cm]
 		{%
-			\only<4>{%
-				\begin{minipage}[t][\textheight][s]{.4\textwidth}
-					\begin{myblock}[]
-						\includegraphics[width=.9\textwidth]{kripac-faceid-graph}
-						\includegraphics[width=.9\textwidth]{wu-exemple-propagation-scission}
+			\only<6>{%
+				\begin{minipage}[t][\textheight][s]{.7\textwidth}
+					\begin{myblock}[Historique]
+						\includegraphics[width=.9\textwidth]{Historique-suivi-cellules}
+						% \includegraphics[width=.9\textwidth]{wu-exemple-propagation-scission}
 					\end{myblock}
 				\end{minipage}
 			}%
 		};
 		\node at (current page.north)[below = 1.2cm]
 		{%
-			\only<6>{%
+			\only<8>{%
 				\begin{minipage}[t][\textheight][s]{.4\textwidth}
-					\begin{myblock}
+					\begin{myblock}[Base de nomination]
 						\centering
 						\includegraphics[width=.9\textwidth]{bidarra-exemple-nomination-arete-1}
-						\includegraphics[width=.9\textwidth]{bidarra-exemple-nomination-arete-2}
-					\end{myblock}
-				\end{minipage}
-			}
-		};
-		\node at (current page.north)[below  = 2cm]
-		{%
-			\only<8>{%
-				\begin{minipage}[t][\textheight][s]{.6\textwidth}
-					\begin{myblock}
-						\includegraphics[width=\textwidth]{cascaval-2-5D-examples}
-					\end{myblock}
-				\end{minipage}
-			}
-		};
-		\node at (current page.north)[below = 1.2cm]
-		{%
-			\only<10>{%
-				\begin{minipage}[t][\textheight][s]{.6\textwidth}
-					\begin{myblock}
-						\includegraphics<10>[width=\textwidth]{wu-diff-operation-examples}
+						%% \includegraphics[width=.9\textwidth]{bidarra-exemple-nomination-arete-2}
 					\end{myblock}
 				\end{minipage}
 			}
@@ -126,14 +69,47 @@
 	\end{tikzpicture}
 \end{frame}
 
-
+\begin{frame}[fragile]
+	\frametitle{État de l'art}
+	\centering
+	\tiny
+	\begin{tblr}{
+		colspec = {|m{2.6cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
+		% cells={cmd=\visible<\arabic{rownum}->},
+		% cell{2}{2} = {c=4}{c}, % multicolumn
+		% cell{2}{6} = {c=2}{c}, % multicolumn
+		% rowsep = 6pt,
+		hlines={black,0.5pt},
+		vlines={black,0.5pt},
+		% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
+		}
+		% \bottomrule%
+		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
+		                             & Kripac                         & Capoyleas et al.               & Wu et al.                      & Bidarra et al.                 & Cardot et al.                  & Cascaval
+		et al.                                                                                                                                                                                                                             \\ %
+		\toprule[black,0.5pt] %
+		Type d'édition~:
+		\par paramètres géométriques
+		\par opérations              & ~ \par~\cmark\par\xmark          & ~ \par~\cmark\par\xmark          & ~ \par~\cmark\par\xmark          & ~ \par~\cmark\par\xmark          & ~ \par~\cmark\par\cmark          & ~ \par~\cmark\par\cmark          \\
+		Suivi de cellule
+		\par (global/local)          & {Global}                       & {Global}                       & {Global}                       & {Global}                       & Local                          & {Global}                       \\
+		Historique d'une Cellule
+		\par complet                 & \xmark                         & \xmark                         & \xmark                         & \xmark                         & \xmark                         & \cmark                         \\
+		Calcul des évènements~:
+		\par \textbullet~Statique
+		\par \textbullet~Automatique & \par ~ \par \xmark \par \cmark & \par ~ \par \xmark \par \cmark & \par ~ \par \xmark \par \cmark & \par ~ \par \xmark \par \cmark & \par ~ \par \cmark \par \xmark & \par ~ \par \cmark \par \xmark \\
+		Base de nomination           & face                           & face                           & face                           & face                           & brin                           & contraintes                    \\
+		Dimensions de modélisation   & 3D                             & 3D                             & 3D                             & 3D                             & \(n\)-D                        & 2.5D                           \\
+		{Tout type} d'opération      & \cmark                         & \cmark                         & \cmark                         & \cmark                         & \xmark                         & \cmark                         \\
+	\end{tblr}
+\end{frame}
 %
 
 % \begin{frame}
 % 	\frametitle{Limitations des approches existantes}
 % 	\begin{itemize}[<+->]
 % 		\item édition limitée aux paramètres géométriques
-% 		\item suivi partiel des cellules
+% 		\item suivi {Partiel} des cellules
 % 		\item pas d'approche à la fois générique et locale
 % 		% \item conception généralement limitée à la 3D
 % 	\end{itemize}
@@ -145,7 +121,7 @@
 % 		\begin{column}{.6\textwidth}
 % 			\begin{itemize}[<+->]
 % 				\item Édition par réorganisation des opérations (ajout, suppression, déplacement)
-% 				\item Schéma de nomination homogène pour tout type de cellule
+% 				\item Schéma de nomination homogène pour {tout type} de cellule
 % 				\item Suivi complet de l'évolution des cellules
 % 				\item Modélisation d'objet générique en dimension
 % 			\end{itemize}

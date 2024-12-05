@@ -147,7 +147,7 @@ return face4;\end{lstlisting}
 						{ \indentrule } 1-extrusionAreteFace(\pn{1n5;2\{1n4\}})\\
 						{ \indentrule } 2-extrusionAreteFace(\pn{1n5;2\{1n4;2n4\}})\\
 						{ \indentrule } 3-extrusionAreteFace(\pn{1n5;2\{1n4;2n4;3n4\}})\\
-						3-colorationFace(\pn{1n6;2{1n2}}, Orange)
+						3-colorationFace(\pn{1n6;2\{1n2\}}, Orange)
 					\end{myblock}
 				\end{minipage}
 			\end{column}
@@ -246,7 +246,7 @@ return face4;\end{lstlisting}
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\begin{myblock}
 				\centering
-				\includegraphics[height=30pt]{rule-edge-collapse-no-color}
+				\includegraphics[height=30pt]{script-triangulateCC}
 				\tcblower
 				\begin{lstlisting}[style=script-style,language=jerboa-script,escapechar=\%]
 JerboaRuleResult triface;
@@ -259,9 +259,9 @@ return triface;
 		\end{minipage}
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
-			\includegraphics[height=.4\textheight]{square-face}
+			\includegraphics[height=.4\textheight]{boucle-exemple-entree}
 			\hspace{4em}
-			\includegraphics[height=.4\textheight]{boucle-coloration-surface}
+			\includegraphics[height=.4\textheight]{boucle-triangulation}
 		\end{minipage}
 		\vfill
 	\end{onlyenv}
@@ -401,7 +401,7 @@ else { @rule<insertionFace>(face);}
 				\centering
 				\begin{column}{.45\textwidth}
 					\begin{minipage}[t][.4\textheight][t]{\columnwidth}
-						\begin{myblock}
+						\begin{myblock}[Jeu]
 							\raggedright\tiny\ttfamily
 							1-creationCarre()\\
 							% ADD contractionArete(2)\\
@@ -420,7 +420,7 @@ else { @rule<insertionFace>(face);}
 				\end{column}
 				\begin{column}{.45\textwidth}
 				  \begin{minipage}[t][.4\textheight][t]{\columnwidth}
-					\begin{myblock}
+					\begin{myblock}[Rejeu]
 					  \raggedright\tiny\ttfamily
 					  1-creationCarre()\\
 					  ADD 3 contractionArete(2)\\

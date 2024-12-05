@@ -92,10 +92,10 @@
 				\scriptsize
 				\begin{myblock}[Spécification paramétrique]
 					\ttfamily
-					\only<1->{1-{\color{mydarkgreenink}square}(pos)}\newline
+					\only<1->{1-{\color{mydarkgreenink}carré}(pos)}\newline
 					\only<3->{2-{\color{mydarkgreenink}extrusion}(\alt<3>{6}{[1n6]}, vec)}\newline
 					\only<6->{3-{\color{mydarkgreenink}triangulation}(\alt<6>{33}{[1n3;2n2]})}\newline
-					\only<9-11>{4-{\color{mydarkgreenink}colour}(\alt<9>{35}{[1n3;2n4;3n0]})}
+					\only<9-11>{4-{\color{mydarkgreenink}coloration}(\alt<9>{35}{[1n3;2n4;3n0]})}
 				\end{myblock}
 			\end{minipage}
 		\end{column}
@@ -126,10 +126,10 @@
 				\scriptsize
 				\begin{myblock}[Spécification paramétrique]
 					\ttfamily
-					1-{\color{mydarkgreenink}\alt<4->{\color{orange}}{}square}(pos)\\
+					1-{\color{mydarkgreenink}\alt<4->{\color{orange}}{}carré}(pos)\\
 					2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6],vec)\\
 					3-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}triangulation}([1n3;2n2])\\
-					4-{\color{mydarkgreenink}colour}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4->{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
+					4-{\color{mydarkgreenink}coloration}(\alt<1>{{\color{orange}{[1n3;2n4;3n0]}}}{[\alt<4->{{\color{orange}1n3}}{1n3};\alt<3>{{\color{orange}2n4}}{2n4};\alt<2>{{\color{orange}3n0}}{3n0}]})
 				\end{myblock}
 			\end{minipage}
 			\begin{minipage}[t][.4\textheight][t]{.84\textwidth}
@@ -167,11 +167,11 @@
 					\scriptsize
 					\begin{myblock}[Spécification paramétrique éditée]
 						\ttfamily
-						1-{\color{mydarkgreenink}\alt<1>{\color{orange}}{}square}(pos)\\
+						1-{\color{mydarkgreenink}\alt<1>{\color{orange}}{}carré}(pos)\\
 						ADD~1-{\color{mydarkgreenink}\alt<2>{\color{orange}}{}insert}({\color{red}3})\\
 						2-{\color{mydarkgreenink}\alt<3>{\color{orange}}{}extrusion}([1n6], vec)\\
 						3-{\color{mydarkgreenink}\alt<4>{\color{orange}}{}triangulation}([1n3;2n2])\\
-						4-{\color{mydarkgreenink}\alt<5>{\color{orange}}{}colour}([1n3;2n4;3n0])
+						4-{\color{mydarkgreenink}\alt<5>{\color{orange}}{}coloration}([1n3;2n4;3n0])
 					\end{myblock}
 				\end{minipage}
 			\end{column}
@@ -204,15 +204,15 @@
 \begin{frame}
 	\frametitle{Stratégies de rejeu}
 	\begin{columns}
-		\begin{column}{.5\textwidth}
+		\begin{column}<2->{.5\textwidth}
 		  \centering
-			\includegraphics[height=.25\textheight]{reevaluation-strat-no-app}
+			\includegraphics<2->[height=.25\textheight]{reevaluation-strat-no-app}
 
-			\includegraphics[height=.25\textheight]{reevaluation-strat-app-37}
+			\includegraphics<3->[height=.25\textheight]{reevaluation-strat-app-37}
 
-			\includegraphics[height=.25\textheight]{reevaluation-strat-app-52}
+			\includegraphics<4>[height=.25\textheight]{reevaluation-strat-app-52}
 		\end{column}
-		\begin{column}{.5\textwidth}
+		\begin{column}<1->{.5\textwidth}
 			\begin{minipage}[t][.7\textheight][t]{\columnwidth}
 				\centering
 				\includegraphics[height=.59\textheight]{pn7-reval-short-nolevels}%

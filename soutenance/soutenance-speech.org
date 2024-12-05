@@ -215,53 +215,56 @@
 - Toutefois, elles ne permettent pas d'utiliser les structures de contrôle usuelles, c'est-à-dire les boucles et les alternatives.
 - Pour cela, Jerboa propose un langage de script comme celui-ci qui permet de
   déconnecter un volume de sa composante connexe.
-- L'opération est composée :
+- Une telle opération est composée :
   - d'une part d'un graphe qui spécifie l'entrée et la sortie du script
-  - d'autre part
-
-
-* Scripts de règles
-- règles -> opérations limités -> pas de structure de contrôle
-- exemple scripts qui découd un volume d'une composante connexe
-- opérations en deux partie :
-  - partie graphe -> entrée sortie
-  - partie code de l'opération
-  - Pour chaque face du volume
-    - Si la face est connectée à un autre volume
-      - Alors on découd les 3-liaisons de cette face
-- trois structures de contrôle :
-  - séquence
-  - itération de sous-orbites
-  - alternative
+  - d'autre part d'un ensemble de règles structurées en séquence, boucle ou
+    alternatives
+- Ce script, prend un volume.
+- Pour chaque face du volume
+  - Si elle est connectée à un autre volume
+    - Alors elle est déconnectée
+    - Sinon il ne se passe rien
+- Dans cette contribution, trois structures de contrôle nous intéresse :
+  - La séquence
+  - l'itération de sous-orbites
+  - et l'alternative
 
 * Séquence
-- commencer avec séquence
-- exemple extrude une face en un ruban
-- séquence -> pas de difficulté particulière
-- se pose la question de la représentation
-- exemple
-  - option 1 : représentation boîte fermée
-    - application du script sur le brin 5
-    - coloration de la face brin 31
-    - rien à faire
-    - construction explicite de la sortie par les développeurs
-  - option 2 : représentation boîte ouverte -> on choisit cette option
-    - séquence comme une spécification -> accès aux opérations
-    - représentation pas à pas des opérations avec paramètres
-    - nom persistant montre opérations dans script
-  - affichage du script dans le DAG -> trace évolution paramètre qui conditionne
-    application script -> flèche verte
-  - rejeu : ajout d'un sommet sur l'arête extrudée
-  - tout se passe à l'identique, en 2 fois, parce que split donc deux affichages
-    de la boîte
+- Commençons avec la séquence
+- Cet exemple illustre l'extrusion d'une face en un ruban
+- Une séquence ne pose pas de difficulté particulière
+- Par contre, nous pouvons nous poser la question de sa représentation
+- Nous avons deux options :
+  - option 1 : la représentation boîte fermée
+    - Nous appliquons le script sur le brin 5
+    - ensuite, nous colorions la face désignée par le brin 31 qui appartient à
+      la sortie du script
+    - Cette représentation implique que les développeurs doivent construire
+      eux-mêmes une sortie
+    - Si nous avions colorié la face incidente au brin 9, nous n'aurions pas pu
+      la nommer, car celle-ci n'est pas filtrée par la sortie du script.
+  - option 2 : La représentation boîte ouverte (on choisit cette option)
+    - Une séquence est semblable à une spécification paramétrique, donc on peut
+      afficher et enregistrer les opérations ainsi que donner des noms
+      persistants
+    - Donc, dans la spécification paramétrique on ouvre la boîte et on affiche les opérations appliquées par le script
+    - Et on fait pareil dans les noms persistants : par exemple, l'historique du brin 15 est 1n5;2{1n4} où deux c'est le script et 1n4 est l'application dans le script qui crée le brin 15.
+- Dans les DAG, c'est la même logique
+  - On ouvre la boîte du script et on trace l'évolution des paramètres qui
+    conditionnent son application.
+  - Cette condition est tracé via la flèche verte
+  - Au rejeu : on ajoute l'opération qui insère un sommet sur l'arête extrudée
+  - tout se passe à l'identique, en 2 fois, à cause de la scission provoquée par l'ajout.
+  - Il y a donc deux affichages de la boîte
 
 * Itération
-- deuxième structure de contrôle : itération càd une boucle qui parcourt des sous-orbites
+- La deuxième structure de contrôle qui nous intéresse est l'itération.
+- C'est-à-dire, ici, une boucle qui parcourt les sous-orbites dans une orbite
 - dans cet exemple, ce script parcourt chacune des faces d'une composante
   connexe et la triangule
-- pour l'itération 1 seul ajout :
+- pour l'itération on ajoute le suivi des paramètres de la boucle :
   - dans la spec : enregistrement de l'orbite à itérer comme paramètre
-  - dans le DAG : une boîte FOR avec deux flèche verte :
+  - dans le DAG : on ajoute une boîte FOR avec deux flèches vertes :
     - une pour l'orbite d'itération qui conditionne l'entrée dans la boucle (montrer branche et spec)
     - une pour l'instance (montre branche et spec) qui conditionne la ré-application de la ou des
       opérations dans la boucle

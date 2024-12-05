@@ -1,0 +1,121 @@
+1 Plan 6
+════════
+
+  • Nous arrivons maintenant à notre troisième contribution.
+  • Celle-ci concerne l’extension de notre système de rejeu à tout type
+    d’opération.
+
+
+2 Scripts de règles
+═══════════════════
+
+  • Les règles Jerboa permettent de représenter une grande variété
+    d’opérations de modélisation.
+  • Toutefois, elles ne permettent pas d’utiliser les structures de
+    contrôle usuelles, c’est-à-dire les boucles et les alternatives.
+  • Pour cela, Jerboa propose un langage de script comme celui-ci qui
+    permet de déconnecter un volume de sa composante connexe.
+  • Une telle opération est composée :
+    • d’une part d’un graphe qui spécifie l’entrée et la sortie du
+      script
+    • d’autre part d’un ensemble de règles structurées en séquence,
+      boucle ou alternatives
+  • Ce script, prend un volume.
+  • Pour chaque face du volume
+    • Si elle est connectée à un autre volume
+      • Alors elle est déconnectée
+      • Sinon il ne se passe rien
+  • Dans cette contribution, trois structures de contrôle nous intéresse
+    :
+    • La séquence
+    • l’itération de sous-orbites
+    • et l’alternative
+
+
+3 Séquence
+══════════
+
+  • Commençons avec la séquence
+  • Cet exemple illustre l’extrusion d’une face en un ruban
+  • Une séquence ne pose pas de difficulté particulière
+  • Par contre, nous pouvons nous poser la question de sa représentation
+  • Nous avons deux options :
+    • option 1 : la représentation boîte fermée
+      • Nous appliquons le script sur le brin 5
+      • ensuite, nous colorions la face désignée par le brin 31 qui
+        appartient à la sortie du script
+      • Cette représentation implique que les développeurs doivent
+        construire eux-mêmes une sortie
+      • Si nous avions colorié la face incidente au brin 9, nous
+        n’aurions pas pu la nommer, car celle-ci n’est pas filtrée par
+        la sortie du script.
+    • option 2 : La représentation boîte ouverte (on choisit cette
+      option)
+      • Une séquence est semblable à une spécification paramétrique,
+        donc on peut afficher et enregistrer les opérations ainsi que
+        donner des noms persistants
+      • Donc, dans la spécification paramétrique on ouvre la boîte et on
+        affiche les opérations appliquées par le script
+      • Et on fait pareil dans les noms persistants : par exemple,
+        l’historique du brin 15 est 1n5;2{1n4} où deux c’est le script
+        et 1n4 est l’application dans le script qui crée le brin 15.
+  • Dans les DAG, c’est la même logique
+    • On ouvre la boîte du script et on trace l’évolution des paramètres
+      qui conditionnent son application.
+    • Cette condition est tracé via la flèche verte
+    • Au rejeu : on ajoute l’opération qui insère un sommet sur l’arête
+      extrudée
+    • tout se passe à l’identique, en 2 fois, à cause de la scission
+      provoquée par l’ajout.
+    • Il y a donc deux affichages de la boîte
+
+
+4 Itération
+═══════════
+
+  • La deuxième structure de contrôle qui nous intéresse est
+    l’itération.
+  • C’est-à-dire, ici, une boucle qui parcourt les sous-orbites dans une
+    orbite
+  • dans cet exemple, ce script parcourt chacune des faces d’une
+    composante connexe et la triangule
+  • pour l’itération on ajoute le suivi des paramètres de la boucle :
+    • dans la spec : enregistrement de l’orbite à itérer comme paramètre
+    • dans le DAG : on ajoute une boîte FOR avec deux flèches vertes :
+      • une pour l’orbite d’itération qui conditionne l’entrée dans la
+        boucle (montrer branche et spec)
+      • une pour l’instance (montre branche et spec) qui conditionne la
+        ré-application de la ou des opérations dans la boucle
+  • au rejeu on ajoute une opération qui contracte (supprime) une arête
+  • la face qui avait pour origine cette arête n’est pas recréée
+  • donc pas de coloration
+  • cependant on a fusion des sommet et une seule application
+  • donc pas de triangulation sur-numéraire
+
+
+5 Alternative
+═════════════
+
+  • troisième structure de contrôle : alternative car application d’une
+    opération ou d’une autre si une condition précise est rencontrée
+  • dans cet exemple, ce script regarder si une face est un carré ou
+    triangle
+  • si carré ALORS la face est triangulée
+  • SINON (si déjà carrée), alors on insère une face au milieu
+  • À gauche exemple de jeu initial
+  • création d’une face carrée -> le script triangule -> chanfrein du
+    sommet central
+  • À droite exemple de rejeu
+  • contraction d’arête -> face entrée triangle -> le script insère une
+    face -> chanfrein de trois sommets
+  • rien de nouveau côté DAG
+  • par contre -> nécessité d’identifier les évènements similaires entre
+    opération then et opération else
+  • Dans cet exemple, on identifie ce sommet comme étant l’orbite
+    encadrée en jaune, celle-ci est créée.
+  • dans la règle alternative -> orbite encadrée désigne les sommets
+    créés
+  • ces trois sommets, tous créés, seront donc proposés à l’utilisateur
+    pour ré-appliquer le chanfrein
+  • on peut faire ça pour tous les évènements, comme ici avec les faces
+    scindées.

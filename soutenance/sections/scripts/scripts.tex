@@ -83,17 +83,17 @@ return face4;\end{lstlisting}
 
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
-			\includegraphics<2>[height=.4\textheight]{rule-create-square-face}
-			\includegraphics<3>[height=40pt]{script-extrude-ribbon}
-			\includegraphics<4>[height=35pt]{rule-colour-face}
+			% \includegraphics<2>[height=.4\textheight]{rule-create-square-face}
+			\includegraphics<2>[height=40pt]{script-extrude-ribbon}
+			\includegraphics<3>[height=35pt]{rule-colour-face}
 		\end{minipage}
 		\begin{columns}
 			\begin{column}{.5\textwidth}
 				\begin{minipage}[b][.4\textheight][b]{\columnwidth}
 					\raggedright
-					\includegraphics<2>[height=50pt]{square-face-before-ribbon-extrusion-2D}
-					\includegraphics<3>[height=50pt]{sequence-extrusion-colonne-faces-boite-noire}
-					\includegraphics<4>[height=50pt]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
+					% \includegraphics<2>[height=50pt]{square-face-before-ribbon-extrusion-2D}
+					\includegraphics<2>[height=50pt]{sequence-extrusion-colonne-faces-boite-noire}
+					\includegraphics<3>[height=50pt]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
 				\end{minipage}
 			\end{column}
 			\begin{column}{.5\textwidth}
@@ -113,29 +113,27 @@ return face4;\end{lstlisting}
 
 
 \begin{frame}
-	\begin{onlyenv}<1-5>
-		\frametitle<1-5>{Séquence~: représentation ouverte}
+	\begin{onlyenv}<1>
+		\frametitle<1>{Séquence~: représentation ouverte}
 
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
-			\includegraphics<1>[height=.4\textheight]{rule-create-square-face}
-			\includegraphics<2-4>[height=40pt]{script-extrude-ribbon}
+			% \includegraphics<1>[height=.4\textheight]{rule-create-square-face}
+			% \includegraphics<2-4>[height=40pt]{script-extrude-ribbon}
 
-			\only<2-4>{\vspace{2em}}
+			% \only<2-4>{\vspace{2em}}
 
-			\includegraphics<2-4>[height=40pt]{rule-extrusion-face-edge-2D}
-			\includegraphics<5>[height=35pt]{rule-colour-face}
+			% \includegraphics<2-4>[height=40pt]{rule-extrusion-face-edge-2D}
+			\includegraphics<1>[height=35pt]{rule-colour-face}
 		\end{minipage}
 		\begin{columns}[b]
 			\begin{column}{.5\textwidth}
 				\begin{minipage}[b][.4\textheight][b]{\columnwidth}
 					\raggedright
-					\includegraphics<1>[height=50pt]{square-face-before-ribbon-extrusion-2D}
+					% \includegraphics<1>[height=50pt]{square-face-before-ribbon-extrusion-2D}
 					% \vspace{-1pt}
-					\includegraphics<2>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-1}%
-					\includegraphics<3>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-2}%
-					\includegraphics<4>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-3}%
-					\includegraphics<5>[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
+					% \includegraphics<3>[height=51pt]{sequence-extrusion-colonne-boite-ouverte-step-3}%
+					\includegraphics[height=51pt]{sequence-extrusion-colonne-faces-coloration}%
 				\end{minipage}
 			\end{column}
 			\begin{column}{.5\textwidth}
@@ -153,8 +151,8 @@ return face4;\end{lstlisting}
 			\end{column}
 		\end{columns}
 	\end{onlyenv}
-	\begin{onlyenv}<6>
-		\frametitle<6>{Séquence~: DAG de jeu initial}
+	\begin{onlyenv}<2>
+		\frametitle<2>{Séquence~: DAG de jeu initial}
 
 		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
 			\begin{columns}
@@ -195,8 +193,8 @@ return face4;\end{lstlisting}
 			\vspace{5.3pt}
 		\end{minipage}
 	\end{onlyenv}
-	\begin{onlyenv}<7>
-		\frametitle<7>{Séquence~: DAG de rejeu}
+	\begin{onlyenv}<3>
+		\frametitle<3>{Séquence~: DAG de rejeu}
 
 		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
 			\vspace{-1em}

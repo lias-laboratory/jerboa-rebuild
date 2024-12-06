@@ -107,98 +107,67 @@
   pouvons identifier un certain nombre de concepts communs à différentes
   approches.
 
-- Le premier concerne le type d'édition étudié.
-- La plupart des approches se limitent à l'édition des paramètres géométriques.
-- Ils étudient la problématique de la nomination dans ce contexte où seuls les paramètres géométriques peuvent modifiés.
-
-- Dans cet exemple, nous pouvons voir un tube pneumatique avec à droite ses
+- Le premier concept que nous présentons concerne les types d'éditions d'une
+  spécification paramétrique.
+- Nous constatons que la plupart des approches se limitent à l'édition des
+  paramètres géométriques.
+- Le problème de la nomination est alors étudié dans un contexte où seuls les
+  paramètres géométriques peuvent être modifiés.
+- Par exemple, nous pouvons voir ici un tube pneumatique avec, à droite, ses
   paramètres géométriques qui sont les seuls éléments éditables.
 
 - Pourtant, au-delà de l'édition des paramètres géométriques, l'édition des
-  opérations, c'est-à-dire l'ajout, la suppression, le déplacement d'une
-  opération n'est pas sans effet sur la problématique de la nomination.
+  opérations, c'est-à-dire ajouter, supprimer et déplacer des opérations, a un
+  impact significatif sur la problématique de la nomination.
+
 - Seules les approches de Cardot et Cascaval prennent en compte ce type
   d'édition.
 
-- Le deuxième concept concerne la construction de l'historique d'une cellule.
-- Toutes les approches nécessitent de suivre, d'une manière ou d'une autre, l'évolution de certaines cellules (illustration, montrer graphe).
-- Mais nous observons deux choses :
-  - D'une part, l'histoire d'une cellule est systématiquement représentée de
-    façon partielle, c'est-à-dire en ne représentant qu'une partie des cellules
-    impliquées dans son histoire. (graphe)
-  - D'autre part, la construction de cet historique nécessite de pouvoir calculer l'évolution des cellules à chaque étape de modélisation.
-  - Ce calcul est, la plupart du temps, réalisé de façon globale via un journal de bord qui permet, à chaque étape de modélisation, de tracer l'évolution de chaque cellule du modèle.
-  - Mais ce calcul peut aussi, dans un certain nombre de cas, être réalisé
-    manuellement en étant codé directement dans les opération (comme le propose
-    Cascaval) ou fourni explicitement par le concepteur de l'opération (comme le
-    propose Cardot).
+- Le deuxième concept concerne le suivi des cellules dans une construction.
+- Ce suivi peut être local, c'est-à-dire ne concerner que les cellules désignées
+  dans une spécification paramétrique, ou global et, donc, concerner toutes les
+  cellules d'un modèle.
+- Par exemple, l'approche proposée par Kripac est d'utiliser un graphe afin de
+  suivre la totalité des faces d'un modèle (illustration) comme ce graphe qui
+  suit chacune des faces de cet objet.
+- Ici, seule l'approche de Cardot propose un suivi local des cellules.
 
+- Le troisième concepts concerne la construction d'historiques complets des
+  évolutions des cellules.
+- Le fait qu'un historique est complet, cela signifie que celui-ci doit permettre de désigner une cellule de manière non-ambiguë.
+- En reprenant cet exemple (illustration), nous pouvons voir avec ce graphe que les faces f7 à f10 ont toutes le même suivi.
+- Cet historique ne permet pas de les distinguer, il est donc partiel.
+- Ici, seule l'approche de Cascaval propose un historique complet.
 
-- Dans cet exemple, le graph, en haut à droite, montre la création de toutes les
-  faces de cet objet et l'on peut voir chacune des faces issues de la
-  triangulation sans moyen de les distinguer.
-- En bas à droite, chacune des faces obtiennent le même nom à partir de la face
-  scindée, ce qui n'aide pas non plus à les distinguer.
+- le quatrième concept concerne le calcul des évènements qui impactent chacune
+  des cellules suivies.
+- La grande majorité des approches calculent les évènements de manière dynamique, c'est-à-dire par l'analyse complète d'une construction, et automatique.
+- Toutefois, cela est coûteux à mesure qu'un modèle évolue.
+- Au contraire, l'approche statique est systématiquement opérée manuellement.
+- Par exemple, Cascaval spécifie ces évènements directement dans ses opérations.
+- À notre connaissance, aucune approche ne propose un calcul des évènements qui
+  soit à la fois statique et automatique.
 
-- À notre connaissance, aucune approche ne propose aujourd'hui d'historique qui
-  soit complet et dont le calcul est à la fois local et générique.
-
-- Un troisième concept est celui de la nomination d'une cellule.
-- Cette nomination est généralement basée sur les faces du voisinage topologique
-  et impose de définir un schéma de nomination différent pour chaque type de
-  cellule et n'est donc pas homogène.
-
-- Dans cet exemple, on peut voir deux arêtes nommées d'après leur faces
-  incidentes et les faces à leurs extrémités.
-- Un sommet sera nommé uniquement nommé par ses trois faces incidentes.
-
-- L'essentiel des approches utilisent les faces, car simples à caractériser en
-  2D et 3D.
-- Néanmoins, aucune de ces approche ne propose de schéma de nomination qui soit
-  homogène, c'est-à-dire le même pour tous les types de cellules.
-
-- Le quatrième concept est la dimension de modélisation proposée par un modeleur
-  qui est généralement fixé en 3D.
-
-- Dans cet exemple, nous avons un ensemble d'objets en 2.5D construits par
-  Cascaval et al.
-
-- Enfin, le cinquième concept est le type d'opérations traitées par un modeleur.
-- La quasi-totalité des modeleurs permet d'utiliser tout type d'opérations, à
-  l'exception de Cardot et al. qui ne proposent de traiter qu'un ensemble réduit
-  d'opérations.
-
-- Au travers de cet état de l'art, 4 points nous apparaissant comme limitant
-  dans la modélisation paramétrique :
-  + L'édition des spécifications paramétriques qui concerne, très
-    majoritairement, uniquement la modification de paramètres géométriques
-  + Les approches actuelles ne sont pas capables de représenter complètement les
-    historiques des cellules et laissent ainsi de la place à l'ambiguïté lors de
-    l'identification.
-  + De plus, toujours pour les historiques, aucune des approches proposées
-    n'effectue de calcul qui soit à la fois local et générique.
-  + Enfin, aucun des modeleurs existant n'apporte la flexibilité nécessaire pour
-    construire des modèles génériques en dimension
+- Enfin, le dernier concept est l'ensemble d'opérations prises en charge par les modeleurs.
+- Ici, Cardot ne propose de traiter qu'un ensemble restreint d'opérations.
 
 * Plan 2
-- Au travers de cet état de l'art, nous avons donc identifié 4 objectifs:
+- Au travers de cet état de l'art, nous avons donc identifié 3 objectifs:
   - l'édition complète d'une spécification comprenant l'ajout, la suppression et
     le déplacement d'opérations
   - la construction d'historiques complets pour le suivi des évolutions de
     cellules
-  - le développement d'une méthode locale et générique pour créer ces
-    historiques
-  - enfin, l'implantation d'un modeleur capable de modéliser des objets
-    génériques en dimension.
+  - la mise en œuvre d'une méthode permettant la détection statique et
+    automatique des évènements
 
 - Pour mener à bien ces objectifs, nous utilisons trois formalismes :
   - un pour les objets, avec les cartes généralisées
   - un pour les opérations avec les règles Jerboa
-  - enfin, un pour les changements topologiques.
+  - enfin, un pour les évènements.
 
 - Nos travaux donnent lieu à 3 contributions :
-  - la première est la formalisation des changements topologiques sur les
-    cellules et est au cœur de nos travaux
+  - la première est la formalisation des évènements sur les
+    cellules qui est au cœur de nos travaux
   - la deuxième est le développement des mécanismes nécessaires au rejeu dans un
     système de modélisation basé sur les règles Jerboa et, enfin,
   - l'extension de notre modeleur à tout type d'opérations.

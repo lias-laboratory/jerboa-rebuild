@@ -1,121 +1,87 @@
-1 Plan 6
+1 État de l’art
+═══════════════
+
+  • Dans la littérature concernant le rejeu et la nomination
+    persistante, nous pouvons identifier un certain nombre de concepts
+    communs à différentes approches.
+
+  • Le premier concept que nous présentons concerne les types d’éditions
+    d’une spécification paramétrique.
+  • Nous constatons que la plupart des approches se limitent à l’édition
+    des paramètres géométriques.
+  • Le problème de la nomination est alors étudié dans un contexte où
+    seuls les paramètres géométriques peuvent être modifiés.
+  • Par exemple, nous pouvons voir ici un tube pneumatique avec, à
+    droite, ses paramètres géométriques qui sont les seuls éléments
+    éditables.
+
+  • Pourtant, au-delà de l’édition des paramètres géométriques,
+    l’édition des opérations, c’est-à-dire ajouter, supprimer et
+    déplacer des opérations, a un impact significatif sur la
+    problématique de la nomination.
+
+  • Seules les approches de Cardot et Cascaval prennent en compte ce
+    type d’édition.
+
+  • Le deuxième concept concerne le suivi des cellules dans une
+    construction.
+  • Ce suivi peut être local, c’est-à-dire ne concerner que les cellules
+    désignées dans une spécification paramétrique, ou global et, donc,
+    concerner toutes les cellules d’un modèle.
+  • Par exemple, l’approche proposée par Kripac est d’utiliser un graphe
+    afin de suivre la totalité des faces d’un modèle (illustration)
+    comme ce graphe qui suit chacune des faces de cet objet.
+  • Ici, seule l’approche de Cardot propose un suivi local des cellules.
+
+  • Le troisième concepts concerne la construction d’historiques
+    complets des évolutions des cellules.
+  • Le fait qu’un historique est complet, cela signifie que celui-ci
+    doit permettre de désigner une cellule de manière non-ambiguë.
+  • En reprenant cet exemple (illustration), nous pouvons voir avec ce
+    graphe que les faces f7 à f10 ont toutes le même suivi.
+  • Cet historique ne permet pas de les distinguer, il est donc partiel.
+  • Ici, seule l’approche de Cascaval propose un historique complet.
+
+  • le quatrième concept concerne le calcul des évènements qui impactent
+    chacune des cellules suivies.
+  • La grande majorité des approches calculent les évènements de manière
+    dynamique, c’est-à-dire par l’analyse complète d’une construction,
+    et automatique.
+  • Toutefois, cela est coûteux à mesure qu’un modèle évolue.
+  • Au contraire, l’approche statique est systématiquement opérée
+    manuellement.
+  • Par exemple, Cascaval spécifie ces évènements directement dans ses
+    opérations.
+  • À notre connaissance, aucune approche ne propose un calcul des
+    évènements qui soit à la fois statique et automatique.
+
+  • Enfin, le dernier concept est l’ensemble d’opérations prises en
+    charge par les modeleurs.
+  • Ici, Cardot ne propose de traiter qu’un ensemble restreint
+    d’opérations.
+
+
+2 Plan 2
 ════════
 
-  • Nous arrivons maintenant à notre troisième contribution.
-  • Celle-ci concerne l’extension de notre système de rejeu à tout type
-    d’opération.
+  • Au travers de cet état de l’art, nous avons donc identifié 3
+    objectifs:
+    • l’édition complète d’une spécification comprenant l’ajout, la
+      suppression et le déplacement d’opérations
+    • la construction d’historiques complets pour le suivi des
+      évolutions de cellules
+    • la mise en œuvre d’une méthode permettant la détection statique et
+      automatique des évènements
 
+  • Pour mener à bien ces objectifs, nous utilisons trois formalismes :
+    • un pour les objets, avec les cartes généralisées
+    • un pour les opérations avec les règles Jerboa
+    • enfin, un pour les évènements.
 
-2 Scripts de règles
-═══════════════════
-
-  • Les règles Jerboa permettent de représenter une grande variété
-    d’opérations de modélisation.
-  • Toutefois, elles ne permettent pas d’utiliser les structures de
-    contrôle usuelles, c’est-à-dire les boucles et les alternatives.
-  • Pour cela, Jerboa propose un langage de script comme celui-ci qui
-    permet de déconnecter un volume de sa composante connexe.
-  • Une telle opération est composée :
-    • d’une part d’un graphe qui spécifie l’entrée et la sortie du
-      script
-    • d’autre part d’un ensemble de règles structurées en séquence,
-      boucle ou alternatives
-  • Ce script, prend un volume.
-  • Pour chaque face du volume
-    • Si elle est connectée à un autre volume
-      • Alors elle est déconnectée
-      • Sinon il ne se passe rien
-  • Dans cette contribution, trois structures de contrôle nous intéresse
-    :
-    • La séquence
-    • l’itération de sous-orbites
-    • et l’alternative
-
-
-3 Séquence
-══════════
-
-  • Commençons avec la séquence
-  • Cet exemple illustre l’extrusion d’une face en un ruban
-  • Une séquence ne pose pas de difficulté particulière
-  • Par contre, nous pouvons nous poser la question de sa représentation
-  • Nous avons deux options :
-    • option 1 : la représentation boîte fermée
-      • Nous appliquons le script sur le brin 5
-      • ensuite, nous colorions la face désignée par le brin 31 qui
-        appartient à la sortie du script
-      • Cette représentation implique que les développeurs doivent
-        construire eux-mêmes une sortie
-      • Si nous avions colorié la face incidente au brin 9, nous
-        n’aurions pas pu la nommer, car celle-ci n’est pas filtrée par
-        la sortie du script.
-    • option 2 : La représentation boîte ouverte (on choisit cette
-      option)
-      • Une séquence est semblable à une spécification paramétrique,
-        donc on peut afficher et enregistrer les opérations ainsi que
-        donner des noms persistants
-      • Donc, dans la spécification paramétrique on ouvre la boîte et on
-        affiche les opérations appliquées par le script
-      • Et on fait pareil dans les noms persistants : par exemple,
-        l’historique du brin 15 est 1n5;2{1n4} où deux c’est le script
-        et 1n4 est l’application dans le script qui crée le brin 15.
-  • Dans les DAG, c’est la même logique
-    • On ouvre la boîte du script et on trace l’évolution des paramètres
-      qui conditionnent son application.
-    • Cette condition est tracé via la flèche verte
-    • Au rejeu : on ajoute l’opération qui insère un sommet sur l’arête
-      extrudée
-    • tout se passe à l’identique, en 2 fois, à cause de la scission
-      provoquée par l’ajout.
-    • Il y a donc deux affichages de la boîte
-
-
-4 Itération
-═══════════
-
-  • La deuxième structure de contrôle qui nous intéresse est
-    l’itération.
-  • C’est-à-dire, ici, une boucle qui parcourt les sous-orbites dans une
-    orbite
-  • dans cet exemple, ce script parcourt chacune des faces d’une
-    composante connexe et la triangule
-  • pour l’itération on ajoute le suivi des paramètres de la boucle :
-    • dans la spec : enregistrement de l’orbite à itérer comme paramètre
-    • dans le DAG : on ajoute une boîte FOR avec deux flèches vertes :
-      • une pour l’orbite d’itération qui conditionne l’entrée dans la
-        boucle (montrer branche et spec)
-      • une pour l’instance (montre branche et spec) qui conditionne la
-        ré-application de la ou des opérations dans la boucle
-  • au rejeu on ajoute une opération qui contracte (supprime) une arête
-  • la face qui avait pour origine cette arête n’est pas recréée
-  • donc pas de coloration
-  • cependant on a fusion des sommet et une seule application
-  • donc pas de triangulation sur-numéraire
-
-
-5 Alternative
-═════════════
-
-  • troisième structure de contrôle : alternative car application d’une
-    opération ou d’une autre si une condition précise est rencontrée
-  • dans cet exemple, ce script regarder si une face est un carré ou
-    triangle
-  • si carré ALORS la face est triangulée
-  • SINON (si déjà carrée), alors on insère une face au milieu
-  • À gauche exemple de jeu initial
-  • création d’une face carrée -> le script triangule -> chanfrein du
-    sommet central
-  • À droite exemple de rejeu
-  • contraction d’arête -> face entrée triangle -> le script insère une
-    face -> chanfrein de trois sommets
-  • rien de nouveau côté DAG
-  • par contre -> nécessité d’identifier les évènements similaires entre
-    opération then et opération else
-  • Dans cet exemple, on identifie ce sommet comme étant l’orbite
-    encadrée en jaune, celle-ci est créée.
-  • dans la règle alternative -> orbite encadrée désigne les sommets
-    créés
-  • ces trois sommets, tous créés, seront donc proposés à l’utilisateur
-    pour ré-appliquer le chanfrein
-  • on peut faire ça pour tous les évènements, comme ici avec les faces
-    scindées.
+  • Nos travaux donnent lieu à 3 contributions :
+    • la première est la formalisation des évènements sur les cellules
+      qui est au cœur de nos travaux
+    • la deuxième est le développement des mécanismes nécessaires au
+      rejeu dans un système de modélisation basé sur les règles Jerboa
+      et, enfin,
+    • l’extension de notre modeleur à tout type d’opérations.

@@ -78,22 +78,22 @@ return face4;\end{lstlisting}
 			\includegraphics[height=50pt]{square-face-before-after-ribbon-extrusion-2D-no-dart}
 		\end{minipage}
 	\end{onlyenv}
-	\begin{onlyenv}<2->
-		\frametitle<2->{Séquence~: représentation fermée}
+	\begin{onlyenv}<2>
+		\frametitle<2>{Séquence~: représentation fermée}
 
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
 			% \includegraphics<2>[height=.4\textheight]{rule-create-square-face}
-			\includegraphics<2>[height=40pt]{script-extrude-ribbon}
-			\includegraphics<3>[height=35pt]{rule-colour-face}
+			% \includegraphics[height=40pt]{script-extrude-ribbon}
+			\includegraphics[height=35pt]{rule-colour-face}
 		\end{minipage}
 		\begin{columns}
 			\begin{column}{.5\textwidth}
 				\begin{minipage}[b][.4\textheight][b]{\columnwidth}
 					\raggedright
 					% \includegraphics<2>[height=50pt]{square-face-before-ribbon-extrusion-2D}
-					\includegraphics<2>[height=50pt]{sequence-extrusion-colonne-faces-boite-noire}
-					\includegraphics<3>[height=50pt]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
+					% \includegraphics<2>[height=50pt]{sequence-extrusion-colonne-faces-boite-noire}
+					\includegraphics<2>[height=50pt]{sequence-extrusion-colonne-faces-coloration-boite-noire}%
 				\end{minipage}
 			\end{column}
 			\begin{column}{.5\textwidth}
@@ -109,12 +109,8 @@ return face4;\end{lstlisting}
 			\end{column}
 		\end{columns}
 	\end{onlyenv}
-\end{frame}
-
-
-\begin{frame}
-	\begin{onlyenv}<1>
-		\frametitle<1>{Séquence~: représentation ouverte}
+	\begin{onlyenv}<3>
+		\frametitle<3>{Séquence~: représentation ouverte}
 
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
@@ -124,7 +120,7 @@ return face4;\end{lstlisting}
 			% \only<2-4>{\vspace{2em}}
 
 			% \includegraphics<2-4>[height=40pt]{rule-extrusion-face-edge-2D}
-			\includegraphics<1>[height=35pt]{rule-colour-face}
+			\includegraphics[height=35pt]{rule-colour-face}
 		\end{minipage}
 		\begin{columns}[b]
 			\begin{column}{.5\textwidth}
@@ -151,8 +147,8 @@ return face4;\end{lstlisting}
 			\end{column}
 		\end{columns}
 	\end{onlyenv}
-	\begin{onlyenv}<2>
-		\frametitle<2>{Séquence~: DAG de jeu initial}
+	\begin{onlyenv}<4>
+		\frametitle<4>{Séquence~: DAG de jeu initial}
 
 		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
 			\begin{columns}
@@ -193,8 +189,8 @@ return face4;\end{lstlisting}
 			\vspace{5.3pt}
 		\end{minipage}
 	\end{onlyenv}
-	\begin{onlyenv}<3>
-		\frametitle<3>{Séquence~: DAG de rejeu}
+	\begin{onlyenv}<5>
+		\frametitle<5>{Séquence~: DAG de rejeu}
 
 		\begin{minipage}[t][.3\textheight][t]{\textwidth} % TOP
 			\vspace{-1em}
@@ -316,7 +312,9 @@ return triface;
 			\begin{columns}
 				\begin{column}{.5\textwidth} % TOP LEFT
 					\centering
-					\includegraphics[height=.3\textheight]{boucle-exemple-edit} % graphe de script
+					\includegraphics[width=.3\columnwidth]{boucle-exemple-reval-triangle} % graphe de script
+					\includegraphics[width=.3\columnwidth]{boucle-exemple-reval-triangle-quad} % graphe de script
+					\includegraphics[width=.3\columnwidth]{boucle-exemple-edit} % graphe de script
 				\end{column}
 				\begin{column}{.5\textwidth} % TOP RIGHT
 					\centering
@@ -398,7 +396,7 @@ else { @rule<insertionFace>(face);}
 			\begin{columns}
 				\centering
 				\begin{column}{.45\textwidth}
-					\begin{minipage}[t][.4\textheight][t]{\columnwidth}
+					\begin{minipage}[t][.3\textheight][t]{\columnwidth}
 						\begin{myblock}[Jeu]
 							\raggedright\tiny\ttfamily
 							1-creationCarre()\\
@@ -408,8 +406,13 @@ else { @rule<insertionFace>(face);}
 							3-chanfreinSommet(\pn{1n2;2\{1n2\}})
 						\end{myblock}
 					\end{minipage}
-					\begin{minipage}[t][.4\textheight][t]{\columnwidth}
+					\begin{minipage}[t][.45\textheight][t]{\columnwidth}
+
 						\centering
+						\includegraphics[width=.7\columnwidth]{alternative-part-then-init}
+
+						~
+
 						\includegraphics[width=.4\columnwidth]{alternative-part-then-chamfer}
 					\end{minipage}
 				\end{column}
@@ -417,7 +420,7 @@ else { @rule<insertionFace>(face);}
 					\rule{.1mm}{.4\textheight}
 				\end{column}
 				\begin{column}{.45\textwidth}
-				  \begin{minipage}[t][.4\textheight][t]{\columnwidth}
+				  \begin{minipage}[t][.3\textheight][t]{\columnwidth}
 					\begin{myblock}[Rejeu]
 					  \raggedright\tiny\ttfamily
 					  1-creationCarre()\\
@@ -427,8 +430,12 @@ else { @rule<insertionFace>(face);}
 					  3-chanfreinSommet(\pn{1n2;2\{1n2\}})
 					\end{myblock}
 				  \end{minipage}
-				  \begin{minipage}[t][.4\textheight][t]{\columnwidth}
+				  \begin{minipage}[t][.45\textheight][t]{\columnwidth}
 					\centering
+					\includegraphics[width=\columnwidth]{alternative-part-else-rejeu}
+
+					~
+
 					\includegraphics[width=.4\columnwidth]{alternative-part-else-chamfer}
 				  \end{minipage}
 				\end{column}

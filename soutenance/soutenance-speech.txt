@@ -1,17 +1,14 @@
-1 page de titre
-═══════════════
+• Merci Madame la présidente, chers membres du jury, cher auditoire,
+  c’est avec un grand plaisir que je vais vous présenter mes travaux de
+  thèse, intitulés « modélisation et rejeu basés sur des règles » qui
+  ont été encadrés par Agnès Arnould, David Marcheix, Xavier Skapin et
+  Stéphane Jean.
 
-  • Merci Madame la présidente, chers membres du jury, cher auditoire,
-    c’est avec un grand plaisir que je vais vous présenter mes travaux
-    de thèse, intitulés « modélisation et rejeu basés sur des règles »
-    qui ont été encadrés par Agnès Arnould, David Marcheix, Xavier
-    Skapin et Stéphane Jean.
-
-  ⁃ Ces travaux s’inscrivent dans le domaine de la modélisation
-    géométrique.
+• Ces travaux s’inscrivent dans le domaine de la modélisation
+  géométrique.
 
 
-2 modélisation géométrique
+1 modélisation géométrique
 ══════════════════════════
 
   • Au cœur de ce domaine se trouvent les logiciels permettant de
@@ -30,7 +27,7 @@
     de modéliser.
 
 
-3 domaines d’applications
+2 domaines d’applications
 ═════════════════════════
 
   • Par exemple, en archéologie, les fouilles effectuées sur un bâtiment
@@ -57,7 +54,7 @@
     dans les modeleurs usuels et les limites que cela pose.
 
 
-4 modélisation paramétrique
+3 modélisation paramétrique
 ═══════════════════════════
 
   • La création de variation d’un même objet se base sur la notion de
@@ -75,7 +72,7 @@
   • Nous allons l’illustrer avec un exemple simple.
 
 
-5 problématique de la nomination persistante
+4 problématique de la nomination persistante
 ════════════════════════════════════════════
 
   • Supposons que nous construisons, à gauche, un objet à l’aide de
@@ -105,7 +102,7 @@
     • et les stratégies pour adapter le rejeu
 
 
-6 plan 1
+5 plan 1
 ════════
 
   • Voyons maintenant le plan pour le reste de cette présentation
@@ -120,102 +117,115 @@
     perspectives de travaux futurs.
 
 
-7 État de l’art
+6 État de l’art
 ═══════════════
 
   • Dans la littérature concernant le rejeu et la nomination
-      persistante, nous pouvons identifier un certain nombre de concepts
-      communs à différentes approches.
+    persistante, nous pouvons identifier un certain nombre de concepts
+    communs à différentes approches.
 
   • Le premier concept identifié concerne les types d’éditions d’une
-    spécification paramétrique. • Nous constatons que pour la plupart
-    des approches, le problème de la nomination est étudié dans un
-    contexte où seuls les paramètres géométriques peuvent être modifiés.
-    • Pourtant, l’édition des opérations, c’est-à-dire l’ajout, la
+    spécification paramétrique.
+  • Nous constatons que pour la plupart des approches, le problème de la
+    nomination est étudié dans un contexte où seuls les paramètres
+    géométriques peuvent être modifiés.
+  • Pourtant, l’édition des opérations, c’est-à-dire l’ajout, la
     suppression, le déplacement des opérations, est peu étudié, alors
     qu’elle impact très significativement le problème de la nomination.
-    (illustration) • Par exemple, nous pouvons voir ici la modélisation
-    d’un tube pneumatique. Nous trouvons à droite ses paramètres
-    géométriques qui sont les seuls éléments éditables.
-    ______________________________ • Le deuxième concept concerne le
-    suivi des cellules dans une construction. • Toutes les approches
-    nécessitent de suivre, d’une manière ou d’une autre, l’histoire de
-    cellules, leurs évolutions. • Ce suivi peut être local, c’est-à-dire
-    ne concerner que les cellules désignées dans la spécification
-    paramétrique, ou global et concerner toutes les cellules d’un
-    modèle. • Par exemple, (illustration) nous avons ici un objet
-    construit via l’application de trois opérations successives
-    (création d’un cube, ajout d’une rainure et triangulation d’une
-    face). • L’approche proposée par Kripac, nécessite la construction
-    d’un graphe qui permette de suivre l’histoire de la totalité des
-    faces du modèle.
+    (illustration)
+  • Par exemple, nous pouvons voir ici la modélisation d’un tube
+    pneumatique. Nous trouvons à droite ses paramètres géométriques qui
+    sont les seuls éléments
+  • éditables.
 
-  ______________________________ • Le troisième concepts concerne le
-  contenu enregistré dans l’historique d’une cellule. • Le fait qu’il
-  soit complet, signifie qu’il intègre l’ensemble des cellules
-  impliquées dans son histoire, ce qui permet de caractériser cette
-  cellule de manière plus précise. • En reprenant l’exemple précédent
-  (illustration), nous pouvons voir que les faces f9 à f12 du graphe ont
-  toutes le même historique, ce qui ne permet pas de les distinguer. •
-  Cela est du au fait que ce graphe ne représente qu’une partie de
-  l’histoire réelle des faces. Il n’est pas complet. • En effet, lors de
-  la triangulation, une face est créée pour chaque arête de la face f7.
-  Ces arêtes sont bien à l’origine de l’histoire des faces, mais ne sont
-  pas intégrées dans le graphe.
+  • Le deuxième concept concerne le suivi des cellules dans une
+    construction.
+  • Toutes les approches nécessitent de suivre, d’une manière ou d’une
+    autre, l’histoire de cellules, leurs évolutions.
+  • Ce suivi peut être local, c’est-à-dire ne concerner que les cellules
+  • désignées dans la spécification paramétrique, ou global et concerner
+    toutes les cellules d’un modèle.
+  • Par exemple, (illustration) nous avons ici un objet construit via
+    l’application de trois opérations successives (création d’un cube,
+    ajout d’une rainure et triangulation d’une face).
+  • L’approche proposée par Kripac, nécessite la construction d’un
+    graphe qui permette de suivre l’histoire de la totalité des faces du
+    modèle.
 
-  ______________________________ • Le quatrième concept concerne le
-  calcul des évènements qui impactent les cellules lors d’une opération.
-  Ce calcul est nécessaire pour la construction des historiques. • Si
-  nous reprenons l’exemple (illustration), nous comprenons que pour
-  pouvoir construire le graphe, il est nécessaire de pouvoir détecter la
-  scission de la face f1 lors de l’application de la rainure, ou la
-  scission de la face f7 lors de la triangulation. • La grande majorité
-  des approches calcule ces évènements de manière dynamique,
-  c’est-à-dire par l’analyse complète d’une construction, et
-  automatique. • Toutefois, cela est coûteux à mesure qu’un modèle
-  évolue. • Quelques approches permettent de détecter ces évènements de
-  manière statique, mais cela nécessite une caractérisation réalisée
-  manuellement par les développeurs. • À notre connaissance, aucune
-  approche ne propose un calcul des évènements qui soit à la fois
-  statique et automatique.
+  • Le troisième concepts concerne le contenu enregistré dans
+    l’historique d’une cellule.
+  • Le fait qu’il soit complet, signifie qu’il intègre l’ensemble des
+    cellules impliquées dans son histoire, ce qui permet de caractériser
+    cette cellule de manière plus précise.
+  • En reprenant l’exemple précédent (illustration), nous pouvons voir
+    que les faces f9 à f12 du graphe ont toutes le même historique, ce
+    qui ne permet pas de les distinguer.
+  • Cela est du au fait que ce graphe ne représente qu’une partie de
+    l’histoire réelle des faces. Il n’est pas complet.
+  • En effet, lors de la triangulation, une face est créée pour chaque
+    arête de la face f7. Ces arêtes sont bien à l’origine de l’histoire
+    des faces, mais ne sont pas intégrées dans le graphe.
 
-  ______________________________ • Enfin, le dernier concept concerne
-  l’ensemble d’opérations pris en compte dans l’étude des mécanismes de
-  nomination. • Ici, Bidarra, Cardot et Cascaval ne prennent en compte
-  qu’un ensemble restreint d’opérations.
+  • Le quatrième concept concerne le calcul des évènements qui impactent
+    les cellules lors d’une opération. Ce calcul est nécessaire pour la
+    construction des historiques.
+  • Si nous reprenons l’exemple (illustration), nous comprenons que pour
+    pouvoir construire le graphe, il est nécessaire de pouvoir détecter
+    la scission de la face f1 lors de l’application de la rainure, ou la
+    scission de la face f7 lors de la triangulation.
+  • La grande majorité des approches calcule ces évènements de manière
+    dynamique, c’est-à-dire par l’analyse complète d’une construction,
+    et automatique.
+  • Toutefois, cela est coûteux à mesure qu’un modèle évolue.
+  • Quelques approches permettent de détecter ces évènements de manière
+    statique, mais cela nécessite une caractérisation réalisée
+    manuellement par les développeurs.
+  • À notre connaissance, aucune approche ne propose un calcul des
+    évènements qui soit à la fois statique et automatique.
+
+  • Enfin, le dernier concept concerne l’ensemble d’opérations pris en
+    compte dans l’étude des mécanismes de nomination.
+  • Ici, Bidarra, Cardot et Cascaval ne prennent en compte qu’un
+    ensemble restreint d’opérations.
 
 
-8 Plan 2
+7 Plan 2
 ════════
 
   • Au travers de cet état de l’art, nous avons donc identifié 3
-      objectifs: • l’édition complète d’une spécification comprenant
-      l’édition des opérations. • la construction d’historiques complets
-      et cela uniquement pour les cellules nommées dans la spécification
-      paramétrique. • la mise en œuvre d’une méthode permettant la
-      détection statique et automatique des évènements
+    objectifs:
+    • l’édition complète d’une spécification comprenant l’édition des
+      opérations.
+    • la construction d’historiques complets et cela uniquement pour les
+      cellules nommées dans la spécification paramétrique.
+    • la mise en œuvre d’une méthode permettant la détection statique et
+      automatique des évènements
 
-  • Pour mener à bien ces objectifs, nous utilisons trois formalismes :
-    • un pour les objets, avec les cartes généralisées un pour les
-    • opérations avec les règles Jerboa enfin, un pour les évènements.
+    • Pour mener à bien ces objectifs, nous utilisons trois formalismes
+      :
+      • un pour les objets, avec les cartes généralisées
+      • un pour les opérations avec les règles Jerboa
+      • enfin, un pour les évènements.
 
-  • Nos travaux donnent lieu à 3 contributions : la première est la
-    • formalisation des évènements sur les cellules qui est au cœur de
-    • nos travaux la deuxième est le développement des mécanismes de
-    • nommage nécessaires au rejeu dans un système de modélisation basé
-    • sur les règles Jerboa et, enfin, l’extension de nos mécanismes de
-    • nomage à tout type d’opérations.
+    • Nos travaux donnent lieu à 3 contributions :
+      • la première est la formalisation des évènements sur les cellules
+        qui est au cœur de nos travaux
+      • la deuxième est le développement des mécanismes de nommage
+        nécessaires au rejeu dans un système de modélisation basé sur
+        les règles Jerboa et, enfin,
+      • l’extension de nos mécanismes de nomage à tout type
+        d’opérations.
 
 
-9 Plan 3
+8 Plan 3
 ════════
 
   • Commençons la présentation de ces formalismes avec les cartes
     généralisées pour représenter les objets.
 
 
-10 Cartes généralisées
-══════════════════════
+9 Cartes généralisées
+═════════════════════
 
   • Les cartes généralisées permettent de représenter la structure d’un
     objet par sa décomposition en cellules de dimensions successives.
@@ -232,7 +242,7 @@
     sont appelés brins et les arcs sont les liaisons.
 
 
-11 Orbites
+10 Orbites
 ══════════
 
   • Dans les G-cartes, les cellules ne sont pas explicites, elles sont
@@ -252,7 +262,7 @@
     appelé type de l’orbite, et un brin d’incidence.
 
 
-12 Règles de transformation Jerboa
+11 Règles de transformation Jerboa
 ══════════════════════════════════
 
   • Maintenant que nous avons présenté la formalisation des objets avec
@@ -301,14 +311,14 @@
   (————————————————————————)
 
 
-13 Plan 4
+12 Plan 4
 ═════════
 
   • À l’aide de ces deux formalismes, nous pouvons maintenant aborder
     notre première contribution qui fonde notre approche.
 
 
-14 Création d’arête de volume <0,2>
+13 Création d’arête de volume <0,2>
 ═══════════════════════════════════
 
   • Nous allons commencer avec les évènements de création.
@@ -339,7 +349,7 @@
     lequel elle est appliquée.
 
 
-15 Scission d’une face
+14 Scission d’une face
 ══════════════════════
 
   • Intéressons-nous maintenant à un évènement plus complexe : la
@@ -364,7 +374,7 @@
     la règle parce que l’orbite est complète.
 
 
-16 Scission d’une arête de volume
+15 Scission d’une arête de volume
 ═════════════════════════════════
 
   • Passons au cas explicite avec ce nouvel exemple.
@@ -381,7 +391,7 @@
     déterminée par la règle, indépendamment de l’objet.
 
 
-17 Scission d’un sommet de volume
+16 Scission d’un sommet de volume
 ═════════════════════════════════
 
   • Terminons la scission avec un dernier exemple.
@@ -405,7 +415,7 @@
     locale dans l’objet.
 
 
-18 Autres évènements
+17 Autres évènements
 ════════════════════
 
   • Nous avons étudié la détection de deux types d’évènements, la
@@ -418,7 +428,7 @@
     sont elles aussi entièrement déterminées par les règles.
 
 
-19 Plan 5
+18 Plan 5
 ═════════
 
   Nous allons maintenant détailler notre mécanisme de rejeu qui se
@@ -428,7 +438,7 @@
   recherche des nouvelles orbites pendant le rejeu
 
 
-20 Nomination persistante : brins
+19 Nomination persistante : brins
 ═════════════════════════════════
 
   Pour commencer, nous proposons d’enregistrer l’histoire des brins,
@@ -476,7 +486,7 @@
   orbites. Donc, on doit représenter les histoires de ces orbites.
 
 
-21 Nomination persistante : orbites
+20 Nomination persistante : orbites
 ═══════════════════════════════════
 
   Pour reconstituer l’histoire d’une orbite, on part du nom persistant
@@ -529,7 +539,7 @@
   analyse des règles.
 
 
-22 Rejeu
+21 Rejeu
 ════════
 
   Avec les noms persistants d’orbites, on peut maintenant passer au
@@ -570,7 +580,7 @@
   désignées.
 
 
-23 Stratégies
+22 Stratégies
 ═════════════
 
   Toutefois, nous proposons des stratégies qui permettent d’adapter le
@@ -581,7 +591,7 @@
   deux. Ce qui revient à choisir parmi les nouveaux paramètres proposés.
 
 
-24 Plan 6
+23 Plan 6
 ═════════
 
   • Nous venons de voir comment rejouer des opérations définies par une
@@ -590,7 +600,7 @@
     complexes.
 
 
-25 Scripts de règles
+24 Scripts de règles
 ════════════════════
 
   • Les règles Jerboa nous permettent déjà de représenter des opérations
@@ -614,7 +624,7 @@
     • et l’alternative
 
 
-26 Séquence
+25 Séquence
 ═══════════
 
   • Commençons avec la séquence
@@ -649,7 +659,7 @@
     faces à colorer
 
 
-27 Itération
+26 Itération
 ════════════
 
   • La deuxième structure de contrôle qui nous intéresse est
@@ -670,7 +680,7 @@
     face n’existe plus et ne peut donc pas être colorée.
 
 
-28 Alternative
+27 Alternative
 ══════════════
 
   • La troisième structure de contrôle est l’alternative.
@@ -705,13 +715,13 @@
     ici avec les faces scindées.
 
 
-29 Plan 7
+28 Plan 7
 ═════════
 
   Nous arrivons maintenant à la conclusion
 
 
-30 Conclusion
+29 Conclusion
 ═════════════
 
   • Je viens de vous présenter mon travail de thèse qui comprend
@@ -753,7 +763,7 @@
     d’opérations
 
 
-31 Perspectives
+30 Perspectives
 ═══════════════
 
   • Actuellement le déplacement des opérations est simulé par la

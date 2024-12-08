@@ -57,17 +57,18 @@
 			\par paramètres géométriques
 		\par opérations}                               & \visible<1->{~ \par~\cmark\par\xmark} & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par~\cmark\par\xmark} & \visible<1->{~ \par~\cmark\par\xmark} & \visible<1->{~ \par\cmark\par\cmark}  & \visible<1->{~ \par\cmark\par\cmark}  \\
 		\visible<3->{Suivi local des cellules}         & \visible<3->{\xmark}                  & \visible<3->{\xmark}                   & \visible<3->{\xmark}                  & \visible<3->{\xmark}                  & \visible<3->{\cmark}                  & \visible<3->{\xmark}                  \\
-		\visible<5->{Historique d'une Cellule complet} & \visible<5->{\xmark}                  & \visible<5->{\xmark}                   & \visible<5->{\xmark}                  & \visible<5->{\xmark}                  & \visible<5->{\xmark}                  & \visible<5->{\cmark}                  \\
+		\visible<5->{Historique complet d'une Cellule} & \visible<5->{\xmark}                  & \visible<5->{\xmark}                   & \visible<5->{\xmark}                  & \visible<5->{\xmark}                  & \visible<5->{\xmark}                  & \visible<5->{\cmark}                  \\
 		\visible<7->{Calcul des évènements~:
 			\par \textbullet~Statique
 		\par \textbullet~Automatique}                  & \visible<7->{\par \xmark \par \cmark} & \visible<7->{ \par \xmark \par \cmark} & \visible<7->{\par \xmark \par \cmark} & \visible<7->{\par \xmark \par \cmark} & \visible<7->{\par \cmark \par \xmark} & \visible<7->{\par \cmark \par \xmark} \\
-		\visible<8>{Tout type d'opération}            & \visible<8>{\cmark}                  & \visible<8>{\cmark}                   & \visible<8>{\cmark}                  & \visible<8>{\cmark}                  & \visible<8>{\xmark}                  & \visible<8>{\cmark}                  \\
+		\visible<9>{Tout type d'opération}            & \visible<9>{\cmark}                  & \visible<9>{\cmark}                   & \visible<9>{\cmark}                  & \visible<9>{\xmark}                  & \visible<9>{\xmark}                  & \visible<9>{\xmark}                  \\
 	\end{tblr}
 	\begin{minipage}[t][.25\textheight][c]{\textwidth}
 		\begin{onlyenv}<1->
 			\begin{myblock}[limitations]
 				\begin{itemize}
 					\item<1-> Édition généralement concentrée sur les paramètres géométriques
+					\item<3-> Suivi global des cellules
 					\item<5-> Historiques généralement incomplets
 					\item<7-> Pas de calcul d'évènement à la fois statique \emph{et}
 					      automatique
@@ -88,7 +89,7 @@
 		};
 		\node at (current page.north east)[below left = 2cm and 0.2cm]
 		{%
-			\only<4,6>{%
+			\only<4,6,8>{%
 				\begin{minipage}[t][\textheight][s]{.7\textwidth}
 					\begin{myblock}[Historique]
 						\includegraphics[height=.8\textheight]{etat-art-exemple-suivi}

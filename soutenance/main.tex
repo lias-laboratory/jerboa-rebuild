@@ -112,8 +112,9 @@
 \begin{frame}
 	\frametitle{Plan}
 	\centering
-	\begin{minipage}[c][\textheight][c]{.5\textwidth}
-	\centering
+	\begin{minipage}{\textwidth}
+    \raggedright
+  \begin{minipage}{.5\textwidth}
 		\begin{mytocblock}{Introduction}
 			\begin{itemize}
 				\item[] Contexte et motivations
@@ -121,19 +122,30 @@
 				\item[] Formalismes
 			\end{itemize}
 		\end{mytocblock}
-		\begin{mytocblock}{Contributions}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.5\textwidth}
+    \begin{mytocblock}{Contributions}
 			\begin{itemize}
 				\item[] Détection des évènements
-				\item[] Rejeu basés sur des règles
+				\item[] Rejeu basé sur des règles
 				\item[] Extension à tous types d'opérations
 			\end{itemize}
 		\end{mytocblock}
-		\begin{mytocblock}{Conclusion}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.5\textwidth}
+    \begin{mytocblock}{Conclusion}
 			\begin{itemize}
 				\item[] Conclusion et perspectives
 			\end{itemize}
 		\end{mytocblock}
-	\end{minipage}
+  \end{minipage}
+\end{minipage}
 \end{frame}
 
 \subfile{sections/etat-art/etat-art}

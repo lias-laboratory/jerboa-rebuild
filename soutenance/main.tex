@@ -5,7 +5,6 @@
 \usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{biblatex}
 \usepackage{bigdelim}
 \usepackage{graphicx}
 \usepackage[normalem]{ulem}
@@ -20,6 +19,19 @@
 \UseTblrLibrary{booktabs}
 \UseTblrLibrary{diagbox}
 \UseTblrLibrary{counter}
+
+\usepackage[%
+backend=biber,%
+maxbibnames=99,%
+bibstyle=alphabetic,%
+citestyle=alphabetic,%
+]{biblatex}%
+\setcounter{biburlnumpenalty}{9000}%
+\setcounter{biburllcpenalty}{9000}%
+\setcounter{biburlucpenalty}{9000}%
+\setlength\bibitemsep{1.5\itemsep}%
+
+\addbibresource{../manuscript/references/references.bib}
 
 \usepackage[most]{tcolorbox}
 \usepackage[linesnumbered,ruled,french,frenchkw]{algorithm2e}
@@ -97,16 +109,16 @@
 
 \section{Introduction}
 \subfile{sections/introduction/introduction}
-\AtBeginSection[]{%
-	\begin{frame}
-		\frametitle{Plan}
-		\ifnum \value{section}>3
-			\tableofcontents[sectionstyle=show/shaded, firstsection=-1, lastsection=-1]
-		\else
-			\tableofcontents[sectionstyle=show/show, firstsection=-1, lastsection=-1]
-		\fi
-	\end{frame}
-}
+% \AtBeginSection[]{%
+% 	\begin{frame}
+% 		\frametitle{Plan}
+% 		\ifnum \value{section}>3
+% 			\tableofcontents[sectionstyle=show/shaded, firstsection=-1, lastsection=-1]
+% 		\else
+% 			\tableofcontents[sectionstyle=show/show, firstsection=-1, lastsection=-1]
+% 		\fi
+% 	\end{frame}
+% }
 \section{État de l'art}
 
 \begin{frame}
@@ -114,11 +126,11 @@
 	\centering
 	\begin{minipage}{\textwidth}
     \raggedright
-  \begin{minipage}{.5\textwidth}
-		\begin{mytocblock}{Introduction}
+  \begin{minipage}{.55\textwidth}
+		\begin{mytocblock}{\textbf{Introduction}}
 			\begin{itemize}
 				\item[] Contexte et motivations
-				\item[] État de l'art
+				\item[] \textbf{État de l'art}
 				\item[] Formalismes
 			\end{itemize}
 		\end{mytocblock}
@@ -126,7 +138,7 @@
 
   \vspace{1em}
 
-  \begin{minipage}{.5\textwidth}
+  \begin{minipage}{.55\textwidth}
     \begin{mytocblock}{Contributions}
 			\begin{itemize}
 				\item[] Détection des évènements
@@ -138,7 +150,7 @@
 
   \vspace{1em}
 
-  \begin{minipage}{.5\textwidth}
+  \begin{minipage}{.55\textwidth}
     \begin{mytocblock}{Conclusion}
 			\begin{itemize}
 				\item[] Conclusion et perspectives
@@ -150,14 +162,214 @@
 
 \subfile{sections/etat-art/etat-art}
 \section{Formalismes}
+\begin{frame}
+	\frametitle{Plan}
+	\centering
+	\begin{minipage}{\textwidth}
+    \raggedright
+  \begin{minipage}{.55\textwidth}
+		\begin{mytocblock}{\textbf{Introduction}}
+			\begin{itemize}
+				\item[] Contexte et motivations
+				\item[] État de l'art
+				\item[]\textbf{Formalismes}
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{Contributions}
+			\begin{itemize}
+				\item[] Détection des évènements
+				\item[] Rejeu basé sur des règles
+				\item[] Extension à tous types d'opérations
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{Conclusion}
+			\begin{itemize}
+				\item[] Conclusion et perspectives
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+\end{minipage}
+\end{frame}
 \subfile{sections/formalismes/formalismes}
 \section[Évènements]{Détection des évènements}
+\begin{frame}
+	\frametitle{Plan}
+	\centering
+	\begin{minipage}{\textwidth}
+    \raggedright
+  \begin{minipage}{.55\textwidth}
+		\begin{mytocblock}{Introduction}
+			\begin{itemize}
+				\item[] Contexte et motivations
+				\item[] État de l'art
+				\item[] Formalismes
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{\textbf{Contributions}}
+			\begin{itemize}
+				\item[] \textbf{Détection des évènements}
+				\item[] Rejeu basé sur des règles
+				\item[] Extension à tous types d'opérations
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{Conclusion}
+			\begin{itemize}
+				\item[] Conclusion et perspectives
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+\end{minipage}
+\end{frame}
 \subfile{sections/detection-evenements/detection-evenements}
 \section[Rejeu]{Rejeu à base de règles}
+\begin{frame}
+	\frametitle{Plan}
+	\centering
+	\begin{minipage}{\textwidth}
+    \raggedright
+  \begin{minipage}{.55\textwidth}
+		\begin{mytocblock}{Introduction}
+			\begin{itemize}
+				\item[] Contexte et motivations
+				\item[] État de l'art
+				\item[] Formalismes
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{\textbf{Contributions}}
+			\begin{itemize}
+				\item[] Détection des évènements
+				\item[] \textbf{Rejeu basé sur des règles}
+				\item[] Extension à tous types d'opérations
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{Conclusion}
+			\begin{itemize}
+				\item[] Conclusion et perspectives
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+\end{minipage}
+\end{frame}
 \subfile{sections/reevaluation-regles/reevaluation-regles}
 \section[Extension]{Extension aux opérations complexes}
+\begin{frame}
+	\frametitle{Plan}
+	\centering
+	\begin{minipage}{\textwidth}
+    \raggedright
+  \begin{minipage}{.55\textwidth}
+		\begin{mytocblock}{Introduction}
+			\begin{itemize}
+				\item[] Contexte et motivations
+				\item[] État de l'art
+				\item[] Formalismes
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{\textbf{Contributions}}
+			\begin{itemize}
+				\item[] Détection des évènements
+				\item[] Rejeu basé sur des règles
+				\item[] \textbf{Extension à tous types d'opérations}
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{Conclusion}
+			\begin{itemize}
+				\item[] Conclusion et perspectives
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+\end{minipage}
+\end{frame}
 \subfile{sections/scripts/scripts}
 \section[Conclusion]{Conclusion et perspectives}
+\begin{frame}
+	\frametitle{Plan}
+	\centering
+	\begin{minipage}{\textwidth}
+    \raggedright
+  \begin{minipage}{.55\textwidth}
+		\begin{mytocblock}{Introduction}
+			\begin{itemize}
+				\item[] Contexte et motivations
+				\item[] État de l'art
+				\item[] Formalismes
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{Contributions}
+			\begin{itemize}
+				\item[] Détection des évènements
+				\item[] Rejeu basé sur des règles
+				\item[] Extension à tous types d'opérations
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+
+  \vspace{1em}
+
+  \begin{minipage}{.55\textwidth}
+    \begin{mytocblock}{\textbf{Conclusion}}
+			\begin{itemize}
+				\item[] \textbf{Conclusion et perspectives}
+			\end{itemize}
+		\end{mytocblock}
+  \end{minipage}
+\end{minipage}
+\end{frame}
 \subfile{sections/conclusion/conclusion}
+
+\begin{frame}[fragile,noframenumbering]
+\frametitle{Publications}
+\footnotesize
+\nocite{gaide2023automatic,gaide2023model,gaide2024reevaluation}
+\begingroup
+\setlength{\emergencystretch}{1em}
+\printbibliography[keyword={own},title=Publications]
+\endgroup
+\end{frame}
 
 \end{document}

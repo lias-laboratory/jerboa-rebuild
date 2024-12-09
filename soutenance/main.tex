@@ -100,7 +100,7 @@
 \AtBeginSection[]{%
 	\begin{frame}
 		\frametitle{Plan}
-		\ifnum \value{section}>2
+		\ifnum \value{section}>3
 			\tableofcontents[sectionstyle=show/shaded, firstsection=-1, lastsection=-1]
 		\else
 			\tableofcontents[sectionstyle=show/show, firstsection=-1, lastsection=-1]
@@ -110,30 +110,30 @@
 \section{État de l'art}
 
 \begin{frame}
-  \frametitle{Plan}
-  \begin{minipage}[c][\textheight][c]{.7\textwidth}
-    \centering
-    \begin{mytocblock}{Introduction}
-    \centering
-      \begin{itemize}
-        \item[] Contexte et motivations
-        \item[] État de l'art
-        \item[] Formalismes
-      \end{itemize}
-    \end{mytocblock}
-    \begin{mytocblock}{Contributions}
-      \begin{itemize}
-        \item[] Détection des évènements
-        \item[] Rejeu basés sur des règles
-        \item[] Extension à tous types d'opérations
-      \end{itemize}
-    \end{mytocblock}
-    \begin{mytocblock}{Conclusion}
-      \begin{itemize}
-        \item[] Conclusion et perspectives
-      \end{itemize}
-    \end{mytocblock}
-  \end{minipage}
+	\frametitle{Plan}
+	\centering
+	\begin{minipage}[c][\textheight][c]{.5\textwidth}
+	\centering
+		\begin{mytocblock}{Introduction}
+			\begin{itemize}
+				\item[] Contexte et motivations
+				\item[] État de l'art
+				\item[] Formalismes
+			\end{itemize}
+		\end{mytocblock}
+		\begin{mytocblock}{Contributions}
+			\begin{itemize}
+				\item[] Détection des évènements
+				\item[] Rejeu basés sur des règles
+				\item[] Extension à tous types d'opérations
+			\end{itemize}
+		\end{mytocblock}
+		\begin{mytocblock}{Conclusion}
+			\begin{itemize}
+				\item[] Conclusion et perspectives
+			\end{itemize}
+		\end{mytocblock}
+	\end{minipage}
 \end{frame}
 
 \subfile{sections/etat-art/etat-art}

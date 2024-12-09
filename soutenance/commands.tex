@@ -153,7 +153,7 @@
 }
 
 \newcommand{\pn}[1]{%
-  [#1]%
+	[#1]%
 }
 
 \newcommand{\pndart}[2]{%
@@ -235,13 +235,23 @@
 	% borderline west={3pt}{0.75pt}{nord9}
 }
 
+\newtcolorbox{tocbox}[1][]{%
+	blanker,
+	title={#1},
+	coltitle=textfgcolor,
+	fonttitle=\bfseries,
+	size=small,
+	frame hidden,
+	borderline west ={1.5pt}{0pt}{lDarkBlue},
+	borderline south={1.5pt}{0pt}{lDarkBlue},
+}
+
 \newtcolorbox{mysidetcb}[1][]{%
 	enhanced,
 	title={#1},
 	sidebyside,
 	coltitle=textfgcolor,
 	fonttitle=\bfseries,
-	colbacktitle=white!91!black,
 	size=title,
 	drop fuzzy shadow,
 	% borderline west={3pt}{0.75pt}{nord9}
@@ -254,11 +264,18 @@
 	\end{mytcb}
 }
 
+\newenvironment{mytocblock}[1][]{%
+	\begin{tocbox}[#1]
+		\color{textfgcolor}
+		}{%
+	\end{tocbox}
+}
+
 \newenvironment{mysideblock}[1][]{%
 	\begin{mysidetcb}[#1]
 		\color{textfgcolor}
 		}{%
-	\end{mytcb}
+	\end{mysidetcb}
 }
 %%% Local Variables:
 %%% mode: latex

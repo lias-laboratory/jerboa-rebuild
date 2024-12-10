@@ -56,6 +56,7 @@ citestyle=alphabetic,%
   {\dbasepath/geometric-views/}%
   {\dbasepath/concepts/}%
   {\dbasepath/rules/}%
+  {\dbasepath/reevaluation-supp-examples/}%
   {\dbasepath/persistent-naming/}%
   {\dlogopath}}
 
@@ -362,14 +363,39 @@ citestyle=alphabetic,%
 \end{frame}
 \subfile{sections/conclusion/conclusion}
 
-\begin{frame}[fragile,noframenumbering]
-\frametitle{Publications}
-\footnotesize
-\nocite{gaide2023automatic,gaide2023model,gaide2024reevaluation}
-\begingroup
-\setlength{\emergencystretch}{1em}
-\printbibliography[keyword={own},title=Publications]
-\endgroup
+\begin{frame}[plain, noframenumbering]
+    \begin{minipage}[t][.29\textheight][t]{1.0\textwidth}
+        \includegraphics[height=.15\textheight]{short-4-evaluation-color-face-no-dart.pdf}
+        \hfill
+        \includegraphics[height=.25\textheight, angle=90]{smooth-2-init-7.pdf}
+        \hfill
+        \includegraphics[height=.2\textheight]{build-init-v3-10.pdf}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \begin{myblock}[]
+        Merci pour votre attention
+      \end{myblock}
+    \end{minipage}
+    \vfill
+    \begin{minipage}[b][.29\textheight][b]{1.0\textwidth}
+        \includegraphics[height=.15\textheight]{short-4-reevaluation-color-face-nodarts.pdf}
+        \hfill
+        \includegraphics[width=.25\textheight]{smooth-2-rebuild-11.pdf}
+        \hfill
+        \includegraphics[height=.2\textheight]{build-v3-11.pdf}
+    \end{minipage}
 \end{frame}
+
+% \begin{frame}[fragile,noframenumbering]
+% \frametitle{Publications}
+% \footnotesize
+% \nocite{gaide2023automatic,gaide2023model,gaide2024reevaluation}
+% \begingroup
+% \setlength{\emergencystretch}{1em}
+% \printbibliography[keyword={own},title=Publications]
+% \endgroup
+% \end{frame}
 
 \end{document}

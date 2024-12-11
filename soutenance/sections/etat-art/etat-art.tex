@@ -21,14 +21,14 @@
 % 		\visible<1->{Type d'édition~:
 % 			\par paramètres géométriques
 % 		\par opérations}                         & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}            & \visible<1->{\par~\cmark\par\cmark}      & \visible<1->{\par~\cmark\par\cmark}      \\
-% 		\visible<3-> {Suivi de cellule
-% 		\par (global/local)}                     & \visible<3-> {Global}                         & \visible<3-> {Global}                         & \visible<3-> {Global}                         & \visible<3-> {Global}                          & \visible<3->{Local}                      & \visible<3-> {Global}                    \\
+% 		\visible<4-> {Suivi de cellule
+% 		\par (global/local)}                     & \visible<4-> {Global}                         & \visible<4-> {Global}                         & \visible<4-> {Global}                         & \visible<4-> {Global}                          & \visible<4->{Local}                      & \visible<4-> {Global}                    \\
 % 		\visible<4->{Historique d'une Cellule
 % 		\par ({Partiel}/complet)}                & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                         & \visible<4-> {Partiel}                   & \visible<4-> {complet}                   \\
-% 		\visible<5-> {Calcul des évènements~:
+% 		\visible<7-> {Calcul des évènements~:
 % 			\par \textbullet~Dynamique/Statique
-% 		\par \textbullet~Automatique/Manuel}     & \visible<5->{\par Dynamique \par Automatique} & \visible<5->{\par Dynamique \par Automatique} & \visible<5->{\par Dynamique \par Automatique} & \visible<5-> {\par Dynamique \par Automatique} & \visible<5-> {\par Statique \par Manuel} & \visible<5-> {\par Statique \par Manuel} \\
-% 		\visible<7-> {Base de nomination}        & \visible<7->{face }                           & \visible<7->{face }                           & \visible<7->{face}                            & \visible<7->{face}                             & \visible<7->{brin}                       & \visible<7->{contraintes}                \\
+% 		\par \textbullet~Automatique/Manuel}     & \visible<7->{\par Dynamique \par Automatique} & \visible<7->{\par Dynamique \par Automatique} & \visible<7->{\par Dynamique \par Automatique} & \visible<7-> {\par Dynamique \par Automatique} & \visible<7-> {\par Statique \par Manuel} & \visible<7-> {\par Statique \par Manuel} \\
+% 		\visible<10-> {Base de nomination}        & \visible<10->{face }                           & \visible<10->{face }                           & \visible<10->{face}                            & \visible<10->{face}                             & \visible<10->{brin}                       & \visible<10->{contraintes}                \\
 % 		\visible<8>{Dimensions de modélisation} & \visible<8>{3D}                              & \visible<8>{3D}                              & \visible<8>{3D}                              & \visible<8>{3D}                               & \visible<8>{\(n\)-D}                    & \visible<8>{2.5D}                       \\
 % 		\visible<8>{Types d'opérations}         & \visible<8>{tout type}                       & \visible<8>{tout type}                       & \visible<8>{tout type}                       & \visible<8>{tout type}                        & \visible<8>{sous-ensemble}              & \visible<8>{tout-type}                  \\
 % 	\end{tblr}
@@ -50,27 +50,27 @@
 		}
 		% \bottomrule%
 		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
-		                                               & Kripac                                & Capoyleas et al.                       & Wu et al.                             & Bidarra et al.                        & Cardot et al.                         & Cascaval
-		et al.                                                                                                                                                                                                                                                                                          \\ %
+		                                               & Kripac                                 & Capoyleas et al.                        & Wu et al.                              & Bidarra et al.                         & Cardot et al.                          & Cascaval
+		et al.                                                                                                                                                                                                                                                                                                \\ %
 		\toprule[black,0.5pt] %
 		\visible<1->{Type d'édition~:
 			\par paramètres géométriques
-		\par opérations}                               & \visible<1->{~ \par~\cmark\par\xmark} & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par~\cmark\par\xmark} & \visible<1->{~ \par~\cmark\par\xmark} & \visible<1->{~ \par\cmark\par\cmark}  & \visible<1->{~ \par\cmark\par\cmark}  \\
-		\visible<3->{Suivi local des cellules}         & \visible<3->{\xmark}                  & \visible<3->{\xmark}                   & \visible<3->{\xmark}                  & \visible<3->{\xmark}                  & \visible<3->{\cmark}                  & \visible<3->{\xmark}                  \\
-		\visible<5->{Historique complet d'une Cellule} & \visible<5->{\xmark}                  & \visible<5->{\xmark}                   & \visible<5->{\xmark}                  & \visible<5->{\xmark}                  & \visible<5->{\xmark}                  & \visible<5->{\cmark}                  \\
-		\visible<7->{Calcul des évènements~:
+		\par opérations}                               & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par~\cmark\par\xmark}   & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par\cmark\par\cmark}   & \visible<1->{~ \par\cmark\par\cmark}   \\
+		\visible<4->{Suivi local des cellules}         & \visible<4->{\xmark}                   & \visible<4->{\xmark}                    & \visible<4->{\xmark}                   & \visible<4->{\xmark}                   & \visible<4->{\cmark}                   & \visible<4->{\xmark}                   \\
+		\visible<7->{Historique complet d'une Cellule} & \visible<7->{\xmark}                   & \visible<7->{\xmark}                    & \visible<7->{\xmark}                   & \visible<7->{\xmark}                   & \visible<7->{\xmark}                   & \visible<7->{\cmark}                   \\
+		\visible<10->{Calcul des évènements~:
 			\par \textbullet~Statique
-		\par \textbullet~Automatique}                  & \visible<7->{\par \xmark \par \cmark} & \visible<7->{ \par \xmark \par \cmark} & \visible<7->{\par \xmark \par \cmark} & \visible<7->{\par \xmark \par \cmark} & \visible<7->{\par \cmark \par \xmark} & \visible<7->{\par \cmark \par \xmark} \\
-		\visible<9>{Tout type d'opération}            & \visible<9>{\cmark}                  & \visible<9>{\cmark}                   & \visible<9>{\cmark}                  & \visible<9>{\xmark}                  & \visible<9>{\xmark}                  & \visible<9>{\xmark}                  \\
+		\par \textbullet~Automatique}                  & \visible<10->{\par \xmark \par \cmark} & \visible<10->{ \par \xmark \par \cmark} & \visible<10->{\par \xmark \par \cmark} & \visible<10->{\par \xmark \par \cmark} & \visible<10->{\par \cmark \par \xmark} & \visible<10->{\par \cmark \par \xmark} \\
+		\visible<13>{Tout type d'opération}            & \visible<13>{\cmark}                   & \visible<13>{\cmark}                    & \visible<13>{\cmark}                   & \visible<13>{\xmark}                   & \visible<13>{\xmark}                   & \visible<13>{\xmark}                   \\
 	\end{tblr}
 	\begin{minipage}[t][.25\textheight][c]{\textwidth}
 		\begin{onlyenv}<1->
 			\begin{myblock}[limitations]
 				\begin{itemize}
 					\item<1-> Édition généralement concentrée sur les paramètres géométriques
-					\item<3-> Suivi global des cellules
-					\item<5-> Historiques généralement incomplets
-					\item<7-> Pas de calcul d'évènement à la fois statique \emph{et}
+					\item<4-> Suivi global des cellules
+					\item<7-> Historiques généralement incomplets
+					\item<10-> Pas de calcul d'évènement à la fois statique \emph{et}
 					      automatique
 				\end{itemize}
 			\end{myblock}
@@ -87,12 +87,13 @@
 				\end{minipage}
 			}
 		};
-		\node at (current page.north east)[below left = 1cm and 0.2cm]
+		\node at (current page.south)[above = 1cm]
 		{%
-			\only<4,6,8>{%
-				\begin{minipage}[t][\textheight][s]{.7\textwidth}
+			\only<5,8,11>{%
+				\begin{minipage}{\textwidth}
 					\begin{myblock}[Historique]
-						\includegraphics[height=.8\textheight]{etat-art-exemple-suivi}
+						\centering
+						\includegraphics[height=.25\textheight]{etat-art-exemple-suivi-wide}
 						% \includegraphics[width=.9\textwidth]{wu-exemple-propagation-scission}
 					\end{myblock}
 				\end{minipage}

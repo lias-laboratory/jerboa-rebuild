@@ -16,14 +16,14 @@
 \begin{frame}
 	\frametitle{Domaines d'applications}
 	\begin{columns}<+->
-	  \begin{column}{.35\textwidth}
+		\begin{column}{.35\textwidth}
 			\includegraphics[width=\textwidth]{exemple-archeo-1}
 
 			\includegraphics[width=\textwidth]{exemple-archeo-2}
-	  \end{column}
-	  \begin{column}{.55\textwidth}
+		\end{column}
+		\begin{column}{.55\textwidth}
 			\includegraphics<2>[width=\textwidth]{solidworks-spur-gears}
-	  \end{column}
+		\end{column}
 	\end{columns}
 \end{frame}
 
@@ -31,7 +31,7 @@
 	\frametitle{Modélisation paramétrique}
 
 	\begin{columns}[t]
-	  \small
+		\small
 		\begin{column}{.33\textwidth}
 			\begin{myblock}[Construction]
 				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
@@ -77,8 +77,8 @@
 \begin{frame}[c,fragile]
 	\frametitle{Problématique de la nomination persistante}
 
-	% \begin{overlayarea}{\textwidth}{.7\textheight}
 	\begin{columns}
+		\vspace{-1em}
 		\begin{column}{.49\textwidth}
 			\begin{minipage}[c][.5\textheight][b]{1.0\linewidth}
 				\centering
@@ -122,19 +122,31 @@
 			\end{minipage}
 		\end{column}
 	\end{columns}
-	\begin{overlayarea}{\textwidth}{.1\textheight}
-		\only<8>{%
+	\begin{onlyenv}<8>
+		\begin{overlayarea}{\textwidth}{.1\textheight}
 			\begin{myblock}{}
-				\color{red} Problème de la nomination persistante
+				\textcolor{red}{Problème de la nomination persistante}
 			\end{myblock}
-		}
-	\end{overlayarea}
+		\end{overlayarea}
+	\end{onlyenv}
 	\vfill
-	\begin{overlayarea}{\textwidth}{.1\textheight}
-		\begin{myblock}{}
-			{\textsuperscript{*}\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
+	\begin{onlyenv}<1-8>
+		\begin{overlayarea}{\textwidth}{.1\textheight}
+			\begin{myblock}{}
+				{\textsuperscript{*}\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
+			\end{myblock}
+		\end{overlayarea}
+	\end{onlyenv}
+	\begin{onlyenv}<9>
+		\vspace{-1em}
+		\begin{myblock}
+			\begin{itemize}
+				\item détection des changements dans la topologie (ou évènements)
+				\item rejeu d'une spécification
+				\item stratégies de rejeu
+			\end{itemize}
 		\end{myblock}
-	\end{overlayarea}
+	\end{onlyenv}
 \end{frame}
 
 

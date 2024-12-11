@@ -79,7 +79,7 @@ return face4;\end{lstlisting}
 		\end{minipage}
 	\end{onlyenv}
 	\begin{onlyenv}<2>
-		\frametitle<2>{Séquence~: représentation fermée}
+		\frametitle<2>{Séquence~: représentation boîte fermée}
 
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
@@ -110,7 +110,7 @@ return face4;\end{lstlisting}
 		\end{columns}
 	\end{onlyenv}
 	\begin{onlyenv}<3>
-		\frametitle<3>{Séquence~: représentation ouverte}
+		\frametitle<3>{Séquence~: représentation boîte ouverte}
 
 		\begin{minipage}[t][.4\textheight][t]{\textwidth}
 			\centering
@@ -141,7 +141,7 @@ return face4;\end{lstlisting}
 						{ \indentrule } 1-extrusionAreteFace(\pn{1n5;2\{1n4\}})\\
 						{ \indentrule } 2-extrusionAreteFace(\pn{1n5;2\{1n4;2n4\}})\\
 						{ \indentrule } 3-extrusionAreteFace(\pn{1n5;2\{1n4;2n4;3n4\}})\\
-						3-colorationFace(\pn{1n6;2\{1n2\}}, Orange)
+						3-colorationFace(\pn{1n6;\textcolor{orange}{2\{1n2\}}}, Orange)
 					\end{myblock}
 				\end{minipage}
 			\end{column}
@@ -280,7 +280,7 @@ return triface;
 							1-creationCarre()\\
 							2-subdivisionQuad(\pn{1n2})\\
 							3-S\_triangulationCC(\pn{1n2;2n0})\\
-							{ \indentrule } For \textlangle{}0,1\textrangle{} in \textlangle{}0,1,2\textrangle{}(\pndart{0}{1n2;2n0})\\
+							{ \indentrule } For \textcolor{mydarkgreenink}{\textlangle{}0,1\textrangle{}} in \textcolor{mydarkgreenink}{\textlangle{}0,1,2\textrangle{}}(\pndart{0}{1n2;2n0})\\
 							{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2;2n0})\\
 							{ \indentrule } { \indentrule } 2-triangulation(\pn{1n4;2n0})\\
 							{ \indentrule } { \indentrule } 3-triangulation(\pn{1n6;2n0})\\
@@ -312,13 +312,16 @@ return triface;
 			\begin{columns}
 				\begin{column}{.5\textwidth} % TOP LEFT
 					\centering
-					\includegraphics[width=.3\columnwidth]{boucle-exemple-reval-triangle} % graphe de script
-					\includegraphics[width=.3\columnwidth]{boucle-exemple-reval-triangle-quad} % graphe de script
-					\includegraphics[width=.3\columnwidth]{boucle-exemple-edit} % graphe de script
+					\includegraphics[width=.2\columnwidth]{square-face}
+					\includegraphics[width=.2\columnwidth]{boucle-exemple-reval-triangle}
+
+					\includegraphics[width=.3\columnwidth]{boucle-exemple-reval-triangle-quad}
+					\includegraphics[width=.3\columnwidth]{boucle-exemple-edit}
 				\end{column}
 				\begin{column}{.5\textwidth} % TOP RIGHT
 					\centering
 					\begin{minipage}[t][.3\textheight][t]{.8\columnwidth}
+						\vspace{-1em}
 						\centering
 						\begin{myblock}
 							\raggedright\tiny\ttfamily
@@ -326,7 +329,7 @@ return triface;
 							ADD contractionArete(2)\\
 							2-subdivisionQuad(\pn{1n2})\\
 							3-S\_triangulationCC(\pn{1n2;2n0})\\
-							{ \indentrule } For \textlangle{}0,1\textrangle{} in \textlangle{}0,1,2\textrangle{}(\pndart{0}{1n2;2n0})\\
+							{ \indentrule } For \textcolor{mydarkgreenink}{\textlangle{}0,1\textrangle{}} in \textcolor{mydarkgreenink}{\textlangle{}0,1,2\textrangle{}}(\pndart{0}{1n2;2n0})\\
 							{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2;2n0})\\
 							{ \indentrule } { \indentrule } 2-triangulation(\pn{1n4;2n0})\\
 							{ \indentrule } { \indentrule } 3-triangulation(\pn{1n6;2n0})\\
@@ -393,53 +396,53 @@ else { @rule<insertionFace>(face);}
 		\frametitle<2>{Alternative}
 
 		% \begin{minipage}[t][.4\textheight][t]{\textwidth}
-			\begin{columns}
-				\centering
-				\begin{column}{.45\textwidth}
-					\begin{minipage}[t][.3\textheight][t]{\columnwidth}
-						\begin{myblock}[Jeu]
-							\raggedright\tiny\ttfamily
-							1-creationCarre()\\
-							% ADD contractionArete(2)\\
-							2-S\_triangulationOuInsertion(\pn{1n2})\\
-							{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2})
-							3-chanfreinSommet(\pn{1n2;2\{1n2\}})
-						\end{myblock}
-					\end{minipage}
-					\begin{minipage}[t][.45\textheight][t]{\columnwidth}
-
-						\centering
-						\includegraphics[width=.7\columnwidth]{alternative-part-then-init}
-
-						~
-
-						\includegraphics[width=.4\columnwidth]{alternative-part-then-chamfer}
-					\end{minipage}
-				\end{column}
-				\begin{column}{.02\textwidth}
-					\rule{.1mm}{.4\textheight}
-				\end{column}
-				\begin{column}{.45\textwidth}
-				  \begin{minipage}[t][.3\textheight][t]{\columnwidth}
-					\begin{myblock}[Rejeu]
-					  \raggedright\tiny\ttfamily
-					  1-creationCarre()\\
-					  ADD 3 contractionArete(2)\\
-					  2-S\_triangulationOuInsertion(\pn{1n2})\\
-					  { \indentrule } { \indentrule } 1-triangulation(\pn{1n2})
-					  3-chanfreinSommet(\pn{1n2;2\{1n2\}})
+		\begin{columns}
+			\centering
+			\begin{column}{.45\textwidth}
+				\begin{minipage}[t][.3\textheight][t]{\columnwidth}
+					\begin{myblock}[Jeu]
+						\raggedright\tiny\ttfamily
+						1-creationCarre()\\
+						% ADD contractionArete(2)\\
+						2-S\_triangulationOuInsertion(\pn{1n2})\\
+						{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2})
+						3-chanfreinSommet(\pn{1n2;2\{1n2\}})
 					\end{myblock}
-				  \end{minipage}
-				  \begin{minipage}[t][.45\textheight][t]{\columnwidth}
+				\end{minipage}
+				\begin{minipage}[t][.45\textheight][t]{\columnwidth}
+
+					\centering
+					\includegraphics[width=.7\columnwidth]{alternative-part-then-init}
+
+					~
+
+					\includegraphics[width=.4\columnwidth]{alternative-part-then-chamfer}
+				\end{minipage}
+			\end{column}
+			\begin{column}{.02\textwidth}
+				\rule{.1mm}{.4\textheight}
+			\end{column}
+			\begin{column}{.45\textwidth}
+				\begin{minipage}[t][.3\textheight][t]{\columnwidth}
+					\begin{myblock}[Rejeu]
+						\raggedright\tiny\ttfamily
+						1-creationCarre()\\
+						ADD 3 contractionArete(2)\\
+						2-S\_triangulationOuInsertion(\pn{1n2})\\
+						{ \indentrule } { \indentrule } 1-triangulation(\pn{1n2})
+						3-chanfreinSommet(\pn{1n2;2\{1n2\}})
+					\end{myblock}
+				\end{minipage}
+				\begin{minipage}[t][.45\textheight][t]{\columnwidth}
 					\centering
 					\includegraphics[width=\columnwidth]{alternative-part-else-rejeu}
 
 					~
 
 					\includegraphics[width=.4\columnwidth]{alternative-part-else-chamfer}
-				  \end{minipage}
-				\end{column}
-			\end{columns}
+				\end{minipage}
+			\end{column}
+		\end{columns}
 		% \end{minipage}
 	\end{onlyenv}
 	\begin{onlyenv}<3>

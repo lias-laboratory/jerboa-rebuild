@@ -14,11 +14,12 @@
 
 \setbeamersize{text margin left=15pt,text margin right=15pt}
 
-\graphicspath{{../figures}%
-  {../figures/animations}%
-  {../figures/concepts}%
-  {../figures/figures}%
-  {../../../logos}}
+\graphicspath{{../figures-presentation}%
+{../logos}}%
+  % {../figures/animations}%
+  % {../figures/concepts}%
+  % {../figures/figures}%
+  % {../../../logos}}
 
 \include{commands.tex}
 
@@ -59,11 +60,11 @@
   \begin{figure}
     \includegraphics[height=18pt]{lias-logo}%
     \hfill
-    \includegraphics[height=22pt]{Logo_ISAE-ENSMA}%
+    \includegraphics[height=22pt]{logo_isae-ensma}%
     \hfill
     \includegraphics[height=20pt]{cgvc-logo}%
     \hfill
-    \includegraphics[height=23pt]{Logo_up}%
+    \includegraphics[height=23pt]{logo-up}%
     \hfill
     \includegraphics[height=15pt]{xlim-logo}%
   \end{figure}
@@ -75,252 +76,252 @@
 \begin{document}
 
 \begin{frame}[noframenumbering,plain]
-  \titlepage
+	\titlepage
 \end{frame}
 
 \section{Introduction}
 
 \begin{frame}{Introduction}
-  \begin{minipage}[b][.5\textheight][c]{1.0\linewidth}
-    \begin{figure}
-      \alt<-2>%
-      {\includegraphics[width=.24\textwidth]{icosahedron00}}%
-      {\includegraphics[width=.24\textwidth]{icosahedron00-coloriage}%
-      }%
-      \hspace{2em}
-      \uncover<2->{%
-        \alt<2>%
-        {\includegraphics[width=.24\textwidth]{icosahedron-catmull-clark01}}%
-        {\includegraphics[width=.24\textwidth]{icosahedron-catmull-clark01-coloriage-2}}%
-      }%
-    \end{figure}
-  \end{minipage}
-  \begin{minipage}[t][.5\textheight][t]{1.0\linewidth}
-    \only<3>{%
-      Mesh analysis
-      \begin{itemize}
-        \item[+] Full automatic change detection
-        \item[-] Cost related to object's complexity
-      \end{itemize}%
-    }
-    \only<4->{%
-      In operation code
-      \begin{itemize}
-        \item[+] Cost efficient
-        \item[-] Possible missing or error detection
-      \end{itemize}%
-    }%
-    \vspace{1em}
-    \onslide<5>{%
-      Our method: {\color{red}Full automatic change detection} and {\color{red}cost efficient}
-    }
-  \end{minipage}
+	\begin{minipage}[b][.5\textheight][c]{1.0\linewidth}
+		\begin{figure}
+			\alt<-2>%
+			{\includegraphics[width=.24\textwidth]{icosahedron}}%
+			{\includegraphics[width=.24\textwidth]{icosahedron-coloriage}%
+			}%
+			\hspace{2em}
+			\uncover<2->{%
+				\alt<2>%
+				{\includegraphics[width=.24\textwidth]{icosahedron-catmull-clark01}}%
+				{\includegraphics[width=.24\textwidth]{icosahedron-catmull-clark01-coloriage}}%
+			}%
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}[t][.5\textheight][t]{1.0\linewidth}
+		\only<3>{%
+			Mesh analysis
+			\begin{itemize}
+				\item[+] Full automatic change detection
+				\item[-] Cost related to object's complexity
+			\end{itemize}%
+		}
+		\only<4->{%
+			In operation code
+			\begin{itemize}
+				\item[+] Cost efficient
+				\item[-] Possible missing or error detection
+			\end{itemize}%
+		}%
+		\vspace{1em}
+		\onslide<5>{%
+		Our method: {\color{red}Full automatic change detection} and {\color{red}cost efficient}
+		}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}{Introduction}
-  \begin{itemize}
-    \item Goal:
-    \begin{itemize}
-      \item Automatic detection of topological events
-      \item Localized dynamic computing
-    \end{itemize}
+	\begin{itemize}
+		\item Goal:
+		      \begin{itemize}
+			      \item Automatic detection of topological events
+			      \item Localized dynamic computing
+		      \end{itemize}
 
-    \vspace{1em}
+		      \vspace{1em}
 
-    \item Tools:
-    \begin{itemize}
-      \item Object formalism: generalized maps
-      \item Operation formalism: Jerboa graph transformation rules
-    \end{itemize}
+		\item Tools:
+		      \begin{itemize}
+			      \item Object formalism: generalized maps
+			      \item Operation formalism: Jerboa graph transformation rules
+		      \end{itemize}
 
-    \vspace{1em}
+		      \vspace{1em}
 
-    \item Approach:
-    \begin{itemize}
-      \item Rule analysis
-      \item Pre-computing and localization of events
-    \end{itemize}
-  \end{itemize}
+		\item Approach:
+		      \begin{itemize}
+			      \item Rule analysis
+			      \item Pre-computing and localization of events
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \section{Formal tools}
 
 \begin{frame}
-  \frametitle{Outline}
-  \tableofcontents
+	\frametitle{Outline}
+	\tableofcontents
 \end{frame}
 
 \subsection{Generalized maps}
 
 \begin{frame}{Generalized maps (G-map)}
-  \begin{figure}
-    \centering
-    \begin{columns}
-      \begin{column}{.49\textwidth}
-        \begin{figure}
-          \centering
-          \includegraphics<1>[height=.6\textheight]{decomposition-no-decomp}%
-          \includegraphics<2>[height=.6\textheight]{decomposition-2-cell}%
-          \includegraphics<3>[height=.6\textheight]{decomposition-1-cell}%
-          \includegraphics<4>[height=.6\textheight]{decomposition-0-cell}%
-        \end{figure}
-      \end{column}
-      \begin{column}{.49\textwidth}
-        \begin{block}<2->{Decomposition of an object in :}
-          \begin{itemize}
-            \item<2-> Faces connected with $2$-links ({\color{mediumblue} —})%
-            \item<3-> Edges connected with $1$-links ({\color{red} —})%
-            \item<4> Vertices connected with $0$-links ({\color{black} —})%
-          \end{itemize}
-        \end{block}
-      \end{column}
-    \end{columns}
-  \end{figure}
-  \begin{block}{}<4>
-    A graph whose nodes are called \emph{darts} and arcs are called \emph{links}.
-  \end{block}
+	\begin{figure}
+		\centering
+		\begin{columns}
+			\begin{column}{.49\textwidth}
+				\begin{figure}
+					\centering
+					\includegraphics<1>[height=.6\textheight]{decomposition-no-decomp}%
+					\includegraphics<2>[height=.6\textheight]{decomposition-2-cell}%
+					\includegraphics<3>[height=.6\textheight]{decomposition-1-cell}%
+					\includegraphics<4>[height=.6\textheight]{decomposition-0-cell}%
+				\end{figure}
+			\end{column}
+			\begin{column}{.49\textwidth}
+				\begin{block}<2->{Decomposition of an object in :}
+					\begin{itemize}
+						\item<2-> Faces connected with $2$-links ({\color{mediumblue} —})%
+						\item<3-> Edges connected with $1$-links ({\color{red} —})%
+						\item<4> Vertices connected with $0$-links ({\color{black} —})%
+					\end{itemize}
+				\end{block}
+			\end{column}
+		\end{columns}
+	\end{figure}
+	\begin{block}{}<4>
+		A graph whose nodes are called \emph{darts} and arcs are called \emph{links}.
+	\end{block}
 \end{frame}
 
 \begin{frame}{Orbits}
-  \begin{columns}
-    \begin{column}{.49\textwidth}
-      \begin{figure}
-        \centering
-        \includegraphics<1>[height=.6\textheight]{orbit-face-01-a}%
-        \includegraphics<2>[height=.6\textheight]{orbit-edge-02-a}%
-        \includegraphics<3>[height=.6\textheight]{orbit-edge-02-c}%
-        \includegraphics<4>[height=.6\textheight]{orbit-vertex-12-n}%
-        \includegraphics<5->[height=.6\textheight]{orbit-edge-0-a}%
-      \end{figure}
-    \end{column}
-    \begin{column}{.49\textwidth}
-      \begin{block}{\onslide<5>{Orbit}}
-        \begin{itemize}
-          \item<1-> Face \alt<5>{{\color{red}$\orbit{0,1}${\color{ForestGreen}$(a)$}}}{$\orbit{0,1}(a)$}%
-          \item<2-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}}{$\orbit{0,2}(a)$}%
-          \item<3-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(c)$}}{$\orbit{0,2}(c)$}%
-          \item<4-> Vertex \alt<5>{{\color{red}$\orbit{1,2}$}{\color{ForestGreen}$(a)$}}{$\orbit{1,2}(a)$}%
-          \item<5-> Face edge {\color{red}$\orbit{0}$}{\color{ForestGreen}$(a)$}%
-        \end{itemize}
-      \end{block}
-    \end{column}
-  \end{columns}
-  \begin{block}{}<1->
-    Sub-graph of type \alt<5>{{\color{red}$\orbit{o}$}}{$\orbit{o}$} incident to a \alt<5>{{\color{ForestGreen}dart}}{dart}.
-  \end{block}
+	\begin{columns}
+		\begin{column}{.49\textwidth}
+			\begin{figure}
+				\centering
+				\includegraphics<1>[height=.6\textheight]{orbit-face-01-a}%
+				\includegraphics<2>[height=.6\textheight]{orbit-edge-02-a}%
+				\includegraphics<3>[height=.6\textheight]{orbit-edge-02-c}%
+				\includegraphics<4>[height=.6\textheight]{orbit-vertex-12-n}%
+				\includegraphics<5->[height=.6\textheight]{orbit-edge-0-a}%
+			\end{figure}
+		\end{column}
+		\begin{column}{.49\textwidth}
+			\begin{block}{\onslide<5>{Orbit}}
+				\begin{itemize}
+					\item<1-> Face \alt<5>{{\color{red}$\orbit{0,1}${\color{ForestGreen}$(a)$}}}{$\orbit{0,1}(a)$}%
+					\item<2-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(a)$}}{$\orbit{0,2}(a)$}%
+					\item<3-> Edge \alt<5>{{\color{red}$\orbit{0,2}$}{\color{ForestGreen}$(c)$}}{$\orbit{0,2}(c)$}%
+					\item<4-> Vertex \alt<5>{{\color{red}$\orbit{1,2}$}{\color{ForestGreen}$(a)$}}{$\orbit{1,2}(a)$}%
+					\item<5-> Face edge {\color{red}$\orbit{0}$}{\color{ForestGreen}$(a)$}%
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+	\begin{block}{}<1->
+		Sub-graph of type \alt<5>{{\color{red}$\orbit{o}$}}{$\orbit{o}$} incident to a \alt<5>{{\color{ForestGreen}dart}}{dart}.
+	\end{block}
 \end{frame}
 
 \subsection{Jerboa graph transformation rules}
 
 \begin{frame}{Jerboa graph transformation rules : Application}
-  \begin{figure}
-    \centering
-    \includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view}%
-    \includegraphics<2>[height=.85\textheight]{application-1}%
-    \includegraphics<3>[height=.85\textheight]{application-2-left}%
-    % \includegraphics<3>[height=.85\textheight]{application-2-right}%
-    % \includegraphics<4>[height=.85\textheight]{application-3-darts}%
-    \includegraphics<4>[height=.85\textheight]{application-3-impl}%
-    % \includegraphics<4>[height=.85\textheight]{application-3-expl}%
-    % \includegraphics<5>[height=.85\textheight]{application-4-darts}%
-    \includegraphics<5>[height=.85\textheight]{application-4-impl}%
-    \includegraphics<6>[height=.85\textheight]{application-4-expl}%
-    % \includegraphics<5>[height=.85\textheight]{application-4-expl}%
-    % \includegraphics<6>[height=.85\textheight]{application-5-darts}%
-    \includegraphics<7>[height=.85\textheight]{application-5-impl}%
-    \includegraphics<8>[height=.85\textheight]{implicit-links}%
-    \includegraphics<9>[height=.85\textheight]{explicit-links}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics<1>[width=.8\textwidth]{triangulation-geometric-view}%
+		\includegraphics<2>[height=.85\textheight]{application-1}%
+		\includegraphics<3>[height=.85\textheight]{application-2-left}%
+		% \includegraphics<3>[height=.85\textheight]{application-2-right}%
+		% \includegraphics<4>[height=.85\textheight]{application-3-darts}%
+		\includegraphics<4>[height=.85\textheight]{application-3-impl}%
+		% \includegraphics<4>[height=.85\textheight]{application-3-expl}%
+		% \includegraphics<5>[height=.85\textheight]{application-4-darts}%
+		\includegraphics<5>[height=.85\textheight]{application-4-impl}%
+		\includegraphics<6>[height=.85\textheight]{application-4-expl}%
+		% \includegraphics<5>[height=.85\textheight]{application-4-expl}%
+		% \includegraphics<6>[height=.85\textheight]{application-5-darts}%
+		\includegraphics<7>[height=.85\textheight]{application-5-impl}%
+		\includegraphics<8>[height=.85\textheight]{implicit-links}%
+		\includegraphics<9>[height=.85\textheight]{explicit-links}%
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Jerboa graph transformation rules : \alt<1-2>{Orbit}{Complete orbit}}
-  \begin{figure}
-    \centering
-    \includegraphics<1>[height=.85\textheight]{application-orbit}%
-    % \includegraphics<3>[height=.85\textheight]{application-complete}%
-    \includegraphics<2>[height=.85\textheight]{application-complete-new}%
-    \includegraphics<3>[height=.85\textheight]{application-complete-2}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics<1>[height=.85\textheight]{application-orbit}%
+		% \includegraphics<3>[height=.85\textheight]{application-complete}%
+		\includegraphics<2>[height=.85\textheight]{application-complete-new}%
+		\includegraphics<3>[height=.85\textheight]{application-complete-2}%
+	\end{figure}
 \end{frame}
 
 \section{Automatic detection of topological events}
 \begin{frame}
-  \frametitle{Outline}
-  \tableofcontents[currentsection]
+	\frametitle{Outline}
+	\tableofcontents[currentsection]
 \end{frame}
 
 \subsection{Creation}
 
 \begin{frame}{Creation}
-  \begin{figure}
-    \centering
-    % \includegraphics<1>[height=.85\textheight]{evenement-creation-animation-grey}%
-    % \includegraphics<2>[height=.85\textheight]{evenement-creation-animation-target}%
-    % \includegraphics<3>[height=.85\textheight]{evenement-creation-animation-begin}%
-    \includegraphics<1>[height=.85\textheight]{evenement-creation-animation-end}%
-    \includegraphics<2>[height=.85\textheight]{evenement-creation-animation-end-2}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		% \includegraphics<1>[height=.85\textheight]{evenement-creation-animation-grey}%
+		% \includegraphics<2>[height=.85\textheight]{evenement-creation-animation-target}%
+		% \includegraphics<3>[height=.85\textheight]{evenement-creation-animation-begin}%
+		\includegraphics<1>[height=.85\textheight]{evenement-creation-animation-end}%
+		\includegraphics<2>[height=.85\textheight]{evenement-creation-animation-end-2}%
+	\end{figure}
 \end{frame}
 
 \subsection{Split}
 
 \begin{frame}{Split of a face $\orbit{ 0,  1}$ through implicit links}
-  \begin{figure}
-    \centering
-    % \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-grey}%
-    % \includegraphics<2>[height=.85\textheight]{evenement-scission-impl-animation-target}%
-    % \includegraphics<3>[height=.85\textheight]{evenement-scission-impl-animation-begin}%
-    % \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight}%
-    \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-new}%
-    \includegraphics<2>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-2}%
-    \includegraphics<3>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-3}%
-    \includegraphics<4>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-4}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		% \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-grey}%
+		% \includegraphics<2>[height=.85\textheight]{evenement-scission-impl-animation-target}%
+		% \includegraphics<3>[height=.85\textheight]{evenement-scission-impl-animation-begin}%
+		% \includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight}%
+		\includegraphics<1>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-new}%
+		\includegraphics<2>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-2}%
+		\includegraphics<3>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-3}%
+		\includegraphics<4>[height=.85\textheight]{evenement-scission-impl-animation-2-darts-impl-highlight-4}%
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Split of an edge $\orbit{ 0,  2}$ through explicit links: complete}
-  \begin{figure}
-    \centering
-    % \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-grey.pdf}%
-    % \includegraphics<2>[width=\textwidth]{evenement-scission-expl-animation-target.pdf}%
-    % \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end.pdf}%
-    \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end-new.pdf}%
-    \includegraphics<2>[width=\textwidth]{evenement-scission-expl-animation-end-2.pdf}%
-    \includegraphics<3>[width=\textwidth]{evenement-scission-expl-animation-end-3.pdf}%
-    \includegraphics<4>[width=\textwidth]{evenement-scission-expl-animation-end-4.pdf}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		% \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-grey.pdf}%
+		% \includegraphics<2>[width=\textwidth]{evenement-scission-expl-animation-target.pdf}%
+		% \includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end.pdf}%
+		\includegraphics<1>[width=\textwidth]{evenement-scission-expl-animation-end-new.pdf}%
+		\includegraphics<2>[width=\textwidth]{evenement-scission-expl-animation-end-2.pdf}%
+		\includegraphics<3>[width=\textwidth]{evenement-scission-expl-animation-end-3.pdf}%
+		\includegraphics<4>[width=\textwidth]{evenement-scission-expl-animation-end-4.pdf}%
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Split of a vertex $\orbit{ 1,  2}$ through explicit links: incomplete}
-  \begin{figure}
-    \centering
-    % \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-unsewed}%
-    % \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end}%
-    \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end-new}%
-    \includegraphics<2>[width=\textwidth]{false-positive-uncomplete-orbit-end-2}%
-    \includegraphics<3>[width=\textwidth]{false-positive-uncomplete-orbit-end-3}%
-    \includegraphics<4>[width=\textwidth]{false-positive-uncomplete-orbit-end-4}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		% \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-unsewed}%
+		% \includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end}%
+		\includegraphics<1>[width=\textwidth]{false-positive-uncomplete-orbit-end-new}%
+		\includegraphics<2>[width=\textwidth]{false-positive-uncomplete-orbit-end-2}%
+		\includegraphics<3>[width=\textwidth]{false-positive-uncomplete-orbit-end-3}%
+		\includegraphics<4>[width=\textwidth]{false-positive-uncomplete-orbit-end-4}%
+	\end{figure}
 \end{frame}
 
 \subsection{Other events}
 
 \begin{frame}{Other events}
-  \begin{itemize}
-    \item Deletion
+	\begin{itemize}
+		\item Deletion
 
-    \vspace{1em}
+		      \vspace{1em}
 
-    \item Merging
+		\item Merging
 
-    \vspace{1em}
+		      \vspace{1em}
 
-    \item Non-modification
+		\item Non-modification
 
-    \vspace{1em}
+		      \vspace{1em}
 
-    \item Other modifications
-  \end{itemize}
+		\item Other modifications
+	\end{itemize}
 \end{frame}
 
 
@@ -422,74 +423,74 @@
 
 \section{Conclusion}
 \begin{frame}{Conclusion}
-  \begin{itemize}
-    \item<1-> Formalization of events detection
-    \begin{itemize}
-      \item<1->  Correct detection of all events
-    \end{itemize}
+	\begin{itemize}
+		\item<1-> Formalization of events detection
+		      \begin{itemize}
+			      \item<1->  Correct detection of all events
+		      \end{itemize}
 
-    \vspace{1em}
+		      \vspace{1em}
 
-    \item<2-> Full automatic orbit tracking
-    \begin{itemize}
-      \item<2-> No code addition within operations
-    \end{itemize}
+		\item<2-> Full automatic orbit tracking
+		      \begin{itemize}
+			      \item<2-> No code addition within operations
+		      \end{itemize}
 
-    \vspace{1em}
+		      \vspace{1em}
 
-    \item<3-> Efficient detection
-    \begin{itemize}
-      \item<3-> Most analysis pre-computed on rules
-      \item<3> Localized verification at runtime on mesh
-    \end{itemize}
-  \end{itemize}
+		\item<3-> Efficient detection
+		      \begin{itemize}
+			      \item<3-> Most analysis pre-computed on rules
+			      \item<3> Localized verification at runtime on mesh
+		      \end{itemize}
+	\end{itemize}
 \end{frame}
 
 \subsection*{Deletion}
 
 \begin{frame}[noframenumbering,plain]{Deletion of an edge $\orbit{ 0,  2}$}
-  \begin{figure}
-    \centering
-    \includegraphics[height=.85\textheight]{evenement-suppression}
-  \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[height=.85\textheight]{evenement-suppression}
+	\end{figure}
 \end{frame}
 
 \subsection*{Merging}
 
 \begin{frame}[noframenumbering,plain]{Merging of a face $\orbit{0,1}(n0)$ orbit: implicit}
-  \begin{figure}
-    \centering
-    \includegraphics<1>[height=.85\textheight]{evenement-merging}%
-    \includegraphics<2>[height=.85\textheight]{evenement-merging-2}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics<1>[height=.85\textheight]{evenement-merging}%
+		\includegraphics<2>[height=.85\textheight]{evenement-merging-2}%
+	\end{figure}
 \end{frame}
 
 \subsection*{Modification}
 
 \begin{frame}[noframenumbering,plain]{Modification of vertices $\orbit{1,2}$}
-  \begin{figure}
-    \centering
-    \includegraphics<1>[height=.85\textheight]{evenement-modification}%
-    \includegraphics<2>[height=.85\textheight]{evenement-modification-2}%
-  \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics<1>[height=.85\textheight]{evenement-modification}%
+		\includegraphics<2>[height=.85\textheight]{evenement-modification-2}%
+	\end{figure}
 \end{frame}
 
 \subsection*{Non-modification}
 
 \begin{frame}[noframenumbering,plain]{Non-modification of face edges $\orbit{0}$}
-  \begin{figure}
-    \centering
-    \includegraphics[height=.85\textheight]{evenement-no-change.pdf}
-  \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[height=.85\textheight]{evenement-no-change.pdf}
+	\end{figure}
 \end{frame}
 
 \subsection*{Special case}
 
 \begin{frame}[noframenumbering,plain]{An unexpected split of faces}
-  \begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{collapse-special-case}
-  \end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{collapse-special-case}
+	\end{figure}
 \end{frame}
 
 \end{document}

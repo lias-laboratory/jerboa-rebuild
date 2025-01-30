@@ -1,0 +1,63 @@
+[
+  {
+    "ID": 1,
+    "initialIndex": 0,
+    "type": "INIT",
+    "rule": {
+      "name": "CreateSquareFace"
+    },
+    "PNs": [],
+    "dartIDs": []
+  },
+  {
+    "ID": 2,
+    "initialIndex": 1,
+    "type": "INIT",
+    "rule": {
+      "name": "InsertVertexFolded"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4}]",
+        "orbitType": "(0, 2, 3)"
+      }
+    ],
+    "dartIDs": [
+      4
+    ]
+  },
+  {
+    "ID": 3,
+    "initialIndex": 2,
+    "type": "INIT",
+    "rule": {
+      "name": "ExtrudeIndependentFace"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4; 2 - n0}]",
+        "orbitType": "(0, 1)"
+      }
+    ],
+    "dartIDs": [
+      4
+    ]
+  },
+  {
+    "ID": 4,
+    "initialIndex": 3,
+    "type": "INIT",
+    "rule": {
+      "name": "MakeFaceBlue"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4; 2 - n0; 3 - n3}]",
+        "orbitType": "(0, 1)"
+      }
+    ],
+    "dartIDs": [
+      11
+    ]
+  }
+]

@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaInputHooks;
 import up.jerboa.core.JerboaOrbit;
@@ -100,6 +102,11 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
   public JerboaRuleResult applyRule(JerboaGMap gmap, JerboaInputHooks hooks)
       throws JerboaException {
     JerboaRuleResult res;
+    
+    LinkedList<Integer> dartIDs = new LinkedList<Integer>();
+    for (JerboaDart dart : hooks) {
+    	dartIDs.add(dart.getID());
+    }
 
     LinkedList<PersistentName> PNs =
         ((JerboaRebuiltModeler) modeler).spec.computePersistentNames(this, hooks);
@@ -108,7 +115,7 @@ public class JerboaRebuiltRule extends JerboaRuleGenerated {
     try {
       setAppID(((JerboaRebuiltModeler) modeler).spec.getNextApplicationNumber());
       res = super.applyRule(gmap, hooks);
-      ((JerboaRebuiltModeler) modeler).spec.addApplication(this, PNs, ApplicationType.INIT);
+      ((JerboaRebuiltModeler) modeler).spec.addApplication(this, PNs, dartIDs, ApplicationType.INIT);
     } finally {
       System.out.println(((JerboaRebuiltModeler) modeler).spec.toString());
     }

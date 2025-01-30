@@ -1,5 +1,4 @@
 package fr.ensma.lias.jerboa.core.rule.rules.Suppression;
-import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
 import java.util.List;
@@ -8,7 +7,7 @@ import up.jerboa.core.rule.*;
 import up.jerboa.core.util.*;
 import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
-
+import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import java.awt.Color;
@@ -22,7 +21,7 @@ import fr.ensma.lias.jerboa.embeddings.Vec3;
 
 
 
-public class DeleteEdge extends JerboaRebuiltRule {
+public class DeleteEdgeBorder extends JerboaRebuiltRule {
 
     private transient JerboaRowPattern curleftPattern;
 
@@ -34,21 +33,24 @@ public class DeleteEdge extends JerboaRebuiltRule {
 
 
 
-    public DeleteEdge(ModelerGenerated modeler) throws JerboaException {
+    public DeleteEdgeBorder(ModelerGenerated modeler) throws JerboaException {
 
-        super(modeler, "DeleteEdge", "Suppression");
+        super(modeler, "DeleteEdgeBorder", "Suppression");
 
         // -------- LEFT GRAPH
-        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,2,3), 3);
-        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,-1,3), 3);
+        JerboaRuleNode ln0 = new JerboaRuleNode("n0", 0, JerboaOrbit.orbit(0,2), 3);
+        JerboaRuleNode ln1 = new JerboaRuleNode("n1", 1, JerboaOrbit.orbit(-1,-1), 3);
         left.add(ln0);
         left.add(ln1);
         hooks.add(ln0);
         ln0.setAlpha(1, ln1);
+        ln1.setAlpha(3, ln1);
+        ln0.setAlpha(3, ln0);
 
         // -------- RIGHT GRAPH
-        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 0, JerboaOrbit.orbit(-1,1,3), 3);
+        JerboaRuleNode rn1 = new JerboaRuleNode("n1", 0, JerboaOrbit.orbit(-1,1), 3);
         right.add(rn1);
+        rn1.setAlpha(3, rn1);
 ;
         // ------- SPECIFIED FEATURE
         computeEfficientTopoStructure();
@@ -65,7 +67,7 @@ public class DeleteEdge extends JerboaRebuiltRule {
 
     public int attachedNode(int i) {
         switch(i) {
-        case 0: return -1;
+        case 0: return 0;
         }
         return -1;
     }

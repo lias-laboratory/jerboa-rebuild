@@ -1,7 +1,11 @@
 package fr.ensma.lias.jerboa.datastructures;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import up.jerboa.core.JerboaOrbit;
 import up.jerboa.core.JerboaRuleOperation;
 
@@ -13,6 +17,7 @@ import up.jerboa.core.JerboaRuleOperation;
 
 public class Application {
 	private int ID;
+	private int initialIndex;
 	private ApplicationType type;
 	private JerboaRuleOperation rule;
 	private List<PersistentName> PNs;
@@ -20,6 +25,30 @@ public class Application {
 	// applications
 	private List<Integer> dartIDs;
 
+	
+	/**
+	 * Application stores information about the application of a rule. It stores diverses
+	 * information such as an id, a name, its topological parameters and its geometric parameters.
+	 *
+	 * An entry should look similar to this : 2 — Triangulation([[1—n0]]·<0,1>)
+	 * 
+	 * @param ID
+	 * @param rule
+	 * @param PNs
+	 * @param dartIDs
+	 * @param type
+	 * @param initialIndex
+	 */
+	public Application(int ID, JerboaRuleOperation rule, List<PersistentName> PNs,
+			List<Integer> dartIDs, ApplicationType type, int initialIndex) {
+		this.ID = ID;
+		this.initialIndex = initialIndex;
+		this.type = type;
+		this.rule = rule;
+		this.PNs = PNs;
+		this.dartIDs = dartIDs;
+	}
+	
 	/*
 	 * Application stores information about the application of a rule. It stores diverses
 	 * information such as an id, a name, its topological parameters and its geometric parameters.
@@ -33,21 +62,35 @@ public class Application {
 	 * @param PIs
 	 */
 	public Application(int ID, JerboaRuleOperation rule, List<PersistentName> PNs,
-			ApplicationType type) {
-		this.ID = ID;
-		this.type = type;
-		this.rule = rule;
-		this.PNs = PNs;
-		this.dartIDs = new ArrayList<>();
+			ApplicationType type, int initialIndex) {
+		this(ID, rule, PNs, new ArrayList<>(), type, initialIndex);
+	}
+	
+	/**
+	 * Copy-constructor of an application.
+	 * 
+	 * @param application
+	 */
+	public Application(Application application) {
+		this(application.ID, application.rule, application.PNs, application.dartIDs, 
+				application.type, application.initialIndex);
 	}
 
 	/**
-	 * Type of the application
+	 * Type of the {@link Application}
 	 *
-	 * @return the type of this application
+	 * @return the type of this {@link Application}
 	 */
 	public ApplicationType getApplicationType() {
 		return type;
+	}
+	
+	/**
+	 * Set type of an {@link Application}
+	 * @param type New {@link ApplicationType} used by the {@link Application}
+	 */
+	public void setApplicationType(ApplicationType type) {
+		this.type = type;
 	}
 
 	/**
@@ -76,6 +119,26 @@ public class Application {
 	public int getApplicationID() {
 		return ID;
 	}
+	
+	
+	/**
+	 * Initial Index in the parametric specification
+	 * Use for the MOVE type
+	 * 
+	 * @return the initial index in the parametric specification
+	 */
+	public int getInitialIndex() {
+		return this.initialIndex;
+	}
+	
+	/**
+	 * Set the new value of initialIndex
+	 * 
+	 * @param index New value of initialIndex
+	 */ 
+	public void setInitialIndex(int index) {
+		this.initialIndex = index;
+	}
 
 	/**
 	 * Persistent names to identify topological parameters of this application
@@ -86,6 +149,9 @@ public class Application {
 		return PNs;
 	}
 
+	/**
+	 * @return The {@link List} of dartID
+	 */
 	public List<Integer> getDartIDs() {
 		return dartIDs;
 	}
@@ -112,12 +178,28 @@ public class Application {
 	// public void setPNs(LinkedList<PersistentName> pNs) {
 	// PNs = pNs;
 	// }
+	
+	public List<String> getGeoParams() {
+		Class<? extends JerboaRuleOperation> ct = rule.getClass();
+		
+		Method[] methods = ct.getMethods();
+		
+		List<String> getters = Arrays.stream(methods).map(m -> m.getName()).filter(m -> m.startsWith("get"))
+		.map(m -> m.substring(3)).collect(Collectors.toList());
+		
+		List<String> setters = Arrays.stream(methods).map(m -> m.getName()).filter(m -> m.startsWith("set"))
+				.map(m -> m.substring(3)).collect(Collectors.toList());
+		
+		List<String> props = getters.stream().filter(s -> setters.contains(s)).collect(Collectors.toList());
+		return props;
+	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Type: ").append(type).append(" ");
 		sb.append("ID: ").append(ID).append(" ");
+		sb.append("InitialIndex: ").append(initialIndex).append(" ");
 		sb.append("Name: ").append(rule.getName()).append("(");
 		for (int index = 0; index < PNs.size(); index++) {
 			var PN = PNs.get(index);

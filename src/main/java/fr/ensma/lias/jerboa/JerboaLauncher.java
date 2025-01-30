@@ -20,7 +20,6 @@ public class JerboaLauncher {
 
 		JerboaRebuiltBridge bridge = new JerboaRebuiltBridge(modeler);
 		GMapViewer gmapviewer = new GMapViewer(frame, modeler, bridge);
-
 		frame.getContentPane().add(gmapviewer);
 		frame.setSize(1024, 768);
 		frame.pack();

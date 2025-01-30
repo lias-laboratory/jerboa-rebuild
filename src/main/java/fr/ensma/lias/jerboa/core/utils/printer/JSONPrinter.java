@@ -8,6 +8,8 @@ import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.LevelEventMT;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -129,6 +131,35 @@ public class JSONPrinter {
 
     return parametricSpecification;
   }
+  
+  
+  /**
+   * Import a {@link ParametricSpecification} from JSON
+   *
+   * @param file
+   * @param modeler
+   * @return
+   * @throws IOException
+   * @throws JerboaException
+   */
+  public static ParametricSpecification importParametricSpecification(
+      File file, ModelerGenerated modeler)
+      throws IOException, JerboaException {
+    JsonReader reader = new JsonReader(new FileReader(file));
+
+    GsonBuilder builder = new GsonBuilder();
+
+    builder.registerTypeAdapter(
+        JerboaRuleOperation.class, new JerboaRuleOperationDeserializer(modeler));
+    builder.registerTypeAdapter(PersistentName.class, new PersistentNameDeserializer());
+
+    Application[] applications = builder.create().fromJson(reader, Application[].class);
+    ParametricSpecification parametricSpecification =
+        new ParametricSpecification(Arrays.asList(applications));
+
+    return parametricSpecification;
+  }
+  
 
   /**
    * Export a {@link MatchingTree} to JSON

@@ -1,5 +1,4 @@
 package fr.ensma.lias.jerboa.core.rule.rules.Modif;
-import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
 import java.util.List;
@@ -8,7 +7,7 @@ import up.jerboa.core.rule.*;
 import up.jerboa.core.util.*;
 import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
-
+import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import java.awt.Color;
@@ -145,14 +144,14 @@ public class EdgeFlip extends JerboaRebuiltRule {
 
     public int attachedNode(int i) {
         switch(i) {
-        case 0: return -1;
-        case 1: return -1;
-        case 2: return -1;
-        case 3: return -1;
-        case 4: return -1;
-        case 5: return -1;
-        case 6: return -1;
-        case 7: return -1;
+        case 0: return 8;
+        case 1: return 8;
+        case 2: return 8;
+        case 3: return 8;
+        case 4: return 8;
+        case 5: return 8;
+        case 6: return 8;
+        case 7: return 8;
         case 8: return -1;
         case 9: return -1;
         case 10: return -1;

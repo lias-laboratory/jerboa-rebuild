@@ -3,11 +3,17 @@ package fr.ensma.lias.jerboa.datastructures;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.core.utils.rule.PathToolKit;
+
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -23,7 +29,7 @@ public class ReevaluationTree {
   private List<JerboaDart> topologicalParameters;
   private List<LevelEventMT> addedBranches;
 
-  //// Constructor////////////////////////////////////////////////////////////
+  //// Constructor ////////////////////////////////////////////////////////////
 
   public ReevaluationTree() {
     this.tree = new ArrayList<>();
@@ -31,7 +37,7 @@ public class ReevaluationTree {
     this.addedBranches = new ArrayList<>();
   }
 
-  //// Getters////////////////////////////////////////////////////////////////
+  //// Getters ////////////////////////////////////////////////////////////////
 
   public List<List<LevelEventMT>> getTree() {
     return tree;
@@ -143,6 +149,19 @@ public class ReevaluationTree {
               newEventList,
               newOrbitList,
               applicationType);
+          
+          //System.out.println("HERE: " + application.getInitialIndex() + " | " + evaluationTree.leaves.get(application.getInitialIndex()));
+          
+          for (Integer i : evaluationTree.leaves.keySet()) {
+        	  List<LevelEventHR> levelEventHRList = evaluationTree.leaves.get(i);
+        	  //System.out.println(i + " : " + levelEventHRList.toString());
+        	  for (NodeEvent nodeEvent : levelEventHRList.get(0).getEventList()) {
+        		  if (nodeEvent.getEvent().name().equals("MERGE")) {
+        			  // OLD CODE
+        		  }
+        	  }
+          }
+          
           break;
         case DELETE:
           // TODO: prevent application
@@ -453,7 +472,8 @@ public class ReevaluationTree {
     // Pour chaque évènement du niveau issu de l'arbre d'évaluation
     for (NodeEvent nodeEvent : levelEventEvaluation.getEventList()) {
 
-      System.out.println("\t" + nodeEvent.getEvent());
+      System.out.println("\t" + nodeEvent.toString() + " : " + nodeEvent.getEvent());
+      
       NodeEvent newEventNode;
       NodeOrbit newOrbitNode;
 
@@ -506,7 +526,7 @@ public class ReevaluationTree {
                 detector.computeOrigin(originRuleNode, newOrbitNode.getOrbit());
 
             // If current parent orbit equals origin of new orbit
-            // Si le nœud d'orbite courant à le même type que notre origine, créer une relation
+            // Si le nœud d'orbite courant a le même type que notre origine, créer une relation
             // d'origine de l'orbite courante vers notre nouvel évènement
             if (parentNodeOrbit.getOrbit().equals(detectedOrigin)) {
               parentNodeOrbit.addChild(new Link(LinkType.ORIGIN, newEventNode));

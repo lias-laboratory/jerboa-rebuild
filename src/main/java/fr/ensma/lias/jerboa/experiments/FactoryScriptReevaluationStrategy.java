@@ -25,7 +25,7 @@ public class FactoryScriptReevaluationStrategy {
     return new ScriptIfElseSubSupOrbitsStrategy();
   }
 
-  public static ScriptIfElseSubSubOrbitsStrictStrategy createSubSupStrictStrategy() {
-    return new ScriptIfElseSubSubOrbitsStrictStrategy();
+  public static ScriptIfElseSubSupOrbitsStrictStrategy createSubSupStrictStrategy() {
+    return new ScriptIfElseSubSupOrbitsStrictStrategy();
   }
 }

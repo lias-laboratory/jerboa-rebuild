@@ -2,7 +2,7 @@ package fr.ensma.lias.jerboa.experiments;
 
 import up.jerboa.core.JerboaOrbit;
 
-public class ScriptIfElseSubSubOrbitsStrictStrategy extends ScriptIfElseSubSupOrbitsStrategy {
+public class ScriptIfElseSubSupOrbitsStrictStrategy extends ScriptIfElseSubSupOrbitsStrategy {
 
   @Override
   public boolean test(JerboaOrbit match, JerboaOrbit orbit) {

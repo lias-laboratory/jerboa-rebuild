@@ -50,9 +50,9 @@ public class DemoTestEngine {
             gmapviewer.updateIHM();
           }
         });
-
+    
     demo.initializeReevaluation();
-    demo.reevaluate(bridge.getGMap(), gmapviewer);
+    demo.reevaluate(bridge.getGMap(), gmapviewer, 0);
     demo.exportTrees();
   }
 }

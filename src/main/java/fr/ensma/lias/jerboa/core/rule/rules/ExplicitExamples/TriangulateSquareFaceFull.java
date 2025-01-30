@@ -1,5 +1,4 @@
 package fr.ensma.lias.jerboa.core.rule.rules.ExplicitExamples;
-import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
 import java.util.List;
@@ -8,7 +7,7 @@ import up.jerboa.core.rule.*;
 import up.jerboa.core.util.*;
 import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
-
+import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import java.awt.Color;

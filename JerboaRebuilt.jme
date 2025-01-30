@@ -1015,25 +1015,31 @@ return res;</expr>
                 <paramtopo name="n0" order="0" />
             </paramstopo>
         </rule>
-        <rule name="DeleteEdge" module="Suppression" category="Suppression" shape="CIRCLE" magnetic="false" showgrid="true" gridsize="MEDIUM" >
+        <rule name="DeleteEdgeBorder" module="Suppression" category="Suppression" shape="CIRCLE" magnetic="false" showgrid="true" gridsize="MEDIUM" >
             <header></header>
             <precondition></precondition>
             <comment></comment>
             <left>
                 <nodes count="2">
-                    <node name="n0" x="570" y="120" orbit="0,2,3" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
-                    <node name="n1" x="690" y="120" orbit="-1,-1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n0" x="570" y="120" orbit="0,2" kind="HOOK" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="690" y="120" orbit="-1,-1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="1">
+                <arcs count="3">
                     <arc dim="1" a="n0" b="n1" size="0">
                     </arc>
+                    <arcloop dim="3" node="n1" angle="4.328722819925705" >
+                    </arcloop>
+                    <arcloop dim="3" node="n0" angle="2.2197784383212653" >
+                    </arcloop>
                 </arcs>
             </left>
             <right>
                 <nodes count="1">
-                    <node name="n1" x="120" y="120" orbit="-1,1,3" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
+                    <node name="n1" x="122" y="120" orbit="-1,1" kind="SIMPLE" multiplicity="{1}"  color="255;255;255;0">                    </node>
                 </nodes>
-                <arcs count="0">
+                <arcs count="1">
+                    <arcloop dim="3" node="n1" angle="0.20186980063247795" >
+                    </arcloop>
                 </arcs>
             </right>
             <preprocess></preprocess>

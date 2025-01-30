@@ -12,6 +12,10 @@ public abstract class LevelEvent {
 	public int getAppNumber() {
 		return appNumber;
 	}
+	
+	public ApplicationType getAppType() {
+		return appType;
+	}
 
 	public List<NodeEvent> getEventList() {
 		return eventList;

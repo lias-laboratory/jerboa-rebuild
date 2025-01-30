@@ -1,0 +1,148 @@
+[
+  {
+    "ID": 1,
+    "initialIndex": 0,
+    "type": "INIT",
+    "rule": {
+      "name": "CreateSquareFace"
+    },
+    "PNs": [],
+    "dartIDs": []
+  },
+  {
+    "ID": 10,
+    "initialIndex": 1,
+    "type": "ADD",
+    "rule": {
+      "name": "InsertVertexFolded"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n3}]",
+        "orbitType": "(0, 2, 3)"
+      }
+    ],
+    "dartIDs": [
+      3
+    ]
+  },
+  {
+    "ID": 2,
+    "initialIndex": 1,
+    "type": "INIT",
+    "rule": {
+      "name": "ExtrudeIndependentFace"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n6}]",
+        "orbitType": "(0, 1)"
+      }
+    ],
+    "dartIDs": [
+      6
+    ]
+  },
+  {
+    "ID": 3,
+    "initialIndex": 2,
+    "type": "INIT",
+    "rule": {
+      "name": "InsertVertexFolded"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n5; 2 - n5}]",
+        "orbitType": "(0, 2, 3)"
+      }
+    ],
+    "dartIDs": [
+      46
+    ]
+  },
+  {
+    "ID": 4,
+    "initialIndex": 3,
+    "type": "INIT",
+    "rule": {
+      "name": "ExtrudeVolumeFaceYAxis"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n5; 2 - n6; 3 - n0}]",
+        "orbitType": "(0, 1)"
+      }
+    ],
+    "dartIDs": [
+      47
+    ]
+  },
+  {
+    "ID": 5,
+    "initialIndex": 4,
+    "type": "INIT",
+    "rule": {
+      "name": "TriangulateFace"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n3; 2 - n2}]",
+        "orbitType": "(0, 1, 3)"
+      }
+    ],
+    "dartIDs": [
+      33
+    ]
+  },
+  {
+    "ID": 6,
+    "initialIndex": 5,
+    "type": "INIT",
+    "rule": {
+      "name": "FaceCollapse"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n4; 2 - n6; 4 - n6}]",
+        "orbitType": "(0, 1, 3)"
+      }
+    ],
+    "dartIDs": [
+      63
+    ]
+  },
+  {
+    "ID": 7,
+    "initialIndex": 6,
+    "type": "INIT",
+    "rule": {
+      "name": "ChamferCorner"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n5; 2 - n6; 3 - n0; 4 - n4; 6 - n2}]",
+        "orbitType": "(1, 2)"
+      }
+    ],
+    "dartIDs": [
+      55
+    ]
+  },
+  {
+    "ID": 8,
+    "initialIndex": 7,
+    "type": "INIT",
+    "rule": {
+      "name": "MakeFaceBlue"
+    },
+    "PNs": [
+      {
+        "PersistentName": "[{1 - n3; 2 - n4; 5 - n0}]",
+        "orbitType": "(0, 1)"
+      }
+    ],
+    "dartIDs": [
+      35
+    ]
+  }
+]

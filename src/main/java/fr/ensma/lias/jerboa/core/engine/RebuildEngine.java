@@ -5,17 +5,30 @@ import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.datastructures.Application;
 import fr.ensma.lias.jerboa.datastructures.ApplicationType;
+import fr.ensma.lias.jerboa.datastructures.Event;
 import fr.ensma.lias.jerboa.datastructures.HistoryRecord;
 import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
+import fr.ensma.lias.jerboa.datastructures.LevelEventMT;
+import fr.ensma.lias.jerboa.datastructures.NodeEvent;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentID;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
 import fr.ensma.lias.jerboa.datastructures.ReevaluationTree;
 import fr.up.xlim.sic.ig.jerboa.viewer.GMapViewer;
+
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -52,6 +65,20 @@ public class RebuildEngine {
             pathToDirectory, pathToEditedSpecification, modeler);
 
     this.GETNOEFFS = GETNOEFFS;
+  }
+  
+  public RebuildEngine(
+	      ModelerGenerated modeler,
+	      ParametricSpecification specification,
+	      ParametricSpecification editedSpecification)
+  {
+
+	    this.evaluationTrees = new ArrayList<HistoryRecord>();
+	    this.reevaluationTrees = new ArrayList<ReevaluationTree>();
+
+	    this.initialSpecification = specification;
+
+	    this.editedSpecification = editedSpecification;
   }
 
   /**
@@ -93,7 +120,7 @@ public class RebuildEngine {
    * @param gmapviewer
    */
   public void reevaluate(JerboaGMap gmap, GMapViewer gmapviewer) {
-    reevaluate(gmap, gmapviewer, 0);
+	  reevaluate(gmap, gmapviewer, 0);
   }
 
   /**
@@ -116,7 +143,10 @@ public class RebuildEngine {
 
       // Interrupt reevaluation when condition on stopApplicationID is met
       if (application.getApplicationID() == stopApplicationID) {
-        break;
+    	  UserStrategies.strategies = UserStrategies.tempStrategies;
+    	  UserStrategies.tempStrategies = new ArrayList<>();
+    	  System.out.println("UserStrategies.strategies = " + UserStrategies.strategies.toString());
+    	  break;
       }
 
       /* A rule application requires that a topological parameter must be a list
@@ -136,6 +166,92 @@ public class RebuildEngine {
         treeIndex =
             getDartsFromTrees(application, reevaluationTrees, treeIndex, topologicalParameters);
       }
+      
+      /* Victor's code (still needs work) */
+      boolean isMerged = true;
+      int test = 0;
+      for (ReevaluationTree reevTree : reevaluationTrees) {
+    	  test++;
+    	  int level = 0;
+    	  if (reevTree.getNbBranches() > 0) for (LevelEventMT levelEventMT : reevTree.getBranch(0)) {
+    		  level++;
+    		  //System.out.println("Level n°" + test + ": " + levelEventMT.toString() + " ---> " + levelEventMT.getEventList().size());
+    		  
+    		  if (levelEventMT.getAppType() == ApplicationType.ADD) {
+    			  for (NodeEvent nodeEvent : levelEventMT.getEventList()) if (nodeEvent.getEvent() == Event.MERGE) {
+    				  String mergeWarning = application.getApplicationID() + " | THERE'S A MERGE!";
+        			  System.out.println(mergeWarning);
+        		  
+        			  // Create the panel for the form
+        	  	      JPanel panel = new JPanel();
+        	  	      panel.setLayout(new GridLayout(0, 1)); // Using a grid layout with a column
+        	  	      
+        	  	      // ...
+        	  	      int result = JOptionPane.showConfirmDialog(null, panel, mergeWarning, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+        	    	  if (result == 0) {
+        	    	    System.out.println("YES");
+        	    	    
+        	    	    
+        	    	  } else {
+        	    	    System.out.println("NO");
+        	    	  }
+    			  }
+    		  }
+    	  }
+      }
+      
+      int nb = 0;
+      List<Integer> L = new ArrayList<Integer>();
+      for (int i = 0; i < topologicalParameters.size(); i++)
+    	  for (int j = 0; j < topologicalParameters.get(i).size(); j++)
+    		  for (int k = 0; k < topologicalParameters.get(i).get(j).size(); k++) {
+    			  nb++;
+    			  L.add(topologicalParameters.get(i).get(j).get(k).getID());
+    			  System.out.println("Jerboa dart " + i + " | " + j + " | " + k + ": " + topologicalParameters.get(i).get(j).get(k).getID());
+    		  }
+      
+      if (nb >= 2) {
+    	  if (UserStrategies.tempStrategies.size() >= UserStrategies.strategies.size()) {
+    		
+    		// Create the panel for the form
+    	    JPanel panel = new JPanel();
+    	    panel.setLayout(new GridLayout(0, 1)); // Using a grid layout with a column
+
+    	    // Add the JCheckBox to the panel
+    	    for (Integer node : L) {
+    	        String option = node.toString();
+    	        JCheckBox checkBox1 = new JCheckBox(option);
+    	        panel.add(checkBox1);
+    	        checkBox1.addItemListener(new CheckBoxListener());
+    	        //topologicalParameters.get(node).get(0).get(0).???; Select the node! (NOT POSSIBLE)
+    	    }
+
+    	    // Display the form in a JOptionPane
+    	    int result = JOptionPane.showConfirmDialog(null, panel, "Formulaire", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    	      
+    	    // Process the user response
+    	    nb = 0;
+    	    L = new ArrayList<>();
+    	    if (result == JOptionPane.OK_OPTION) {
+    	    	for (Component component : panel.getComponents()) {
+    	    		if (component instanceof JCheckBox) {
+    	    			if (((JCheckBox) component).isSelected()) L.add(nb);
+    	                nb++;
+    	            }
+    	        }
+    	    } else {
+    	        System.out.println("The user has canceled the form.");
+    	    }
+    	  } else {
+    		  L = UserStrategies.strategies.get(UserStrategies.tempStrategies.size());
+    	  }
+      } else {
+    	  L = new ArrayList<>();
+    	  if (isMerged) L.add(0);
+      }
+      
+      UserStrategies.tempStrategies.add(L);
+      /* End of Victor's code */		  
 
       // Do not apply a rule that is marked as DELETE
       if (application.getApplicationType() != ApplicationType.DELETE) {
@@ -143,10 +259,10 @@ public class RebuildEngine {
           if (topologicalParameters.isEmpty()) {
             applicationResults.add(apply(gmap, application.getRule(), Arrays.asList()));
           } else {
-            for (int index = 0; index < topologicalParameters.size(); index++) {
-              applicationResults.add(
-                  apply(gmap, application.getRule(), topologicalParameters.get(index)));
-            }
+        	  for (int index : L) {
+        		  applicationResults.add(
+        				  apply(gmap, application.getRule(), topologicalParameters.get(index)));
+        	  }
           }
           updateReevaluationTrees(application, applicationResults, controlDarts);
           gmapviewer.updateIHM();
@@ -155,6 +271,19 @@ public class RebuildEngine {
         }
       }
     }
+  }
+  
+  // Static class to handle the events of the JCheckBox
+  static class CheckBoxListener implements ItemListener {
+      @Override
+      public void itemStateChanged(ItemEvent e) {
+          JCheckBox checkBox = (JCheckBox) e.getSource();
+          if (e.getStateChange() == ItemEvent.SELECTED) {
+              System.out.println(checkBox.getText() + " has been checked.");
+          } else {
+              System.out.println(checkBox.getText() + " has been unchecked.");
+          }
+      }
   }
 
   /**
@@ -171,10 +300,14 @@ public class RebuildEngine {
       List<JerboaRuleResult> applicationResults,
       List<JerboaDart> controlDarts) {
 
-    // Update all reevaluation trees
-    for (HistoryRecord evaluationTree : evaluationTrees) {
-
-      // Unless the application is added, only trees whose leaves match current application's ID
+	int nb = 0;
+    
+	// Update all reevaluation trees
+	for (HistoryRecord evaluationTree : evaluationTrees) {
+    	
+	  nb++;
+      
+	  // Unless the application is added, only trees whose leaves match current application's ID
       // must be updated
       if (evaluationTree.getLeaves().get(application.getApplicationID()) != null
           || application.getApplicationType() == ApplicationType.ADD) {
@@ -188,7 +321,7 @@ public class RebuildEngine {
                 .getOrDefault(application.getApplicationID(), new ArrayList<>());
 
         if (!levelEventEvals.isEmpty()) {
-          // NOTE: get 0 because as of now, we consider evalation trees to have only one branch
+          // NOTE: get 0 because as of now, we consider evaluation trees to have only one branch
           levelEventEval = levelEventEvals.get(0);
         }
 
@@ -212,6 +345,10 @@ public class RebuildEngine {
                 null);
           }
         }
+      } else if (nb == evaluationTrees.size()) {
+    	  UserStrategies.strategies = UserStrategies.tempStrategies;
+    	  UserStrategies.tempStrategies = new ArrayList<>();
+    	  System.out.println("UserStrategies.splitStrategies = " + UserStrategies.strategies.toString());
       }
     }
   }
@@ -334,4 +471,13 @@ public class RebuildEngine {
       this.reevaluationTrees.get(index).export("./exports", "reevaluationTree-" + index + ".json");
     }
   }
+
+	public ParametricSpecification getInitialSpecification() {
+		return initialSpecification;
+	}
+
+	public ParametricSpecification getEditedSpecification() {
+		return editedSpecification;
+	}
+	
 }

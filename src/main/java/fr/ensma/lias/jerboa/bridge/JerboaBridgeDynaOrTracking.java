@@ -45,6 +45,8 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 	private JerboaEmbeddingInfo ebdColor;
 	private int ebdColorID;
 
+	private IJerboaModelerViewer viewer;
+
 	public JerboaBridgeDynaOrTracking(JerboaModelerDynOrTrack modeler) {
 		this.modeler = modeler;
 		this.ebdColor = modeler.getColor();
@@ -250,5 +252,15 @@ public class JerboaBridgeDynaOrTracking implements GMapViewerBridge, JerboaGMapD
 	// petit fix pour nouvelle version de Hakim
 	public void loadFile(String filepath) {
 		loadFile(new File(filepath), new JerboaMonitorInfoConsole());
+	}
+
+	@Override
+	public IJerboaModelerViewer getViewer() {
+		return this.viewer;
+	}
+
+	@Override
+	public void setViewer(IJerboaModelerViewer viewer) {
+		this.viewer = viewer;
 	}
 }

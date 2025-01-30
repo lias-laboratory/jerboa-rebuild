@@ -1,5 +1,4 @@
 package fr.ensma.lias.jerboa.core.rule.rules.UnSew;
-import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 
 
 import java.util.List;
@@ -8,7 +7,7 @@ import up.jerboa.core.rule.*;
 import up.jerboa.core.util.*;
 import up.jerboa.core.*;
 import up.jerboa.exception.JerboaException;
-
+import fr.ensma.lias.jerboa.core.rule.JerboaRebuiltRule;
 import fr.ensma.lias.jerboa.core.rule.rules.ModelerGenerated;
 import fr.ensma.lias.jerboa.embeddings.Vec3;
 import java.awt.Color;
@@ -71,7 +70,7 @@ public class UnSewA2 extends JerboaRebuiltRule {
     public int attachedNode(int i) {
         switch(i) {
         case 0: return 0;
-        case 1: return -1;
+        case 1: return 0;
         }
         return -1;
     }

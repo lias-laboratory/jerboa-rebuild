@@ -46,6 +46,9 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	private int ebdColorID;
 	private int ebdNormID;
 
+
+	private IJerboaModelerViewer viewer;
+
 	public JerboaRebuiltBridge(ModelerGenerated modeler) {
 		this.modeler = modeler;
 		this.ebdColorID = modeler.getColor().getID();
@@ -226,5 +229,15 @@ public class JerboaRebuiltBridge implements GMapViewerBridge, JerboaGMapDuplicat
 	// petit fix pour nouvelle version de Hakim
 	public void loadFile(String filepath) {
 		throw new Error("not yet implemented");
+	}
+
+	@Override
+	public IJerboaModelerViewer getViewer() {
+		return this.viewer;
+	}
+
+	@Override
+	public void setViewer(IJerboaModelerViewer viewer) {
+		this.viewer = viewer;		
 	}
 }

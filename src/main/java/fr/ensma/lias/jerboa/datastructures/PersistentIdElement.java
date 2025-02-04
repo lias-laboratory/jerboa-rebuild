@@ -17,6 +17,14 @@ public class PersistentIdElement {
 		this.nodeName = nodeName;
 	}
 
+	/**
+	 * Shallow copy-constructor
+	 * */
+	public PersistentIdElement(PersistentIdElement pie) {
+		this.appNumber = pie.appNumber;
+		this.nodeName = pie.nodeName;
+	}
+
 	public String getNodeName() {
 		return nodeName;
 	}

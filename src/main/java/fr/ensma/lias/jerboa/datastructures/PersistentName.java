@@ -7,47 +7,53 @@ import up.jerboa.core.JerboaOrbit;
 
 public class PersistentName {
 
-	private List<PersistentID> PIs;
-	private JerboaOrbit orbitType;
+  private List<PersistentID> PIs;
+  private JerboaOrbit orbitType;
 
+  public PersistentName() {
+    PIs = new ArrayList<>();
+  }
 
-	public PersistentName() {
-		PIs = new ArrayList<>();
-	}
+  /** Copy-constructor */
+  public PersistentName(PersistentName other) {
+    this.PIs =
+        other.getPIs().stream()
+            .map(PersistentID::new)
+            .collect(Collectors.toCollection(ArrayList::new));
+    this.orbitType = new JerboaOrbit(orbitType);
+  }
 
-	public PersistentName(PersistentName oldPIs, JerboaOrbit orbitType) {
-		for (PersistentID PI : oldPIs.getPIs()) {
-			this.PIs.add(PI);
-		}
-		this.PIs = oldPIs.getPIs();
-		this.orbitType = orbitType;
-	}
+  // @Deprecated
+  PersistentName(PersistentName oldPIs, JerboaOrbit orbitType) {
+    for (PersistentID PI : oldPIs.getPIs()) {
+      this.PIs.add(PI);
+    }
+    this.PIs = oldPIs.getPIs();
+    this.orbitType = orbitType;
+  }
 
-	public List<PersistentID> getPIs() {
-		return PIs;
-	}
+  public List<PersistentID> getPIs() {
+    return PIs;
+  }
 
-	public void add(PersistentID PI) {
-		this.PIs.add(PI);
-	}
+  public void add(PersistentID PI) {
+    this.PIs.add(PI);
+  }
 
-	public JerboaOrbit getOrbitType() {
-		return orbitType;
-	}
+  public JerboaOrbit getOrbitType() {
+    return orbitType;
+  }
 
-	public void setOrbitType(JerboaOrbit orbitType) {
-		this.orbitType = orbitType;
-	}
+  public void setOrbitType(JerboaOrbit orbitType) {
+    this.orbitType = orbitType;
+  }
 
-	@Override
-	public String toString() {
-		// StringBuilder sb = new StringBuilder();
-		// sb.append(PN.toString());
-		// return sb.toString();
-		String output =
-				PIs.stream().map(n -> n.toString()).collect(Collectors.joining(", ", "[", "]"));
-		return output;
-	}
-
+  @Override
+  public String toString() {
+    // StringBuilder sb = new StringBuilder();
+    // sb.append(PN.toString());
+    // return sb.toString();
+    String output = PIs.stream().map(n -> n.toString()).collect(Collectors.joining(", ", "[", "]"));
+    return output;
+  }
 }
-

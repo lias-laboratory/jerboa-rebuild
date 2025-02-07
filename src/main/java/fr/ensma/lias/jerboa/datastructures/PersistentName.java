@@ -20,7 +20,7 @@ public class PersistentName {
         other.getPIs().stream()
             .map(PersistentID::new)
             .collect(Collectors.toCollection(ArrayList::new));
-    this.orbitType = new JerboaOrbit(orbitType);
+    this.orbitType = new JerboaOrbit(other.orbitType);
   }
 
   // @Deprecated

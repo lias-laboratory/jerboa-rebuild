@@ -76,19 +76,14 @@ public class Application {
    * @param application
    */
   public Application(Application other) {
-    this.ID = other.ID;
-    this.rule = other.rule;
-    this.PNs =
-        other.getPersistentNames().stream()
-            .map(PersistentName::new)
-            .collect(Collectors.toCollection(ArrayList::new));
-    // this(
-    //     application.ID,
-    //     application.rule,
-    //     application.PNs,
-    //     application.dartIDs,
-    //     application.type,
-    //     application.initialIndex);
+    // FIXME: temporary revert deep copy as it breaks reevaluation in the spec editor
+    // this.ID = other.ID;
+    // this.rule = other.rule;
+    // this.PNs =
+    //     other.getPersistentNames().stream()
+    //         .map(PersistentName::new)
+    //         .collect(Collectors.toCollection(ArrayList::new));
+    this(other.ID, other.rule, other.PNs, other.dartIDs, other.type, other.initialIndex);
   }
 
   /**

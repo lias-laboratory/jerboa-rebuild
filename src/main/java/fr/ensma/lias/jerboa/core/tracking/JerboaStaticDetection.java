@@ -25,7 +25,7 @@ public class JerboaStaticDetection {
     splitLinkRewrite = -1;
   }
 
-  // HACK: temporary until a more adequate solution
+  // NOTE: temporary until a more adequate solution
   public int getSplitLink() {
     return splitLink;
   }
@@ -445,7 +445,7 @@ public class JerboaStaticDetection {
         }
         // if implicit arc at index is not in orbitType increment array value at index
         if (!orbitType.contains(ruleNode.getOrbit().get(index))) {
-          // HACK: temporary until a more adequate solution
+          // TODO: need a more adequate solution
           if (splitLink == -1) {
             splitLink = rule.getHooks().get(0).getOrbit().get(index);
           }

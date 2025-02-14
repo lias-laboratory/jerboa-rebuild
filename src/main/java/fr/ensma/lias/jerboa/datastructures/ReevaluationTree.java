@@ -3,17 +3,11 @@ package fr.ensma.lias.jerboa.datastructures;
 import fr.ensma.lias.jerboa.core.tracking.JerboaStaticDetection;
 import fr.ensma.lias.jerboa.core.utils.printer.JSONPrinter;
 import fr.ensma.lias.jerboa.core.utils.rule.PathToolKit;
-
-import java.awt.GridLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import up.jerboa.core.JerboaDart;
 import up.jerboa.core.JerboaGMap;
 import up.jerboa.core.JerboaOrbit;
@@ -149,19 +143,20 @@ public class ReevaluationTree {
               newEventList,
               newOrbitList,
               applicationType);
-          
-          //System.out.println("HERE: " + application.getInitialIndex() + " | " + evaluationTree.leaves.get(application.getInitialIndex()));
-          
+
+          // System.out.println("HERE: " + application.getInitialIndex() + " | " +
+          // evaluationTree.leaves.get(application.getInitialIndex()));
+
           for (Integer i : evaluationTree.leaves.keySet()) {
-        	  List<LevelEventHR> levelEventHRList = evaluationTree.leaves.get(i);
-        	  //System.out.println(i + " : " + levelEventHRList.toString());
-        	  for (NodeEvent nodeEvent : levelEventHRList.get(0).getEventList()) {
-        		  if (nodeEvent.getEvent().name().equals("MERGE")) {
-        			  // OLD CODE
-        		  }
-        	  }
+            List<LevelEventHR> levelEventHRList = evaluationTree.leaves.get(i);
+            // System.out.println(i + " : " + levelEventHRList.toString());
+            for (NodeEvent nodeEvent : levelEventHRList.get(0).getEventList()) {
+              if (nodeEvent.getEvent().name().equals("MERGE")) {
+                // OLD CODE
+              }
+            }
           }
-          
+
           break;
         case DELETE:
           // TODO: prevent application
@@ -473,7 +468,7 @@ public class ReevaluationTree {
     for (NodeEvent nodeEvent : levelEventEvaluation.getEventList()) {
 
       System.out.println("\t" + nodeEvent.toString() + " : " + nodeEvent.getEvent());
-      
+
       NodeEvent newEventNode;
       NodeOrbit newOrbitNode;
 
@@ -496,7 +491,8 @@ public class ReevaluationTree {
         JerboaStaticDetection detector = new JerboaStaticDetection((JerboaRuleGenerated) rule);
         LevelEventMT parentEventList = getBranchLastLevel(branchIndex);
 
-        // HACK: overwrite newEventNode.event to fit the fact it is not NOEFFECT anymore
+        // overwrite newEventNode.event to fit the fact it is not NOEFFECT anymore
+        // NOTE: may change in the future
         if (!NO_EFFECT && nodeEvent.getEvent() == Event.NOEFFECT) {
           // On récupère le nœud qui match le paramètre topologique auparavant non-filtré
           JerboaRuleNode n = rule.getRightRuleNode(rule.getRightIndexRuleNode(nodeName));

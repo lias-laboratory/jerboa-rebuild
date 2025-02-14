@@ -47,9 +47,6 @@ public class PIExpression implements JerboaRuleExpression {
         /* if ref is not null then an oldPI is expected */
         if (ref == -1) {
           if (!rule.getHooks().isEmpty()) {
-            // HACK: that's an ugly way to arbitrary get a preserved
-            // hooks' persistent name. Main use case : duplicating a
-            // connected component.
             dart = rowPattern.get(rule.getHooks().get(0).getID());
             PI = new PersistentID(dart.<PersistentID>ebd(embeddingID));
           } else {

@@ -19,9 +19,7 @@ public class Application {
   private ApplicationType type;
   private JerboaRuleOperation rule;
   private List<PersistentName> PNs;
-  // HACK: this is a hack to allow the use of dartIDs as topological parameters in added
-  // applications
-  private List<Integer> dartIDs;
+  private List<Integer> dartIDs; // These are the current application's topological parameters
 
   /**
    * Application stores information about the application of a rule. It stores diverses information

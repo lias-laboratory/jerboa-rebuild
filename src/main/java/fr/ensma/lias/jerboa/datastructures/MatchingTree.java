@@ -50,7 +50,7 @@ public class MatchingTree {
     ApplicationType appType = application.getApplicationType();
 
     switch (appType) {
-        // case DELETE:
+      // case DELETE:
       case INIT:
         int appNumber = levelEventHR.getAppNumber();
         String nodeName = levelEventHR.getNextLevelOrbit().getNodeName();
@@ -260,7 +260,7 @@ public class MatchingTree {
       List<Event> events = rule.getRuleNodesOrbitEvents(ruleNodesOrbit, orbitType);
       // Event event = rule.getRuleNodesOrbitEvent(ruleNodesOrbit, orbitType);
 
-      // HACK: if there is no match replace the event with the newly computed one
+      // NOTE: if there is no match replace the event with the newly computed one
       // if there is more than one event in events it must be a split/merge couple
       if (!events.contains(nodeEventHR.getEvent())) {
         nodeEventHR.setEvent(events.get(0));

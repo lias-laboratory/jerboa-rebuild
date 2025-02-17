@@ -1,25 +1,13 @@
 # Jerboa Rebuild
 
-<!--toc:start-->
-- [Jerboa Rebuild](#jerboa-rebuild)
-  - [Pre-requisits](#pre-requisits)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Documentation](#documentation)
-  - [License](#license)
-  - [Acknowledgements](#acknowledgements)
-    - [Contributors](#contributors)
-<!--toc:end-->
+## Project overview
 
 Jerboa Rebuild is a 3D modelling plugin allowing users to interactively rebuild
 geometric 3D models.
-This plugin records the modelling operation with their
-parameters and offers users to add, delete and move those operations in order to
+
+This plugin records the modelling operation with their parameters which can be
+edited and offers users to add, delete and move those operations in order to
 regenerate a model.
-
-## Notice
-
-Although more recent JDKs may work, it is recommended to use java 11.0.11 oracle JDK for this project.
 
 ## Installation
 
@@ -78,4 +66,3 @@ and was funded by [ISAE-ENSMA](https://www.ensma.fr/)
 - [1] [Automatic detection of topological changes in modeling operations](https://hal.science/hal-04228069)
 - [2] [Reevaluation in Rule-Based Graph Transformation Modeling Systems](https://hal.science/hal-04607231)
 - [3] [Modélisation et rejeu basés sur des règles](https://hal.science/tel-04886518v1)
-

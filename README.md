@@ -1,9 +1,9 @@
 # Jerboa Rebuild
 
 This plugin records the modelling operations with their parameters during the
-modelling process. 
-Users have the ability to edit a modelling process by adding
-and deleting within the modelling process in order to regenerate a model.
+modelling process.
+Users have the ability to add and delete operations within a
+modelling process in order to regenerate it.
 
 ## Project requirements
 

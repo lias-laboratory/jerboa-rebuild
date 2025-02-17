@@ -53,7 +53,7 @@ the LICENSE file for details.
 
 This project results from the collaboration of the
 [LIAS](https://www.lias-lab.fr) and [XLIM](https://www.xlim.fr) laboratories
-and was funded by [ISAE-ENSMA](https://www.ensma.fr/)
+and has been funded by [ISAE-ENSMA](https://www.ensma.fr/)
 
 ### Contributors
 

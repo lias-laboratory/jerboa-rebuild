@@ -5,9 +5,9 @@ modelling process.
 Users have the ability to add and delete operations within a
 modelling process in order to regenerate it.
 
-## Project requirements
+## Notice
 
-Although more recent JDKs may work, it is recommended to use the Java 11.0.11 oracle JDK for this project.
+Due to its depency on JOGL, compiling this project may raise dependencies error depending on the JDK version used.
 
 ## Installation
 
@@ -47,7 +47,7 @@ For an even more complete insight (in french) [\[3\]](https://hal.science/tel-04
 ## License
 
 This project is licensed under the GNU Lesser General Public License v2.1 - see
-the LICENSE file for details.
+the [LICENSE](./LICENSE) file for details.
 
 ## Acknowledgements
 
@@ -58,9 +58,11 @@ It was funded by [ISAE-ENSMA](https://www.ensma.fr/) as part of a ministerial gr
 ### Contributors
 
 - [Maxime Gaide, LIAS](https://www.lias-lab.fr/members/maximegaide/)
-- [Hakim Belhaouari, XLIM](https://xlim-sic.labo.univ-poitiers.fr/membres/hbelhaou/)
-- Tom Boireau
-- Victor Laurin
+- [David Marcheix, LIAS](https://www.lias-lab.fr/members/davidmarcheix/)
+- [Agnès Arnould, XLIM](https://xlim-sic.labo.univ-poitiers.fr/arnould/)
+- [Xavier Skapin, XLIM](https://xlim-sic.labo.univ-poitiers.fr/skapin/)
+- [Hakim Belhaouari, XLIM](https://xlim-sic.labo.univ-poitiers.fr/hbelhaou/)
+- [Stéphane Jean, LIAS](https://www.lias-lab.fr/members/stephanejean/)
 
 ## References
 - [1] [Automatic detection of topological changes in modeling operations](https://hal.science/hal-04228069)

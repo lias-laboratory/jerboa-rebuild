@@ -5,9 +5,9 @@ modelling process.
 Users have the ability to add and delete operations within a
 modelling process in order to regenerate it.
 
-## Notice
+## Requirements
 
-Due to its depency on JOGL, compiling this project may raise dependencies error depending on the JDK version used.
+Any version of Java JDK 11 or newer should work without issue.
 
 ## Installation
 
@@ -27,9 +27,10 @@ mvn package
 
 Within the projet's root directory execute :
 ``` sh
-java -cp "target/dependency/*:target/jerboa-rebuilt-1.5-SNAPSHOT.jar" \
+java -cp "target/dependency/*:target/jerboa-rebuilt-1.6-SNAPSHOT.jar" \
  fr.ensma.lias.jerboa.SpecEditorLauncher
 ```
+
 ## Documentation
 
 The `mvn package` command generates the project documentation under `$PROJECT_ROOT/target/apidocs`.
@@ -57,7 +58,7 @@ It was funded by [ISAE-ENSMA](https://www.ensma.fr/) as part of a ministerial gr
 
 ### Contributors
 
-- [Maxime Gaide, LIAS](https://www.lias-lab.fr/members/maximegaide/)
+- [Maxime Gaide, LIAS](https://www.lias-lab.fr/members/maximegaide/) (core developer)
 - [David Marcheix, LIAS](https://www.lias-lab.fr/members/davidmarcheix/)
 - [Agnès Arnould, XLIM](https://xlim-sic.labo.univ-poitiers.fr/arnould/)
 - [Xavier Skapin, XLIM](https://xlim-sic.labo.univ-poitiers.fr/skapin/)

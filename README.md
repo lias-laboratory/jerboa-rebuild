@@ -59,11 +59,11 @@ It was funded by [ISAE-ENSMA](https://www.ensma.fr/) as part of a ministerial gr
 ### Contributors
 
 - [Maxime Gaide, LIAS](https://www.lias-lab.fr/members/maximegaide/) (core developer)
-- [David Marcheix, LIAS](https://www.lias-lab.fr/members/davidmarcheix/)
 - [Agnès Arnould, XLIM](https://xlim-sic.labo.univ-poitiers.fr/arnould/)
-- [Xavier Skapin, XLIM](https://xlim-sic.labo.univ-poitiers.fr/skapin/)
 - [Hakim Belhaouari, XLIM](https://xlim-sic.labo.univ-poitiers.fr/hbelhaou/)
 - [Stéphane Jean, LIAS](https://www.lias-lab.fr/members/stephanejean/)
+- [David Marcheix, LIAS](https://www.lias-lab.fr/members/davidmarcheix/)
+- [Xavier Skapin, XLIM](https://xlim-sic.labo.univ-poitiers.fr/skapin/)
 
 ## References
 - [1] [Automatic detection of topological changes in modeling operations](https://hal.science/hal-04228069)

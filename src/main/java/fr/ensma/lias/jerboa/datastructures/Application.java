@@ -73,17 +73,18 @@ public class Application {
   /**
    * Copy-constructor of an application.
    *
-   * @param application
+   * @param other
    */
   public Application(Application other) {
-    // FIXME: temporary revert deep copy as it breaks reevaluation in the spec editor
-    // this.ID = other.ID;
-    // this.rule = other.rule;
-    // this.PNs =
-    //     other.getPersistentNames().stream()
-    //         .map(PersistentName::new)
-    //         .collect(Collectors.toCollection(ArrayList::new));
-    this(other.ID, other.rule, other.PNs, other.dartIDs, other.type, other.initialIndex);
+    this.ID = other.ID;
+    this.rule = other.rule;
+    this.PNs =
+        other.getPersistentNames().stream()
+            .map(PersistentName::new)
+            .collect(Collectors.toCollection(ArrayList::new));
+    this.dartIDs = other.dartIDs;
+    this.type = other.type;
+    this.initialIndex = other.initialIndex;
   }
 
   /**

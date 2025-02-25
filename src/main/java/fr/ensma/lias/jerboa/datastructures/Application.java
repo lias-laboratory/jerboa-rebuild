@@ -71,20 +71,20 @@ public class Application {
   }
 
   /**
-   * Copy-constructor of an application.
+   * Copy constructor of an application.
    *
-   * @param other
+   * @param application
    */
   public Application(Application other) {
-    this.ID = other.ID;
-    this.rule = other.rule;
-    this.PNs =
+    this(
+        other.ID,
+        other.rule,
         other.getPersistentNames().stream()
             .map(PersistentName::new)
-            .collect(Collectors.toCollection(ArrayList::new));
-    this.dartIDs = other.dartIDs;
-    this.type = other.type;
-    this.initialIndex = other.initialIndex;
+            .collect(Collectors.toCollection(ArrayList::new)),
+        other.dartIDs,
+        other.type,
+        other.initialIndex);
   }
 
   /**

@@ -8,7 +8,7 @@ import fr.ensma.lias.jerboa.datastructures.LevelEventHR;
 import fr.ensma.lias.jerboa.datastructures.LevelEventMT;
 import fr.ensma.lias.jerboa.datastructures.ParametricSpecification;
 import fr.ensma.lias.jerboa.datastructures.PersistentName;
-
+import java.awt.Color;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -74,6 +74,7 @@ public class JSONPrinter {
     GsonBuilder gBuilder = new GsonBuilder().setPrettyPrinting();
     gBuilder.registerTypeAdapter(PersistentName.class, new JerboaOrbitSerializer());
     gBuilder.registerTypeAdapter(JerboaRuleOperation.class, new JerboaRuleOperationSerializer());
+    gBuilder.registerTypeAdapter(Color.class, new ColorSerializer());
     String json = gBuilder.create().toJson(c);
     Files.write(Path.of(fileName), json.getBytes(), StandardOpenOption.CREATE);
   }
@@ -96,6 +97,7 @@ public class JSONPrinter {
     builder.registerTypeAdapter(
         JerboaRuleOperation.class, new JerboaRuleOperationDeserializer(modeler));
     builder.registerTypeAdapter(PersistentName.class, new PersistentNameDeserializer());
+    builder.registerTypeAdapter(Color.class, new ColorDeserializer());
 
     Application[] applications = builder.create().fromJson(reader, Application[].class);
     ParametricSpecification parametricSpecification =
@@ -124,6 +126,7 @@ public class JSONPrinter {
     builder.registerTypeAdapter(
         JerboaRuleOperation.class, new JerboaRuleOperationDeserializer(modeler));
     builder.registerTypeAdapter(PersistentName.class, new PersistentNameDeserializer());
+    builder.registerTypeAdapter(Color.class, new ColorDeserializer());
 
     Application[] applications = builder.create().fromJson(reader, Application[].class);
     ParametricSpecification parametricSpecification =
@@ -131,8 +134,7 @@ public class JSONPrinter {
 
     return parametricSpecification;
   }
-  
-  
+
   /**
    * Import a {@link ParametricSpecification} from JSON
    *
@@ -143,8 +145,7 @@ public class JSONPrinter {
    * @throws JerboaException
    */
   public static ParametricSpecification importParametricSpecification(
-      File file, ModelerGenerated modeler)
-      throws IOException, JerboaException {
+      File file, ModelerGenerated modeler) throws IOException, JerboaException {
     JsonReader reader = new JsonReader(new FileReader(file));
 
     GsonBuilder builder = new GsonBuilder();
@@ -152,6 +153,7 @@ public class JSONPrinter {
     builder.registerTypeAdapter(
         JerboaRuleOperation.class, new JerboaRuleOperationDeserializer(modeler));
     builder.registerTypeAdapter(PersistentName.class, new PersistentNameDeserializer());
+    builder.registerTypeAdapter(Color.class, new ColorDeserializer());
 
     Application[] applications = builder.create().fromJson(reader, Application[].class);
     ParametricSpecification parametricSpecification =
@@ -159,7 +161,6 @@ public class JSONPrinter {
 
     return parametricSpecification;
   }
-  
 
   /**
    * Export a {@link MatchingTree} to JSON

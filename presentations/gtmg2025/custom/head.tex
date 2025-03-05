@@ -1,0 +1,18 @@
+%%%%%%%%%%%%%%% show navigation in headline %%
+
+\addtobeamertemplate{headline}{}{%
+  \setbeamercolor{section in head/foot}{bg=lDarkBlue!80!black, fg=white}
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}{section in head/foot}
+    \vskip0.5pt\insertnavigation{\paperwidth}\vskip3pt
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+  \end{beamercolorbox}
+  \vskip-1pt
+}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% End:

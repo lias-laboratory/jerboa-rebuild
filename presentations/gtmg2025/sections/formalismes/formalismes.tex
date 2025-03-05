@@ -1,0 +1,177 @@
+
+% \begin{frame}
+% 	\frametitle{Outils de formalisation}
+% 	\begin{myblock}{Idée}
+% 		Dans cette slide, expliquer pourquoi nous faisons appels à des outils
+% 		formels dans nos travaux. %
+% 		Expliquer comment nous proposons de les utiliser pour répondre à nos
+% 		problématiques.
+% 	\end{myblock}
+
+% 	\begin{itemize}
+% 		\item Formalisation des objets pour la mise en œuvre de procédures
+% 		      génériques en dimension, notamment grâce aux orbites. %
+% 		\item Formalisation des opérations pour permettre leur analyse. %
+% 		      Étude des impacts d'une opération sur un objet avec la détection des
+% 		      changements topologiques et le suivi des évolutions d'orbites. %
+% 	\end{itemize}
+
+% \end{frame}
+
+
+% \begin{frame}
+% 	\frametitle{Cartes généralisées}
+% 	\begin{myblock}{Idée}
+% 		Ici, je dois pouvoir reprendre la décomposition présentée dans la
+% 		présentation à Marseille. %
+% 		Il faudra faire attention à nos pas rentrer dans le détail. %
+% 		L'essentiel est de faire comprendre que l'on peut distinguer tout type de
+% 		cellule topologique. %
+% 	\end{myblock}
+% 	\begin{itemize}
+% 		\item illustrer la décomposition d'un objet par ses dimensions
+% 		\item introduire les termes brin et orbite
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{Cartes généralisées (G-cartes)}
+	% \vspace{.05\textheight}
+	\begin{minipage}[t][.7\textheight][t]{\textwidth}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{minipage}[t][.7\textheight][t]{\textwidth}
+					\centering
+					\includegraphics<1>[height=.5\textheight]{decomposition-3d-no-decomp}%
+					\includegraphics<2>[height=.5\textheight]{decomposition-3d-3-cell}%
+					\includegraphics<3>[height=.5\textheight]{decomposition-3d-2-cell}%
+					\includegraphics<4>[height=.5\textheight]{decomposition-3d-1-cell}%
+					\includegraphics<5>[height=.5\textheight]{decomposition-3d-0-cell}%
+				\end{minipage}
+			\end{column}
+			\begin{column}{.42\textwidth}
+				\begin{minipage}[t][.7\textheight][t]{\textwidth}
+					\begin{myblock}[Décomposition d'un objet en :]
+						\begin{itemize}
+							\item<2-> Volumes connectés par des $3$-liaisons ({\color{mydarkgreenink} —})%
+							\item<3-> Faces connectées par des $2$-liaisons ({\color{myblueink} —})%
+							\item<4-> Arêtes connectées par des $1$-liaisons ({\color{red} —})%
+							\item<5> Sommets connectés par des $0$-liaisons ({\color{black} —})%
+						\end{itemize}
+					\end{myblock}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}[t][.3\textheight][t]{\textwidth}
+		\begin{myblock}[]
+			Graphe dont les nœuds sont des \emph{brins} et les arcs des \emph{liaisons}.
+		\end{myblock}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{Orbites}
+	% \vspace{.05\textheight}
+	\begin{minipage}[t][.7\textheight][t]{\textwidth}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{minipage}[t][.7\textheight][t]{\textwidth}
+					\centering
+					\includegraphics<1>[height=.5\textheight]{orbit-3D-vertex-123}%
+					\includegraphics<2>[height=.5\textheight]{orbit-3D-edge-023}%
+					\includegraphics<3>[height=.5\textheight]{orbit-3D-face-013}%
+					\includegraphics<4>[height=.5\textheight]{orbit-3D-volume-012}%
+					\includegraphics<5>[height=.5\textheight]{orbit-3D-edge-02}%
+				\end{minipage}
+			\end{column}
+			\begin{column}{.42\textwidth}
+				\begin{minipage}[t][.7\textheight][t]{\textwidth}
+					\begin{myblock}[Orbites~:]
+						\begin{itemize}
+							\item<1-> Sommet {\color{red}$\orbit{1,2,3}$}{\color{mydarkgreenink}$(b)$}%
+							\item<2-> Arête {\color{red}$\orbit{0,2,3}$}{\color{mydarkgreenink}$(b)$}%
+							\item<3-> Face {\color{red}$\orbit{0,1,3}$}{\color{mydarkgreenink}$(b)$}%
+							\item<4-> Volume {\color{red}$\orbit{0,1,2}$}{\color{mydarkgreenink}$(b)$}%
+							\item<5> Arête de volume {\color{red}$\orbit{0,2}$}{\color{mydarkgreenink}$(b)$}
+							\item<5> \ldots
+						\end{itemize}
+					\end{myblock}
+				\end{minipage}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}[t][.3\textheight][t]{\textwidth}
+		\begin{myblock}{}
+			Sous-graphe de type {\color{red}$\orbit{o}$} incident à un brin
+				{\color{mydarkgreenink}(b)}.
+		\end{myblock}
+	\end{minipage}
+\end{frame}
+
+% \begin{frame}
+% 	\frametitle{Règles Jerboa}
+% 	\begin{myblock}{Idée}
+% 		Dans cette slide, expliquer que les règles Jerboa rendent possible une
+% 		analyse qui n'est pas basée sur du code, mais sur une grammaire formelle. %
+% 		L'analyse du code permettant d'arriver au même résultat serait
+% 		particulièrement complexe. %
+% 		Une grammaire formelle nous permet de repérer plus facilement des entités
+% 		topologiques qui sont entre autres créés, supprimés et préservés. %
+% 	\end{myblock}
+% 	\begin{itemize}
+% 		\item illustrer l'application d'une règle et la transformation qui correspond
+% 		\item introduire création, suppression, préservation de nœud, arcs
+% 		      implicites et explicites.
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}
+	\frametitle{Règles de transformation Jerboa}
+	\only<1>{%
+		\centering
+		\begin{myblock}[Triangulation d'une face]
+			\centering
+			\includegraphics[width=.6\textwidth]{triangulation-geometric-view-3D}%
+		\end{myblock}
+	}
+	\only<2->{%
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{minipage}[c][\textheight][c]{\columnwidth}
+					% \only<4->{%
+					\begin{onlyenv}<3->
+						\begin{myblock}
+							\begin{itemize}
+								\itemindent=-10pt
+								\item<3-> application sur \(a_{0}\)
+								\item<4-> préservation de n0
+								\item<5-> création de n2
+								\item<6-> création de n1
+								\item<8-> orbite \onslide<9->{complète}
+								\item<10> orbite incomplète
+							\end{itemize}
+						\end{myblock}
+					\end{onlyenv}
+					% }
+				\end{minipage}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\centering
+				\includegraphics<2>[height=.8\textheight]{triangulation-application-1-3D}%
+				\includegraphics<3>[height=.8\textheight]{triangulation-application-2-left-3D}%
+				\includegraphics<4>[height=.8\textheight]{triangulation-application-n0}%
+				\includegraphics<5>[height=.8\textheight]{triangulation-application-n2}%
+				\includegraphics<6>[height=.8\textheight]{triangulation-application-n1}%
+				% \includegraphics<7>[height=.8\textheight]{triangulation-application-n0-n1}%
+				\includegraphics<7>[height=.8\textheight]{triangulation-application-n1-n2}%
+				\includegraphics<8-9>[height=.8\textheight]{triangulation-application-3D-notion-orbite}%
+				\includegraphics<10>[height=.8\textheight]{triangulation-application-3D-notion-orbite-incomplete}%
+			\end{column}
+		\end{columns}
+	}
+\end{frame}
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

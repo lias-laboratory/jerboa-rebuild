@@ -1,0 +1,375 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemelias}[2023/06/29 Lias inner theme]
+\RequirePackage{etoolbox}
+\RequirePackage{xparse}
+\RequirePackage{keyval}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+
+\pgfkeys{
+    /lias/inner/sectionpage/.cd,
+        .is choice,
+        none/.code=\lias@disablesectionpage,
+        simple/.code={\lias@enablesectionpage
+                        \setbeamertemplate{section page}[simple]},
+        progressbar/.code={\lias@enablesectionpage
+                            \setbeamertemplate{section page}[progressbar]},
+}
+
+\pgfkeys{
+    /lias/inner/subsectionpage/.cd,
+    .is choice,
+        none/.code=\lias@disablesubsectionpage,
+        simple/.code={\lias@enablesubsectionpage
+                        \setbeamertemplate{subsection page}[simple]},
+        progressbar/.code={\lias@enablesubsectionpage
+                            \setbeamertemplate{subsection page}[progressbar]},
+}
+
+\pgfkeys{
+  /lias/inner/sections/.cd,
+  .is choice,
+    numbered/.code=\setbeamertemplate{section in toc}[sections numbered],
+    notnumbered/.code=\setbeamertemplate{section in toc}[sections not numbered]
+}
+
+\pgfkeys{
+  /lias/inner/subsections/.cd,
+  .is choice,
+    numbered/.code=\setbeamertemplate{subsection in toc}[subsections numbered],
+    notnumbered/.code=\setbeamertemplate{subsection in toc}[subsections not numbered]
+}
+
+\newcommand{\lias@inner@setdefaults}{
+    \pgfkeys{/lias/inner/.cd,
+    sectionpage=progressbar,
+    subsectionpage=simple,
+    sections=numbered,
+    subsections=numbered
+    }
+}
+
+
+
+\setbeamertemplate{title page}{
+    \begin{minipage}[b][\paperheight]{\textwidth}
+        \ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+        \vfill%
+        \ifx\insertitle\@empty\else\usebeamertemplate*{title}\fi
+        \ifx \insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+        \usebeamertemplate*{title separator}
+        \ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+        \ifx \insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+        \ifx \insertdate\@empty\else\centering\usebeamertemplate*{date}\fi
+        \vfill
+        \vspace*{1mm}
+    \end{minipage}
+}
+
+
+\newcommand{\nologo}{\setbeamertemplate{logo}{}}
+
+\def\maketitle{%
+    \ifbeamer@inframe
+        \titlepage
+    \else
+        {\nologo
+          \frame[plain,noframenumbering]{\titlepage}
+        }
+    \fi
+}
+
+
+\def\titlepage{%
+    \usebeamertemplate{title page}
+}
+
+\setbeamertemplate{title graphic}{
+  \vbox to 0pt {
+    \vspace*{2em}
+    \inserttitlegraphic%
+  }%
+  \nointerlineskip%
+}
+\setbeamertemplate{title}{
+  \centering%
+  \linespread{1.0}%
+  \inserttitle%
+  \par%
+  \vspace*{0.2em}
+}
+\setbeamertemplate{subtitle}{
+  \raggedright%
+  \insertsubtitle%
+  \par%
+  \vspace*{0.1em}
+}
+
+\newlength{\lias@titleseparator@linewidth}
+\setlength{\lias@titleseparator@linewidth}{0.4pt}
+\setbeamertemplate{title separator}{
+  \begin{tikzpicture}
+    \fill[fg] (0,0) rectangle (\textwidth, \lias@titleseparator@linewidth);
+  \end{tikzpicture}%
+  \par%
+}
+\setbeamertemplate{author}{
+  \vspace*{0.5em}
+  \insertauthor%
+  \par%
+}
+\setbeamertemplate{date}{
+  \vspace*{2em}
+  \insertdate%
+  \par%
+}
+\setbeamertemplate{institute}{
+  \vspace*{1em}
+  \insertinstitute%
+  \par%
+}
+
+\defbeamertemplate{section page}{}{}
+
+\defbeamertemplate{section page}{simple}{
+  \begin{center}
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\par
+    \ifx\insertsubsectionhead\@empty\else
+      \usebeamercolor[fg]{subsection title}
+      \usebeamerfont{subsection title}
+      \insertsubsectionhead
+    \fi
+  \end{center}
+}
+\defbeamertemplate{section page}{progressbar}{
+  \centering
+  \begin{minipage}{22em}
+    \raggedright
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\\[-1ex]
+    \usebeamertemplate*{progress bar in section page}
+    \par
+    \ifx\insertsubsectionhead\@empty\else%
+      \usebeamercolor[fg]{subsection title}%
+      \usebeamerfont{subsection title}%
+      \insertsubsectionhead
+    \fi
+  \end{minipage}
+  \par
+  \vspace{\baselineskip}
+}
+
+
+\defbeamertemplate{subsection page}{simple}{
+  \begin{center}
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\par
+    \ifx\insertsubsectionhead\@empty\else
+      \usebeamercolor[fg]{subsection title}
+      \usebeamerfont{subsection title}
+      \insertsubsectionhead
+    \fi
+  \end{center}
+}
+\defbeamertemplate{subsection page}{progressbar}{
+  \centering
+  \begin{minipage}{22em}
+    \raggedright
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\\[-1ex]
+    \usebeamertemplate*{progress bar in section page}
+    \par
+    \ifx\insertsubsectionhead\@empty\else%
+      \usebeamercolor[fg]{subsection title}%
+      \usebeamerfont{subsection title}%
+      \insertsubsectionhead
+    \fi
+  \end{minipage}
+  \par
+  \vspace{\baselineskip}
+}
+
+
+\newcommand{\lias@disablesectionpage}{
+  \AtBeginSection{
+    % intentionally empty
+  }
+}
+\newcommand{\lias@enablesectionpage}{
+  \AtBeginSection{
+    \ifbeamer@inframe
+      \sectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\sectionpage}
+    \fi
+  }
+}
+
+\newcommand{\lias@disablesubsectionpage}{
+  \AtBeginSubsection{
+    % intentionally empty
+  }
+}
+\newcommand{\lias@enablesubsectionpage}{
+  \AtBeginSubsection{
+    \ifbeamer@inframe
+      \subsectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\subsectionpage}
+    \fi
+  }
+}
+\newlength{\lias@progressonsectionpage}
+\newlength{\lias@progressonsectionpage@linewidth}
+\setlength{\lias@progressonsectionpage@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in section page}{
+  \setlength{\lias@progressonsectionpage}{%
+    \textwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+  }%
+  \begin{tikzpicture}
+    \fill[bg] (0,0) rectangle (\textwidth, \lias@progressonsectionpage@linewidth);
+    \fill[fg] (0,0) rectangle (\lias@progressonsectionpage, \lias@progressonsectionpage@linewidth);
+  \end{tikzpicture}%
+}
+
+\def\inserttotalframenumber{100}
+\newlength{\lias@blocksep}
+\newlength{\lias@blockadjust}
+\setlength{\lias@blocksep}{0.75ex}
+\setlength{\lias@blockadjust}{0.25ex}
+\providecommand{\lias@strut}{%
+  \vphantom{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()}%
+}
+\newcommand{\lias@block}[1]{
+  \par\vskip\medskipamount%
+  \setlength{\parskip}{0pt}
+  \ifbeamercolorempty[bg]{block title#1}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}}{%
+  \ifbeamercolorempty[bg]{block title}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}%
+  }%
+  {%
+    \begin{beamercolorbox}[
+      sep=\dimexpr\lias@blocksep-\lias@blockadjust\relax,
+      leftskip=\lias@blockadjust,
+      rightskip=\dimexpr\lias@blockadjust plus 4em\relax
+    ]{block title#1}%
+  }}%
+      \usebeamerfont*{block title#1}%
+      \lias@strut%
+      \insertblocktitle%
+      \lias@strut%
+  \end{beamercolorbox}%
+  \nointerlineskip%
+  \ifbeamercolorempty[bg]{block body#1}{%
+    \begin{beamercolorbox}[vmode]{block body#1}}{
+  \ifbeamercolorempty[bg]{block body}{%
+    \begin{beamercolorbox}[vmode]{block body#1}%
+  }{%
+    \begin{beamercolorbox}[sep=\lias@blocksep, vmode]{block body#1}%
+    \vspace{-\lias@parskip}
+  }}%
+      \usebeamerfont{block body#1}%
+      \setlength{\parskip}{\lias@parskip}%
+}
+
+\setbeamertemplate{block begin}{\lias@block{}}
+\setbeamertemplate{block alerted begin}{\lias@block{ alerted}}
+\setbeamertemplate{block example begin}{\lias@block{ example}}
+\setbeamertemplate{block end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block alerted end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block example end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{itemize items}{\textbullet}
+\setbeamertemplate{caption label separator}{: }
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{footnote}{%
+  \parindent 0em\noindent%
+  \raggedright
+  \usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+}
+\newlength{\lias@parskip}
+\setlength{\lias@parskip}{0.5em}
+\setlength{\parskip}{\lias@parskip}
+\linespread{1.15}
+\define@key{beamerframe}{c}[true]{% centered
+  \beamer@frametopskip=0pt plus 1fill\relax%
+  \beamer@framebottomskip=0pt plus 1fill\relax%
+  \beamer@frametopskipautobreak=0pt plus .4\paperheight\relax%
+  \beamer@framebottomskipautobreak=0pt plus .6\paperheight\relax%
+  \def\beamer@initfirstlineunskip{}%
+}
+
+\providebool{lias@standout}
+\define@key{beamerframe}{standout}[true]{%
+  \setbeamertemplate{footline}{}%
+  \booltrue{lias@standout}
+  \begingroup
+    \setkeys{beamerframe}{c}
+    \setkeys{beamerframe}{noframenumbering}
+    \ifbeamercolorempty[bg]{palette primary}{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=-palette primary.fg
+      }
+    }{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=palette primary.bg
+      }
+    }
+  \centering
+  \usebeamercolor[fg]{palette primary}
+  \usebeamerfont{standout}
+}
+  \apptocmd{\beamer@reseteecodes}{%
+    \ifbool{lias@standout}{
+      \endgroup
+      \boolfalse{lias@standout}
+    }{}
+  }{}{}
+\lias@inner@setdefaults
+
+\BeforeBeginEnvironment{document}{%
+  \titlegraphic{
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.south west) [above right]{
+        \includegraphics[width=5em]{images/Logo_ISAE-ENSMA.png}
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.south) [above]{
+        \includegraphics[width=5em]{images/logo_up.png}
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.south east) [above left]{
+        \includegraphics[width=5em]{images/ENSIP_logo.png}
+      };
+    \end{tikzpicture}
+    \begin{tikzpicture}[overlay, remember picture]
+      \node at (current page.north east) [below left]{
+        \includegraphics[width=8em]{images/logo_lias.png}
+      };
+    \end{tikzpicture}
+  }
+  %Commented out because it is not used
+  %\logo{
+  %  \begin{tikzpicture}[overlay, remember picture]
+  %    \node at (current page.north east) [below left]{
+  %      \includegraphics[scale=0.05]{images/logo_lias.png}
+  %    };
+  %  \end{tikzpicture}
+  %}
+}
+
+
+
+\ProcessPgfPackageOptions{/lias/inner}
+\endinput
+%%

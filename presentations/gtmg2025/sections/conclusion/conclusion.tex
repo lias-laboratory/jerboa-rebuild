@@ -1,0 +1,121 @@
+
+% \begin{frame}[fragile]
+% 	\frametitle{Conclusion}
+
+% 	\begin{tabular}{|c|c|c|c|}
+% 		\bottomrule%
+% 		\diagbox[width=142pt, height=41pt,font=\small, innerrightsep=1em]{Contributions}{Limitations} & foo & bar & baz \\
+% 		\toprule%
+% 		\bottomrule%
+% 		G-cartes                                                                                      &     &     &     \\
+% 		Règles Jerboa                                                                                 &     &     &     \\
+% 		Détection évènements                                                                          &     &     &
+% 		\toprule%
+% 	\end{tabular}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% 	\frametitle{Contributions}
+% 	\centering
+% 	\tiny
+% 	\begin{tblr}{
+% 		colspec = {|m{2.6cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
+% 		% cells={cmd=\visible<\arabic{rownum}->},
+% 		% cell{2}{2} = {c=4}{c}, % multicolumn
+% 		% cell{2}{6} = {c=2}{c}, % multicolumn
+% 		% rowsep = 6pt,
+% 		hlines={black,0.5pt},
+% 		vlines={black,0.5pt},
+% 		% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
+% 		}
+% 		% \bottomrule%
+% 		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
+% 		                             & Kripac                         & Capoyleas et al.               & Wu et al.                      & Bidarra et al.                 & Cardot et al.                  & Cascaval
+% 		et al.                       & Gaide et al.                                                                                                                                                                                                                         \\ %
+% 		\toprule[black,0.5pt] %
+% 		Type d'édition~:
+% 		\par paramètres géométriques
+% 		\par opérations              & ~ \par~\cmark\par\xmark        & ~ \par~\cmark\par\xmark        & ~ \par~\cmark\par\xmark        & ~ \par~\cmark\par\xmark        & ~ \par~\cmark\par\cmark        & ~ \par~\cmark\par\cmark        & ~ \par~\cmark\par\cmark        \\
+% 		Suivi de cellule
+% 		\par (global/local)          & {Global}                       & {Global}                       & {Global}                       & {Global}                       & Local                          & {Global}                       & Local                          \\
+% 		Historique d'une Cellule
+% 		\par complet                 & \xmark                         & \xmark                         & \xmark                         & \xmark                         & \xmark                         & \cmark                         & \cmark                         \\
+% 		Calcul des évènements~:
+% 		\par \textbullet~Statique
+% 		\par \textbullet~Automatique & \par ~ \par \xmark \par \cmark & \par ~ \par \xmark \par \cmark & \par ~ \par \xmark \par \cmark & \par ~ \par \xmark \par \cmark & \par ~ \par \cmark \par \xmark & \par ~ \par \cmark \par \xmark & \par ~ \par \cmark \par \cmark \\
+% 		Base de nomination           & face                           & face                           & face                           & face                           & brin                           & contraintes                    & brin                           \\
+% 		Dimensions de modélisation   & 3D                             & 3D                             & 3D                             & 3D                             & \(n\)-D                        & 2.5D                           & \(n\)-D                        \\
+% 		{Tout type} d'opération      & \cmark                         & \cmark                         & \cmark                         & \cmark                         & \xmark                         & \cmark                         & \cmark                         \\
+% 	\end{tblr}
+% \end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{columns}
+		\begin{column}{.7\textwidth}
+			Trois contributions concrétisent notre démarche~:
+			\begin{itemize}
+				\item<1-> une formalisation des évènements
+				\item<2-> un mécanisme de rejeu à base de règles avec
+				      \begin{itemize}
+					      \item<2-> une nomination persistante en deux étapes~: les brins et les orbites
+					      \item<3-> l'appariement des entités
+					      \item<4-> des stratégies pour le rejeu
+				      \end{itemize}
+				\item<5-> une extension aux scripts
+			\end{itemize}
+		\end{column}
+		\begin{column}{.3\textwidth}
+			\begin{onlyenv}<6>
+				\tiny
+				\begin{tblr}{
+					colspec = {|m{2.6cm}|X[c,m]|},
+					% cells={cmd=\visible<\arabic{rownum}->},
+					% cell{2}{2} = {c=4}{c}, % multicolumn
+					% cell{2}{6} = {c=2}{c}, % multicolumn
+					% rowsep = 6pt,
+					hlines={black,0.5pt},
+					vlines={black,0.5pt},
+					% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
+					}
+					% \bottomrule%
+					\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
+					                             & Gaide et al.                   \\ %
+					\toprule[black,0.5pt] %
+					Type d'édition~:
+					\par paramètres géométriques
+					\par opérations              & ~ \par\cmark\par\cmark         \\
+					Suivi local des cellules
+					                             & \cmark                         \\
+					Historique complet d'une Cellule
+					                             & \cmark                         \\
+					Calcul des évènements~:
+					\par \textbullet~Statique
+					\par \textbullet~Automatique & \par ~ \par \cmark \par \cmark \\
+					% Base de nomination           & brin                           \\
+					{Tout type} d'opération      & \cmark                         \\
+					Dimensions de\par modélisation   & \(n\)-D                        \\
+				\end{tblr}
+			\end{onlyenv}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Perspectives}
+	Court et moyen terme~:
+	\begin{itemize}
+		\item<1-> Compléter l'édition avec le déplacement d'opérations
+		\item<2-> Application à la modélisation en archéologie
+		\item<3-> Annotation temporelle des opérations
+	\end{itemize}
+	\only<4>{Plus long terme~:}
+	\begin{itemize}
+		\item<4> Utiliser la détection des évènements dans d'autres applications (parallélisation automatique)
+	\end{itemize}
+\end{frame}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

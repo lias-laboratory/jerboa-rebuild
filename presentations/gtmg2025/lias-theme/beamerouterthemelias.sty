@@ -1,0 +1,153 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemelias}[2017/01/23 lias outer theme]
+\RequirePackage{etoolbox}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\pgfkeys{
+	/lias/outer/numbering/.cd,
+	.is choice,
+	none/.code=\setbeamertemplate{frame numbering}[none],
+	counter/.code=\setbeamertemplate{frame numbering}[counter],
+	fraction/.code=\setbeamertemplate{frame numbering}[fraction],
+}
+\pgfkeys{
+	/lias/outer/progressbar/.cd,
+	.is choice,
+	none/.code={%
+			\setbeamertemplate{headline}[plain]
+			\setbeamertemplate{frametitle}[plain]
+			\setbeamertemplate{footline}[plain]
+		},
+	head/.code={\pgfkeys{/lias/outer/progressbar=none}
+			\addtobeamertemplate{headline}{}{%
+				\usebeamertemplate*{progress bar in head/foot}
+			}
+		},
+	frametitle/.code={\pgfkeys{/lias/outer/progressbar=none}
+			\addtobeamertemplate{frametitle}{}{%
+				\usebeamertemplate*{progress bar in head/foot}
+			}
+		},
+	foot/.code={\pgfkeys{/lias/outer/progressbar=none}
+			\addtobeamertemplate{footline}{}{%
+				\usebeamertemplate*{progress bar in head/foot}%
+			}
+		},
+}
+\newcommand{\lias@outer@setdefaults}{
+	\pgfkeys{/lias/outer/.cd,
+		numbering=counter,
+		progressbar=none,
+	}
+}
+
+% \def\insertnavigation#1{%
+% 	\vbox{{%
+% 				\usebeamerfont{section in head/foot}\usebeamercolor[fg]{section in head/foot}%
+% 				\beamer@xpos=0\relax%
+% 				\beamer@ypos=1\relax%
+% 				\hbox to #1{\hskip.3cm\setbox\beamer@sectionbox=\hbox{\kern1sp}%
+% 					\ht\beamer@sectionbox=1.875ex%
+% 					\dp\beamer@sectionbox=0.75ex%
+% 					\hskip.3cm%
+% 					\global\beamer@section@min@dim\z@
+% 					\dohead%
+% 					\beamer@section@set@min@width
+% 					\box\beamer@sectionbox\hfill\hskip.3cm}%
+% 			}}
+% }
+
+\setbeamertemplate{navigation symbols}{}
+\defbeamertemplate{frame footer}{none}{}
+\defbeamertemplate{frame footer}{custom}[1]{ #1 }
+\defbeamertemplate{frame numbering}{none}{}
+\defbeamertemplate{frame numbering}{counter}{\insertframenumber}
+\defbeamertemplate{frame numbering}{fraction}{
+	\insertframenumber/\inserttotalframenumber
+}
+\defbeamertemplate{headline}{plain}{}
+\defbeamertemplate{footline}{plain}{%
+	\begin{beamercolorbox}[wd=\textwidth,ht=2.8ex,dp=1.125ex]{footline}%
+		\usebeamerfont{page number in head/foot}%
+		\usebeamerfont{author in head/foot}\hspace*{2em}\insertshortauthor\hspace*{4em}%
+		\begin{beamercolorbox}[wd=0.4\textwidth, center]{beamer color}
+			\usebeamerfont{title in head/foot}\insertshorttitle%
+		\end{beamercolorbox}
+		\hfill%
+		\usebeamerfont{date in head/foot}\insertdate%
+		\usebeamertemplate*{frame footer}
+		\hspace*{3em}%
+		\usebeamertemplate*{frame numbering}
+		\hspace*{1em}
+	\end{beamercolorbox}%
+}
+\newlength{\lias@frametitle@padding}
+% \setlength{\lias@frametitle@padding}{2.2ex}
+\setlength{\lias@frametitle@padding}{1ex}
+\newcommand{\lias@frametitlestrut@start}{
+	\rule{0pt}{\lias@frametitle@padding +%
+		\totalheightof{%
+			\ifcsdef{lias@frametitleformat}{\lias@frametitleformat X}{X}%
+		}%
+	}%
+}
+\newcommand{\lias@frametitlestrut@end}{
+	\rule[-\lias@frametitle@padding]{0pt}{\lias@frametitle@padding}
+}
+
+\newif\iflogo
+\logotrue
+
+\newcommand{\noframetitlelogo}{%
+  \logofalse
+}
+
+\defbeamertemplate{frametitle}{plain}{%
+	\nointerlineskip%
+	\begin{beamercolorbox}[%
+			wd=\paperwidth,%
+			sep=0pt,%
+			leftskip=\lias@frametitle@padding,%
+			rightskip=\lias@frametitle@padding,%
+		]{frametitle}%
+		\lias@frametitlestrut@start%
+		\insertframetitle%
+		\nolinebreak%
+		\lias@frametitlestrut@end%
+		\hfill%
+		\iflogo
+			\raisebox{-0.5em}{\includegraphics[scale=0.05]{images/logo_lias.png}}%
+		\fi
+	\end{beamercolorbox}%
+}
+\setbeamertemplate{frametitle continuation}{%
+	\usebeamerfont{frametitle}
+	\romannumeral \insertcontinuationcount
+}
+\newlength{\lias@progressinheadfoot}
+\newlength{\lias@progressinheadfoot@linewidth}
+\setlength{\lias@progressinheadfoot@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in head/foot}{
+	\nointerlineskip
+	\setlength{\lias@progressinheadfoot}{%
+		\paperwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+	}%
+	\begin{beamercolorbox}[wd=\paperwidth]{progress bar in head/foot}
+		\begin{tikzpicture}
+			\fill[bg] (0,0) rectangle (\paperwidth, \lias@progressinheadfoot@linewidth);
+			\fill[fg] (0,0) rectangle (\lias@progressinheadfoot, \lias@progressinheadfoot@linewidth);
+		\end{tikzpicture}%
+	\end{beamercolorbox}
+}
+\AtBeginDocument{%
+	\apptocmd{\appendix}{%
+		\pgfkeys{%
+			/lias/outer/.cd,
+			numbering=none,
+			progressbar=none}
+	}{}{}
+}
+\lias@outer@setdefaults
+\ProcessPgfPackageOptions{/lias/outer}
+\endinput
+%%

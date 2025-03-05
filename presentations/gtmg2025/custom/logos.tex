@@ -1,0 +1,24 @@
+\BeforeBeginEnvironment{document}{%
+	\titlegraphic{
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south west) [above right]{
+				\includegraphics[width=5em]{\dlogopath/lias-logo}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north west) [below right]{
+				\includegraphics[width=5em]{\dlogopath/logo_isae-ensma}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.south east) [above left]{
+				\includegraphics[width=5em]{\dlogopath/xlim-logo}
+			};
+		\end{tikzpicture}
+		\begin{tikzpicture}[overlay, remember picture]
+			\node at (current page.north east) [below left]{
+				\includegraphics[width=5em]{\dlogopath/logo-up}
+			};
+		\end{tikzpicture}
+	}
+}

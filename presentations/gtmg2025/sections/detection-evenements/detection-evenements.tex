@@ -1,0 +1,199 @@
+% \begin{frame}
+% 	\frametitle{Détection automatique des évènements}
+% 	\begin{block}{Idée}
+% 		Dans cette slide, remettre en contexte la question de la détection des
+% 		évènements. %
+% 		Expliquer que cette première contribution propose une extension de l'analyse présentée dans la slide précédente.
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item Extension de l'analyse pour la détection d'évènements (création,
+% 		      suppression, scission, \textit{etc.}),
+% 		\item Enrichissement de la détection avec la distinction entre orbite de
+% 		      suivi et d'origine. %
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Création}
+% 	\begin{block}{Idée}
+% 		Règle de triangulation, présentation de la création de l'orbite sommet. %
+% 		D'abord exprimer visuellement dans un objet, puis donner les conditions
+% 		dans la règle. %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item illustrer la création dans un objet,
+% 		\item illustrer les conditions pour détecter la création d'une orbite
+% 		      \begin{itemize}
+% 			      \item uniquement des nœuds créés (à droite)
+% 			      \item toutes les dimensions sont filtrées par l'ensemble des nœuds de
+% 			            l'orbite
+% 		      \end{itemize}
+% 		\item introduire le terme d'orbite complète
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Suppression}
+% 	\begin{block}{Idée}
+% 		Expliquer que le problème de la suppression est symétrique à celui de la
+% 		création. %
+% 		C'est le cas dans les objets et dans les règles. %
+% 		Ça devrait me permettre de ménager l'auditoire pour les évènements
+% 		suivants (la scission et son symétrique~: la fusion). %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item illustrer la suppression dans un objet,
+% 		\item illustrer les conditions pour détecter la suppression d'une orbite,
+% 		\item C'est le symétrique de la création.
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Scission}
+% 	\begin{block}{Idée}
+% 		Toucher un mot sur la notion de scission, expliquer que c'est la
+% 		conséquence de toute division d'une orbite en plusieurs orbites de même
+% 		type. %
+% 		Ça comprend les subdivisions et les découpages d'orbites (par exemple
+% 		l'insertion d'une arête dans une face ou l'intersection entre un volume et
+% 		un plan). %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item Illustrer la scission dans un objet,
+% 		\item illustrer les conditions pour détecter la scission d'une orbite,
+% 		\item Montrer qu'une scission est provoquée par la rupture de l'ensemble
+% 		      des arcs implicites pour une dimension donnée. %
+% 	\end{itemize}
+
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Fusion}
+% 	\begin{block}{Idée}
+% 		Moment de pause pour l'auditoire, cet évènement est le symétrique de la scission. %
+% 		Les conditions de détection sont aussi symétriques à ceux de la scission. %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item Illustrer la fusion dans un objet,
+% 		\item illustrer les conditions pour détecter la fusion de plusieurs
+% 		      orbites,
+% 		\item C'est le symétrique de la scission.
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Non-changement}
+% 	\begin{block}{Idée}
+% 		Présenter qu'une orbite filtrée qui n'est pas modifiée demeure inchangée
+% 		dans la transformation. %
+% 		Il faut garder cette slide simple et ne pas y passer trop de temps. %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item Tout ce qui est filtré et inchangé dans une règle demeure inchangé dans l'objet,
+% 		\item c'est aussi l'occasion de dire que ce qui n'est pas filtré ne peut
+% 		      être transformé.
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Modification}
+% 	\begin{block}{Idée}
+% 		Une modification, au sens large, est tout ce qui n'est pas traité par les
+% 		autres évènements. %
+% 		Pour une face, c'est représenté par l'ajout ou la suppression d'une partie
+% 		de ses sommets. %
+% 	\end{block}
+% 	\begin{itemize}
+% 		\item Illustrer la modification dans un objet,
+% 		\item ne pas s'étendre sur les conditions, c'est trop complexe,
+% 		\item en pratique, on peut résumer ça a une augmentation ou réduction de
+% 		      la topologie d'une cellule. %
+% 	\end{itemize}
+
+% \end{frame}
+
+\begin{frame}
+	\frametitle{Création}
+
+	\centering
+	\includegraphics<1>[height=.8\textheight]{triangulation-application-3D-origines-creation}%
+	\includegraphics<2>[height=.8\textheight]{triangulation-application-3D-origines-creation-2}%
+
+	\textcolor{red}{Analyse syntaxique en pré-calcul}
+\end{frame}
+
+\begin{frame}{Scission d'une face $\orbit{0,1}$ par les arcs implicites}
+	\centering
+	\includegraphics<1>[height=.8\textheight]{triangulation-application-3D-origines}%
+	\includegraphics<2>[height=.8\textheight]{triangulation-application-3D-origines-2}%
+\end{frame}
+
+\begin{frame}{Scission d'une arête $\orbit{0,2}$ par les arcs explicites~: orbite complète}
+	\centering
+	\includegraphics[height=.9\textheight]{evenement-scission-expl-arete.pdf}%
+\end{frame}
+
+\begin{frame}{Scission d'un sommet $\orbit{1,2}$ par les arcs explicites~: orbite incomplète}
+	\centering
+	\includegraphics[height=.9\textheight]{false-positive-scission-sommet}%
+\end{frame}
+
+\begin{frame}
+	\frametitle{Autres évènements}
+	\begin{minipage}{\textwidth}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{itemize}
+					\item Suppression
+				\end{itemize}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\includegraphics[height=.2\textheight]{triangulation-application-3D-deletion}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}{\textwidth}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{itemize}
+					\item Fusion
+				\end{itemize}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\includegraphics[height=.2\textheight]{triangulation-application-3D-merging}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}{\textwidth}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{itemize}
+					\item Non-changement
+				\end{itemize}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\includegraphics[height=.2\textheight]{triangulation-application-3D-nomodif}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+	\begin{minipage}{\textwidth}
+		\begin{columns}
+			\begin{column}{.3\textwidth}
+				\begin{itemize}
+					\item Modification
+				\end{itemize}
+			\end{column}
+			\begin{column}{.7\textwidth}
+				\includegraphics[height=.2\textheight]{triangulation-application-3D-modification}
+			\end{column}
+		\end{columns}
+	\end{minipage}
+\end{frame}
+
+
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

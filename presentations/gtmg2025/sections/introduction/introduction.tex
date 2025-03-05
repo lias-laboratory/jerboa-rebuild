@@ -1,0 +1,156 @@
+\begin{frame}
+	\frametitle{Modélisation géométrique}
+	\begin{tikzpicture}
+		\node (img1) at (current page.north west){%
+			\includegraphics[height=.8\textheight]{revit-modeling-interior}
+		};
+		\node at (img1.east)[above right]{%
+			\includegraphics[width=.45\textwidth]{furniture-3D-modelling}
+		};
+		\node at (img1.east)[below right]{%
+			\includegraphics[width=.45\textwidth]{blender_render}
+		};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Domaines d'applications}
+	\begin{columns}<+->
+		\begin{column}{.35\textwidth}
+			\includegraphics[width=\textwidth]{exemple-archeo-1}
+
+			\includegraphics[width=\textwidth]{exemple-archeo-2}
+		\end{column}
+		\begin{column}{.55\textwidth}
+			\includegraphics<2>[width=\textwidth]{solidworks-spur-gears}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modélisation paramétrique}
+
+	\begin{columns}[t]
+		\small
+		\begin{column}{.33\textwidth}
+			\begin{myblock}[Construction]
+				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
+					\centering
+					\includegraphics[height=.3\textheight]{mystdlego-2x2-fit}
+
+					\raggedright{%
+						Bloc de dimension \texttt{2\texttimes2}~:\\
+						longueur~: 2\\
+						hauteur~: 1\\
+						répétition plots~: 2\\
+					}
+				\end{minipage}
+			\end{myblock}
+		\end{column}
+		\begin{column}{.34\textwidth}
+			\begin{myblock}[\smallÉdition de la spécification]
+				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
+					\centering
+					\includegraphics[width=\columnwidth]{lego-spec}
+				\end{minipage}
+			\end{myblock}
+		\end{column}
+		\begin{column}{.33\textwidth}
+			\begin{myblock}[Rejeu]
+				\begin{minipage}[c][.7\textheight][t]{\columnwidth}
+					\centering
+					\includegraphics[height=.3\textheight]{mystdlego-2x4-fit}
+
+					\raggedright{%
+						Bloc de dimension \texttt{2\texttimes4}~:\\
+						longueur~: 4\\
+						hauteur~: 1\\
+						répétition plots~: 4
+					}
+				\end{minipage}
+			\end{myblock}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}[c,fragile]
+	\frametitle{Problématique de la nomination persistante}
+
+	\begin{columns}
+		\vspace{-1em}
+		\begin{column}{.49\textwidth}
+			\begin{minipage}[c][.5\textheight][b]{1.0\linewidth}
+				\centering
+				\includegraphics<1>[width=.7\textwidth]{1-square-thin}%
+				\includegraphics<2>[width=.7\textwidth]{2-face-extrusion}%
+				\includegraphics<3>[width=.7\textwidth]{4-face-triangulation}%
+				\includegraphics<4>[width=.7\textwidth]{5-colour-face}%
+				\includegraphics<5>[width=.7\textwidth]{1-square-thin}%
+				\includegraphics<6>[width=.7\textwidth]{2-reeval-insert-vertex}%
+				\includegraphics<7->[width=.7\textwidth]{3-reeval-face-extrusion}%
+			\end{minipage}
+		\end{column}
+		\begin{column}{.49\textwidth}
+			\centering
+			\begin{minipage}[c][.7\textheight][t]{.7\linewidth}
+				\vspace{.2\textheight}
+				\begin{myblock}[\alt<5->{\vspace{1.3pt}Rejeu\textsuperscript{*}}{Jeu initial\textsuperscript{*}}]
+					\ttfamily
+					\only<1->{1-{\color{mydarkgreenink}carré}({\color{orange}pos})}\\
+					\only<1-4>{%
+					\alt<2-4>{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},
+					{\color{orange}vec})}
+					{2-{\color{gray}extrusion}({\color{myblueink}f1},
+					{\color{orange}vec})}
+					\alt<3-4>{3-{\color{mydarkgreenink}triangulation}({\color{myblueink}f2})}
+					{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
+					\alt<4>{4-{\color{mydarkgreenink}coloration}({\color{myblueink}f7})}
+					{4-{\color{gray}coloration}({\color{myblueink}f7})}%
+					}%
+					\only<5->{
+					\alt<6->{{\color{mydarkgreenink}ADD1-insert}({\color{myblueink}e1})}
+					{ADD1-{\color{gray}insert({\color{myblueink}e1})}}
+					\alt<7->{2-{\color{mydarkgreenink}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
+					{2-{\color{gray}extrusion}({\color{myblueink}f1},{\color{orange}vec})}
+					\alt<8>{3-{\color{gray}triangulation}({\color{red}f2?})}
+					{3-{\color{gray}triangulation}({\color{myblueink}f2})}\\
+					\alt<8>{4-{\color{gray}coloration}({\color{red}f7?})}
+					{4-{\color{gray}coloration}({\color{myblueink}f7})}%
+					}
+				\end{myblock}
+			\end{minipage}
+		\end{column}
+	\end{columns}
+	\begin{onlyenv}<8>
+		\begin{overlayarea}{\textwidth}{.1\textheight}
+			\begin{myblock}{}
+				\textcolor{red}{Problème de la nomination persistante}
+			\end{myblock}
+		\end{overlayarea}
+	\end{onlyenv}
+	\vfill
+	\begin{onlyenv}<1-8>
+		\begin{overlayarea}{\textwidth}{.1\textheight}
+			\begin{myblock}{}
+				{\textsuperscript{*}\color{mydarkgreenink}Opérations} et paramètres {\color{myblueink}topologiques} et {\color{orange}géométriques}.
+			\end{myblock}
+		\end{overlayarea}
+	\end{onlyenv}
+	\begin{onlyenv}<9>
+		\vspace{-1em}
+		\begin{myblock}
+			\begin{itemize}
+				\item détection des changements dans la topologie (ou évènements)
+				\item rejeu d'une spécification
+				\item stratégies de rejeu
+			\end{itemize}
+		\end{myblock}
+	\end{onlyenv}
+\end{frame}
+
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../../main"
+%%% End:

@@ -1,0 +1,470 @@
+#+title:
+#+author:
+#+options: toc:nil
+
+Bonjour, je vais vous présenter mes travaux sur le rejeu de modèle paramétrique
+3D à base de règles
+
+* Motivations
+
+Modéliser un objet complexe, c'est un processus long où on enchaîne
+plein d'opérations de modélisation.
+
+Aujourd'hui, tous les modeleurs enregistrent ces processus dans ce qu'on appelle
+des spécifications paramétriques pour les modifier et les rejouer.
+On peut modifier les paramètres topologiques ou géométriques, voire ajouter, supprimer ou déplacer
+des opérations.
+
+
+- On va construire, à gauche, un objet à l'aide de cette
+  spécification paramétrique (à droite).
+- La première opération crée la face f1 et son arête e1.
+- L'opération suivante crée la face f2 à partir de e1.
+- La triangulation scinde f2 en plusieurs faces dont f7.
+- Enfin, f7 est coloriée.
+
+- On va créer une variation de cet objet en ajoutant une opération dans
+  la spécification.
+
+- Au rejeu, on a toujours notre face carrée f1.
+- L'opération ajoutée scinde l'arête e1 en e5 et e6
+- L'extrusion crée les faces f3 et f4 à partir de e3 et e4.
+- Et maintenant les faces f2 et f7 n'existent plus.
+- Comment, alors, appliquer les opérations suivantes qui ont besoin de ces faces
+  ?
+- Une solution possible serait de trianguler f3 et f4 puisqu'elles sont
+  construites comme f2.
+- Nous voyons donc, sur cet exemple, le besoin d'un nom persistant pour
+  identifier les cellules par leurs historiques d'évolution.
+
+- Pour ce problème, nos travaux s'intéressent à trois questions :
+  - l'identification des changements dans la topologie (évènements)
+  - le rejeu
+  - et les stratégies pour adapter le rejeu
+
+
+Voilà pour les motivations, on va voir le plan.
+
+
+* plan 1
+
+- Voyons maintenant le plan pour le reste de cette présentation
+- Tout d'abord, je vous propose de compléter cette introduction avec un bref
+  état de l'art.
+- Je vais ensuite présenter les formalismes que nous utiliserons pour nos
+  contributions.
+- Je poursuivrai avec nos contributions sur la détection des évènements, le
+  développement d'un mécanisme de rejeu
+- Enfin, je conclurai cette présentation et proposerai différentes perspectives
+  de travaux futurs.
+
+* État de l'art
+- Dans la littérature concernant le rejeu et la nomination
+    persistante, nous pouvons identifier un certain nombre de concepts
+    communs à différentes approches.
+
+- Le premier concept identifié concerne les types d’éditions d’une spécification
+  paramétrique.
+- la plupart des approches, le problème de la nomination est étudié dans un
+  contexte où seuls les paramètres géométriques peuvent être modifiés.
+- Pourtant, l’édition des opérations, c’est-à-dire l'ajout, la suppression, le
+  déplacement des opérations, est peu étudié, alors qu'elle impact très
+  significativement le problème de la nomination.
+
+- Le deuxième concept concerne le suivi des cellules dans une construction.
+- Toutes les approches nécessitent de suivre, d'une manière ou d'une autre,
+  l'histoire de cellules, leurs évolutions.
+- Ce suivi peut être local, c’est-à-dire ne concerner que les cellules
+- désignées dans la spécification paramétrique, ou global et concerner toutes
+  les cellules d’un modèle.
+- Par exemple, (illustration) nous avons ici un objet construit via
+  l'application de trois opérations successives (création d'un cube, ajout d'une
+  rainure et triangulation d'une face).
+- Un certain nombre d'approches telle que celle proposée par Kripac, nécessite
+  la construction d'un graphe qui permette de suivre l'histoire de la totalité
+  des faces du modèle.
+
+- Le troisième concepts concerne le contenu enregistré dans l'historique d'une
+  cellule.
+- Le fait qu'il soit complet, signifie qu'il intègre l'ensemble des cellules
+  impliquées dans son histoire, ce qui permet de caractériser cette cellule de
+  manière plus précise.
+- En reprenant l'exemple précédent (illustration), nous pouvons voir que les
+  faces f9 à f12 du graphe ont toutes le même historique, ce qui ne permet pas
+  de les distinguer.
+- Cela est du au fait que ce graphe ne représente qu'une partie de l'histoire
+  réelle des faces. Il n'est pas complet.
+- En effet, lors de la triangulation, une face est créée pour chaque arête de la
+  face f7. Ces arêtes sont bien à l'origine de l'histoire des faces, mais ne
+  sont pas intégrées dans le graphe.
+
+- Le quatrième concept concerne le calcul des évènements qui impactent les
+  cellules lors d'une opération. Ce calcul est nécessaire pour la construction
+  des historiques.
+- Si nous reprenons l'exemple (illustration), nous comprenons que pour pouvoir
+  construire le graphe, il est nécessaire de pouvoir détecter la scission de la
+  face f1 lors de l'application de la rainure, ou la scission de la face f7 lors
+  de la triangulation.
+- La grande majorité des approches calcule ces évènements de manière dynamique,
+  c’est-à-dire par l’analyse complète d’une construction, et automatique.
+- Toutefois, cela est coûteux à mesure qu’un modèle évolue.
+- Quelques approches permettent de détecter ces évènements de manière statique,
+  mais cela nécessite le développement d'une procédure ad hoc.
+- À notre connaissance, aucune approche ne propose un calcul des
+  évènements qui soit à la fois statique et automatique sans code supplémentaire.
+
+* Plan 2
+-  On identifie donc 3 objectifs :
+    - l’édition complète d’une spécification comprenant l'édition des opérations.
+    - la construction d’historiques complets et cela uniquement pour les cellules nommées dans la spécification paramétrique.
+    - la mise en œuvre d’une méthode permettant la détection statique et
+      automatique des évènements
+
+  - Pour mener à bien ces objectifs, nous utilisons trois formalismes :
+    - un pour les objets, avec les cartes généralisées
+    - un pour les opérations avec les règles Jerboa
+    - enfin, un pour les évènements.
+
+  - Nos travaux donnent lieu à 3 contributions :
+    - la première est la formalisation des évènements sur les cellules
+      qui est au cœur de nos travaux
+    - la deuxième est le développement des mécanismes de nommage nécessaires au
+      rejeu dans un système de modélisation basé sur les règles Jerboa
+      et, enfin,
+    - l’extension de nos mécanismes de nomage à tout type d’opérations.
+
+* Plan 3
+- Commençons la présentation de ces formalismes avec les cartes généralisées
+  pour représenter les objets.
+
+* Cartes généralisées
+- Les cartes généralisées permettent de représenter la structure d'un objet par
+  sa décomposition en cellules de dimensions successives.
+- Prenons l'exemple de cet objet.
+- Celui-ci se décompose en deux volumes connectés par des liaisons de dimension
+  3 en vert.
+- Ses volumes se décomposent en faces connectées par des liaisons 2 en bleu
+- Qui se décomposent elles-mêmes en arêtes connectées par des liaisons 1 en
+  rouge.
+- Puis en sommets connectés par des liaisons 0 en noir.
+
+- Les G-cartes peuvent être définies comme des graphes dont les nœuds sont
+  appelés brins et les arcs sont les liaisons.
+
+* Orbites
+- Dans les G-cartes, les cellules ne sont pas explicites, elles sont définies
+  par des sous-graphes appelés orbites.
+- Par exemple, le sommet incident au brin b contient le brin b, tous les brins
+  atteignables par des liaisons 1,2,3 et les liaisons elles-mêmes.
+- Cette arête contient le brin b et tous les brins atteignables par des liaisons
+  0,2,3.
+- De même la face est définie à partir des liaisons 0,1,3 et le volume à partir
+  des liaisons 0,1,2.
+- Les orbites représentent aussi d'autres sortes d'entités topologiques plus
+  générales que les cellules comme cette arête de volume.
+
+- Une orbite est un sous-graphe défini par un ensemble de dimensions, appelé
+  type de l'orbite, et un brin d'incidence.
+
+* Règles de transformation Jerboa
+- Maintenant que nous avons présenté la formalisation des objets avec les
+  G-cartes, passons à la formalisation des opérations à l'aide des règles de
+  transformation de graphe Jerboa
+- Prenons l'exemple suivant qui est la triangulation d'une face.
+- De manière générale, une règle se compose d'une partie gauche qui filtre un
+  sous-graphe d'un objet à transformer et d'une partie droite qui décrit la
+  transformation.
+- À gauche, le nœud n0 porte le type d'orbite face 0,1,3
+- Quand on applique la règle sur le brin a0, c'est toute la face incidente à ce
+  brin, en jaune, qui est filtrée.
+- À droite, nous retrouvons le nœud n0, il est préservé, donc ses brins sont
+  préservés.
+- Cette liaison 1 à gauche est remplacée par un souligné à droite, donc les
+  liaisons 1 sont supprimées dans l'objet.
+- n2 est un nœud créé, donc ses brins sont créés par copies des brins filtrés par n0.
+- Dans la règle les liaisons 0 sont renommées en liaisons 1 et les liaisons 1 en
+  liaisons 2.
+- Donc, dans l'objet, le sommet en bleu est créé comme le dual de la face en
+  jaune en remplaçant les liaisons 0,1 par des liaisons 1,2.
+- n1 est aussi un nœud créé avec suppression et renommage.
+
+- Dans la règle, une liaison 1 connecte n0 à n1, ce qui lie leurs brins 2 à 2 dans l'objet.
+- Même principe pour la liaison 0 entre n1 et n2.
+- Dans la suite de cette présentation, nous appellerons arcs implicites les
+  liaisons dans les nœuds et arcs explicites les arcs entre les nœuds.
+
+(------------------------------------------------------------------------)
+- Enfin, nous pouvons étendre la notion d'orbite aux règles.
+- Ici, par exemple, nous avons l'orbite face incidente au nœud n0.
+- À gauche, cette orbite contient n0 avec ses arcs implicites 0 et 1.
+- À droite, elle contient n0 avec l'arc implicite 0, l'arc explicite 1 qui le
+  relie à n1, l'arc 0 qui relie n1 à n2 et n2 avec son arc 1.
+- Notons que dans cette orbite, chaque nœud est incident à un arc 0 et un arc 1
+  qu'ils soient implicites ou explicites.
+- Cette orbite est dite complète.
+- En conséquence, les orbites correspondantes dans les objets sont entièrement
+  filtrées.
+- Au contraire, l'orbite arête de volume <0,2> incidente à n0 est incomplète puisque n0 n'a pas d'arc 2.
+- Donc, dans l'objet, les arêtes ne sont que partiellement filtrées.
+(------------------------------------------------------------------------)
+
+* Plan 4
+- À l'aide de ces deux formalismes, nous pouvons maintenant aborder notre
+  première contribution qui fonde notre approche.
+
+* Création d'arête de volume <0,2>
+- Nous allons commencer avec les évènements de création.
+- Dans cet exemple, nous gardons le même objet et la même règle, mais
+  nous nous intéressons à la création d'arêtes de volume.
+
+- Dans la règle, nous avons l'orbite 0,2 incidente à n1.
+- cette orbite ne contient que des nœuds créés, donc l'orbite est elle-même
+  créée.
+
+- La syntaxe des règles Jerboa impose qu'un nœud créé filtre toutes les
+  dimensions de modélisation.
+- Ainsi, cette orbite est complète et donc, dans l'objet, chacune de ces arêtes
+  est créée.
+- De plus, nous pouvons déterminer l'origine de la création de ces arêtes de volume.
+- Dans la règles, ces arcs implicites 2, à droite, sont des renommages de cet
+  arc implicite 1 à gauche.
+- Autrement dit, chacune de ces arêtes de volume provient d'un sommet de face de volume de type 1.
+- Par exemple, cette arête verte provient de ce sommet vert et ainsi de suite.
+
+- Toutes les règles sont traitées en pré-calcul avec une telle analyse syntaxique.
+- Et en pratique, aucun autre calcul n'est nécessaire pour cette orbite lors de
+  l'application de la règle, peu importe l'objet sur lequel elle est appliquée.
+
+* Scission d'une face
+- Intéressons-nous maintenant à un évènement plus complexe : la scission.
+- Nous distinguons deux types de scission, par les arcs implicites et par les arcs
+  explicites.
+
+- Commençons par le cas implicite.
+- Toujours avec le même objet et la même règle, on étudie la face de volume
+  incidente à n0
+- Regardons le deuxième arc implicite à gauche, le 1, celui-ci est
+  systématiquement supprimé ou renommé en 2, à droite, dans la règle.
+- Donc on a une scission de la face filtrée, le long des liaisons 1.
+- Après transformation, on a bien 4 faces distinctes.
+
+- Comme pour la création, ici nous pouvons déterminer l'origine des quatre faces
+  issues de la scission.
+- Les arcs 0 et 1 sont des renommages de l'arc 0 à gauche.
+- Donc chaque face provient d'une arête de face de volume.
+
+- Comme pour la création, la scission est entièrement déterminée dans la règle
+  parce que l'orbite est complète.
+
+* Scission d'une arête de volume
+
+- Passons au cas explicite avec ce nouvel exemple.
+- Notre nouvel objet est un patch de carrés sur lequel nous appliquons la règle
+  qui découd les liaisons 2 dans une arête.
+
+- À gauche, l'orbite 0,2 incidente à n0 est complète, n0 et n1 filtrent les
+  liaisons 0,2.
+- L'arête de volume incidente à a0 est donc entièrement filtrée.
+- À droite, l'orbite dans la règle est scindée en deux et nous pouvons constater
+  la même scission dans l'objet.
+
+- Là encore, comme l'orbite est complète, la scission est entièrement déterminée
+  par la règle, indépendamment de l'objet.
+
+
+* Scission d'un sommet de volume
+- Terminons la scission avec un dernier exemple.
+- Cette fois nous regardons le sommet de volume de type 1,2 incident à n0
+
+- À gauche, l'orbite est incomplète, ni n0 ni n1 ne filtre de liaison 1.
+- Dans l'objet, nous avons ces deux sommets qui sont partiellement filtrées.
+- À droite, dans la règle, l'orbite est scindée en deux.
+- Dans l'objet, nous voyons que le sommet incident à b0 est bien scindé en
+  deux.
+- À l'inverse, le sommet incident à a0 n'est pas scindé puisqu'il
+  existe toujours un chemin 1,2 entre a0 et a1.
+
+- Ce qu'il se passe dans cet exemple, c'est que puisque dans la règle l'orbite
+  scindée n'est que partiellement filtrée, nous détections une scission
+  potentielle.
+- Il faut donc confirmer ou non la scission par une vérification locale dans l'objet.
+
+* Autres évènements
+- Nous avons étudié la détection de deux types d'évènements, la création et la scission.
+- La suppression et la fusion ont les propriétés symétriques de la création et
+  de la scission respectivement
+- Le non-changement est détecté quand une orbite est identique à gauche et à droite de la règle
+- Les autres modifications, comme l'ajout d'un sommet dans une face, sont
+  elles aussi entièrement déterminées par les règles.
+
+* Plan 5
+
+Nous allons maintenant détailler notre mécanisme de rejeu qui se déroule en
+trois étapes:
+Tout d'abord la construction d'un historique pour les seuls brins
+pendant le jeu initial
+Puis la reconstruction de l'histoire des orbites à partir
+des seules règles
+Et enfin la recherche des nouvelles orbites pendant le rejeu
+
+* Nomination persistante : brins
+
+Pour commencer, nous proposons d'enregistrer l'histoire des brins, c'est-à-dire la suite d'opérations et de nœuds qui les filtrent.
+
+Reprenons l'exemple de l'introduction.
+
+Cette première règle crée une face carrée.
+Elle a 8 nœuds dont n3 et n6.
+
+Dans cette première application, n3 crée le brin 3, son histoire c'est le numéro
+de l'application suivi du nom du nœud qui le crée, elle se lit [1n3] et est
+enregistré dans le brin 3.
+
+n6 crée le brin 6, on enregistre son histoire [1n6].
+
+Supposons qu'un utilisateur désigne le brin 6 pour appliquer l'extrusion sur ce
+carré. Sauf qu'à la réévaluation le brin pourrait changer, alors dans la
+spécification, à cet instant, on enregistre son nom persistant qui est une photographie de son histoire [1n6].
+
+Dans la règle d'extrusion, n1 à gauche filtre les brins 3 et 6 et n2 et n4 à
+droite créent les copies du brin 3, 33 et 35.
+On construit leurs histoires à partir de celle du brin 3.
+
+L'histoire de 33 c'est [1n3;2n2], il est créé par n2. %
+Celle de 35 c'est [1n3;2n4], il est créé par n4. %
+L'histoire de 3 devient [1n3;2n1], pareil pour le brin 6. %
+
+Ensuite, pour trianguler la face de devant, si le brin 33 est sélectionné pour
+désigner sa face incidente alors, on enregistre son nom persistant.
+
+Dans la règle de triangulation, n0 réécrit les brins 33 et 35.
+C'est la troisième application, l'histoire du brin 33 devient [1n3;2n2;3n0], même principe pour 35.
+
+Enfin, on colorie la face incidente au brin 35 et on enregistre son nom persistant.
+
+On vient de nommer des brins de manière unique en représentant leurs histoires, il s'agit du nommage persistant des brins.
+
+Mais, dans une spécification, les paramètres topologiques sont des orbites.
+Donc, on doit représenter les histoires de ces orbites.
+
+
+* Nomination persistante : orbites
+Pour reconstituer l'histoire d'une orbite, on part du nom persistant du brin qui
+la désigne et on remonte son histoire.
+
+Dans notre exemple, on s'intéresse au paramètre de la quatrième opération de
+coloration
+
+Dans la règle, le paramètre est désigné par le nœud n0, en jaune, qui
+filtre une face de volume 0,1.
+
+Pour construire l'histoire de cette face, nous
+remontons l'histoire du brin enregistré dans son nom persistant ([1n3;2n4;3n0])
+
+On commence l'histoire par la fin à la troisième opération appliquée qui est la triangulation.
+On s'intéresse à la face de volume incidente à n0 ce qui correspond à l'orbite orange dans la règle
+
+Comme on l'a vu plus tôt, cette face en orange provient de la scission de la face filtrée à gauche et a pour origine une arête.
+
+On reporte ces informations dans l'histoire de l'orbite.
+
+Donc la face qui nous intéresse, c'est la face incidente à n0, en orange.
+Elle est produite par la triangulation, qui scinde la face filtrée à gauche, notée avec la flèche noire, et a pour origine une arête notée par la flèche rouge.
+
+On remonte l'histoire d'un cran à la deuxième opération, qui est l'extrusion, et son nœud n4.
+
+Ce qu'on doit suivre maintenant, c'est la face 0,1 et l'arête 0 incidentes à n4, suivi par les boîtes bleue et jaune dans la règle.
+
+La face jaune est créée par l'extrusion d'une arête 0 et l'arête bleue par l'extrusion d'un brin.
+
+Enfin, on remonte encore l'histoire, cette fois à la toute première opération de création de carré et son nœud n3.
+
+Les orbites 0 et brin que l'on suit sont créées par la règle de création de carré, respectivement en bleu et jaune.
+
+On vient de reconstituer l'histoire d'une orbite à partir du nom persistant d'un brin et des règles de la spécification.
+On le fait localement pour les paramètres utilisés dans la spécification et uniquement ces orbites là.
+
+Cette méthode est entièrement automatique et à partir de la seule analyse des règles.
+
+
+* Rejeu
+
+Avec les noms persistants d'orbites, on peut maintenant passer au rejeu.
+
+On reprend l'histoire précédente, cette fois de haut en bas, et on rejoue
+la spécification éditée.
+
+La première opération recrée la face carrée à l'identique.
+
+Le nœud n3 de la règle de création de carré crée un unique brin, 3.
+
+L'opération suivante d'insertion de sommet qui est ajoutée lors de l'édition impacte les orbites que l'on suit.
+
+Je n'affiche pas la règle mais si on l'analysait on verrait qu'elle scinde en
+deux l'arête filtrée, l'une désignée par le brin 3, l'autre par le brin 4.
+
+On a désormais une histoire par nouvelle arête
+
+Pour l'opération d'extrusion, on aura déterminé son paramètre topologique au
+préalable dans un autre arbre, exactement comme on le fait là.
+
+Chaque arête est extrudée en une nouvelle face, et chaque brin en une
+arête.
+
+Ici, n4 crée plusieurs brins mais une seule copie de 3, qui est 37, et une seule
+copie de 4, qui est 52.
+
+Enfin, on peut réappliquer la triangulation sur chaque branche.
+
+les brins 37 et 52 sont préservés par la règle.
+
+C'est la dernière application enregistrée, 37 et 52 désignent donc les faces à colorer.
+Par défaut, nous avons coloré les deux faces désignées.
+
+* Stratégies
+
+Toutefois, nous proposons des stratégies qui permettent d'adapter le mécanisme
+de rejeu.
+
+Un utilisateur pourra ainsi réappliquer la coloration sur les deux faces comme
+on vient de le faire, aucune, ou choisir une seule des deux. Ce qui revient à
+choisir parmi les nouveaux paramètres proposés.
+
+(demo vidéo)
+
+* Plan 7
+
+Nous arrivons maintenant à la conclusion
+
+* Conclusion
+
+- Ces travaux comprennent 2 contributions dont :
+  - la formalisation des évènements provoqués par l'application des règles,
+  - un mécanisme de rejeu des règles qui inclut
+    - une nomination persistante en deux étapes,
+      - la première pendant le jeu initial qui enregistre l'histoire des brins,
+      - la deuxième qui reconstruit l'historique des orbites à partir de l'analyse des règles
+    - et enfin l'appariement entre les paramètres du jeu initial avec ceux du rejeu
+- Notre approche permet de cumuler l'ensemble dequi comprendqui comprends avantages des méthodes
+  précédentes.
+
+* Perspectives
+ - Nous avons commencé à étendre les mécanismes de rejeu aux scripts de règles qui permettent d'enchaîner des règles pour définir des opérations complexes.
+
+ - Actuellement le déplacement des opérations est simulé par la suppression
+   d'une opération suivie de son ajout à une autre position, mais cela ne permet
+   pas de suivre ses paramètres. Il est donc intéressant d'étendre nos travaux
+   aux déplacements
+
+ - L'année dernière, j'ai co-encadré deux étudiants de M1 qui ont utilisé le
+   moteur de rejeu dans le domaine de l'archéologie. Pour modéliser des
+   bâtiments qui évoluent au fil des époques, il serait intéressant d'annoter
+   temporellement nos spécifications paramétriques. Ça permettra de rejouer un
+   bâtiment jusqu'à une époque donnée. Avec les deux étudiants de M1, nous avons
+   réalisé une première étude théorique qui semble montrer que le mécanisme de
+   rejeu peut être étendu simplement aux annotations temporelles.
+
+ - Enfin notre méthode de détection des évènements a priori sur les règles
+   serait très utile dans d'autres applications, en particulier dans la
+   parallélisation automatique pour répartir a priori les données conformément
+   aux orbites utilisées.

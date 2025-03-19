@@ -26,18 +26,6 @@
 \UseTblrLibrary{diagbox}
 \UseTblrLibrary{counter}
 
-\usepackage[%
-backend=biber,%
-maxbibnames=99,%
-bibstyle=alphabetic,%
-citestyle=alphabetic,%
-]{biblatex}%
-\setcounter{biburlnumpenalty}{9000}%
-\setcounter{biburllcpenalty}{9000}%
-\setcounter{biburlucpenalty}{9000}%
-\setlength\bibitemsep{1.5\itemsep}%
-\addbibresource{../../manuscript/references/references.bib}
-
 \usepackage[most]{tcolorbox}
 \usepackage[linesnumbered,ruled,french,frenchkw]{algorithm2e}
 \usepackage{listings}
@@ -93,7 +81,7 @@ citestyle=alphabetic,%
 		\begin{minipage}{.55\textwidth}
 			\begin{mytocblock}{\textbf{Introduction}}
 				\begin{itemize}
-					\item[] Contexte et motivations
+					\item[] Motivations
 					\item[] \textbf{État de l'art}
 					\item[] Formalismes
 				\end{itemize}
@@ -134,7 +122,7 @@ citestyle=alphabetic,%
 		\begin{minipage}{.55\textwidth}
 			\begin{mytocblock}{\textbf{Introduction}}
 				\begin{itemize}
-					\item[] Contexte et motivations
+					\item[] Motivations
 					\item[] État de l'art
 					\item[]\textbf{Formalismes}
 				\end{itemize}
@@ -174,7 +162,7 @@ citestyle=alphabetic,%
 		\begin{minipage}{.55\textwidth}
 			\begin{mytocblock}{Introduction}
 				\begin{itemize}
-					\item[] Contexte et motivations
+					\item[] Motivations
 					\item[] État de l'art
 					\item[] Formalismes
 				\end{itemize}
@@ -214,7 +202,7 @@ citestyle=alphabetic,%
 		\begin{minipage}{.55\textwidth}
 			\begin{mytocblock}{Introduction}
 				\begin{itemize}
-					\item[] Contexte et motivations
+					\item[] Motivations
 					\item[] État de l'art
 					\item[] Formalismes
 				\end{itemize}
@@ -256,7 +244,7 @@ citestyle=alphabetic,%
 		\begin{minipage}{.55\textwidth}
 			\begin{mytocblock}{Introduction}
 				\begin{itemize}
-					\item[] Contexte et motivations
+					\item[] Motivations
 					\item[] État de l'art
 					\item[] Formalismes
 				\end{itemize}
@@ -314,15 +302,5 @@ citestyle=alphabetic,%
 		\includegraphics[height=.2\textheight]{build-v3-11.pdf}
 	\end{minipage}
 \end{frame}
-
-% \begin{frame}[fragile,noframenumbering]
-% \frametitle{Publications}
-% \footnotesize
-% \nocite{gaide2023automatic,gaide2023model,gaide2024reevaluation}
-% \begingroup
-% \setlength{\emergencystretch}{1em}
-% \printbibliography[keyword={own},title=Publications]
-% \endgroup
-% \end{frame}
 
 \end{document}

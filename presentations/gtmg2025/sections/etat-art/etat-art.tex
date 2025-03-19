@@ -1,95 +1,42 @@
 
-% \begin{frame}[fragile]
-% 	\frametitle{État de l'art}
-% 	\centering
-% 	\tiny
-% 	\begin{tblr}{
-% 		colspec = {|m{2.6cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
-% 		% cells={cmd=\visible<\arabic{rownum}->},
-% 		% cell{2}{2} = {c=4}{c}, % multicolumn
-% 		% cell{2}{6} = {c=2}{c}, % multicolumn
-% 		% rowsep = 6pt,
-% 		hlines={black,0.5pt},
-% 		vlines={black,0.5pt},
-% 		% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
-% 		}
-% 		% \bottomrule%
-% 		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
-% 		                                         & Kripac                                        & Capoyleas et al.                              & Wu et al.                                     & Bidarra et al.                                 & Cardot et al.                            & Cascaval
-% 		et al.                                                                                                                                                                                                                                                                                                                          \\ %
-% 		\toprule[black,0.5pt] %
-% 		\visible<1->{Type d'édition~:
-% 			\par paramètres géométriques
-% 		\par opérations}                         & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}           & \visible<1->{\par~\cmark\par\xmark}            & \visible<1->{\par~\cmark\par\cmark}      & \visible<1->{\par~\cmark\par\cmark}      \\
-% 		\visible<4-> {Suivi de cellule
-% 		\par (global/local)}                     & \visible<4-> {Global}                         & \visible<4-> {Global}                         & \visible<4-> {Global}                         & \visible<4-> {Global}                          & \visible<4->{Local}                      & \visible<4-> {Global}                    \\
-% 		\visible<4->{Historique d'une Cellule
-% 		\par ({Partiel}/complet)}                & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                        & \visible<4-> {Partiel}                         & \visible<4-> {Partiel}                   & \visible<4-> {complet}                   \\
-% 		\visible<7-> {Calcul des évènements~:
-% 			\par \textbullet~Dynamique/Statique
-% 		\par \textbullet~Automatique/Manuel}     & \visible<7->{\par Dynamique \par Automatique} & \visible<7->{\par Dynamique \par Automatique} & \visible<7->{\par Dynamique \par Automatique} & \visible<7-> {\par Dynamique \par Automatique} & \visible<7-> {\par Statique \par Manuel} & \visible<7-> {\par Statique \par Manuel} \\
-% 		\visible<10-> {Base de nomination}        & \visible<10->{face }                           & \visible<10->{face }                           & \visible<10->{face}                            & \visible<10->{face}                             & \visible<10->{brin}                       & \visible<10->{contraintes}                \\
-% 		\visible<8>{Dimensions de modélisation} & \visible<8>{3D}                              & \visible<8>{3D}                              & \visible<8>{3D}                              & \visible<8>{3D}                               & \visible<8>{\(n\)-D}                    & \visible<8>{2.5D}                       \\
-% 		\visible<8>{Types d'opérations}         & \visible<8>{tout type}                       & \visible<8>{tout type}                       & \visible<8>{tout type}                       & \visible<8>{tout type}                        & \visible<8>{sous-ensemble}              & \visible<8>{tout-type}                  \\
-% 	\end{tblr}
-% \end{frame}
-
 \begin{frame}[fragile]
 	\frametitle{État de l'art}
 	\centering
 	\tiny
 	\begin{tblr}{
 		colspec = {|m{2.6cm}|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|X[c,m]|},
-		% cells={cmd=\visible<\arabic{rownum}->},
-		% cell{2}{2} = {c=4}{c}, % multicolumn
-		% cell{2}{6} = {c=2}{c}, % multicolumn
-		% rowsep = 6pt,
 		hlines={black,0.5pt},
 		vlines={black,0.5pt},
-		% vlines = {red5, 1pt}, % vlines can not pass through multicolumn cells
 		}
-		% \bottomrule%
-		\diagbox[font=\tiny,width=\dimexpr\linewidth+2\tabcolsep,height=\dimexpr+2\line+\abovesep+\belowsep+2pt]{Concepts}{Approches}
 		                                               & Kripac                                 & Capoyleas et al.                        & Wu et al.                              & Bidarra et al.                         & Cardot et al.                          & Cascaval
 		et al.                                                                                                                                                                                                                                                                                                \\ %
 		\toprule[black,0.5pt] %
 		\visible<1->{Type d'édition~:
 			\par paramètres géométriques
 		\par opérations}                               & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par~\cmark\par\xmark}   & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par~\cmark\par\xmark}  & \visible<1->{~ \par\cmark\par\cmark}   & \visible<1->{~ \par\cmark\par\cmark}   \\
-		\visible<4->{Suivi local des cellules}         & \visible<4->{\xmark}                   & \visible<4->{\xmark}                    & \visible<4->{\xmark}                   & \visible<4->{\xmark}                   & \visible<4->{\cmark}                   & \visible<4->{\xmark}                   \\
-		\visible<7->{Historique complet d'une Cellule} & \visible<7->{\xmark}                   & \visible<7->{\xmark}                    & \visible<7->{\xmark}                   & \visible<7->{\xmark}                   & \visible<7->{\xmark}                   & \visible<7->{\cmark}                   \\
-		\visible<10->{Calcul des évènements~:
+		\visible<2->{Suivi local des cellules}         & \visible<2->{\xmark}                   & \visible<2->{\xmark}                    & \visible<2->{\xmark}                   & \visible<2->{\xmark}                   & \visible<2->{\cmark}                   & \visible<2->{\xmark}                   \\
+		\visible<4->{Historique complet d'une Cellule} & \visible<4->{\xmark}                   & \visible<4->{\xmark}                    & \visible<4->{\xmark}                   & \visible<4->{\xmark}                   & \visible<4->{\xmark}                   & \visible<4->{\cmark}                   \\
+		\visible<6-7>{Calcul des évènements~:
 			\par \textbullet~Statique
-		\par \textbullet~Automatique}                  & \visible<10->{\par \xmark \par \cmark} & \visible<10->{ \par \xmark \par \cmark} & \visible<10->{\par \xmark \par \cmark} & \visible<10->{\par \xmark \par \cmark} & \visible<10->{\par \cmark \par \xmark} & \visible<10->{\par \cmark \par \xmark} \\
-		\visible<13>{Tout type d'opération}            & \visible<13>{\cmark}                   & \visible<13>{\cmark}                    & \visible<13>{\cmark}                   & \visible<13>{\xmark}                   & \visible<13>{\xmark}                   & \visible<13>{\xmark}                   \\
+		\par \textbullet~Automatique}                  & \visible<6-7>{\par \xmark \par \cmark} & \visible<6-7>{ \par \xmark \par \cmark} & \visible<6-7>{\par \xmark \par \cmark} & \visible<6-7>{\par \xmark \par \cmark} & \visible<6-7>{\par \cmark \par \xmark} & \visible<6-7>{\par \cmark \par \xmark} \\
 	\end{tblr}
 	\begin{minipage}[t][.25\textheight][c]{\textwidth}
 		\begin{onlyenv}<1->
 			\begin{myblock}[limitations]
 				\begin{itemize}
 					\item<1-> Édition généralement concentrée sur les paramètres géométriques
-					\item<4-> Suivi global des cellules
-					\item<7-> Historiques généralement incomplets
-					\item<10-> Pas de calcul d'évènement à la fois statique \emph{et}
+					\item<2-> Suivi global des cellules
+					\item<4-> Historiques généralement incomplets
+					\item<6-7> Pas de calcul d'évènement à la fois statique \emph{et}
 					      automatique
 				\end{itemize}
 			\end{myblock}
 		\end{onlyenv}
 	\end{minipage}
 	\begin{tikzpicture}[overlay, remember picture]
-		\node at (current page.north)[below right = 1.2cm and -5cm]
+		\node at (current page.south)[above = .6cm]
 		{%
-			\only<2>{%
-				\begin{minipage}[t][\textheight][s]{.9\textwidth}
-					\begin{myblock}[Édition]
-						\includegraphics[width=\textwidth]{etat-art-illustration-types-editions}
-					\end{myblock}
-				\end{minipage}
-			}
-		};
-		\node at (current page.south)[above = 1cm]
-		{%
-			\only<5,8,11>{%
+				\only<2,4,6>{%
 				\begin{minipage}{\textwidth}
 					\begin{myblock}[Historique]
 						\centering
@@ -99,56 +46,10 @@
 				\end{minipage}
 			}%
 		};
-		% \node at (current page.north)[below = 1.2cm]
-		% {%
-		% 	\only<8>{%
-		% 		\begin{minipage}[t][\textheight][s]{.4\textwidth}
-		% 			\begin{myblock}[Base de nomination]
-		% 				\centering
-		% 				\includegraphics[width=.9\textwidth]{bidarra-exemple-nomination-arete-1}
-		% 				% \includegraphics[width=.9\textwidth]{bidarra-exemple-nomination-arete-2}
-		% 			\end{myblock}
-		% 		\end{minipage}
-		% 	}
-		% };
 	\end{tikzpicture}
 
 \end{frame}
 %
-
-% \begin{frame}
-% 	\frametitle{Limitations des approches existantes}
-% 	\begin{itemize}[<+->]
-% 		\item édition limitée aux paramètres géométriques
-% 		\item suivi {Partiel} des cellules
-% 		\item pas d'approche à la fois générique et locale
-% 		% \item conception généralement limitée à la 3D
-% 	\end{itemize}
-% \end{frame}
-
-% \begin{frame}
-% 	\frametitle{Objectifs}
-% 	\begin{columns}[onlytextwidth]
-% 		\begin{column}{.6\textwidth}
-% 			\begin{itemize}[<+->]
-% 				\item Édition par réorganisation des opérations (ajout, suppression, déplacement)
-% 				\item Schéma de nomination homogène pour {tout type} de cellule
-% 				\item Suivi complet de l'évolution des cellules
-% 				\item Modélisation d'objet générique en dimension
-% 			\end{itemize}
-% 		\end{column}
-% 		\begin{column}<+->{.4\textwidth}
-% 			\vspace{5.1em}%
-% 			$\rdelim\}{4.5}[-4.7em]{-5em}[]$%
-% 			\tabto{1em}formalisation des\par
-% 			\tabto{1em}objets\par
-% 			\tabto{1em}opérations\par
-% 			\tabto{1em}changements topologiques%
-% 		\end{column}
-% 	\end{columns}
-% \end{frame}
-
-
 \begin{frame}
 	% \frametitle{Objectifs}
 	\begin{minipage}[c][.4\textheight][c]{\textwidth}

@@ -13,23 +13,24 @@
 %%
 %% The list of all files belonging to the 'Elsarticle Bundle' is
 %% given in the file `manifest.txt'.
-%%
+
 %% Template article for Elsevier's document class `elsarticle'
 %% with harvard style bibliographic references
-% \documentclass[preprint,12pt,authoryear]{elsarticle}
+\documentclass[preprint,12pt,review,authoryear]{elsarticle}
 
 %% Use the option review to obtain double line spacing
-\documentclass[authoryear,preprint,review,12pt]{elsarticle}
+% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
 
 %% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
 %% for a journal layout:
-%% \documentclass[final,1p,times,authoryear]{elsarticle}
-%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
-%% \documentclass[final,3p,times,authoryear]{elsarticle}
+% \documentclass[final,1p,times,authoryear]{elsarticle}
+% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+% \documentclass[final,3p,times,authoryear]{elsarticle}
 % \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
-%% \documentclass[final,5p,times,authoryear]{elsarticle}
+% \documentclass[final,5p,times,authoryear]{elsarticle}
 % \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
 
+\usepackage[english]{babel}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -70,7 +71,7 @@
 	%%            country={}}
 	%% \fntext[label3]{}
 
-	\title{Rebuilding 3D models using rule-based geometric modelling operations}
+	\title{Rebuilding 3D models using rule-based geometric modeling operations}
 
 	\author[lias]{Maxime Gaide}
 	\author[lias]{David Marcheix}
@@ -99,8 +100,27 @@
 
 	%% Abstract
 	\begin{abstract}
-		%% Text of abstract
-		Abstract text.
+	  Rebuilding a 3D model is a tedious process, which involves number of trial
+	  and error cycles. %
+	  In order to alleviate this difficulty, current parametric modeling systems
+	  propose a rebuild feature. %
+	  This feature allows users to edit the construction process of a model and
+	  regenerate it. %
+	  However, most modeling systems require the tracking of numerous
+	  topological entities and only consider the editing from the standpoint of
+	  geometric parameters. %
+
+	  In this paper, we present a rule-based modeling system with a rebuild
+	  mechanism. %
+	  This mechanism allows users to edit construction processes through the
+	  addition and deletion of operations while it tracks identified topological
+	  parameters only. %
+
+	  Our approach, based on the generalized maps and graph transformation rules
+	  formalisms, make it possible to syntactically analyze operations and
+	  tracks topological changes (creation, deletion, merging,\dots) during the
+	  build and rebuild processes. %
+
 	\end{abstract}
 
 	%%Graphical abstract

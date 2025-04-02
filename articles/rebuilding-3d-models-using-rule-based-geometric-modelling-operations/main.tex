@@ -16,7 +16,7 @@
 
 %% Template article for Elsevier's document class `elsarticle'
 %% with harvard style bibliographic references
-\documentclass[preprint,12pt,review,authoryear]{elsarticle}
+\documentclass[preprint,12pt,authoryear]{elsarticle}
 
 %% Use the option review to obtain double line spacing
 % \documentclass[authoryear,preprint,review,12pt]{elsarticle}
@@ -100,26 +100,23 @@
 
 	%% Abstract
 	\begin{abstract}
-	  Rebuilding a 3D model is a tedious process, which involves number of trial
-	  and error cycles. %
-	  In order to alleviate this difficulty, current parametric modeling systems
-	  propose a rebuild feature. %
-	  This feature allows users to edit the construction process of a model and
-	  regenerate it. %
-	  However, most modeling systems require the tracking of numerous
-	  topological entities and only consider the editing from the standpoint of
-	  geometric parameters. %
+	  Regenerating a 3D parametric model is a tedious process of trial and error. %
+	  In order to make the model design process easier, current parametric
+		modeling systems propose a rebuild feature allowing users to edit the
+		construction process of a model and regenerate it. %
+	  However, most modeling systems require the tracking of numerous topological
+		entities and only consider the editing from the standpoint of geometric
+		parameters, thus limiting the rebuilding capabilities. %
 
-	  In this paper, we present a rule-based modeling system with a rebuild
-	  mechanism. %
-	  This mechanism allows users to edit construction processes through the
-	  addition and deletion of operations while it tracks identified topological
-	  parameters only. %
+	  In this paper, we present a rebuild mechanism allowing users to edit
+		construction processes through the addition and deletion of operations while
+		it tracks identified topological parameters only. %
 
-	  Our approach, based on the generalized maps and graph transformation rules
-	  formalisms, make it possible to syntactically analyze operations and
-	  tracks topological changes (creation, deletion, merging,\dots) during the
-	  build and rebuild processes. %
+		Our approach relies on the formalization of objects with generalized maps
+		and modeling operations with graph transformation rules. %
+		This make it possible to syntactically analyze operations and tracks
+		topological changes (creation, deletion, merging,\dots) during the build and
+		rebuild processes. %
 
 	\end{abstract}
 

@@ -1,0 +1,287 @@
+%%%%% Traduction %%%%%%%%%%%%%%%%%%%%%%%%
+%% Babel ne traduit par la caption de lstlisting donc je le fais ici
+% \renewcommand\lstlistingname{\scshape Liste}
+% \definecolor{code_indent}{HTML}{CCCCCC}
+% \newcommand{\indentrule}{\hspace{0.3em}\color{code_indent}\vrule\hspace{0.3em}}
+% \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+% \definecolor{backcolour}{HTML}{e5e9f0}
+% \definecolor{delimpurple}{HTML}{9932cc}
+% \lstdefinelanguage{jerboa-script}{
+% 	keywords=[1]{
+% 			if,
+% 			else,
+% 			for,
+% 			try,
+% 			catch,
+% 			return,
+% 			null
+% 		},
+% 	otherkeywords={@rule,JerboaDart,JerboaRuleResult,>=, <=},
+% 	morekeywords=[2]{
+% 			@rule
+% 		},
+% 	morekeywords=[3]{
+% 			JerboaDart,
+% 			JerboaRuleResult
+% 		},
+% 	morekeywords=[4]{
+% 			>=,
+% 			<=
+% 		},
+% 	literate=*{\#}{{\textcolor{red}{\#}}}{1}
+% 		{@}{{\textcolor{red}{@}}}{1},
+% 	morecomment=[l]{//},
+% 	moredelim={[s][\color{delimpurple!80!blue}]{<}{>}}
+% }
+
+% \lstdefinestyle{script-style}{
+% 	backgroundcolor=\color{backcolour!30},
+% 	numberstyle=\tiny\color{codegray},
+% 	basicstyle=\ttfamily\footnotesize,
+% 	keywordstyle=\color{blue},
+% 	keywordstyle=[2]{\color{red}},
+% 	keywordstyle=[3]{\color{orange!80!black}},
+% 	keywordstyle=[4]{\color{black}},
+% 	commentstyle=\color{mydarkgreenink},
+% 	breakatwhitespace=false,
+% 	breaklines=true,
+% 	captionpos=t,
+% 	keepspaces=true,
+% 	numbers=left,
+% 	numbersep=5pt,
+% 	showspaces=false,
+% 	showstringspaces=false,
+% 	showtabs=false,
+% 	tabsize=2
+% }
+
+%%%%% Tableaux %%%%%%%%%%%%%%%%%%%%%%%%
+% \newcolumntype{Y}{>{\centering\arraybackslash}X}
+% \newcommand{\cmark}{{\color{Chartreuse4}\ding{51}}}
+% \newcommand{\xmark}{{\color{red}\ding{55}}}
+%%%%% Environnements théorèmes,etc. %%%%%
+% {
+% 	\theoremstyle{break}
+% 	\theoremheaderfont{\normalfont\bfseries}
+% 	% \theorembodyfont{\upshape}
+% 	\theoremseparator{}
+% 	\newtheorem{thmi}{Théorème}% [subsection]
+% 	\newtheorem{defi}{Définition}% [subsection]
+% 	\newtheorem{propi}{Proposition}% [subsection]
+% 	\newtheorem*{exmpi}{Exemple}% [subsection]
+% }
+
+% {
+% 	\theoremstyle{change}
+% 	\theoremheaderfont{\normalfont\bfseries}
+% 	% \theorembodyfont{\upshape}
+% 	\theoremseparator{~:}
+% 	\newtheorem*{remarki}{Remarque}
+% 	{
+% 		\theoremsymbol{$\square$}
+% 		\newtheorem*{proofi}{Preuve}
+% 		\newtheorem*{proofii}{Idée de preuve}
+% 	}
+% }
+
+% \newtcolorbox{tcbleftbar}[1][]{blanker,breakable,left=5mm, before skip=10pt, after
+% 	skip=10pt,borderline west={3pt}{0pt}{#1}}
+
+\newenvironment{theoreme}[1][]{%
+	% \begin{tcbleftbar}[nord7]
+		\begin{thmi}[#1]
+			}{%
+		\end{thmi}
+	% \end{tcbleftbar}
+}
+
+% \newenvironment{proof}{%
+% 	% \begin{tcbleftbar}[nord12]
+% 		\begin{proofi}
+% 			}{%
+% 		\end{proofi}
+% 	% \end{tcbleftbar}
+% }
+
+\newenvironment{proofidea}{%
+	\begin{proofii}
+		}{%
+	\end{proofii}
+}
+
+\newenvironment{proposition}[1][]{%
+	% \begin{tcbleftbar}[nord8]
+		\begin{propi}[#1]
+			}{%
+		\end{propi}
+	% \end{tcbleftbar}
+}
+
+\newenvironment{definition}[1][]{%
+	% \begin{tcbleftbar}[nord9]
+		\begin{defi}[#1]
+			}{%
+		\end{defi}
+	% \end{tcbleftbar}
+}
+
+\newenvironment{remarque}[1][]{%
+	\begin{remarki}
+		}{%
+	\end{remarki}
+}
+
+\newenvironment{exemple}[1][]{%
+	\begin{exmpi}[#1]
+		}{%
+	\end{exmpi}
+}
+
+%% Les emphasis sont en gras dans les environnements suivants
+% \AtBeginEnvironment{document}{\renewcommand\em{\bfseries}}
+% \AtBeginEnvironment{definition}{\renewcommand\em{\bfseries}}
+% \AtBeginEnvironment{proposition}{\renewcommand\em{\bfseries}}
+% \AtBeginEnvironment{theoreme}{\renewcommand\em{\bfseries}}
+% \AtBeginEnvironment{exemple}{\renewcommand\em{\bfseries}}
+% \AtBeginEnvironment{remarque}{\renewcommand\em{\bfseries}}
+% \AtBeginEnvironment{proof}{\renewcommand\em{\bfseries}}
+% \AtBeginEnvironment{proofidea}{\renewcommand\em{\bfseries}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% math mode uniquement %%%%%
+
+\newcommand{\orbit}[1]{% % mathmode uniquement
+	\langle#1\rangle%
+}
+\newcommand{\node}[1]{%
+	n\textsubscript{#1}%
+}
+
+\newcommand{\pndart}[2]{%
+	PN\textsubscript{#1}=[#2]%
+}
+
+\newcommand{\partdartmath}[2]{%
+	PN_{#1}=[#2]
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% commandes co-auteurs %%%%%
+
+\newcommand{\commentout}[1]{}
+
+\newcommand{\maxime}[1]{%
+	\textbf{\color{blue} Maxime: #1}%
+}
+\newcommand{\maximeSup}[1]{%
+	\textbf{\color{blue} Maxime: \st{#1}}%
+}
+
+\newcommand{\agnes}[1]{%
+	\textbf{\color{red} Agnès: #1}%
+}
+
+\newcommand{\david}[1]{%
+	\textbf{\color{violet} David: #1}%
+}
+
+\newcommand{\davidSup}[1]{%
+	\textbf{\color{violet} \st{#1}}%
+}
+
+\newcommand{\stephane}[1]{%
+	\textbf{\color{green} [Stephane]: #1}%
+}
+\newcommand{\xavier}[1]{%
+	\textbf{\color{magenta} [Xavier]: #1}%
+}
+\newcommand{\xavierSupp}[1]{%
+	\textbf{\color{magenta} \st{#1}}%
+}
+\newcommand{\xavierAdd}[1]{%
+	\textbf{\color{magenta} #1}%
+}
+
+\newcommand{\hakim}[1]{%
+	\textbf{\color{teal} [Hakim]: #1}%
+}
+
+% \definecolor{mylightblue}{HTML}{00c0ff}
+% \definecolor{mylightgreen}{HTML}{00c000}
+% % \definecolor{mylightorange}{HTML}{ffc000}
+% \definecolor{mylightorange}{HTML}{e5ac00}
+% \definecolor{myvividorange}{HTML}{ff8700}
+% \definecolor{mydarkorange}{HTML}{ff6000}
+% \definecolor{myblueink}{HTML}{0080ff}
+% \definecolor{mylightgreenink}{HTML}{00c000}
+% \definecolor{mydarkgreenink}{HTML}{008000}
+% \definecolor{mydarkpurpleink}{HTML}{a600c9}
+
+% \definecolor{cbred}{HTML}{d81b60}
+% \definecolor{cbblue}{HTML}{1e88e5}
+% \definecolor{cbyellow}{HTML}{ffc107}
+% \definecolor{cbgreen}{HTML}{004d40}
+
+% \definecolor{darkgreen}{rgb}{0,.4,0}
+
+\newcommand{\highlight}[1]{%
+	\textbf{\color{orange}#1}%
+}
+
+\newcommand{\todo}[1]{%
+	\textbf{\highlight{TODO: #1}}%
+}
+
+% \newcommand{\idee}[1]{%
+% 	{\color{mylightblue}#1}%
+% }
+
+% \newcommand{\roundedbox}[2]{%
+% 	\tcbox[on line,
+% 		size=tight,
+% 		arc=1mm,
+% 		outer arc=1mm,
+% 		colframe=#1,
+% 		colback=white,
+% 		boxsep=1pt,
+% 		nobeforeafter,
+% 		left=2pt,
+% 		right=2pt,
+% 		top=2pt,
+% 		bottom=2pt
+% 	]{#2}%
+% }
+
+% \newcommand{\sharpbox}[1]{
+% 	\tcboxmath[
+% 		on line,
+% 		size=fbox,
+% 		sharp corners=all,
+% 		colframe=black,
+% 		colback=white,
+% 		boxsep=0pt,
+% 		nobeforeafter,
+% 		right=1pt,
+% 		left=1pt,
+% 		top=1pt,
+% 		bottom=1pt
+% 	]{#1}}
+
+% \newcommand{\splitnodeevent}[1][black]{\eventnode{#1}{SPLIT}}
+% \newcommand{\mergenodeevent}[1][black]{\eventnode{#1}{MERGE}}
+% \newcommand{\creationnodeevent}[1][black]{\eventnode{#1}{CREATION}}
+% \newcommand{\modifnodeevent}[1][black]{\eventnode{#1}{MODIFICATION}}
+% \newcommand{\nomodifnodeevent}[1][black]{\eventnode{#1}{NOMODIF}}
+% \newcommand{\noeffectnodeevent}[1][black]{\eventnode{#1}{NOEFFECT}}
+
+% \newcommand{\nosplitnodeevent}[1][black]{\eventnode{#1}{NOSPLIT}}
+% \newcommand{\nomergenodeevent}[1][black]{\eventnode{#1}{NOMERGE}}
+% \newcommand{\nocreationnodeevent}[1][black]{\eventnode{#1}{NOCREATION}}
+
+% \newcommand{\eventnode}[2]{\roundedbox{#1}{\texttt{#2}}}
+% \newcommand{\orbitnode}[1]{\(\sharpbox{#1}\)}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

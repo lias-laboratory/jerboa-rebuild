@@ -19,7 +19,7 @@
 % \documentclass[preprint,12pt,authoryear]{elsarticle}
 
 %% Use the option review to obtain double line spacing
-\documentclass[authoryear,preprint,review,12pt]{elsarticle}
+\documentclass[authoryear,preprint,review,12pt,x11names]{elsarticle}
 
 %% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
 %% for a journal layout:
@@ -31,6 +31,7 @@
 % \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
 
 \usepackage[english]{babel}
+\usepackage{xcolor}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -39,6 +40,8 @@
 %% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
 %% for the whole article with \linenumbers.
 \usepackage{lineno}
+
+\input{commands}
 
 \journal{Computer \& Graphics}
 
@@ -73,13 +76,14 @@
 
 	\title{Rebuilding 3D models using rule-based geometric modeling operations}
 
-	\author[lias]{Maxime Gaide}
+	\author[lias]{Maxime Gaide\corref{cor1}}
+	\cortext[cor1]{Corresponding author.}
+	\ead{maxime.gaide@univ-poitiers.fr}
 	\author[lias]{David Marcheix}
 	\author[xlim]{Agn\`{e}s Arnould}
 	\author[xlim]{Xavier Skapin}
 	\author[xlim]{Hakim Belhaouari}
 	\author[lias]{St\'{e}phane Jean}
-	% \cortext[cor1]{contacts}
 
 	%% Author affiliation
 	\affiliation[lias]{%
@@ -100,33 +104,34 @@
 
 	%% Abstract
 	\begin{abstract}
-		Regenerating a 3D parametric model is a tedious process of trial-and-error. %
-		In order to make the model design process easier, current parametric
-		modeling systems propose a rebuild feature allowing users to edit the
-		design process of a model and regenerate it. %
-		However, most modeling systems require the tracking of numerous
-		topological entities and only consider the editing from the standpoint of
-		geometric parameters, thus limiting the rebuilding capabilities. %
+		\begin{linenumbers}
+			Designing a 3D parametric model is a tedious process of trial and error. %
+			To make the designing process easier, current parametric modeling systems
+			offer a rebuild feature that allows users to edit the design process of a
+			model and regenerate it. %
+			However, most modeling systems require tracking numerous topological
+			entities and only consider editing from the standpoint of geometric
+			parameters, thus limiting rebuilding capabilities. %
 
-		In this paper, we present a rebuild mechanism tracking only necessary
-		topological entities and allowing users to add and delete operations
-		while editing construction processes. %
-		To this end, the approach we propose relies on the formalizations of
-		objects with generalized maps and geometric modeling operations with
-		graph transformation rules. %
-		Operation can then be syntactically analyzed making it possible to
-		detect topological changes (creation, deletion, merging, \dots)
-		\textit{a priori} and automatically track them during both the build and
-		rebuild processes. %
-		Tracking topological changes (or \emph{events}) then enables
-		reconstituting topological entities history of changes, tag relationship
-		between entities across the application of operations and match
-		equivalent candidates when rebuilding. %
+			In this paper, we present a rebuild mechanism that tracks only necessary
+			topological entities and allows users to add and delete operations as part
+			of the editing process. %
+			To this end, our approach relies on two formalisms to represent objects with
+			generalized maps and define modeling operations with graph transformation
+			rules. %
+			It enables both a homogeneous and persistent naming of topological entities. %
+			Moreover, operations can also be syntactically analyzed to detect
+			topological changes, or \emph{events}, such as the creation, deletion or
+			merging. %
+			Thus, our rebuild mechanism can automatically track topological entities
+			during both the build and rebuild processes. %
+			Altogether, it enables reconstituting a topological entity's history,
+			annotating relationships between entities and events across operations, and
+			matching equivalent candidate entities when rebuilding. %
 
-		Finally, this contribution takes advantage of two formalisms to propose
-		rebuild mechanism in order to persistently identify topological entities
-		throughout the editing, match entities at rebuild time and also let
-		users rebuild while choosing the candidates they want to preserve. %
+			Finally, our rebuild mechanism allows users to explicitly choose match
+			candidates and keep control on the rebuild process.
+		\end{linenumbers}
 	\end{abstract}
 
 	%%Graphical abstract
@@ -142,7 +147,7 @@
 
 	%% Keywords
 	\begin{keyword}
-	  3D Modeling \sep Topology-Based Geometric Modeling \sep Graph Transformation Rules \sep Topological Changes Detection \sep Generalized Maps
+		3D Modeling \sep Topology-Based Geometric Modeling \sep Graph Transformation Rules \sep Topological Changes Detection \sep Generalized Maps
 		%% keywords here, in the form: keyword \sep keyword
 
 		%% PACS codes here, in the form: \PACS code \sep code
@@ -154,8 +159,9 @@
 
 \end{frontmatter}
 
-\linenumbers
+% \linenumbers
 
+\maxime{en cours}
 \section{Introduction}
 \label{sec:introduction}
 

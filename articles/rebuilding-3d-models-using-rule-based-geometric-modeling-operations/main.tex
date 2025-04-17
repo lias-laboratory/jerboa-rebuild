@@ -1,4 +1,4 @@
-%%
+%
 %% Copyright 2007-2025 Elsevier Ltd
 %%
 %% This file is part of the 'Elsarticle Bundle'.
@@ -19,7 +19,7 @@
 % \documentclass[preprint,12pt,authoryear]{elsarticle}
 
 %% Use the option review to obtain double line spacing
-\documentclass[authoryear,preprint,review,12pt,x11names]{elsarticle}
+\documentclass[preprint,review,12pt,x11names]{elsarticle}
 
 %% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
 %% for a journal layout:
@@ -105,39 +105,39 @@
 	%% Abstract
 	\begin{abstract}
 		\begin{linenumbers}
-		  Designing complex 3D models can be a tedious process. %
-		  To ease this task, current parametric modeling systems offer a rebuild
+			Designing complex 3D models can be a tedious process. %
+			To ease this task, current parametric modeling systems offer a rebuild
 			feature that allows users to modify the design process of a model and
 			regenerate it. %
-		  However, such an automatic reconstruction raises the issue of
+			However, such an automatic reconstruction raises the issue of
 			characterizing topological entities, known as the persistent naming
 			problem. %
-		  To address this challenge, most modeling systems require tracking the
+			To address this challenge, most modeling systems require tracking the
 			evolution of a large number of topological entities — which can quickly
 			become costly — and often restrict editing to the modification of
 			geometric parameters — thereby limiting reconstruction capabilities. %
 
-		  In this paper, we present a rebuild mechanism that tracks only the
-		  evolution of strictly necessary topological entities and allows users
-		  to add and delete operations as part of the editing process. %
-		  Our approach relies on two formalisms: representing objects using
-		  generalized maps, and defining modeling operations through graph
-		  transformation rules. %
-		  This ensures a homogeneous representation of topological entities and
-		  operations. %
-		  One of the advantages of using graph transformation rules is that
-		  operations can also be syntactically analyzed to automatically detect
-		  topological changes affecting topological entities — referred to as
-		  events — such as creation, splitting, merging, deletion, or modification. %
-		  As a result, our rebuild mechanism can automatically track the
-		  evolution of topological entities during both the construction and
-		  reconstruction processes. %
-		  Altogether, it enables reconstituting a topological entity's history,
-		  annotating relationships between entities and events across
-		  operations, and matching equivalent candidate entities when rebuilding. %
+			In this paper, we present a rebuild mechanism that tracks only the
+			evolution of strictly necessary topological entities and allows users
+			to add and delete operations as part of the editing process. %
+			Our approach relies on two formalisms: representing objects using
+			generalized maps, and defining modeling operations through graph
+			transformation rules. %
+			This ensures a homogeneous representation of topological entities and
+			operations. %
+			One of the advantages of using graph transformation rules is that
+			operations can also be syntactically analyzed to automatically detect
+			topological changes affecting topological entities — referred to as
+			events — such as creation, splitting, merging, deletion, or modification. %
+			As a result, our rebuild mechanism can automatically track the
+			evolution of topological entities during both the construction and
+			reconstruction processes. %
+			Altogether, it enables reconstituting a topological entity's history,
+			annotating relationships between entities and events across
+			operations, and matching equivalent candidate entities when rebuilding. %
 
-		  Finally, our rebuild mechanism allows users to explicitly choose match
-		  candidates and keep control on the rebuild process.
+			Finally, our rebuild mechanism allows users to explicitly choose match
+			candidates and keep control on the rebuild process.
 		\end{linenumbers}
 	\end{abstract}
 
@@ -152,7 +152,7 @@
 		models.
 		\item A modeling system allowing users to customize reconstruction
 		processes by using strategies.
-		\item \maxime{detecting topological edge-cases ; reduced scope of tracked
+		\item \maxime{Detecting topological edge-cases ; reduced scope of tracked
 			topological entities limits analysis cost to localized entities ;
 			interesting approach for semi-procedural modeling ; … }
 	\end{highlights}
@@ -177,19 +177,28 @@
 \section{Introduction}%
 \label{sec:introduction}
 
+
 \section{Related works}%
 \label{sec:related-works}
 
-\subsection{Editing}%
+In this section we present a quick summary of previous work about the
+development of a rebuild feature within parametric modeling systems. %
+Implementing a rebuild feature requires solving the persistent naming problem. %
+For this reason most parametric modeling system share a set of common
+concepts. %
+
+\paragraph{Editing}%
 \label{sec:editing}
 
-\subsection{Cell tracking}%
+\cite{kripac1995mechanism,chen1995editability,wu2001face}
+
+\paragraph{Cell tracking}%
 \label{sec:cell-tracking}
 
-\subsection{Cells' histories completeness}%
+\paragraph{Completeness of cells' histories}%
 \label{sec:history-completeness}
 
-\subsection{Topological change detection}%
+\paragraph{Topological change detection}%
 \label{sec:topol-change-detect}
 
 \section{Main concepts}%
@@ -209,10 +218,6 @@
 
 \section{Rule-based rebuilding}%
 \label{sec:rule-based-rebu}
-
-In this section we describe our approach at rebuilding
-
-\maxime{pipeline en deux partie, jeu + rejeu (à utiliser en graphical abstract)}
 
 \subsection{Build phase}%
 \label{sec:build-phase}
@@ -248,7 +253,8 @@ In this section we describe our approach at rebuilding
 
 
 
-\bibliographystyle{elsarticle-harv}
+
+\bibliographystyle{elsarticle-num}
 \bibliography{references}
 \end{document}
 

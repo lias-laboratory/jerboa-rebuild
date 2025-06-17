@@ -70,7 +70,7 @@ public class ParametricSpecification {
   }
 
   public ParametricSpecification(List<Application> applications) {
-    this(DEFAULT_DISPLAY_NAME, applications, 1, false);
+    this(DEFAULT_DISPLAY_NAME, applications, applications.size() + 1, false);
   }
 
   /**
@@ -353,6 +353,10 @@ public class ParametricSpecification {
    */
   public void setListener(ParametricSpecificationListener listener) {
     this.listener = listener;
+  }
+
+  public void setNextApplicationNumber(int nextApplicationNumber) {
+    this.nextApplicationNumber = nextApplicationNumber;
   }
 
   /**
